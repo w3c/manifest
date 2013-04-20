@@ -818,6 +818,20 @@ a:not(href){ color: red }
           permissions that the application requires to function.
         </p>
       </section>
+      <section>
+        <h3>
+          <code title="">splash</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-splash"></dfn>splash</dfn> member is an object 
+          that represents the image to display on the screen while the application loads.
+          Paths beginning with "/" are treated as relative to the origin of the app.
+        </p>
+        <p class="issue">
+          ISSUE: This property also need to support the localization feature and 
+          various screen sizes. 
+        </p>
+      </section>
       <!-- Commented because it should go to the Web Intents/Web Activities spec.
           <li><dfn id="propdef-activities">activities</dfn>: This value specifies
           a set of
