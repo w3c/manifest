@@ -218,8 +218,12 @@ a:not(href){ color: red }
         <li>Let <var>manifest</var> result of invoking the parse function of
         the JSON object defined in [[!ECMA-262-51]] with <var>text</var> as its
         only argument. If parsing throws an exception, then treat this
-        application manifest as an <a>invalid manifest</a>.
-        </li>
+        application manifest as an <a>invalid manifest</a>.</li>
+        <li>Let <var>present</var> be the result of calling
+          [[\HasOwnProperty]] internal method of <var>manifest</var> with
+          argument <var>key</var>. </li>
+        <li>If <var>present</var> is <code>false</code>,  then treat this
+        application manifest as an <a>invalid manifest</a>.</li>
         <li>Let <var>default locale</var> be the result of running the <a>steps
         for processing the <code>default_locale</code> member</a>.
           <ol>
@@ -432,17 +436,9 @@ a:not(href){ color: red }
         <ol>
           <li>Let <var>key</var> be the string "<code>name</code>".
           </li>
-          <li>Let <var>present</var> be the result of calling
-          [[\HasOwnProperty]] internal method of <var>manifest</var> with
-          argument <var>key</var>.
-          </li>
-          <li>If <var>present</var> is <code>false</code>, return an error and
-          terminate this algorithm.
-          </li>
-          <li>Otherwise, let <var>value</var> be the result of running the <a>
+          <li>Let <var>value</var> be the result of running the <a>
             steps for retrieving a localizable member from the manifest</a>,
-            with <var>key</var> as the member being sought.
-          </li>
+            with <var>key</var> as the member being sought.</li>
           <li>Let <var>result</var> be the result of calling
           <a>ToString</a>(<var>value</var>).
           </li>
@@ -466,7 +462,7 @@ a:not(href){ color: red }
           <code>undefined</code>:
         </p>
         <ol>
-          <li>Let <var>key</var> be the string "description".
+          <li>Let <var>key</var> be the string "<code>description</code>".
           </li>
           <li>Let result be <code>undefined</code>.
           </li>
@@ -690,7 +686,7 @@ a:not(href){ color: red }
         <ol>
           <li>Let <var>result</var> be <code>undefined</code>.
           </li>
-          <li>Let <var>key</var> be the string "version".
+          <li>Let <var>key</var> be the string "<code>version</code>".
           </li>
           <li>Let <var>present</var> be the result of calling
           [[\HasOwnProperty]] internal method of <var>manifest</var> with
@@ -1015,11 +1011,11 @@ a:not(href){ color: red }
             retrieving a localizable member from the manifest</a>, with
             "<var>developer"</var> as the member being sought.
             </li>
-            <li>Let result be <code>undefined</code>.
+            <li>Let <var>result</var> be <code>undefined</code>.
             </li>
             <li>If Type(O) is "Object"
             </li>
-            <li>Let <var>result</var> be the result of calling
+            <li>Set <var>result</var> be the result of calling
             <a>ToString</a>(<var>value</var>).
             </li>
             <li>Return the <var>result</var>.
