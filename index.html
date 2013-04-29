@@ -50,7 +50,7 @@ a:not(href){ color: red }
         Introduction
       </h2>
       <p>
-        An <dfn>application manifest</dfn> is a JSON document [[!RFC4627]] that
+        An <dfn>application manifest</dfn> is a [[!JSON]] document  that
         describes various aspects of a <a>packaged application</a> or hosted
         web application. Somse of these aspects are presentational, others
         aspects have security sensitive implications. An application manifest
@@ -61,9 +61,6 @@ a:not(href){ color: red }
         <h3>
           Example manifest
         </h3>
-        <p>
-          <em>This section is non-normative.</em>
-        </p>
         <p>
           The following shows a typical <a>application manifest</a>. Only the
           name and the description members are required.
@@ -281,7 +278,7 @@ a:not(href){ color: red }
         </h3>
         <p>
           As the manifest format is a JSON document, this doucment relies on
-          the types defined in [[!RFC4627]] specification: namely <dfn id=
+          the types defined in [[!JSON]] specification: namely <dfn id=
           "json-object">object</dfn>, <dfn id="json-array">array</dfn>,
           <dfn id="json-number">number</dfn>, and <dfn id=
           "json-string">string</dfn>. Strict validation checking to types is
