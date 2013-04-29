@@ -535,7 +535,7 @@ a:not(href){ color: red }
               <li>Let <var>tag</var> be <a>ToString</a>(<var>value</var>).
               </li>
               <li>Let <var>valid tag</var> the result of calling the abstract
-              operation IsStructurallyValidLanguageTag with <var>tag</var> as
+              operation <a>IsStructurallyValidLanguageTag</a> with <var>tag</var> as
               the argument.
               </li>
               <li>If <var>valid tag</var> is <code>true</code>, then:
@@ -587,7 +587,7 @@ a:not(href){ color: red }
               "http://url.spec.whatwg.org/#parsing">parsing</a>
               <var>path</var>.
               </li>
-              <li>iI <var>url</var> is not a <a href=
+              <li>If <var>url</var> is not a <a href=
               "http://url.spec.whatwg.org/#concept-absolute-url">relative
               URL</a>, then return an error and terminate this algorithm.
               </li>
@@ -625,7 +625,7 @@ a:not(href){ color: red }
         </h3>
         <p>
           The <dfn id="propdef-locales">locales</dfn> member is a
-          <a>localized-content object</a> represents the localized data of the
+          <a>localized-data object</a> represents the localized data of the
           manifest.
         </p>
       </section><!-- Commented because it is a controversial feature.
@@ -642,7 +642,7 @@ a:not(href){ color: red }
         </h3>
         <p>
           The <dfn id="propdef-appcache_path">appcache_path</dfn>
-          <a>localizable member</a> is an <a>absolute URL</a> that represents a
+          <a>localizable member</a> is an <a>relative URL</a> that represents a
           resource to be used as the application's cache manifest
           [[!OFFLINE-WEBAPPS]].
         </p>
@@ -966,11 +966,11 @@ a:not(href){ color: red }
       </section>
       <section>
         <h2>
-          Locale object and its members
+          Localized-data object and its members
         </h2>
         <p>
-          The locale object is an object that contains specific overrides of
-          strings contained in the <a>application manifest</a>.
+          The localized-data object  contains specific overrides of
+          data contained in the <a>application manifest</a>.
         </p>
         <section>
           <h3>
