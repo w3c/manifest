@@ -40,20 +40,22 @@ a:not(href){ color: red }
     </style>
   </head>
   <body>
-  <section id='abstract'>
+    <section id='abstract'>
       <p>
-        An <dfn>application manifest</dfn> is a JSON document  that
-        describes various aspects of web application. Some of these aspects are presentational, others
-        aspects have security sensitive implications. 
+        An <dfn>application manifest</dfn> is a JSON document that describes
+        various aspects of web application. Some of these aspects are
+        presentational, while others aspects have security implications.
       </p>
     </section>
     <section>
       <h2>
         Introduction
       </h2>
-      <p>An application manifest
-        consists of a top-level object (the <dfn>manifest root</dfn>) and one
-      or more members, some of which can themselves contain objects.</p>
+      <p>
+        An application manifest consists of a top-level object (the
+        <dfn>manifest root</dfn>) and one or more members, some of which can
+        themselves contain objects.
+      </p>
       <section class="informative">
         <h3>
           Example manifest
@@ -123,7 +125,7 @@ a:not(href){ color: red }
         stage should join the aforementioned mailing lists and take part in the
         discussions.
       </p>
-  </section>
+    </section>
     <section id="conformance">
       <p>
         There is only one class of product that can claim conformance to this
@@ -1107,13 +1109,12 @@ a:not(href){ color: red }
           <dd>
             <p>
               As the application manifest format is JSON and will commonly be
-              encoded using [[!Unicode]], the security considerations
-              described in [[!JSON]] and [[!UTR36]] apply. In addition,
-              implementers need to impose their own implementation-specific
-              limits on the values of otherwise unconstrained member types,
-              e.g. to prevent denial of service attacks, to guard against
-              running out of memory, or to work around platform-specific
-              limitations.
+              encoded using [[!Unicode]], the security considerations described
+              in [[!JSON]] and [[!UTR36]] apply. In addition, implementers need
+              to impose their own implementation-specific limits on the values
+              of otherwise unconstrained member types, e.g. to prevent denial
+              of service attacks, to guard against running out of memory, or to
+              work around platform-specific limitations.
             </p>
             <p>
               The manifest document allows authors, through the permissions and
