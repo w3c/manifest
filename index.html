@@ -61,7 +61,8 @@ a:not(href){ color: red }
           Example manifest
         </h3>
         <p>
-        The following shows a typical <a>application manifest</a>.</p>
+          The following shows a typical <a>application manifest</a>.
+        </p>
         <pre class="example highlight">
 {
   "name": "The Example App",
@@ -166,8 +167,9 @@ a:not(href){ color: red }
         manifest</dfn> is an application manifest that is deemed to be
         non-conforming in such a way that it would not be possible for the user
         agent to continue processing (e.g., it can't be parsed by the JSON
-        parser because of a syntax error). In such a case, the user agent MAY report the error to the
-        user in a user-agent-specific manner, MAY <a href=
+        parser because of a syntax error). In such a case, the user agent MAY
+        report the error to the user in a user-agent-specific manner, MAY
+        <a href=
         "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigate</a>
         to an error page to report the error, or MAY ignore the error and do
         nothing. In either case, when a step results in an <a>invalid
@@ -218,12 +220,14 @@ a:not(href){ color: red }
         <li>Let <var>manifest</var> result of invoking the parse function of
         the JSON object defined in [[!ECMA-262-51]] with <var>text</var> as its
         only argument. If parsing throws an exception, then treat this
-        application manifest as an <a>invalid manifest</a>.</li>
-        <li>Let <var>present</var> be the result of calling
-          [[\HasOwnProperty]] internal method of <var>manifest</var> with
-          argument <var>key</var>. </li>
-        <li>If <var>present</var> is <code>false</code>,  then treat this
-        application manifest as an <a>invalid manifest</a>.</li>
+        application manifest as an <a>invalid manifest</a>.
+        </li>
+        <li>Let <var>present</var> be the result of calling [[\HasOwnProperty]]
+        internal method of <var>manifest</var> with argument <var>key</var>.
+        </li>
+        <li>If <var>present</var> is <code>false</code>, then treat this
+        application manifest as an <a>invalid manifest</a>.
+        </li>
         <li>Let <var>default locale</var> be the result of running the <a>steps
         for processing the <code>default_locale</code> member</a>.
           <ol>
@@ -278,13 +282,14 @@ a:not(href){ color: red }
           Types and bindings
         </h3>
         <p>
-          As the manifest format is a [[!JSON]] document, this doucment relies on
-          the types defined in [[!JSON]] specification: namely <dfn id=
+          As the manifest format is a [[!JSON]] document, this doucment relies
+          on the types defined in [[!JSON]] specification: namely <dfn id=
           "json-object">object</dfn>, <dfn id="json-array">array</dfn>,
           <dfn id="json-number">number</dfn>, and <dfn id=
-          "json-string">string</dfn>. Strict type checking is
-          not enforced by this specification. Instead, each member's definition
-        specifies the steps to required to process a particular member. </p>
+          "json-string">string</dfn>. Strict type checking is not enforced by
+          this specification. Instead, each member's definition specifies the
+          steps to required to process a particular member.
+        </p>
         <p>
           In additon, for the purpose of validity checking, this specification
           relies on the the following types:
@@ -320,8 +325,9 @@ a:not(href){ color: red }
         </p>
         <p>
           The case sensitivity and case mapping for language tags is the same
-          as that defined in section 6.1 of the <cite>ECMAScript Internationalization
-        API Specification</cite> [[!ECMASCRIPT-I18N]].</p>
+          as that defined in section 6.1 of the <cite>ECMAScript
+          Internationalization API Specification</cite> [[!ECMASCRIPT-I18N]].
+        </p>
         <p>
           As there are numerous ways a user agent can derive the end-user's
           preferred languages and regional settings (e.g., the end user might
@@ -378,8 +384,8 @@ a:not(href){ color: red }
           <li>Let <var>default app locale</var> be the string that represents
           the default locale for the application manifest.
           </li>
-          <li>Let <var>identifier</var> be a string that represents the name of the
-          member being sought.
+          <li>Let <var>identifier</var> be a string that represents the name of
+          the member being sought.
           </li>
           <li>Let <var>locales list</var> be a copy of the <a>user agent's
           locales</a>.
@@ -436,9 +442,10 @@ a:not(href){ color: red }
         <ol>
           <li>Let <var>key</var> be the string "<code>name</code>".
           </li>
-          <li>Let <var>value</var> be the result of running the <a>
-            steps for retrieving a localizable member from the manifest</a>,
-            with <var>key</var> as the member being sought.</li>
+          <li>Let <var>value</var> be the result of running the <a>steps for
+          retrieving a localizable member from the manifest</a>, with
+          <var>key</var> as the member being sought.
+          </li>
           <li>Let <var>result</var> be the result of calling
           <a>ToString</a>(<var>value</var>).
           </li>
@@ -453,7 +460,8 @@ a:not(href){ color: red }
         <p>
           The <dfn id="propdef-description"><code>description</code></dfn>
           <a>localizable member</a> is a string that describes to the end-user
-          the author's intended purpose for the application (i.e., what the function and utility of the application is, etc.).
+          the author's intended purpose for the application (i.e., what the
+          function and utility of the application is, etc.).
         </p>
         <p>
           The <dfn>steps for processing the description member</dfn> are given
@@ -523,8 +531,8 @@ a:not(href){ color: red }
               <li>Let <var>tag</var> be <a>ToString</a>(<var>value</var>).
               </li>
               <li>Let <var>valid tag</var> the result of calling the abstract
-              operation <a>IsStructurallyValidLanguageTag</a> with <var>tag</var> as
-              the argument.
+              operation <a>IsStructurallyValidLanguageTag</a> with
+              <var>tag</var> as the argument.
               </li>
               <li>If <var>valid tag</var> is <code>true</code>, then:
                 <ol>
@@ -754,8 +762,8 @@ a:not(href){ color: red }
           needs in order to run correctly.
         </p>
         <p>
-          Standard features of the Web platform should not be on this
-          list (e.g., geolocation, webgl, etc.).
+          Standard features of the Web platform should not be on this list
+          (e.g., geolocation, webgl, etc.).
         </p>
       </section>
       <section>
@@ -763,10 +771,11 @@ a:not(href){ color: red }
           <code title="">fullscreen</code> member
         </h3>
         <p>
-          The <dfn id="propdef-fullscreen">fullscreen</dfn> localizable member is a <a>boolean</a> that represents a hint to the user agent that indicates that the
-          application provides the best user experience when shown in
-          fullscreen (i.e., the application is presented without any use
-          interface components of the underlying system). When the value is
+          The <dfn id="propdef-fullscreen">fullscreen</dfn> localizable member
+          is a <a>boolean</a> that represents a hint to the user agent that
+          indicates that the application provides the best user experience when
+          shown in fullscreen (i.e., the application is presented without any
+          use interface components of the underlying system). When the value is
           missing, it defaults to <var>false</var>.
         </p>
         <p>
@@ -863,7 +872,9 @@ a:not(href){ color: red }
         <h2>
           Release notes object and its members
         </h2>
-        <p>A <dfn>Release notes object </dfn> ... </p>
+        <p>
+          A <dfn>Release notes object</dfn> ...
+        </p>
       </section>
       <section>
         <h2>
@@ -954,8 +965,8 @@ a:not(href){ color: red }
           Localized-data object and its members
         </h2>
         <p>
-          The localized-data object  contains specific overrides of
-          data contained in the <a>application manifest</a>.
+          The localized-data object contains specific overrides of data
+          contained in the <a>application manifest</a>.
         </p>
         <section>
           <h3>
