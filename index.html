@@ -986,6 +986,15 @@ a:not(href){ color: red }
             doesn't appear to be legit.
           </p>
           <p>
+            It is RECOMMENDED that the <a>locales</a> keys matches the actual
+            content localization to give a hint to the user that the
+            application will be available in their language or not. Failing to
+            provide a perfect matching between the content localization and the
+            <a>locales</a> keys will not creates any technical problems but will
+            have bad consequences with regard to the user experience and
+            developer reputation.
+          </p>
+          <p>
             Note: if the <a>locales</a> property is set, the
             <a>default_locale</a> needs to also be set.
           </p>
@@ -1089,7 +1098,7 @@ a:not(href){ color: red }
           <dd>
             <p>
               As the application manifest format is JSON and will commonly be
-              encoded using [[!!Unicode]], the security considerations
+              encoded using [[!Unicode]], the security considerations
               described in [[!JSON]] and [[!UTR36]] apply. In addition,
               implementers need to impose their own implementation-specific
               limits on the values of otherwise unconstrained member types,
@@ -1112,7 +1121,7 @@ a:not(href){ color: red }
               security implications for the types they support. Specifically,
               implementers need to consider the security implications outlined
               in the [[!CSS-MIME]] specification, the [[!ECMAScript-MIME]]
-              specification, and the [[!HTML-MIME]] specification.
+              specification, and the [[!HTML]] specification.
             </p>
             <p>
               As web applications can contain content that is able to
