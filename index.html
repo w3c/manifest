@@ -187,9 +187,14 @@ a:not(href){ color: red }
         manifest</dfn> is an application manifest that is deemed to be
         non-conforming in such a way that it would not be possible for the user
         agent to continue processing (e.g., it can't be parsed by the JSON
+<<<<<<< HEAD
         parser because of a syntax error). In such a case, the user agent MAY
         report the error to the user in a user-agent-specific manner, MAY
         <a href=
+=======
+        parser because of a syntax error). In such a case, the user agent MAY report the error to the
+        user in a user-agent-specific manner, MAY <a href=
+>>>>>>> f690f30... Editorial fixes.
         "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigate</a>
         to an error page to report the error, or MAY ignore the error and do
         nothing. In either case, when a step results in an <a>invalid
@@ -290,6 +295,7 @@ a:not(href){ color: red }
           Types and bindings
         </h3>
         <p>
+<<<<<<< HEAD
           As the manifest format is a [[!JSON]] document, this doucment relies
           on the types defined in [[!JSON]] specification: namely <dfn id=
           "json-object">object</dfn>, <dfn id="json-array">array</dfn>,
@@ -298,6 +304,15 @@ a:not(href){ color: red }
           this specification. Instead, each member's definition specifies the
           steps to required to process a particular member.
         </p>
+=======
+          As the manifest format is a [[!JSON]] document, this doucment relies on
+          the types defined in [[!JSON]] specification: namely <dfn id=
+          "json-object">object</dfn>, <dfn id="json-array">array</dfn>,
+          <dfn id="json-number">number</dfn>, and <dfn id=
+          "json-string">string</dfn>. Strict type checking is
+          not enforced by this specification. Instead, each member's definition
+        specifies the steps to required to process a particular member. </p>
+>>>>>>> f690f30... Editorial fixes.
         <p>
           In additon, for the purpose of validity checking, this specification
           relies on the the following types:
@@ -333,9 +348,14 @@ a:not(href){ color: red }
         </p>
         <p>
           The case sensitivity and case mapping for language tags is the same
+<<<<<<< HEAD
           as that defined in section 6.1 of the <cite>ECMAScript
           Internationalization API Specification</cite> [[!ECMASCRIPT-I18N]].
         </p>
+=======
+          as that defined in section 6.1 of the <cite>ECMAScript Internationalization
+        API Specification</cite> [[!ECMASCRIPT-I18N]].</p>
+>>>>>>> f690f30... Editorial fixes.
         <p>
           As there are numerous ways a user agent can derive the end-user's
           preferred languages and regional settings (e.g., the end user might
