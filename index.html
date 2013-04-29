@@ -178,10 +178,10 @@ a:not(href){ color: red }
         manifest</dfn> is an application manifest that is deemed to be
         non-conforming in such a way that it would not be possible for the user
         agent to continue processing (e.g., it can't be parsed by the JSON
-        parser). In such a case, the user agent may report the error to the
-        user in a user-agent-specific manner, may <a href=
+        parser because of a syntax error). In such a case, the user agent MAY report the error to the
+        user in a user-agent-specific manner, MAY <a href=
         "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigate</a>
-        to an error page to report the error, or may ignore the error and do
+        to an error page to report the error, or MAY ignore the error and do
         nothing. In either case, when a step results in an <a>invalid
         manifest</a> the user agent MUST abort whatever steps caused the
         condition.
@@ -286,29 +286,27 @@ a:not(href){ color: red }
           Types and bindings
         </h3>
         <p>
-          As the manifest format is a JSON document, this doucment relies on
+          As the manifest format is a [[!JSON]] document, this doucment relies on
           the types defined in [[!JSON]] specification: namely <dfn id=
           "json-object">object</dfn>, <dfn id="json-array">array</dfn>,
           <dfn id="json-number">number</dfn>, and <dfn id=
-          "json-string">string</dfn>. Strict validation checking to types is
-          not enforced by this specification. Instead, each member definition
-          defines the steps to required to process a particular member.
-          Processing relies on
-        </p>
+          "json-string">string</dfn>. Strict type checking is
+          not enforced by this specification. Instead, each member's definition
+        specifies the steps to required to process a particular member. </p>
         <p>
           In additon, for the purpose of validity checking, this specification
-          defines the following types:
+          relies on the the following types:
         </p>
         <dl>
           <dt>
-            <dfn>relative URL</dfn>
+            <dfn>Relative URL</dfn>
           </dt>
           <dd>
             The concept of a relative URL is defined in the [[!URL]]
             specification.
           </dd>
           <dt>
-            <dfn>absolute URL</dfn>
+            <dfn>Absolute URL</dfn>
           </dt>
           <dd>
             The concept of an absolute URL is defined in the [[!URL]]
@@ -330,9 +328,8 @@ a:not(href){ color: red }
         </p>
         <p>
           The case sensitivity and case mapping for language tags is the same
-          as that defined in section 6.1 of the ECMAScript Internationalization
-          API Specification [[!ECMAS-402]]
-        </p>
+          as that defined in section 6.1 of the <cite>ECMAScript Internationalization
+        API Specification</cite> [[!ECMASCRIPT-I18N]].</p>
         <p>
           As there are numerous ways a user agent can derive the end-user's
           preferred languages and regional settings (e.g., the end user might
