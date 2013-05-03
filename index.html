@@ -11,7 +11,7 @@
     <script class='remove'>
 var respecConfig = {
         specStatus:           "ED",
-        shortName:            "runtime",
+        shortName:            "manifest",
         //publishDate:  "2012-12-12",
         //previousPublishDate:  "",
         edDraftURI:           "http://manifest.sysapps.org",
@@ -20,7 +20,7 @@ var respecConfig = {
 
         editors: [
                 {
-                  name: "Marcos Caceres ",
+                  name: "Marcos Caceres",
                   company: "Data.Driven",
                   companyURL: "http://datadriven.com.au"
                 }
@@ -42,7 +42,9 @@ a:not(href){ color: red }
   <body>
     <section id='abstract'>
       <p>
-        TBW..
+        An <dfn>application manifest</dfn> is a JSON document that describes
+        various aspects of web application. Some of these aspects are
+        presentational, while others aspects have security implications.
       </p>
     </section>
     <section>
@@ -50,23 +52,16 @@ a:not(href){ color: red }
         Introduction
       </h2>
       <p>
-        An <dfn>application manifest</dfn> is a JSON document [[!RFC4627]] that
-        describes various aspects of a <a>packaged application</a> or hosted
-        web application. Somse of these aspects are presentational, others
-        aspects have security sensitive implications. An application manifest
-        consists of a top-level object (the <dfn>manifest root</dfn>) and one
-        or more members, some of which can themselves contain objects.
+        An application manifest consists of a top-level object (the
+        <dfn>manifest root</dfn>) and one or more members, some of which can
+        themselves contain objects.
       </p>
       <section class="informative">
         <h3>
           Example manifest
         </h3>
         <p>
-          <em>This section is non-normative.</em>
-        </p>
-        <p>
-          The following shows a typical <a>application manifest</a>. Only the
-          name and the description members are required.
+          The following shows a typical <a>application manifest</a>.
         </p>
         <pre class="example highlight">
 {
@@ -172,10 +167,11 @@ a:not(href){ color: red }
         manifest</dfn> is an application manifest that is deemed to be
         non-conforming in such a way that it would not be possible for the user
         agent to continue processing (e.g., it can't be parsed by the JSON
-        parser). In such a case, the user agent may report the error to the
-        user in a user-agent-specific manner, may <a href=
+        parser because of a syntax error). In such a case, the user agent MAY
+        report the error to the user in a user-agent-specific manner, MAY
+        <a href=
         "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigate</a>
-        to an error page to report the error, or may ignore the error and do
+        to an error page to report the error, or MAY ignore the error and do
         nothing. In either case, when a step results in an <a>invalid
         manifest</a> the user agent MUST abort whatever steps caused the
         condition.
@@ -224,6 +220,12 @@ a:not(href){ color: red }
         <li>Let <var>manifest</var> result of invoking the parse function of
         the JSON object defined in [[!ECMA-262-51]] with <var>text</var> as its
         only argument. If parsing throws an exception, then treat this
+        application manifest as an <a>invalid manifest</a>.
+        </li>
+        <li>Let <var>present</var> be the result of calling [[\HasOwnProperty]]
+        internal method of <var>manifest</var> with argument <var>key</var>.
+        </li>
+        <li>If <var>present</var> is <code>false</code>, then treat this
         application manifest as an <a>invalid manifest</a>.
         </li>
         <li>Let <var>default locale</var> be the result of running the <a>steps
@@ -280,29 +282,28 @@ a:not(href){ color: red }
           Types and bindings
         </h3>
         <p>
-          As the manifest format is a JSON document, this doucment relies on
-          the types defined in [[!RFC4627]] specification: namely <dfn id=
+          As the manifest format is a [[!JSON]] document, this doucment relies
+          on the types defined in [[!JSON]] specification: namely <dfn id=
           "json-object">object</dfn>, <dfn id="json-array">array</dfn>,
           <dfn id="json-number">number</dfn>, and <dfn id=
-          "json-string">string</dfn>. Strict validation checking to types is
-          not enforced by this specification. Instead, each member definition
-          defines the steps to required to process a particular member.
-          Processing relies on
+          "json-string">string</dfn>. Strict type checking is not enforced by
+          this specification. Instead, each member's definition specifies the
+          steps to required to process a particular member.
         </p>
         <p>
           In additon, for the purpose of validity checking, this specification
-          defines the following types:
+          relies on the the following types:
         </p>
         <dl>
           <dt>
-            <dfn>relative URL</dfn>
+            <dfn>Relative URL</dfn>
           </dt>
           <dd>
             The concept of a relative URL is defined in the [[!URL]]
             specification.
           </dd>
           <dt>
-            <dfn>absolute URL</dfn>
+            <dfn>Absolute URL</dfn>
           </dt>
           <dd>
             The concept of an absolute URL is defined in the [[!URL]]
@@ -324,8 +325,8 @@ a:not(href){ color: red }
         </p>
         <p>
           The case sensitivity and case mapping for language tags is the same
-          as that defined in section 6.1 of the ECMAScript Internationalization
-          API Specification [[!ECMAS-402]]
+          as that defined in section 6.1 of the <cite>ECMAScript
+          Internationalization API Specification</cite> [[!ECMASCRIPT-I18N]].
         </p>
         <p>
           As there are numerous ways a user agent can derive the end-user's
@@ -383,8 +384,8 @@ a:not(href){ color: red }
           <li>Let <var>default app locale</var> be the string that represents
           the default locale for the application manifest.
           </li>
-          <li>Let <var>indentifier</var> be a string that is the name of the
-          member being sought.
+          <li>Let <var>identifier</var> be a string that represents the name of
+          the member being sought.
           </li>
           <li>Let <var>locales list</var> be a copy of the <a>user agent's
           locales</a>.
@@ -441,16 +442,9 @@ a:not(href){ color: red }
         <ol>
           <li>Let <var>key</var> be the string "<code>name</code>".
           </li>
-          <li>Let <var>present</var> be the result of calling
-          [[\HasOwnProperty]] internal method of <var>manifest</var> with
-          argument <var>key</var>.
-          </li>
-          <li>If <var>present</var> is <code>false</code>, return an error and
-          terminate this algorithm.
-          </li>
-          <li>Otherwise, let <var>value</var> be the result of running the <a>
-            steps for retrieving a localizable member from the manifest</a>,
-            with <var>key</var> as the member being sought.
+          <li>Let <var>value</var> be the result of running the <a>steps for
+          retrieving a localizable member from the manifest</a>, with
+          <var>key</var> as the member being sought.
           </li>
           <li>Let <var>result</var> be the result of calling
           <a>ToString</a>(<var>value</var>).
@@ -466,8 +460,8 @@ a:not(href){ color: red }
         <p>
           The <dfn id="propdef-description"><code>description</code></dfn>
           <a>localizable member</a> is a string that describes to the end-user
-          the author's intended purpose for the application (i.e., what app
-          does, what the app is for, etc.).
+          the author's intended purpose for the application (i.e., what the
+          function and utility of the application is, etc.).
         </p>
         <p>
           The <dfn>steps for processing the description member</dfn> are given
@@ -476,7 +470,7 @@ a:not(href){ color: red }
           <code>undefined</code>:
         </p>
         <ol>
-          <li>Let <var>key</var> be the string "description".
+          <li>Let <var>key</var> be the string "<code>description</code>".
           </li>
           <li>Let result be <code>undefined</code>.
           </li>
@@ -537,8 +531,8 @@ a:not(href){ color: red }
               <li>Let <var>tag</var> be <a>ToString</a>(<var>value</var>).
               </li>
               <li>Let <var>valid tag</var> the result of calling the abstract
-              operation IsStructurallyValidLanguageTag with <var>tag</var> as
-              the argument.
+              operation <a>IsStructurallyValidLanguageTag</a> with
+              <var>tag</var> as the argument.
               </li>
               <li>If <var>valid tag</var> is <code>true</code>, then:
                 <ol>
@@ -589,7 +583,7 @@ a:not(href){ color: red }
               "http://url.spec.whatwg.org/#parsing">parsing</a>
               <var>path</var>.
               </li>
-              <li>iI <var>url</var> is not a <a href=
+              <li>If <var>url</var> is not a <a href=
               "http://url.spec.whatwg.org/#concept-absolute-url">relative
               URL</a>, then return an error and terminate this algorithm.
               </li>
@@ -627,7 +621,7 @@ a:not(href){ color: red }
         </h3>
         <p>
           The <dfn id="propdef-locales">locales</dfn> member is a
-          <a>localized-content object</a> represents the localized data of the
+          <a>localized-data object</a> represents the localized data of the
           manifest.
         </p>
       </section><!-- Commented because it is a controversial feature.
@@ -644,7 +638,7 @@ a:not(href){ color: red }
         </h3>
         <p>
           The <dfn id="propdef-appcache_path">appcache_path</dfn>
-          <a>localizable member</a> is an <a>absolute URL</a> that represents a
+          <a>localizable member</a> is an <a>relative URL</a> that represents a
           resource to be used as the application's cache manifest
           [[!OFFLINE-WEBAPPS]].
         </p>
@@ -670,7 +664,7 @@ a:not(href){ color: red }
               "http://url.spec.whatwg.org/#parsing">parsing</a>
               <var>path</var>.
               </li>
-              <li>iI <var>url</var> is not a <a href=
+              <li>If <var>url</var> is not a <a href=
               "http://url.spec.whatwg.org/#concept-absolute-url">absolute
               URL</a>, then return an error and terminate this algorithm.
               </li>
@@ -700,7 +694,7 @@ a:not(href){ color: red }
         <ol>
           <li>Let <var>result</var> be <code>undefined</code>.
           </li>
-          <li>Let <var>key</var> be the string "version".
+          <li>Let <var>key</var> be the string "<code>version</code>".
           </li>
           <li>Let <var>present</var> be the result of calling
           [[\HasOwnProperty]] internal method of <var>manifest</var> with
@@ -768,8 +762,8 @@ a:not(href){ color: red }
           needs in order to run correctly.
         </p>
         <p>
-          ISSUE: Standard features of the Web platform should not be on this
-          list (e.g., geolocation, webgl, etc.).
+          Standard features of the Web platform should not be on this list
+          (e.g., geolocation, webgl, etc.).
         </p>
       </section>
       <section>
@@ -777,11 +771,11 @@ a:not(href){ color: red }
           <code title="">fullscreen</code> member
         </h3>
         <p>
-          The <dfn id="propdef-fullscreen">fullscreen</dfn> member is a boolean
-          that represents a hint to the user agent that indicates that the
-          application provides the best user experience when shown in
-          fullscreen (i.e., the application is presented without any use
-          interface components of the underlying system). When the value is
+          The <dfn id="propdef-fullscreen">fullscreen</dfn> localizable member
+          is a <a>boolean</a> that represents a hint to the user agent that
+          indicates that the application provides the best user experience when
+          shown in fullscreen (i.e., the application is presented without any
+          use interface components of the underlying system). When the value is
           missing, it defaults to <var>false</var>.
         </p>
         <p>
@@ -879,7 +873,7 @@ a:not(href){ color: red }
           Release notes object and its members
         </h2>
         <p>
-          TBW
+          A <dfn>Release notes object</dfn> ...
         </p>
       </section>
       <section>
@@ -968,11 +962,11 @@ a:not(href){ color: red }
       </section>
       <section>
         <h2>
-          Locale object and its members
+          Localized-data object and its members
         </h2>
         <p>
-          The locale object is an object that contains specific overrides of
-          strings contained in the <a>application manifest</a>.
+          The localized-data object contains specific overrides of data
+          contained in the <a>application manifest</a>.
         </p>
         <section>
           <h3>
@@ -989,11 +983,11 @@ a:not(href){ color: red }
             doesn't appear to be legit.
           </p>
           <p>
-            It is RECOMMENDED that the <a>locales</a> keys matches the actual
+            It is RECOMMENDED that the <a>locales</a> keys match the actual
             content localization to give a hint to the user that the
             application will be available in their language or not. Failing to
             provide a perfect matching between the content localization and the
-            <a>locales</a> keys will not creates any technical problems but will
+            <a>locales</a> keys will not create any technical problems but will
             have bad consequences with regard to the user experience and
             developer reputation.
           </p>
@@ -1025,11 +1019,11 @@ a:not(href){ color: red }
             retrieving a localizable member from the manifest</a>, with
             "<var>developer"</var> as the member being sought.
             </li>
-            <li>Let result be <code>undefined</code>.
+            <li>Let <var>result</var> be <code>undefined</code>.
             </li>
             <li>If Type(O) is "Object"
             </li>
-            <li>Let <var>result</var> be the result of calling
+            <li>Set <var>result</var> be the result of calling
             <a>ToString</a>(<var>value</var>).
             </li>
             <li>Return the <var>result</var>.
@@ -1101,13 +1095,12 @@ a:not(href){ color: red }
           <dd>
             <p>
               As the application manifest format is JSON and will commonly be
-              encoded using [[!Unicode]], the security considerations
-              described in [[!JSON]] and [[!UTR36]] apply. In addition,
-              implementers need to impose their own implementation-specific
-              limits on the values of otherwise unconstrained member types,
-              e.g. to prevent denial of service attacks, to guard against
-              running out of memory, or to work around platform-specific
-              limitations.
+              encoded using [[!Unicode]], the security considerations described
+              in [[!JSON]] and [[!UTR36]] apply. In addition, implementers need
+              to impose their own implementation-specific limits on the values
+              of otherwise unconstrained member types, e.g. to prevent denial
+              of service attacks, to guard against running out of memory, or to
+              work around platform-specific limitations.
             </p>
             <p>
               The manifest document allows authors, through the permissions and
