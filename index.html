@@ -1151,12 +1151,6 @@ a:not(href){ color: red }
               to interfaces that enable revocation of permissions.
             </p>
             <p>
-              As this specification relies on the standardized heuristics for
-              determining the content type of files defined in the [[!SNIFF]]
-              specification, implementers need to consider the security
-              considerations discussed in the [[!SNIFF]] specification.
-            </p>
-            <p>
               As this specification allows for the declaration of IRIs within
               certain members of a the application manifest, implementers need
               to consider the security considerations discussed in the [IRI]
@@ -1165,15 +1159,6 @@ a:not(href){ color: red }
               <abbr title="Internationalized domain name">IDNA</abbr> addresses
               found in the application manifest are strongly encouraged to
               follow the security advice given in [[!UTR36]].
-            </p>
-            <p>
-              In addition, user agents need to be careful about trusting path
-              components found in the manifest. Such path components might be
-              interpreted by operating systems as pointing at security critical
-              files outside the browsing environment proper, and naive
-              unpacking of zip packages into the file system might lead to
-              undesirable and security relevant effects, such as overwriting of
-              system files.
             </p>
           </dd>
           <dt>
