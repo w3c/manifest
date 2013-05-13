@@ -242,6 +242,12 @@ a:not(href){ color: red }
         only argument. If parsing throws an exception, then treat this
         application manifest as an <a>invalid manifest</a>.
         </li>
+        <li>Let <var>present</var> be the result of calling [[\HasOwnProperty]]
+        internal method of <var>manifest</var> with argument <var>key</var>.
+        </li>
+        <li>If <var>present</var> is <code>false</code>, then treat this
+        application manifest as an <a>invalid manifest</a>.
+        </li>
         <li>Let <var>default locale</var> be the result of running the <a>steps
         for processing the <code>default_locale</code> member</a>.
           <ol>
