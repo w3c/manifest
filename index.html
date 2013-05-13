@@ -10,30 +10,44 @@
 </script>
     <script class='remove'>
 var respecConfig = {
-        specStatus:           "ED",
-        shortName:            "manifest",
-        //publishDate:  "2012-12-12",
-        //previousPublishDate:  "",
-        edDraftURI:           "http://manifest.sysapps.org",
-        // lcEnd: "3000-01-01",
-        // crEnd: "3000-01-01",
+    specStatus: "ED",
+    shortName: "manifest",
+    //publishDate:  "2012-12-12",
+    //previousPublishDate:  "",
+    edDraftURI: "http://manifest.sysapps.org",
+    // lcEnd: "3000-01-01",
+    // crEnd: "3000-01-01",
 
-        editors: [
-                {
-                  name: "Marcos Caceres",
-                  company: "Data.Driven",
-                  companyURL: "http://datadriven.com.au"
+    editors: [{
+            name: "Marcos Caceres",
+            company: "Mozilla Corporation",
+            companyURL: "http://mozilla.com"
+        }
+    ],
+    inlineCSS: true,
+    noIDLIn: true,
+    noLegacyStyle: false,
+    extraCSS: ["../ReSpec.js/css/respec.css"],
+    wg: "System Applications Working Group",
+    wgURI: "http://www.w3.org/2012/sysapps/",
+    wgPublicList: "public-sysapps",
+    wgPatentURI: "http://www.w3.org/2004/01/pp-impl/58119/status",
+    otherLinks: [{
+            key: "Repository",
+            data: [{
+                    value: "We are on Github.",
+                    href: "https://github.com/sysapps/manifest"
+                }, {
+                    value: "File a bug.",
+                    href: "https://github.com/sysapps/manifest/issues"
+                }, {
+                    value: "Commit history.",
+                    href: "https://github.com/sysapps/manifest/commits/gh-pages"
                 }
-        ],
-        inlineCSS:     true,
-        noIDLIn:       true,
-        noLegacyStyle: false,
-        extraCSS:      ["../ReSpec.js/css/respec.css"],
-        wg:           "System Applications Working Group",
-        wgURI:        "http://www.w3.org/2012/sysapps/",
-        wgPublicList: "public-sysapps",
-        wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/58119/status"
-    };
+            ]
+        }
+    ]
+};
     </script>
     <style class='remove'>
 a:not(href){ color: red }
@@ -43,7 +57,7 @@ a:not(href){ color: red }
     <section id='abstract'>
       <p>
         An <dfn>application manifest</dfn> is a JSON document that describes
-        various aspects of web application. Some of these aspects are
+        various aspects of a web application. Some of these aspects are
         presentational, while others aspects have security implications.
       </p>
     </section>
@@ -104,12 +118,6 @@ a:not(href){ color: red }
     "1.0": "Bugs fixed. New exciting effects. Ready for an official release!",
     "0.5": "First alpha version with still some bugs but already fun!"
   }
-  <!-- See https://github.com/sysapps/runtime/pull/11 
-  ,
-  "data": {
-     myCustomAppData: ["x", "y", {"z": "foo"}]
-  }
-  -->
 }
 </pre>
       </section>
