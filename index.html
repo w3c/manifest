@@ -55,10 +55,13 @@ var respecConfig = {
     wgURI: "http://www.w3.org/2008/webapps/",
     wgPublicList: "public-webapps",
     wgPatentURI: "http://www.w3.org/2004/01/pp-impl/42538/status"
-};
+    };
     </script>
     <style class='remove'>
 a:not(href){ color: red }
+    li{
+        padding: .5em 0;
+    }
     </style>
   </head>
   <body>
@@ -90,7 +93,7 @@ a:not(href){ color: red }
         specification: a <dfn>user agent</dfn>.
       </p>
     </section>
-    <section>
+    <section id="appconfig-attr">
       <h2>
         The <code>appconfig</code> attribute
       </h2>
@@ -221,33 +224,20 @@ a:not(href){ color: red }
           URL</a> with character encoding [[!UTF-8]] that represents the
           <a>application manifest</a>.
         </li>
-        <li>Let <var>origin</var> be the document's origin.
-        </li>
-        <li>Resolve <var>url</var> relative to <var>origin</var>. If <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#resolve-a-url"
-        title="resolve a url">resolving</a> the <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#url">URL</a> fails,
-        then treat this as an <a>invalid manifest</a>.
-        </li>
         <li>
           <em>Fetching the application manifest</em>: Let <var>response
           body</var> be the <a href=
           "http://xhr.spec.whatwg.org/#response-entity-body">response entity
-          body</a> resulting from of asynchronously <a href=
+          body</a> resulting from asynchronously <a href=
           "http://fetch.spec.whatwg.org/#legacy-fetch">fetching</a>
-          <var>url</var>, with <var>origin</var> as the origin, and with the
-          force same-origin flag set. HTTP caching semantics should be honored
-          for this request.
+          <var>url</var>. HTTP caching semantics should be honored for this
+          request.
         </li>
         <li>If&nbsp;<em>fetching the application manifest</em>&nbsp;fails due
         to a 404 or 410 response&nbsp;<a href=
         "http://www.whatwg.org/specs/web-apps/current-work/#concept-http-equivalent-codes"
-          title="concept-http-equivalent-codes">or equivalent</a>, then run
-          these substeps:
-          <ol>
-            <li>Abort the application manifest fetching process.
-            </li>
-          </ol>
+          title="concept-http-equivalent-codes">or equivalent</a>, then abort
+          the application manifest fetching process.
         </li>
         <li>Let <var>text</var> be the result of running <a href=
         "http://encoding.spec.whatwg.org/#utf-8-decode">utf-8 decode</a> on the
@@ -290,30 +280,34 @@ a:not(href){ color: red }
       </p>
       <p>
         Certain error conditions can result in an <a>application manifest</a>
-        being treated as an <a>invalid manifest</a>. An <dfn>invalid
-        manifest</dfn> is an application manifest that is deemed to be
-        non-conforming in such a way that it would not be possible for the user
-        agent to continue processing (e.g., it can't be parsed by the JSON
-        parser because of a syntax error). In such a case, the user agent MAY
-        report the error to the user in a user-agent-specific manner, MAY
-        <a href=
+        being treated as an <a>invalid application manifest</a>. An
+        <dfn>invalid application manifest</dfn> is an application manifest that
+        is deemed to be non-conforming in such a way that it would not be
+        possible for the user agent to continue processing (e.g., it can't be
+        parsed by the JSON parser because of a syntax error). In such a case,
+        the user agent MAY report the error to the user in a
+        user-agent-specific manner, MAY <a href=
         "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigate</a>
         to an error page to report the error, or MAY ignore the error and do
         nothing. In either case, when a step results in an <a>invalid
-        manifest</a> the user agent MUST abort whatever steps caused the
-        condition.
+        application manifest</a> the user agent MUST abort whatever step or
+        substep caused the condition.
       </p>
       <p>
         The <dfn>steps for processing an application manifest</dfn> are given
         by the following algorithm.
       </p>
       <ol>
-        <li>Let <var>text</var> be the text to be processed.
+        <li>Let <var>text</var> be the result of running the <a>application
+        manifest download process</a>. If the process aborts, terminate this
+        algorithm.
         </li>
-        <li>Let <var>manifest</var> result of invoking the parse function of
-        the JSON object defined in [[!ECMA-262-51]] with <var>text</var> as its
-        only argument. If parsing throws an exception, then treat this
-        application manifest as an <a>invalid manifest</a>.
+        <li>Let <var>manifest</var> be the result of invoking the <a href=
+        "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">parse</a>
+        function of the JSON object defined in [[!ECMASCRIPT]] with
+        <var>text</var> as its only argument. If parsing throws an exception,
+        then treat this application manifest as an <a>invalid application
+        manifest</a>.
         </li>
         <li>Let <var>default locale</var> be the result of running the <a>steps
         for processing the <code>default_locale</code> member</a>.
@@ -341,18 +335,10 @@ a:not(href){ color: red }
         processing the <code>name</code> member</a>.
         </li>
         <li>Let <var>launch path</var> be the result of running the <a>steps
-        for processing the <code>launch_path</code> member</a>:
-          <ol>
-            <li>If <var>launch path</var> resulted in an error, then treat this
-            as an <a>invalid manifest</a>.
-            </li>
-          </ol>
+        for processing the <code>launch_path</code> member</a>.
         </li>
         <li>Let <var>description</var> be the result of running the <a>steps
         for processing the <code>description</code> member</a>.
-        </li>
-        <li>Let <var>fullscreen</var> be the result of running the <a>steps for
-        processing the <code>fullscreen</code> member</a>.
         </li>
         <li>...
         </li>
