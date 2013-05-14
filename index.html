@@ -59,28 +59,193 @@ var respecConfig = {
     </script>
     <style class='remove'>
 a:not(href){ color: red }
+    li{
+        padding: .5em 0;
+    }
     </style>
   </head>
   <body>
     <section id='abstract'>
       <p>
-        An <dfn>application manifest</dfn> is a JSON document that describes
-        various aspects of a web application. Some of these aspects are
-        presentational, while others aspects have security implications.
+        This specification defines an <dfn>application manifest</dfn>, which is
+        a JSON document that describes various aspects of a web application. A
+        user agent can make use of an application manifest to, for example,
+        provide enhanced bookmarking capabilities like adding the name and icon
+        of a Web application to the home screen of a device. This specification
+        also defines the <code>appconfig</code> HTML attribute, which allows a
+        document to be associated with an application manifest.
       </p>
+    </section>
+    <section id="sotd">
+      <p>
+        Implementors should be aware that this specification is not stable.
+        <strong>Implementors who are not taking part in the discussions are
+        likely to find the specification changing out from under them in
+        incompatible ways.</strong> Vendors interested in implementing this
+        specification before it eventually reaches the Candidate Recommendation
+        stage should join the aforementioned mailing lists and take part in the
+        discussions.
+      </p>
+    </section>
+    <section id="conformance">
+      <p>
+        There is only one class of product that can claim conformance to this
+        specification: a <dfn>user agent</dfn>.
+      </p>
+    </section>
+    <section id="linking">
+      <h2>
+        Linking to a manifest
+      </h2>
+      <p>
+        A [[!HTML]] <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>
+        link</code></a> element that has a <a>link type</a>
+        <code>manifest</code> associates a manifest with a document.
+      </p>
+      <p>
+        In cases where more than one <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>
+        link</code></a> element with a <code>manifest</code> link type appears
+        in a <code>document</code>, the user agent MUST use the first inserted
+        link element and ignore all subsequent <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>
+        link</code></a> elements with a <code>manifest</code> link type (even
+        if the first element was in error).
+      </p>
+      <p>
+        Authoring requirement: In a [[HTML]] document, there must not be more
+        than one link element whose <a title="manifest link type">link type
+        contains <code>manifest</code></a>.
+      </p>
+      <section>
+        <h3>
+          Link type
+        </h3>
+        <table border="1">
+          <tr>
+            <th rowspan="2">
+              Link type
+            </th>
+            <th colspan="2">
+              Effect on...
+            </th>
+            <th rowspan="2">
+              Brief description
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <code><a href="#the-link-element">link</a></code>
+            </th>
+            <th>
+              <code><a href="#the-a-element">a</a></code> and <code><a href=
+              "#the-area-element">area</a></code>
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <code title="rel-manifest">manifest</code>
+            </td><!-- second most used <link rel> value -->
+            <td>
+              <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+              title="external resource link">External Resource</a>
+            </td>
+            <td>
+              <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work//#hyperlink">Hyperlink</a>
+            </td>
+            <td>
+              Imports or links to an application manifest.
+            </td>
+          </tr>
+        </table>
+      </section>
+      <section>
+        <h3>
+          Link type "<code>manifest</code>"
+        </h3>
+        <p>
+          The <code>manifest</code> keyword can be used with a <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
+          link</a> element. This keyword creates an <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+          title="external resource link">external resource link</a>.
+        </p>
+        <p>
+          The default type for resources given by the <code>manifest</code>
+          keyword is the <a>media type for an application manifests</a>,
+          represented by the string
+          <code>application/webapp-manifest+json</code>.
+        </p>
+        <p>
+          The appropriate time to <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-obtain"
+          title="concept-link-obtain">obtain</a> the resource is when the
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+          title="external resource link">external resource link</a> is created
+          or when its element is <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#insert-an-element-into-a-document"
+          title="insert an element into a document">inserted into a
+          document</a>, whichever happens last. However, a user agents may opt
+          to delay <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-obtain"
+          title="concept-link-obtain">obtaining</a> a manifest until after the
+          document and its other resources have loaded (i.e., to not delay the
+          availability of content and scripts required by the
+          <code>document</code>).
+        </p>
+      </section>
+      <section class="informative">
+        <h3>
+          Associating a document with a manifest
+        </h3>
+        <pre class="example highlight html">
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;title&gt;My Awesome Application&lt;/title&gt;
+&lt;link rel="manifest" href="awesome.webapp"&gt;
+...
+</pre>
+      </section>
+      <section class="informative">
+        <h3>
+          Linking to an external manifest
+        </h3>
+        <pre class="example highlight html">
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;title&gt;The Sports Store&lt;/title&gt;
+&lt;!-- install this app --&gt; 
+&lt;link rel="manifest" href="manifest.json"&gt;
+&lt;body&gt;
+&lt;h1&gt;The Sports Store&lt;/h1&gt;
+&lt;dl&gt;
+  &lt;dt&gt;Sporty App&lt;/dl&gt;
+  &lt;dd&gt;  
+    &lt;a href="http://example.com/cycling/manifest" 
+       rel="manifest"&gt;
+      Install Cycling App! 
+    &lt;/a&gt;
+  &lt;/dd&gt;
+&lt;/dl&gt;
+</pre>
+      </section>
     </section>
     <section>
       <h2>
-        Introduction
+        Application Manifest
       </h2>
       <p>
-        An application manifest consists of a top-level object (the
-        <dfn>manifest root</dfn>) and one or more members, some of which can
-        themselves contain objects.
+        An <a>application manifest</a> consists of a top-level object (the
+        application manifest <dfn>root</dfn>) and one or more members, some of
+        which contain other objects.
       </p>
       <section class="informative">
         <h3>
-          Example manifest
+          Example application manifest
         </h3>
         <p>
           The following shows a typical <a>application manifest</a>.
@@ -130,26 +295,68 @@ a:not(href){ color: red }
 </pre>
       </section>
     </section>
-    <section id="sotd">
+    <section>
+      <h2>
+        Fetching the application manifest
+      </h2>
       <p>
-        Implementors should be aware that this specification is not stable.
-        <strong>Implementors who are not taking part in the discussions are
-        likely to find the specification changing out from under them in
-        incompatible ways.</strong> Vendors interested in implementing this
-        specification before it eventually reaches the Candidate Recommendation
-        stage should join the aforementioned mailing lists and take part in the
-        discussions.
+        When the user agent is required (by other parts of this specification)
+        to start the <dfn>application manifest download process</dfn> for an
+        absolute URL purported to identify an application manifest, the user
+        agent must run the steps below. These steps are always run
+        asynchronously, in parallel with the <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#event-loop">event
+        loop</a> <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#concept-task"
+        title="concept-task">tasks</a>.
       </p>
-    </section>
-    <section id="conformance">
-      <p>
-        There is only one class of product that can claim conformance to this
-        specification: a <dfn>user agent</dfn>.
+      <p class="note">
+        Note: This algorithm can be applied equally to manifests fetched from
+        HTTP/S or those derived over <cite>the app: URI scheme</cite>
+        [[APP-URI]].
       </p>
+      <ol>
+        <li>Optionally, wait until the permission to start the <a>application
+        manifest download process</a> has been obtained from the user and until
+        the user agent is confident that the network is available. This could
+        include doing nothing until the user explicitly opts-in to downloading
+        the application manifest, or could involve prompting the user for
+        permission. The algorithm might never get past this point. (This step
+        is particularly intended to give user's the choice to "install" the web
+        application).
+        </li>
+        <li>Let <var>url</var> be a <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/multipage/urls.html#url">
+          URL</a> with character encoding [[!UTF-8]] that represents the
+          <a>application manifest</a>.
+        </li>
+        <li>
+          <em>Fetching the application manifest</em>: Let <var>response
+          body</var> be the <a href=
+          "http://xhr.spec.whatwg.org/#response-entity-body">response entity
+          body</a> resulting from asynchronously <a href=
+          "http://fetch.spec.whatwg.org/#legacy-fetch">fetching</a>
+          <var>url</var>. HTTP caching semantics should be honored for this
+          request.
+        </li>
+        <li>If <em>fetching the application manifest</em> fails due to a 404 or
+        410 response <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#concept-http-equivalent-codes"
+          title="concept-http-equivalent-codes">or equivalent</a>, then abort
+          the application manifest fetching process.
+        </li>
+        <li>Let <var>text</var> be the result of running <a href=
+        "http://encoding.spec.whatwg.org/#utf-8-decode">utf-8 decode</a> on the
+        byte stream <a href="http://xhr.spec.whatwg.org/#response-entity-body">
+          </a><var>response body</var>.
+        </li>
+        <li>Return <var>text</var>.
+        </li>
+      </ol>
     </section>
     <section>
       <h2>
-        Processing the manifest
+        Processing the application manifest
       </h2>
       <p id="ecmascript-abstractop">
         Algorithms in this section use the conventions described in <a class=
@@ -179,64 +386,34 @@ a:not(href){ color: red }
       </p>
       <p>
         Certain error conditions can result in an <a>application manifest</a>
-        being treated as an <a>invalid manifest</a>. An <dfn>invalid
-        manifest</dfn> is an application manifest that is deemed to be
-        non-conforming in such a way that it would not be possible for the user
-        agent to continue processing (e.g., it can't be parsed by the JSON
-        parser because of a syntax error). In such a case, the user agent MAY
-        report the error to the user in a user-agent-specific manner, MAY
-        <a href=
+        being treated as an <a>invalid application manifest</a>. An
+        <dfn>invalid application manifest</dfn> is an application manifest that
+        is deemed to be non-conforming in such a way that it would not be
+        possible for the user agent to continue processing (e.g., it can't be
+        parsed by the JSON parser because of a syntax error). In such a case,
+        the user agent MAY report the error to the user in a
+        user-agent-specific manner, MAY <a href=
         "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigate</a>
         to an error page to report the error, or MAY ignore the error and do
         nothing. In either case, when a step results in an <a>invalid
-        manifest</a> the user agent MUST abort whatever steps caused the
-        condition.
+        application manifest</a> the user agent MUST abort whatever step or
+        substep caused the condition.
       </p>
-      <p>
-        The <dfn>steps for fetching an application manifest</dfn> are given by
-        the following algorithm. This algorithm can be applied equally to
-        manifests fetched from HTTP/S or those derived over the app URI scheme.
-      </p>
-      <ol>
-        <li>Let <var>url</var> be a <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/urls.html#url">
-          URL</a> with character encoding [[!UTF-8]] that represents the
-          <a>application manifest</a>.
-        </li>
-        <li>Let <var>origin</var> be ??.
-        </li>
-        <li>Resolve <var>url</var> relative to <var>origin</var>. If <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#resolve-a-url"
-        title="resolve a url">resolving</a> the <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#url">URL</a> fails,
-        then treat this as an <a>invalid manifest</a>.
-        </li>
-        <li>Let <var>response body</var> be the <a href=
-        "http://xhr.spec.whatwg.org/#response-entity-body">response entity
-        body</a> resulting from of asynchronously <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#fetch">fetching</a>
-        <var>url</var>, with <var>origin</var> as the origin, and with the
-        force same-origin flag set.
-        </li>
-        <li>Let <var>text</var> be the result of running <a href=
-        "http://encoding.spec.whatwg.org/#utf-8-decode">utf-8 decode</a> on the
-        byte stream <a href="http://xhr.spec.whatwg.org/#response-entity-body">
-          </a><var>response body</var>.
-        </li>
-        <li>return <var>text</var>.
-        </li>
-      </ol>
       <p>
         The <dfn>steps for processing an application manifest</dfn> are given
         by the following algorithm.
       </p>
       <ol>
-        <li>Let <var>text</var> be the text to be processed.
+        <li>Let <var>text</var> be the result of running the <a>application
+        manifest download process</a>. If the process aborts, terminate this
+        algorithm.
         </li>
-        <li>Let <var>manifest</var> result of invoking the parse function of
-        the JSON object defined in [[!ECMA-262-51]] with <var>text</var> as its
-        only argument. If parsing throws an exception, then treat this
-        application manifest as an <a>invalid manifest</a>.
+        <li>Let <var>manifest</var> be the result of invoking the <a href=
+        "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">parse</a>
+        function of the JSON object defined in [[!ECMASCRIPT]] with
+        <var>text</var> as its only argument. If parsing throws an exception,
+        then treat this application manifest as an <a>invalid application
+        manifest</a>.
         </li>
         <li>Let <var>default locale</var> be the result of running the <a>steps
         for processing the <code>default_locale</code> member</a>.
@@ -264,18 +441,10 @@ a:not(href){ color: red }
         processing the <code>name</code> member</a>.
         </li>
         <li>Let <var>launch path</var> be the result of running the <a>steps
-        for processing the <code>launch_path</code> member</a>:
-          <ol>
-            <li>If <var>launch path</var> resulted in an error, then treat this
-            as an <a>invalid manifest</a>.
-            </li>
-          </ol>
+        for processing the <code>launch_path</code> member</a>.
         </li>
         <li>Let <var>description</var> be the result of running the <a>steps
         for processing the <code>description</code> member</a>.
-        </li>
-        <li>Let <var>fullscreen</var> be the result of running the <a>steps for
-        processing the <code>fullscreen</code> member</a>.
         </li>
         <li>...
         </li>
@@ -287,13 +456,13 @@ a:not(href){ color: red }
           Types and bindings
         </h3>
         <p>
-          As the manifest format is a [[!JSON]] document, this doucment relies
-          on the types defined in [[!JSON]] specification: namely <dfn id=
-          "json-object">object</dfn>, <dfn id="json-array">array</dfn>,
-          <dfn id="json-number">number</dfn>, and <dfn id=
-          "json-string">string</dfn>. Strict type checking is not enforced by
-          this specification. Instead, each member's definition specifies the
-          steps to required to process a particular member.
+          As the application manifest format is a [[!JSON]] document, this
+          doucment relies on the types defined in [[!JSON]] specification:
+          namely <dfn id="json-object">object</dfn>, <dfn id=
+          "json-array">array</dfn>, <dfn id="json-number">number</dfn>, and
+          <dfn id="json-string">string</dfn>. Strict type checking is not
+          enforced by this specification. Instead, each member's definition
+          specifies the steps to required to process a particular member.
         </p>
         <p>
           In additon, for the purpose of validity checking, this specification
@@ -377,10 +546,10 @@ a:not(href){ color: red }
         </p>
         <p>
           The <dfn>steps for retrieving a localizable member from the
-          manifest</dfn> are given by the following algorithm. The algorithm
-          prioritizes returning the localized version of a member over one
-          where the locale is unknown. The algorithm returns either a value
-          from the namifest or <code>undefined</code>.
+          application manifest</dfn> are given by the following algorithm. The
+          algorithm prioritizes returning the localized version of a member
+          over one where the locale is unknown. The algorithm returns either a
+          value from the namifest or <code>undefined</code>.
         </p>
         <ol>
           <li>Let <var>manifest</var> be the JSON-parsed object representation
@@ -398,7 +567,7 @@ a:not(href){ color: red }
           <li>If <var>default app locale</var> is not <code>undefined</code>,
           append <var>default app locale</var> to <var>locales list</var>.
           </li>
-          <li>If the <var>manifest</var> has a property whose name is
+          <li>If the application manifest has a property whose name is
           <code>"locales</code>", then for each <var>range</var> in the
           <var>locales list</var> in order:
             <ol>
@@ -417,7 +586,7 @@ a:not(href){ color: red }
               </li>
             </ol>
           </li>
-          <li>If the <a>manifest root</a> has its own property named
+          <li>If the application manifest<a>root</a> has its own property named
           <var>prop</var>, return the value of the property.
           </li>
           <li>Return <code>undefined</code>.
@@ -448,8 +617,8 @@ a:not(href){ color: red }
           <li>Let <var>key</var> be the string "<code>name</code>".
           </li>
           <li>Let <var>value</var> be the result of running the <a>steps for
-          retrieving a localizable member from the manifest</a>, with
-          <var>key</var> as the member being sought.
+          retrieving a localizable member from the application manifest</a>,
+          with <var>key</var> as the member being sought.
           </li>
           <li>Let <var>result</var> be the result of calling
           <a>ToString</a>(<var>value</var>).
@@ -480,8 +649,8 @@ a:not(href){ color: red }
           <li>Let result be <code>undefined</code>.
           </li>
           <li>Let <var>value</var> be the result of running the <a>steps for
-          retrieving a localizable member from the manifest</a>, with
-          <var>key</var> as the member being sought.
+          retrieving a localizable member from the application manifest</a>,
+          with <var>key</var> as the member being sought.
           </li>
           <li>If <var>value</var> is not <code>undefined</code>, let
           <var>result</var> be <a>ToString</a>(<var>value</var>).
@@ -499,7 +668,8 @@ a:not(href){ color: red }
           <a>language tag</a> that represents:
         </p>
         <ul>
-          <li>The locale of the content of members at the root of the manifest.
+          <li>The locale of the content of members at the root of the
+          application manifest.
           </li>
           <li>The default locale that the user agent will use in case the
           <a>user agent's locales</a> do not match any localized members.
@@ -507,8 +677,8 @@ a:not(href){ color: red }
         </ul>
         <p>
           When the <code>default_locale</code> member is missing or in error,
-          the content at the root of the manifest is said to have an
-          <dfn>unknown locale</dfn>.
+          the content at the root of the application manifest is said to have
+          an <dfn>unknown locale</dfn>.
         </p>
         <p>
           The <dfn>steps for processing the <code>default_locale</code>
@@ -627,7 +797,7 @@ a:not(href){ color: red }
         <p>
           The <dfn id="propdef-locales">locales</dfn> member is a
           <a>localized-data object</a> represents the localized data of the
-          manifest.
+          application manifest.
         </p>
       </section><!-- Commented because it is a controversial feature.
           <li><dfn id=
@@ -708,8 +878,8 @@ a:not(href){ color: red }
           <li>If <var>present</var> is <code>true</code>:
             <ol>
               <li>Let <var>value</var> be the result of running the <a>steps
-              for retrieving a localizable member from the manifest</a>, with
-              <var>key</var> as the member being sought.
+              for retrieving a localizable member from the application
+              manifest</a>, with <var>key</var> as the member being sought.
               </li>
               <li>Let <var>result</var> be the result of calling
               <a>ToString</a>(<var>value</var>).
@@ -888,9 +1058,9 @@ a:not(href){ color: red }
         <p>
           The permissions object...An application SHOULD list every API that is
           considered to require user permission in this field. Usage of an API
-          without a corresponding entry in the manifest SHOULD fail. The field
-          is an object, with each property name specifying a single permission,
-          and object containing the following fields:
+          without a corresponding entry in the application manifest SHOULD
+          fail. The field is an object, with each property name specifying a
+          single permission, and object containing the following fields:
         </p>
         <section>
           <h3>
@@ -979,9 +1149,9 @@ a:not(href){ color: red }
           </h3>
           <p>
             Each locale key is a <a>langauge tag</a>, and contains a sparse
-            representation of localized parts of the manifest. The data of the
-            <a>locales</a> members override the corresponding member in a
-            localized user interface.
+            representation of localized parts of the application manifest. The
+            data of the <a>locales</a> members override the corresponding
+            member in a localized user interface.
           </p>
           <p>
             The user agent MAY ignore some values if localizing the property
@@ -1021,8 +1191,8 @@ a:not(href){ color: red }
           </p>
           <ol>
             <li>Let <var>O</var> be the result of running the <a>steps for
-            retrieving a localizable member from the manifest</a>, with
-            "<var>developer"</var> as the member being sought.
+            retrieving a localizable member from the application manifest</a>,
+            with "<var>developer"</var> as the member being sought.
             </li>
             <li>Let <var>result</var> be <code>undefined</code>.
             </li>
@@ -1058,10 +1228,10 @@ a:not(href){ color: red }
           <code>application/webapp-manifest+json</code>.
         </p>
         <p>
-          If the protocol over which the manifest is transferred supports the
-          [[!MIME]] specification (e.g. [[!HTTP11]]), it is RECOMMENDED that
-          the application manifest be labeled with the <a>media type for an
-          application manifests</a>.
+          If the protocol over which the application manifest is transferred
+          supports the [[!MIME]] specification (e.g. [[!HTTP11]]), it is
+          RECOMMENDED that the application manifest be labeled with the
+          <a>media type for an application manifests</a>.
         </p>
         <dl>
           <dt>
@@ -1108,12 +1278,13 @@ a:not(href){ color: red }
               work around platform-specific limitations.
             </p>
             <p>
-              The manifest document allows authors, through the permissions and
-              required_features, to request permission to enable security
-              sensitive APIs. As these APIs are outside the scope of this
-              specification, significant caution needs to be taken when
-              granting an application the capability to use a feature. Features
-              themselves define their own security considerations.
+              The application manifest document allows authors, through the
+              permissions and required_features members, to request permission
+              to enable security sensitive APIs. As these APIs are outside the
+              scope of this specification, significant caution needs to be
+              taken when granting an application the capability to use a
+              feature. Features themselves define their own security
+              considerations.
             </p>
             <p>
               Web applications will generally contain ECMAscript, HTML, CSS
@@ -1181,9 +1352,9 @@ a:not(href){ color: red }
             Person &amp; email address to contact for further information:
           </dt>
           <dd>
-            The <a href="http://www.w3.org/2008/webapps/" rel="nofollow">Web 
-            Applications (WebApps) Working Group</a> can be contacted at <a href=
-            "http://lists.w3.org/Archives/Public/public-webapps/" rel=
+            The <a href="http://www.w3.org/2008/webapps/" rel="nofollow">Web
+            Applications (WebApps) Working Group</a> can be contacted at
+            <a href="http://lists.w3.org/Archives/Public/public-webapps/" rel=
             "nofollow">public-webapps@w3.org</a>.
           </dd>
           <dt>
@@ -1217,7 +1388,9 @@ a:not(href){ color: red }
           Acknowledgments
         </h2>
         <p>
-          TBW
+          This document reuses text from the WHATWG [[!HTML]] specification as
+          permitted by the license of that specification. The [[!HTML]]
+          specification is edited by Ian Hickson.
         </p>
       </section>
     </section>
