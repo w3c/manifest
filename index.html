@@ -10,29 +10,43 @@
 </script>
     <script class='remove'>
 var respecConfig = {
-        specStatus:           "ED",
-        shortName:            "manifest",
-        //publishDate:  "2012-12-12",
-        //previousPublishDate:  "",
-        edDraftURI:           "http://manifest.sysapps.org",
-        // lcEnd: "3000-01-01",
-        // crEnd: "3000-01-01",
+    specStatus: "ED",
+    shortName: "manifest",
+    //publishDate:  "2012-12-12",
+    //previousPublishDate:  "",
+    edDraftURI: "http://www.w3.org/2012/sysapps/manifest/",
+    // lcEnd: "3000-01-01",
+    // crEnd: "3000-01-01",
 
-        editors: [
-                {
-                  name: "Marcos Caceres",
-                  company: "Data.Driven",
-                  companyURL: "http://datadriven.com.au"
+    editors: [{
+            name: "Marcos Caceres",
+            company: "Mozilla Corporation",
+            companyURL: "http://mozilla.com"
+        }
+    ],
+    inlineCSS: true,
+    noIDLIn: true,
+    noLegacyStyle: false,
+    extraCSS: ["../ReSpec.js/css/respec.css"],
+    wg: "System Applications Working Group",
+    wgURI: "http://www.w3.org/2012/sysapps/",
+    wgPublicList: "public-sysapps",
+    wgPatentURI: "http://www.w3.org/2004/01/pp-impl/58119/status",
+    otherLinks: [{
+            key: "Repository",
+            data: [{
+                    value: "We are on Github.",
+                    href: "https://github.com/sysapps/manifest"
+                }, {
+                    value: "File a bug.",
+                    href: "https://github.com/sysapps/manifest/issues"
+                }, {
+                    value: "Commit history.",
+                    href: "https://github.com/sysapps/manifest/commits/gh-pages"
                 }
-        ],
-        inlineCSS:     true,
-        noIDLIn:       true,
-        noLegacyStyle: false,
-        extraCSS:      ["../ReSpec.js/css/respec.css"],
-        wg:           "System Applications Working Group",
-        wgURI:        "http://www.w3.org/2012/sysapps/",
-        wgPublicList: "public-sysapps",
-        wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/58119/status"
+            ]
+        }
+    ]
     };
     </script>
     <style class='remove'>
@@ -43,7 +57,7 @@ a:not(href){ color: red }
     <section id='abstract'>
       <p>
         An <dfn>application manifest</dfn> is a JSON document that describes
-        various aspects of web application. Some of these aspects are
+        various aspects of a web application. Some of these aspects are
         presentational, while others aspects have security implications.
       </p>
     </section>
@@ -104,12 +118,6 @@ a:not(href){ color: red }
     "1.0": "Bugs fixed. New exciting effects. Ready for an official release!",
     "0.5": "First alpha version with still some bugs but already fun!"
   }
-  <!-- See https://github.com/sysapps/runtime/pull/11 
-  ,
-  "data": {
-     myCustomAppData: ["x", "y", {"z": "foo"}]
-  }
-  -->
 }
 </pre>
       </section>
@@ -251,12 +259,7 @@ a:not(href){ color: red }
           </ol>
         </li>
         <li>Let <var>name</var> be the result of running the <a>steps for
-        processing the <code>name</code> member</a>:
-          <ol>
-            <li>If <var>name</var> is an error, treat this as an <a>invalid
-            manifest</a>.
-            </li>
-          </ol>
+        processing the <code>name</code> member</a>.
         </li>
         <li>Let <var>launch path</var> be the result of running the <a>steps
         for processing the <code>launch_path</code> member</a>:
@@ -1131,12 +1134,6 @@ a:not(href){ color: red }
               to interfaces that enable revocation of permissions.
             </p>
             <p>
-              As this specification relies on the standardized heuristics for
-              determining the content type of files defined in the [[!SNIFF]]
-              specification, implementers need to consider the security
-              considerations discussed in the [[!SNIFF]] specification.
-            </p>
-            <p>
               As this specification allows for the declaration of IRIs within
               certain members of a the application manifest, implementers need
               to consider the security considerations discussed in the [IRI]
@@ -1145,15 +1142,6 @@ a:not(href){ color: red }
               <abbr title="Internationalized domain name">IDNA</abbr> addresses
               found in the application manifest are strongly encouraged to
               follow the security advice given in [[!UTR36]].
-            </p>
-            <p>
-              In addition, user agents need to be careful about trusting path
-              components found in the manifest. Such path components might be
-              interpreted by operating systems as pointing at security critical
-              files outside the browsing environment proper, and naive
-              unpacking of zip packages into the file system might lead to
-              undesirable and security relevant effects, such as overwriting of
-              system files.
             </p>
           </dd>
           <dt>
