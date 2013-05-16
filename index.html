@@ -67,6 +67,7 @@ a:not(href){ color: red }
   <body>
     <section id='abstract'>
       <p>
+<<<<<<< HEAD
         This specification defines an <dfn>application manifest</dfn>, which is
         a JSON document that describes various aspects of a web application. A
         user agent can make use of an application manifest to, for example,
@@ -74,6 +75,11 @@ a:not(href){ color: red }
         of a Web application to the home screen of a device. This specification
         also defines the <code>appconfig</code> HTML attribute, which allows a
         document to be associated with an application manifest.
+=======
+        An <dfn>application manifest</dfn> is a JSON document that describes
+        various aspects of a web application. Some of these aspects are
+        presentational, while others aspects have security implications.
+>>>>>>> upstream/gh-pages
       </p>
     </section>
     <section id="sotd">
@@ -157,14 +163,14 @@ a:not(href){ color: red }
   },
   "developer": {
     "name": "Foo Corp.",
-    "url": "http://sysapps.org/example"
+    "url": "http://example.org/dev"
   },
   "appcache_path": "/cache.manifest",
   "locales": {
     "es": {
       "description": "¡Acción abierta emocionante del desarrollo del Web!",
       "developer": {
-        "url": "https://sysapps.org/example/es-ES"
+        "url": "https://example.org/dev/es-ES"
       }
     }
   },
@@ -1246,10 +1252,10 @@ a:not(href){ color: red }
             Person &amp; email address to contact for further information:
           </dt>
           <dd>
-            The <a href="http://www.w3.org/2012/sysapps/" rel="nofollow">System
-            Applications Working Group</a> can be contacted at <a href=
-            "http://lists.w3.org/Archives/Public/public-sysapps/" rel=
-            "nofollow">public-sysapps@w3.org</a>.
+            The <a href="http://www.w3.org/2008/webapps/" rel="nofollow">Web 
+            Applications (WebApps) Working Group</a> can be contacted at <a href=
+            "http://lists.w3.org/Archives/Public/public-webapps/" rel=
+            "nofollow">public-webapps@w3.org</a>.
           </dd>
           <dt>
             Intended usage:
@@ -1267,7 +1273,7 @@ a:not(href){ color: red }
             Author:
           </dt>
           <dd>
-            W3C's System Application Working Group.
+            W3C's Web Applications (WebApps) Working Group.
           </dd>
           <dt>
             Change controller:
