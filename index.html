@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>
-      Web Manifest 
+      Web Manifest
     </title>
     <script src="http://www.w3.org/Tools/respec/respec-w3c-common" class=
     "remove">
@@ -93,38 +93,144 @@ a:not(href){ color: red }
         specification: a <dfn>user agent</dfn>.
       </p>
     </section>
-    <section id="appconfig-attr">
+    <section id="linking">
       <h2>
-        The <code>appconfig</code> attribute
+        Linking to a manifest
       </h2>
       <p>
-        The <code>appconfig</code> attribute of the <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#the-html-element"><code>
-        html</code></a> element gives the address of the document's application
-        manifest, if there is one. If the attribute is present, the attribute's
-        value must be a valid non-empty URL potentially surrounded by spaces.
+        A [[!HTML]] <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>
+        link</code></a> element that has a <a>link type</a>
+        <code>manifest</code> associates a manifest with a document.
       </p>
       <p>
-        The <code>appconfig</code> attribute only has an effect during the
-        early stages of document load. Changing the attribute dynamically thus
-        has no effect (and thus, no DOM API is provided for this attribute).
+        In cases where more than one <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>
+        link</code></a> element with a <code>manifest</code> link type appears
+        in a <code>document</code>, the user agent MUST use the first inserted
+        link element and ignore all subsequent <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>
+        link</code></a> elements with a manifest link type (even if the first
+        element was in error).
       </p>
-      <p class="note">
-        Note: later <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#the-base-element"><code>
-        base</code></a> elements cannot affect the resolving of relative URLs
-        in appconfig attributes, as the attributes are processed before those
-        elements are seen.
+      <p>
+        Authoring requirement: In a [[HTML]] document, there must not be more
+        than one link element whose <a title="manifest link type">link type
+        contains <code>manifest</code></a>.
       </p>
+      <section>
+        <h3>
+          Link type
+        </h3>
+        <table border="1">
+          <tr>
+            <th rowspan="2">
+              Link type
+            </th>
+            <th colspan="2">
+              Effect on...
+            </th>
+            <th rowspan="2">
+              Brief description
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <code><a href="#the-link-element">link</a></code>
+            </th>
+            <th>
+              <code><a href="#the-a-element">a</a></code> and <code><a href=
+              "#the-area-element">area</a></code>
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <code title="rel-manifest">manifest</code>
+            </td><!-- second most used <link rel> value -->
+            <td>
+              <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+              title="external resource link">External Resource</a>
+            </td>
+            <td>
+              <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work//#hyperlink">Hyperlink</a>
+            </td>
+            <td>
+              Imports or links to an application manifest.
+            </td>
+          </tr>
+        </table>
+      </section>
+      <section>
+        <h3>
+          Link type "<code>manifest</code>"
+        </h3>
+        <p>
+          The <code>manifest</code> keyword can be used with a <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
+          link</a> element. This keyword creates an <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+          title="external resource link">external resource link</a>.
+        </p>
+        <p>
+          The default type for resources given by the <code>manifest</code>
+          keyword is the <a>media type for an application manifests</a>,
+          represented by the string
+          <code>application/webapp-manifest+json</code>.
+        </p>
+        <p>
+          The appropriate time to <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-obtain"
+          title="concept-link-obtain">obtain</a> the resource is when the
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+          title="external resource link">external resource link</a> is created
+          or when its element is <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#insert-an-element-into-a-document"
+          title="insert an element into a document">inserted into a
+          document</a>, whichever happens last. However, a user agents may opt
+          to delay <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-obtain"
+          title="concept-link-obtain">obtaining</a> a manifest until after the
+          document and its other resources have loaded (i.e., to not delay the
+          availabiltiy of content and scripts required by the
+          <code>document</code>).
+        </p>
+      </section>
       <section class="informative">
         <h3>
-          Example html document
+          Associating a document with a manifest
         </h3>
         <pre class="example highlight html">
 &lt;!doctype html&gt;
-&lt;html appconfig="/appinfo.json"&gt;
+&lt;html&gt;
 &lt;title&gt;My Awesome Application&lt;/title&gt;
+&lt;link rel="manifest" href="awesome.webapp"&gt;
 ...
+</pre>
+      </section>
+      <section class="informative">
+        <h3>
+          Linking to an external manifest
+        </h3>
+        <pre class="example highlight html">
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;title&gt;The Sports Store&lt;/title&gt;
+&lt;!-- install this app --&gt; 
+&lt;link rel="manifest" href="manifest.json"&gt;
+&lt;body&gt;
+&lt;h1&gt;The Sports Store&lt;/h1&gt;
+&lt;dl&gt;
+  &lt;dt&gt;Sporty App&lt;/dl&gt;
+  &lt;dd&gt;  
+    &lt;a href="http://example.com/cycling/manifest" 
+       rel="manifest"&gt;
+      Install Cycling App! 
+    &lt;/a&gt;
+  &lt;/dd&gt;
+&lt;/dl&gt;
 </pre>
       </section>
     </section>
