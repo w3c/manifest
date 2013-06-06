@@ -345,9 +345,10 @@ a:not(href){ color: red }
         by the following algorithm.
       </p>
       <ol>
-        <li>Let <var>text</var> be the result of running the <a>application
-        manifest download process</a>. If the process aborts, terminate this
-        algorithm.
+        <li>Let <var>text</var> be the result of <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-obtain"
+          title="concept-link-obtain">obtaining</a> the application manifest.
+          If the process aborts, terminate this algorithm.
         </li>
         <li>Let <var>manifest</var> be the result of invoking the <a href=
         "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">parse</a>
