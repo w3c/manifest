@@ -297,65 +297,6 @@ a:not(href){ color: red }
     </section>
     <section>
       <h2>
-        Fetching the application manifest
-      </h2>
-      <p>
-        When the user agent is required (by other parts of this specification)
-        to start the <dfn>application manifest download process</dfn> for an
-        absolute URL purported to identify an application manifest, the user
-        agent must run the steps below. These steps are always run
-        asynchronously, in parallel with the <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#event-loop">event
-        loop</a> <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#concept-task"
-        title="concept-task">tasks</a>.
-      </p>
-      <p class="note">
-        Note: This algorithm can be applied equally to manifests fetched from
-        HTTP/S or those derived over <cite>the app: URI scheme</cite>
-        [[APP-URI]].
-      </p>
-      <ol>
-        <li>Optionally, wait until the permission to start the <a>application
-        manifest download process</a> has been obtained from the user and until
-        the user agent is confident that the network is available. This could
-        include doing nothing until the user explicitly opts-in to downloading
-        the application manifest, or could involve prompting the user for
-        permission. The algorithm might never get past this point. (This step
-        is particularly intended to give user's the choice to "install" the web
-        application).
-        </li>
-        <li>Let <var>url</var> be a <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/multipage/urls.html#url">
-          URL</a> with character encoding [[!UTF-8]] that represents the
-          <a>application manifest</a>.
-        </li>
-        <li>
-          <em>Fetching the application manifest</em>: Let <var>response
-          body</var> be the <a href=
-          "http://xhr.spec.whatwg.org/#response-entity-body">response entity
-          body</a> resulting from asynchronously <a href=
-          "http://fetch.spec.whatwg.org/#legacy-fetch">fetching</a>
-          <var>url</var>. HTTP caching semantics should be honored for this
-          request.
-        </li>
-        <li>If <em>fetching the application manifest</em> fails due to a 404 or
-        410 response <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#concept-http-equivalent-codes"
-          title="concept-http-equivalent-codes">or equivalent</a>, then abort
-          the application manifest fetching process.
-        </li>
-        <li>Let <var>text</var> be the result of running <a href=
-        "http://encoding.spec.whatwg.org/#utf-8-decode">utf-8 decode</a> on the
-        byte stream <a href="http://xhr.spec.whatwg.org/#response-entity-body">
-          </a><var>response body</var>.
-        </li>
-        <li>Return <var>text</var>.
-        </li>
-      </ol>
-    </section>
-    <section>
-      <h2>
         Processing the application manifest
       </h2>
       <p id="ecmascript-abstractop">
