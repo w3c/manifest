@@ -253,6 +253,7 @@ a:not(href){ color: red }
         <pre class="example highlight">
 {
   "name": "The Example App",
+  "short_name": "Example",
   "description": "Exciting Open Web development action!",
   "launch_path": "/",
   "version": "1.0",
@@ -377,6 +378,9 @@ a:not(href){ color: red }
               </ol>
             </li>
           </ol>
+        </li>
+        <li>Let <var>short name</var> be the result of running the <a>steps for
+        processing the <code>short_name</code> member</a>.
         </li>
         <li>Let <var>name</var> be the result of running the <a>steps for
         processing the <code>name</code> member</a>.
@@ -570,6 +574,41 @@ a:not(href){ color: red }
       </section>
       <section>
         <h3>
+          <code title="">short_name</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-short-name"><code>short_name</code></dfn>
+          <a>localizable member</a> is a string that represents a condensed
+          name of the application that can be used in context where space is
+          constrained (e.g., underneath an icon on the home screen of a
+          device).
+        </p>
+        <p>
+          Authoring guidelines: Authors should only use a short name if it has
+          less characters than the value of the <code>name</code> member. Using
+          the <code>name</code> member is preferred over a short name.
+        </p>
+        <p>
+          The <dfn>steps for processing the short name member</dfn> is given by
+          the following algorithm. The algorithm takes an application manifest
+          as an argument and returns a string:
+        </p>
+        <ol>
+          <li>Let <var>key</var> be the string "<code>short_name</code>".
+          </li>
+          <li>Let <var>value</var> be the result of running the <a>steps for
+          retrieving a localizable member from the application manifest</a>,
+          with <var>key</var> as the member being sought.
+          </li>
+          <li>Let <var>result</var> be the result of calling
+          <a>ToString</a>(<var>value</var>).
+          </li>
+          <li>Return the <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
           <code title="">description</code> member
         </h3>
         <p>
@@ -587,7 +626,7 @@ a:not(href){ color: red }
         <ol>
           <li>Let <var>key</var> be the string "<code>description</code>".
           </li>
-          <li>Let result be <code>undefined</code>.
+          <li>Let <var>result</var> be <code>undefined</code>.
           </li>
           <li>Let <var>value</var> be the result of running the <a>steps for
           retrieving a localizable member from the application manifest</a>,
