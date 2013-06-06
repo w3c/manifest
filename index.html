@@ -279,7 +279,6 @@ a:not(href){ color: red }
     "min_width": "600",
     "min_height": "300"
   },
-  "required_features": ["touch", "geolocation", "webgl"],
   "permissions": {
     "contacts": {
       "description": "Required for auto-completion in the share screen",
@@ -870,20 +869,6 @@ a:not(href){ color: red }
       </section>
       <section>
         <h3>
-          <code title="">required_features</code> member
-        </h3>
-        <p>
-          The <dfn id="propdef-required_features">required_features</dfn>
-          member is an array that represents the feature set the application
-          needs in order to run correctly.
-        </p>
-        <p>
-          Standard features of the Web platform should not be on this list
-          (e.g., geolocation, webgl, etc.).
-        </p>
-      </section>
-      <section>
-        <h3>
           <code title="">fullscreen</code> member
         </h3>
         <p>
@@ -1220,12 +1205,14 @@ a:not(href){ color: red }
             </p>
             <p>
               The application manifest document allows authors, through the
-              permissions and required_features members, to request permission
-              to enable security sensitive APIs. As these APIs are outside the
-              scope of this specification, significant caution needs to be
-              taken when granting an application the capability to use a
-              feature. Features themselves define their own security
-              considerations.
+              permissions and <code>permissions</code> members, to request
+              permission to enable security sensitive APIs. As these APIs are
+              outside the scope of this specification, significant caution
+              needs to be taken when granting an application the capability to
+              use a feature. The relevant APIs define their own security
+              considerations (see the <a href=
+              "http://www.w3.org/2012/sysapps/#roadmap">System Applications
+              Working Group's APIs</a>).
             </p>
             <p>
               Web applications will generally contain ECMAscript, HTML, CSS
