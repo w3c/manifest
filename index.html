@@ -545,6 +545,10 @@ a:not(href){ color: red }
           application or packaged application, that is used, for example, in an
           application menu or in other contexts.
         </p>
+        <p>
+          Authoring requirement: it is strongly recommended that authors
+          inlcude a name for the application in at the root of the manifest.
+        </p>
         <p class="note">
           Note: The <code>name</code> member needs to be present in the
           application manifest for the user agent to treat an application
@@ -561,6 +565,11 @@ a:not(href){ color: red }
           <li>Let <var>value</var> be the result of running the <a>steps for
           retrieving a localizable member from the application manifest</a>,
           with <var>key</var> as the member being sought.
+          </li>
+          <li>Optionally, if <var>value</var> is null or undefined, then let
+          value be an implementation specific string that can serve as a
+          suitable name for the application. For example, if the manifest was
+          obtained from link element, then the document's title could be used.
           </li>
           <li>Let <var>result</var> be the result of calling
           <a>ToString</a>(<var>value</var>).
