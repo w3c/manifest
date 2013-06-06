@@ -234,7 +234,7 @@ a:not(href){ color: red }
 </pre>
       </section>
     </section>
-    <section>
+  <section>
       <h2>
         Application Manifest
       </h2>
@@ -570,9 +570,10 @@ a:not(href){ color: red }
           with <var>key</var> as the member being sought.
           </li>
           <li>Optionally, if <var>value</var> is null or undefined, then let
-          value be an implementation specific string that can serve as a
-          suitable name for the application. For example, if the manifest was
-          obtained from link element, then the document's title could be used.
+          <var>value</var> be an implementation specific string that can serve
+          as a suitable name for the application. For example, if the manifest
+          was obtained from link element, then the document's title could be
+          used or the user could be prompted to provide a custom name.
           </li>
           <li>Let <var>result</var> be the result of calling
           <a>ToString</a>(<var>value</var>).
@@ -1204,7 +1205,7 @@ a:not(href){ color: red }
         </p>
         <p>
           If the protocol over which the application manifest is transferred
-          supports the [[!MIME]] specification (e.g. [[!HTTP11]]), it is
+          supports the [[!MIME-TYPES]] specification (e.g. [[!HTTP11]]), it is
           RECOMMENDED that the application manifest be labeled with the
           <a>media type for an application manifests</a>.
         </p>
@@ -1245,8 +1246,8 @@ a:not(href){ color: red }
           <dd>
             <p>
               As the application manifest format is JSON and will commonly be
-              encoded using [[!Unicode]], the security considerations described
-              in [[!JSON]] and [[!UTR36]] apply. In addition, implementers need
+              encoded using [[!UNICODE]], the security considerations described
+              in [[!JSON]] and [[!UNICODE-SECURITY]] apply. In addition, implementers need
               to impose their own implementation-specific limits on the values
               of otherwise unconstrained member types, e.g. to prevent denial
               of service attacks, to guard against running out of memory, or to
@@ -1291,7 +1292,7 @@ a:not(href){ color: red }
               "Internationalized Resource Identifiers">IRIs</abbr> and
               <abbr title="Internationalized domain name">IDNA</abbr> addresses
               found in the application manifest are strongly encouraged to
-              follow the security advice given in [[!UTR36]].
+              follow the security advice given in [[!UNICODE-SECURITY]].
             </p>
           </dd>
           <dt>
