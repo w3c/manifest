@@ -276,10 +276,6 @@ a:not(href){ color: red }
     }
   },
   "default_locale": "en",
-  "screen_size": {
-    "min_width": "600",
-    "min_height": "300"
-  },
   "permissions": {
     "contacts": {
       "description": "Required for auto-completion in the share screen",
@@ -888,24 +884,6 @@ a:not(href){ color: red }
       </p>
     </section>
     -->
-      <section>
-        <h3>
-          <code title="">screen_size</code> member
-        </h3>
-        <p>
-          The <dfn id="propdef-screen_size">screen_size</dfn> member is a
-          <a>screen sizes object</a> that represents the minimum visual
-          dimensions (in <a href=
-          "http://www.w3.org/TR/2008/REC-CSS2-20080411/syndata.html#length-units">
-          CSS pixels</a> [[!CSS21]]) the application needs to render correctly.
-        </p>
-        <p class="issue">
-          ISSUE: This should probably be dropped. If a user zooms in, or even
-          if the screen is too small, then this won't really help. This is also
-          meaningless when the application is full screen. Also, this needs to
-          play with @viewport and meta viewport.
-        </p>
-      </section>
       <section>
         <h3>
           <code title="">fullscreen</code> member
