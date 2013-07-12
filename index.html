@@ -778,14 +778,7 @@ a:not(href){ color: red }
           <a>localized-data object</a> represents the localized data of the
           application manifest.
         </p>
-      </section><!-- Commented because it is a controversial feature.
-          <li><dfn id=
-          "propdef-installs_allowed_from">installs_allowed_from</dfn>: An array
-          of origins that are allowed to trigger installation of this
-          application. This field allows the developer to restrict installation
-          of their application to specific sites. If the value is omitted,
-          installs are allowed from any site.</li>
--->
+      </section>
       <section>
         <h3>
           <code>appcache_path</code> member
@@ -869,25 +862,6 @@ a:not(href){ color: red }
           </li>
         </ol>
       </section>
-      <!-- Attempt to address "The spec should discourage people from extending the manifest format." 
-         https://github.com/sysapps/runtime/pull/11
-    
-    <section>
-      <h3>
-        <code>data</code> member
-      </h3>
-      <p>
-        The <dfn><code>data</code></dfn> member represents any additional data
-        that the developer might want to provide for their application. The
-        value is any valid JSON data structure or type. This member is not used
-        in configuring the application, hence no processing rules are defined.
-      </p>
-      <p>
-        Developers can access the value of this member through the Application
-        interface.
-      </p>
-    </section>
-    -->
       <section>
         <h3>
           <code title="">screen_size</code> member
@@ -952,62 +926,6 @@ a:not(href){ color: red }
           permissions that the application requires to function.
         </p>
       </section>
-      <!-- Commented because it should go to the Web Intents/Web Activities spec.
-          <li><dfn id="propdef-activities">activities</dfn>: This value specifies
-          a set of
-          <a href="https://wiki.mozilla.org/WebAPI/WebActivities">WebActivities</a>
-          that this app supports. Each property in this value is a discrete
-          activity whose name matches the property name. Activity names are
-          free-form text, and each activity is represented by an object. This
-          object MUST contain the following property:
-
-          <ul>
-            <li><dfn id="propdef-activities-href">href</dfn>: When another app
-            or web page initiates an activity that is supported by this app, if
-            this app is chosen to perform the activity, this page will be opened
-            in the manner specified by the <dfn>disposition</dfn> property. The
-            manner in which a particular app is chosen to perform an activity is
-            out of scope for this specification.</li>
-          </ul>
-
-          An activity object MAY also contain the following properties:
-
-          <ul>
-            <li><dfn id="propdef-activites-disposition">disposition</dfn>: This
-            value specifies how the page specified in <dfn>href</dfn> is presented
-            when an activity is invoked. The value, if specified, MUST be one of
-            the following (if omitted, defaults to <dfn>window</dfn>):
-              <ul>
-                <li><dfn id="propdef-activities-disposition-window">window</dfn>:
-                The page handling the activity is opened in a new "window" (on a
-                mobile device, for example, this view will replace the original
-                app that requested the activity). The page MUST call
-                <code>navigator.setMessageHandler</code> for each activity it
-                supports and subsequently execute the activity for which it
-                receives a message. Further, if the activity requires a return
-                value, the page MUST call <code>activity.postResult</code> or
-                <code>activity.postError</code> (where <code>activity</code> is
-                the first argument provided to the function specified by
-                <code>setMessageHandler</code>) as appropriate. These functions
-                are specified in greater details in the WebActivities
-                document.</li>
-
-                <li><dfn id="propdef-activities-disposition-inline">inline</dfn>:
-                The page handling the activity will open in an overlay (on a
-                mobile device, for example, this will be rendered in a popup over
-                the original app that requested the activity). Subsequent behavior
-                is exactly the same as if the disposition were
-                <dfn>window</dfn>.</li>
-              </ul>
-
-            <li><dfn id="propdef-activities-filters">filters</dfn>:
-            <i>OPTIONAL</i>. This value is a dictionary, each property of which
-            specified a particular filter. These filters will be applied while
-            determining apps suitable for handling a given activity. Filter names
-            are free-form text, but their values MUST be either a string or an
-            array of strings (the exact type depends on the filter).</li>
-          </ul>
--->
       <section>
         <h2>
           Release notes object and its members
