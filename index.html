@@ -247,51 +247,34 @@ a:not(href){ color: red }
         </p>
         <pre class="example highlight">
 {
-    "name": "The Example App",
-    "short_name": "Example",
-    "description": "Exciting Open Web development action!",
-    "launch_path": "/",
-    "version": "1.0",
-    "icons": [{
-        "src": "icon/lowres",
-        "density": "1",
-        "width": "64",
-        "height": "64",
-        "type": "image/webp"
-    }, {
-        "src": "icon/hd",
-        "density": "2",
-        "width": "64",
-        "height": "64"
-    }],
-    "developer": {
-        "name": "Foo Corp.",
-        "url": "http://example.org/dev"
-    },
-    "appcache_path": "/cache.manifest",
-    "locales": {
-        "es": {
-            "description": "¡Acción abierta emocionante del desarrollo del Web!",
-            "developer": {
-                "url": "https://example.org/dev/es-ES"
-            }
-        }
-    },
-    "default_locale": "en",
-    "screen_size": {
-        "min_width": "600",
-        "min_height": "300"
-    },
-    "permissions": {
-        "contacts": {
-            "description": "Required for auto-completion in the share screen",
-            "access": "read"
-        }
-    },
-    "fullscreen": "true",
-    "release_notes": {
-        "1.0": "Bugs fixed. New exciting effects. Ready for an official release!",
-        "0.5": "First alpha version with still some bugs but already fun!"
+  "name": "The Example App",
+  "short_name": "Example",
+  "description": "Exciting Open Web development action!",
+  "launch_path": "/",
+  "version": "1.0",
+  "icons": {
+    "16": "/img/icon_16.png",
+    "48": "/img/icon_48.png",
+    "128": "/img/icon_128.png"
+  },
+  "developer": {
+    "name": "Foo Corp.",
+    "url": "http://example.org/dev"
+  },
+  "appcache_path": "/cache.manifest",
+  "locales": {
+    "es": {
+      "description": "¡Acción abierta emocionante del desarrollo del Web!",
+      "developer": {
+        "url": "https://example.org/dev/es-ES"
+      }
+    }
+  },
+  "default_locale": "en",
+  "permissions": {
+    "contacts": {
+      "description": "Required for auto-completion in the share screen",
+      "access": "read"
     }
 }
 </pre>
@@ -874,24 +857,6 @@ a:not(href){ color: red }
           <li>Return the <var>result</var>.
           </li>
         </ol>
-      </section>
-      <section>
-        <h3>
-          <code title="">screen_size</code> member
-        </h3>
-        <p>
-          The <dfn id="propdef-screen_size">screen_size</dfn> member is a
-          <a>screen sizes object</a> that represents the minimum visual
-          dimensions (in <a href=
-          "http://www.w3.org/TR/2008/REC-CSS2-20080411/syndata.html#length-units">
-          CSS pixels</a> [[!CSS21]]) the application needs to render correctly.
-        </p>
-        <p class="issue">
-          ISSUE: This should probably be dropped. If a user zooms in, or even
-          if the screen is too small, then this won't really help. This is also
-          meaningless when the application is full screen. Also, this needs to
-          play with @viewport and meta viewport.
-        </p>
       </section>
       <section>
         <h3>
