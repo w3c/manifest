@@ -10,24 +10,20 @@
 </script>
     <script class='remove'>
 var respecConfig = {
-    specStatus: "ED",
+    specStatus: "WD",
     shortName: "manifest",
-    edDraftURI: "http://www.w3.org/2012/sysapps/manifest/",
+    edDraftURI: "http://www.w3.org/2008/webapps/manifest/",
     editors: [{
             name: "Marcos Caceres",
             company: "Mozilla Corporation",
             companyURL: "http://mozilla.com"
         }
     ],
-    inlineCSS: true,
-    noIDLIn: true,
-    noLegacyStyle: false,
-    extraCSS: ["../ReSpec.js/css/respec.css"],
-    wg: "System Applications Working Group",
-    wgURI: "http://www.w3.org/2012/sysapps/",
-    wgPublicList: "public-sysapps",
-    wgPatentURI: "http://www.w3.org/2004/01/pp-impl/58119/status",
-    otherLinks: [{
+    wg: "Web Applications (WebApps) Working Group",
+    wgURI: "http://www.w3.org/2008/webapps/",
+    wgPublicList: "public-webapps",
+    wgPatentURI: "http://www.w3.org/2004/01/pp-impl/42538/status",
+		otherLinks: [{
             key: "Repository",
             data: [{
                     value: "We are on Github.",
@@ -42,14 +38,6 @@ var respecConfig = {
             ]
         }
     ],
-    inlineCSS: true,
-    noIDLIn: true,
-    noLegacyStyle: false,
-    extraCSS: ["../ReSpec.js/css/respec.css"],
-    wg: "Web Applications (WebApps) Working Group",
-    wgURI: "http://www.w3.org/2008/webapps/",
-    wgPublicList: "public-webapps",
-    wgPatentURI: "http://www.w3.org/2004/01/pp-impl/42538/status"
     };
     </script>
     <style class='remove'>
@@ -264,7 +252,7 @@ a:not(href){ color: red }
   "appcache_path": "/cache.manifest",
   "locales": {
     "es": {
-      "description": "¡Acción abierta emocionante del desarrollo del Web!",
+      "description": "¡Emocionante desarrollo Open Web en acción!",
       "developer": {
         "url": "https://example.org/dev/es-ES"
       }
@@ -479,7 +467,7 @@ a:not(href){ color: red }
           application manifest</dfn> are given by the following algorithm. The
           algorithm prioritizes returning the localized version of a member
           over one where the locale is unknown. The algorithm returns either a
-          value from the namifest or <code>undefined</code>.
+          value from the manifest or <code>undefined</code>.
         </p>
         <ol>
           <li>Let <var>manifest</var> be the JSON-parsed object representation
@@ -502,12 +490,8 @@ a:not(href){ color: red }
           <var>locales list</var> in order:
             <ol>
               <li>If the "<code>locales</code>" property has a property whose
-              identifier matches <var>range</var>, then:
-                <ol>
-                  <li>if return the value of the matching property and
-                  terminate this algorithm.
-                  </li>
-                </ol>
+              identifier matches <var>range</var>, then return the value of
+              the matching property and terminate this algorithm.
               </li>
               <li>Otherwise, if the "<code>locales</code>" property has a
               property whose identifier matches the <var>default app
@@ -516,8 +500,8 @@ a:not(href){ color: red }
               </li>
             </ol>
           </li>
-          <li>If the application manifest<a>root</a> has its own property named
-          <var>prop</var>, return the value of the property.
+          <li>If the application manifest <a>root</a> has its own property
+          named <var>prop</var>, return the value of the property.
           </li>
           <li>Return <code>undefined</code>.
           </li>
@@ -705,9 +689,9 @@ a:not(href){ color: red }
           <code>launch_path</code> member
         </h3>
         <p>
-          The <dfn id="propdef-launch_path">launch_path</dfn> localizable
-          member is a <a>relative URL</a> that represents a resource within the
-          <a>origin of the application</a> that is <a href=
+          The <dfn id="propdef-launch_path">launch_path</dfn> <a>localizable
+          member</a> is a <a>relative URL</a> that represents a resource
+          within the <a>origin of the application</a> that is <a href=
           "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
           loaded</a> when the application is <a>launched</a>.
         </p>
@@ -1207,7 +1191,7 @@ a:not(href){ color: red }
             </p>
             <p>
               As this specification allows for the declaration of IRIs within
-              certain members of a the application manifest, implementers need
+              certain members of the application manifest, implementers need
               to consider the security considerations discussed in the [IRI]
               specification. Implementations intending to display <abbr title=
               "Internationalized Resource Identifiers">IRIs</abbr> and
