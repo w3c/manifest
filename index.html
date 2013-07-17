@@ -12,12 +12,7 @@
 var respecConfig = {
     specStatus: "ED",
     shortName: "manifest",
-    //publishDate:  "2012-12-12",
-    //previousPublishDate:  "",
     edDraftURI: "http://www.w3.org/2012/sysapps/manifest/",
-    // lcEnd: "3000-01-01",
-    // crEnd: "3000-01-01",
-
     editors: [{
             name: "Marcos Caceres",
             company: "Mozilla Corporation",
@@ -252,45 +247,52 @@ a:not(href){ color: red }
         </p>
         <pre class="example highlight">
 {
-  "name": "The Example App",
-  "short_name": "Example",
-  "description": "Exciting Open Web development action!",
-  "launch_path": "/",
-  "version": "1.0",
-  "icons": {
-    "16": "/img/icon_16.png",
-    "48": "/img/icon_48.png",
-    "128": "/img/icon_128.png"
-  },
-  "developer": {
-    "name": "Foo Corp.",
-    "url": "http://example.org/dev"
-  },
-  "appcache_path": "/cache.manifest",
-  "locales": {
-    "es": {
-      "description": "¡Acción abierta emocionante del desarrollo del Web!",
-      "developer": {
-        "url": "https://example.org/dev/es-ES"
-      }
+    "name": "The Example App",
+    "short_name": "Example",
+    "description": "Exciting Open Web development action!",
+    "launch_path": "/",
+    "version": "1.0",
+    "icons": [{
+        "src": "icon/lowres",
+        "density": "1",
+        "width": "64",
+        "height": "64",
+        "type": "image/webp"
+    }, {
+        "src": "icon/hd",
+        "density": "2",
+        "width": "64",
+        "height": "64"
+    }],
+    "developer": {
+        "name": "Foo Corp.",
+        "url": "http://example.org/dev"
+    },
+    "appcache_path": "/cache.manifest",
+    "locales": {
+        "es": {
+            "description": "¡Acción abierta emocionante del desarrollo del Web!",
+            "developer": {
+                "url": "https://example.org/dev/es-ES"
+            }
+        }
+    },
+    "default_locale": "en",
+    "screen_size": {
+        "min_width": "600",
+        "min_height": "300"
+    },
+    "permissions": {
+        "contacts": {
+            "description": "Required for auto-completion in the share screen",
+            "access": "read"
+        }
+    },
+    "fullscreen": "true",
+    "release_notes": {
+        "1.0": "Bugs fixed. New exciting effects. Ready for an official release!",
+        "0.5": "First alpha version with still some bugs but already fun!"
     }
-  },
-  "default_locale": "en",
-  "screen_size": {
-    "min_width": "600",
-    "min_height": "300"
-  },
-  "permissions": {
-    "contacts": {
-      "description": "Required for auto-completion in the share screen",
-      "access": "read"
-    }
-  },
-  "fullscreen": "true",
-  "release_notes": {
-    "1.0": "Bugs fixed. New exciting effects. Ready for an official release!",
-    "0.5": "First alpha version with still some bugs but already fun!"
-  }
 }
 </pre>
       </section>
@@ -345,9 +347,10 @@ a:not(href){ color: red }
         by the following algorithm.
       </p>
       <ol>
-        <li>Let <var>text</var> be the result of running the <a>application
-        manifest download process</a>. If the process aborts, terminate this
-        algorithm.
+        <li>Let <var>text</var> be the result of <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-obtain"
+          title="concept-link-obtain">obtaining</a> the application manifest.
+          If the process aborts, terminate this algorithm.
         </li>
         <li>Let <var>manifest</var> be the result of invoking the <a href=
         "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">parse</a>
@@ -547,6 +550,10 @@ a:not(href){ color: red }
           application or packaged application, that is used, for example, in an
           application menu or in other contexts.
         </p>
+        <p>
+          Authoring requirement: it is strongly recommended that authors
+          inlcude a name for the application in at the root of the manifest.
+        </p>
         <p class="note">
           Note: The <code>name</code> member needs to be present in the
           application manifest for the user agent to treat an application
@@ -563,6 +570,12 @@ a:not(href){ color: red }
           <li>Let <var>value</var> be the result of running the <a>steps for
           retrieving a localizable member from the application manifest</a>,
           with <var>key</var> as the member being sought.
+          </li>
+          <li>Optionally, if <var>value</var> is null or undefined, then let
+          <var>value</var> be an implementation specific string that can serve
+          as a suitable name for the application. For example, if the manifest
+          was obtained from link element, then the document's title could be
+          used or the user could be prompted to provide a custom name.
           </li>
           <li>Let <var>result</var> be the result of calling
           <a>ToString</a>(<var>value</var>).
@@ -721,7 +734,7 @@ a:not(href){ color: red }
           returns either a string, and error, or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>result</var> be <code>undefined.</code>
+          <li>Let <var>result</var> be <code>undefined</code>.
           </li>
           <li>Let <var>key</var> be the string "<code>launch_path</code>".
           </li>
@@ -755,7 +768,7 @@ a:not(href){ color: red }
         </h3>
         <p>
           The <dfn id="propdef-icons">icons</dfn> <a>localizable member</a> is
-          a <a>icons object</a> that represents a set of icons that the
+          a list of <a>icon objects</a> that represents a set of icons that the
           application can make use.
         </p>
       </section>
@@ -802,7 +815,7 @@ a:not(href){ color: red }
           returns either a string, and error, or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>result</var> be <code>undefined.</code>
+          <li>Let <var>result</var> be <code>undefined</code>.
           </li>
           <li>Let <var>key</var> be the string "<code>appcache_path</code>".
           </li>
@@ -1080,16 +1093,51 @@ a:not(href){ color: red }
       </section>
       <section>
         <h2>
-          icons object and its members
+          Icon object and its members
         </h2>
         <p>
-          The <dfn>icons object</dfn> is an object that represents the icons
-          suitable for various dimensions.
+          Each <dfn>icons object</dfn> represents an icon for an application
+          suitable to use at some dimensions and screen density.
         </p>
-        <p>
-          Paths beginning with "<code>/</code>" are treated as relative to the
-          origin of the app.
-        </p>
+        <section>
+          <h3>
+            width member
+          </h3>
+          <p>
+            A numeric value that represents the width of the icon in CSS pixels.
+          </p>
+        </section>
+        <section>
+          <h3>
+            height member
+          </h3>
+          <p>
+            A numeric value that represents the height of the icon in CSS pixels.
+          </p>
+        </section>
+        <section>
+          <h3>
+            density member
+          </h3>
+          <p>
+            The preferred pixel density, given as real number, for which this
+            icon was designed to be shown.
+          </p>
+        </section>
+        <section>
+          <h3>
+            src member
+          </h3>
+          <p>A URL that is the address of the resource.</p>
+        </section>
+        <section>
+          <h3>
+            type member
+          </h3>
+          <p>
+            The MIME media type of resource the src member refers to. 
+          </p>
+        </section>
       </section>
       <section>
         <h2>
@@ -1161,7 +1209,7 @@ a:not(href){ color: red }
             </li>
             <li>Let <var>result</var> be <code>undefined</code>.
             </li>
-            <li>If Type(O) is "Object"
+            <li>If Type(O) is "Object".
             </li>
             <li>Set <var>result</var> be the result of calling
             <a>ToString</a>(<var>value</var>).
@@ -1194,7 +1242,7 @@ a:not(href){ color: red }
         </p>
         <p>
           If the protocol over which the application manifest is transferred
-          supports the [[!MIME]] specification (e.g. [[!HTTP11]]), it is
+          supports the [[!MIME-TYPES]] specification (e.g. [[!HTTP11]]), it is
           RECOMMENDED that the application manifest be labeled with the
           <a>media type for an application manifests</a>.
         </p>
@@ -1235,12 +1283,13 @@ a:not(href){ color: red }
           <dd>
             <p>
               As the application manifest format is JSON and will commonly be
-              encoded using [[!Unicode]], the security considerations described
-              in [[!JSON]] and [[!UTR36]] apply. In addition, implementers need
-              to impose their own implementation-specific limits on the values
-              of otherwise unconstrained member types, e.g. to prevent denial
-              of service attacks, to guard against running out of memory, or to
-              work around platform-specific limitations.
+              encoded using [[!UNICODE]], the security considerations described
+              in [[!JSON]] and [[!UNICODE-SECURITY]] apply. In addition,
+              implementers need to impose their own implementation-specific
+              limits on the values of otherwise unconstrained member types,
+              e.g. to prevent denial of service attacks, to guard against
+              running out of memory, or to work around platform-specific
+              limitations.
             </p>
             <p>
               The application manifest document allows authors, through the
@@ -1281,7 +1330,7 @@ a:not(href){ color: red }
               "Internationalized Resource Identifiers">IRIs</abbr> and
               <abbr title="Internationalized domain name">IDNA</abbr> addresses
               found in the application manifest are strongly encouraged to
-              follow the security advice given in [[!UTR36]].
+              follow the security advice given in [[!UNICODE-SECURITY]].
             </p>
           </dd>
           <dt>
