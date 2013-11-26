@@ -3,60 +3,37 @@
   <head>
     <meta charset="utf-8">
     <title>
-      Web Manifest
+      Manifest for web apps and bookmarks
     </title>
     <script src="http://www.w3.org/Tools/respec/respec-w3c-common" class=
     "remove">
 </script>
-    <script class='remove'>
-var respecConfig = {
-    specStatus: "WD",
-    shortName: "manifest",
-    edDraftURI: "http://www.w3.org/2008/webapps/manifest/",
-    editors: [{
-            name: "Marcos Caceres",
-            company: "Mozilla Corporation",
-            companyURL: "http://mozilla.com"
-        }
-    ],
-    wg: "Web Applications (WebApps) Working Group",
-    wgURI: "http://www.w3.org/2008/webapps/",
-    wgPublicList: "public-webapps",
-    wgPatentURI: "http://www.w3.org/2004/01/pp-impl/42538/status",
-		otherLinks: [{
-            key: "Repository",
-            data: [{
-                    value: "We are on Github.",
-                    href: "https://github.com/sysapps/manifest"
-                }, {
-                    value: "File a bug.",
-                    href: "https://github.com/sysapps/manifest/issues"
-                }, {
-                    value: "Commit history.",
-                    href: "https://github.com/sysapps/manifest/commits/gh-pages"
-                }
-            ]
-        }
-    ],
-    };
-    </script>
-    <style class='remove'>
-a:not(href){ color: red }
-    li{
-        padding: .5em 0;
-    }
-    </style>
+    <script src="respecConfig.js" class='remove'>
+</script>
   </head>
   <body>
     <section id='abstract'>
       <p>
-        This specification defines an <dfn>application manifest</dfn>, which is
-        a JSON document that describes various aspects of a web application. A
-        user agent can make use of an application manifest to, for example,
-        provide enhanced bookmarking capabilities like adding the name and icon
-        of a Web application to the home screen of a device. This specification
-        also defines the <code>appconfig</code> HTML attribute, which allows a
-        document to be associated with an application manifest.
+        This specification defines a <em>manifest</em>, which provides
+        developers with a centralized place to put metadata about a web
+        application. This includes, amongst other things, the ability to
+        specify the name of the web application, links to icons, as well as the
+        preferred URL at which the web application should open when it is
+        launched by the user.
+      </p>
+      <p>
+        With this metadata, user agents can provide, for example, enhanced
+        bookmarking capabilities such as being able to add a web application to
+        the homescreen of a device - as well as the various icons needed to
+        effectively integrate with an OS's task switcher and system
+        preferences. The specification also defines an API to enable
+        bookmarking from within a document, as well as a means to check if an
+        application is running in a special mode called "standalone".
+      </p>
+      <p>
+        This specification also defines the <code>manifest</code> link type,
+        which provides a declarative means for a web document to be associated
+        with a manifest.
       </p>
     </section>
     <section id="sotd">
@@ -66,45 +43,611 @@ a:not(href){ color: red }
         likely to find the specification changing out from under them in
         incompatible ways.</strong> Vendors interested in implementing this
         specification before it eventually reaches the Candidate Recommendation
-        stage should join the aforementioned mailing lists and take part in the
+        phase should join the aforementioned mailing lists and take part in the
         discussions.
       </p>
     </section>
-    <section id="conformance">
-      <p>
-        There is only one class of product that can claim conformance to this
-        specification: a <dfn>user agent</dfn>.
-      </p>
-    </section>
-    <section id="linking">
+    <section>
       <h2>
-        Linking to a manifest
+        Usage Examples
       </h2>
       <p>
-        A [[!HTML]] <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>
-        link</code></a> element that has a <a>link type</a>
-        <code>manifest</code> associates a manifest with a document.
+        This section shows how the expected usage of the various features
+        provided by this specification.
+      </p>
+      <section class="informative">
+        <h3>
+          Example manifest
+        </h3>
+        <p>
+          The following shows a typical <a>manifest</a>.
+        </p>
+        <pre class="example highlight json" title="typical manfest">
+{
+  "name": "Example",
+  "altname": "The Example App 2.0",
+  "orientation": "landscape",
+  "url": "/start.html",
+  "mode": "standalone",
+  "icons": [{
+      "src": "icon/lowres",
+      "density": "1",
+      "width": "64",
+      "type": "image/webp"
+    }, {
+      "src": "icon/hd",
+      "density": "2",
+      "width": "64"
+  }]
+}
+</pre>
+      </section>
+      <section>
+        <h3>
+          Example of linking to manifest
+        </h3>
+        <p>
+          Example of using a <code>link</code> element to associate a website
+          with a manifest. The example also shows how HTML fallbacks, such as
+          "<span class="example highlight html">application-name</span>", can
+          be used to support legacy user agents that don't implement this
+          specification.
+        </p>
+        <pre class="example highlight html" title="linking to a manifest">
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;The Best News - international&lt;/title&gt;
+
+&lt;!-- link to bookmark metadata --&gt;
+&lt;link rel="manifest" href="add_to_homescreen.json"&gt;
+
+&lt;!-- fallback metadata for legacy browsers --&gt;
+&lt;meta name="application-name" content="Best News!"&gt;
+&lt;link rel="shortcut icon" src="favicon.ico"&gt;
+&lt;/head&gt;
+...
+</pre>
+      </section>
+      <section>
+        <h3>
+          Example of using the API
+        </h3>
+        <p>
+          Check if the application is running in <a>standalone</a> mode.
+        </p>
+        <pre class="example highlight html" title="detecting standalone mode">
+&lt;script&gt;
+if("standalone" in navigator &amp;&amp; navigator.standalone){
+   //Do standalone specific stuff...
+   document.documentElement.classList.add("standalone");
+}
+&lt;/script&gt;
+</pre>
+      </section>
+      <section>
+        <h3>
+          Request adding to homescreen
+        </h3>
+        <p>
+          Let the user bookmark the application through clicking a button.
+        </p>
+        <pre class="example highlight html" title=
+        "requesting to bookmark a web app">
+&lt;script&gt;
+var installButton = document.querySelector("#install");
+
+//Bookmarking only works if initiated by user interaction
+installButton.addEventListener("click", function(e){
+   navigator.requestBookmark("path/to/bookmark.json")
+   .then(thankUser, stopBuggingUser);
+});
+&lt;/script&gt;
+
+&lt;button id="install"&gt;
+  Bookmark &lt;b&gt;Awesome App!&lt;/b&gt;
+&lt;/button&gt;
+</pre>
+      </section>
+    </section>
+    <section>
+      <h2>
+        Use cases and requirements
+      </h2>
+      <p>
+        This document attempts to address the <cite><a href=
+        "http://w3c-webmob.github.io/installable-webapps/">Use Cases and
+        Requirements for Installable Web Apps</a></cite>.
+      </p>
+    </section>
+    <section>
+      <h2>
+        manifest
+      </h2>
+      <p>
+        A <dfn>manifest</dfn> is a [[!JSON]] document that consists of a
+        top-level object that can contain zero or more members, some of which
+        contain other objects. Each of the members, as well as how their values
+        are processes, are defined below.
+      </p>
+      <p id="ecmascript-abstractop">
+        Algorithms in this specification use the conventions described in
+        [[!ECMASCRIPT]], such as the use of steps and sub-steps, and so on. The
+        <a class="external" href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-parsefloat-string">
+        <dfn>parseFloat</dfn></a> method, <a class="external" href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tostring"><dfn>
+        ToString</dfn></a>, <a href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-hasownproperty">
+        <dfn>HasOwnProperty</dfn></a>, <dfn>[[\GetOwnProperty]]</dfn>, and
+        <a href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-toboolean"><dfn>
+        ToBoolean</dfn></a> abstract operations, and the <a class="external"
+        href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
+        <dfn>Type</dfn>(<var>x</var>)</a> notation referenced in this section
+        are defined in [[!ECMASCRIPT]]. Processing also relies on various
+        algorithms defined in [[!HTML]], [[!FETCH]], and [[!URL]].
       </p>
       <p>
-        In cases where more than one <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>
-        link</code></a> element with a <code>manifest</code> link type appears
-        in a <code>document</code>, the user agent MUST use the first inserted
-        link element and ignore all subsequent <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>
-        link</code></a> elements with a <code>manifest</code> link type (even
-        if the first element was in error).
+        As the manifest format is a [[!JSON]] document, this specification
+        relies on the types defined in [[!JSON]] specification: namely <dfn id=
+        "json-object">object</dfn>, <dfn id="json-array">array</dfn>, <dfn id=
+        "json-number">number</dfn>, and <dfn id="json-string">string</dfn>.
+        Strict type checking is not enforced by this specification. Instead,
+        each member's definition specifies the steps required to process a
+        particular member.
       </p>
       <p>
-        Authoring requirement: In a [[HTML]] document, there must not be more
-        than one link element whose <a title="manifest link type">link type
-        contains <code>manifest</code></a>.
+        When an algorithm asks the user agent to <dfn>issue a developer
+        warning</dfn>, the user agent MAY report the conformance violation to
+        the developer in a user-agent-specific manner (e.g., show the problem
+        in the error console), or MAY ignore the error and do nothing
+      </p>
+      <p>
+        In the algorithms, to <dfn>ignore</dfn> means that the user agent MUST
+        act as if the developer had not declared the particular member in the
+        manifest document.
       </p>
       <section>
         <h3>
-          Link type
+          <code title="">name</code> and <code>altname</code> member
         </h3>
+        <p>
+          The <dfn id="member-name"><code>name</code></dfn> is a string that
+          represents the name of the application as is usually displayed to the
+          user (e.g., amongst a list of other applications, or as a label
+          underneath an icon).
+        </p>
+        <p>
+          The <dfn id="member-alt-name"><code>altname</code></dfn> is a string
+          that represents an alternative name of the application, such as the
+          name under which the application is sold or marketed.
+        </p>
+        <p>
+          The <dfn>steps for processing the names of an application</dfn> is
+          given by the following algorithm. The algorithm takes a
+          <var>manifest</var>, and a key (either, "altname" or "name"), as an
+          argument. It returns either <code>undefined</code>, a string, or an
+          error.
+        </p>
+        <ol>
+          <li>If <a>HasOwnProperty</a>(<var>manifest</var>, <var>key</var>)
+          returns <code>false</code>, then return <code>undefined</code>.
+          </li>
+          <li>Let <var>value</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>manifest</var> with
+          argument <var>key</var>.
+          </li>
+          <li>If Type(<var>value</var>) is not "string", return an error.
+          </li>
+          <li>
+            <a href=
+            "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
+            Strip leading and trailing whitespace</a> from <var>result</var>.
+          </li>
+          <li>Return the <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>dont-share-cookies-and-stuff</code> member
+        </h3>
+        <p class="issue">
+          Yes, this needs to be renamed. Possible candidates: "isolated" or
+          "isolated-security-origin", "independent"
+        </p>
+        <p>
+          The <code>dont-share-cookies-and-stuff</code> member is a boolean
+          that allows a developer to request that the user agent treat this web
+          application as independent from the one in the web browser.
+          Effectively, this means that cookies, storage, and permissions are
+          not shared with the origin from which the application was bookmarked.
+          The value of this member is only applicable to applications whose
+          <a>mode of operation</a> is <a>standalone</a>.
+        </p>
+        <p>
+          The <dfn>steps for processing the
+          <code>dont-share-cookies-and-stuff</code> member</dfn> is given by
+          the following algorithm:
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>manifest</var> with
+          argument "<code>dont-share-cookies-and-stuff</code>".
+          </li>
+          <li>Let <var>result</var> be the result of calling
+          <a>ToBoolean</a>(<var>value</var>).
+          </li>
+          <li>Return the <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>url</code> member
+        </h3>
+        <p>
+          The <dfn id="member-launch_path">url</dfn> member is the URL that is
+          <a href=
+          "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
+          loaded</a> when the application is launched. When it's missing from
+          the manifest, the UA loads the URL from the manifest was fetched.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>url</code> member</dfn> are
+          given by the following algorithm. The algorithm returns a <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a>.
+        </p>
+        <ol>
+          <li>If <a>HasOwnProperty</a>(<var>manifest</var>, "url") returns
+          <code>false</code>, then return <code>undefined</code>.
+          </li>
+          <li>Let <var>value</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of the <var>manifest</var> with
+          argument "<code>url</code>".
+          </li>
+          <li>Let <var>manifest URL</var> be the URL from which the
+          <var>manifest</var> was fetched from.
+          </li>
+          <li>If <var>value</var> is <code>undefined</code> or
+          <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>Let <var>result</var> be <var>manifest URL</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise:
+            <ol>
+              <li>
+                <a href="http://url.spec.whatwg.org/#parsing">Parse</a>
+                <var>value</var>, using <var>manifest URL</var> as the base
+                URL, and let <var>result</var> be the result.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">icons</code> member
+        </h3>
+        <p>
+          The <dfn id="member-icons">icons</dfn> is a list of <a title=
+          "icon object">icon objects</a> that represents a set of icons that
+          the application can make use.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>icons</code> member</dfn> are
+          given by the following algorithm. The algorithm returns a list of
+          icons, which can be empty, or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>If <a>HasOwnProperty</a>(<var>manifest</var>, <var>key</var>)
+          returns <code>false</code>, then return <code>undefined</code>.
+          </li>
+          <li>Let <var>icons</var> be an empty list.
+          </li>
+          <li>Let <var>manifest URL</var> be the URL from which the
+          <var>manifest</var> was fetched from.
+          </li>
+          <li>Let <var>value</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>manifest</var> with
+          argument "<code>icons</code>".
+          </li>
+          <li>If <var>value</var> is an array, then for each <var>potential
+          icon</var> in the array:
+            <ol>
+              <li>Let <var>src</var> be the result of running the <a>steps for
+              processing the <code>src</code> member of an icon</a>. If the
+              result is an error, stop processing this <var>potential
+              icon</var> and move to the next <var>potential icon</var> in
+              value, if any.
+              </li>
+              <li>Let <var>type</var> be the result of running the <a>steps for
+              processing the <code>type</code> member of an icon</a>.
+              </li>
+              <li>If <var>type</var> is not a <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#valid-mime-type">
+                valid MIME type</a> or the value of type is not a supported
+                icon format, then stop processing this <var>potential
+                icon</var> and move to the next <var>potential icon</var>, if
+                any.
+              </li>
+              <li>Let <var>width</var> be the result of running the <a>steps
+              for processing the dimensions of an icon</a> with "width" as the
+              argument.
+              </li>
+              <li>Let <var>height</var> be the result of running the <a>steps
+              for processing the dimensions of an icon</a> with "height" as the
+              argument.
+              </li>
+              <li>Otherwise, let <var>icon</var> be an object.
+              </li>
+            </ol>
+          </li>
+          <li>return <var>icons</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>orientation</code> member
+        </h3>
+        <p class="issue">
+          Should flipplable be the default?
+        </p>
+        <p class="issue">
+          What happens in the dev wants to lock to some oreintaton on a phone,
+          but a different one o a tablet? like BBC iPlayer does.
+        </p>
+        <p>
+          The <dfn id="member-orientation">orientation</dfn> <a>member</a>
+          represents the screen orientation that is required to use the web
+          application effectively. The value of this member is only applicable
+          to applications whose mode of operation is <a>standalone</a>.
+        </p>
+        <p>
+          Two orientations exists for most devices: 'portrait' and 'landscape',
+          but some devices support only one. Devices might also support up to
+          two portrait and two landscape orientations (described below), and by
+          default be able to flip between all of these.
+        </p>
+        <p>
+          Orientation-locking requests can be post-fixed with one of the
+          following keywords:
+        </p>
+        <dl>
+          <dt>
+            primary
+          </dt>
+          <dd>
+            The natural orientation for the device (if applicable, else an
+            arbitrary one).
+          </dd>
+          <dt>
+            secondary
+          </dt>
+          <dd>
+            The opposite direction of the primary one.
+          </dd>
+          <dt>
+            auto
+          </dt>
+          <dd>
+            The choice of using either primary or secondary is left to the user
+            agent.
+          </dd>
+        </dl>
+        <p>
+          When the request is not post-fixed, the user agent can flip between
+          primary and secondary orientation.
+        </p>
+        <p>
+          A <dfn>valid screen orientation</dfn> is a string that conforms to
+          the following [[!ABNF]].
+        </p>
+        <pre>
+  orientation = type ["-" option]
+  type = "portrait" / "landscape"
+  option = "auto" / "primary" / "secondary"
+</pre>
+        <p>
+          The <dfn>steps for processing the <code>orientation</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          returns either a string or undefined.
+        </p>
+        <ol>
+          <li>If <a>HasOwnProperty</a>(<var>manifest</var>,"orientation")
+          returns <code>false</code>, then return <code>undefined</code>.
+          </li>
+          <li>Let <var>value</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
+          "<code>orientation</code>" as the argument.
+          </li>
+          <li>Let <var>result</var> to <a>ToString</a>(<var>value</var>).
+          </li>
+          <li>
+            <a href=
+            "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
+            Strip leading and trailing whitespace</a> from <var>result</var>.
+          </li>
+          <li>If <var>result</var> is not a <a>valid screen orientation</a>,
+          and return <code>undefined</code>.
+          </li>
+          <li>Return <var>result</var>.
+          </li>
+        </ol>
+        <p>
+          The <dfn>steps for selecting the orientation</dfn> is given by the
+          following algorithm:<br>
+        </p>
+        <ol>
+          <li>If the device is currently in either primary or secondary mode,
+          choose the one that the device is currently in (unless there is some
+          reason not to do so).
+          </li>
+          <li>if the device is in an orientation that is contrary to the one
+          being requested, attempt to put the device into the primary or the
+          orientation being requested.
+          </li>
+          <li>When the device is rotated, allow the document? to flip freely
+          from primary to secondary.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">mode</code> member
+        </h3>
+        <p>
+          The <dfn title="member-mode">mode</dfn> member represents that mode
+          of operation in which the web application will be launched. When the
+          developer omits the value, the user agent assumes the value
+          "bookmark".
+        </p>
+        <p>
+          The <dfn>mode of operation</dfn> in which a web application can be
+          launched include:
+        </p>
+        <dl>
+          <dt>
+            <dfn>standalone</dfn>
+          </dt>
+          <dd>
+            Once launched, the Web application appears indistinguishable from a
+            native application by allowing the OS to treat it as equivalent to
+            a native application.
+          </dd>
+          <dt>
+            <dfn>bookmark</dfn>
+          </dt>
+          <dd>
+            When launched, the user agent open the URL is normal (e.g., opens a
+            new tab, or a new window, or whatever it commonly does when
+            instructed to open a bookmark).
+          </dd>
+        </dl>
+        <p>
+          Standalone mode can also be displayed in the following view modes:
+        </p>
+        <p>
+          A <dfn>valid application mode</dfn> is one that conforms to the
+          following [[!ABNF]]:
+        </p>
+        <pre>
+  mode = "bookmark" / "standalone" ["-" presentation]
+  presentation = "fullscreen"
+</pre>
+        <p>
+          The <dfn>steps for processing the <code>mode</code> member of an
+          icon</dfn> are given by the following algorithm. The algorithm
+          returns a string.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
+          "<code>mode</code>" as the argument.
+          </li>
+          <li>Let <var>result</var> be "bookmark".
+          </li>
+          <li>
+            <a href=
+            "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
+            Strip leading and trailing whitespace</a> from <var>value</var>.
+          </li>
+          <li>If <var>value</var> is a <a>valid application mode</a>, set <var>
+            result</var> to <var>value</var>.
+          </li>
+          <li>Return <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          Processing the manifest
+        </h3>
+        <p>
+          The <dfn>steps for fetching a manifest</dfn> are given by the
+          following algorithm. It takes a <var>url</var> URL as an argument. It
+          returns either a <var>response</var> (which may be in error).
+        </p>
+        <ol>
+          <li>Let <var>response</var> be the result of <a href=
+          "http://fetch.spec.whatwg.org/#concept-fetch">fetching</a> the
+          manifest from <var>url</var>.
+          </li>
+          <li>Return <var>response</var>.
+          </li>
+        </ol>
+        <p>
+          The <dfn>steps to processing a manifest</dfn> are given by the
+          following algorithm. The algorithm takes a <var>text</var> string as
+          an argument.
+        </p>
+        <ol>
+          <li>Let <var>manifest</var> be the result of invoking the <a href=
+          "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
+            parse</a> function of the JSON object defined in [[!ECMASCRIPT]]
+            with <var>text</var> as its only argument. If parsing throws an
+            error, return the error and terminate this algorithm.
+          </li>
+          <li>Let <var>name</var> be the result of running the <a>steps for
+          processing the <code>name</code> member</a>. If the returned value is
+          <code>undefined</code> or an error:
+            <ol>
+              <li>Set <var>name</var> to be an implementation specific string
+              that can serve as a suitable name for the web application. For
+              example, if the manifest was obtained from a <code>link</code>
+              element, and the <code>document</code> has a <code>meta</code>
+              element whose <code>name</code> attribute matches
+                "<code><a href="http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">application-name</a></code>",
+                then the user agent could use the value of that
+                <code>meta</code> element's <code>content</code> attribute as a
+                fallback. Otherwise, then the document's <code>title</code> can
+                be used. Alternatively, the user could be prompted to provide a
+                custom name using as a place holder.
+              </li>
+            </ol>
+          </li>
+          <li>Let <var>alternative name</var> be the result of running the <a>
+            steps for processing the <code>altname</code> member</a>.
+          </li>
+          <li>Let <var>mode</var> be the result of running the <a>steps for
+          processing the <code>mode</code> member</a>. If processing returns an
+          error, report the error, and set <var>mode</var> to
+          "<code>bookmark</code>".
+          </li>
+          <li>Let <var>orientation</var> be the result of running the <a>steps
+          for processing the <code>orientation</code> member</a>.
+          </li>
+          <li>Let <var>url</var> be the result of running the <a>steps for
+          processing the <code>url</code> member</a>.
+          </li>
+          <li>Let <var>icons</var> be the result of running the <a>steps for
+          processing the <code>icons</code> member</a>.
+          </li>
+          <li>Optionally, <a>ignore</a> all other members.
+          </li>
+          <li>Return response.
+          </li>
+        </ol>
+      </section>
+      <section id="linking">
+        <h3>
+          Linking to a manifest
+        </h3>
+        <p>
+          The <code>manifest</code> keyword can be used with a [[!HTML]]
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
+          link</a> element. This keyword creates an <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+          title="external resource link">external resource link</a>.
+        </p>
         <table border="1">
           <tr>
             <th rowspan="2">
@@ -136,483 +679,151 @@ a:not(href){ color: red }
               title="external resource link">External Resource</a>
             </td>
             <td>
-              <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work//#hyperlink">Hyperlink</a>
+              not allowed
             </td>
             <td>
-              Imports or links to an application manifest.
+              Imports or links to a manifest.
             </td>
           </tr>
         </table>
-      </section>
-      <section>
-        <h3>
-          Link type "<code>manifest</code>"
-        </h3>
         <p>
-          The <code>manifest</code> keyword can be used with a <a href=
+          The default media type for resources associated with the
+          <code>manifest</code> <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#linkTypes">link
+          type</a> is <code>application/manifest+json</code>.
+        </p>
+        <p>
+          In cases where more than one <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
-          link</a> element. This keyword creates an <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
-          title="external resource link">external resource link</a>.
+          <code>link</code></a> element with a <code>manifest</code> link type
+          appears in a <code>document</code>, the user agent MUST use the first
+          inserted link element and ignore all subsequent <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
+          <code>link</code></a> elements with a <code>manifest</code> link type
+          (even if the first element was in error).
         </p>
         <p>
-          The default type for resources given by the <code>manifest</code>
-          keyword is the <a>media type for an application manifests</a>,
-          represented by the string
-          <code>application/webapp-manifest+json</code>.
-        </p>
-        <p>
-          The appropriate time to <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-obtain"
-          title="concept-link-obtain">obtain</a> the resource is when the
-          <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+          The appropriate time to <a>fetch</a> the manifest is when the
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
           title="external resource link">external resource link</a> is created
           or when its element is <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#insert-an-element-into-a-document"
           title="insert an element into a document">inserted into a
-          document</a>, whichever happens last. However, a user agents may opt
-          to delay <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-obtain"
-          title="concept-link-obtain">obtaining</a> a manifest until after the
-          document and its other resources have loaded (i.e., to not delay the
-          availability of content and scripts required by the
-          <code>document</code>).
+          document</a>, whichever happens last. However, a user agent MAY opt
+          to delay fetching a manifest until after the document and its other
+          resources have loaded (i.e., to not delay the availability of content
+          and scripts required by the <code>document</code>).
         </p>
+        <p>
+          Certain error conditions can result in a manifest being treated as an
+          <a>invalid manifest</a>. An <dfn>invalid manifest</dfn> is one that
+          is deemed to be non-conforming in such a way that it would not be
+          possible for the user agent to continue processing (e.g., it can't be
+          parsed by the JSON parser because of a syntax error, it could be
+          fetched from the network). In such a case, <a>issue a developer
+          warning</a>. In either case, when a step results in an <a>invalid
+          manifest</a> the user agent MUST abort whatever step or sub-step
+          caused the condition.
+        </p>
+        <p>
+          To fetch a manifest, as user agent MUST:
+        </p>
+        <ol>
+          <li>If the <code>link</code> element lacks a href attribute, abort
+          this algorithm.
+          </li>
+          <li>Run the <a>steps for fetching a manifest</a>, with the value of
+          <code>href</code> attribute as the url, and let <var>response</var>
+          be the response.
+          </li>
+          <li>If response's type is "error", treat this as an <span>invalid
+          manifest</span>.
+          </li>
+          <li>Otherwise, let <var>manifest</var> be the result of running the
+          <a>steps for processing a manifest</a>.
+          </li>
+          <li>If <var>manifest</var> results in an error, treat this as an
+          <span>invalid manifest</span>.
+          </li>
+          <li>Otherwise, in a user agent specific manner, and when the end-user
+          so desires, provide a means for the end-user to view the relevant
+          contents of the <var>manifest</var>; and provide a means for the
+          end-user to create a bookmark based on that information.
+          </li>
+        </ol>
       </section>
-      <section class="informative">
+      <section id="proprietary-extensions" class="informative">
         <h3>
-          Associating a document with a manifest
-        </h3>
-        <pre class="example highlight html">
-&lt;!doctype html&gt;
-&lt;html&gt;
-&lt;title&gt;My Awesome Application&lt;/title&gt;
-&lt;link rel="manifest" href="awesome.webapp"&gt;
-...
-</pre>
-      </section>
-      <section class="informative">
-        <h3>
-          Linking to an external manifest
-        </h3>
-        <pre class="example highlight html">
-&lt;!doctype html&gt;
-&lt;html&gt;
-&lt;title&gt;The Sports Store&lt;/title&gt;
-&lt;!-- install this app --&gt; 
-&lt;link rel="manifest" href="manifest.json"&gt;
-&lt;body&gt;
-&lt;h1&gt;The Sports Store&lt;/h1&gt;
-&lt;dl&gt;
-  &lt;dt&gt;Sporty App&lt;/dl&gt;
-  &lt;dd&gt;  
-    &lt;a href="http://example.com/cycling/manifest" 
-       rel="manifest"&gt;
-      Install Cycling App! 
-    &lt;/a&gt;
-  &lt;/dd&gt;
-&lt;/dl&gt;
-</pre>
-      </section>
-    </section>
-    <section>
-      <h2>
-        Application Manifest
-      </h2>
-      <p>
-        An <a>application manifest</a> consists of a top-level object (the
-        application manifest <dfn>root</dfn>) and one or more members, some of
-        which contain other objects.
-      </p>
-      <section class="informative">
-        <h3>
-          Example application manifest
+          Proprietary extensions to the manifest
         </h3>
         <p>
-          The following shows a typical <a>application manifest</a>.
+          Although proprietary extensions are undesirable, they can't
+          realistically be avoided. As such, the RECOMMENDED way to add
+          proprietary extension is to use a vendor prefix.
         </p>
-        <pre class="example highlight">
+        <p>
+          This following is an example of two hypothetical vendor extensions.
+        </p>
+        <pre class="example highlight json" title="vendor extensions">
 {
-  "name": "The Example App",
-  "short_name": "Example",
-  "description": "Exciting Open Web development action!",
-  "launch_path": "/",
-  "version": "1.0",
-  "icons": {
-    "16": "/img/icon_16.png",
-    "48": "/img/icon_48.png",
-    "128": "/img/icon_128.png"
-  },
-  "developer": {
-    "name": "Foo Corp.",
-    "url": "http://example.org/dev"
-  },
-  "appcache_path": "/cache.manifest",
-  "locales": {
-    "es": {
-      "description": "¡Emocionante desarrollo Open Web en acción!",
-      "developer": {
-        "url": "https://example.org/dev/es-ES"
-      }
-    }
-  },
-  "default_locale": "en",
-  "permissions": {
-    "contacts": {
-      "description": "Required for auto-completion in the share screen",
-      "access": "read"
-    }
+  ...
+  "webkit-fancyfeature": "some/url/img",
+  "moz-awesome-thing": { ... }
+  ...
 }
 </pre>
       </section>
     </section>
     <section>
       <h2>
-        Processing the application manifest
+        Launching a standalone web application
       </h2>
-      <p id="ecmascript-abstractop">
-        Algorithms in this section use the conventions described in <a class=
-        "external" href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-5.2">ECMA-262
-        section 5.2</a>, such as the use of steps and substeps, and so on. The
-        <a class="external" href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.2"><dfn>ToBoolean</dfn></a>,
-        <a class="external" href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.3"><dfn>ToNumber</dfn></a>,
-        <a class="external" href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.7"><dfn>ToUint16</dfn></a>,
-        <a class="external" href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.5"><dfn>ToInt32</dfn></a>,
-        <a class="external" href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.6"><dfn>ToUint32</dfn></a>,
-        <a class="external" href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.8"><dfn>ToString</dfn></a>,
-        and <a class="external" href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.9"><dfn>ToObject</dfn></a>
-        abstract operations and the <a class="external" href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-8">Type(<var>x</var>)</a>
-        notation referenced in this section are defined in [[!ECMA-262-51]]. In
-        the algorithms, to <dfn>ignore</dfn> means that the user agent MUST act
-        as if the author had not declared the particular member in the
-        application manifest document.
-      </p>
       <p>
-        Certain error conditions can result in an <a>application manifest</a>
-        being treated as an <a>invalid application manifest</a>. An
-        <dfn>invalid application manifest</dfn> is an application manifest that
-        is deemed to be non-conforming in such a way that it would not be
-        possible for the user agent to continue processing (e.g., it can't be
-        parsed by the JSON parser because of a syntax error). In such a case,
-        the user agent MAY report the error to the user in a
-        user-agent-specific manner, MAY <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigate</a>
-        to an error page to report the error, or MAY ignore the error and do
-        nothing. In either case, when a step results in an <a>invalid
-        application manifest</a> the user agent MUST abort whatever step or
-        substep caused the condition.
-      </p>
-      <p>
-        The <dfn>steps for processing an application manifest</dfn> are given
-        by the following algorithm.
+        When an application is launched:
       </p>
       <ol>
-        <li>Let <var>text</var> be the result of <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-obtain"
-          title="concept-link-obtain">obtaining</a> the application manifest.
-          If the process aborts, terminate this algorithm.
-        </li>
-        <li>Let <var>manifest</var> be the result of invoking the <a href=
-        "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">parse</a>
-        function of the JSON object defined in [[!ECMASCRIPT]] with
-        <var>text</var> as its only argument. If parsing throws an exception,
-        then treat this application manifest as an <a>invalid application
-        manifest</a>.
-        </li>
-        <li>Let <var>default locale</var> be the result of running the <a>steps
-        for processing the <code>default_locale</code> member</a>.
-          <ol>
-            <li>If <var>default locale</var> is not <var>undefined</var>:
-              <ol>
-                <li>from <var>default locale</var>.
-                </li>
-                <li>If there is no occurance of <var>default locale</var> in
-                the application locales list, then insert <var>default
-                locale</var> immediately before the last item of the
-                <var>application locale list</var>.
-                  <p>
-                    For example, given <var>default locale</var> "jp", and an
-                    <var>application locale list</var> containing "en-US,*",
-                    then the application locale list would become ["en-US",
-                    "jp", "*"].
-                  </p>
-                </li>
-              </ol>
-            </li>
-          </ol>
-        </li>
-        <li>Let <var>short name</var> be the result of running the <a>steps for
-        processing the <code>short_name</code> member</a>.
-        </li>
-        <li>Let <var>name</var> be the result of running the <a>steps for
-        processing the <code>name</code> member</a>.
-        </li>
-        <li>Let <var>launch path</var> be the result of running the <a>steps
-        for processing the <code>launch_path</code> member</a>.
-        </li>
-        <li>Let <var>description</var> be the result of running the <a>steps
-        for processing the <code>description</code> member</a>.
-        </li>
-        <li>...
-        </li>
-        <li>Optionally, <a>ignore</a> all other members.
+        <li>If the web application has a required orientation, run the
+        <span>steps for selecting the orientation</span>.
         </li>
       </ol>
+    </section>
+    <section>
+      <h2>
+        Icon object and its members
+      </h2>
+      <p>
+        Each <dfn>icon object</dfn> represents an icon for an application
+        suitable to use at some dimensions and screen density.
+      </p>
       <section>
         <h3>
-          Types and bindings
+          <code>density</code> member
         </h3>
         <p>
-          As the application manifest format is a [[!JSON]] document, this
-          doucment relies on the types defined in [[!JSON]] specification:
-          namely <dfn id="json-object">object</dfn>, <dfn id=
-          "json-array">array</dfn>, <dfn id="json-number">number</dfn>, and
-          <dfn id="json-string">string</dfn>. Strict type checking is not
-          enforced by this specification. Instead, each member's definition
-          specifies the steps to required to process a particular member.
+          The <dfn title="icon-densitiy">density</dfn> member of an icon is the
+          device pixel density for which this icon was designed. The device
+          pixel density is expressed as the number of dots per 'px' unit
+          (equivalent to a <a href=
+          "http://dev.w3.org/csswg//#resolution">dppx</a> as defined in
+          [[!css3-values]]). The value is a positive number greater than 0. If
+          the developer ommits the value, the user agent assumes the value
+          <a><code>1</code></a>.
         </p>
         <p>
-          In additon, for the purpose of validity checking, this specification
-          relies on the the following types:
-        </p>
-        <dl>
-          <dt>
-            <dfn>Relative URL</dfn>
-          </dt>
-          <dd>
-            The concept of a relative URL is defined in the [[!URL]]
-            specification.
-          </dd>
-          <dt>
-            <dfn>Absolute URL</dfn>
-          </dt>
-          <dd>
-            The concept of an absolute URL is defined in the [[!URL]]
-            specification.
-          </dd>
-        </dl>
-      </section>
-      <section>
-        <h3>
-          Internationalization and localization
-        </h3>
-        <p>
-          The <dfn>user agent's locales</dfn> is an ordered list of <a title=
-          "language tag">language tags</a> that are used to represent the
-          end-user's language(s) and localization preference for experiencing
-          content; these are essentially equivalent to the language tags sent
-          by the user agent through the <code>Accept-Language</code> [[HTTP11]]
-          header, but without the quality values.
-        </p>
-        <p>
-          The case sensitivity and case mapping for language tags is the same
-          as that defined in section 6.1 of the <cite>ECMAScript
-          Internationalization API Specification</cite> [[!ECMASCRIPT-I18N]].
-        </p>
-        <p>
-          As there are numerous ways a user agent can derive the end-user's
-          preferred languages and regional settings (e.g., the end user might
-          have set them in the user agent's preferences), the means by which
-          those values are derived are left up to the implementation. The first
-          item of the <a>user agent's locales</a> represents the user's most
-          preferred language range (i.e., the language/region combination the
-          user agent assumes the end-user most prefers), followed by the next
-          most preferred language range, and so forth.
-        </p>
-        <p>
-          A <dfn>language tag</dfn> is a string that matches the production of
-          a <code>Language-Tag</code> defined in the [[!BCP47]] specifications
-          (see the <a href=
-          "http://www.iana.org/assignments/language-subtag-registry">IANA
-          Language Subtag Registry</a> for an authoritative list of possible
-          values, see also the <a href=
-          "http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements">
-          Maintenance Agency for ISO 3166 country codes</a>). That is, a
-          language range is composed of one or more <dfn>subtags</dfn> that are
-          delimited by a U+002D HYPHEN-MINUS ("-"). For example, the
-          '<code>en-AU</code>' language range represents English as spoken in
-          Australia, and '<code>fr-CA</code>' represents French as spoken in
-          Canada. Language tags that meet the validity criteria of [[!RFC5646]]
-          section 2.2.9 that can be verified without reference to the IANA
-          Language Subtag Registry are considered structurally valid.
-        </p>
-        <p>
-          The <dfn>CanonicalizeLocaleList</dfn>, <dfn>BestAvailableLocale</dfn>
-          <dfn>LookupMatcher,</dfn> <dfn>BestFitMatcher</dfn>,
-          <dfn>ResolveLocale</dfn>, <dfn>LookupSupportedLocales</dfn>
-          <dfn>BestFitSupportedLocales</dfn> <dfn>SupportedLocales</dfn>.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Localizable members
-        </h3>
-        <p>
-          A <dfn>localizable member</dfn> is member of the <a>application
-          manifest</a> that can appear in the <var>locales</var> member.
-        </p>
-        <p>
-          The <dfn>steps for retrieving a localizable member from the
-          application manifest</dfn> are given by the following algorithm. The
-          algorithm prioritizes returning the localized version of a member
-          over one where the locale is unknown. The algorithm returns either a
-          value from the manifest or <code>undefined</code>.
+          The <dfn>steps for processing a density of an icon</dfn> are given by
+          the following algorithm. The algorithm thanks an <var>icon</var>
+          object as an argument and returns a positive number.
         </p>
         <ol>
-          <li>Let <var>manifest</var> be the JSON-parsed object representation
-          of the <a>application manifest</a>.
+          <li>Let <var>value</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>icon</var> passing
+          "<code>density</code>" as the argument.
           </li>
-          <li>Let <var>default app locale</var> be the string that represents
-          the default locale for the application manifest.
+          <li>Let <var>result</var> be the result of
+          parseFloat(<var>value</var>);
           </li>
-          <li>Let <var>identifier</var> be a string that represents the name of
-          the member being sought.
-          </li>
-          <li>Let <var>locales list</var> be a copy of the <a>user agent's
-          locales</a>.
-          </li>
-          <li>If <var>default app locale</var> is not <code>undefined</code>,
-          append <var>default app locale</var> to <var>locales list</var>.
-          </li>
-          <li>If the application manifest has a property whose name is
-          <code>"locales</code>", then for each <var>range</var> in the
-          <var>locales list</var> in order:
-            <ol>
-              <li>If the "<code>locales</code>" property has a property whose
-              identifier matches <var>range</var>, then return the value of
-              the matching property and terminate this algorithm.
-              </li>
-              <li>Otherwise, if the "<code>locales</code>" property has a
-              property whose identifier matches the <var>default app
-              locale</var>, then return the value of the matching property and
-              terminate this algorithm.
-              </li>
-            </ol>
-          </li>
-          <li>If the application manifest <a>root</a> has its own property
-          named <var>prop</var>, return the value of the property.
-          </li>
-          <li>Return <code>undefined</code>.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
-          <code title="">name</code> member
-        </h3>
-        <p>
-          The <dfn id="propdef-name"><code>name</code></dfn> <a>localizable
-          member</a> is a string that represents the name of the hosted web
-          application or packaged application, that is used, for example, in an
-          application menu or in other contexts.
-        </p>
-        <p>
-          Authoring requirement: it is strongly recommended that authors
-          inlcude a name for the application in at the root of the manifest.
-        </p>
-        <p class="note">
-          Note: The <code>name</code> member needs to be present in the
-          application manifest for the user agent to treat an application
-          manifest as valid.
-        </p>
-        <p>
-          The <dfn>steps for processing the name member</dfn> is given by the
-          following algorithm. The algorithm takes an application manifest as
-          an argument and returns either an error or a string:
-        </p>
-        <ol>
-          <li>Let <var>key</var> be the string "<code>name</code>".
-          </li>
-          <li>Let <var>value</var> be the result of running the <a>steps for
-          retrieving a localizable member from the application manifest</a>,
-          with <var>key</var> as the member being sought.
-          </li>
-          <li>Optionally, if <var>value</var> is null or undefined, then let
-          <var>value</var> be an implementation specific string that can serve
-          as a suitable name for the application. For example, if the manifest
-          was obtained from link element, then the document's title could be
-          used or the user could be prompted to provide a custom name.
-          </li>
-          <li>Let <var>result</var> be the result of calling
-          <a>ToString</a>(<var>value</var>).
-          </li>
-          <li>Return the <var>result</var>.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
-          <code title="">short_name</code> member
-        </h3>
-        <p>
-          The <dfn id="propdef-short-name"><code>short_name</code></dfn>
-          <a>localizable member</a> is a string that represents a condensed
-          name of the application that can be used in context where space is
-          constrained (e.g., underneath an icon on the home screen of a
-          device).
-        </p>
-        <p>
-          Authoring guidelines: Authors should only use a short name if it has
-          less characters than the value of the <code>name</code> member. Using
-          the <code>name</code> member is preferred over a short name.
-        </p>
-        <p>
-          The <dfn>steps for processing the short name member</dfn> is given by
-          the following algorithm. The algorithm takes an application manifest
-          as an argument and returns a string:
-        </p>
-        <ol>
-          <li>Let <var>key</var> be the string "<code>short_name</code>".
-          </li>
-          <li>Let <var>value</var> be the result of running the <a>steps for
-          retrieving a localizable member from the application manifest</a>,
-          with <var>key</var> as the member being sought.
-          </li>
-          <li>Let <var>result</var> be the result of calling
-          <a>ToString</a>(<var>value</var>).
-          </li>
-          <li>Return the <var>result</var>.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
-          <code title="">description</code> member
-        </h3>
-        <p>
-          The <dfn id="propdef-description"><code>description</code></dfn>
-          <a>localizable member</a> is a string that describes to the end-user
-          the author's intended purpose for the application (i.e., what the
-          function and utility of the application is, etc.).
-        </p>
-        <p>
-          The <dfn>steps for processing the description member</dfn> are given
-          by the following algorithm. The algorithm takes an application
-          manifest as an argument and returns a string or
-          <code>undefined</code>:
-        </p>
-        <ol>
-          <li>Let <var>key</var> be the string "<code>description</code>".
-          </li>
-          <li>Let <var>result</var> be <code>undefined</code>.
-          </li>
-          <li>Let <var>value</var> be the result of running the <a>steps for
-          retrieving a localizable member from the application manifest</a>,
-          with <var>key</var> as the member being sought.
-          </li>
-          <li>If <var>value</var> is not <code>undefined</code>, let
-          <var>result</var> be <a>ToString</a>(<var>value</var>).
+          <li>If <var>result</var> is <code>NaN</code>, +0, −0, +∞, or −∞, or
+          less than 0, return 1.
           </li>
           <li>Return <var>result</var>.
           </li>
@@ -620,65 +831,34 @@ a:not(href){ color: red }
       </section>
       <section>
         <h3>
-          <code title="">default_locale</code> member
+          <code>width</code> and <code title="">height</code> members
         </h3>
         <p>
-          The <dfn id="propdef-default_locale">default_locale</dfn> member is a
-          <a>language tag</a> that represents:
-        </p>
-        <ul>
-          <li>The locale of the content of members at the root of the
-          application manifest.
-          </li>
-          <li>The default locale that the user agent will use in case the
-          <a>user agent's locales</a> do not match any localized members.
-          </li>
-        </ul>
-        <p>
-          When the <code>default_locale</code> member is missing or in error,
-          the content at the root of the application manifest is said to have
-          an <dfn>unknown locale</dfn>.
+          The <dfn title="icon-width">width</dfn> and <dfn title=
+          "icon-height">height</dfn> members represent the natural width of the
+          icon in pixels. Their corresponding value is a positive number
+          greater than 0.
         </p>
         <p>
-          The <dfn>steps for processing the <code>default_locale</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes the JSON-parsed application <var>manifest</var> as an argument.
-          The algorithm returns a string, which is either a <a>language tag</a>
-          or the string "*" (which is used to represent an <a>unknown
-          locale</a>).
+          The <dfn>steps for processing a dimension of an icon</dfn> are given
+          by the following algorithm. The algorithm takes an <var>icon</var>
+          and a <var>key</var> ('width" or "height") as an argument. The
+          algorithm returns a positive number, <code>undefined</code>, or an
+          error.
         </p>
         <ol>
-          <li>Let <var>result</var> be "*".
+          <li>If <a>HasOwnProperty</a>(<var>icon</var>, <var>key</var>) returns
+          <code>false</code>, then return <code>undefined</code>.
           </li>
-          <li>Let <var>key</var> be "<code>default_locale</code>".
+          <li>Let <var>value</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>icon</var> passing <var>
+            key</var> as the argument.
           </li>
-          <li>Let <var>present</var> be the result of calling
-          [[\HasOwnProperty]] internal method of <var>manifest</var> with
-          argument <var>key</var>.
+          <li>Let <var>result</var> be the result of
+          parseFloat(<var>value</var>);
           </li>
-          <li>If <var>present</var> is <var>true</var>:
-            <ol>
-              <li>Let <var>value</var> be the result of calling the
-              [[\GetOwnProperty]] internal method of <var>manifest</var>
-              passing <var>key</var> as the argument.
-              </li>
-              <li>Let <var>tag</var> be <a>ToString</a>(<var>value</var>).
-              </li>
-              <li>Let <var>valid tag</var> the result of calling the abstract
-              operation <a>IsStructurallyValidLanguageTag</a> with
-              <var>tag</var> as the argument.
-              </li>
-              <li>If <var>valid tag</var> is <code>true</code>, then:
-                <ol>
-                  <li>Let <var>result</var> be the result of calling the
-                  abstract operation <a href=
-                  "http://www.ecma-international.org/ecma-402/1.0/#sec-6.2.3">
-                    CanonicalizeLanguageTag</a>, passing <em>tag</em> as the
-                    argument.
-                  </li>
-                </ol>
-              </li>
-            </ol>
+          <li>If <var>result</var> is <code>NaN</code>, +0, −0, +∞, or −∞, or
+          less than 0, return <var>undefined</var>.
           </li>
           <li>Return <var>result</var>.
           </li>
@@ -686,183 +866,33 @@ a:not(href){ color: red }
       </section>
       <section>
         <h3>
-          <code>launch_path</code> member
+          <code>src</code> member
         </h3>
         <p>
-          The <dfn id="propdef-launch_path">launch_path</dfn> <a>localizable
-          member</a> is a <a>relative URL</a> that represents a resource
-          within the <a>origin of the application</a> that is <a href=
-          "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
-          loaded</a> when the application is <a>launched</a>.
+          The <dfn title="icon-density">src</dfn> member of an icon is a URL
+          from which the icon can be fetched.
         </p>
         <p>
-          The <dfn>steps for processing the <code>launch_path</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          returns either a string, and error, or <code>undefined</code>.
+          The <dfn>steps for processing the <code>src</code> member of an
+          icon</dfn> are given by the following algorithm. The algorithm takes
+          a <var>icon</var> object as an argument and returns a URL or
+          <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>result</var> be <code>undefined</code>.
+          <li>If <a>HasOwnProperty</a>(<var>icon</var>, "src") returns
+          <code>false</code>, then return <code>undefined</code>.
           </li>
-          <li>Let <var>key</var> be the string "<code>launch_path</code>".
+          <li>Let <var>value</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>icon</var> passing
+          "<code>src</code>" as the argument.
           </li>
-          <li>Let <var>present</var> be the result of calling
-          [[\HasOwnProperty]] internal method of <var>manifest</var> with
-          argument <var>key</var>.
+          <li>Let <var>manifest URL</var> be the URL from which the
+          <var>manifest</var> was fetched from.
           </li>
-          <li>If present is <code>true</code>:
-            <ol>
-              <li>Let <var>path</var> be <a>ToString</a>(<var>value</var>).
-              </li>
-              <li>Let <var>url</var> be the result of <a href=
-              "http://url.spec.whatwg.org/#parsing">parsing</a>
-              <var>path</var>.
-              </li>
-              <li>If <var>url</var> is not a <a href=
-              "http://url.spec.whatwg.org/#concept-absolute-url">relative
-              URL</a>, then return an error and terminate this algorithm.
-              </li>
-              <li>Set <var>result</var> to be the value of <var>url</var>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>result</var>.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
-          <code title="">icons</code> member
-        </h3>
-        <p>
-          The <dfn id="propdef-icons">icons</dfn> <a>localizable member</a> is
-          a list of <a>icon objects</a> that represents a set of icons that the
-          application can make use.
-        </p>
-      </section>
-      <section>
-        <h3>
-          <code>developer</code> member
-        </h3>
-        <p>
-          The <dfn id="propdef-developer">developer</dfn> <a>localizable
-          member</a> is a <a>developer object</a> that represents the person,
-          persons, or entity that created the application.
-        </p>
-      </section>
-      <section>
-        <h3>
-          <code title="">locales</code> member
-        </h3>
-        <p>
-          The <dfn id="propdef-locales">locales</dfn> member is a
-          <a>localized-data object</a> represents the localized data of the
-          application manifest.
-        </p>
-      </section>
-      <section>
-        <h3>
-          <code>appcache_path</code> member
-        </h3>
-        <p>
-          The <dfn id="propdef-appcache_path">appcache_path</dfn>
-          <a>localizable member</a> is an <a>relative URL</a> that represents a
-          resource to be used as the application's cache manifest
-          [[!OFFLINE-WEBAPPS]].
-        </p>
-        <p>
-          The <dfn>steps for processing the <code>appcache_path</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          returns either a string, and error, or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>result</var> be <code>undefined</code>.
-          </li>
-          <li>Let <var>key</var> be the string "<code>appcache_path</code>".
-          </li>
-          <li>Let <var>present</var> be the result of calling
-          [[\HasOwnProperty]] internal method of <var>manifest</var> with
-          argument <var>key</var>.
-          </li>
-          <li>if <var>present</var> is <code>true</code>:
-            <ol>
-              <li>Let <var>path</var> be <a>ToString</a>(<var>value</var>).
-              </li>
-              <li>Let <var>url</var> be the result of <a href=
-              "http://url.spec.whatwg.org/#parsing">parsing</a>
-              <var>path</var>.
-              </li>
-              <li>If <var>url</var> is not a <a href=
-              "http://url.spec.whatwg.org/#concept-absolute-url">absolute
-              URL</a>, then return an error and terminate this algorithm.
-              </li>
-              <li>Set <var>result</var> to be the value of <var>url</var>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>result</var>.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
-          <code>version</code> member
-        </h3>
-        <p>
-          The <dfn id="propdef-version">version</dfn> <a>localizable member</a>
-          is a string represents the version of the application as designated
-          by the author. The version has no specific meaning in the context of
-          this specification; it's utility is solely for informative purposes.
-        </p>
-        <p>
-          The <dfn>steps for processing the <code>version</code> member</dfn>
-          is given by the following algorithm. The algorithm returns either
-          undefined or a string:
-        </p>
-        <ol>
-          <li>Let <var>result</var> be <code>undefined</code>.
-          </li>
-          <li>Let <var>key</var> be the string "<code>version</code>".
-          </li>
-          <li>Let <var>present</var> be the result of calling
-          [[\HasOwnProperty]] internal method of <var>manifest</var> with
-          argument <var>key</var>.
-          </li>
-          <li>If <var>present</var> is <code>true</code>:
-            <ol>
-              <li>Let <var>value</var> be the result of running the <a>steps
-              for retrieving a localizable member from the application
-              manifest</a>, with <var>key</var> as the member being sought.
-              </li>
-              <li>Let <var>result</var> be the result of calling
-              <a>ToString</a>(<var>value</var>).
-              </li>
-            </ol>
-          </li>
-          <li>Return the <var>result</var>.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
-          <code title="">fullscreen</code> member
-        </h3>
-        <p>
-          The <dfn id="propdef-fullscreen">fullscreen</dfn> localizable member
-          is a <a>boolean</a> that represents a hint to the user agent that
-          indicates that the application provides the best user experience when
-          shown in fullscreen (i.e., the application is presented without any
-          use interface components of the underlying system). When the value is
-          missing, it defaults to <var>false</var>.
-        </p>
-        <p>
-          The <dfn>steps for processing the <code>fullscreen</code>
-          member</dfn> are given by the following algorithm:
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the value of the <var>fullscreen</var>
-          member or f<var>alse</var> if the value is missing.
-          </li>
-          <li>Let <var>result</var> of calling <a>ToBoolean</a>(value).
+          <li>
+            <a href="http://url.spec.whatwg.org/#parsing">Parse</a>
+            <var>value</var>, using <var>manifest URL</var> as the base URL,
+            and let <var>result</var> be the result.
           </li>
           <li>return <var>result</var>.
           </li>
@@ -870,412 +900,321 @@ a:not(href){ color: red }
       </section>
       <section>
         <h3>
-          <code title="">release_notes</code> member
+          <code>type</code> member
         </h3>
         <p>
-          The <dfn id='propdef-relnotes'>release_notes</dfn> <a>localizable
-          member</a> is a <a>release notes object</a> that represents a change
-          history for the application from one version to another.
+          The <dfn title="icon-type">type</dfn> member of an icon is a hint as
+          to the media type of the icon. The purpose of this member is to allow
+          a user agent can ignore icons of media types it does not support.
         </p>
-      </section>
-      <section>
-        <h3>
-          <code title="">permissions</code> member
-        </h3>
         <p>
-          The <dfn id="propdef-permisssions">permissions</dfn> <a>localizable
-          member</a> is a <a>permissions object</a> that represents a list of
-          permissions that the application requires to function.
+          The <dfn>steps for processing the <code>type</code> member of an
+          icon</dfn> are given by the following algorithm. The algorithm takes
+          an <var>icon</var> object as an argument, and returns either string
+          or <code>undefined</code>.
         </p>
+        <ol>
+          <li>If <a>HasOwnProperty</a>(<var>manifest</var>,"type") returns
+          <code>false</code>, then return <code>undefined</code>.
+          </li>
+          <li>Let <var>value</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>potential icon</var>
+          passing "<code>type</code>" as the argument.
+          </li>
+          <li>If type(<var>potential src</var>) is not "string", return an
+          error.
+          </li>
+          <li>
+            <a href=
+            "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
+            Strip leading and trailing whitespace</a> from <var>result</var>.
+          </li>
+          <li>return <var>result</var>.
+          </li>
+        </ol>
       </section>
-      <section>
-        <h2>
-          Release notes object and its members
-        </h2>
-        <p>
-          A <dfn>Release notes object</dfn> ...
-        </p>
-      </section>
-      <section>
-        <h2>
-          Permissions object and its members
-        </h2>
-        <p>
-          The permissions object...An application SHOULD list every API that is
-          considered to require user permission in this field. Usage of an API
-          without a corresponding entry in the application manifest SHOULD
-          fail. The field is an object, with each property name specifying a
-          single permission, and object containing the following fields:
-        </p>
-        <section>
-          <h3>
-            Description member
-          </h3>
-          <p>
-            The <dfn id="propdef-permissions-desc">description</dfn> member
-            represents a human readable string specifying the intent behind
-            requesting use of this API.
-          </p>
-          <p>
-            ISSUE: This seems unhelpful. The developer can just lie.
-          </p>
-        </section>
-        <section>
-          <h3>
-            access member
-          </h3>
-          <p>
-            The <dfn id="propdef-permissions-access">access</dfn> is a string
-            describing the type of access required for this permission. This
-            field can be mandatory for a certain subset of permissions. Its
-            value is one of:
-          </p>
-          <dl>
-            <dt>
-              <dfn>read</dfn>:
-            </dt>
-            <dd>
-              ...
-            </dd>
-            <dt>
-              <dfn>readwrite</dfn>:
-            </dt>
-            <dd>
-              ...
-            </dd>
-            <dt>
-              <dfn>readcreate</dfn>:
-            </dt>
-            <dd>
-              ...
-            </dd>
-            <dt>
-              <dfn>createonly</dfn>:
-            </dt>
-            <dd>
-              ...
-            </dd>
-          </dl>
-        </section>
-      </section>
-      <section>
-        <h2>
-          Icon object and its members
-        </h2>
-        <p>
-          Each <dfn>icons object</dfn> represents an icon for an application
-          suitable to use at some dimensions and screen density.
-        </p>
-        <section>
-          <h3>
-            width member
-          </h3>
-          <p>
-            A numeric value that represents the width of the icon in CSS pixels.
-          </p>
-        </section>
-        <section>
-          <h3>
-            height member
-          </h3>
-          <p>
-            A numeric value that represents the height of the icon in CSS pixels.
-          </p>
-        </section>
-        <section>
-          <h3>
-            density member
-          </h3>
-          <p>
-            The preferred pixel density, given as real number, for which this
-            icon was designed to be shown.
-          </p>
-        </section>
-        <section>
-          <h3>
-            src member
-          </h3>
-          <p>A URL that is the address of the resource.</p>
-        </section>
-        <section>
-          <h3>
-            type member
-          </h3>
-          <p>
-            The MIME media type of resource the src member refers to. 
-          </p>
-        </section>
-      </section>
-      <section>
-        <h2>
-          Screen size object and its members
-        </h2>
-        <p>
-          The screen size object . The screen sizes object values are only hint
-          for the user agent
-        </p>
-      </section>
-      <section>
-        <h2>
-          Localized-data object and its members
-        </h2>
-        <p>
-          The localized-data object contains specific overrides of data
-          contained in the <a>application manifest</a>.
-        </p>
-        <section>
-          <h3>
-            Members
-          </h3>
-          <p>
-            Each locale key is a <a>langauge tag</a>, and contains a sparse
-            representation of localized parts of the application manifest. The
-            data of the <a>locales</a> members override the corresponding
-            member in a localized user interface.
-          </p>
-          <p>
-            The user agent MAY ignore some values if localizing the property
-            doesn't appear to be legit.
-          </p>
-          <p>
-            It is RECOMMENDED that the <a>locales</a> keys match the actual
-            content localization to give a hint to the user that the
-            application will be available in their language or not. Failing to
-            provide a perfect matching between the content localization and the
-            <a>locales</a> keys will not create any technical problems but will
-            have bad consequences with regard to the user experience and
-            developer reputation.
-          </p>
-          <p>
-            Note: if the <a>locales</a> property is set, the
-            <a>default_locale</a> needs to also be set.
-          </p>
-        </section>
-      </section>
-      <section>
-        <h2>
-          Developer object and its members
-        </h2>
-        <section>
-          <h3>
-            <code title="">name</code> member
-          </h3>
-          <p>
-            The <dfn id="propdef-developer-name">name</dfn> member of the
-            <a>developer object</a> represents the name of the developer.
-          </p>
-          <p>
-            The <dfn>steps for processing the name member of the developer
-            object</dfn> is given by the following algorithm. The algorithm
-            returns <code>undefined</code> or a string:
-          </p>
+    </section>
+    <section>
+      <h2>
+        Extensions to the <code>Navigator</code> object
+      </h2>
+      <dl class="idl" title="partial interface Navigator">
+        <dt>
+          readonly attribute Boolean standalone
+        </dt>
+        <dd>
+          The standalone attribute provides a means for a developer to check if
+          the application is running in <a>standalone</a> mode. When getting,
+          the user agent MUST returns <code>true</code> if the application is
+          running as <a>standalone</a>. Return <code>false</code> otherwise.
+        </dd>
+        <dt>
+          Promise requestBookmark(optional DOMString url)
+        </dt>
+        <dd>
+          When invoked, the user agent MUST run the <a>steps to request to add
+          bookmark</a>.
+        </dd>
+      </dl>
+      <p>
+        The <dfn>steps to request to add bookmark</dfn> are given by the
+        following algorithm. The algorithm runs asynchronously and returns a
+        Promise.
+      </p>
+      <ol>
+        <li>Let <var>promise</var> be a new <a><code>Promise</code></a> object
+        and <var>resolver</var> its associated resolver.
+        </li>
+        <li>Return <var>promise</var> and run the remaining steps
+        asynchronously.
+        </li>
+        <li>If this method was not invoked as a result of explicit user action,
+        then:
           <ol>
-            <li>Let <var>O</var> be the result of running the <a>steps for
-            retrieving a localizable member from the application manifest</a>,
-            with "<var>developer"</var> as the member being sought.
+            <li>Let <var>error</var> be a new <a><code>DOMException</code></a>
+            whose name is "<code><a href=
+            "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>".
             </li>
-            <li>Let <var>result</var> be <code>undefined</code>.
-            </li>
-            <li>If Type(O) is "Object".
-            </li>
-            <li>Set <var>result</var> be the result of calling
-            <a>ToString</a>(<var>value</var>).
-            </li>
-            <li>Return the <var>result</var>.
+            <li>Run resolver's internal reject algorithm with <var>error</var>
+            as value and terminate this algorithm.
             </li>
           </ol>
-        </section>
-        <section>
-          <h3>
-            url member
-          </h3>
+        </li>
+        <li>If the document's <a>mode of operation</a> is "standalone":
+          <ol>
+            <li>Let <var>error</var> be a new <a><code>DOMException</code></a>
+            whose name is "<code><a href=
+            "http://dom.spec.whatwg.org/#notsupportederror">NotSupported</a></code>".
+            </li>
+            <li>Run resolver's internal reject algorithm with <var>error</var>
+            as value and terminate this algorithm.
+            </li>
+          </ol>
+        </li>
+        <li>Run the <a>steps for fetching a manifest</a>. If the
+        <var>response</var>'s type is "error":
+          <ol>
+            <li>Let exception name be "<code><a href=
+            "http://dom.spec.whatwg.org/#networkerror">NetworkError</a></code>".
+            </li>
+            <li>If the <var>response</var>'s termination reason is end user
+            abort, set <var>exception name</var> to "<code><a href=
+            "http://dom.spec.whatwg.org/#aborterror">AbortError</a></code>".
+            </li>
+            <li>If the <var>response</var>'s termination reason is timeout, set
+            <var>exception name</var> to "<code><a href=
+            "http://dom.spec.whatwg.org/#timeouterror">TimeoutError</a></code>".
+            </li>
+            <li>Let <var>error</var> be a new <a><code>DOMException</code></a>
+            whose name is <var>exception name</var>.
+            </li>
+            <li>Run <var>resolver</var>'s internal reject algorithm with <var>
+              error</var> as value and terminate this algorithm.
+            </li>
+          </ol>
+        </li>
+        <li>Let <var>boomark info</var> be result of the <a>steps for
+        processing a manifest</a>, with <var>response</var>'s <a href=
+        "http://fetch.spec.whatwg.org/#concept-response-body">body</a> as the
+        argument.
+        </li>
+        <li>If <var>boomark info</var> is an error:
+          <ol>
+            <li>Run <var>resolver</var>'s internal reject algorithm with <var>
+              error</var> as value and terminate this algorithm.
+            </li>
+          </ol>
+        </li>
+        <li>Present <var>bookmark info</var> to the end user. If the end-user
+        rejects the request to add the bookmark:
+          <ol>
+            <li>Let <var>error</var> be a new <a><code>DOMException</code></a>
+            whose name is "<code><a href=
+            "http://dom.spec.whatwg.org/#aborterror">AbortError</a></code>".
+            </li>
+            <li>Run <var>resolver</var>'s internal reject algorithm with <var>
+              error</var> as value and terminate this algorithm.
+            </li>
+          </ol>
+        </li>
+        <li>Run <var>resolver</var>'s internal fulfill algorithm with
+        <var>undefined</var> as value.
+        </li>
+      </ol>
+    </section>
+    <section>
+      <h2>
+        Media type reregistration
+      </h2>
+      <p>
+        This section contains the required text for MIME media type
+        registration with IANA.
+      </p>
+      <p>
+        The <dfn>media type for a manifests</dfn> is
+        <code>application/manifest+json</code>.
+      </p>
+      <p>
+        If the protocol over which the manifest is transferred supports the
+        [[!MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
+        manifest be labeled with the <a>media type for a manifests</a>.
+      </p>
+      <dl>
+        <dt>
+          Type name:
+        </dt>
+        <dd>
+          application
+        </dd>
+        <dt>
+          Subtype name:
+        </dt>
+        <dd>
+          manifest+json
+        </dd>
+        <dt>
+          Required parameters:
+        </dt>
+        <dd>
+          N/A
+        </dd>
+        <dt>
+          Optional parameters:
+        </dt>
+        <dd>
+          N/A
+        </dd>
+        <dt>
+          Encoding considerations:
+        </dt>
+        <dd>
+          Same as for application/json
+        </dd>
+        <dt>
+          Security considerations:
+        </dt>
+        <dd>
           <p>
-            The <dfn id="propdef-url">url</dfn> an URL pointing to the
-            developer's website.
+            As the manifest format is JSON and will commonly be encoded using
+            [[!UNICODE]], the security considerations described in [[!JSON]]
+            and [[!UNICODE-SECURITY]] apply. In addition, implementors need to
+            impose their own implementation-specific limits on the values of
+            otherwise unconstrained member types, e.g. to prevent denial of
+            service attacks, to guard against running out of memory, or to work
+            around platform-specific limitations.
           </p>
-        </section>
-      </section>
-      <section>
-        <h2>
-          Media Type
-        </h2>
-        <p>
-          This section contains the required text for MIME media type
-          registration with IANA.
-        </p>
-        <p>
-          The <dfn>media type for an application manifests</dfn> is
-          <code>application/webapp-manifest+json</code>.
-        </p>
-        <p>
-          If the protocol over which the application manifest is transferred
-          supports the [[!MIME-TYPES]] specification (e.g. [[!HTTP11]]), it is
-          RECOMMENDED that the application manifest be labeled with the
-          <a>media type for an application manifests</a>.
-        </p>
-        <dl>
-          <dt>
-            Type name:
-          </dt>
-          <dd>
-            application
-          </dd>
-          <dt>
-            Subtype name:
-          </dt>
-          <dd>
-            webapp-manifest+json
-          </dd>
-          <dt>
-            Required parameters:
-          </dt>
-          <dd>
-            N/A
-          </dd>
-          <dt>
-            Optional parameters:
-          </dt>
-          <dd>
-            N/A
-          </dd>
-          <dt>
-            Encoding considerations:
-          </dt>
-          <dd>
-            Same as for application/json
-          </dd>
-          <dt>
-            Security considerations:
-          </dt>
-          <dd>
-            <p>
-              As the application manifest format is JSON and will commonly be
-              encoded using [[!UNICODE]], the security considerations described
-              in [[!JSON]] and [[!UNICODE-SECURITY]] apply. In addition,
-              implementers need to impose their own implementation-specific
-              limits on the values of otherwise unconstrained member types,
-              e.g. to prevent denial of service attacks, to guard against
-              running out of memory, or to work around platform-specific
-              limitations.
-            </p>
-            <p>
-              The application manifest document allows authors, through the
-              permissions and <code>permissions</code> members, to request
-              permission to enable security sensitive APIs. As these APIs are
-              outside the scope of this specification, significant caution
-              needs to be taken when granting an application the capability to
-              use a feature. The relevant APIs define their own security
-              considerations (see the <a href=
-              "http://www.w3.org/2012/sysapps/#roadmap">System Applications
-              Working Group's APIs</a>).
-            </p>
-            <p>
-              Web applications will generally contain ECMAscript, HTML, CSS
-              files, and other media, which are executed in a sand-boxed
-              environment. As such, implementers need to be aware of the
-              security implications for the types they support. Specifically,
-              implementers need to consider the security implications outlined
-              in the [[!CSS-MIME]] specification, the [[!ECMAScript-MIME]]
-              specification, and the [[!HTML]] specification.
-            </p>
-            <p>
-              As web applications can contain content that is able to
-              simultaneously interact with the local device and a remote host,
-              implementers need to consider the privacy implications resulting
-              from exposing private information to a remote host. Mitigation
-              and in-depth defensive measures are an implementation
-              responsibility and not prescribed by this specification. However,
-              in designing these measures, implementers are advised to enable
-              user awareness of information sharing, and to provide easy access
-              to interfaces that enable revocation of permissions.
-            </p>
-            <p>
-              As this specification allows for the declaration of IRIs within
-              certain members of the application manifest, implementers need
-              to consider the security considerations discussed in the [IRI]
-              specification. Implementations intending to display <abbr title=
-              "Internationalized Resource Identifiers">IRIs</abbr> and
-              <abbr title="Internationalized domain name">IDNA</abbr> addresses
-              found in the application manifest are strongly encouraged to
-              follow the security advice given in [[!UNICODE-SECURITY]].
-            </p>
-          </dd>
-          <dt>
-            Applications that use this media type:
-          </dt>
-          <dd>
-            Web browsers
-          </dd>
-          <dt>
-            Additional information:
-          </dt>
-          <dd>
-            <dl>
-              <dt>
-                Magic number(s):
-              </dt>
-              <dd>
-                N/A
-              </dd>
-              <dt>
-                File extension(s):
-              </dt>
-              <dd>
-                .webapp
-              </dd>
-              <dt>
-                Macintosh file type code(s):
-              </dt>
-              <dd>
-                TEXT
-              </dd>
-            </dl>
-          </dd>
-          <dt>
-            Person &amp; email address to contact for further information:
-          </dt>
-          <dd>
-            The <a href="http://www.w3.org/2008/webapps/" rel="nofollow">Web
-            Applications (WebApps) Working Group</a> can be contacted at
-            <a href="http://lists.w3.org/Archives/Public/public-webapps/" rel=
-            "nofollow">public-webapps@w3.org</a>.
-          </dd>
-          <dt>
-            Intended usage:
-          </dt>
-          <dd>
-            COMMON
-          </dd>
-          <dt>
-            Restrictions on usage:
-          </dt>
-          <dd>
-            none
-          </dd>
-          <dt>
-            Author:
-          </dt>
-          <dd>
-            W3C's Web Applications (WebApps) Working Group.
-          </dd>
-          <dt>
-            Change controller:
-          </dt>
-          <dd>
-            W3C.
-          </dd>
-        </dl>
-      </section>
-      <section class="appendix">
-        <h2>
-          Acknowledgments
-        </h2>
-        <p>
-          This document reuses text from the WHATWG [[!HTML]] specification as
-          permitted by the license of that specification. The [[!HTML]]
-          specification is edited by Ian Hickson.
-        </p>
-      </section>
+          <p>
+            Web applications will generally contain ECMAScript, HTML, CSS
+            files, and other media, which are executed in a sand-boxed
+            environment. As such, implementors need to be aware of the security
+            implications for the types they support. Specifically, implementors
+            need to consider the security implications outlined in the
+            [[!CSS-MIME]] specification, the [[!ECMAScript-MIME]]
+            specification, and the [[!HTML]] specification.
+          </p>
+          <p>
+            As web applications can contain content that is able to
+            simultaneously interact with the local device and a remote host,
+            implementors need to consider the privacy implications resulting
+            from exposing private information to a remote host. Mitigation and
+            in-depth defensive measures are an implementation responsibility
+            and not prescribed by this specification. However, in designing
+            these measures, implementors are advised to enable user awareness
+            of information sharing, and to provide easy access to interfaces
+            that enable revocation of permissions.
+          </p>
+          <p>
+            As this specification allows for the declaration of URLs within
+            certain members of a manifest, implementors need to consider the
+            security considerations discussed in the [[!URL]] specification.
+            Implementations intending to display <abbr title=
+            "Internationalized Resource Identifiers">IRIs</abbr> and
+            <abbr title="Internationalized domain name">IDNA</abbr> addresses
+            found in the manifest are strongly encouraged to follow the
+            security advice given in [[!UNICODE-SECURITY]].
+          </p>
+        </dd>
+        <dt>
+          Applications that use this media type:
+        </dt>
+        <dd>
+          Web browsers
+        </dd>
+        <dt>
+          Additional information:
+        </dt>
+        <dd>
+          <dl>
+            <dt>
+              Magic number(s):
+            </dt>
+            <dd>
+              N/A
+            </dd>
+            <dt>
+              File extension(s):
+            </dt>
+            <dd>
+              .json, .manifest
+            </dd>
+            <dt>
+              Macintosh file type code(s):
+            </dt>
+            <dd>
+              TEXT
+            </dd>
+          </dl>
+        </dd>
+        <dt>
+          Person &amp; email address to contact for further information:
+        </dt>
+        <dd>
+          The <a href="http://www.w3.org/2008/webapps/" rel="nofollow">Web
+          Applications (WebApps) Working Group</a> can be contacted at <a href=
+          "http://lists.w3.org/Archives/Public/public-webapps/" rel=
+          "nofollow">public-webapps@w3.org</a>.
+        </dd>
+        <dt>
+          Intended usage:
+        </dt>
+        <dd>
+          COMMON
+        </dd>
+        <dt>
+          Restrictions on usage:
+        </dt>
+        <dd>
+          none
+        </dd>
+        <dt>
+          Author:
+        </dt>
+        <dd>
+          W3C's Web Applications (WebApps) Working Group.
+        </dd>
+        <dt>
+          Change controller:
+        </dt>
+        <dd>
+          W3C.
+        </dd>
+      </dl>
+    </section>
+    <section id="conformance" data-status="done">
+      <p>
+        There is only one class of product that can claim conformance to this
+        specification: a <dfn>user agent</dfn>.
+      </p>
+    </section>
+    <section class="appendix">
+      <h2>
+        Acknowledgments
+      </h2>
+      <p>
+        This document reuses text from the WHATWG [[!HTML]] specification as
+        permitted by the license of that specification. The [[!HTML]]
+        specification is edited by Ian Hickson.
+      </p>
     </section>
   </body>
 </html>
