@@ -398,11 +398,22 @@ installButton.addEventListener("click", function(e){
           <code>orientation</code> member
         </h3>
         <p class="issue">
-          Should flipplable be the default?
+          Should flippable be the default?
         </p>
         <p class="issue">
-          What happens in the dev wants to lock to some oreintaton on a phone,
-          but a different one o a tablet? like BBC iPlayer does.
+          A developer may want to lock to an orientation depending on the
+          class of the device, the size of the screen, or the aspect ratio
+          of the screen used. For example, use portrait on a phone and
+          landscape on a tablet. For example, BBC iPlayer does this (on iOS?).
+        </p>
+        <p class="issue">
+          Consider the existing orientation features on the web platform:
+          <a href="http://dev.w3.org/csswg/css-device-adapt/#the-lsquoorientationrsquo-descriptor">
+          the orientation descriptor</a> [[CSS-ADAPTATION]],
+          <a href="http://w3c-test.org/csswg/mediaqueries3/#orientation">
+          the orientation media feature</a> [[CSS3-MEDIAQUERIES]], and
+          <a href="https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
+          the allowed orientations</a> [[SCREEN-ORIENTATION]].
         </p>
         <p>
           The <dfn id="member-orientation">orientation</dfn> <a>member</a>
@@ -410,11 +421,11 @@ installButton.addEventListener("click", function(e){
           application effectively. The value of this member is only applicable
           to applications whose mode of operation is <a>standalone</a>.
         </p>
-        <p>
+        <p class="note">
           Two orientations exists for most devices: 'portrait' and 'landscape',
           but some devices support only one. Devices might also support up to
           two portrait and two landscape orientations (described below), and by
-          default be able to flip between all of these.
+          default are able to flip between all of these.
         </p>
         <p>
           Orientation-locking requests can be post-fixed with one of the
@@ -432,7 +443,8 @@ installButton.addEventListener("click", function(e){
             secondary
           </dt>
           <dd>
-            The opposite direction of the primary one.
+            The opposite direction of the primary one (180 degrees from the
+            primary).
           </dd>
           <dt>
             auto
@@ -447,14 +459,15 @@ installButton.addEventListener("click", function(e){
           primary and secondary orientation.
         </p>
         <p>
-          A <dfn>valid screen orientation</dfn> is a string that conforms to
-          the following [[!ABNF]].
+          A <dfn>valid screen orientation</dfn> is a string that matches the
+          <code>orientation</code> production of the following [[!ABNF]],
+          the character set for which is Unicode.
         </p>
         <pre>
   orientation = type ["-" option]
   type = "portrait" / "landscape"
   option = "auto" / "primary" / "secondary"
-</pre>
+        </pre>
         <p>
           The <dfn>steps for processing the <code>orientation</code>
           member</dfn> are given by the following algorithm. The algorithm
