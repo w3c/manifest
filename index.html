@@ -66,7 +66,6 @@
 {
   "name": "Example",
   "altname": "The Example App 2.0",
-  "orientation": "landscape",
   "url": "/start.html",
   "mode": "standalone",
   "icons": [{
@@ -397,117 +396,115 @@ installButton.addEventListener("click", function(e){
         <h3>
           <code>orientation</code> member
         </h3>
-        <p class="issue">
-          Should flippable be the default?
-        </p>
-        <p class="issue">
-          Consider the existing orientation features on the web platform:
-          <a href="http://dev.w3.org/csswg/css-device-adapt/#the-lsquoorientationrsquo-descriptor">
-          the orientation descriptor</a> [[CSS-ADAPTATION]],
-          <a href="http://w3c-test.org/csswg/mediaqueries3/#orientation">
-          the orientation media feature</a> [[CSS3-MEDIAQUERIES]],
-          <a href="https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
-          the allowed orientations</a> [[SCREEN-ORIENTATION]], and
-          related discussion on adding
-          <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=23204">
-          an orientation option to the Fullscreen API</a> [[FULLSCREEN]].
-        </p>
-        <p>
-          The <dfn id="member-orientation">orientation</dfn> <a>member</a>
-          represents the screen orientation that is required to use the web
-          application effectively. The value of this member is only applicable
-          to applications whose mode of operation is <a>standalone</a>.
-        </p>
-        <p class="note">
-          Two orientations exists for most devices: 'portrait' and 'landscape',
-          but some devices support only one. Devices might also support up to
-          two portrait and two landscape orientations (described below), and by
-          default are able to flip between all of these.
-        </p>
-        <p>
-          Orientation-locking requests can be post-fixed with one of the
-          following keywords:
-        </p>
-        <dl>
-          <dt>
-            primary
-          </dt>
-          <dd>
-            The natural orientation for the device (if applicable, else an
-            arbitrary one).
-          </dd>
-          <dt>
-            secondary
-          </dt>
-          <dd>
-            The opposite direction of the primary one (180 degrees from the
-            primary).
-          </dd>
-          <dt>
-            auto
-          </dt>
-          <dd>
-            The choice of using either primary or secondary is left to the user
-            agent.
-          </dd>
-        </dl>
-        <p>
-          When the request is not post-fixed, the user agent can flip between
-          primary and secondary orientation.
-        </p>
-        <p>
-          A <dfn>valid screen orientation</dfn> is a string that matches the
-          <code>orientation</code> production of the following [[!ABNF]],
-          the character set for which is Unicode.
-        </p>
-        <pre>
-  orientation = type ["-" option]
-  type = "portrait" / "landscape"
-  option = "auto" / "primary" / "secondary"
-        </pre>
-        <p>
-          The <dfn>steps for processing the <code>orientation</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          returns either a string or undefined.
-        </p>
-        <ol>
-          <li>If <a>HasOwnProperty</a>(<var>manifest</var>,"orientation")
-          returns <code>false</code>, then return <code>undefined</code>.
-          </li>
-          <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
-          "<code>orientation</code>" as the argument.
-          </li>
-          <li>Let <var>result</var> to <a>ToString</a>(<var>value</var>).
-          </li>
-          <li>
-            <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
-            Strip leading and trailing whitespace</a> from <var>result</var>.
-          </li>
-          <li>If <var>result</var> is not a <a>valid screen orientation</a>,
-          and return <code>undefined</code>.
-          </li>
-          <li>Return <var>result</var>.
-          </li>
-        </ol>
-        <p>
-          The <dfn>steps for selecting the orientation</dfn> is given by the
-          following algorithm:<br>
-        </p>
-        <ol>
-          <li>If the device is currently in either primary or secondary mode,
-          choose the one that the device is currently in (unless there is some
-          reason not to do so).
-          </li>
-          <li>if the device is in an orientation that is contrary to the one
-          being requested, attempt to put the device into the primary or the
-          orientation being requested.
-          </li>
-          <li>When the device is rotated, allow the document? to flip freely
-          from primary to secondary.
-          </li>
-        </ol>
+        <div class="issue">
+          <p>
+            This is <a href="https://github.com/w3c/manifest/issues/74">issue
+            74</a> on GitHub. We are looking for feedback!
+          </p>
+          <p>
+            Orientation of an application is dependent on the media features of
+            the display. For example an application might need to be launched
+            in landscape on phones (in order to have sufficient display width),
+            but prefer to be in portrait on tablets. (see <a href=
+            "http://w3c-webmob.github.io/installable-webapps/#orientation">Orientation</a>
+            section in the use cases document).
+          </p>
+          <p>
+            When analyzing applications across various runtimes, we've found
+            evidence that such applications are common (e.g., basically any
+            application on the iPhone that has an iPad counterpart will be
+            designed to constrain to a particular orientation based on the
+            device being used: LinkedIn, Flipboard, GoodReads, etc. will all go
+            from portrait-primary on the iPhone to allowing "any" orientation
+            on the iPad. A more extreme example is BBC iPlayer - which supports
+            portrait-primary on the iPhone, but both landscape orientations on
+            iPad. The same can be seen on Android devices. Unlike native apps,
+            Web Apps should not target devices/OS's - they have to be device
+            neutral.
+          </p>
+          <p>
+            In order to address the use cases, we currently have two proposals.
+          </p>
+          <p>
+            <strong>Option 1:</strong> Provide a list of orientation sets in
+            the manifest. The user agent uses the first one with a matching
+            media query. The order in which the orientations are listed by a
+            developer does not imply a preference for setting the orientation -
+            it is always left up to the user agent to pick the best orientation
+            given, for example, how the user is holding the device. In the
+            example below, no orientation is given for widths of 721px or
+            above, so the default is used: allowing all orientations supported
+            by the device.
+          </p>
+          <pre class="highlight">
+{
+    "orientations": [{
+        "media": "max-width: 320px",
+        "supported": ["portrait-primary", "landscape"]
+    }, {
+        "media": "max-width: 720px",
+        "supported": ["landscape"]
+    }]
+}
+</pre>
+          <p>
+            In this example:
+          </p>
+          <ul>
+            <li>a device with a screen width of 320px or below would launch
+            either "portrait-primary" or "landscape" with the abilty to be
+            "flipped" depending on how the user is holding the device (and OS
+            permitting).
+            </li>
+            <li>A device with a screen width of 321px through 720px would be
+            launched in landscape (leaving it up to the UA to pick either
+            landscape-primary or landscape-secondary, while allowing
+            "flippability"),
+            </li>
+            <li>A device with a screen width of 721px and above would start in
+            any orientation chosen by the UA (ideally, one that matches how the
+            user is holding the device).
+            </li>
+          </ul>
+          <p>
+            <strong>Option 2:</strong> The second proposal is to remove
+            orientation from the manifest and use CSS @viewport instead
+            [[css-device-adapt]]. This would mean::
+          </p>
+          <pre class="highlight">
+&lt;head&gt;
+&lt;style&gt;
+  /*set it by default to portrait primary for small screens */
+  @media (max-width: 320px) {
+      @viewport {
+          orientation: portrait-primary, landscape;
+      }
+  }
+  
+  /*Tablet, switch to landscape only*/
+  @media (max-width: 720px) {
+      @viewport {
+          orientation: landscape;
+      }
+  }
+  
+  /* 
+    similarly on screens with a width of 721px or more, 
+    all orientations are allowed 
+   */
+&lt;/style&gt;
+&lt;/head&gt;
+</pre>
+          <p>
+            Problem with using <code>@viewport</code> at the moment is that the
+            specification is progressing a bit slowly and no one has
+            implemented the "orientation" descriptor. It also lacks definitions
+            for "-primary" and "-secondary" contraints, which are important for
+            various applications, and doesn't currently allow providing
+            multiple allowed orientations - hopefully the CSS Device Adaption
+            spec can align with the Screen Orientation spec.
+          </p>
+        </div>
       </section>
       <section>
         <h3>
