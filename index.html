@@ -65,7 +65,6 @@
         <pre class="example highlight json" title="typical manifest">
 {
   "name": "Example",
-  "altname": "The Example App 2.0",
   "url": "/start.html",
   "mode": "standalone",
   "icons": [{
@@ -210,7 +209,7 @@ installButton.addEventListener("click", function(e){
       </p>
       <section>
         <h3>
-          <code title="">name</code> and <code>altname</code> member
+          <code title="">name</code> member
         </h3>
         <p>
           The <dfn id="member-name"><code>name</code></dfn> is a string that
@@ -219,24 +218,18 @@ installButton.addEventListener("click", function(e){
           underneath an icon).
         </p>
         <p>
-          The <dfn id="member-alt-name"><code>altname</code></dfn> is a string
-          that represents an alternative name of the application, such as the
-          name under which the application is sold or marketed.
-        </p>
-        <p>
-          The <dfn>steps for processing the names of an application</dfn> is
+          The <dfn>steps for processing the name of an application</dfn> is
           given by the following algorithm. The algorithm takes a
-          <var>manifest</var>, and a key (either, "altname" or "name"), as an
-          argument. It returns either <code>undefined</code>, a string, or an
-          error.
+          <var>manifest</var> as an argument. It returns either
+          <code>undefined</code>, a string, or an error.
         </p>
         <ol>
-          <li>If <a>HasOwnProperty</a>(<var>manifest</var>, <var>key</var>)
-          returns <code>false</code>, then return <code>undefined</code>.
+          <li>If <a>HasOwnProperty</a>(<var>manifest</var>, "name") returns
+          <code>false</code>, then return <code>undefined</code>.
           </li>
           <li>Let <var>value</var> be the result of calling the
           [[\GetOwnProperty]] internal method of <var>manifest</var> with
-          argument <var>key</var>.
+          argument "name".
           </li>
           <li>If Type(<var>value</var>) is not "string", return an error.
           </li>
@@ -619,9 +612,6 @@ installButton.addEventListener("click", function(e){
                 custom name using as a place holder.
               </li>
             </ol>
-          </li>
-          <li>Let <var>alternative name</var> be the result of running the <a>
-            steps for processing the <code>altname</code> member</a>.
           </li>
           <li>Let <var>mode</var> be the result of running the <a>steps for
           processing the <code>mode</code> member</a>. If processing returns an
