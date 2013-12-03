@@ -1,8 +1,9 @@
 var respecConfig = {
-    specStatus: 'FPWD',
+    specStatus: 'WD',
     shortName: 'manifest',
     subtitle: 'Living Standard',
     edDraftURI: 'http://w3c.github.io/manifest/',
+    previousURI: 'http://w3c.github.io/manifest/FPWD.html' 
     editors: [{
         name: 'Marcos Caceres',
         company: 'Mozilla Corporation',
