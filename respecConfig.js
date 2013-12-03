@@ -1,9 +1,10 @@
 var respecConfig = {
-    specStatus: 'WD',
+    specStatus: 'unofficial',
     shortName: 'manifest',
     subtitle: 'Living Standard',
     edDraftURI: 'http://w3c.github.io/manifest/',
-    previousURI: 'http://w3c.github.io/manifest/FPWD.html', 
+    previousMaturity: 'FPWD',
+    previousURI: 'http://w3c.github.io/manifest/FPWD.html',
     editors: [{
         name: 'Marcos Caceres',
         company: 'Mozilla Corporation',
@@ -22,6 +23,11 @@ var respecConfig = {
     wgPublicList: 'public-webapps',
     wgPatentURI: 'http://www.w3.org/2004/01/pp-impl/42538/status',
     otherLinks: [{
+            key: 'Previous version',
+            data: [{href: 'http://w3c.github.io/manifest/FPWD.html'}]
+        },
+
+        {
         key: 'Repository',
         data: [{
             value: 'We are on Github.',
