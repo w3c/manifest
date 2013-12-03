@@ -1,13 +1,106 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" typeof="bibo:Document " about="" property="dcterms:language" content="en">
-<script id="tinyhippos-injected">if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document); }</script><head>
+<head>
     <meta charset="utf-8">
     <title>
       Manifest for web apps and bookmarks
     </title>
-    <style type="text/css"></style>
     
-  <style>/*****************************************************************
+  
+  <script>
+function hideWIP(elem){
+      elem.parentNode.parentNode.id = '';
+      elem.parentNode.id = '';
+      elem.style.display = 'none';
+    }
+  </script>
+  
+  <style>
+
+    #wipcontainer {
+        position: fixed;
+        bottom: 0px;
+        margin: 0 0 0 -37.5%;
+        width: 75%;
+        left: 50%;
+        z-index: 1000;
+    }
+    #wip {
+        display: block;
+        color: white;
+        width: auto;
+        border: thin solid rgb(141, 0, 0);
+        border-bottom: none;
+        border-radius: 0.5em 0.5em 0 0;
+        box-shadow: 0 0 1em rgba(127, 127, 127, .5);
+        padding: 1em 8em 1.5em 8em;
+        margin: auto;
+background: #a90329; /* Old browsers */
+background: -moz-linear-gradient(top,  #a90329 0%, #8f0222 44%, #6d0019 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a90329), color-stop(44%,#8f0222), color-stop(100%,#6d0019)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #a90329 0%,#8f0222 44%,#6d0019 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #a90329 0%,#8f0222 44%,#6d0019 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #a90329 0%,#8f0222 44%,#6d0019 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #a90329 0%,#8f0222 44%,#6d0019 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=0 ); /* IE6-9 */
+
+        text-align: center;
+        font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-size: 0.9em;
+        font-weight: 300;
+    }
+    @media (max-width: 50em) {
+        #wipcontainer {
+            margin: 0 0 0 0;
+            left:0;
+            width: auto;
+        }
+        #wip {
+            padding: 1em 4em 1.5em 4em;
+            width: auto;
+        }
+    }
+    #wip strong {
+        font-weight: normal;
+        display: block;
+        text-transform: uppercase;
+        text-shadow: 0 2px 2px rgba(0, 0, 0, 0.6);
+        margin: 0.25em auto 0.5em auto;
+    }
+    #wip a {
+        color: #fff;
+    }
+    #wip a:hover {
+        background: transparent;
+    }
+    #wip strong:before, #wip strong:after {
+        position: relative;
+        content:'\26A0';
+        padding: 0 0.5em 0 0.5em;
+        text-shadow: none;
+        font-size: 1.25em;
+    }
+    #wip > input {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        background: none;
+        border: none;
+        color: rgb(243, 245, 246);
+        font-weight: bold;
+        font-size: 1.2em;
+        cursor: pointer;
+        border: thin solid rgba(127, 127, 127, .0);
+        border-radius: .3em;
+    }
+    #wip > input:hover {
+        border: thin outset rgba(127, 127, 127, .5);
+    }
+    #wip > input:active {
+        border: thin inset rgba(127, 127, 127, .5);
+    }
+
+/*****************************************************************
  * ReSpec 3 CSS
  * Robin Berjon - http://berjon.com/
  *****************************************************************/
@@ -424,30 +517,27 @@ table.exceptions table {
     width:  100%;
 }
 </style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-WD"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]--></head>
-  <body style="" class="h-entry" role="document" id="respecDocument"><div class="head" role="contentinfo" id="respecHeader">
+  <body class="h-entry" style="" role="document" id="respecDocument"><div class="head" role="contentinfo" id="respecHeader">
   <p>
     
       <a href="http://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/Icons/w3c_home" alt="W3C"></a>
     
   </p>
   <h1 class="title p-name" id="title" property="dcterms:title">Manifest for web apps and bookmarks</h1>
+
+  <h2 style="color:red">Lawyer Edition!</h2>
   
-  <h2 property="dcterms:issued" datatype="xsd:dateTime" content="2013-11-29T05:55:36.000Z" id="w3c-first-public-working-draft-29-november-2013"><abbr title="World Wide Web Consortium">W3C</abbr> First Public Working Draft <time class="dt-published" datetime="2013-11-29">29 November 2013</time></h2>
+  <h2 property="dcterms:issued" datatype="xsd:dateTime" content="2013-12-02T20:11:43.000Z" id="w3c-first-public-working-draft-03-december-2013"><abbr title="World Wide Web Consortium">W3C</abbr> First Public Working Draft <time class="dt-published" datetime="2013-12-03">03 December 2013</time></h2>
   <dl>
     
+      <dt>Latest working draft:</dt>
+      <dd><a href="http://w3c.github.io/manifest/">http://w3c.github.io/manifest/</a></dd>
+
       <dt>This version:</dt>
-      <dd><a class="u-url" href="http://www.w3.org/TR/2013/WD-manifest-20131129/">http://www.w3.org/TR/2013/WD-manifest-20131129/</a></dd>
+      <dd><a class="u-url" href="http://www.w3.org/TR/2013/WD-manifest-20131203/">http://www.w3.org/TR/2013/WD-manifest-20131203/</a></dd>
       <dt>Latest published version:</dt>
       <dd><a href="http://www.w3.org/TR/manifest/">http://www.w3.org/TR/manifest/</a></dd>
-    
-    
-      <dt>Latest editor's draft:</dt>
-      <dd><a href="http://www.w3.org/2008/webapps/manifest/">http://www.w3.org/2008/webapps/manifest/</a></dd>
-    
-    
-    
-    
-    
+        
     
     <dt>Editors:</dt>
     <dd class="p-author h-card vcard" rel="bibo:editor" inlist=""><span typeof="foaf:Person"><span property="foaf:name" class="p-name fn">Marcos Caceres</span>, <a rel="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://mozilla.com">Mozilla Corporation</a></span>
@@ -521,6 +611,10 @@ table.exceptions table {
   <hr>
 </div>
     <section id="abstract" class="introductory" property="dcterms:abstract" datatype="" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter"><h2 aria-level="1" role="heading" id="h2_abstract">Abstract</h2>
+      <p><strong><span style="color:red">If you are not a lawyer, then you are reading the wrong version!!</span>
+     
+            Read the <a href="http://w3c.github.io/manifest/">working draft</a> instead.  </strong>
+      </p>
       <p>
         This specification defines a <em>manifest</em>, which provides
         developers with a centralized place to put metadata about a web
@@ -545,7 +639,14 @@ table.exceptions table {
       </p>
     </section><section id="sotd" class="introductory" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter"><h2 aria-level="1" role="heading" id="h2_sotd">Status of This Document</h2>
   
-    
+    <div id="wipcontainer">
+      <p class="stability" id="wip"><strong>This version is for lawyers!</strong> This specification is for IPR review purposes
+      only and not for implementation! For the latest updates,
+      including important bug fixes, please look at the
+      <a href="http://w3c.github.io/manifest/">working draft</a> instead.
+      <input onclick="hideWIP(this)" value="×" type="button">
+      </p>
+    </div>    
       
         <p>
           <em>This section describes the status of this document at the time of its publication.
