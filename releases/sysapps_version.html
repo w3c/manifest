@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>
+      Manifest for Web Applications
+    </title>
+    <script src="http://www.w3.org/Tools/respec/respec-w3c-common" class=
+    "remove">
+</script>
+    <script class='remove'>
+var respecConfig = {
+    specStatus: "ED",
+    shortName: "manifest",
+    publishDate:  "2013-05-16",
+    //previousPublishDate:  "",
+    edDraftURI: "http://www.w3.org/2012/sysapps/manifest/",
+    // lcEnd: "3000-01-01",
+    // crEnd: "3000-01-01",
+
+    editors: [{
+            name: "Marcos Caceres",
+            company: "Mozilla Corporation",
+            companyURL: "http://mozilla.com"
+        }
+    ],
+    inlineCSS: true,
+    noIDLIn: true,
+    noLegacyStyle: false,
+    extraCSS: ["../ReSpec.js/css/respec.css"],
+    wg: "System Applications Working Group",
+    wgURI: "http://www.w3.org/2012/sysapps/",
+    wgPublicList: "public-sysapps",
+    wgPatentURI: "http://www.w3.org/2004/01/pp-impl/58119/status",
+    otherLinks: [{
+            key: "Repository",
+            data: [{
+                    value: "We are on Github.",
+                    href: "https://github.com/sysapps/manifest"
+                }, {
+                    value: "File a bug.",
+                    href: "https://github.com/sysapps/manifest/issues"
+                }, {
+                    value: "Commit history.",
+                    href: "https://github.com/sysapps/manifest/commits/gh-pages"
+                }
+            ]
+        }
+    ],
+    inlineCSS: true,
+    noIDLIn: true,
+    noLegacyStyle: false,
+    extraCSS: ["../ReSpec.js/css/respec.css"],
+    wg: "Web Applications (WebApps) Working Group",
+    wgURI: "http://www.w3.org/2008/webapps/",
+    wgPublicList: "public-webapps",
+    wgPatentURI: "http://www.w3.org/2004/01/pp-impl/42538/status"
+    };
+    </script>
+    <style class='remove'>
+a:not(href){ color: red }
+    </style>
+  </head>
+  <body>
+    <section id='abstract'>
+      <p><strong style="color:red">THE SYSAPPS WG IS NOT LONGER MAINTAINING THIS DOCUMENT.</strong> The document is now maintained by the WebApps Working group. An updated draft of the <a href="http://w3c.github.io/manifest/">Manifest specification</a> available on GitHub. 
+      </p>
+      <p>
+        An <dfn>application manifest</dfn> is a JSON document that describes
+        various aspects of a web application. Some of these aspects are
+        presentational, while others aspects have security implications.
+      </p>
+    </section>
+    <section>
+      <h2>
+        Introduction
+      </h2>
+      <p>
+        An application manifest consists of a top-level object (the
+        <dfn>manifest root</dfn>) and one or more members, some of which can
+        themselves contain objects.
+      </p>
+      <section class="informative">
+        <h3>
+          Example manifest
+        </h3>
+        <p>
+          The following shows a typical <a>application manifest</a>.
+        </p>
+        <pre class="example highlight">
+{
+  "name": "The Example App",
+  "description": "Exciting Open Web development action!",
+  "launch_path": "/",
+  "version": "1.0",
+  "icons": {
+    "16": "/img/icon_16.png",
+    "48": "/img/icon_48.png",
+    "128": "/img/icon_128.png"
+  },
+  "developer": {
+    "name": "Foo Corp.",
+    "url": "http://example.org/dev"
+  },
+  "appcache_path": "/cache.manifest",
+  "locales": {
+    "es": {
+      "description": "¡Acción abierta emocionante del desarrollo del Web!",
+      "developer": {
+        "url": "https://example.org/dev/es-ES"
+      }
+    }
+  },
+  "default_locale": "en",
+  "screen_size": {
+    "min_width": "600",
+    "min_height": "300"
+  },
+  "required_features": ["touch", "geolocation", "webgl"],
+  "permissions": {
+    "contacts": {
+      "description": "Required for auto-completion in the share screen",
+      "access": "read"
+    }
+  },
+  "fullscreen": "true",
+  "release_notes": {
+    "1.0": "Bugs fixed. New exciting effects. Ready for an official release!",
+    "0.5": "First alpha version with still some bugs but already fun!"
+  }
+}
+</pre>
+      </section>
+    </section>
+    <section id="sotd">
+       <p><strong style="color:red">THE SYSAPPS WG IS NOT LONGER MAINTAINING THIS DOCUMENT.</strong> The document is now maintained by the WebApps Working group. An updated draft of the <a href="http://w3c.github.io/manifest/">Manifest specification</a> available on GitHub. 
+      </p>
+    </section>
+    <section id="conformance">
+      <p>
+        There is only one class of product that can claim conformance to this
+        specification: a <dfn>user agent</dfn>.
+      </p>
+    </section>
+    <section>
+      <h2>
+        Processing the manifest
+      </h2>
+      <p id="ecmascript-abstractop">
+        Algorithms in this section use the conventions described in <a class=
+        "external" href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-5.2">ECMA-262
+        section 5.2</a>, such as the use of steps and substeps, and so on. The
+        <a class="external" href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.2"><dfn>ToBoolean</dfn></a>,
+        <a class="external" href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.3"><dfn>ToNumber</dfn></a>,
+        <a class="external" href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.7"><dfn>ToUint16</dfn></a>,
+        <a class="external" href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.5"><dfn>ToInt32</dfn></a>,
+        <a class="external" href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.6"><dfn>ToUint32</dfn></a>,
+        <a class="external" href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.8"><dfn>ToString</dfn></a>,
+        and <a class="external" href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-9.1.9"><dfn>ToObject</dfn></a>
+        abstract operations and the <a class="external" href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-8">Type(<var>x</var>)</a>
+        notation referenced in this section are defined in [[!ECMA-262-51]]. In
+        the algorithms, to <dfn>ignore</dfn> means that the user agent MUST act
+        as if the author had not declared the particular member in the
+        application manifest document.
+      </p>
+      <p>
+        Certain error conditions can result in an <a>application manifest</a>
+        being treated as an <a>invalid manifest</a>. An <dfn>invalid
+        manifest</dfn> is an application manifest that is deemed to be
+        non-conforming in such a way that it would not be possible for the user
+        agent to continue processing (e.g., it can't be parsed by the JSON
+        parser because of a syntax error). In such a case, the user agent MAY
+        report the error to the user in a user-agent-specific manner, MAY
+        <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigate</a>
+        to an error page to report the error, or MAY ignore the error and do
+        nothing. In either case, when a step results in an <a>invalid
+        manifest</a> the user agent MUST abort whatever steps caused the
+        condition.
+      </p>
+      <p>
+        The <dfn>steps for fetching an application manifest</dfn> are given by
+        the following algorithm. This algorithm can be applied equally to
+        manifests fetched from HTTP/S or those derived over the app URI scheme.
+      </p>
+      <ol>
+        <li>Let <var>url</var> be a <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/multipage/urls.html#url">
+          URL</a> with character encoding [[!UTF-8]] that represents the
+          <a>application manifest</a>.
+        </li>
+        <li>Let <var>origin</var> be ??.
+        </li>
+        <li>Resolve <var>url</var> relative to <var>origin</var>. If <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#resolve-a-url"
+        title="resolve a url">resolving</a> the <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#url">URL</a> fails,
+        then treat this as an <a>invalid manifest</a>.
+        </li>
+        <li>Let <var>response body</var> be the <a href=
+        "http://xhr.spec.whatwg.org/#response-entity-body">response entity
+        body</a> resulting from of asynchronously <a href=
+        "http://www.whatwg.org/specs/web-apps/current-work/#fetch">fetching</a>
+        <var>url</var>, with <var>origin</var> as the origin, and with the
+        force same-origin flag set.
+        </li>
+        <li>Let <var>text</var> be the result of running <a href=
+        "http://encoding.spec.whatwg.org/#utf-8-decode">utf-8 decode</a> on the
+        byte stream <a href="http://xhr.spec.whatwg.org/#response-entity-body">
+          </a><var>response body</var>.
+        </li>
+        <li>return <var>text</var>.
+        </li>
+      </ol>
+      <p>
+        The <dfn>steps for processing an application manifest</dfn> are given
+        by the following algorithm.
+      </p>
+      <ol>
+        <li>Let <var>text</var> be the text to be processed.
+        </li>
+        <li>Let <var>manifest</var> result of invoking the parse function of
+        the JSON object defined in [[!ECMA-262-51]] with <var>text</var> as its
+        only argument. If parsing throws an exception, then treat this
+        application manifest as an <a>invalid manifest</a>.
+        </li>
+        <li>Let <var>present</var> be the result of calling [[\HasOwnProperty]]
+        internal method of <var>manifest</var> with argument <var>key</var>.
+        </li>
+        <li>If <var>present</var> is <code>false</code>, then treat this
+        application manifest as an <a>invalid manifest</a>.
+        </li>
+        <li>Let <var>default locale</var> be the result of running the <a>steps
+        for processing the <code>default_locale</code> member</a>.
+          <ol>
+            <li>If <var>default locale</var> is not <var>undefined</var>:
+              <ol>
+                <li>from <var>default locale</var>.
+                </li>
+                <li>If there is no occurance of <var>default locale</var> in
+                the application locales list, then insert <var>default
+                locale</var> immediately before the last item of the
+                <var>application locale list</var>.
+                  <p>
+                    For example, given <var>default locale</var> "jp", and an
+                    <var>application locale list</var> containing "en-US,*",
+                    then the application locale list would become ["en-US",
+                    "jp", "*"].
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li>Let <var>name</var> be the result of running the <a>steps for
+        processing the <code>name</code> member</a>.
+        </li>
+        <li>Let <var>launch path</var> be the result of running the <a>steps
+        for processing the <code>launch_path</code> member</a>:
+          <ol>
+            <li>If <var>launch path</var> resulted in an error, then treat this
+            as an <a>invalid manifest</a>.
+            </li>
+          </ol>
+        </li>
+        <li>Let <var>description</var> be the result of running the <a>steps
+        for processing the <code>description</code> member</a>.
+        </li>
+        <li>Let <var>fullscreen</var> be the result of running the <a>steps for
+        processing the <code>fullscreen</code> member</a>.
+        </li>
+        <li>...
+        </li>
+        <li>Optionally, <a>ignore</a> all other members.
+        </li>
+      </ol>
+      <section>
+        <h3>
+          Types and bindings
+        </h3>
+        <p>
+          As the manifest format is a [[!JSON]] document, this doucment relies
+          on the types defined in [[!JSON]] specification: namely <dfn id=
+          "json-object">object</dfn>, <dfn id="json-array">array</dfn>,
+          <dfn id="json-number">number</dfn>, and <dfn id=
+          "json-string">string</dfn>. Strict type checking is not enforced by
+          this specification. Instead, each member's definition specifies the
+          steps to required to process a particular member.
+        </p>
+        <p>
+          In additon, for the purpose of validity checking, this specification
+          relies on the the following types:
+        </p>
+        <dl>
+          <dt>
+            <dfn>Relative URL</dfn>
+          </dt>
+          <dd>
+            The concept of a relative URL is defined in the [[!URL]]
+            specification.
+          </dd>
+          <dt>
+            <dfn>Absolute URL</dfn>
+          </dt>
+          <dd>
+            The concept of an absolute URL is defined in the [[!URL]]
+            specification.
+          </dd>
+        </dl>
+      </section>
+      <section>
+        <h3>
+          Internationalization and localization
+        </h3>
+        <p>
+          The <dfn>user agent's locales</dfn> is an ordered list of <a title=
+          "language tag">language tags</a> that are used to represent the
+          end-user's language(s) and localization preference for experiencing
+          content; these are essentially equivalent to the language tags sent
+          by the user agent through the <code>Accept-Language</code> [[HTTP11]]
+          header, but without the quality values.
+        </p>
+        <p>
+          The case sensitivity and case mapping for language tags is the same
+          as that defined in section 6.1 of the <cite>ECMAScript
+          Internationalization API Specification</cite> [[!ECMASCRIPT-I18N]].
+        </p>
+        <p>
+          As there are numerous ways a user agent can derive the end-user's
+          preferred languages and regional settings (e.g., the end user might
+          have set them in the user agent's preferences), the means by which
+          those values are derived are left up to the implementation. The first
+          item of the <a>user agent's locales</a> represents the user's most
+          preferred language range (i.e., the language/region combination the
+          user agent assumes the end-user most prefers), followed by the next
+          most preferred language range, and so forth.
+        </p>
+        <p>
+          A <dfn>language tag</dfn> is a string that matches the production of
+          a <code>Language-Tag</code> defined in the [[!BCP47]] specifications
+          (see the <a href=
+          "http://www.iana.org/assignments/language-subtag-registry">IANA
+          Language Subtag Registry</a> for an authoritative list of possible
+          values, see also the <a href=
+          "http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements">
+          Maintenance Agency for ISO 3166 country codes</a>). That is, a
+          language range is composed of one or more <dfn>subtags</dfn> that are
+          delimited by a U+002D HYPHEN-MINUS ("-"). For example, the
+          '<code>en-AU</code>' language range represents English as spoken in
+          Australia, and '<code>fr-CA</code>' represents French as spoken in
+          Canada. Language tags that meet the validity criteria of [[!RFC5646]]
+          section 2.2.9 that can be verified without reference to the IANA
+          Language Subtag Registry are considered structurally valid.
+        </p>
+        <p>
+          The <dfn>CanonicalizeLocaleList</dfn>, <dfn>BestAvailableLocale</dfn>
+          <dfn>LookupMatcher,</dfn> <dfn>BestFitMatcher</dfn>,
+          <dfn>ResolveLocale</dfn>, <dfn>LookupSupportedLocales</dfn>
+          <dfn>BestFitSupportedLocales</dfn> <dfn>SupportedLocales</dfn>.
+        </p>
+      </section>
+      <section>
+        <h3>
+          Localizable members
+        </h3>
+        <p>
+          A <dfn>localizable member</dfn> is member of the <a>application
+          manifest</a> that can appear in the <var>locales</var> member.
+        </p>
+        <p>
+          The <dfn>steps for retrieving a localizable member from the
+          manifest</dfn> are given by the following algorithm. The algorithm
+          prioritizes returning the localized version of a member over one
+          where the locale is unknown. The algorithm returns either a value
+          from the namifest or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>manifest</var> be the JSON-parsed object representation
+          of the <a>application manifest</a>.
+          </li>
+          <li>Let <var>default app locale</var> be the string that represents
+          the default locale for the application manifest.
+          </li>
+          <li>Let <var>identifier</var> be a string that represents the name of
+          the member being sought.
+          </li>
+          <li>Let <var>locales list</var> be a copy of the <a>user agent's
+          locales</a>.
+          </li>
+          <li>If <var>default app locale</var> is not <code>undefined</code>,
+          append <var>default app locale</var> to <var>locales list</var>.
+          </li>
+          <li>If the <var>manifest</var> has a property whose name is
+          <code>"locales</code>", then for each <var>range</var> in the
+          <var>locales list</var> in order:
+            <ol>
+              <li>If the "<code>locales</code>" property has a property whose
+              identifier matches <var>range</var>, then:
+                <ol>
+                  <li>if return the value of the matching property and
+                  terminate this algorithm.
+                  </li>
+                </ol>
+              </li>
+              <li>Otherwise, if the "<code>locales</code>" property has a
+              property whose identifier matches the <var>default app
+              locale</var>, then return the value of the matching property and
+              terminate this algorithm.
+              </li>
+            </ol>
+          </li>
+          <li>If the <a>manifest root</a> has its own property named
+          <var>prop</var>, return the value of the property.
+          </li>
+          <li>Return <code>undefined</code>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">name</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-name"><code>name</code></dfn> <a>localizable
+          member</a> is a string that represents the name of the hosted web
+          application or packaged application, that is used, for example, in an
+          application menu or in other contexts.
+        </p>
+        <p class="note">
+          Note: The <code>name</code> member needs to be present in the
+          application manifest for the user agent to treat an application
+          manifest as valid.
+        </p>
+        <p>
+          The <dfn>steps for processing the name member</dfn> is given by the
+          following algorithm. The algorithm takes an application manifest as
+          an argument and returns either an error or a string:
+        </p>
+        <ol>
+          <li>Let <var>key</var> be the string "<code>name</code>".
+          </li>
+          <li>Let <var>value</var> be the result of running the <a>steps for
+          retrieving a localizable member from the manifest</a>, with
+          <var>key</var> as the member being sought.
+          </li>
+          <li>Let <var>result</var> be the result of calling
+          <a>ToString</a>(<var>value</var>).
+          </li>
+          <li>Return the <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">description</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-description"><code>description</code></dfn>
+          <a>localizable member</a> is a string that describes to the end-user
+          the author's intended purpose for the application (i.e., what the
+          function and utility of the application is, etc.).
+        </p>
+        <p>
+          The <dfn>steps for processing the description member</dfn> are given
+          by the following algorithm. The algorithm takes an application
+          manifest as an argument and returns a string or
+          <code>undefined</code>:
+        </p>
+        <ol>
+          <li>Let <var>key</var> be the string "<code>description</code>".
+          </li>
+          <li>Let result be <code>undefined</code>.
+          </li>
+          <li>Let <var>value</var> be the result of running the <a>steps for
+          retrieving a localizable member from the manifest</a>, with
+          <var>key</var> as the member being sought.
+          </li>
+          <li>If <var>value</var> is not <code>undefined</code>, let
+          <var>result</var> be <a>ToString</a>(<var>value</var>).
+          </li>
+          <li>Return <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">default_locale</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-default_locale">default_locale</dfn> member is a
+          <a>language tag</a> that represents:
+        </p>
+        <ul>
+          <li>The locale of the content of members at the root of the manifest.
+          </li>
+          <li>The default locale that the user agent will use in case the
+          <a>user agent's locales</a> do not match any localized members.
+          </li>
+        </ul>
+        <p>
+          When the <code>default_locale</code> member is missing or in error,
+          the content at the root of the manifest is said to have an
+          <dfn>unknown locale</dfn>.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>default_locale</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes the JSON-parsed application <var>manifest</var> as an argument.
+          The algorithm returns a string, which is either a <a>language tag</a>
+          or the string "*" (which is used to represent an <a>unknown
+          locale</a>).
+        </p>
+        <ol>
+          <li>Let <var>result</var> be "*".
+          </li>
+          <li>Let <var>key</var> be "<code>default_locale</code>".
+          </li>
+          <li>Let <var>present</var> be the result of calling
+          [[\HasOwnProperty]] internal method of <var>manifest</var> with
+          argument <var>key</var>.
+          </li>
+          <li>If <var>present</var> is <var>true</var>:
+            <ol>
+              <li>Let <var>value</var> be the result of calling the
+              [[\GetOwnProperty]] internal method of <var>manifest</var>
+              passing <var>key</var> as the argument.
+              </li>
+              <li>Let <var>tag</var> be <a>ToString</a>(<var>value</var>).
+              </li>
+              <li>Let <var>valid tag</var> the result of calling the abstract
+              operation <a>IsStructurallyValidLanguageTag</a> with
+              <var>tag</var> as the argument.
+              </li>
+              <li>If <var>valid tag</var> is <code>true</code>, then:
+                <ol>
+                  <li>Let <var>result</var> be the result of calling the
+                  abstract operation <a href=
+                  "http://www.ecma-international.org/ecma-402/1.0/#sec-6.2.3">
+                    CanonicalizeLanguageTag</a>, passing <em>tag</em> as the
+                    argument.
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>launch_path</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-launch_path">launch_path</dfn> localizable
+          member is a <a>relative URL</a> that represents a resource within the
+          <a>origin of the application</a> that is <a href=
+          "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
+          loaded</a> when the application is <a>launched</a>.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>launch_path</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          returns either a string, and error, or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>result</var> be <code>undefined.</code>
+          </li>
+          <li>Let <var>key</var> be the string "<code>launch_path</code>".
+          </li>
+          <li>Let <var>present</var> be the result of calling
+          [[\HasOwnProperty]] internal method of <var>manifest</var> with
+          argument <var>key</var>.
+          </li>
+          <li>If present is <code>true</code>:
+            <ol>
+              <li>Let <var>path</var> be <a>ToString</a>(<var>value</var>).
+              </li>
+              <li>Let <var>url</var> be the result of <a href=
+              "http://url.spec.whatwg.org/#parsing">parsing</a>
+              <var>path</var>.
+              </li>
+              <li>If <var>url</var> is not a <a href=
+              "http://url.spec.whatwg.org/#concept-absolute-url">relative
+              URL</a>, then return an error and terminate this algorithm.
+              </li>
+              <li>Set <var>result</var> to be the value of <var>url</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">icons</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-icons">icons</dfn> <a>localizable member</a> is
+          a <a>icons object</a> that represents a set of icons that the
+          application can make use.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <code>developer</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-developer">developer</dfn> <a>localizable
+          member</a> is a <a>developer object</a> that represents the person,
+          persons, or entity that created the application.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <code title="">locales</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-locales">locales</dfn> member is a
+          <a>localized-data object</a> represents the localized data of the
+          manifest.
+        </p>
+      </section><!-- Commented because it is a controversial feature.
+          <li><dfn id=
+          "propdef-installs_allowed_from">installs_allowed_from</dfn>: An array
+          of origins that are allowed to trigger installation of this
+          application. This field allows the developer to restrict installation
+          of their application to specific sites. If the value is omitted,
+          installs are allowed from any site.</li>
+-->
+      <section>
+        <h3>
+          <code>appcache_path</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-appcache_path">appcache_path</dfn>
+          <a>localizable member</a> is an <a>relative URL</a> that represents a
+          resource to be used as the application's cache manifest
+          [[!OFFLINE-WEBAPPS]].
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>appcache_path</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          returns either a string, and error, or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>result</var> be <code>undefined.</code>
+          </li>
+          <li>Let <var>key</var> be the string "<code>appcache_path</code>".
+          </li>
+          <li>Let <var>present</var> be the result of calling
+          [[\HasOwnProperty]] internal method of <var>manifest</var> with
+          argument <var>key</var>.
+          </li>
+          <li>if <var>present</var> is <code>true</code>:
+            <ol>
+              <li>Let <var>path</var> be <a>ToString</a>(<var>value</var>).
+              </li>
+              <li>Let <var>url</var> be the result of <a href=
+              "http://url.spec.whatwg.org/#parsing">parsing</a>
+              <var>path</var>.
+              </li>
+              <li>If <var>url</var> is not a <a href=
+              "http://url.spec.whatwg.org/#concept-absolute-url">absolute
+              URL</a>, then return an error and terminate this algorithm.
+              </li>
+              <li>Set <var>result</var> to be the value of <var>url</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>version</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-version">version</dfn> <a>localizable member</a>
+          is a string represents the version of the application as designated
+          by the author. The version has no specific meaning in the context of
+          this specification; it's utility is solely for informative purposes.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>version</code> member</dfn>
+          is given by the following algorithm. The algorithm returns either
+          undefined or a string:
+        </p>
+        <ol>
+          <li>Let <var>result</var> be <code>undefined</code>.
+          </li>
+          <li>Let <var>key</var> be the string "<code>version</code>".
+          </li>
+          <li>Let <var>present</var> be the result of calling
+          [[\HasOwnProperty]] internal method of <var>manifest</var> with
+          argument <var>key</var>.
+          </li>
+          <li>If <var>present</var> is <code>true</code>:
+            <ol>
+              <li>Let <var>value</var> be the result of running the <a>steps
+              for retrieving a localizable member from the manifest</a>, with
+              <var>key</var> as the member being sought.
+              </li>
+              <li>Let <var>result</var> be the result of calling
+              <a>ToString</a>(<var>value</var>).
+              </li>
+            </ol>
+          </li>
+          <li>Return the <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <!-- Attempt to address "The spec should discourage people from extending the manifest format." 
+         https://github.com/sysapps/runtime/pull/11
+    
+    <section>
+      <h3>
+        <code>data</code> member
+      </h3>
+      <p>
+        The <dfn><code>data</code></dfn> member represents any additional data
+        that the developer might want to provide for their application. The
+        value is any valid JSON data structure or type. This member is not used
+        in configuring the application, hence no processing rules are defined.
+      </p>
+      <p>
+        Developers can access the value of this member through the Application
+        interface.
+      </p>
+    </section>
+    -->
+      <section>
+        <h3>
+          <code title="">screen_size</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-screen_size">screen_size</dfn> member is a
+          <a>screen sizes object</a> that represents the minimum visual
+          dimensions (in <a href=
+          "http://www.w3.org/TR/2008/REC-CSS2-20080411/syndata.html#length-units">
+          CSS pixels</a> [[!CSS21]]) the application needs to render correctly.
+        </p>
+        <p class="issue">
+          ISSUE: This should probably be dropped. If a user zooms in, or even
+          if the screen is too small, then this won't really help. This is also
+          meaningless when the application is full screen. Also, this needs to
+          play with @viewport and meta viewport.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <code title="">required_features</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-required_features">required_features</dfn>
+          member is an array that represents the feature set the application
+          needs in order to run correctly.
+        </p>
+        <p>
+          Standard features of the Web platform should not be on this list
+          (e.g., geolocation, webgl, etc.).
+        </p>
+      </section>
+      <section>
+        <h3>
+          <code title="">fullscreen</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-fullscreen">fullscreen</dfn> localizable member
+          is a <a>boolean</a> that represents a hint to the user agent that
+          indicates that the application provides the best user experience when
+          shown in fullscreen (i.e., the application is presented without any
+          use interface components of the underlying system). When the value is
+          missing, it defaults to <var>false</var>.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>fullscreen</code>
+          member</dfn> are given by the following algorithm:
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the value of the <var>fullscreen</var>
+          member or f<var>alse</var> if the value is missing.
+          </li>
+          <li>Let <var>result</var> of calling <a>ToBoolean</a>(value).
+          </li>
+          <li>return <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">release_notes</code> member
+        </h3>
+        <p>
+          The <dfn id='propdef-relnotes'>release_notes</dfn> <a>localizable
+          member</a> is a <a>release notes object</a> that represents a change
+          history for the application from one version to another.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <code title="">permissions</code> member
+        </h3>
+        <p>
+          The <dfn id="propdef-permisssions">permissions</dfn> <a>localizable
+          member</a> is a <a>permissions object</a> that represents a list of
+          permissions that the application requires to function.
+        </p>
+      </section>
+      <!-- Commented because it should go to the Web Intents/Web Activities spec.
+          <li><dfn id="propdef-activities">activities</dfn>: This value specifies
+          a set of
+          <a href="https://wiki.mozilla.org/WebAPI/WebActivities">WebActivities</a>
+          that this app supports. Each property in this value is a discrete
+          activity whose name matches the property name. Activity names are
+          free-form text, and each activity is represented by an object. This
+          object MUST contain the following property:
+
+          <ul>
+            <li><dfn id="propdef-activities-href">href</dfn>: When another app
+            or web page initiates an activity that is supported by this app, if
+            this app is chosen to perform the activity, this page will be opened
+            in the manner specified by the <dfn>disposition</dfn> property. The
+            manner in which a particular app is chosen to perform an activity is
+            out of scope for this specification.</li>
+          </ul>
+
+          An activity object MAY also contain the following properties:
+
+          <ul>
+            <li><dfn id="propdef-activites-disposition">disposition</dfn>: This
+            value specifies how the page specified in <dfn>href</dfn> is presented
+            when an activity is invoked. The value, if specified, MUST be one of
+            the following (if omitted, defaults to <dfn>window</dfn>):
+              <ul>
+                <li><dfn id="propdef-activities-disposition-window">window</dfn>:
+                The page handling the activity is opened in a new "window" (on a
+                mobile device, for example, this view will replace the original
+                app that requested the activity). The page MUST call
+                <code>navigator.setMessageHandler</code> for each activity it
+                supports and subsequently execute the activity for which it
+                receives a message. Further, if the activity requires a return
+                value, the page MUST call <code>activity.postResult</code> or
+                <code>activity.postError</code> (where <code>activity</code> is
+                the first argument provided to the function specified by
+                <code>setMessageHandler</code>) as appropriate. These functions
+                are specified in greater details in the WebActivities
+                document.</li>
+
+                <li><dfn id="propdef-activities-disposition-inline">inline</dfn>:
+                The page handling the activity will open in an overlay (on a
+                mobile device, for example, this will be rendered in a popup over
+                the original app that requested the activity). Subsequent behavior
+                is exactly the same as if the disposition were
+                <dfn>window</dfn>.</li>
+              </ul>
+
+            <li><dfn id="propdef-activities-filters">filters</dfn>:
+            <i>OPTIONAL</i>. This value is a dictionary, each property of which
+            specified a particular filter. These filters will be applied while
+            determining apps suitable for handling a given activity. Filter names
+            are free-form text, but their values MUST be either a string or an
+            array of strings (the exact type depends on the filter).</li>
+          </ul>
+-->
+      <section>
+        <h2>
+          Release notes object and its members
+        </h2>
+        <p>
+          A <dfn>Release notes object</dfn> ...
+        </p>
+      </section>
+      <section>
+        <h2>
+          Permissions object and its members
+        </h2>
+        <p>
+          The permissions object...An application SHOULD list every API that is
+          considered to require user permission in this field. Usage of an API
+          without a corresponding entry in the manifest SHOULD fail. The field
+          is an object, with each property name specifying a single permission,
+          and object containing the following fields:
+        </p>
+        <section>
+          <h3>
+            Description member
+          </h3>
+          <p>
+            The <dfn id="propdef-permissions-desc">description</dfn> member
+            represents a human readable string specifying the intent behind
+            requesting use of this API.
+          </p>
+          <p>
+            ISSUE: This seems unhelpful. The developer can just lie.
+          </p>
+        </section>
+        <section>
+          <h3>
+            access member
+          </h3>
+          <p>
+            The <dfn id="propdef-permissions-access">access</dfn> is a string
+            describing the type of access required for this permission. This
+            field can be mandatory for a certain subset of permissions. Its
+            value is one of:
+          </p>
+          <dl>
+            <dt>
+              <dfn>read</dfn>:
+            </dt>
+            <dd>
+              ...
+            </dd>
+            <dt>
+              <dfn>readwrite</dfn>:
+            </dt>
+            <dd>
+              ...
+            </dd>
+            <dt>
+              <dfn>readcreate</dfn>:
+            </dt>
+            <dd>
+              ...
+            </dd>
+            <dt>
+              <dfn>createonly</dfn>:
+            </dt>
+            <dd>
+              ...
+            </dd>
+          </dl>
+        </section>
+      </section>
+      <section>
+        <h2>
+          icons object and its members
+        </h2>
+        <p>
+          The <dfn>icons object</dfn> is an object that represents the icons
+          suitable for various dimensions.
+        </p>
+        <p>
+          Paths beginning with "<code>/</code>" are treated as relative to the
+          origin of the app.
+        </p>
+      </section>
+      <section>
+        <h2>
+          Screen size object and its members
+        </h2>
+        <p>
+          The screen size object . The screen sizes object values are only hint
+          for the user agent
+        </p>
+      </section>
+      <section>
+        <h2>
+          Localized-data object and its members
+        </h2>
+        <p>
+          The localized-data object contains specific overrides of data
+          contained in the <a>application manifest</a>.
+        </p>
+        <section>
+          <h3>
+            Members
+          </h3>
+          <p>
+            Each locale key is a <a>langauge tag</a>, and contains a sparse
+            representation of localized parts of the manifest. The data of the
+            <a>locales</a> members override the corresponding member in a
+            localized user interface.
+          </p>
+          <p>
+            The user agent MAY ignore some values if localizing the property
+            doesn't appear to be legit.
+          </p>
+          <p>
+            It is RECOMMENDED that the <a>locales</a> keys match the actual
+            content localization to give a hint to the user that the
+            application will be available in their language or not. Failing to
+            provide a perfect matching between the content localization and the
+            <a>locales</a> keys will not create any technical problems but will
+            have bad consequences with regard to the user experience and
+            developer reputation.
+          </p>
+          <p>
+            Note: if the <a>locales</a> property is set, the
+            <a>default_locale</a> needs to also be set.
+          </p>
+        </section>
+      </section>
+      <section>
+        <h2>
+          Developer object and its members
+        </h2>
+        <section>
+          <h3>
+            <code title="">name</code> member
+          </h3>
+          <p>
+            The <dfn id="propdef-developer-name">name</dfn> member of the
+            <a>developer object</a> represents the name of the developer.
+          </p>
+          <p>
+            The <dfn>steps for processing the name member of the developer
+            object</dfn> is given by the following algorithm. The algorithm
+            returns <code>undefined</code> or a string:
+          </p>
+          <ol>
+            <li>Let <var>O</var> be the result of running the <a>steps for
+            retrieving a localizable member from the manifest</a>, with
+            "<var>developer"</var> as the member being sought.
+            </li>
+            <li>Let <var>result</var> be <code>undefined</code>.
+            </li>
+            <li>If Type(O) is "Object"
+            </li>
+            <li>Set <var>result</var> be the result of calling
+            <a>ToString</a>(<var>value</var>).
+            </li>
+            <li>Return the <var>result</var>.
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h3>
+            url member
+          </h3>
+          <p>
+            The <dfn id="propdef-url">url</dfn> an URL pointing to the
+            developer's website.
+          </p>
+        </section>
+      </section>
+      <section>
+        <h2>
+          Media Type
+        </h2>
+        <p>
+          This section contains the required text for MIME media type
+          registration with IANA.
+        </p>
+        <p>
+          The <dfn>media type for an application manifests</dfn> is
+          <code>application/webapp-manifest+json</code>.
+        </p>
+        <p>
+          If the protocol over which the manifest is transferred supports the
+          [[!MIME]] specification (e.g. [[!HTTP11]]), it is RECOMMENDED that
+          the application manifest be labeled with the <a>media type for an
+          application manifests</a>.
+        </p>
+        <dl>
+          <dt>
+            Type name:
+          </dt>
+          <dd>
+            application
+          </dd>
+          <dt>
+            Subtype name:
+          </dt>
+          <dd>
+            webapp-manifest+json
+          </dd>
+          <dt>
+            Required parameters:
+          </dt>
+          <dd>
+            N/A
+          </dd>
+          <dt>
+            Optional parameters:
+          </dt>
+          <dd>
+            N/A
+          </dd>
+          <dt>
+            Encoding considerations:
+          </dt>
+          <dd>
+            Same as for application/json
+          </dd>
+          <dt>
+            Security considerations:
+          </dt>
+          <dd>
+            <p>
+              As the application manifest format is JSON and will commonly be
+              encoded using [[!Unicode]], the security considerations described
+              in [[!JSON]] and [[!UTR36]] apply. In addition, implementers need
+              to impose their own implementation-specific limits on the values
+              of otherwise unconstrained member types, e.g. to prevent denial
+              of service attacks, to guard against running out of memory, or to
+              work around platform-specific limitations.
+            </p>
+            <p>
+              The manifest document allows authors, through the permissions and
+              required_features, to request permission to enable security
+              sensitive APIs. As these APIs are outside the scope of this
+              specification, significant caution needs to be taken when
+              granting an application the capability to use a feature. Features
+              themselves define their own security considerations.
+            </p>
+            <p>
+              Web applications will generally contain ECMAscript, HTML, CSS
+              files, and other media, which are executed in a sand-boxed
+              environment. As such, implementers need to be aware of the
+              security implications for the types they support. Specifically,
+              implementers need to consider the security implications outlined
+              in the [[!CSS-MIME]] specification, the [[!ECMAScript-MIME]]
+              specification, and the [[!HTML]] specification.
+            </p>
+            <p>
+              As web applications can contain content that is able to
+              simultaneously interact with the local device and a remote host,
+              implementers need to consider the privacy implications resulting
+              from exposing private information to a remote host. Mitigation
+              and in-depth defensive measures are an implementation
+              responsibility and not prescribed by this specification. However,
+              in designing these measures, implementers are advised to enable
+              user awareness of information sharing, and to provide easy access
+              to interfaces that enable revocation of permissions.
+            </p>
+            <p>
+              As this specification allows for the declaration of IRIs within
+              certain members of a the application manifest, implementers need
+              to consider the security considerations discussed in the [IRI]
+              specification. Implementations intending to display <abbr title=
+              "Internationalized Resource Identifiers">IRIs</abbr> and
+              <abbr title="Internationalized domain name">IDNA</abbr> addresses
+              found in the application manifest are strongly encouraged to
+              follow the security advice given in [[!UTR36]].
+            </p>
+          </dd>
+          <dt>
+            Applications that use this media type:
+          </dt>
+          <dd>
+            Web browsers
+          </dd>
+          <dt>
+            Additional information:
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                Magic number(s):
+              </dt>
+              <dd>
+                N/A
+              </dd>
+              <dt>
+                File extension(s):
+              </dt>
+              <dd>
+                .webapp
+              </dd>
+              <dt>
+                Macintosh file type code(s):
+              </dt>
+              <dd>
+                TEXT
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            Person &amp; email address to contact for further information:
+          </dt>
+          <dd>
+            The <a href="http://www.w3.org/2008/webapps/" rel="nofollow">Web 
+            Applications (WebApps) Working Group</a> can be contacted at <a href=
+            "http://lists.w3.org/Archives/Public/public-webapps/" rel=
+            "nofollow">public-webapps@w3.org</a>.
+          </dd>
+          <dt>
+            Intended usage:
+          </dt>
+          <dd>
+            COMMON
+          </dd>
+          <dt>
+            Restrictions on usage:
+          </dt>
+          <dd>
+            none
+          </dd>
+          <dt>
+            Author:
+          </dt>
+          <dd>
+            W3C's Web Applications (WebApps) Working Group.
+          </dd>
+          <dt>
+            Change controller:
+          </dt>
+          <dd>
+            W3C.
+          </dd>
+        </dl>
+      </section>
+      <section class="appendix">
+        <h2>
+          Acknowledgments
+        </h2>
+        <p>
+          TBW
+        </p>
+      </section>
+    </section>
+  </body>
+</html>
