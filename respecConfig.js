@@ -1,7 +1,7 @@
 var respecConfig = {
-    specStatus: 'unofficial',
-    shortName: 'manifest',
-    subtitle: 'Living Standard',
+    specStatus: 'ED',
+    shortName: 'appmanifest',
+    subtitle: 'Living Document',
     edDraftURI: 'http://w3c.github.io/manifest/',
     previousMaturity: 'FPWD',
     previousURI: 'http://w3c.github.io/manifest/releases/FPWD.html',
@@ -23,7 +23,7 @@ var respecConfig = {
     wgPublicList: 'public-webapps',
     wgPatentURI: 'http://www.w3.org/2004/01/pp-impl/42538/status',
     otherLinks: [{
-            key: 'Previous version',
+            key: 'Latest Web Apps Version (for W3C process)',
             data: [{href: 'http://w3c.github.io/manifest/releases/FPWD.html'}]
         },
         {
