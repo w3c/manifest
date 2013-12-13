@@ -4,7 +4,7 @@ var respecConfig = {
     subtitle: 'Living Document',
     edDraftURI: 'http://w3c.github.io/manifest/',
     previousMaturity: 'FPWD',
-    previousURI: 'http://w3c.github.io/manifest/releases/FPWD.html',
+    previousURI: 'http://www.w3.org/TR/2013/WD-appmanifest-20131217/',
     editors: [{
         name: 'Marcos Caceres',
         company: 'Mozilla Corporation',
