@@ -248,40 +248,6 @@ installButton.addEventListener("click", function(e){
       </section>
       <section>
         <h3>
-          <code>dont-share-cookies-and-stuff</code> member
-        </h3>
-        <p class="issue">
-          Yes, this needs to be renamed. Possible candidates: "isolated" or
-          "isolated-security-origin", "independent"
-        </p>
-        <p>
-          The <code>dont-share-cookies-and-stuff</code> member is a boolean
-          that allows a developer to request that the user agent treat this web
-          application as independent from the one in the web browser.
-          Effectively, this means that cookies, storage, and permissions are
-          not shared with the origin from which the application was bookmarked.
-          The value of this member is only applicable to applications whose
-          <a>mode of operation</a> is <a>standalone</a>.
-        </p>
-        <p>
-          The <dfn>steps for processing the
-          <code>dont-share-cookies-and-stuff</code> member</dfn> is given by
-          the following algorithm:
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>manifest</var> with
-          argument "<code>dont-share-cookies-and-stuff</code>".
-          </li>
-          <li>Let <var>result</var> be the result of calling
-          <a>ToBoolean</a>(<var>value</var>).
-          </li>
-          <li>Return the <var>result</var>.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
           <code>url</code> member
         </h3>
         <p>
