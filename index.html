@@ -276,7 +276,7 @@ installButton.addEventListener("click", function(e){
           underneath an icon).
         </p>
         <p>
-          The <dfn>steps for processing the name of an application</dfn> is
+          The <dfn>steps for processing the name member</dfn> is
           given by the following algorithm. The algorithm takes a
           <var>manifest</var> as an argument. It returns either
           <code>undefined</code>, a string, or an error.
@@ -557,6 +557,9 @@ installButton.addEventListener("click", function(e){
             spec can align with the Screen Orientation spec.
           </p>
         </div>
+        <p class="issue">
+          Define the <dfn>steps for processing the orientation member</dfn>.
+        </p>
       </section>
       <section>
         <h3>
@@ -602,8 +605,8 @@ installButton.addEventListener("click", function(e){
   presentation = "fullscreen"
 </pre>
         <p>
-          The <dfn>steps for processing the <code>mode</code> member of an
-          icon</dfn> are given by the following algorithm. The algorithm
+          The <dfn>steps for processing the <code>mode</code> member</dfn>
+          are given by the following algorithm. The algorithm
           returns a string.
         </p>
         <ol>
@@ -632,7 +635,7 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn>steps for fetching a manifest</dfn> are given by the
           following algorithm. It takes a <var>url</var> URL as an argument. It
-          returns a <a>response</a> (which may be in error).
+          returns a response (which may be in error).
         </p>
         <ol>
           <li>Let <var>response</var> be the result of <a href=
@@ -780,7 +783,9 @@ installButton.addEventListener("click", function(e){
           (even if the first element was in error).
         </p>
         <p>
-          The appropriate time to <a>fetch</a> the manifest is when the
+          The appropriate time to
+          <a href="http://fetch.spec.whatwg.org/#concept-fetch">fetch</a>
+          the manifest is when the
           <a href="http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
           title="external resource link">external resource link</a> is created
           or when its element is <a href=
@@ -884,7 +889,7 @@ installButton.addEventListener("click", function(e){
           "http://dev.w3.org/csswg//#resolution">dppx</a> as defined in
           [[!css3-values]]). The value is a positive number greater than 0. If
           the developer ommits the value, the user agent assumes the value
-          <a><code>1</code></a>.
+          <code>1</code>.
         </p>
         <p>
           The <dfn>steps for processing a density of an icon</dfn> are given by
@@ -1039,18 +1044,20 @@ installButton.addEventListener("click", function(e){
         then:
           <ol>
             <li>Reject <var>promise</var> with new
-            <a><code>DOMException</code></a> whose name is "<code><a href=
-            "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>"
-            and return.
+            <code><a href="http://dom.spec.whatwg.org/#exception-domexception">
+            DOMException</a></code> whose name is
+            "<code><a href="http://dom.spec.whatwg.org/#securityerror">
+            SecurityError</a></code>" and return.
             </li>
           </ol>
         </li>
         <li>If the document's <a>mode of operation</a> is <a>standalone</a>:
           <ol>
             <li>Reject <var>promise</var> with a new
-            <a><code>DOMException</code></a> whose name is "<code><a href=
-            "http://dom.spec.whatwg.org/#notsupportederror">NotSupported</a></code>"
-            and return.
+            <code><a href="http://dom.spec.whatwg.org/#exception-domexception">
+            DOMException</a></code> whose name is
+            "<code><a href="http://dom.spec.whatwg.org/#notsupportederror">
+            NotSupported</a></code>" and return.
             </li>
           </ol>
         </li>
@@ -1063,8 +1070,9 @@ installButton.addEventListener("click", function(e){
           <ol>
             <li>If the end-user aborts the request to add the bookmark (e.g.,
             they hit escape, or press a "cancel" button), then Reject
-            <var>promise</var> with a new <a><code>DOMException</code></a>
-            whose name is "<code><a href=
+            <var>promise</var> with a new
+            <code><a href="http://dom.spec.whatwg.org/#exception-domexception">
+            DOMException</a></code> whose name is "<code><a href=
             "http://dom.spec.whatwg.org/#aborterror">AbortError</a></code>" and
             return.
             </li>
