@@ -10,26 +10,23 @@
 </script>
     <script src="respecConfig.js" class='remove'>
 </script>
-
   </head>
   <body>
     <section id='abstract'>
       <p>
         This specification defines a <em>manifest</em>, which provides
         developers with a centralized place to put metadata about a web
-        application. This includes, amongst other things, the ability to
-        specify the name of the web application, links to icons, as well as the
-        preferred URL at which the web application should open when it is
-        launched by the user.
+        application. This includes, but is not limited to, the name of the web
+        application, links to icons, as well as the preferred URL at which the
+        web application should open when it is launched by the user.
       </p>
       <p>
         With this metadata, user agents can provide, for example, enhanced
-        bookmarking capabilities such as being able to add a web application to
-        the homescreen of a device - as well as the various icons needed to
-        effectively integrate with an OS's task switcher and system
-        preferences. The specification also defines an API to enable
-        bookmarking from within a document, as well as a means to check if an
-        application is running in a special mode called "standalone".
+        bookmarking capabilities such as being able to add a web application or
+        site to the homescreen of a device - as well as the various icons
+        needed to integrate with an OS's task switcher and system preferences.
+        The specification also defines an API to enable bookmarking from within
+        a document.
       </p>
       <p>
         This specification also defines the <code>manifest</code> link type,
@@ -53,8 +50,8 @@
         Usage Examples
       </h2>
       <p>
-        This section shows how the expected usage of the various features
-        provided by this specification.
+        This section shows how we expect developers to make use of the various
+        features of this specification.
       </p>
       <section class="informative">
         <h3>
@@ -70,25 +67,30 @@
   "mode": "standalone",
   "icons": [{
       "src": "icon/lowres",
-      "density": "1",
-      "width": "64",
+      "sizes": "64x64",
       "type": "image/webp"
     }, {
-      "src": "icon/hd",
+      "src": "icon/hd_small",
       "density": "2",
-      "width": "64"
-  }]
+      "sizes": "64x64"
+    }, {
+      "src": "icon/hd_hi",
+      "density": "2",
+      "sizes": "128x128"
+    }]
 }
 </pre>
       </section>
       <section>
         <h3>
-          Example of linking to manifest
+          Using a <code>link</code> element to link to a manifest
         </h3>
         <p>
           Example of using a <code>link</code> element to associate a website
-          with a manifest. The example also shows how HTML fallbacks, such as
-          "<span class="example highlight html">application-name</span>", can
+          with a manifest. The example also shows how certain HTML elements,
+          such as a <code>meta</code> element with a name attribute whose value
+          is "<span class=
+          "example highlight html"><code>application-name</code></span>", can
           be used to support legacy user agents that don't implement this
           specification.
         </p>
@@ -110,7 +112,7 @@
       </section>
       <section>
         <h3>
-          Example of using the API
+          Using the API
         </h3>
         <p>
           Check if the application is running in <a>standalone</a> mode.
@@ -138,8 +140,7 @@ var installButton = document.querySelector("#install");
 
 //Bookmarking only works if initiated by user interaction
 installButton.addEventListener("click", function(e){
-   navigator.requestBookmark("path/to/bookmark.json")
-   .then(thankUser, stopBuggingUser);
+   navigator.requestBookmark().then(thankUser, stopBuggingUser);
 });
 &lt;/script&gt;
 
@@ -161,18 +162,20 @@ installButton.addEventListener("click", function(e){
     </section>
     <section>
       <h2>
-        manifest
+        Manifest
       </h2>
       <p>
-        A <dfn>manifest</dfn> is a [[!JSON]] document that consists of a
-        top-level object that can contain zero or more members, some of which
-        contain other objects. Each of the members, as well as how their values
-        are processes, are defined below.
+        A <dfn>manifest</dfn> is a [[!JSON]] document. Typically, it will
+        consists of a top-level object that contains zero or more members, some
+        of which contain other objects. Each of the members, as well as how
+        their values are processed, are defined below.
       </p>
       <p id="ecmascript-abstractop">
         Algorithms in this specification use the conventions described in
-        [[!ECMASCRIPT]], such as the use of steps and sub-steps, and so on. The
-        <a class="external" href=
+        [[!ECMASCRIPT]], such as the use of steps and sub-steps, and so on.
+      </p>
+      <p>
+        The <a class="external" href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-parsefloat-string">
         <dfn>parseFloat</dfn></a> method, <a class="external" href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tostring"><dfn>
@@ -181,12 +184,12 @@ installButton.addEventListener("click", function(e){
         <dfn>HasOwnProperty</dfn></a>, <dfn>[[\GetOwnProperty]]</dfn>, and
         <a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-toboolean"><dfn>
-        ToBoolean</dfn></a> abstract operations, and the <a class="external"
-        href=
+        ToBoolean</dfn></a> abstract operations, <dfn>promise</dfn> objects,
+        and the <a class="external" href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
-        <dfn>Type</dfn>(<var>x</var>)</a> notation referenced in this section
-        are defined in [[!ECMASCRIPT]]. Processing also relies on various
-        algorithms defined in [[!HTML]], [[!FETCH]], and [[!URL]].
+        <dfn>Type</dfn>(<var>x</var>)</a> notation are defined in
+        [[!ECMASCRIPT]]. Processing also relies on various algorithms defined
+        in [[!HTML]], [[!FETCH]], and [[!URL]].
       </p>
       <p>
         As the manifest format is a [[!JSON]] document, this specification
@@ -201,12 +204,12 @@ installButton.addEventListener("click", function(e){
         When an algorithm asks the user agent to <dfn>issue a developer
         warning</dfn>, the user agent MAY report the conformance violation to
         the developer in a user-agent-specific manner (e.g., show the problem
-        in the error console), or MAY ignore the error and do nothing
+        in the error console), or MAY ignore the error and do nothing.
       </p>
       <p>
-        In the algorithms, to <dfn>ignore</dfn> means that the user agent MUST
-        act as if the developer had not declared the particular member in the
-        manifest document.
+        During processing, when instructed to <dfn>ignore</dfn>, the user agent
+        MUST act as if whatever member or value caused the condition is not
+        present in the manifest document.
       </p>
       <section>
         <h3>
@@ -285,8 +288,9 @@ installButton.addEventListener("click", function(e){
           The <dfn id="member-launch_path">url</dfn> member is the URL that is
           <a href=
           "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
-          loaded</a> when the application is launched. When it's missing from
-          the manifest, the UA loads the URL from the manifest was fetched.
+          loaded</a> when the application is launched. When the developer
+          ommits it from the manifest, the user agent will instead use the URL
+          of the document that was bookmarked.
         </p>
         <p>
           The <dfn>steps for processing the <code>url</code> member</dfn> are
@@ -294,20 +298,26 @@ installButton.addEventListener("click", function(e){
           "http://url.spec.whatwg.org/#concept-url">URL</a>.
         </p>
         <ol>
-          <li>If <a>HasOwnProperty</a>(<var>manifest</var>, "url") returns
+          <li>If <a>HasOwnProperty</a>(<var>manifest</var>, "url") is
           <code>false</code>, then return <code>undefined</code>.
           </li>
           <li>Let <var>value</var> be the result of calling the
           [[\GetOwnProperty]] internal method of the <var>manifest</var> with
           argument "<code>url</code>".
           </li>
-          <li>Let <var>manifest URL</var> be the URL from which the
-          <var>manifest</var> was fetched from.
+          <li>Let <var>document URL</var> be the URL of the
+          <code>document</code> from which the <var>manifest</var> was fetched
+          from.
           </li>
-          <li>If <var>value</var> is <code>undefined</code> or
-          <a>Type</a>(<var>value</var>) is not "string":
+          <li>Let <var>result</var> be a placeholder for a URL object.
+          </li>
+          <li>If <var>value</var> <a>Type</a>(<var>value</var>) is not
+          "string":
             <ol>
-              <li>Let <var>result</var> be <var>manifest URL</var>.
+              <li>
+                <a>Issue a developer warning</a>.
+              </li>
+              <li>Set <var>result</var> to be <var>document URL</var>.
               </li>
             </ol>
           </li>
@@ -315,8 +325,8 @@ installButton.addEventListener("click", function(e){
             <ol>
               <li>
                 <a href="http://url.spec.whatwg.org/#parsing">Parse</a>
-                <var>value</var>, using <var>manifest URL</var> as the base
-                URL, and let <var>result</var> be the result.
+                <var>value</var> using <var>document URL</var> as the base URL,
+                and set <var>result</var> to be the result.
               </li>
             </ol>
           </li>
@@ -331,7 +341,7 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn id="member-icons">icons</dfn> is a list of <a title=
           "icon object">icon objects</a> that represents a set of icons that
-          the application can make use.
+          the application can make use of.
         </p>
         <p>
           The <dfn>steps for processing the <code>icons</code> member</dfn> are
@@ -345,20 +355,22 @@ installButton.addEventListener("click", function(e){
           <li>Let <var>icons</var> be an empty list.
           </li>
           <li>Let <var>manifest URL</var> be the URL from which the
-          <var>manifest</var> was fetched from.
+          <var>manifest</var> was fetched.
           </li>
-          <li>Let <var>value</var> be the result of calling the
+          <li>Let <var>unprocessed icons</var> be the result of calling the
           [[\GetOwnProperty]] internal method of <var>manifest</var> with
           argument "<code>icons</code>".
           </li>
-          <li>If <var>value</var> is an array, then for each <var>potential
-          icon</var> in the array:
+          <li>If <a>Type</a>(<var>unprocesses icons</var>) is "array", then for
+          each <var>potential icon</var> in the array:
             <ol>
               <li>Let <var>src</var> be the result of running the <a>steps for
-              processing the <code>src</code> member of an icon</a>. If the
-              result is an error, stop processing this <var>potential
+              processing the <code>src</code> member of an icon</a>.
+              </li>
+              <li>If the <var>src</var> is an error or <code>undefined</code>,
+              issue a developer warning, stop processing this <var>potential
               icon</var> and move to the next <var>potential icon</var> in
-              value, if any.
+              <var>unprocessed icons</var>, if any.
               </li>
               <li>Let <var>type</var> be the result of running the <a>steps for
               processing the <code>type</code> member of an icon</a>.
@@ -367,16 +379,8 @@ installButton.addEventListener("click", function(e){
               "http://www.whatwg.org/specs/web-apps/current-work/#valid-mime-type">
                 valid MIME type</a> or the value of type is not a supported
                 icon format, then stop processing this <var>potential
-                icon</var> and move to the next <var>potential icon</var>, if
-                any.
-              </li>
-              <li>Let <var>width</var> be the result of running the <a>steps
-              for processing the dimensions of an icon</a> with "width" as the
-              argument.
-              </li>
-              <li>Let <var>height</var> be the result of running the <a>steps
-              for processing the dimensions of an icon</a> with "height" as the
-              argument.
+                icon</var> and move to the next <var>potential icon</var> in
+                <var>unprocessed icons</var>, if any.
               </li>
               <li>Otherwise, let <var>icon</var> be an object.
               </li>
@@ -574,7 +578,7 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn>steps for fetching a manifest</dfn> are given by the
           following algorithm. It takes a <var>url</var> URL as an argument. It
-          returns either a <var>response</var> (which may be in error).
+          returns a <a>response</a> (which may be in error).
         </p>
         <ol>
           <li>Let <var>response</var> be the result of <a href=
@@ -585,7 +589,7 @@ installButton.addEventListener("click", function(e){
           </li>
         </ol>
         <p>
-          The <dfn>steps to processing a manifest</dfn> are given by the
+          The <dfn>steps for processing a manifest</dfn> are given by the
           following algorithm. The algorithm takes a <var>text</var> string as
           an argument.
         </p>
@@ -594,12 +598,24 @@ installButton.addEventListener("click", function(e){
           "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
             parse</a> function of the JSON object defined in [[!ECMASCRIPT]]
             with <var>text</var> as its only argument. If parsing throws an
-            error, return the error and terminate this algorithm.
+            error:
+            <ol>
+              <li>Issue a developer warning.
+              </li>
+              <li>Invoke <a href=
+              "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
+                parse</a> with <code>"{}"</code> as the arugment and set
+                manifest to the result.
+              </li>
+            </ol>
           </li>
           <li>Let <var>name</var> be the result of running the <a>steps for
           processing the <code>name</code> member</a>. If the returned value is
           <code>undefined</code> or an error:
             <ol>
+              <li>Optionally, if <var>value</var> is an error, <a>issue a
+              developer warning</a>.
+              </li>
               <li>Set <var>name</var> to be an implementation specific string
               that can serve as a suitable name for the web application. For
               example, if the manifest was obtained from a <code>link</code>
@@ -608,9 +624,7 @@ installButton.addEventListener("click", function(e){
                 "<code><a href="http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">application-name</a></code>",
                 then the user agent could use the value of that
                 <code>meta</code> element's <code>content</code> attribute as a
-                fallback. Otherwise, then the document's <code>title</code> can
-                be used. Alternatively, the user could be prompted to provide a
-                custom name using as a place holder.
+                fallback.
               </li>
             </ol>
           </li>
@@ -633,6 +647,17 @@ installButton.addEventListener("click", function(e){
           <li>Return response.
           </li>
         </ol>
+        <p>
+          The <dfn>steps to get the web application's metadata</dfn> are given
+          by the following algorithm:
+        </p>
+        <ol>
+          <li>...
+          </li>
+        </ol>
+        <p>
+          &nbsp;
+        </p>
       </section>
       <section id="linking">
         <h3>
@@ -718,13 +743,13 @@ installButton.addEventListener("click", function(e){
           is deemed to be non-conforming in such a way that it would not be
           possible for the user agent to continue processing (e.g., it can't be
           parsed by the JSON parser because of a syntax error, it could be
-          fetched from the network). In such a case, <a>issue a developer
-          warning</a>. In either case, when a step results in an <a>invalid
-          manifest</a> the user agent MUST abort whatever step or sub-step
-          caused the condition.
+          fetched from the network). In such a case, it is RECOMMENDED that the
+          user agent <a>issue a developer warning</a>. In either case, when a
+          step results in an <a>invalid manifest</a> the user agent MUST abort
+          whatever step or sub-step caused the condition.
         </p>
         <p>
-          To fetch a manifest, as user agent MUST:
+          To obtain a manifest, as user agent MUST:
         </p>
         <ol>
           <li>If the <code>link</code> element lacks a href attribute, abort
@@ -829,13 +854,12 @@ installButton.addEventListener("click", function(e){
       </section>
       <section>
         <h3>
-          <code>width</code> and <code title="">height</code> members
+          <code>sizes</code> members
         </h3>
         <p>
-          The <dfn title="icon-width">width</dfn> and <dfn title=
-          "icon-height">height</dfn> members represent the natural width of the
-          icon in pixels. Their corresponding value is a positive number
-          greater than 0.
+          The <dfn title="icon-sizes">sizes</dfn> members represent the natural
+          width of the icon in pixels. Their corresponding value is a positive
+          number greater than 0.
         </p>
         <p>
           The <dfn>steps for processing a dimension of an icon</dfn> are given
@@ -852,13 +876,9 @@ installButton.addEventListener("click", function(e){
           [[\GetOwnProperty]] internal method of <var>icon</var> passing <var>
             key</var> as the argument.
           </li>
-          <li>Let <var>result</var> be the result of
-          parseFloat(<var>value</var>);
-          </li>
-          <li>If <var>result</var> is <code>NaN</code>, +0, −0, +∞, or −∞, or
-          less than 0, return <var>undefined</var>.
-          </li>
-          <li>Return <var>result</var>.
+          <li>Process <var>value</var> as if it was it was the value of sizes
+          attribute and let <var>width</var> and <var>height</var> be the
+          result.
           </li>
         </ol>
       </section>
@@ -947,7 +967,7 @@ installButton.addEventListener("click", function(e){
           running as <a>standalone</a>. Return <code>false</code> otherwise.
         </dd>
         <dt>
-          Promise requestBookmark(optional DOMString url)
+          Promise requestBookmark()
         </dt>
         <dd>
           When invoked, the user agent MUST run the <a>steps to request to add
@@ -955,88 +975,51 @@ installButton.addEventListener("click", function(e){
         </dd>
       </dl>
       <p>
-        The <dfn>steps to request to add bookmark</dfn> are given by the
-        following algorithm. The algorithm runs asynchronously and returns a
-        Promise.
+        The <dfn>steps to request to add a bookmark</dfn> are given by the
+        following algorithm. The algorithm returns a promise.
       </p>
       <ol>
-        <li>Let <var>promise</var> be a new <a><code>Promise</code></a> object
-        and <var>resolver</var> its associated resolver.
-        </li>
-        <li>Return <var>promise</var> and run the remaining steps
-        asynchronously.
+        <li>Let <var>promise</var> be a newly-created <a>promise</a>.
         </li>
         <li>If this method was not invoked as a result of explicit user action,
         then:
           <ol>
-            <li>Let <var>error</var> be a new <a><code>DOMException</code></a>
+            <li>Reject <var>promise</var> with new
+            <a><code>DOMException</code></a> whose name is "<code><a href=
+            "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>"
+            and return.
+            </li>
+          </ol>
+        </li>
+        <li>If the document's <a>mode of operation</a> is <a>standalone</a>:
+          <ol>
+            <li>Reject <var>promise</var> with a new
+            <a><code>DOMException</code></a> whose name is "<code><a href=
+            "http://dom.spec.whatwg.org/#notsupportederror">NotSupported</a></code>"
+            and return.
+            </li>
+          </ol>
+        </li>
+        <li>Let <var>info</var> be the result of getting a web application's
+        metadata.
+        </li>
+        <li>Using <var>info</var>, and in a manner that is user-agent specific,
+        allow the end user to make a choice as to whether they want to add the
+        bookmark:
+          <ol>
+            <li>If the end-user aborts the request to add the bookmark (e.g.,
+            they hit escape, or press a "cancel" button), then Reject
+            <var>promise</var> with a new <a><code>DOMException</code></a>
             whose name is "<code><a href=
-            "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>".
+            "http://dom.spec.whatwg.org/#aborterror">AbortError</a></code>" and
+            return.
             </li>
-            <li>Run resolver's internal reject algorithm with <var>error</var>
-            as value and terminate this algorithm.
-            </li>
-          </ol>
-        </li>
-        <li>If the document's <a>mode of operation</a> is "standalone":
-          <ol>
-            <li>Let <var>error</var> be a new <a><code>DOMException</code></a>
-            whose name is "<code><a href=
-            "http://dom.spec.whatwg.org/#notsupportederror">NotSupported</a></code>".
-            </li>
-            <li>Run resolver's internal reject algorithm with <var>error</var>
-            as value and terminate this algorithm.
+            <li>Otherwise, resolve <var>promise</var> with
+            <code>undefined</code>.
             </li>
           </ol>
         </li>
-        <li>Run the <a>steps for fetching a manifest</a>. If the
-        <var>response</var>'s type is "error":
-          <ol>
-            <li>Let exception name be "<code><a href=
-            "http://dom.spec.whatwg.org/#networkerror">NetworkError</a></code>".
-            </li>
-            <li>If the <var>response</var>'s termination reason is end user
-            abort, set <var>exception name</var> to "<code><a href=
-            "http://dom.spec.whatwg.org/#aborterror">AbortError</a></code>".
-            </li>
-            <li>If the <var>response</var>'s termination reason is timeout, set
-            <var>exception name</var> to "<code><a href=
-            "http://dom.spec.whatwg.org/#timeouterror">TimeoutError</a></code>".
-            </li>
-            <li>Let <var>error</var> be a new <a><code>DOMException</code></a>
-            whose name is <var>exception name</var>.
-            </li>
-            <li>Run <var>resolver</var>'s internal reject algorithm with <var>
-              error</var> as value and terminate this algorithm.
-            </li>
-          </ol>
-        </li>
-        <li>Let <var>boomark info</var> be result of the <a>steps for
-        processing a manifest</a>, with <var>response</var>'s <a href=
-        "http://fetch.spec.whatwg.org/#concept-response-body">body</a> as the
-        argument.
-        </li>
-        <li>If <var>boomark info</var> is an error:
-          <ol>
-            <li>Run <var>resolver</var>'s internal reject algorithm with <var>
-              error</var> as value and terminate this algorithm.
-            </li>
-          </ol>
-        </li>
-        <li>Present <var>bookmark info</var> to the end user. If the end-user
-        rejects the request to add the bookmark:
-          <ol>
-            <li>Let <var>error</var> be a new <a><code>DOMException</code></a>
-            whose name is "<code><a href=
-            "http://dom.spec.whatwg.org/#aborterror">AbortError</a></code>".
-            </li>
-            <li>Run <var>resolver</var>'s internal reject algorithm with <var>
-              error</var> as value and terminate this algorithm.
-            </li>
-          </ol>
-        </li>
-        <li>Run <var>resolver</var>'s internal fulfill algorithm with
-        <var>undefined</var> as value.
+        <li>Return <var>promise</var>.
         </li>
       </ol>
     </section>
@@ -1213,6 +1196,9 @@ installButton.addEventListener("click", function(e){
         permitted by the license of that specification. The [[!HTML]]
         specification is edited by Ian Hickson.
       </p>
-    </section>
+    </section><!-- override Respec style on purpose! -->
+    <style>
+@import 'http://www.w3.org/StyleSheets/TR/W3C-WD';
+    </style>
   </body>
 </html>
