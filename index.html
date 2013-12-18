@@ -793,6 +793,44 @@ installButton.addEventListener("click", function(e){
           </li>
         </ol>
       </section>
+      <section>
+	<h3>
+	  The "manifest.json" well-known URI
+	</h3>
+	<p>
+	  In the absence of a <code>link</code> element with the
+	  <code>manifest</code> keyword, for <code>Documents</code> obtained
+	  over HTTP or HTTPS or [[!APP-URI]], user agents MAY instead attempt
+	  to <a href="http://fetch.spec.whatwg.org/#concept-fetch">fetch</a>
+	  and use a manifest with the <a href=
+	  "http://url.spec.whatwg.org/#concept-absolute-url">absolute URL</a>
+	  obtained by resolving the URL
+	  "<code>.well-known/manifest.json</code>" against the document's
+	  address, as if the page had declared that manifest using the
+	  <code>manifest</code> keyword.
+	</p>
+	<p>
+	  This specification registers the "manifest.json" well-known URI in
+	  the <a href=
+	  "http://www.iana.org/assignments/well-known-uris/well-known-uris.xml">
+	  Well-Known URI Registry</a> as required by [[!RFC5785]].
+	</p>
+	<dl>
+	  <dt>
+	    URI suffix:
+	  </dt>
+	  <dd>
+	    manifest.json
+	  </dd>
+	  <dt>
+	    Change controller:
+	  </dt>
+	  <dd>
+	    <a href="www.w3.org/2008/webapps/">Web Applications (WebApps)
+	    Working Group</a>
+	  </dd>
+	</dl>
+      </section>
       <section id="proprietary-extensions" class="informative">
         <h3>
           Proprietary extensions to the manifest
