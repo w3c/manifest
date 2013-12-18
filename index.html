@@ -276,10 +276,10 @@ installButton.addEventListener("click", function(e){
           underneath an icon).
         </p>
         <p>
-          The <dfn>steps for processing the name member</dfn> is
-          given by the following algorithm. The algorithm takes a
-          <var>manifest</var> as an argument. It returns either
-          <code>undefined</code>, a string, or an error.
+          The <dfn>steps for processing the name member</dfn> is given by the
+          following algorithm. The algorithm takes a <var>manifest</var> as an
+          argument. It returns either <code>undefined</code>, a string, or an
+          error.
         </p>
         <ol>
           <li>If <a>HasOwnProperty</a>(<var>manifest</var>, "name") returns
@@ -571,9 +571,8 @@ installButton.addEventListener("click", function(e){
   presentation = "fullscreen"
 </pre>
         <p>
-          The <dfn>steps for processing the <code>mode</code> member</dfn>
-          are given by the following algorithm. The algorithm
-          returns a string.
+          The <dfn>steps for processing the <code>mode</code> member</dfn> are
+          given by the following algorithm. The algorithm returns a string.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
@@ -749,10 +748,10 @@ installButton.addEventListener("click", function(e){
           (even if the first element was in error).
         </p>
         <p>
-          The appropriate time to
-          <a href="http://fetch.spec.whatwg.org/#concept-fetch">fetch</a>
-          the manifest is when the
-          <a href="http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+          The appropriate time to <a href=
+          "http://fetch.spec.whatwg.org/#concept-fetch">fetch</a> the manifest
+          is when the <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
           title="external resource link">external resource link</a> is created
           or when its element is <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#insert-an-element-into-a-document"
@@ -1009,21 +1008,21 @@ installButton.addEventListener("click", function(e){
         <li>If this method was not invoked as a result of explicit user action,
         then:
           <ol>
-            <li>Reject <var>promise</var> with new
-            <code><a href="http://dom.spec.whatwg.org/#exception-domexception">
-            DOMException</a></code> whose name is
-            "<code><a href="http://dom.spec.whatwg.org/#securityerror">
-            SecurityError</a></code>" and return.
+            <li>Reject <var>promise</var> with new <code><a href=
+            "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
+            whose name is "<code><a href=
+            "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>"
+            and return.
             </li>
           </ol>
         </li>
         <li>If the document's <a>mode of operation</a> is <a>standalone</a>:
           <ol>
-            <li>Reject <var>promise</var> with a new
-            <code><a href="http://dom.spec.whatwg.org/#exception-domexception">
-            DOMException</a></code> whose name is
-            "<code><a href="http://dom.spec.whatwg.org/#notsupportederror">
-            NotSupported</a></code>" and return.
+            <li>Reject <var>promise</var> with a new <code><a href=
+            "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
+            whose name is "<code><a href=
+            "http://dom.spec.whatwg.org/#notsupportederror">NotSupported</a></code>"
+            and return.
             </li>
           </ol>
         </li>
@@ -1036,9 +1035,9 @@ installButton.addEventListener("click", function(e){
           <ol>
             <li>If the end-user aborts the request to add the bookmark (e.g.,
             they hit escape, or press a "cancel" button), then Reject
-            <var>promise</var> with a new
-            <code><a href="http://dom.spec.whatwg.org/#exception-domexception">
-            DOMException</a></code> whose name is "<code><a href=
+            <var>promise</var> with a new <code><a href=
+            "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
+            whose name is "<code><a href=
             "http://dom.spec.whatwg.org/#aborterror">AbortError</a></code>" and
             return.
             </li>
