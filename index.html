@@ -115,7 +115,6 @@
 {
   "name": "Example",
   "url": "/start.html",
-  "mode": "standalone",
   "icons": [{
       "src": "icon/lowres",
       "sizes": "64x64",
@@ -493,17 +492,17 @@ installButton.addEventListener("click", function(e){
           orientation: portrait-primary, landscape;
       }
   }
-  
+
   /*Tablet, switch to landscape only*/
   @media (max-width: 720px) {
       @viewport {
           orientation: landscape;
       }
   }
-  
-  /* 
-    similarly on screens with a width of 721px or more, 
-    all orientations are allowed 
+
+  /*
+    similarly on screens with a width of 721px or more,
+    all orientations are allowed
    */
 &lt;/style&gt;
 &lt;/head&gt;
@@ -521,72 +520,6 @@ installButton.addEventListener("click", function(e){
         <p class="issue">
           Define the <dfn>steps for processing the orientation member</dfn>.
         </p>
-      </section>
-      <section>
-        <h3>
-          <code title="">mode</code> member
-        </h3>
-        <p>
-          The <dfn title="member-mode">mode</dfn> member represents that mode
-          of operation in which the web application will be launched. When the
-          developer omits the value, the user agent assumes the value
-          "bookmark".
-        </p>
-        <p>
-          The <dfn>modes of operation</dfn> in which a web application can be
-          launched include:
-        </p>
-        <dl>
-          <dt>
-            <dfn>standalone</dfn>
-          </dt>
-          <dd>
-            Once launched, the Web application appears indistinguishable from a
-            native application by allowing the OS to treat it as equivalent to
-            a native application.
-          </dd>
-          <dt>
-            <dfn>bookmark</dfn>
-          </dt>
-          <dd>
-            When launched, the user agent open the URL is normal (e.g., opens a
-            new tab, or a new window, or whatever it commonly does when
-            instructed to open a bookmark).
-          </dd>
-        </dl>
-        <p>
-          Standalone mode can also be displayed in the following view modes:
-        </p>
-        <p>
-          A <dfn>valid application mode</dfn> is one that conforms to the
-          following [[!ABNF]]:
-        </p>
-        <pre>
-  mode = "bookmark" / "standalone" ["-" presentation]
-  presentation = "fullscreen"
-</pre>
-        <p>
-          The <dfn>steps for processing the <code>mode</code> member</dfn> are
-          given by the following algorithm. The algorithm returns a string.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
-          "<code>mode</code>" as the argument.
-          </li>
-          <li>Let <var>result</var> be "bookmark".
-          </li>
-          <li>
-            <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
-            Strip leading and trailing whitespace</a> from <var>value</var>.
-          </li>
-          <li>If <var>value</var> is a <a>valid application mode</a>, set <var>
-            result</var> to <var>value</var>.
-          </li>
-          <li>Return <var>result</var>.
-          </li>
-        </ol>
       </section>
       <section>
         <h3>
