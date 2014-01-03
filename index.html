@@ -122,11 +122,9 @@
       "type": "image/webp"
     }, {
       "src": "icon/hd_small",
-      "density": "2",
       "sizes": "64x64"
     }, {
       "src": "icon/hd_hi",
-      "density": "2",
       "sizes": "128x128"
     }]
 }
@@ -834,42 +832,8 @@ installButton.addEventListener("click", function(e){
       </h2>
       <p>
         Each <dfn>icon object</dfn> represents an icon for an application
-        suitable to use at some dimensions and screen density.
+        suitable to use in various contexts (e.g., an application menu).
       </p>
-      <section>
-        <h3>
-          <code>density</code> member
-        </h3>
-        <p>
-          The <dfn title="icon-densitiy">density</dfn> member of an icon is the
-          device pixel density for which this icon was designed. The device
-          pixel density is expressed as the number of dots per 'px' unit
-          (equivalent to a <a href=
-          "http://dev.w3.org/csswg//#resolution">dppx</a> as defined in
-          [[!css3-values]]). The value is a positive number greater than 0. If
-          the developer ommits the value, the user agent assumes the value
-          <code>1</code>.
-        </p>
-        <p>
-          The <dfn>steps for processing a density of an icon</dfn> are given by
-          the following algorithm. The algorithm thanks an <var>icon</var>
-          object as an argument and returns a positive number.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>icon</var> passing
-          "<code>density</code>" as the argument.
-          </li>
-          <li>Let <var>result</var> be the result of
-          parseFloat(<var>value</var>);
-          </li>
-          <li>If <var>result</var> is <code>NaN</code>, +0, −0, +∞, or −∞, or
-          less than 0, return 1.
-          </li>
-          <li>Return <var>result</var>.
-          </li>
-        </ol>
-      </section>
       <section>
         <h3>
           <code>sizes</code> members
