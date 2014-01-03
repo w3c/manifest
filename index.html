@@ -793,44 +793,6 @@ installButton.addEventListener("click", function(e){
           </li>
         </ol>
       </section>
-      <section>
-	<h3>
-	  The "manifest.json" well-known URI
-	</h3>
-	<p>
-	  In the absence of a <code>link</code> element with the
-	  <code>manifest</code> keyword, for <code>Documents</code> obtained
-	  over HTTP or HTTPS or [[!APP-URI]], user agents MAY instead attempt
-	  to <a href="http://fetch.spec.whatwg.org/#concept-fetch">fetch</a>
-	  and use a manifest with the <a href=
-	  "http://url.spec.whatwg.org/#concept-absolute-url">absolute URL</a>
-	  obtained by resolving the URL
-	  "<code>.well-known/manifest.json</code>" against the document's
-	  address, as if the page had declared that manifest using the
-	  <code>manifest</code> keyword.
-	</p>
-	<p>
-	  This specification registers the "manifest.json" well-known URI in
-	  the <a href=
-	  "http://www.iana.org/assignments/well-known-uris/well-known-uris.xml">
-	  Well-Known URI Registry</a> as required by [[!RFC5785]].
-	</p>
-	<dl>
-	  <dt>
-	    URI suffix:
-	  </dt>
-	  <dd>
-	    manifest.json
-	  </dd>
-	  <dt>
-	    Change controller:
-	  </dt>
-	  <dd>
-	    <a href="www.w3.org/2008/webapps/">Web Applications (WebApps)
-	    Working Group</a>
-	  </dd>
-	</dl>
-      </section>
       <section id="proprietary-extensions" class="informative">
         <h3>
           Proprietary extensions to the manifest
@@ -1084,161 +1046,215 @@ installButton.addEventListener("click", function(e){
     </section>
     <section>
       <h2>
-	Media type registration
+        IANA considerations
       </h2>
       <p>
-        This section contains the required text for MIME media type
-        registration with IANA.
+        The following registration is for community review and will be
+        submitted to the IESG for review, approval, and registration with IANA.
       </p>
-      <p>
-        The <dfn>media type for a manifests</dfn> is
-        <code>application/manifest+json</code>.
-      </p>
-      <p>
-        If the protocol over which the manifest is transferred supports the
-        [[!MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
-        manifest be labeled with the <a>media type for a manifests</a>.
-      </p>
-      <dl>
-        <dt>
-          Type name:
-        </dt>
-        <dd>
-          application
-        </dd>
-        <dt>
-          Subtype name:
-        </dt>
-        <dd>
-          manifest+json
-        </dd>
-        <dt>
-          Required parameters:
-        </dt>
-        <dd>
-          N/A
-        </dd>
-        <dt>
-          Optional parameters:
-        </dt>
-        <dd>
-          N/A
-        </dd>
-        <dt>
-          Encoding considerations:
-        </dt>
-        <dd>
-          Same as for application/json
-        </dd>
-        <dt>
-          Security considerations:
-        </dt>
-        <dd>
-          <p>
-            As the manifest format is JSON and will commonly be encoded using
-            [[!UNICODE]], the security considerations described in [[!JSON]]
-            and [[!UNICODE-SECURITY]] apply. In addition, implementors need to
-            impose their own implementation-specific limits on the values of
-            otherwise unconstrained member types, e.g. to prevent denial of
-            service attacks, to guard against running out of memory, or to work
-            around platform-specific limitations.
-          </p>
-          <p>
-            Web applications will generally contain ECMAScript, HTML, CSS
-            files, and other media, which are executed in a sand-boxed
-            environment. As such, implementors need to be aware of the security
-            implications for the types they support. Specifically, implementors
-            need to consider the security implications outlined in the
-            [[!CSS-MIME]] specification, the [[!ECMAScript-MIME]]
-            specification, and the [[!HTML]] specification.
-          </p>
-          <p>
-            As web applications can contain content that is able to
-            simultaneously interact with the local device and a remote host,
-            implementors need to consider the privacy implications resulting
-            from exposing private information to a remote host. Mitigation and
-            in-depth defensive measures are an implementation responsibility
-            and not prescribed by this specification. However, in designing
-            these measures, implementors are advised to enable user awareness
-            of information sharing, and to provide easy access to interfaces
-            that enable revocation of permissions.
-          </p>
-          <p>
-            As this specification allows for the declaration of URLs within
-            certain members of a manifest, implementors need to consider the
-            security considerations discussed in the [[!URL]] specification.
-            Implementations intending to display <abbr title=
-            "Internationalized Resource Identifiers">IRIs</abbr> and
-            <abbr title="Internationalized domain name">IDNA</abbr> addresses
-            found in the manifest are strongly encouraged to follow the
-            security advice given in [[!UNICODE-SECURITY]].
-          </p>
-        </dd>
-        <dt>
-          Applications that use this media type:
-        </dt>
-        <dd>
-          Web browsers
-        </dd>
-        <dt>
-          Additional information:
-        </dt>
-        <dd>
-          <dl>
-            <dt>
-              Magic number(s):
-            </dt>
-            <dd>
-              N/A
-            </dd>
-            <dt>
-              File extension(s):
-            </dt>
-            <dd>
-              .json, .manifest
-            </dd>
-            <dt>
-              Macintosh file type code(s):
-            </dt>
-            <dd>
-              TEXT
-            </dd>
-          </dl>
-        </dd>
-        <dt>
-          Person &amp; email address to contact for further information:
-        </dt>
-        <dd>
-          The <a href="http://www.w3.org/2008/webapps/" rel="nofollow">Web
-          Applications (WebApps) Working Group</a> can be contacted at <a href=
-          "http://lists.w3.org/Archives/Public/public-webapps/" rel=
-          "nofollow">public-webapps@w3.org</a>.
-        </dd>
-        <dt>
-          Intended usage:
-        </dt>
-        <dd>
-          COMMON
-        </dd>
-        <dt>
-          Restrictions on usage:
-        </dt>
-        <dd>
-          none
-        </dd>
-        <dt>
-          Author:
-        </dt>
-        <dd>
-          W3C's Web Applications (WebApps) Working Group.
-        </dd>
-        <dt>
-          Change controller:
-        </dt>
-        <dd>
-          W3C.
-        </dd>
-      </dl>
+      <section>
+        <h3>
+          The "manifest.json" well-known URI
+        </h3>
+        <p>
+          In the absence of a <code>link</code> element with the
+          <code>manifest</code> keyword, for <code>Documents</code> obtained
+          over HTTP or HTTPS or [[!APP-URI]], user agents MAY instead attempt
+          to <a href="http://fetch.spec.whatwg.org/#concept-fetch">fetch</a>
+          and use a manifest with the <a href=
+          "http://url.spec.whatwg.org/#concept-absolute-url">absolute URL</a>
+          obtained by resolving the URL
+          "<code>.well-known/manifest.json</code>" against <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-document's-address">
+          the document's address</a>, as if the page had declared that
+          <a>manifest</a> using the <code>manifest</code> keyword.
+        </p>
+        <p>
+          This specification registers the "manifest.json" well-known URI in
+          the <a href=
+          "http://www.iana.org/assignments/well-known-uris/well-known-uris.xml">
+          Well-Known URI Registry</a> as required by [[!RFC5785]].
+        </p>
+        <dl>
+          <dt>
+            URI suffix:
+          </dt>
+          <dd>
+            manifest.json
+          </dd>
+          <dt>
+            Change controller:
+          </dt>
+          <dd>
+            <a href="www.w3.org/2008/webapps/">Web Applications (WebApps)
+            Working Group</a>
+          </dd>
+          <dt>
+            Specification document(s):
+          </dt>
+          <dd>
+            This document is the relevant specification.
+          </dd>
+        </dl>
+      </section>
+      <section>
+        <h3>
+          Media type reregistration
+        </h3>
+        <p>
+          This section contains the required text for MIME media type
+          registration with IANA.
+        </p>
+        <p>
+          The <dfn>media type for a manifests</dfn> is
+          <code>application/manifest+json</code>.
+        </p>
+        <p>
+          If the protocol over which the manifest is transferred supports the
+          [[!MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
+          manifest be labeled with the <a>media type for a manifests</a>.
+        </p>
+        <dl>
+          <dt>
+            Type name:
+          </dt>
+          <dd>
+            application
+          </dd>
+          <dt>
+            Subtype name:
+          </dt>
+          <dd>
+            manifest+json
+          </dd>
+          <dt>
+            Required parameters:
+          </dt>
+          <dd>
+            N/A
+          </dd>
+          <dt>
+            Optional parameters:
+          </dt>
+          <dd>
+            N/A
+          </dd>
+          <dt>
+            Encoding considerations:
+          </dt>
+          <dd>
+            Same as for application/json
+          </dd>
+          <dt>
+            Security considerations:
+          </dt>
+          <dd>
+            <p>
+              As the manifest format is JSON and will commonly be encoded using
+              [[!UNICODE]], the security considerations described in [[!JSON]]
+              and [[!UNICODE-SECURITY]] apply. In addition, implementors need
+              to impose their own implementation-specific limits on the values
+              of otherwise unconstrained member types, e.g. to prevent denial
+              of service attacks, to guard against running out of memory, or to
+              work around platform-specific limitations.
+            </p>
+            <p>
+              Web applications will generally contain ECMAScript, HTML, CSS
+              files, and other media, which are executed in a sand-boxed
+              environment. As such, implementors need to be aware of the
+              security implications for the types they support. Specifically,
+              implementors need to consider the security implications outlined
+              in the [[!CSS-MIME]] specification, the [[!ECMAScript-MIME]]
+              specification, and the [[!HTML]] specification.
+            </p>
+            <p>
+              As web applications can contain content that is able to
+              simultaneously interact with the local device and a remote host,
+              implementors need to consider the privacy implications resulting
+              from exposing private information to a remote host. Mitigation
+              and in-depth defensive measures are an implementation
+              responsibility and not prescribed by this specification. However,
+              in designing these measures, implementors are advised to enable
+              user awareness of information sharing, and to provide easy access
+              to interfaces that enable revocation of permissions.
+            </p>
+            <p>
+              As this specification allows for the declaration of URLs within
+              certain members of a manifest, implementors need to consider the
+              security considerations discussed in the [[!URL]] specification.
+              Implementations intending to display <abbr title=
+              "Internationalized Resource Identifiers">IRIs</abbr> and
+              <abbr title="Internationalized domain name">IDNA</abbr> addresses
+              found in the manifest are strongly encouraged to follow the
+              security advice given in [[!UNICODE-SECURITY]].
+            </p>
+          </dd>
+          <dt>
+            Applications that use this media type:
+          </dt>
+          <dd>
+            Web browsers
+          </dd>
+          <dt>
+            Additional information:
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                Magic number(s):
+              </dt>
+              <dd>
+                N/A
+              </dd>
+              <dt>
+                File extension(s):
+              </dt>
+              <dd>
+                .json, .manifest
+              </dd>
+              <dt>
+                Macintosh file type code(s):
+              </dt>
+              <dd>
+                TEXT
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            Person &amp; email address to contact for further information:
+          </dt>
+          <dd>
+            The <a href="http://www.w3.org/2008/webapps/" rel="nofollow">Web
+            Applications (WebApps) Working Group</a> can be contacted at
+            <a href="http://lists.w3.org/Archives/Public/public-webapps/" rel=
+            "nofollow">public-webapps@w3.org</a>.
+          </dd>
+          <dt>
+            Intended usage:
+          </dt>
+          <dd>
+            COMMON
+          </dd>
+          <dt>
+            Restrictions on usage:
+          </dt>
+          <dd>
+            none
+          </dd>
+          <dt>
+            Author:
+          </dt>
+          <dd>
+            W3C's Web Applications (WebApps) Working Group.
+          </dd>
+          <dt>
+            Change controller:
+          </dt>
+          <dd>
+            W3C.
+          </dd>
+        </dl>
+      </section>
     </section>
     <section id="conformance" data-status="done">
       <p>
