@@ -214,7 +214,7 @@ installButton.addEventListener("click", function(e){
         Manifest
       </h2>
       <p>
-        A <dfn>manifest</dfn> is a [[!JSON]] document. Typically, it will
+        A <dfn>manifest</dfn> is a [[!JSON]] document. Typically, it
         consists of a top-level object that contains zero or more members, some
         of which contain other objects. Each of the members, as well as how
         their values are processed, are defined below.
@@ -304,7 +304,7 @@ installButton.addEventListener("click", function(e){
           <a href=
           "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
           loaded</a> when the application is launched. When the developer
-          ommits it from the manifest, the user agent will instead use the URL
+          omits it from the manifest, the user agent will instead use the URL
           of the document that was bookmarked.
         </p>
         <p>
@@ -514,7 +514,7 @@ installButton.addEventListener("click", function(e){
             implemented the "orientation" descriptor. It also lacks definitions
             for "-primary" and "-secondary" contraints, which are important for
             various applications, and doesn't currently allow providing
-            multiple allowed orientations - hopefully the CSS Device Adaption
+            multiple allowed orientations - hopefully the CSS Device Adaptation
             spec can align with the Screen Orientation spec.
           </p>
         </div>
@@ -533,7 +533,7 @@ installButton.addEventListener("click", function(e){
           "bookmark".
         </p>
         <p>
-          The <dfn>mode of operation</dfn> in which a web application can be
+          The <dfn>modes of operation</dfn> in which a web application can be
           launched include:
         </p>
         <dl>
@@ -595,7 +595,7 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn>steps for fetching a manifest</dfn> are given by the
           following algorithm. It takes a <var>url</var> URL as an argument. It
-          returns a response (which may be in error).
+          returns a response (which may be an error).
         </p>
         <ol>
           <li>Let <var>response</var> be the result of <a href=
@@ -765,7 +765,7 @@ installButton.addEventListener("click", function(e){
           whatever step or sub-step caused the condition.
         </p>
         <p>
-          To obtain a manifest, as user agent MUST:
+          To obtain a manifest, a user agent MUST:
         </p>
         <ol>
           <li>If the <code>link</code> element lacks a href attribute, abort
@@ -846,7 +846,7 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn>steps for processing a dimension of an icon</dfn> are given
           by the following algorithm. The algorithm takes an <var>icon</var>
-          and a <var>key</var> ('width" or "height") as an argument. The
+          and a <var>key</var> ("width" or "height") as an argument. The
           algorithm returns a positive number, <code>undefined</code>, or an
           error.
         </p>
@@ -905,12 +905,12 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn title="icon-type">type</dfn> member of an icon is a hint as
           to the media type of the icon. The purpose of this member is to allow
-          a user agent can ignore icons of media types it does not support.
+          a user agent to ignore icons of media types it does not support.
         </p>
         <p>
           The <dfn>steps for processing the <code>type</code> member of an
           icon</dfn> are given by the following algorithm. The algorithm takes
-          an <var>icon</var> object as an argument, and returns either string
+          an <var>icon</var> object as an argument, and returns either a string, an error,
           or <code>undefined</code>.
         </p>
         <ol>
@@ -945,7 +945,7 @@ installButton.addEventListener("click", function(e){
         <dd>
           The standalone attribute provides a means for a developer to check if
           the application is running in <a>standalone</a> mode. When getting,
-          the user agent MUST returns <code>true</code> if the application is
+          the user agent MUST return <code>true</code> if the application is
           running as <a>standalone</a>. Return <code>false</code> otherwise.
         </dd>
         <dt>
@@ -1070,13 +1070,13 @@ installButton.addEventListener("click", function(e){
           registration with IANA.
         </p>
         <p>
-          The <dfn>media type for a manifests</dfn> is
+          The <dfn>media type for a manifest</dfn> is
           <code>application/manifest+json</code>.
         </p>
         <p>
           If the protocol over which the manifest is transferred supports the
           [[!MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
-          manifest be labeled with the <a>media type for a manifests</a>.
+          manifest be labeled with the <a>media type for a manifest</a>.
         </p>
         <dl>
           <dt>
