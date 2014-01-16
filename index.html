@@ -734,12 +734,41 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn>orientations</dfn> member is an array of strings whose items
           hint to the user agent the preferred orientations in which to display
-          the web application when it is launched as standalone. The possible values are any of the <a href="https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">allowed orientations</a> as defined in [[!screen-orientation]]. Order in the
-          array is significant, with the first item in the array being the most
-          preferred orientation, followed by the next most preferred
-          orientation and so forth. When the member is missing or the value is
-          in error, the user agent assumes that the application supports
-        default orientation for standalone applications. </p>
+          the web application when it is launched as standalone. The possible
+          values are any of the <a href=
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
+          allowed orientations</a> as defined in [[!screen-orientation]]. Order
+          within the array is significant, with the first item in the array
+          being the most preferred by the developer, followed by the next most
+          preferred and so forth. When the <dfn>orientations</dfn> member is
+          missing or the value is in error, the user agent provides a user
+          agent specific default orientation for the web application.
+        </p>
+        <p>
+          Although the specification relies on the <a href=
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
+          allowed orientations</a> from the [[!screen-orientation]]
+          specification, it is OPTIONAL for a user agent to implement the
+          [[!screen-orientation]] API. Supporting the [[!screen-orientation]]
+          is, of course, RECOMMENDED.
+        </p>
+        <p>
+          If the user agent chooses to use one of the <a href=
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
+          allowed orientations</a> in the <code>orientations</code> member,
+          then that becomes the default orientation for the web application for
+          as long as the application is running (unless overridden by some
+          other means at runtime). This means that the user agent MUST return
+          the orientation to the default orientation any time the orientation
+          is unlocked [[!screen-orientation]].
+        </p>
+        <p>
+          Note: the <code>orientations</code> member's items are expected to
+          only apply when the web application is launched. Once the web
+          application is running. Once the web application is running, it is
+          expected that other means can could be used to change the orientation
+          of the application (such as via [[!screen-orientation]]).
+        </p>
         <p>
           The <dfn>steps for processing the <code>orientations</code> member of
           the app object</dfn> are given by the following algorithm. The
@@ -892,7 +921,7 @@ installButton.addEventListener("click", function(e){
           </li>
         </ol>
       </section>
-  </section>
+    </section>
     <section>
       <h2>
         Extensions to the <code>Navigator</code> object
