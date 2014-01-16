@@ -113,7 +113,7 @@
         </p>
         <pre class="example highlight json" title="typical manifest">
 {
-  "name": "Example",
+  "name": "Super Racer 2000",
   "url": "/start.html",
   "icons": [{
       "src": "icon/lowres",
@@ -125,7 +125,11 @@
     }, {
       "src": "icon/hd_hi",
       "sizes": "128x128"
-    }]
+    }],
+   "app":{
+     "display": ["fullscreen"],
+     "orientations": ["landscape"]
+   }
 }
 </pre>
       </section>
@@ -213,10 +217,10 @@ installButton.addEventListener("click", function(e){
         Manifest
       </h2>
       <p>
-        A <dfn>manifest</dfn> is a [[!JSON]] document. Typically, it
-        consists of a top-level object that contains zero or more members, some
-        of which contain other objects. Each of the members, as well as how
-        their values are processed, are defined below.
+        A <dfn>manifest</dfn> is a [[!JSON]] document. Typically, it consists
+        of a top-level object that contains zero or more members, some of which
+        contain other objects. Each of the members, as well as how their values
+        are processed, are defined below.
       </p>
       <p id="ecmascript-abstractop">
         Algorithms in this specification use the conventions described in
@@ -302,9 +306,9 @@ installButton.addEventListener("click", function(e){
           The <dfn id="member-launch_path">url</dfn> member is the URL that is
           <a href=
           "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
-          loaded</a> when the application is launched. When the developer
-          omits it from the manifest, the user agent will instead use the URL
-          of the document that was bookmarked.
+          loaded</a> when the application is launched. When the developer omits
+          it from the manifest, the user agent will instead use the URL of the
+          document that was bookmarked.
         </p>
         <p>
           The <dfn>steps for processing the <code>url</code> member</dfn> are
@@ -406,119 +410,12 @@ installButton.addEventListener("click", function(e){
       </section>
       <section>
         <h3>
-          <code>orientation</code> member
+          <code>app</code> member
         </h3>
-        <div class="issue">
-          <p>
-            This is <a href="https://github.com/w3c/manifest/issues/74">issue
-            74</a> on GitHub. We are looking for feedback!
-          </p>
-          <p>
-            Orientation of an application is dependent on the media features of
-            the display. For example an application might need to be launched
-            in landscape on phones (in order to have sufficient display width),
-            but prefer to be in portrait on tablets. (see <a href=
-            "http://w3c-webmob.github.io/installable-webapps/#orientation">Orientation</a>
-            section in the use cases document).
-          </p>
-          <p>
-            When analyzing applications across various runtimes, we've found
-            evidence that such applications are common (e.g., basically any
-            application on the iPhone that has an iPad counterpart will be
-            designed to constrain to a particular orientation based on the
-            device being used: LinkedIn, Flipboard, GoodReads, etc. will all go
-            from portrait-primary on the iPhone to allowing "any" orientation
-            on the iPad. A more extreme example is BBC iPlayer - which supports
-            portrait-primary on the iPhone, but both landscape orientations on
-            iPad. The same can be seen on Android devices. Unlike native apps,
-            Web Apps should not target devices/OS's - they have to be device
-            neutral.
-          </p>
-          <p>
-            In order to address the use cases, we currently have two proposals.
-          </p>
-          <p>
-            <strong>Option 1:</strong> Provide a list of orientation sets in
-            the manifest. The user agent uses the first one with a matching
-            media query. The order in which the orientations are listed by a
-            developer does not imply a preference for setting the orientation -
-            it is always left up to the user agent to pick the best orientation
-            given, for example, how the user is holding the device. In the
-            example below, no orientation is given for widths of 721px or
-            above, so the default is used: allowing all orientations supported
-            by the device.
-          </p>
-          <pre class="highlight">
-{
-    "orientations": [{
-        "media": "max-width: 320px",
-        "supported": ["portrait-primary", "landscape"]
-    }, {
-        "media": "max-width: 720px",
-        "supported": ["landscape"]
-    }]
-}
-</pre>
-          <p>
-            In this example:
-          </p>
-          <ul>
-            <li>a device with a screen width of 320px or below would launch
-            either "portrait-primary" or "landscape" with the abilty to be
-            "flipped" depending on how the user is holding the device (and OS
-            permitting).
-            </li>
-            <li>A device with a screen width of 321px through 720px would be
-            launched in landscape (leaving it up to the UA to pick either
-            landscape-primary or landscape-secondary, while allowing
-            "flippability"),
-            </li>
-            <li>A device with a screen width of 721px and above would start in
-            any orientation chosen by the UA (ideally, one that matches how the
-            user is holding the device).
-            </li>
-          </ul>
-          <p>
-            <strong>Option 2:</strong> The second proposal is to remove
-            orientation from the manifest and use CSS @viewport instead
-            [[css-device-adapt]]. This would mean::
-          </p>
-          <pre class="highlight">
-&lt;head&gt;
-&lt;style&gt;
-  /*set it by default to portrait primary for small screens */
-  @media (max-width: 320px) {
-      @viewport {
-          orientation: portrait-primary, landscape;
-      }
-  }
-
-  /*Tablet, switch to landscape only*/
-  @media (max-width: 720px) {
-      @viewport {
-          orientation: landscape;
-      }
-  }
-
-  /*
-    similarly on screens with a width of 721px or more,
-    all orientations are allowed
-   */
-&lt;/style&gt;
-&lt;/head&gt;
-</pre>
-          <p>
-            Problem with using <code>@viewport</code> at the moment is that the
-            specification is progressing a bit slowly and no one has
-            implemented the "orientation" descriptor. It also lacks definitions
-            for "-primary" and "-secondary" contraints, which are important for
-            various applications, and doesn't currently allow providing
-            multiple allowed orientations - hopefully the CSS Device Adaptation
-            spec can align with the Screen Orientation spec.
-          </p>
-        </div>
-        <p class="issue">
-          Define the <dfn>steps for processing the orientation member</dfn>.
+        <p>
+          The <dfn>app</dfn> member is an <span>app object</span> that for
+          declaring metadata that is when the web application is launched
+          standalone.
         </p>
       </section>
       <section>
@@ -756,6 +653,140 @@ installButton.addEventListener("click", function(e){
     </section>
     <section>
       <h2>
+        App object and its members
+      </h2>
+      <p>
+        An <dfn>app object</dfn> allows developers to declare metadata that a
+        user agent can make use of when the web application is launched as
+        standalone.
+      </p>
+      <section>
+        <h3>
+          <code>display</code> member
+        </h3>
+        <p>
+          The <code>display</code> member is an array of strings whose items
+          hint to the user agent the preferred <a href=
+          "http://www.w3.org/TR/view-mode/#view-modes">view mode</a> in which
+          to display the web application when it is launched as standalone. The
+          <dfn>view mode</dfn> values are defined in [[!view-mode]]. Order in
+          the array is significant, with the first item in the array being the
+          most preferred by the developer, followed by the next most preferred
+          and so forth. When the member is missing or the value is in error, it
+          is assumed that the application supports the user agent's default
+          view mode for standalone applications.
+        </p>
+        <p>
+          It is OPTIONAL for user agents to support any of the <a>view
+          modes</a> and the associated CSS media feature of [[!view-mode]]. It
+          is, nevertheless, RECOMMENDED that at least the "<a href=
+          "http://www.w3.org/TR/view-mode/#dfn-fullscreen">fullscreen</a>" view
+          mode be supported by a user agent.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>display</code> member of the
+          app object</dfn> are given by the following algorithm. The algorithm
+          takes an <a>app object</a> (<var>app</var>) as an argument, and
+          returns either a set, an error, or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>If <a>HasOwnProperty</a>(<var>app</var>,"display") returns <code>
+            false</code>, then return <code>undefined</code>.
+          </li>
+          <li>Let <var>result</var> be a new set.
+          </li>
+          <li>Let <var>display values</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
+          "<code>display</code>" as the argument.
+          </li>
+          <li>If <var>display values</var> is not an instance of Array, return
+          an error.
+          </li>
+          <li>For each <var>item</var> in <var>display values</var> in order
+          from first to last:
+            <ol>
+              <li>If type(<var>item</var>) is not "string", ignore this
+              <var>item</var> and move onto the next item in display values (if
+              any are left).
+              </li>
+              <li>
+                <a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
+                Strip leading and trailing whitespace</a> from <var>item</var>.
+              </li>
+              <li>If <var>item</var> is not a view mode that the user agent
+              supports, or <var>result</var> already contains <var>item</var>,
+              ignore this <var>item</var> and move onto the next item in
+              display values (if any are left).
+              </li>
+              <li>Otherwise, append <var>item</var> to <var>result</var>.
+              </li>
+            </ol>
+          </li>
+          <li>return <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>orientations</code> member
+        </h3>
+        <p>
+          The <dfn>orientations</dfn> member is an array of strings whose items
+          hint to the user agent the preferred orientations in which to display
+          the web application when it is launched as standalone. The possible values are any of the <a href="https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">allowed orientations</a> as defined in [[!screen-orientation]]. Order in the
+          array is significant, with the first item in the array being the most
+          preferred orientation, followed by the next most preferred
+          orientation and so forth. When the member is missing or the value is
+          in error, the user agent assumes that the application supports
+        default orientation for standalone applications. </p>
+        <p>
+          The <dfn>steps for processing the <code>orientations</code> member of
+          the app object</dfn> are given by the following algorithm. The
+          algorithm takes an <a>app object</a> (<var>app</var>) as an argument,
+          and returns either a set, an error, or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>If <a>HasOwnProperty</a>(<var>app</var>,"orientations") returns
+          <code>false</code>, then return <code>undefined</code>.
+          </li>
+          <li>Let <var>result</var> be a new set.
+          </li>
+          <li>Let <var>orientations</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
+          "<code>orientations</code>" as the argument.
+          </li>
+          <li>If <var>orientations</var> is not an instance of Array, return an
+          error.
+          </li>
+          <li>For each <var>item</var> in <var>orientations</var> in order from
+          first to last:
+            <ol>
+              <li>If type(<var>item</var>) is not "string", ignore this
+              <var>item</var> and move onto the next item in display values (if
+              any are left).
+              </li>
+              <li>
+                <a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
+                Strip leading and trailing whitespace</a> from <var>item</var>.
+              </li>
+              <li>If <var>item</var> is not an orientation that the user agent
+              supports, or <var>result</var> already contains <var>item</var>,
+              ignore this <var>item</var> and move onto the next item in
+              orientation values (if any are left).
+              </li>
+              <li>Otherwise, append <var>item</var> to <var>result</var>.
+              </li>
+            </ol>
+          </li>
+          <li>return <var>result</var>.
+          </li>
+        </ol>
+      </section>
+    </section>
+    <section>
+      <h2>
         Icon object and its members
       </h2>
       <p>
@@ -838,8 +869,8 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn>steps for processing the <code>type</code> member of an
           icon</dfn> are given by the following algorithm. The algorithm takes
-          an <var>icon</var> object as an argument, and returns either a string, an error,
-          or <code>undefined</code>.
+          an <var>icon</var> object as an argument, and returns either a
+          string, an error, or <code>undefined</code>.
         </p>
         <ol>
           <li>If <a>HasOwnProperty</a>(<var>manifest</var>,"type") returns
@@ -861,7 +892,7 @@ installButton.addEventListener("click", function(e){
           </li>
         </ol>
       </section>
-    </section>
+  </section>
     <section>
       <h2>
         Extensions to the <code>Navigator</code> object
