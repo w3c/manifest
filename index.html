@@ -219,8 +219,8 @@ installButton.addEventListener("click", function(e){
       <p>
         A <dfn>manifest</dfn> is a [[!JSON]] document. Typically, it consists
         of a top-level object that contains zero or more members, some of which
-        contain other objects. Each of the members, as well as how their values
-        are processed, are defined below.
+        contain other objects. Each of the members are defined below, as well
+        as how their values are processed.
       </p>
       <p id="ecmascript-abstractop">
         Algorithms in this specification use the conventions described in
@@ -303,12 +303,13 @@ installButton.addEventListener("click", function(e){
           <code>url</code> member
         </h3>
         <p>
-          The <dfn id="member-launch_path">url</dfn> member is the URL that is
-          <a href=
+          The <dfn id="member-launch_path">url</dfn> member is the <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a> that is <a href=
           "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
           loaded</a> when the application is launched. When the developer omits
-          it from the manifest, the user agent will instead use the URL of the
-          document that was bookmarked.
+          it from the manifest, the user agent will instead use the <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a> of the document
+          that was bookmarked.
         </p>
         <p>
           The <dfn>steps for processing the <code>url</code> member</dfn> are
@@ -413,8 +414,8 @@ installButton.addEventListener("click", function(e){
           <code>app</code> member
         </h3>
         <p>
-          The <dfn>app</dfn> member is an <a>app object</a>  for
-          declaring metadata that is used when the web application is launched
+          The <dfn>app</dfn> member is an <a>app object</a> for declaring
+          metadata that is used when the web application is launched as
           standalone.
         </p>
       </section>
@@ -567,7 +568,8 @@ installButton.addEventListener("click", function(e){
           inserted link element and ignore all subsequent <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
           <code>link</code></a> elements with a <code>manifest</code> link type
-          (even if the first element was in error).
+          (even if the first element was <span data-dobid=
+          "hdw">erroneous</span>).
         </p>
         <p>
           The appropriate time to <a href=
@@ -670,16 +672,17 @@ installButton.addEventListener("click", function(e){
           <code>display</code> member
         </h3>
         <p>
-          The <code>display</code> member is an array of strings whose items
-          hint to the user agent the preferred <a href=
+          The <code>display</code> member is an array of strings that serve as
+          hints for the user agent as to the preferred <a href=
           "http://www.w3.org/TR/view-mode/#view-modes">view mode</a> in which
           to display the web application when it is launched as standalone. The
           <dfn>view mode</dfn> values are defined in [[!view-mode]]. Order in
-          the array is significant, with the first item in the array being the
-          most preferred by the developer, followed by the next most preferred
-          and so forth. When the member is missing or the value is in error, it
-          is assumed that the application supports the user agent's default
-          view mode for standalone applications.
+          the array is significant, with the first item being the most
+          preferred by the developer, followed by the next most preferred and
+          so forth. When the member is missing or the value is
+          <span data-dobid="hdw">erroneous</span>, it is assumed that the
+          application supports the user agent's default view mode for
+          standalone applications.
         </p>
         <p>
           It is OPTIONAL for user agents to support any of the <a>view
@@ -721,8 +724,7 @@ installButton.addEventListener("click", function(e){
               </li>
               <li>If <var>item</var> is not a view mode that the user agent
               supports, or <var>result</var> already contains <var>item</var>,
-              ignore this <var>item</var> and move onto the next item in
-              display values (if any are left).
+              ignore this <var>item</var> and proceed to the next.
               </li>
               <li>Otherwise, append <var>item</var> to <var>result</var>.
               </li>
@@ -737,17 +739,18 @@ installButton.addEventListener("click", function(e){
           <code>orientations</code> member
         </h3>
         <p>
-          The <dfn>orientations</dfn> member is an array of strings whose items
-          hint to the user agent the preferred orientations in which to display
-          the web application when it is launched as standalone. The possible
-          values are any of the <a href=
+          The <dfn>orientations</dfn> member is an array of strings that serve
+          as hints for the user agent as to the preferred screen orientations
+          in which to display the web application when it is launched as
+          standalone. The possible values are any of the <a href=
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
           allowed orientations</a> as defined in [[!screen-orientation]]. Order
-          within the array is significant, with the first item in the array
-          being the most preferred by the developer, followed by the next most
-          preferred and so forth. When the <dfn>orientations</dfn> member is
-          missing or the value is in error, the user agent provides a user
-          agent specific default orientation for the web application.
+          within the array is significant, with the first item being the most
+          preferred by the developer, followed by the next most preferred and
+          so forth. When the <dfn>orientations</dfn> member is missing or the
+          value is <span data-dobid="hdw">erroneous</span>, the user agent
+          provides a user agent specific default orientation for the web
+          application.
         </p>
         <p>
           Although the specification relies on the <a href=
@@ -807,8 +810,7 @@ installButton.addEventListener("click", function(e){
               </li>
               <li>If <var>item</var> is not an orientation that the user agent
               supports, or <var>result</var> already contains <var>item</var>,
-              ignore this <var>item</var> and move onto the next item in
-              orientation values (if any are left).
+              ignore this <var>item</var> and proceed to the next.
               </li>
               <li>Otherwise, append <var>item</var> to <var>result</var>.
               </li>
