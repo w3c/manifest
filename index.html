@@ -65,24 +65,29 @@
   <body>
     <section id='abstract'>
       <p>
-        This specification defines a <em>manifest</em>, which provides
-        developers with a centralized place to put metadata about a web
-        application. This includes, but is not limited to, the name of the web
-        application, links to icons, as well as the preferred URL at which the
-        web application should open when it is launched by the user.
+        This specification defines a JSON-based <em>manifest</em>, which
+        provides developers with a centralized place to put metadata about a
+        web application. This includes, but is not limited to, the name of the
+        web application, links to icons, as well as the preferred URL at which
+        the web application should open when it is launched by the user.
       </p>
       <p>
         With this metadata, user agents can provide, for example, enhanced
         bookmarking capabilities such as being able to add a web application or
-        site to the homescreen of a device - as well as the various icons
-        needed to integrate with an OS's task switcher and system preferences.
-        The specification also defines an API to enable bookmarking from within
-        a document.
+        site to the homescreen of a device. The metadata also developers to
+        declare various icons, which a user agent can use to integrate the web
+        application with an <abbr title="operating system">OS</abbr>'s task
+        switcher and system preferences.
       </p>
       <p>
-        This specification also defines the <code>manifest</code> link type,
-        which provides a declarative means for a web document to be associated
-        with a manifest.
+        The specification also defines an API to enable bookmarking from within
+        a document, as well as a way of checking if a an applicaiton is running
+        as "standalone" (conceptually outside of the browser).
+      </p>
+      <p>
+        In addition, this specification defines the <code>manifest</code> link
+        type; which provides a declarative means for a web document to be
+        associated with a manifest.
       </p>
     </section>
     <section id="sotd">
@@ -96,13 +101,13 @@
         discussions.
       </p>
     </section>
-    <section>
+    <section class="informative">
       <h2>
         Usage Examples
       </h2>
       <p>
-        This section shows how we expect developers to make use of the various
-        features of this specification.
+        This section shows developers can make use of the various features of
+        this specification.
       </p>
       <section class="informative">
         <h3>
@@ -133,17 +138,16 @@
 }
 </pre>
       </section>
-      <section>
+      <section class="informative">
         <h3>
           Using a <code>link</code> element to link to a manifest
         </h3>
         <p>
           Example of using a <code>link</code> element to associate a website
-          with a manifest. The example also shows how certain HTML elements,
-          such as a <code>meta</code> element with a name attribute whose value
-          is "<span class=
-          "example highlight html"><code>application-name</code></span>", can
-          be used to support legacy user agents that don't implement this
+          with a <a>manifest</a>. The example also shows how a
+          <code>meta</code> element whose name is "<span class=
+          "example highlight html"><code>application-name</code></span>" can be
+          used to support legacy user agents that don't implement this
           specification.
         </p>
         <pre class="example highlight html" title="linking to a manifest">
@@ -162,12 +166,13 @@
 ...
 </pre>
       </section>
-      <section>
+      <section class="informative">
         <h3>
           Using the API
         </h3>
         <p>
-          Check if the application is running in <a>standalone</a> mode.
+          This example shows how to check if the web application is running in
+          <a>standalone</a> mode.
         </p>
         <pre class="example highlight html" title="detecting standalone mode">
 &lt;script&gt;
@@ -178,12 +183,18 @@ if("standalone" in navigator &amp;&amp; navigator.standalone){
 &lt;/script&gt;
 </pre>
       </section>
-      <section>
+      <section class="informative">
         <h3>
-          Request adding to homescreen
+          Requesting the document be bookmarked
         </h3>
         <p>
-          Let the user bookmark the application through clicking a button.
+          The following example shows how a developer can ask a user to
+          bookmark a web application through the click of a button. Similarly
+          to <code>window.open()</code>, the <code><span class=
+          "example highlight html">requestBookmark</span>()</code> method only
+          works through explicit user action; calling it without any user
+          interaction will simply cause the resulting promise to be rejected
+          with an error.
         </p>
         <pre class="example highlight html" title=
         "requesting to bookmark a web app">
@@ -214,17 +225,12 @@ installButton.addEventListener("click", function(e){
     </section>
     <section>
       <h2>
-        Manifest
+        Common conventions and dependencies
       </h2>
-      <p>
-        A <dfn>manifest</dfn> is a [[!JSON]] document. Typically, it consists
-        of a top-level object that contains zero or more members, some of which
-        contain other objects. Each of the members, as well as how their values
-        are processed, are defined below.
-      </p>
       <p id="ecmascript-abstractop">
-        Algorithms in this specification use the conventions described in
-        [[!ECMASCRIPT]], such as the use of steps and sub-steps, and so on.
+        For consistancy with the web platform, algorithms in this specification
+        use the conventions set forth in [[!ECMASCRIPT]] and [[HTML]] - such as
+        the use of steps and sub-steps, and so forth.
       </p>
       <p>
         The <a class="external" href=
@@ -233,8 +239,9 @@ installButton.addEventListener("click", function(e){
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tostring"><dfn>
         ToString</dfn></a>, <a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-hasownproperty">
-        <dfn>HasOwnProperty</dfn></a>, <dfn>[[\GetOwnProperty]]</dfn>, and
-        <a href=
+        <dfn>HasOwnProperty</dfn></a>, <dfn><a href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
+        [[\GetOwnProperty]]</a></dfn>, and <a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-toboolean"><dfn>
         ToBoolean</dfn></a> abstract operations, <dfn>promise</dfn> objects,
         and the <a class="external" href=
@@ -244,13 +251,21 @@ installButton.addEventListener("click", function(e){
         in [[!HTML]], [[!FETCH]], and [[!URL]].
       </p>
       <p>
-        As the manifest format is a [[!JSON]] document, this specification
-        relies on the types defined in [[!JSON]] specification: namely <dfn id=
-        "json-object">object</dfn>, <dfn id="json-array">array</dfn>, <dfn id=
-        "json-number">number</dfn>, and <dfn id="json-string">string</dfn>.
-        Strict type checking is not enforced by this specification. Instead,
-        each member's definition specifies the steps required to process a
-        particular member.
+        When instructed to <dfn>Trim</dfn>(<var>x</var>), a user agent MUST
+        behave as if [[!ECMASCRIPT]]'s <a href=
+        "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-string.prototype.trim">
+        String.prototype.trim()</a> function had been called on the string
+        <var>x</var>.
+      </p>
+      <p>
+        As the manifest is in the [[!JSON]] format, this specification relies
+        on the types defined in [[!JSON]] specification: namely <dfn title=
+        "json-object">object</dfn>, <dfn title="json-array">array</dfn>,
+        <dfn title="json-number">number</dfn>, and <dfn title=
+        "json-string">string</dfn>. Strict type checking is not enforced by
+        this specification. Instead, each member's definition specifies the
+        steps required to process a particular member and what to do when a
+        type does not match what is expected.
       </p>
       <p>
         When an algorithm asks the user agent to <dfn>issue a developer
@@ -259,42 +274,60 @@ installButton.addEventListener("click", function(e){
         in the error console), or MAY ignore the error and do nothing.
       </p>
       <p>
-        During processing, when instructed to <dfn>ignore</dfn>, the user agent
-        MUST act as if whatever member or value caused the condition is not
-        present in the manifest document.
+        During processing, when instructed to <dfn>ignore</dfn> something, the
+        user agent MUST act as if whatever member or value caused the condition
+        is absent in the manifest document.
+      </p>
+    </section>
+    <section>
+      <h2>
+        Manifest
+      </h2>
+      <p>
+        A <dfn>manifest</dfn> is a [[!JSON]] document. Typically, it consists
+        of a top-level object that contains zero or more members, some of which
+        contain other objects. Each of the members are defined below, as well
+        as how their values are processed.
       </p>
       <section>
         <h3>
           <code title="">name</code> member
         </h3>
         <p>
-          The <dfn id="member-name"><code>name</code></dfn> is a string that
-          represents the name of the application as is usually displayed to the
-          user (e.g., amongst a list of other applications, or as a label
-          underneath an icon).
+          The <dfn id="member-name"><code>name</code></dfn> member is a
+          <a title="json-string">string</a> that represents the name of the
+          application as is usually displayed to the user (e.g., amongst a list
+          of other applications, or as a label underneath an icon).
         </p>
         <p>
           The <dfn>steps for processing the name member</dfn> is given by the
           following algorithm. The algorithm takes a <var>manifest</var> as an
-          argument. It returns either <code>undefined</code>, a string, or an
-          error.
+          argument. It returns a string.
         </p>
         <ol>
-          <li>If <a>HasOwnProperty</a>(<var>manifest</var>, "name") returns
-          <code>false</code>, then return <code>undefined</code>.
-          </li>
           <li>Let <var>value</var> be the result of calling the
           [[\GetOwnProperty]] internal method of <var>manifest</var> with
           argument "name".
           </li>
-          <li>If Type(<var>value</var>) is not "string", return an error.
+          <li>If <a>Type</a>(<var>value</var>) is not "string" or if
+          <a>Trim</a>(value) is the empty string:
+            <ol>
+              <li>Optionally, if the <a>Type</a>(<var>value</var>) is "object",
+              then <a>issue a developer warning</a> that the type is not
+              supported.
+              </li>
+              <li>Return an implementation specific string that can serve as a
+              suitable name for the web application. For example, if the
+              manifest was obtained from a <code>link</code> element, and the
+              <code>document</code> has a <code>meta</code> element whose
+              <code>name</code> attribute matches "<code><a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">application-name</a></code>",
+              then the user agent could use the value of that <code>meta</code>
+              element's <code>content</code> attribute as a fallback.
+              </li>
+            </ol>
           </li>
-          <li>
-            <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
-            Strip leading and trailing whitespace</a> from <var>result</var>.
-          </li>
-          <li>Return the <var>result</var>.
+          <li>Othewise, <a>Trim</a>(<var>value</var>) and return the result.
           </li>
         </ol>
       </section>
@@ -303,12 +336,14 @@ installButton.addEventListener("click", function(e){
           <code>url</code> member
         </h3>
         <p>
-          The <dfn id="member-launch_path">url</dfn> member is the URL that is
-          <a href=
+          The <dfn id="member-launch_path">url</dfn> member is string
+          representation of a <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a> that is <a href=
           "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
           loaded</a> when the application is launched. When the developer omits
-          it from the manifest, the user agent will instead use the URL of the
-          document that was bookmarked.
+          it from the manifest, the user agent will instead use the <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a> of the document
+          that was bookmarked.
         </p>
         <p>
           The <dfn>steps for processing the <code>url</code> member</dfn> are
@@ -316,21 +351,13 @@ installButton.addEventListener("click", function(e){
           "http://url.spec.whatwg.org/#concept-url">URL</a>.
         </p>
         <ol>
-          <li>If <a>HasOwnProperty</a>(<var>manifest</var>, "url") is
-          <code>false</code>, then return <code>undefined</code>.
-          </li>
           <li>Let <var>value</var> be the result of calling the
           [[\GetOwnProperty]] internal method of the <var>manifest</var> with
           argument "<code>url</code>".
           </li>
-          <li>Let <var>document URL</var> be the URL of the
-          <code>document</code> from which the <var>manifest</var> was fetched
-          from.
-          </li>
           <li>Let <var>result</var> be a placeholder for a URL object.
           </li>
-          <li>If <var>value</var> <a>Type</a>(<var>value</var>) is not
-          "string":
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
               <li>
                 <a>Issue a developer warning</a>.
@@ -339,14 +366,10 @@ installButton.addEventListener("click", function(e){
               </li>
             </ol>
           </li>
-          <li>Otherwise:
-            <ol>
-              <li>
-                <a href="http://url.spec.whatwg.org/#parsing">Parse</a>
-                <var>value</var> using <var>document URL</var> as the base URL,
-                and set <var>result</var> to be the result.
-              </li>
-            </ol>
+          <li>Otherwise, <a href=
+          "http://url.spec.whatwg.org/#parsing">parse</a> <var>value</var>
+          using <var>document URL</var> as the base URL, and set
+          <var>result</var> to be the result.
           </li>
           <li>Return <var>result</var>.
           </li>
@@ -413,8 +436,8 @@ installButton.addEventListener("click", function(e){
           <code>app</code> member
         </h3>
         <p>
-          The <dfn>app</dfn> member is an <span>app object</span> that for
-          declaring metadata that is when the web application is launched
+          The <dfn>app</dfn> member is an <a>app object</a> for declaring
+          metadata that is used when the web application is launched as
           standalone.
         </p>
       </section>
@@ -457,26 +480,11 @@ installButton.addEventListener("click", function(e){
             </ol>
           </li>
           <li>Let <var>name</var> be the result of running the <a>steps for
-          processing the <code>name</code> member</a>. If the returned value is
-          <code>undefined</code> or an error:
-            <ol>
-              <li>Optionally, if <var>value</var> is an error, <a>issue a
-              developer warning</a>.
-              </li>
-              <li>Set <var>name</var> to be an implementation specific string
-              that can serve as a suitable name for the web application. For
-              example, if the manifest was obtained from a <code>link</code>
-              element, and the <code>document</code> has a <code>meta</code>
-              element whose <code>name</code> attribute matches
-                "<code><a href="http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">application-name</a></code>",
-                then the user agent could use the value of that
-                <code>meta</code> element's <code>content</code> attribute as a
-                fallback.
-              </li>
-            </ol>
+          processing the <code>name</code> member</a>.
           </li>
           <li>Let <var>orientation</var> be the result of running the <a>steps
-          for processing the <code>orientation</code> member</a>.
+          for processing the <code>orientations</code> member of the app
+          object</a>.
           </li>
           <li>Let <var>url</var> be the result of running the <a>steps for
           processing the <code>url</code> member</a>.
@@ -562,7 +570,8 @@ installButton.addEventListener("click", function(e){
           inserted link element and ignore all subsequent <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
           <code>link</code></a> elements with a <code>manifest</code> link type
-          (even if the first element was in error).
+          (even if the first element was <span data-dobid=
+          "hdw">erroneous</span>).
         </p>
         <p>
           The appropriate time to <a href=
@@ -635,6 +644,7 @@ installButton.addEventListener("click", function(e){
   "moz-awesome-thing": { ... }
   ...
 }
+
 </pre>
       </section>
     </section>
@@ -665,21 +675,23 @@ installButton.addEventListener("click", function(e){
           <code>display</code> member
         </h3>
         <p>
-          The <code>display</code> member is an array of strings whose items
-          hint to the user agent the preferred <a href=
+          The <code>display</code> member is an array of strings that serve as
+          hints for the user agent as to the preferred <a href=
           "http://www.w3.org/TR/view-mode/#view-modes">view mode</a> in which
           to display the web application when it is launched as standalone. The
           <dfn>view mode</dfn> values are defined in [[!view-mode]]. Order in
-          the array is significant, with the first item in the array being the
-          most preferred by the developer, followed by the next most preferred
-          and so forth. When the member is missing or the value is in error, it
-          is assumed that the application supports the user agent's default
-          view mode for standalone applications.
+          the array is significant, with the first item being the most
+          preferred by the developer, followed by the next most preferred and
+          so forth. When the member is missing or the value is
+          <span data-dobid="hdw">erroneous</span>, it is assumed that the
+          application supports the user agent's default view mode for
+          standalone applications.
         </p>
         <p>
-          It is OPTIONAL for user agents to support any of the <a>view
-          modes</a> and the associated CSS media feature of [[!view-mode]]. It
-          is, nevertheless, RECOMMENDED that at least the "<a href=
+          It is OPTIONAL for user agents to support any of the <a title=
+          "view mode">view modes</a> and the associated CSS media feature of
+          [[!view-mode]]. It is, nevertheless, RECOMMENDED that at least the
+          "<a href=
           "http://www.w3.org/TR/view-mode/#dfn-fullscreen">fullscreen</a>" view
           mode be supported by a user agent.
         </p>
@@ -716,8 +728,7 @@ installButton.addEventListener("click", function(e){
               </li>
               <li>If <var>item</var> is not a view mode that the user agent
               supports, or <var>result</var> already contains <var>item</var>,
-              ignore this <var>item</var> and move onto the next item in
-              display values (if any are left).
+              ignore this <var>item</var> and proceed to the next.
               </li>
               <li>Otherwise, append <var>item</var> to <var>result</var>.
               </li>
@@ -732,17 +743,17 @@ installButton.addEventListener("click", function(e){
           <code>orientations</code> member
         </h3>
         <p>
-          The <dfn>orientations</dfn> member is an array of strings whose items
-          hint to the user agent the preferred orientations in which to display
-          the web application when it is launched as standalone. The possible
-          values are any of the <a href=
+          The <dfn>orientations</dfn> member is an array of strings that serve
+          as hints for the user agent as to the preferred screen orientations
+          in which to display the web application when it is launched as
+          standalone. The possible values are any of the <a href=
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
           allowed orientations</a> as defined in [[!screen-orientation]]. Order
-          within the array is significant, with the first item in the array
-          being the most preferred by the developer, followed by the next most
-          preferred and so forth. When the <dfn>orientations</dfn> member is
-          missing or the value is in error, the user agent provides a user
-          agent specific default orientation for the web application.
+          within the array is significant, with the first item being the most
+          preferred by the developer, followed by the next most preferred and
+          so forth. When the <a>orientations</a> member is missing or the value
+          is <span data-dobid="hdw">erroneous</span>, the user agent provides a
+          user agent specific default orientation for the web application.
         </p>
         <p>
           Although the specification relies on the <a href=
@@ -802,8 +813,7 @@ installButton.addEventListener("click", function(e){
               </li>
               <li>If <var>item</var> is not an orientation that the user agent
               supports, or <var>result</var> already contains <var>item</var>,
-              ignore this <var>item</var> and move onto the next item in
-              orientation values (if any are left).
+              ignore this <var>item</var> and proceed to the next.
               </li>
               <li>Otherwise, append <var>item</var> to <var>result</var>.
               </li>
