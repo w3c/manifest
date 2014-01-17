@@ -214,17 +214,12 @@ installButton.addEventListener("click", function(e){
     </section>
     <section>
       <h2>
-        Manifest
+        Common conventions and dependencies
       </h2>
-      <p>
-        A <dfn>manifest</dfn> is a [[!JSON]] document. Typically, it consists
-        of a top-level object that contains zero or more members, some of which
-        contain other objects. Each of the members are defined below, as well
-        as how their values are processed.
-      </p>
       <p id="ecmascript-abstractop">
-        Algorithms in this specification use the conventions described in
-        [[!ECMASCRIPT]], such as the use of steps and sub-steps, and so on.
+        For consistancy with the rest of the web platform, algorithms in this
+        specification use the conventions set forth in [[!ECMASCRIPT]] and
+        [[HTML]] - such as the use of steps and sub-steps, and so on.
       </p>
       <p>
         The <a class="external" href=
@@ -233,8 +228,9 @@ installButton.addEventListener("click", function(e){
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tostring"><dfn>
         ToString</dfn></a>, <a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-hasownproperty">
-        <dfn>HasOwnProperty</dfn></a>, <dfn>[[\GetOwnProperty]]</dfn>, and
-        <a href=
+        <dfn>HasOwnProperty</dfn></a>, <dfn><a href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
+        [[\GetOwnProperty]]</a></dfn>, and <a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-toboolean"><dfn>
         ToBoolean</dfn></a> abstract operations, <dfn>promise</dfn> objects,
         and the <a class="external" href=
@@ -244,13 +240,14 @@ installButton.addEventListener("click", function(e){
         in [[!HTML]], [[!FETCH]], and [[!URL]].
       </p>
       <p>
-        As the manifest format is a [[!JSON]] document, this specification
-        relies on the types defined in [[!JSON]] specification: namely <dfn id=
-        "json-object">object</dfn>, <dfn id="json-array">array</dfn>, <dfn id=
-        "json-number">number</dfn>, and <dfn id="json-string">string</dfn>.
-        Strict type checking is not enforced by this specification. Instead,
-        each member's definition specifies the steps required to process a
-        particular member.
+        As the <a>manifest</a> format is a [[!JSON]] document, this
+        specification relies on the types defined in [[!JSON]] specification:
+        namely <dfn id="json-object">object</dfn>, <dfn id=
+        "json-array">array</dfn>, <dfn id="json-number">number</dfn>, and
+        <dfn id="json-string">string</dfn>. Strict type checking is not
+        enforced by this specification. Instead, each member's definition
+        specifies the steps required to process a particular member (and what
+        to do when a type does not match what is expected).
       </p>
       <p>
         When an algorithm asks the user agent to <dfn>issue a developer
@@ -259,9 +256,20 @@ installButton.addEventListener("click", function(e){
         in the error console), or MAY ignore the error and do nothing.
       </p>
       <p>
-        During processing, when instructed to <dfn>ignore</dfn>, the user agent
-        MUST act as if whatever member or value caused the condition is not
-        present in the manifest document.
+        During processing, when instructed to <dfn>ignore</dfn> something, the
+        user agent MUST act as if whatever member or value caused the condition
+        is not present in the manifest document.
+      </p>
+    </section>
+    <section>
+      <h2>
+        Manifest
+      </h2>
+      <p>
+        A <dfn>manifest</dfn> is a [[!JSON]] document. Typically, it consists
+        of a top-level object that contains zero or more members, some of which
+        contain other objects. Each of the members are defined below, as well
+        as how their values are processed.
       </p>
       <section>
         <h3>
