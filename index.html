@@ -96,7 +96,7 @@
         discussions.
       </p>
     </section>
-    <section>
+    <section class="informative">
       <h2>
         Usage Examples
       </h2>
@@ -133,15 +133,15 @@
 }
 </pre>
       </section>
-      <section>
+      <section class="informative">
         <h3>
           Using a <code>link</code> element to link to a manifest
         </h3>
         <p>
           Example of using a <code>link</code> element to associate a website
-          with a manifest. The example also shows how certain HTML elements,
-          such as a <code>meta</code> element with a name attribute whose value
-          is "<span class=
+          with a <a>manifest</a>. The example also shows how certain HTML
+          elements, such as a <code>meta</code> element with a name attribute
+          whose value is "<span class=
           "example highlight html"><code>application-name</code></span>", can
           be used to support legacy user agents that don't implement this
           specification.
@@ -162,12 +162,13 @@
 ...
 </pre>
       </section>
-      <section>
+      <section class="informative">
         <h3>
           Using the API
         </h3>
         <p>
-          Check if the application is running in <a>standalone</a> mode.
+          This example shows how to check if the web application is running in
+          <a>standalone</a> mode.
         </p>
         <pre class="example highlight html" title="detecting standalone mode">
 &lt;script&gt;
@@ -178,12 +179,18 @@ if("standalone" in navigator &amp;&amp; navigator.standalone){
 &lt;/script&gt;
 </pre>
       </section>
-      <section>
+      <section class="informative">
         <h3>
-          Request adding to homescreen
+          Requesting the document be bookmarked
         </h3>
         <p>
-          Let the user bookmark the application through clicking a button.
+          The following example shows how a developer can ask a user to
+          bookmark a web application through the click of a button. Similarly
+          to <code>window.open()</code>, the <code><span class=
+          "example highlight html">requestBookmark</span>()</code> method only
+          works through explicit user action; calling it without any user
+          interaction will simply cause the resulting promise to be rejected
+          with an error.
         </p>
         <pre class="example highlight html" title=
         "requesting to bookmark a web app">
