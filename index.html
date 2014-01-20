@@ -228,9 +228,9 @@ installButton.addEventListener("click", function(e){
         Common conventions and dependencies
       </h2>
       <p id="ecmascript-abstractop">
-        For consistancy with the rest of the web platform, algorithms in this
-        specification use the conventions set forth in [[!ECMASCRIPT]] and
-        [[HTML]] - such as the use of steps and sub-steps, and so on.
+        For consistancy with the web platform, algorithms in this specification
+        use the conventions set forth in [[!ECMASCRIPT]] and [[HTML]] - such as
+        the use of steps and sub-steps, and so forth.
       </p>
       <p>
         The <a class="external" href=
@@ -258,13 +258,14 @@ installButton.addEventListener("click", function(e){
         <var>x</var>.
       </p>
       <p>
-        As the manifest format is a [[!JSON]] document, this specification
-        relies on the types defined in [[!JSON]] specification: namely <dfn id=
+        As the manifest is in the [[!JSON]] format, this specification relies
+        on the types defined in [[!JSON]] specification: namely <dfn id=
         "json-object">object</dfn>, <dfn id="json-array">array</dfn>, <dfn id=
         "json-number">number</dfn>, and <dfn id="json-string">string</dfn>.
         Strict type checking is not enforced by this specification. Instead,
         each member's definition specifies the steps required to process a
-        particular member.
+        particular member and what to do when a type does not match what is
+        expected.
       </p>
       <p>
         When an algorithm asks the user agent to <dfn>issue a developer
@@ -275,10 +276,10 @@ installButton.addEventListener("click", function(e){
       <p>
         During processing, when instructed to <dfn>ignore</dfn> something, the
         user agent MUST act as if whatever member or value caused the condition
-        is not present in the manifest document.
+        is absent in the manifest document.
       </p>
     </section>
-  <section>
+    <section>
       <h2>
         Manifest
       </h2>
