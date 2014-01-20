@@ -65,24 +65,29 @@
   <body>
     <section id='abstract'>
       <p>
-        This specification defines a <em>manifest</em>, which provides
-        developers with a centralized place to put metadata about a web
-        application. This includes, but is not limited to, the name of the web
-        application, links to icons, as well as the preferred URL at which the
-        web application should open when it is launched by the user.
+        This specification defines a JSON-based <em>manifest</em>, which
+        provides developers with a centralized place to put metadata about a
+        web application. This includes, but is not limited to, the name of the
+        web application, links to icons, as well as the preferred URL at which
+        the web application should open when it is launched by the user.
       </p>
       <p>
         With this metadata, user agents can provide, for example, enhanced
         bookmarking capabilities such as being able to add a web application or
-        site to the homescreen of a device - as well as the various icons
-        needed to integrate with an OS's task switcher and system preferences.
-        The specification also defines an API to enable bookmarking from within
-        a document.
+        site to the homescreen of a device. The metadata also developers to
+        declare various icons, which a user agent can use to integrate the web
+        application with an <abbr title="operating system">OS</abbr>'s task
+        switcher and system preferences.
       </p>
       <p>
-        This specification also defines the <code>manifest</code> link type,
-        which provides a declarative means for a web document to be associated
-        with a manifest.
+        The specification also defines an API to enable bookmarking from within
+        a document, as well as a way of checking if a an applicaiton is running
+        as "standalone" (conceptually outside of the browser).
+      </p>
+      <p>
+        In addition, this specification defines the <code>manifest</code> link
+        type; which provides a declarative means for a web document to be
+        associated with a manifest.
       </p>
     </section>
     <section id="sotd">
@@ -101,8 +106,8 @@
         Usage Examples
       </h2>
       <p>
-        This section shows how we expect developers to make use of the various
-        features of this specification.
+        This section shows developers can make use of the various features of
+        this specification.
       </p>
       <section class="informative">
         <h3>
