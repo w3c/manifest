@@ -250,6 +250,13 @@ installButton.addEventListener("click", function(e){
         in [[!HTML]], [[!FETCH]], and [[!URL]].
       </p>
       <p>
+        When instructed to <dfn>Trim</dfn>(<var>x</var>), a user agent MUST
+        behave as if [[!ECMASCRIPT]]'s <a href=
+        "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-string.prototype.trim">
+        String.prototype.trim()</a> function had been called on the string
+        <var>x</var>.
+      </p>
+      <p>
         As the manifest format is a [[!JSON]] document, this specification
         relies on the types defined in [[!JSON]] specification: namely <dfn id=
         "json-object">object</dfn>, <dfn id="json-array">array</dfn>, <dfn id=
@@ -274,33 +281,40 @@ installButton.addEventListener("click", function(e){
           <code title="">name</code> member
         </h3>
         <p>
-          The <dfn id="member-name"><code>name</code></dfn> is a string that
-          represents the name of the application as is usually displayed to the
-          user (e.g., amongst a list of other applications, or as a label
-          underneath an icon).
+          The <dfn id="member-name"><code>name</code></dfn> member is a
+          <a title="json-string">string</a> that represents the name of the
+          application as is usually displayed to the user (e.g., amongst a list
+          of other applications, or as a label underneath an icon).
         </p>
         <p>
           The <dfn>steps for processing the name member</dfn> is given by the
           following algorithm. The algorithm takes a <var>manifest</var> as an
-          argument. It returns either <code>undefined</code>, a string, or an
-          error.
+          argument. It returns a string.
         </p>
         <ol>
-          <li>If <a>HasOwnProperty</a>(<var>manifest</var>, "name") returns
-          <code>false</code>, then return <code>undefined</code>.
-          </li>
           <li>Let <var>value</var> be the result of calling the
           [[\GetOwnProperty]] internal method of <var>manifest</var> with
           argument "name".
           </li>
-          <li>If Type(<var>value</var>) is not "string", return an error.
+          <li>If <a>Type</a>(<var>value</var>) is not "string" or if
+          <a>Trim</a>(value) is the empty string:
+            <ol>
+              <li>Optionally, if the <a>Type</a>(<var>value</var>) is "object",
+              then <a>issue a developer warning</a> that the type is not
+              supported.
+              </li>
+              <li>Returns an implementation specific string that can serve as a
+              suitable name for the web application. For example, if the
+              manifest was obtained from a <code>link</code> element, and the
+              <code>document</code> has a <code>meta</code> element whose
+              <code>name</code> attribute matches "<code><a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">application-name</a></code>",
+              then the user agent could use the value of that <code>meta</code>
+              element's <code>content</code> attribute as a fallback.
+              </li>
+            </ol>
           </li>
-          <li>
-            <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
-            Strip leading and trailing whitespace</a> from <var>result</var>.
-          </li>
-          <li>Return the <var>result</var>.
+          <li>Othewise, <a>Trim</a>(<var>value</var>) and return the result.
           </li>
         </ol>
       </section>
@@ -464,23 +478,7 @@ installButton.addEventListener("click", function(e){
             </ol>
           </li>
           <li>Let <var>name</var> be the result of running the <a>steps for
-          processing the <code>name</code> member</a>. If the returned value is
-          <code>undefined</code> or an error:
-            <ol>
-              <li>Optionally, if <var>value</var> is an error, <a>issue a
-              developer warning</a>.
-              </li>
-              <li>Set <var>name</var> to be an implementation specific string
-              that can serve as a suitable name for the web application. For
-              example, if the manifest was obtained from a <code>link</code>
-              element, and the <code>document</code> has a <code>meta</code>
-              element whose <code>name</code> attribute matches
-                "<code><a href="http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">application-name</a></code>",
-                then the user agent could use the value of that
-                <code>meta</code> element's <code>content</code> attribute as a
-                fallback.
-              </li>
-            </ol>
+          processing the <code>name</code> member</a>.
           </li>
           <li>Let <var>mode</var> be the result of running the <a>steps for
           processing the <code>mode</code> member</a>. If processing returns an
@@ -648,6 +646,7 @@ installButton.addEventListener("click", function(e){
   "moz-awesome-thing": { ... }
   ...
 }
+        
 </pre>
       </section>
     </section>
