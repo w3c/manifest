@@ -316,7 +316,7 @@ installButton.addEventListener("click", function(e){
               then <a>issue a developer warning</a> that the type is not
               supported.
               </li>
-              <li>Returns an implementation specific string that can serve as a
+              <li>Return an implementation specific string that can serve as a
               suitable name for the web application. For example, if the
               manifest was obtained from a <code>link</code> element, and the
               <code>document</code> has a <code>meta</code> element whose
@@ -336,7 +336,7 @@ installButton.addEventListener("click", function(e){
           <code>url</code> member
         </h3>
         <p>
-          The <dfn id="member-launch_path">url</dfn> member is the <a href=
+          The <dfn id="member-launch_path">url</dfn> member is string representation of a <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> that is <a href=
           "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
           loaded</a> when the application is launched. When the developer omits
@@ -350,38 +350,24 @@ installButton.addEventListener("click", function(e){
           "http://url.spec.whatwg.org/#concept-url">URL</a>.
         </p>
         <ol>
-          <li>If <a>HasOwnProperty</a>(<var>manifest</var>, "url") is
-          <code>false</code>, then return <code>undefined</code>.
-          </li>
           <li>Let <var>value</var> be the result of calling the
           [[\GetOwnProperty]] internal method of the <var>manifest</var> with
           argument "<code>url</code>".
           </li>
-          <li>Let <var>document URL</var> be the URL of the
-          <code>document</code> from which the <var>manifest</var> was fetched
-          from.
-          </li>
-          <li>Let <var>result</var> be a placeholder for a URL object.
-          </li>
-          <li>If <var>value</var> <a>Type</a>(<var>value</var>) is not
-          "string":
+          
+          <li>Let <var>result</var> be a placeholder for a URL object. </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>
-                <a>Issue a developer warning</a>.
+              <li> <a>Issue a developer warning</a>.
               </li>
               <li>Set <var>result</var> to be <var>document URL</var>.
               </li>
             </ol>
-          </li>
-          <li>Otherwise:
-            <ol>
-              <li>
-                <a href="http://url.spec.whatwg.org/#parsing">Parse</a>
-                <var>value</var> using <var>document URL</var> as the base URL,
-                and set <var>result</var> to be the result.
-              </li>
-            </ol>
-          </li>
+</li>
+          <li>Otherwise,
+                <a href="http://url.spec.whatwg.org/#parsing">parse</a>
+            <var>value</var> using <var>document URL</var> as the base URL,
+          and set <var>result</var> to be the result. </li>
           <li>Return <var>result</var>.
           </li>
         </ol>
