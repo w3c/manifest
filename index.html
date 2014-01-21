@@ -336,18 +336,34 @@ installButton.addEventListener("click", function(e){
           <code>url</code> member
         </h3>
         <p>
-          The <dfn id="member-launch_path">url</dfn> member is string
-          representation of a <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a> that is <a href=
+          The <dfn title="member-url">url</dfn> member is a <a title=
+          "json-string">string</a> that represents the <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a> that the developer
+          would prefer the user agent <a href=
           "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
-          loaded</a> when the application is launched. When the developer omits
-          it from the manifest, the user agent will instead use the <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a> of the document
-          that was bookmarked.
+          load</a> when the user activates a bookmark (e.g., when the user
+          clicks on the icon of the web application from a device's application
+          menu or homescreen). When the developer omits the <code>url</code>
+          member from the <a>manifest</a>, the user agent will instead use the
+          <a href="http://url.spec.whatwg.org/#concept-url">URL</a> of the
+          <code>document</code> from which the web application was bookmarked.
+        </p>
+        <p>
+          The <a title="member-url"><code>url</code></a> member is purely
+          advisory, so a user agent MAY <a>ignore</a> it or provide the
+          end-user the choice not to make use of it. In the case where the user
+          agent ignores the <a title="member-url"><code>url</code></a> member,
+          it MAY fall back to using the URL of the document from which the page
+          is being bookmarked. A user agent MAY also allow the end-user to
+          modify the URL when the bookmark is being added or any time
+          thereafter.
         </p>
         <p>
           The <dfn>steps for processing the <code>url</code> member</dfn> are
-          given by the following algorithm. The algorithm returns a <a href=
+          given by the following algorithm. The algorithm takes a
+          <a>manifest</a> <var>manifest</var> and a <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a> <var>document
+          URL</var>. It returns a <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a>.
         </p>
         <ol>
@@ -355,23 +371,20 @@ installButton.addEventListener("click", function(e){
           [[\GetOwnProperty]] internal method of the <var>manifest</var> with
           argument "<code>url</code>".
           </li>
-          <li>Let <var>result</var> be a placeholder for a URL object.
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
+          <li>If <var>type</var> is not "string", then:
             <ol>
-              <li>
-                <a>Issue a developer warning</a>.
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is not supported.
               </li>
-              <li>Set <var>result</var> to be <var>document URL</var>.
+              <li>Return <var>document URL</var>.
               </li>
             </ol>
           </li>
           <li>Otherwise, <a href=
           "http://url.spec.whatwg.org/#parsing">parse</a> <var>value</var>
-          using <var>document URL</var> as the base URL, and set
-          <var>result</var> to be the result.
-          </li>
-          <li>Return <var>result</var>.
+          using <var>document URL</var> as the base URL and return the result.
           </li>
         </ol>
       </section>
@@ -487,7 +500,7 @@ installButton.addEventListener("click", function(e){
           object</a>.
           </li>
           <li>Let <var>url</var> be the result of running the <a>steps for
-          processing the <code>url</code> member</a>.
+          processing the <code>url</code> member</a> .
           </li>
           <li>Let <var>icons</var> be the result of running the <a>steps for
           processing the <code>icons</code> member</a>.
