@@ -336,7 +336,8 @@ installButton.addEventListener("click", function(e){
           <code>url</code> member
         </h3>
         <p>
-          The <dfn id="member-launch_path">url</dfn> member is string representation of a <a href=
+          The <dfn id="member-launch_path">url</dfn> member is string
+          representation of a <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> that is <a href=
           "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
           loaded</a> when the application is launched. When the developer omits
@@ -354,20 +355,22 @@ installButton.addEventListener("click", function(e){
           [[\GetOwnProperty]] internal method of the <var>manifest</var> with
           argument "<code>url</code>".
           </li>
-          
-          <li>Let <var>result</var> be a placeholder for a URL object. </li>
+          <li>Let <var>result</var> be a placeholder for a URL object.
+          </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li> <a>Issue a developer warning</a>.
+              <li>
+                <a>Issue a developer warning</a>.
               </li>
               <li>Set <var>result</var> to be <var>document URL</var>.
               </li>
             </ol>
-</li>
-          <li>Otherwise,
-                <a href="http://url.spec.whatwg.org/#parsing">parse</a>
-            <var>value</var> using <var>document URL</var> as the base URL,
-          and set <var>result</var> to be the result. </li>
+          </li>
+          <li>Otherwise, <a href=
+          "http://url.spec.whatwg.org/#parsing">parse</a> <var>value</var>
+          using <var>document URL</var> as the base URL, and set
+          <var>result</var> to be the result.
+          </li>
           <li>Return <var>result</var>.
           </li>
         </ol>
@@ -480,7 +483,8 @@ installButton.addEventListener("click", function(e){
           processing the <code>name</code> member</a>.
           </li>
           <li>Let <var>orientation</var> be the result of running the <a>steps
-          for processing the <code>orientation</code> member</a>.
+          for processing the <code>orientations</code> member of the app
+          object</a>.
           </li>
           <li>Let <var>url</var> be the result of running the <a>steps for
           processing the <code>url</code> member</a>.
@@ -684,9 +688,10 @@ installButton.addEventListener("click", function(e){
           standalone applications.
         </p>
         <p>
-          It is OPTIONAL for user agents to support any of the <a>view
-          modes</a> and the associated CSS media feature of [[!view-mode]]. It
-          is, nevertheless, RECOMMENDED that at least the "<a href=
+          It is OPTIONAL for user agents to support any of the <a title=
+          "view mode">view modes</a> and the associated CSS media feature of
+          [[!view-mode]]. It is, nevertheless, RECOMMENDED that at least the
+          "<a href=
           "http://www.w3.org/TR/view-mode/#dfn-fullscreen">fullscreen</a>" view
           mode be supported by a user agent.
         </p>
@@ -746,10 +751,9 @@ installButton.addEventListener("click", function(e){
           allowed orientations</a> as defined in [[!screen-orientation]]. Order
           within the array is significant, with the first item being the most
           preferred by the developer, followed by the next most preferred and
-          so forth. When the <a>orientations</a> member is missing or the
-          value is <span data-dobid="hdw">erroneous</span>, the user agent
-          provides a user agent specific default orientation for the web
-          application.
+          so forth. When the <a>orientations</a> member is missing or the value
+          is <span data-dobid="hdw">erroneous</span>, the user agent provides a
+          user agent specific default orientation for the web application.
         </p>
         <p>
           Although the specification relies on the <a href=
