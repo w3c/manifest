@@ -295,9 +295,20 @@ installButton.addEventListener("click", function(e){
         </h3>
         <p>
           The <dfn id="member-name"><code>name</code></dfn> member is a
-          <a title="json-string">string</a> that represents the name of the
+          <a title="json-string">string</a> that represents the name of the web
           application as is usually displayed to the user (e.g., amongst a list
-          of other applications, or as a label underneath an icon).
+          of other applications, or as a label for an icon).
+        </p>
+        <p class="note">
+          For all intents and purposes, the <code><a href=
+          "member-name">name</a></code> member is functionaly equivelent to
+          having a <code><a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
+          meta</a></code> element whose <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name">name</a>
+          attribute is <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
+          <code>application-name</code></a> in a document.
         </p>
         <p>
           The <dfn>steps for processing the name member</dfn> is given by the
@@ -312,18 +323,23 @@ installButton.addEventListener("click", function(e){
           <li>If <a>Type</a>(<var>value</var>) is not "string" or if
           <a>Trim</a>(value) is the empty string:
             <ol>
-              <li>Optionally, if the <a>Type</a>(<var>value</var>) is "object",
-              then <a>issue a developer warning</a> that the type is not
-              supported.
+              <li>Optionally, if <a>Type</a>(<var>value</var>) is not
+              "undefined", then <a>issue a developer warning</a> that the type
+              is not supported.
               </li>
-              <li>Return an implementation specific string that can serve as a
-              suitable name for the web application. For example, if the
-              manifest was obtained from a <code>link</code> element, and the
-              <code>document</code> has a <code>meta</code> element whose
-              <code>name</code> attribute matches "<code><a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">application-name</a></code>",
-              then the user agent could use the value of that <code>meta</code>
-              element's <code>content</code> attribute as a fallback.
+              <li>If bookmarking was initiated from a web page, and the <code>
+                document</code> has any <code><a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
+                meta</a></code> elements whose <a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name">
+                name</a> attribute matches <code><a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
+                application-name</a></code>, then process those elements as per
+                [[!HTML]] and return the application name.
+              </li>
+              <li>Otherwise, return an implementation specific string that can
+              serve as a suitable name for the web application. This MAY
+              include using the document's title [[!HTML]].
               </li>
             </ol>
           </li>
