@@ -74,19 +74,19 @@
       <p>
         With this metadata, user agents can provide, for example, enhanced
         bookmarking capabilities such as being able to add a web application or
-        site to the homescreen of a device. The metadata also developers to
+        site to the homescreen of a device. The metadata allows developers to
         declare various icons, which a user agent can use to integrate the web
         application with an <abbr title="operating system">OS</abbr>'s task
         switcher and system preferences.
       </p>
       <p>
         The specification also defines an API to enable bookmarking from within
-        a document, as well as a way of checking if a an application is running
+        a document, as well as a way of checking if an application is running
         as "standalone" (conceptually outside of the browser).
       </p>
       <p>
         In addition, this specification defines the <code>manifest</code> link
-        type; which provides a declarative means for a web document to be
+        type, which provides a declarative means for a web document to be
         associated with a manifest.
       </p>
     </section>
@@ -147,7 +147,7 @@
           with a <a>manifest</a>. The example also shows how a
           <code>meta</code> element whose name is "<span class=
           "example highlight html"><code>application-name</code></span>" can be
-          used to support legacy user agents that don't implement this
+          used to support legacy user agents that do not implement this
           specification.
         </p>
         <pre class="example highlight html" title="linking to a manifest">
@@ -176,7 +176,7 @@
         </p>
         <pre class="example highlight html" title="detecting standalone mode">
 &lt;script&gt;
-if("standalone" in navigator &amp;&amp; navigator.standalone){
+if ("standalone" in navigator &amp;&amp; navigator.standalone) {
    //Do standalone specific stuff...
    document.documentElement.classList.add("standalone");
 }
@@ -189,7 +189,8 @@ if("standalone" in navigator &amp;&amp; navigator.standalone){
         </h3>
         <p>
           The following example shows how a developer can ask a user to
-          bookmark a web application through the click of a button. Similarly
+          bookmark a web application through an activation gesture,
+          such as the click of a button. Similarly
           to <code>window.open()</code>, the <code><span class=
           "example highlight html">requestBookmark</span>()</code> method only
           works through explicit user action; calling it without any user
@@ -271,12 +272,12 @@ installButton.addEventListener("click", function(e){
         When an algorithm asks the user agent to <dfn>issue a developer
         warning</dfn>, the user agent MAY report the conformance violation to
         the developer in a user-agent-specific manner (e.g., show the problem
-        in the error console), or MAY ignore the error and do nothing.
+        in an error console), or MAY ignore the error and do nothing.
       </p>
       <p>
-        During processing, when instructed to <dfn>ignore</dfn> something, the
-        user agent MUST act as if whatever member or value caused the condition
-        is absent in the manifest document.
+        When instructed to <dfn>ignore</dfn> something while processing a
+        member or value, the user agent MUST act as if whatever member or value
+        caused the condition is absent in the manifest document.
       </p>
     </section>
     <section>
@@ -296,12 +297,12 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn id="member-name"><code>name</code></dfn> member is a
           <a title="json-string">string</a> that represents the name of the web
-          application as is usually displayed to the user (e.g., amongst a list
-          of other applications, or as a label for an icon).
+          application as it is usually displayed to the user (e.g., amongst a
+          list of other applications, or as a label for an icon).
         </p>
         <p class="note">
           For all intents and purposes, the <code><a href=
-          "member-name">name</a></code> member is functionaly equivelent to
+          "member-name">name</a></code> member is functionally equivalent to
           having a <code><a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
           meta</a></code> element whose <a href=
@@ -804,8 +805,8 @@ installButton.addEventListener("click", function(e){
         </p>
         <p>
           Note: the <code>orientations</code> member's items are expected to
-          only apply when the web application is launched. Once the web
-          application is running. Once the web application is running, it is
+          only apply when the web application is launched.
+          Once the web application is running, it is
           expected that other means can could be used to change the orientation
           of the application (such as via [[!screen-orientation]]).
         </p>
@@ -833,7 +834,7 @@ installButton.addEventListener("click", function(e){
             <ol>
               <li>If type(<var>item</var>) is not "string", ignore this
               <var>item</var>, <a>issue a developer warning</a>, and move onto
-              the next item in <var>orientations</var> (if any are left).
+              the next item in <var>orientations</var> (if any).
               </li>
               <li>
                 <a href=
@@ -1090,7 +1091,7 @@ installButton.addEventListener("click", function(e){
       </section>
       <section>
         <h3>
-          Media type reregistration
+          Media type registration
         </h3>
         <p>
           This section contains the required text for MIME media type
