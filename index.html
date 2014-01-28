@@ -302,7 +302,7 @@ installButton.addEventListener("click", function(e){
         </p>
         <p class="note">
           For all intents and purposes, the <code><a href=
-          "member-name">name</a></code> member is functionally equivalent to
+          "#member-name">name</a></code> member is functionally equivalent to
           having a <code><a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
           meta</a></code> element whose <a href=
@@ -410,56 +410,92 @@ installButton.addEventListener("click", function(e){
           <code title="">icons</code> member
         </h3>
         <p>
-          The <dfn id="member-icons">icons</dfn> is a list of <a title=
-          "icon object">icon objects</a> that represents a set of icons that
-          the application can make use of.
+          The <dfn id="member-icons">icons</dfn> is an <a title=
+          "json-array">array</a> of <a title="icon object">icon objects</a>
+          that can serve as iconic representations of the web application in
+          various contexts. For example, they can be used to represent the web
+          application amongst a list of other applications, or to integrate the
+          web application with an <abbr title="operating system">OS</abbr>'s
+          task switcher and/or system preferences.
+        </p>
+        <p>
+          Note: If the web application is bookmarked from a
+          <code>document</code>, the icons in the manifest override any icons
+          listed in the HTML <code>document</code> (i.e., via link elements
+          whole relationship is icon). However, if no icons are listed in the
+          manifest (or none of them are found to be suitable during
+          processing), the user agent will fall back to trying to use any found
+          in the HTML document. This fall back behavior is enforced during the
+          <a>steps for processing a manifest instead of this section</a>.
         </p>
         <p>
           The <dfn>steps for processing the <code>icons</code> member</dfn> are
-          given by the following algorithm. The algorithm returns a list of
-          icons, which can be empty, or <code>undefined</code>.
+          given by the following algorithm. The algorithm takes a manifest, and
+          a <a href="http://url.spec.whatwg.org/#concept-url">URL</a>
+          <var>manifest URL</var>, which is the URL from which the
+          <var>manifest</var> was fetched. It returns a list of icons objects
+          <var>icons</var>, which can be empty.
         </p>
         <ol>
-          <li>If <a>HasOwnProperty</a>(<var>manifest</var>, <var>key</var>)
-          returns <code>false</code>, then return <code>undefined</code>.
-          </li>
           <li>Let <var>icons</var> be an empty list.
-          </li>
-          <li>Let <var>manifest URL</var> be the URL from which the
-          <var>manifest</var> was fetched.
           </li>
           <li>Let <var>unprocessed icons</var> be the result of calling the
           [[\GetOwnProperty]] internal method of <var>manifest</var> with
           argument "<code>icons</code>".
           </li>
-          <li>If <a>Type</a>(<var>unprocesses icons</var>) is "array", then for
-          each <var>potential icon</var> in the array:
+          <li>If <var>unprocessed icons</var> is an <a title=
+          "json-array">array</a>, then for each <var>potential icon</var> in
+          the array:
             <ol>
               <li>Let <var>src</var> be the result of running the <a>steps for
-              processing the <code>src</code> member of an icon</a>.
+              processing the <code>src</code> member of an icon</a> with <var>
+                potential icon</var> and <var>manifest URL</var>.
               </li>
-              <li>If the <var>src</var> is an error or <code>undefined</code>,
-              issue a developer warning, stop processing this <var>potential
-              icon</var> and move to the next <var>potential icon</var> in
-              <var>unprocessed icons</var>, if any.
+              <li>If <var>src</var> is <code>undefined</code>, move onto the
+              next item in <var>icons</var> (if any are left).
               </li>
               <li>Let <var>type</var> be the result of running the <a>steps for
-              processing the <code>type</code> member of an icon</a>.
+              processing the <code>type</code> member of an icon</a> passing
+              <var>potential icon</var>.
               </li>
-              <li>If <var>type</var> is not a <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#valid-mime-type">
-                valid MIME type</a> or the value of type is not a supported
-                icon format, then stop processing this <var>potential
-                icon</var> and move to the next <var>potential icon</var> in
-                <var>unprocessed icons</var>, if any.
+              <li>If <var>type</var> is an error, move onto the next item in
+              <var>orientations</var> (if any are left).
               </li>
-              <li>Otherwise, let <var>icon</var> be an object.
+              <li>Let <var>sizes</var> be the list that result from running the
+              <a>steps for processing the <code>sizes</code> member of an
+              icon</a> passing <var>potential icon</var>.
+              </li>
+              <li>Let <var>icon</var> be an object with properties
+              <code>src</code>, <code>type</code>, <code>sizes</code>, whose
+              values are <var>src</var>, <var>type</var> and <var>sizes</var>
+              respectively.
+              </li>
+              <li>Append <var>icon</var> to <var>icons</var>.
               </li>
             </ol>
           </li>
-          <li>return <var>icons</var>.
+          <li>Otherwise, if <var>unprocessed icons</var> is not an <a title=
+          "json-array">array</a>:
+            <ol>
+              <li>
+                <a>Issue a developer warning</a> that the type is not
+                supported.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>icons</var>.
           </li>
         </ol>
+        <p>
+          If there are multiple equally appropriate icons in <var>icons</var>,
+          a user agent MUST use the last one declared in order at the time that
+          the user agent collected the list of <var>icons</var>. If the user
+          agent tries to use an icon but that icon is determined, upon closer
+          examination, to in fact be inappropriate (e.g. because its content
+          type is not supported), then the user agent MUST try the
+          next-most-appropriate icon as determined by examining the <a title=
+          "icon object">icon object's</a> members.
+        </p>
       </section>
       <section>
         <h3>
@@ -521,6 +557,26 @@ installButton.addEventListener("click", function(e){
           </li>
           <li>Let <var>icons</var> be the result of running the <a>steps for
           processing the <code>icons</code> member</a>.
+          </li>
+          <li>If <var>icons</var> contains zero items:
+            <ol>
+              <li>Check if the <code>document</code> has any&nbsp;<a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>link</code></a>&nbsp;elements
+              with the&nbsp;<a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#rel-icon"><code>icon</code></a>&nbsp;keyword
+              those instead as per [[!HTML]].
+              </li>
+              <li>In the absence of a&nbsp;<a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>link</code></a>&nbsp;with
+              the&nbsp;<a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#rel-icon"><code>icon</code></a>&nbsp;keyword,
+              use the web application's "<code>/favicon.ico</code>" if one is
+              available.
+              </li>
+              <li>If the above are missing, use an implementation specific icon
+              that can serve as a suitable icon for the web application.
+              </li>
+            </ol>
           </li>
           <li>Optionally, <a>ignore</a> all other members.
           </li>
@@ -862,33 +918,74 @@ installButton.addEventListener("click", function(e){
         Each <dfn>icon object</dfn> represents an icon for an application
         suitable to use in various contexts (e.g., an application menu).
       </p>
+      <p>
+        <span class="note">For all intents and purposes, an <a>icon object</a>
+        is functionally equivalent to <code>link</code> element whose
+        <code>rel</code> attribute is icon in a <code>document</code>.</span>
+      </p>
       <section>
         <h3>
-          <code>sizes</code> members
+          <code>sizes</code> member
         </h3>
         <p>
-          The <dfn title="icon-sizes">sizes</dfn> members represent the natural
-          width of the icon in pixels. Their corresponding value is a positive
-          number greater than 0.
+          The <dfn title="icon-sizes">sizes</dfn> member is a <a title=
+          "json-string">string</a> consisting of an&nbsp;<a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#unordered-set-of-unique-space-separated-tokens">unordered
+          set of unique space-separated tokens</a>&nbsp;which are&nbsp;<a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">ASCII
+          case-insensitive</a> that represents the dimensions of an icon for
+          visual media. Each keyword is either an&nbsp;<a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">ASCII
+          case-insensitive</a>&nbsp;match for the string "<a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes-any">any</a>",
+          or a value that consists of two&nbsp;<a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#valid-non-negative-integer"
+          title="valid non-negative integer">valid non-negative
+          integers</a>&nbsp;that do not have a leading U+0030 DIGIT ZERO (0)
+          character and that are separated by a single U+0078 LATIN SMALL
+          LETTER X or U+0058 LATIN CAPITAL LETTER X character. The keywords
+          represent icon sizes in raw pixels (as opposed to CSS pixels). When
+          multiple <a title="icon object">icon objects</a> are available, a
+          user agent can use the value to decide which icon is most suitable
+          for a display context (and ignore any that are inappropriate).
         </p>
         <p>
-          The <dfn>steps for processing a dimension of an icon</dfn> are given
-          by the following algorithm. The algorithm takes an <var>icon</var>
-          and a <var>key</var> ("width" or "height") as an argument. The
-          algorithm returns a positive number, <code>undefined</code>, or an
-          error.
+          The <dfn>steps for processing a <code>sizes</code> member of an
+          icon</dfn> are given by the following algorithm. The algorithm takes
+          an <a>icon object</a> <var>icon</var>. It returns a set.
         </p>
         <ol>
-          <li>If <a>HasOwnProperty</a>(<var>icon</var>, <var>key</var>) returns
-          <code>false</code>, then return <code>undefined</code>.
+          <li>Let <var>sizes</var> be an empty set.
           </li>
           <li>Let <var>value</var> be the result of calling the
           [[\GetOwnProperty]] internal method of <var>icon</var> passing <var>
             key</var> as the argument.
           </li>
-          <li>Process <var>value</var> as if it was it was the value of sizes
-          attribute and let <var>width</var> and <var>height</var> be the
-          result.
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string", then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is not supported.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, parse <var>value</var> as if it was a [[!HTML]] <code>
+            <a href=
+            "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes">
+            sizes</a></code> attribute. For each resulting <var>keyword</var>:
+            <ol>
+              <li>Convert <var>keyword</var> <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#converted-to-ascii-lowercase">
+                to ASCII lowercase</a>.
+              </li>
+              <li>If <var>sizes</var> doesn't already contain
+              <var>keyword</var>, then add the resulting <var>keyword</var> to
+              <var>sizes</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>sizes.</var>
           </li>
         </ol>
       </section>
@@ -898,31 +995,38 @@ installButton.addEventListener("click", function(e){
         </h3>
         <p>
           The <dfn title="icon-density">src</dfn> member of an icon is a URL
-          from which the icon can be fetched.
+          from which a user agent can fetch the icon's data.
         </p>
         <p>
           The <dfn>steps for processing the <code>src</code> member of an
           icon</dfn> are given by the following algorithm. The algorithm takes
-          a <var>icon</var> object as an argument and returns a URL or
+          a <a>icon object</a> <var>icon</var>, and a <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a> <var>manifest
+          URL</var>, which is the URL from which the <var>manifest</var> was
+          fetched. It returns a <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a> or
           <code>undefined</code>.
         </p>
         <ol>
-          <li>If <a>HasOwnProperty</a>(<var>icon</var>, "src") returns
-          <code>false</code>, then return <code>undefined</code>.
-          </li>
           <li>Let <var>value</var> be the result of calling the
           [[\GetOwnProperty]] internal method of <var>icon</var> passing
           "<code>src</code>" as the argument.
           </li>
-          <li>Let <var>manifest URL</var> be the URL from which the
-          <var>manifest</var> was fetched from.
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string", then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is not supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
           </li>
           <li>
             <a href="http://url.spec.whatwg.org/#parsing">Parse</a>
-            <var>value</var>, using <var>manifest URL</var> as the base URL,
-            and let <var>result</var> be the result.
-          </li>
-          <li>return <var>result</var>.
+            <var>value</var> using <var>manifest URL</var> as the base URL and
+            return the result.
           </li>
         </ol>
       </section>
@@ -936,28 +1040,44 @@ installButton.addEventListener("click", function(e){
           a user agent to ignore icons of media types it does not support.
         </p>
         <p>
+          There is no default MIME type for icon objects. However, for the
+          purposes of&nbsp;<a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-type-sniffing">determining
+          the type of the resource</a>, user agents must expect the resource to
+          be an image.
+        </p>
+        <p>
           The <dfn>steps for processing the <code>type</code> member of an
           icon</dfn> are given by the following algorithm. The algorithm takes
-          an <var>icon</var> object as an argument, and returns either a
-          string, an error, or <code>undefined</code>.
+          an <var>icon</var> object as an argument, and returns either a string
+          or <code>undefined</code>.
         </p>
         <ol>
-          <li>If <a>HasOwnProperty</a>(<var>manifest</var>,"type") returns
-          <code>false</code>, then return <code>undefined</code>.
-          </li>
           <li>Let <var>value</var> be the result of calling the
           [[\GetOwnProperty]] internal method of <var>potential icon</var>
           passing "<code>type</code>" as the argument.
           </li>
-          <li>If type(<var>potential src</var>) is not "string", return an
-          error.
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
-          <li>
-            <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
-            Strip leading and trailing whitespace</a> from <var>result</var>.
+          <li>If <var>type</var> is not "string", then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is not supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
           </li>
-          <li>return <var>result</var>.
+          <li>Trim(<var>value</var>) and set <var>value</var> to be resulting
+          string.
+          </li>
+          <li>If <var>value</var> is not a <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#valid-mime-type">
+            valid MIME type</a> or the value of <var>type</var> is not a
+            supported media format, issue a developer warning and return
+            <code>undefined</code>.
+          </li>
+          <li>Return <var>value</var>.
           </li>
         </ol>
       </section>
