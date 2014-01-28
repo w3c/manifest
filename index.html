@@ -314,7 +314,7 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn>steps for processing the name member</dfn> is given by the
           following algorithm. The algorithm takes a <var>manifest</var> as an
-          argument. It returns a string.
+          argument. This algorithm will return a string.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
@@ -324,9 +324,9 @@ installButton.addEventListener("click", function(e){
           <li>If <a>Type</a>(<var>value</var>) is not "string" or if
           <a>Trim</a>(value) is the empty string:
             <ol>
-              <li>Optionally, if <a>Type</a>(<var>value</var>) is not
-              "undefined", then <a>issue a developer warning</a> that the type
-              is not supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              optionally <a>issue a developer warning</a> that the type is not
+              supported.
               </li>
               <li>If bookmarking was initiated from a web page, and the <code>
                 document</code> has any <code><a href=
@@ -336,7 +336,7 @@ installButton.addEventListener("click", function(e){
                 name</a> attribute matches <code><a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
                 application-name</a></code>, then process those elements as per
-                [[!HTML]] and return the application name.
+                [[!HTML]] and return the application name found.
               </li>
               <li>Otherwise, return an implementation specific string that can
               serve as a suitable name for the web application. This MAY
@@ -367,21 +367,24 @@ installButton.addEventListener("click", function(e){
         </p>
         <p>
           The <a title="member-url"><code>url</code></a> member is purely
-          advisory, so a user agent MAY <a>ignore</a> it or provide the
+          advisory, and a user agent MAY <a>ignore</a> it or provide the
           end-user the choice not to make use of it. In the case where the user
           agent ignores the <a title="member-url"><code>url</code></a> member,
           it MAY fall back to using the URL of the document from which the page
-          is being bookmarked. A user agent MAY also allow the end-user to
-          modify the URL when the bookmark is being added or any time
-          thereafter.
+          is being bookmarked.
+        </p>
+        <p>
+          A user agent MAY also allow the end-user to modify the URL when the
+          bookmark is being added or any time thereafter.
         </p>
         <p>
           The <dfn>steps for processing the <code>url</code> member</dfn> are
           given by the following algorithm. The algorithm takes a
           <a>manifest</a> <var>manifest</var> and a <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> <var>document
-          URL</var>. It returns a <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a>.
+          URL</var>. This algorithm will return a <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#valid-url">valid
+          URL</a>.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
@@ -392,8 +395,9 @@ installButton.addEventListener("click", function(e){
           </li>
           <li>If <var>type</var> is not "string", then:
             <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is not supported.
+              <li>If <var>type</var> is not "<code>undefined</code>",
+              optionally issue a developer warning that the type is not
+              supported.
               </li>
               <li>Return <var>document URL</var>.
               </li>
@@ -433,8 +437,8 @@ installButton.addEventListener("click", function(e){
           given by the following algorithm. The algorithm takes a manifest, and
           a <a href="http://url.spec.whatwg.org/#concept-url">URL</a>
           <var>manifest URL</var>, which is the URL from which the
-          <var>manifest</var> was fetched. It returns a list of icons objects
-          <var>icons</var>, which can be empty.
+          <var>manifest</var> was fetched. This algorithm will return a list of
+          icons objects <var>icons</var>, which can be empty.
         </p>
         <ol>
           <li>Let <var>icons</var> be an empty list.
@@ -513,8 +517,8 @@ installButton.addEventListener("click", function(e){
         </h3>
         <p>
           The <dfn>steps for fetching a manifest</dfn> are given by the
-          following algorithm. It takes a <var>url</var> URL as an argument. It
-          returns a response (which may be an error).
+          following algorithm. It takes a URL <var>url</var> as an argument.
+          This algorithm will return either a response or an error.
         </p>
         <ol>
           <li>Let <var>response</var> be the result of <a href=
@@ -678,7 +682,7 @@ installButton.addEventListener("click", function(e){
           <a>invalid manifest</a>. An <dfn>invalid manifest</dfn> is one that
           is deemed to be non-conforming in such a way that it would not be
           possible for the user agent to continue processing (e.g., it can't be
-          parsed by the JSON parser because of a syntax error, it could be
+          parsed by the JSON parser because of syntax errors, it couldn't be
           fetched from the network). In such a case, it is RECOMMENDED that the
           user agent <a>issue a developer warning</a>. In either case, when a
           step results in an <a>invalid manifest</a> the user agent MUST abort
@@ -688,8 +692,8 @@ installButton.addEventListener("click", function(e){
           To obtain a manifest, a user agent MUST:
         </p>
         <ol>
-          <li>If the <code>link</code> element lacks a href attribute, abort
-          this algorithm.
+          <li>If the <code>link</code> element lacks a <code>href</code>
+          attribute, abort this algorithm.
           </li>
           <li>Run the <a>steps for fetching a manifest</a>, with the value of
           <code>href</code> attribute as the url, and let <var>response</var>
@@ -753,8 +757,8 @@ installButton.addEventListener("click", function(e){
       </h2>
       <p>
         An <dfn>app object</dfn> allows developers to declare metadata that a
-        user agent can make use of when the web application is launched as
-        standalone.
+        user agent can make use of when the web application is <a>launched as
+        standalone</a>.
       </p>
       <section>
         <h3>
@@ -952,7 +956,8 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn>steps for processing a <code>sizes</code> member of an
           icon</dfn> are given by the following algorithm. The algorithm takes
-          an <a>icon object</a> <var>icon</var>. It returns a set.
+          an <a>icon object</a> <var>icon</var>. This algorithm will return a
+          set.
         </p>
         <ol>
           <li>Let <var>sizes</var> be an empty set.
@@ -1003,7 +1008,7 @@ installButton.addEventListener("click", function(e){
           a <a>icon object</a> <var>icon</var>, and a <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> <var>manifest
           URL</var>, which is the URL from which the <var>manifest</var> was
-          fetched. It returns a <a href=
+          fetched. This algorithm will return a <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> or
           <code>undefined</code>.
         </p>
