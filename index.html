@@ -213,6 +213,38 @@ installButton.addEventListener("click", function(e){
 &lt;/button&gt;
 </pre>
       </section>
+      <section class="informative">
+        <h3>
+          Using HTML <code>meta</code> elmements and a manifest together
+        </h3>
+        <p>
+          During the <a>steps for processing a manifest</a>, how a user agent
+          obtains a manifest determines how the metadata in a top-level
+          document interacts with the metadata in the manifest (if at all). For
+          example, when the user agent obtains a manifest from a top-level
+          document, the metadata of the top-level document takes precedence
+          over the metadata in the manifest. This means that, for instance,
+          [[!HTML]]'s application-name will be used in favor of
+          <code>name</code> member of the manifest.
+        </p>
+        <p>
+          So, given the following manifest:
+        </p>
+        <pre class="example highlight json">
+{"name": "My name is wha?"}
+</pre>
+        <p>
+          And the HTML:
+        </p>
+        <pre>
+<span class="example highlight html">&lt;!doctype html&gt;
+&lt;title&gt;I'm the real slim shady!&lt;/title&gt;</span>   
+</pre>
+        <p>
+          The web application's name will be "<span class=
+          "example highlight html">I'm the real slim shady</span>!".
+        </p>
+      </section>
     </section>
     <section>
       <h2>
@@ -285,11 +317,140 @@ installButton.addEventListener("click", function(e){
         Manifest
       </h2>
       <p>
-        A <dfn>manifest</dfn> is a [[!JSON]] document. Typically, it consists
-        of a top-level object that contains zero or more members, some of which
-        contain other objects. Each of the members are defined below, as well
-        as how their values are processed.
+        A <dfn>manifest</dfn> is a [[!JSON]] document that contains metadata
+        about a web application as well as presentational hints that a user
+        agent can make use of when the web application is launched as
+        standalone.
       </p>
+      <p>
+        A manifest typically consists of a top-level <a href=
+        "#json-object">object</a> that contains zero or more members, some of
+        which contain other objects. Each of the members are defined below, as
+        well as how their values are processed.
+      </p>
+      <section>
+        <h3>
+          Obtaining a manifest
+        </h3>
+        <p>
+          A user agent can obtain a manifest either from a top-level document
+          or by fetching it directly from some URL (independently of a
+          top-level document).
+        </p>
+        <p>
+          A user agent is said to have <dfn>obtained a manifest from a
+          top-level document</dfn> when a user navigates to a web application
+          and she or he explicitly makes a request to bookmark the top-level
+          document. For example, the user uses the browser's user interface to
+          either bookmark or add the web app to the home screen. The manifest
+          is associated with a document through either the
+          <code>manifest</code> link relationship or through the
+          <a><a>well-known manifest</a> - this includes via successful requests
+          to bookmark a web application through the
+          <code>requestBookmark()</code> method.</a>
+        </p>
+        <p>
+          Conversely, a user agent is said to have <dfn>obtained a manifest
+          directly</dfn> when the user agent fetches the manifest independently
+          of any top-level document. For example, a user agent fetches a
+          manifest from a URL without first navigating to any
+          <code>document</code> or the user agent makes use of the well-know
+          manifest without first navigating to the web application.
+        </p>
+        <p>
+          It is OPTIONAL for a user agent to support the ability to <a>obtain a
+          manifests directly</a>.
+        </p>
+      </section>
+      <section>
+        <h3>
+          Fetching a manifest
+        </h3>
+        <p>
+          The <dfn>steps for fetching a manifest</dfn> are given by the
+          following algorithm. It takes a URL <var>url</var> as an argument.
+          This algorithm will return either a response or an error.
+        </p>
+        <ol>
+          <li>Let <var>response</var> be the result of <a href=
+          "http://fetch.spec.whatwg.org/#concept-fetch">fetching</a> the
+          manifest from <var>url</var>.
+          </li>
+          <li>Return <var>response</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          Processing the manifest
+        </h3>
+        <p>
+          The <dfn>steps for processing a manifest</dfn> are given by the
+          following algorithm. The algorithm takes a <var>text</var> string as
+          an argument.
+        </p>
+        <ol>
+          <li>If the manifest was obtained from a top-level document:
+            <ol>
+              <li>Let <var>manifest</var> be the result of invoking the
+                <a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
+                parse</a> function of the JSON object defined in
+                [[!ECMASCRIPT]] with <var>text</var> as its only argument. If
+                parsing throws an error:
+                <ol>
+                  <li>Issue a developer warning.
+                  </li>
+                  <li>Set <var>manifest</var> to be the result of invoking
+                  <a href=
+                  "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
+                    parse</a> with <code>"{}"</code> as the argument.
+                  </li>
+                </ol>
+              </li>
+              <li>If the <code>document</code> lacks a document title:
+                <ol>
+                  <li>Let <var>name</var> be the result of running the <a>steps
+                  for processing the <code>name</code> member</a>.
+                  </li>
+                  <li>Treat <var>name</var> as the document title.
+                  </li>
+                </ol>
+              </li>
+              <li>Let <var>orientation</var> be the result of running the
+              <a>steps for processing the app member's
+              <code>orientations</code></a>.
+              </li>
+              <li>Teat <var>orientation</var> as the default orientation for
+              the <code>document</code>.
+              </li>
+              <li>If the <code>document</code> lacks a default start URL:
+                <ol>
+                  <li>Let <var>start url</var> be the result of running the <a>
+                    steps for processing the <code>url</code> member</a>.
+                  </li>
+                </ol>
+              </li>
+              <li>Determine the application icons as per [[!HTML]].
+                <ol>
+                  <li>Let <var>icons</var> be the result of running the
+                  <a>steps for processing the <code>icons</code> member</a>.
+                  </li>
+                </ol>
+              </li>
+              <li>Optionally, <a>ignore</a> all other members.
+              </li>
+            </ol>
+          </li>
+        </ol>
+        <p>
+          The <dfn>steps to get the web application's metadata</dfn> are given
+          by the following algorithm:
+        </p>
+        <ol>
+          <li>...
+          </li>
+        </ol>
+      </section>
       <section>
         <h3>
           <code title="">name</code> member
@@ -510,91 +671,6 @@ installButton.addEventListener("click", function(e){
           metadata that is used when the web application is launched as
           standalone.
         </p>
-      </section>
-      <section>
-        <h3>
-          Processing the manifest
-        </h3>
-        <p>
-          The <dfn>steps for fetching a manifest</dfn> are given by the
-          following algorithm. It takes a URL <var>url</var> as an argument.
-          This algorithm will return either a response or an error.
-        </p>
-        <ol>
-          <li>Let <var>response</var> be the result of <a href=
-          "http://fetch.spec.whatwg.org/#concept-fetch">fetching</a> the
-          manifest from <var>url</var>.
-          </li>
-          <li>Return <var>response</var>.
-          </li>
-        </ol>
-        <p>
-          The <dfn>steps for processing a manifest</dfn> are given by the
-          following algorithm. The algorithm takes a <var>text</var> string as
-          an argument.
-        </p>
-        <ol>
-          <li>Let <var>manifest</var> be the result of invoking the <a href=
-          "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
-            parse</a> function of the JSON object defined in [[!ECMASCRIPT]]
-            with <var>text</var> as its only argument. If parsing throws an
-            error:
-            <ol>
-              <li>Issue a developer warning.
-              </li>
-              <li>Invoke <a href=
-              "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
-                parse</a> with <code>"{}"</code> as the argument and set
-                manifest to the result.
-              </li>
-            </ol>
-          </li>
-          <li>Let <var>name</var> be the result of running the <a>steps for
-          processing the <code>name</code> member</a>.
-          </li>
-          <li>Let <var>orientation</var> be the result of running the <a>steps
-          for processing the <code>orientations</code> member of the app
-          object</a>.
-          </li>
-          <li>Let <var>url</var> be the result of running the <a>steps for
-          processing the <code>url</code> member</a> .
-          </li>
-          <li>Let <var>icons</var> be the result of running the <a>steps for
-          processing the <code>icons</code> member</a>.
-          </li>
-          <li>If <var>icons</var> contains zero items:
-            <ol>
-              <li>Check if the <code>document</code> has any&nbsp;<a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>link</code></a>&nbsp;elements
-              with the&nbsp;<a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#rel-icon"><code>icon</code></a>&nbsp;keyword
-              those instead as per [[!HTML]].
-              </li>
-              <li>In the absence of a&nbsp;<a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element"><code>link</code></a>&nbsp;with
-              the&nbsp;<a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#rel-icon"><code>icon</code></a>&nbsp;keyword,
-              use the web application's "<code>/favicon.ico</code>" if one is
-              available.
-              </li>
-              <li>If the above are missing, use an implementation specific icon
-              that can serve as a suitable icon for the web application.
-              </li>
-            </ol>
-          </li>
-          <li>Optionally, <a>ignore</a> all other members.
-          </li>
-          <li>Return response.
-          </li>
-        </ol>
-        <p>
-          The <dfn>steps to get the web application's metadata</dfn> are given
-          by the following algorithm:
-        </p>
-        <ol>
-          <li>...
-          </li>
-        </ol>
       </section>
       <section id="linking">
         <h3>
@@ -1174,17 +1250,33 @@ installButton.addEventListener("click", function(e){
           The "manifest.json" well-known URI
         </h3>
         <p>
-          In the absence of a <code>link</code> element with the
-          <code>manifest</code> keyword, for <code>Documents</code> obtained
-          over HTTP or HTTPS or [[!APP-URI]], user agents MAY instead attempt
-          to <a href="http://fetch.spec.whatwg.org/#concept-fetch">fetch</a>
-          and use a manifest with the <a href=
+          The <dfn>well-known manifest</dfn> is a manifest that a user agent
+          fetches in the following manner.
+        </p>
+        <p>
+          If a user agent attempts to <a>obtain a manifest from a top-level
+          document</a>, but no manifest link relationship is declared, the user
+          agent MUST attempt to <a href=
+          "http://fetch.spec.whatwg.org/#concept-fetch">fetch</a> a manifest
+          from the <a href=
           "http://url.spec.whatwg.org/#concept-absolute-url">absolute URL</a>
           obtained by resolving the URL
-          "<code>.well-known/manifest.json</code>" against <a href=
+          "<code>/.well-known/manifest.json</code>" against <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#the-document's-address">
-          the document's address</a>, as if the page had declared that
-          <a>manifest</a> using the <code>manifest</code> keyword.
+          the document's address</a>. The user agent can then use the resulting
+          manifest as if the page had declared that <a>manifest</a> using the
+          <code>manifest</code> keyword.
+        </p>
+        <p>
+          In the case where the user agent obtains the manifest directly, the
+          user agent MAY attempt to <a href=
+          "http://fetch.spec.whatwg.org/#concept-fetch">fetch</a> a manifest
+          with the <a href=
+          "http://url.spec.whatwg.org/#concept-absolute-url">absolute URL</a>
+          obtained by resolving the URL
+          "<code>/.well-known/manifest.json</code>" against an applicaiton
+          specific base URL (e.g., the URL
+          "<code>app://abc123/.well-known/manifest.json</code>").
         </p>
         <p>
           This specification registers the "manifest.json" well-known URI in
