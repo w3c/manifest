@@ -65,28 +65,25 @@
   <body>
     <section id='abstract'>
       <p>
-        This specification defines a JSON-based <em>manifest</em>, which
-        provides developers with a centralized place to put metadata about a
-        web application. This includes, but is not limited to, the name of the
-        web application, links to icons, as well as the preferred URL at which
-        the web application should open when it is launched by the user.
+        This specification defines a JSON-based document, which provides
+        developers with a centralized place to declare startup parameters and
+        application defaults. This includes, but is not limited to, declaring
+        the default orientation for a web application as well as how the
+        application is to be displayed when launched (i.e., fullscreen, in the
+        browser, with a minimal user interface, or standalone).
       </p>
       <p>
-        With this metadata, user agents can provide, for example, enhanced
-        bookmarking capabilities such as being able to add a web application or
-        site to the homescreen of a device. The metadata allows developers to
-        declare various icons, which a user agent can use to integrate the web
-        application with an <abbr title="operating system">OS</abbr>'s task
-        switcher and system preferences.
+        Using this data, user agents can provide web applications with a user
+        experience that is more comparable to that of a native application.
       </p>
       <p>
-        The specification also defines an API to enable bookmarking from within
-        a document, as well as a way of checking if an application is running
-        as "standalone" (conceptually outside of the browser).
+        This specification also defines an API for bookmarking web applications
+        and a means for checking the display mode in which the web application
+        is running.
       </p>
       <p>
         In addition, this specification defines the <code>manifest</code> link
-        type, which provides a declarative means for a web document to be
+        type, which provides a declarative means for a document to be
         associated with a manifest.
       </p>
     </section>
@@ -106,8 +103,8 @@
         Usage Examples
       </h2>
       <p>
-        This section shows developers can make use of the various features of
-        this specification.
+        This section shows how developers can make use of the various features
+        of this specification.
       </p>
       <section class="informative">
         <h3>
@@ -118,23 +115,9 @@
         </p>
         <pre class="example highlight json" title="typical manifest">
 {
-  "name": "Super Racer 2000",
-  "url": "/start.html",
-  "icons": [{
-      "src": "icon/lowres",
-      "sizes": "64x64",
-      "type": "image/webp"
-    }, {
-      "src": "icon/hd_small",
-      "sizes": "64x64"
-    }, {
-      "src": "icon/hd_hi",
-      "sizes": "128x128"
-    }],
-   "app":{
-     "display": ["fullscreen"],
-     "orientations": ["landscape"]
-   }
+  "starturl": "/start.html",
+  "display": ["fullscreen"],
+  "default-orientation": ["landscape"]
 }
 </pre>
       </section>
@@ -144,26 +127,10 @@
         </h3>
         <p>
           Example of using a <code>link</code> element to associate a website
-          with a <a>manifest</a>. The example also shows how a
-          <code>meta</code> element whose name is "<span class=
-          "example highlight html"><code>application-name</code></span>" can be
-          used to support legacy user agents that do not implement this
-          specification.
+          with a <a>manifest</a>.
         </p>
         <pre class="example highlight html" title="linking to a manifest">
-&lt;!doctype html&gt;
-&lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;The Best News - international&lt;/title&gt;
-
-&lt;!-- link to bookmark metadata --&gt;
 &lt;link rel="manifest" href="add_to_homescreen.json"&gt;
-
-&lt;!-- fallback metadata for legacy browsers --&gt;
-&lt;meta name="application-name" content="Best News!"&gt;
-&lt;link rel="shortcut icon" src="favicon.ico"&gt;
-&lt;/head&gt;
-...
 </pre>
       </section>
       <section class="informative">
@@ -171,12 +138,12 @@
           Using the API
         </h3>
         <p>
-          This example shows how to check if the web application is running in
-          <a>standalone</a> mode.
+          This example shows how to check if the <a>display mode</a> of the web
+          application is "<a>standalone</a>".
         </p>
         <pre class="example highlight html" title="detecting standalone mode">
 &lt;script&gt;
-if ("standalone" in navigator &amp;&amp; navigator.standalone) {
+if ("displayMode" in navigator &amp;&amp; navigator.displayMode === "standalone") {
    //Do standalone specific stuff...
    document.documentElement.classList.add("standalone");
 }
@@ -213,38 +180,6 @@ installButton.addEventListener("click", function(e){
 &lt;/button&gt;
 </pre>
       </section>
-      <section class="informative">
-        <h3>
-          Using HTML <code>meta</code> elmements and a manifest together
-        </h3>
-        <p>
-          During the <a>steps for processing a manifest</a>, how a user agent
-          obtains a manifest determines how the metadata in a top-level
-          document interacts with the metadata in the manifest (if at all). For
-          example, when the user agent obtains a manifest from a top-level
-          document, the metadata of the top-level document takes precedence
-          over the metadata in the manifest. This means that, for instance,
-          [[!HTML]]'s application-name will be used in favor of
-          <code>name</code> member of the manifest.
-        </p>
-        <p>
-          So, given the following manifest:
-        </p>
-        <pre class="example highlight json">
-{"name": "My name is wha?"}
-</pre>
-        <p>
-          And the HTML:
-        </p>
-        <pre>
-<span class="example highlight html">&lt;!doctype html&gt;
-&lt;title&gt;I'm the real slim shady!&lt;/title&gt;</span>   
-</pre>
-        <p>
-          The web application's name will be "<span class=
-          "example highlight html">I'm the real slim shady</span>!".
-        </p>
-      </section>
     </section>
     <section>
       <h2>
@@ -261,22 +196,14 @@ installButton.addEventListener("click", function(e){
         Common conventions and dependencies
       </h2>
       <p id="ecmascript-abstractop">
-        For consistency with the web platform, algorithms in this specification
-        use the conventions set forth in [[!ECMASCRIPT]] and [[HTML]] - such as
-        the use of steps and sub-steps, and so forth.
+        Algorithms in this specification use the conventions set forth in
+        [[!ECMASCRIPT]] and [[HTML]] - such as the use of steps and sub-steps,
+        and so forth.
       </p>
       <p>
-        The <a class="external" href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-parsefloat-string">
-        <dfn>parseFloat</dfn></a> method, <a class="external" href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-tostring"><dfn>
-        ToString</dfn></a>, <a href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-hasownproperty">
-        <dfn>HasOwnProperty</dfn></a>, <dfn><a href=
+        The <dfn><a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
-        [[\GetOwnProperty]]</a></dfn>, and <a href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-toboolean"><dfn>
-        ToBoolean</dfn></a> abstract operations, <dfn>promise</dfn> objects,
+        [[\GetOwnProperty]]</a></dfn> operations, <dfn>promise</dfn> objects,
         and the <a class="external" href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
         <dfn>Type</dfn>(<var>x</var>)</a> notation are defined in
@@ -291,19 +218,20 @@ installButton.addEventListener("click", function(e){
         <var>x</var>.
       </p>
       <p>
-        As the manifest is in the [[!JSON]] format, this specification relies
-        on the types defined in [[!JSON]] specification: namely <dfn title=
+        As the manifest uses the JSON format, this specification relies on the
+        types defined in [[!ECMA-404]] specification: namely <dfn title=
         "json-object">object</dfn>, <dfn title="json-array">array</dfn>,
-        <dfn title="json-number">number</dfn>, and <dfn title=
-        "json-string">string</dfn>. Strict type checking is not enforced by
-        this specification. Instead, each member's definition specifies the
-        steps required to process a particular member and what to do when a
-        type does not match what is expected.
+        <dfn title="json-number">number</dfn>, <dfn title=
+        "json-string">string</dfn>, <code>true</code>, <code>false</code>, and
+        <code>null</code>. Strict type checking is not enforced by this
+        specification. Instead, each member's definition specifies the steps
+        required to process a particular member and what to do when a type does
+        not match what is expected.
       </p>
       <p>
         When an algorithm asks the user agent to <dfn>issue a developer
         warning</dfn>, the user agent MAY report the conformance violation to
-        the developer in a user-agent-specific manner (e.g., show the problem
+        the developer in a user-agent-specific manner (e.g., report the problem
         in an error console), or MAY ignore the error and do nothing.
       </p>
       <p>
@@ -314,19 +242,83 @@ installButton.addEventListener("click", function(e){
     </section>
     <section>
       <h2>
+        Display modes
+      </h2>
+      <p>
+        A <dfn>display mode</dfn> is the manner in which a developer would like
+        the Web application to be shown to a user when it is launched from a
+        bookmark (e.g., in fullscreen). Display modes are intended to
+        correspond to the user interface metaphors and functionality in use on
+        a given platform.
+      </p>
+      <p>
+        This specification defines a number of display modes that a user agent
+        is expected to match to comparable platform-specific situations. The
+        display modes, as well as what kind of experience they are intended to
+        provide when a web application is opened from a bookmark, are as
+        follows:
+      </p>
+      <dl>
+        <dt>
+          <code><dfn id="dm-browser">browser</dfn></code>
+        </dt>
+        <dd>
+          Open the web application using whatever is the normal convention for
+          opening hyperlinks in the user agent (e.g., in a browser tab or a new
+          window). The <code>browser</code> display mode is the <dfn>fallback
+          display mode</dfn> for when the developer does not declare one in the
+          manifest, or for when none of the developer's desired <a>display
+          modes</a> are supported by the user agent.
+        </dd>
+        <dt>
+          <code><dfn id="dm-standalone">standalone</dfn></code>
+        </dt>
+        <dd>
+          Opens the web application without UI elements for controlling
+          navigation, but can include other UI elements such as a status bar.
+          On desktop platforms, for example, this would open the bookmark in a
+          standalone window outside the browser.
+        </dd>
+        <dt>
+          <code><dfn id="dm-fullscreen">fullscreen</dfn></code>
+        </dt>
+        <dd>
+          Opens the web application fullscreen: that is occupying the entirety
+          of the display, including the parts normally excluded from
+          the&nbsp;screen area and without any user agent&nbsp;chrome.
+        </dd>
+        <dt>
+          <code><dfn id="dp-minimal-ui">minimal-ui</dfn></code>
+        </dt>
+        <dd>
+          Same as standalone, but provides the end-user with some means to
+          access a minimal set of UI elements for controlling navigation (i.e.,
+          back, forward, reload, and perhaps some way of viewing the document's
+          address). A user agent MAY include other platform specific UI
+          elements, such as "share" and "print" buttons or whatever is
+          customary on the platform and/or user agent.
+        </dd>
+      </dl>
+      <p>
+        Once a user agent applies a particular display mode to a web
+        application, it becomes that applications <dfn>default display
+        mode</dfn> for the lifetime of the application (i.e., it is used as the
+        display mode for all top-level documents to which the window is
+        navigated). Other specifications, as well as the end user, MAY override
+        the <a>default display mode</a>.
+      </p>
+    </section>
+    <section>
+      <h2>
         Manifest
       </h2>
       <p>
-        A <dfn>manifest</dfn> is a [[!JSON]] document that contains metadata
-        about a web application as well as presentational hints that a user
-        agent can make use of when the web application is launched as
-        standalone.
-      </p>
-      <p>
-        A manifest typically consists of a top-level <a href=
-        "#json-object">object</a> that contains zero or more members, some of
-        which contain other objects. Each of the members are defined below, as
-        well as how their values are processed.
+        A <dfn>manifest</dfn> is a JSON document that contains startup
+        parameters and application defaults for when a web application is
+        launched from a bookmark. A manifest consists of a top-level <a href=
+        "#json-object">object</a> that contains zero or more members. Each of
+        the members are defined below, as well as how their values are
+        processed.
       </p>
       <section>
         <h3>
@@ -345,8 +337,8 @@ installButton.addEventListener("click", function(e){
           either bookmark or add the web app to the home screen. The manifest
           is associated with a document through either the
           <code>manifest</code> link relationship or through the
-          <a><a>well-known manifest</a> - this includes via successful requests
-          to bookmark a web application through the
+          <a><a>well-known manifest</a> - this includes via a successful
+          request to bookmark a web application through the
           <code>requestBookmark()</code> method.</a>
         </p>
         <p>
@@ -387,160 +379,228 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn>steps for processing a manifest</dfn> are given by the
           following algorithm. The algorithm takes a <var>text</var> string as
-          an argument.
+          an argument, which represents a <a>manifest</a>.
         </p>
         <ol>
-          <li>If the manifest was obtained from a top-level document:
+          <li>Let <var>manifest</var> be the result of invoking the <a href=
+          "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
+            parse</a> function of the JSON object defined in [[!ECMASCRIPT]]
+            with <var>text</var> as its only argument. If parsing throws an
+            error:
             <ol>
-              <li>Let <var>manifest</var> be the result of invoking the
-                <a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
-                parse</a> function of the JSON object defined in
-                [[!ECMASCRIPT]] with <var>text</var> as its only argument. If
-                parsing throws an error:
-                <ol>
-                  <li>Issue a developer warning.
-                  </li>
-                  <li>Set <var>manifest</var> to be the result of invoking
-                  <a href=
-                  "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
-                    parse</a> with <code>"{}"</code> as the argument.
-                  </li>
-                </ol>
+              <li>Issue a developer warning.
               </li>
-              <li>If the <code>document</code> lacks a document title:
-                <ol>
-                  <li>Let <var>name</var> be the result of running the <a>steps
-                  for processing the <code>name</code> member</a>.
-                  </li>
-                  <li>Treat <var>name</var> as the document title.
-                  </li>
-                </ol>
-              </li>
-              <li>Let <var>orientation</var> be the result of running the
-              <a>steps for processing the app member's
-              <code>orientations</code></a>.
-              </li>
-              <li>Teat <var>orientation</var> as the default orientation for
-              the <code>document</code>.
-              </li>
-              <li>If the <code>document</code> lacks a default start URL:
-                <ol>
-                  <li>Let <var>start url</var> be the result of running the <a>
-                    steps for processing the <code>url</code> member</a>.
-                  </li>
-                </ol>
-              </li>
-              <li>Determine the application icons as per [[!HTML]].
-                <ol>
-                  <li>Let <var>icons</var> be the result of running the
-                  <a>steps for processing the <code>icons</code> member</a>.
-                  </li>
-                </ol>
-              </li>
-              <li>Optionally, <a>ignore</a> all other members.
+              <li>Set <var>manifest</var> to be the result of invoking
+                <a href="https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
+                parse</a> with <code>"{}"</code> as the argument.
               </li>
             </ol>
           </li>
-        </ol>
-        <p>
-          The <dfn>steps to get the web application's metadata</dfn> are given
-          by the following algorithm:
-        </p>
-        <ol>
-          <li>...
+          <li>Let <var>start url</var> be the result of running the <a>steps
+          for processing the <code>starturl</code> member</a>.
+          </li>
+          <li>Let <var>display modes</var> be the result of running <a>steps
+          for processing the <code>display</code> member</a> with
+          <var>manifest</var> as the argument.
+          </li>
+          <li>Let <var>default display mode</var> be the first item of
+          <var>display modes</var>.
+          </li>
+          <li>Let <var>orientations</var> be the result of running the <a>steps
+          for processing the <code>default-orientation</code></a> member with
+          <var>manifest</var> and <var>default display mode</var> as arguments.
+          </li>
+          <li>From <var>orientations</var>, select a suitable orientation for
+          the application and let that serve as the default orientation for the
+          life of the web application.
           </li>
         </ol>
       </section>
       <section>
         <h3>
-          <code title="">name</code> member
+          <code>display</code> member
         </h3>
         <p>
-          The <dfn id="member-name"><code>name</code></dfn> member is a
-          <a title="json-string">string</a> that represents the name of the web
-          application as it is usually displayed to the user (e.g., amongst a
-          list of other applications, or as a label for an icon).
-        </p>
-        <p class="note">
-          For all intents and purposes, the <code><a href=
-          "#member-name">name</a></code> member is functionally equivalent to
-          having a <code><a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
-          meta</a></code> element whose <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name">name</a>
-          attribute is <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
-          <code>application-name</code></a> in a document.
+          The <code>display</code> member is an <a href="#json-array">array</a>
+          of <a href="#json-string">strings</a>, whose items represent the
+          preferred <a>display modes</a> for the web application. Order in the
+          <a href="#json-array">array</a> is significant, with the first item
+          being the developer's most preferred, followed by the next most
+          preferred and so forth. When the member is missing or
+          <span data-dobid="hdw">erroneous</span>, the user agent uses the
+          fallback display mode.
         </p>
         <p>
-          The <dfn>steps for processing the name member</dfn> is given by the
-          following algorithm. The algorithm takes a <var>manifest</var> as an
-          argument. This algorithm will return a string.
+          The <dfn>steps for processing the <code>display</code> member</dfn>
+          are given by the following algorithm. The algorithm takes a manifest
+          <var>manifest</var> as an argument, and returns an set.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>manifest</var> with
-          argument "name".
+          <li>Let <var>result</var> be an ordered set.
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string" or if
-          <a>Trim</a>(value) is the empty string:
+          <li>Let <var>display values</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
+          "<code>display</code>" as the argument.
+          </li>
+          <li>If <var>display values</var> is not an instance of <a href=
+          "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array-exotic-objects">
+            Array</a>:
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
-              </li>
-              <li>If bookmarking was initiated from a web page, and the <code>
-                document</code> has any <code><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
-                meta</a></code> elements whose <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name">
-                name</a> attribute matches <code><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
-                application-name</a></code>, then process those elements as per
-                [[!HTML]] and return the application name found.
-              </li>
-              <li>Otherwise, return an implementation specific string that can
-              serve as a suitable name for the web application. This MAY
-              include using the document's title [[!HTML]].
+              <li>If <a>Type</a>(<var>display value</var>) is not "undefined",
+              issue a developer warning that the type is not supported.
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          <li>Otherwise, for each <var>item</var> in <var>display values</var>
+          in order from first to last:
+            <ol>
+              <li>If <a>Type</a>(<var>item</var>) is not "string", ignore this
+              <var>item</var> and move onto the next item in <var>display
+              values</var> (if any are left).
+              </li>
+              <li>
+                <a>Trim</a>(<var>item</var>) and set <var>item</var> to be the
+                resulting string.
+              </li>
+              <li>If <var>item</var> is not a display mode that the user agent
+              supports, or <var>result</var> already contains <var>item</var>,
+              ignore this <var>item</var> and proceed to the next.
+              </li>
+              <li>Otherwise, append <var>item</var> to <var>result</var>.
+              </li>
+            </ol>
+          </li>
+          <li>If result contains no items, add the <a>fallback display mode</a>
+          to <var>result</var>.
+          </li>
+          <li>Return <var>result</var>.
           </li>
         </ol>
       </section>
       <section>
         <h3>
-          <code>url</code> member
+          <code>default-orientation</code> member
         </h3>
         <p>
-          The <dfn title="member-url">url</dfn> member is a <a title=
+          The <dfn>default-orientation</dfn> member is an <a href=
+          "#json-array">array</a> of <a href="#json-string">strings</a> that
+          serve as hints for the user agent as to the preferred screen
+          orientations in which to display the web application. The possible
+          values are any of the <a href=
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
+          allowed orientations</a> as defined in [[!screen-orientation]]. Order
+          within the array is significant, with the first item being the
+          developer's most preferred, followed by the next most preferred and
+          so forth. When the <a><code>default-orientation</code></a> member is
+          missing, unsupported, or the value is <span data-dobid=
+          "hdw">erroneous</span>, the user agent provides a user agent specific
+          default orientation for the web application.
+        </p>
+        <p>
+          Although the specification relies on the <a href=
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
+          allowed orientations</a> from the [[!screen-orientation]]
+          specification, it is OPTIONAL for a user agent to implement the
+          [[!screen-orientation]] API. Supporting the
+          [[!screen-orientation]]API is, of course, RECOMMENDED.
+        </p>
+        <p>
+          If the user agent chooses to use one of the <a href=
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
+          allowed orientations</a> in the <code>orientations</code> member,
+          then that becomes the default orientation for the web application for
+          as long as the application is running (unless overridden by some
+          other means at runtime). This means that the user agent MUST return
+          the orientation to the default orientation any time the orientation
+          is unlocked [[!screen-orientation]] or the top-level browsing context
+          is <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#navigate">naviagated</a>.
+        </p>
+        <p>
+          Note: the <code>orientations</code> member's items are expected to
+          only apply when the web application is launched. Once the web
+          application is running, it is expected that other means could be used
+          to change the orientation of the application (such as via
+          [[!screen-orientation]] API).
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>orientations</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes a <a>manifest</a> <var>manifest</var> and display mode
+          <var>mode</var> as an argument, and returns an set.
+        </p>
+        <ol>
+          <li>Let <var>result</var> be a new set.
+          </li>
+          <li>Let <var>orientations</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
+          "<code>default-orientations</code>" as the argument.
+          </li>
+          <li>If <var>orientations</var> is not an instance of <a href=
+          "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array-exotic-objects">
+            Array</a>:
+            <ol>
+              <li>If <a>Type</a>(<var>orientations</var>) is not "undefined",
+              issue a developer warning.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, for each <var>item</var> in <var>orientations</var> in
+          order from first to last:
+            <ol>
+              <li>If type(<var>item</var>) is not "string", ignore this
+              <var>item</var>, <a>issue a developer warning</a>, and move onto
+              the next item in <var>orientations</var> (if any).
+              </li>
+              <li>Trim(<var>item</var>) and set <var>item</var> to be the
+              resulting string.
+              </li>
+              <li>If <var>item</var> is not an orientation that the user agent
+              supports, or <var>result</var> already contains <var>item</var>,
+              or the item cannot be used together with <var>mode</var> ignore
+              this <var>item</var> and proceed to the next.
+              </li>
+              <li>Otherwise, append <var>item</var> to <var>result</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>starturl</code> member
+        </h3>
+        <p>
+          The <dfn title="member-url">starturl</dfn> member is a <a title=
           "json-string">string</a> that represents the <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> that the developer
           would prefer the user agent <a href=
           "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
           load</a> when the user activates a bookmark (e.g., when the user
           clicks on the icon of the web application from a device's application
-          menu or homescreen). When the developer omits the <code>url</code>
-          member from the <a>manifest</a>, the user agent will instead use the
-          <a href="http://url.spec.whatwg.org/#concept-url">URL</a> of the
+          menu or homescreen). When the developer omits the
+          <code>starturl</code> member from the <a>manifest</a>, the user agent
+          will instead use the <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a> of the
           <code>document</code> from which the web application was bookmarked.
         </p>
         <p>
-          The <a title="member-url"><code>url</code></a> member is purely
+          The <a title="member-url"><code>starturl</code></a> member is purely
           advisory, and a user agent MAY <a>ignore</a> it or provide the
           end-user the choice not to make use of it. In the case where the user
-          agent ignores the <a title="member-url"><code>url</code></a> member,
-          it MAY fall back to using the URL of the document from which the page
-          is being bookmarked.
+          agent ignores the <a title="member-url"><code>starturl</code></a>
+          member, it MAY fall back to using the URL of the document from which
+          the page is being bookmarked.
         </p>
         <p>
           A user agent MAY also allow the end-user to modify the URL when the
           bookmark is being added or any time thereafter.
         </p>
         <p>
-          The <dfn>steps for processing the <code>url</code> member</dfn> are
-          given by the following algorithm. The algorithm takes a
+          The <dfn>steps for processing the <code>starturl</code> member</dfn>
+          are given by the following algorithm. The algorithm takes a
           <a>manifest</a> <var>manifest</var> and a <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> <var>document
           URL</var>. This algorithm will return a <a href=
@@ -569,108 +629,6 @@ installButton.addEventListener("click", function(e){
           using <var>document URL</var> as the base URL and return the result.
           </li>
         </ol>
-      </section>
-      <section>
-        <h3>
-          <code title="">icons</code> member
-        </h3>
-        <p>
-          The <dfn id="member-icons">icons</dfn> is an <a title=
-          "json-array">array</a> of <a title="icon object">icon objects</a>
-          that can serve as iconic representations of the web application in
-          various contexts. For example, they can be used to represent the web
-          application amongst a list of other applications, or to integrate the
-          web application with an <abbr title="operating system">OS</abbr>'s
-          task switcher and/or system preferences.
-        </p>
-        <p>
-          Note: If the web application is bookmarked from a
-          <code>document</code>, the icons in the manifest override any icons
-          listed in the HTML <code>document</code> (i.e., via link elements
-          whole relationship is icon). However, if no icons are listed in the
-          manifest (or none of them are found to be suitable during
-          processing), the user agent will fall back to trying to use any found
-          in the HTML document. This fall back behavior is enforced during the
-          <a>steps for processing a manifest instead of this section</a>.
-        </p>
-        <p>
-          The <dfn>steps for processing the <code>icons</code> member</dfn> are
-          given by the following algorithm. The algorithm takes a manifest, and
-          a <a href="http://url.spec.whatwg.org/#concept-url">URL</a>
-          <var>manifest URL</var>, which is the URL from which the
-          <var>manifest</var> was fetched. This algorithm will return a list of
-          icons objects <var>icons</var>, which can be empty.
-        </p>
-        <ol>
-          <li>Let <var>icons</var> be an empty list.
-          </li>
-          <li>Let <var>unprocessed icons</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>manifest</var> with
-          argument "<code>icons</code>".
-          </li>
-          <li>If <var>unprocessed icons</var> is an <a title=
-          "json-array">array</a>, then for each <var>potential icon</var> in
-          the array:
-            <ol>
-              <li>Let <var>src</var> be the result of running the <a>steps for
-              processing the <code>src</code> member of an icon</a> with <var>
-                potential icon</var> and <var>manifest URL</var>.
-              </li>
-              <li>If <var>src</var> is <code>undefined</code>, move onto the
-              next item in <var>icons</var> (if any are left).
-              </li>
-              <li>Let <var>type</var> be the result of running the <a>steps for
-              processing the <code>type</code> member of an icon</a> passing
-              <var>potential icon</var>.
-              </li>
-              <li>If <var>type</var> is an error, move onto the next item in
-              <var>orientations</var> (if any are left).
-              </li>
-              <li>Let <var>sizes</var> be the list that result from running the
-              <a>steps for processing the <code>sizes</code> member of an
-              icon</a> passing <var>potential icon</var>.
-              </li>
-              <li>Let <var>icon</var> be an object with properties
-              <code>src</code>, <code>type</code>, <code>sizes</code>, whose
-              values are <var>src</var>, <var>type</var> and <var>sizes</var>
-              respectively.
-              </li>
-              <li>Append <var>icon</var> to <var>icons</var>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, if <var>unprocessed icons</var> is not an <a title=
-          "json-array">array</a>:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a> that the type is not
-                supported.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>icons</var>.
-          </li>
-        </ol>
-        <p>
-          If there are multiple equally appropriate icons in <var>icons</var>,
-          a user agent MUST use the last one declared in order at the time that
-          the user agent collected the list of <var>icons</var>. If the user
-          agent tries to use an icon but that icon is determined, upon closer
-          examination, to in fact be inappropriate (e.g. because its content
-          type is not supported), then the user agent MUST try the
-          next-most-appropriate icon as determined by examining the <a title=
-          "icon object">icon object's</a> members.
-        </p>
-      </section>
-      <section>
-        <h3>
-          <code>app</code> member
-        </h3>
-        <p>
-          The <dfn>app</dfn> member is an <a>app object</a> for declaring
-          metadata that is used when the web application is launched as
-          standalone.
-        </p>
       </section>
       <section id="linking">
         <h3>
@@ -781,9 +739,6 @@ installButton.addEventListener("click", function(e){
           <li>Otherwise, let <var>manifest</var> be the result of running the
           <a>steps for processing a manifest</a>.
           </li>
-          <li>If <var>manifest</var> results in an error, treat this as an
-          <span>invalid manifest</span>.
-          </li>
           <li>Otherwise, in a user agent specific manner, and when the end-user
           so desires, provide a means for the end-user to view the relevant
           contents of the <var>manifest</var>; and provide a means for the
@@ -810,7 +765,7 @@ installButton.addEventListener("click", function(e){
   "moz-awesome-thing": { ... }
   ...
 }
-
+        
 </pre>
       </section>
     </section>
@@ -829,353 +784,18 @@ installButton.addEventListener("click", function(e){
     </section>
     <section>
       <h2>
-        App object and its members
-      </h2>
-      <p>
-        An <dfn>app object</dfn> allows developers to declare metadata that a
-        user agent can make use of when the web application is <a>launched as
-        standalone</a>.
-      </p>
-      <section>
-        <h3>
-          <code>display</code> member
-        </h3>
-        <p>
-          The <code>display</code> member is an array of strings that serve as
-          hints for the user agent as to the preferred <a href=
-          "http://www.w3.org/TR/view-mode/#view-modes">view mode</a> in which
-          to display the web application when it is launched as standalone. The
-          <dfn>view mode</dfn> values are defined in [[!view-mode]]. Order in
-          the array is significant, with the first item being the most
-          preferred by the developer, followed by the next most preferred and
-          so forth. When the member is missing or the value is
-          <span data-dobid="hdw">erroneous</span>, it is assumed that the
-          application supports the user agent's default view mode for
-          standalone applications.
-        </p>
-        <p>
-          It is OPTIONAL for user agents to support any of the <a title=
-          "view mode">view modes</a> and the associated CSS media feature of
-          [[!view-mode]]. It is, nevertheless, RECOMMENDED that at least the
-          "<a href=
-          "http://www.w3.org/TR/view-mode/#dfn-fullscreen">fullscreen</a>" view
-          mode be supported by a user agent.
-        </p>
-        <p>
-          The <dfn>steps for processing the <code>display</code> member of the
-          app object</dfn> are given by the following algorithm. The algorithm
-          takes an <a>app object</a> (<var>app</var>) as an argument, and
-          returns either a set, an error, or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>If <a>HasOwnProperty</a>(<var>app</var>,"display") returns <code>
-            false</code>, then return <code>undefined</code>.
-          </li>
-          <li>Let <var>result</var> be a new set.
-          </li>
-          <li>Let <var>display values</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
-          "<code>display</code>" as the argument.
-          </li>
-          <li>If <var>display values</var> is not an instance of Array, return
-          an error.
-          </li>
-          <li>For each <var>item</var> in <var>display values</var> in order
-          from first to last:
-            <ol>
-              <li>If type(<var>item</var>) is not "string", ignore this
-              <var>item</var> and move onto the next item in display values (if
-              any are left).
-              </li>
-              <li>
-                <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
-                Strip leading and trailing whitespace</a> from <var>item</var>.
-              </li>
-              <li>If <var>item</var> is not a view mode that the user agent
-              supports, or <var>result</var> already contains <var>item</var>,
-              ignore this <var>item</var> and proceed to the next.
-              </li>
-              <li>Otherwise, append <var>item</var> to <var>result</var>.
-              </li>
-            </ol>
-          </li>
-          <li>return <var>result</var>.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
-          <code>orientations</code> member
-        </h3>
-        <p>
-          The <dfn>orientations</dfn> member is an array of strings that serve
-          as hints for the user agent as to the preferred screen orientations
-          in which to display the web application when it is launched as
-          standalone. The possible values are any of the <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
-          allowed orientations</a> as defined in [[!screen-orientation]]. Order
-          within the array is significant, with the first item being the most
-          preferred by the developer, followed by the next most preferred and
-          so forth. When the <a>orientations</a> member is missing or the value
-          is <span data-dobid="hdw">erroneous</span>, the user agent provides a
-          user agent specific default orientation for the web application.
-        </p>
-        <p>
-          Although the specification relies on the <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
-          allowed orientations</a> from the [[!screen-orientation]]
-          specification, it is OPTIONAL for a user agent to implement the
-          [[!screen-orientation]] API. Supporting the [[!screen-orientation]]
-          is, of course, RECOMMENDED.
-        </p>
-        <p>
-          If the user agent chooses to use one of the <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
-          allowed orientations</a> in the <code>orientations</code> member,
-          then that becomes the default orientation for the web application for
-          as long as the application is running (unless overridden by some
-          other means at runtime). This means that the user agent MUST return
-          the orientation to the default orientation any time the orientation
-          is unlocked [[!screen-orientation]].
-        </p>
-        <p>
-          Note: the <code>orientations</code> member's items are expected to
-          only apply when the web application is launched. Once the web
-          application is running, it is expected that other means can could be
-          used to change the orientation of the application (such as via
-          [[!screen-orientation]]).
-        </p>
-        <p>
-          The <dfn>steps for processing the <code>orientations</code> member of
-          the app object</dfn> are given by the following algorithm. The
-          algorithm takes an <a>app object</a> (<var>app</var>) as an argument,
-          and returns either a set, an error, or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>If <a>HasOwnProperty</a>(<var>app</var>,"orientations") returns
-          <code>false</code>, then return <code>undefined</code>.
-          </li>
-          <li>Let <var>result</var> be a new set.
-          </li>
-          <li>Let <var>orientations</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
-          "<code>orientations</code>" as the argument.
-          </li>
-          <li>If <var>orientations</var> is not an instance of Array, return an
-          error.
-          </li>
-          <li>For each <var>item</var> in <var>orientations</var> in order from
-          first to last:
-            <ol>
-              <li>If type(<var>item</var>) is not "string", ignore this
-              <var>item</var>, <a>issue a developer warning</a>, and move onto
-              the next item in <var>orientations</var> (if any).
-              </li>
-              <li>
-                <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#strip-leading-and-trailing-whitespace">
-                Strip leading and trailing whitespace</a> from <var>item</var>.
-              </li>
-              <li>If <var>item</var> is not an orientation that the user agent
-              supports, or <var>result</var> already contains <var>item</var>,
-              ignore this <var>item</var> and proceed to the next.
-              </li>
-              <li>Otherwise, append <var>item</var> to <var>result</var>.
-              </li>
-            </ol>
-          </li>
-          <li>return <var>result</var>.
-          </li>
-        </ol>
-      </section>
-    </section>
-    <section>
-      <h2>
-        Icon object and its members
-      </h2>
-      <p>
-        Each <dfn>icon object</dfn> represents an icon for an application
-        suitable to use in various contexts (e.g., an application menu).
-      </p>
-      <p>
-        <span class="note">For all intents and purposes, an <a>icon object</a>
-        is functionally equivalent to <code>link</code> element whose
-        <code>rel</code> attribute is icon in a <code>document</code>.</span>
-      </p>
-      <section>
-        <h3>
-          <code>sizes</code> member
-        </h3>
-        <p>
-          The <dfn title="icon-sizes">sizes</dfn> member is a <a title=
-          "json-string">string</a> consisting of an&nbsp;<a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#unordered-set-of-unique-space-separated-tokens">unordered
-          set of unique space-separated tokens</a>&nbsp;which are&nbsp;<a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">ASCII
-          case-insensitive</a> that represents the dimensions of an icon for
-          visual media. Each keyword is either an&nbsp;<a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">ASCII
-          case-insensitive</a>&nbsp;match for the string "<a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes-any">any</a>",
-          or a value that consists of two&nbsp;<a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#valid-non-negative-integer"
-          title="valid non-negative integer">valid non-negative
-          integers</a>&nbsp;that do not have a leading U+0030 DIGIT ZERO (0)
-          character and that are separated by a single U+0078 LATIN SMALL
-          LETTER X or U+0058 LATIN CAPITAL LETTER X character. The keywords
-          represent icon sizes in raw pixels (as opposed to CSS pixels). When
-          multiple <a title="icon object">icon objects</a> are available, a
-          user agent can use the value to decide which icon is most suitable
-          for a display context (and ignore any that are inappropriate).
-        </p>
-        <p>
-          The <dfn>steps for processing a <code>sizes</code> member of an
-          icon</dfn> are given by the following algorithm. The algorithm takes
-          an <a>icon object</a> <var>icon</var>. This algorithm will return a
-          set.
-        </p>
-        <ol>
-          <li>Let <var>sizes</var> be an empty set.
-          </li>
-          <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>icon</var> passing <var>
-            key</var> as the argument.
-          </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
-          </li>
-          <li>If <var>type</var> is not "string", then:
-            <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is not supported.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, parse <var>value</var> as if it was a [[!HTML]] <code>
-            <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes">
-            sizes</a></code> attribute. For each resulting <var>keyword</var>:
-            <ol>
-              <li>Convert <var>keyword</var> <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#converted-to-ascii-lowercase">
-                to ASCII lowercase</a>.
-              </li>
-              <li>If <var>sizes</var> doesn't already contain
-              <var>keyword</var>, then add the resulting <var>keyword</var> to
-              <var>sizes</var>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>sizes.</var>
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
-          <code>src</code> member
-        </h3>
-        <p>
-          The <dfn title="icon-density">src</dfn> member of an icon is a URL
-          from which a user agent can fetch the icon's data.
-        </p>
-        <p>
-          The <dfn>steps for processing the <code>src</code> member of an
-          icon</dfn> are given by the following algorithm. The algorithm takes
-          a <a>icon object</a> <var>icon</var>, and a <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a> <var>manifest
-          URL</var>, which is the URL from which the <var>manifest</var> was
-          fetched. This algorithm will return a <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a> or
-          <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>icon</var> passing
-          "<code>src</code>" as the argument.
-          </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
-          </li>
-          <li>If <var>type</var> is not "string", then:
-            <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>
-            <a href="http://url.spec.whatwg.org/#parsing">Parse</a>
-            <var>value</var> using <var>manifest URL</var> as the base URL and
-            return the result.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
-          <code>type</code> member
-        </h3>
-        <p>
-          The <dfn title="icon-type">type</dfn> member of an icon is a hint as
-          to the media type of the icon. The purpose of this member is to allow
-          a user agent to ignore icons of media types it does not support.
-        </p>
-        <p>
-          There is no default MIME type for icon objects. However, for the
-          purposes of&nbsp;<a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-type-sniffing">determining
-          the type of the resource</a>, user agents must expect the resource to
-          be an image.
-        </p>
-        <p>
-          The <dfn>steps for processing the <code>type</code> member of an
-          icon</dfn> are given by the following algorithm. The algorithm takes
-          an <var>icon</var> object as an argument, and returns either a string
-          or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>potential icon</var>
-          passing "<code>type</code>" as the argument.
-          </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
-          </li>
-          <li>If <var>type</var> is not "string", then:
-            <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Trim(<var>value</var>) and set <var>value</var> to be resulting
-          string.
-          </li>
-          <li>If <var>value</var> is not a <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#valid-mime-type">
-            valid MIME type</a> or the value of <var>type</var> is not a
-            supported media format, issue a developer warning and return
-            <code>undefined</code>.
-          </li>
-          <li>Return <var>value</var>.
-          </li>
-        </ol>
-      </section>
-    </section>
-    <section>
-      <h2>
         Extensions to the <code>Navigator</code> object
       </h2>
       <dl class="idl" title="partial interface Navigator">
         <dt>
-          readonly attribute Boolean standalone
+          readonly attribute DOMString? displayMode
         </dt>
         <dd>
-          The standalone attribute provides a means for a developer to check if
-          the application is running in <a>standalone</a> mode. When getting,
-          the user agent MUST return <code>true</code> if the application is
-          running as <a>standalone</a>. Return <code>false</code> otherwise.
+          The <code>displayMode</code> attribute provides a means for a
+          developer to check which display mode the application is in. When
+          getting, the user agent MUST return a DOMString that represents the
+          display mode of the Web application. If the <a>display mode</a> is
+          unknow, return <code>null</code>.
         </dd>
         <dt>
           Promise requestBookmark()
@@ -1360,12 +980,13 @@ installButton.addEventListener("click", function(e){
           <dd>
             <p>
               As the manifest format is JSON and will commonly be encoded using
-              [[!UNICODE]], the security considerations described in [[!JSON]]
-              and [[!UNICODE-SECURITY]] apply. In addition, implementors need
-              to impose their own implementation-specific limits on the values
-              of otherwise unconstrained member types, e.g. to prevent denial
-              of service attacks, to guard against running out of memory, or to
-              work around platform-specific limitations.
+              [[!UNICODE]], the security considerations described in
+              [[!ECMA-404]] and [[!UNICODE-SECURITY]] apply. In addition,
+              implementors need to impose their own implementation-specific
+              limits on the values of otherwise unconstrained member types,
+              e.g. to prevent denial of service attacks, to guard against
+              running out of memory, or to work around platform-specific
+              limitations.
             </p>
             <p>
               Web applications will generally contain ECMAScript, HTML, CSS
