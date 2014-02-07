@@ -322,40 +322,6 @@ installButton.addEventListener("click", function(e){
       </p>
       <section>
         <h3>
-          Obtaining a manifest
-        </h3>
-        <p>
-          A user agent can obtain a manifest either from a top-level document
-          or by fetching it directly from some URL (independently of a
-          top-level document).
-        </p>
-        <p>
-          A user agent is said to have <dfn>obtained a manifest from a
-          top-level document</dfn> when a user navigates to a web application
-          and she or he explicitly makes a request to bookmark the top-level
-          document. For example, the user uses the browser's user interface to
-          either bookmark or add the web app to the home screen. The manifest
-          is associated with a document through either the
-          <code>manifest</code> link relationship or through the
-          <a><a>well-known manifest</a> - this includes via a successful
-          request to bookmark a web application through the
-          <code>requestBookmark()</code> method.</a>
-        </p>
-        <p>
-          Conversely, a user agent is said to have <dfn>obtained a manifest
-          directly</dfn> when the user agent fetches the manifest independently
-          of any top-level document. For example, a user agent fetches a
-          manifest from a URL without first navigating to any
-          <code>document</code> or the user agent makes use of the well-know
-          manifest without first navigating to the web application.
-        </p>
-        <p>
-          It is OPTIONAL for a user agent to support the ability to <a>obtain a
-          manifests directly</a>.
-        </p>
-      </section>
-      <section>
-        <h3>
           Fetching a manifest
         </h3>
         <p>
@@ -886,17 +852,6 @@ installButton.addEventListener("click", function(e){
           the document's address</a>. The user agent can then use the resulting
           manifest as if the page had declared that <a>manifest</a> using the
           <code>manifest</code> keyword.
-        </p>
-        <p>
-          In the case where the user agent obtains the manifest directly, the
-          user agent MAY attempt to <a href=
-          "http://fetch.spec.whatwg.org/#concept-fetch">fetch</a> a manifest
-          with the <a href=
-          "http://url.spec.whatwg.org/#concept-absolute-url">absolute URL</a>
-          obtained by resolving the URL
-          "<code>/.well-known/manifest.json</code>" against an applicaiton
-          specific base URL (e.g., the URL
-          "<code>app://abc123/.well-known/manifest.json</code>").
         </p>
         <p>
           This specification registers the "manifest.json" well-known URI in
