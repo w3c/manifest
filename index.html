@@ -21,12 +21,14 @@
         name: 'Marcos Caceres',
         company: 'Mozilla Corporation',
         companyURL: 'http://mozilla.com'
-    }, {
-        name: 'Anssi Kostiainen',
+    },
+        {
+        name: 'Kenneth Rohde Christiansen',
         company: 'Intel Corporation',
         companyURL: 'http://intel.com'
-    }, {
-        name: 'Kenneth Rohde Christiansen',
+    },
+        {
+        name: 'Anssi Kostiainen',
         company: 'Intel Corporation',
         companyURL: 'http://intel.com'
     }],
@@ -39,26 +41,15 @@
         key: 'Repository',
         data: [{
             value: 'We are on Github.',
-            href: 'https://github.com/sysapps/manifest'
+            href: 'https://github.com/w3c/manifest'
         }, {
             value: 'File a bug.',
-            href: 'https://github.com/sysapps/manifest/issues'
+            href: 'https://github.com/w3c/manifest/issues'
         }, {
             value: 'Commit history.',
-            href: 'https://github.com/sysapps/manifest/commits/gh-pages'
+            href: 'https://github.com/w3c/manifest/commits/gh-pages'
         }]
-    }],
-    localBiblio: {
-        'FETCH': {
-            'authors': [
-                'Anne van Kesteren'
-            ],
-            'href': 'http://fetch.spec.whatwg.org/',
-            'title': 'Fetch',
-            'status': 'Living Standard',
-            'publisher': 'WHATWG'
-        }
-    }
+    }]
     };
     </script>
   </head>
@@ -69,17 +60,17 @@
         developers with a centralized place to declare startup parameters and
         application defaults. This includes, but is not limited to, declaring
         the default orientation for a web application as well as how the
-        application is to be displayed when launched (i.e., fullscreen, in the
-        browser, with a minimal user interface, or standalone).
+        application is to be displayed when launched (e.g., fullscreen).
       </p>
       <p>
-        Using this data, user agents can provide web applications with a user
-        experience that is more comparable to that of a native application.
+        Using this data, user agents can provide developers with a means to
+        create user experiences that are more comparable to that of a native
+        application.
       </p>
       <p>
-        This specification also defines an API for bookmarking web applications
-        and a means for checking the display mode in which the web application
-        is running.
+        This specification also defines an API for requesting that a web
+        application be bookmarked, as well as a means for checking the
+        <a>display mode</a> of the web application.
       </p>
       <p>
         In addition, this specification defines the <code>manifest</code> link
@@ -89,13 +80,14 @@
     </section>
     <section id="sotd">
       <p>
-        Implementors should be aware that this specification is not stable.
-        <strong>Implementors who are not taking part in the discussions are
-        likely to find the specification changing out from under them in
+        Implementors need to be aware that this specification is extremely
+        unstable. <strong>Implementors who are not taking part in the
+        discussions will find the specification changing out from under them in
         incompatible ways.</strong> Vendors interested in implementing this
         specification before it eventually reaches the Candidate Recommendation
-        phase should join the aforementioned mailing lists and take part in the
-        discussions.
+        phase should join the aforementioned mailing lists, or <a href=
+        "'https://github.com/w3c/manifest">subscribe to the repository on
+        GitHub</a>, and take part in the discussions.
       </p>
     </section>
     <section class="informative">
@@ -139,7 +131,7 @@
         </h3>
         <p>
           This example shows how to check if the <a>display mode</a> of the web
-          application is "<a>standalone</a>".
+          application is "<a href="#standalone">standalone</a>".
         </p>
         <pre class="example highlight html" title="detecting standalone mode">
 &lt;script&gt;
@@ -169,7 +161,6 @@ if ("displayMode" in navigator &amp;&amp; navigator.displayMode === "standalone"
 &lt;script&gt;
 var installButton = document.querySelector("#install");
 
-//Bookmarking only works if initiated by user interaction
 installButton.addEventListener("click", function(e){
    navigator.requestBookmark().then(thankUser, stopBuggingUser);
 });
@@ -196,11 +187,6 @@ installButton.addEventListener("click", function(e){
         Common conventions and dependencies
       </h2>
       <p id="ecmascript-abstractop">
-        Algorithms in this specification use the conventions set forth in
-        [[!ECMASCRIPT]] and [[HTML]] - such as the use of steps and sub-steps,
-        and so forth.
-      </p>
-      <p>
         The <dfn><a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
         [[\GetOwnProperty]]</a></dfn> operations, <dfn>promise</dfn> objects,
@@ -228,17 +214,6 @@ installButton.addEventListener("click", function(e){
         required to process a particular member and what to do when a type does
         not match what is expected.
       </p>
-      <p>
-        When an algorithm asks the user agent to <dfn>issue a developer
-        warning</dfn>, the user agent MAY report the conformance violation to
-        the developer in a user-agent-specific manner (e.g., report the problem
-        in an error console), or MAY ignore the error and do nothing.
-      </p>
-      <p>
-        When instructed to <dfn>ignore</dfn> something while processing a
-        member or value, the user agent MUST act as if whatever member or value
-        caused the condition is absent in the manifest document.
-      </p>
     </section>
     <section>
       <h2>
@@ -247,58 +222,17 @@ installButton.addEventListener("click", function(e){
       <p>
         A <dfn>display mode</dfn> is the manner in which a developer would like
         the Web application to be shown to a user when it is launched from a
-        bookmark (e.g., in fullscreen). Display modes are intended to
-        correspond to the user interface metaphors and functionality in use on
-        a given platform.
+        bookmark (e.g., in <code><a href=
+        "#idl-def-DisplayMode.fullscreen">fullscreen</a></code>). Display modes
+        are intended to correspond to the user interface metaphors and
+        functionality in use on a given platform.
       </p>
       <p>
-        This specification defines a number of display modes that a user agent
-        is expected to match to comparable platform-specific situations. The
-        display modes, as well as what kind of experience they are intended to
-        provide when a web application is opened from a bookmark, are as
-        follows:
+        The display modes, as well as hints as to what kind of experience they
+        are intended to provide when a web application is opened from a
+        bookmark, are defined as part of the <code><a href=
+        "#idl-def-DisplayMode">DisplayMode</a></code> enumeration type.
       </p>
-      <dl>
-        <dt>
-          <code><dfn id="dm-browser">browser</dfn></code>
-        </dt>
-        <dd>
-          Open the web application using whatever is the normal convention for
-          opening hyperlinks in the user agent (e.g., in a browser tab or a new
-          window). The <code>browser</code> display mode is the <dfn>fallback
-          display mode</dfn> for when the developer does not declare one in the
-          manifest, or for when none of the developer's desired <a>display
-          modes</a> are supported by the user agent.
-        </dd>
-        <dt>
-          <code><dfn id="dm-standalone">standalone</dfn></code>
-        </dt>
-        <dd>
-          Opens the web application without UI elements for controlling
-          navigation, but can include other UI elements such as a status bar.
-          On desktop platforms, for example, this would open the bookmark in a
-          standalone window outside the browser.
-        </dd>
-        <dt>
-          <code><dfn id="dm-fullscreen">fullscreen</dfn></code>
-        </dt>
-        <dd>
-          Opens the web application fullscreen: that is occupying the entirety
-          of the display, including the parts normally excluded from
-          the&nbsp;screen area and without any user agent&nbsp;chrome.
-        </dd>
-        <dt>
-          <code><dfn id="dp-minimal-ui">minimal-ui</dfn></code>
-        </dt>
-        <dd>
-          Same as standalone, but provides the end-user with some means to
-          access a minimal set of UI elements for controlling navigation (i.e.,
-          back, forward, reload, and perhaps some way of viewing the document's
-          address). A user agent MAY include other platform specific UI
-          elements, such as "share" and "print" buttons or whatever is
-          customary on the platform and/or user agent.
-        </dd>
-      </dl>
       <p>
         Once a user agent applies a particular display mode to a web
         application, it becomes that applications <dfn>default display
@@ -307,6 +241,46 @@ installButton.addEventListener("click", function(e){
         navigated). Other specifications, as well as the end user, MAY override
         the <a>default display mode</a>.
       </p>
+      <dl class="idl" title="enum DisplayMode">
+        <dt>
+          <dfn id="dm-browser">browser</dfn>
+        </dt>
+        <dd>
+          Open the web application using whatever is the normal convention for
+          opening hyperlinks in the user agent (e.g., in a browser tab or a new
+          window). The <code>browser</code> display mode is the <dfn>fallback
+          display mode</dfn> for when the developer does not declare one in the
+          manifest, or for when none of the developer's preferred <a title=
+          "display mode">display modes</a> are supported by the user agent.
+        </dd>
+        <dt>
+          <dfn id="dm-standalone">standalone</dfn>
+        </dt>
+        <dd>
+          Opens the web application without UI elements for controlling
+          navigation, but can include other UI elements such as a status bar.
+          On desktop platforms, for example, this would open the bookmark in a
+          standalone window outside the browser.
+        </dd>
+        <dt>
+          <dfn id="dm-fullscreen">fullscreen</dfn>
+        </dt>
+        <dd>
+          Opens the web application without any user agent&nbsp;chrome and
+          taking up the entirety of the available display area.
+        </dd>
+        <dt>
+          <dfn id="dm-minimal-ui">minimal-ui</dfn>
+        </dt>
+        <dd>
+          Same as <a href="#dm-standalone">standalone</a>, but provides the
+          end-user with some means to access a minimal set of UI elements for
+          controlling navigation (i.e., back, forward, reload, and perhaps some
+          way of viewing the document's address). A user agent MAY include
+          other platform specific UI elements, such as "share" and "print"
+          buttons or whatever is customary on the platform and/or user agent.
+        </dd>
+      </dl>
     </section>
     <section>
       <h2>
@@ -322,24 +296,6 @@ installButton.addEventListener("click", function(e){
       </p>
       <section>
         <h3>
-          Fetching a manifest
-        </h3>
-        <p>
-          The <dfn>steps for fetching a manifest</dfn> are given by the
-          following algorithm. It takes a URL <var>url</var> as an argument.
-          This algorithm will return either a response or an error.
-        </p>
-        <ol>
-          <li>Let <var>response</var> be the result of <a href=
-          "http://fetch.spec.whatwg.org/#concept-fetch">fetching</a> the
-          manifest from <var>url</var>.
-          </li>
-          <li>Return <var>response</var>.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
           Processing the manifest
         </h3>
         <p>
@@ -347,23 +303,34 @@ installButton.addEventListener("click", function(e){
           following algorithm. The algorithm takes a <var>text</var> string as
           an argument, which represents a <a>manifest</a>.
         </p>
+        <p>
+          When instructed to <dfn>issue a developer warning</dfn>, the user
+          agent MAY report the conformance violation to the developer in a
+          user-agent-specific manner (e.g., report the problem in an error
+          console), or MAY ignore the error and do nothing.
+        </p>
+        <p>
+          When instructed to <dfn>ignore</dfn>, the user agent MUST act as if
+          whatever member or value caused the condition was absent from the
+          manifest document.
+        </p>
         <ol>
-          <li>Let <var>manifest</var> be the result of invoking the <a href=
+          <li>Let <var>manifest</var> be the result of <a href=
           "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
-            parse</a> function of the JSON object defined in [[!ECMASCRIPT]]
-            with <var>text</var> as its only argument. If parsing throws an
-            error:
+            parsing</a> <var>text</var>. If parsing throws an error:
             <ol>
               <li>Issue a developer warning.
               </li>
-              <li>Set <var>manifest</var> to be the result of invoking
-                <a href="https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
-                parse</a> with <code>"{}"</code> as the argument.
+              <li>Set <var>manifest</var> to be the result of <a href=
+              "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
+                parsing</a> the string <code>"{}"</code>.
               </li>
             </ol>
           </li>
           <li>Let <var>start url</var> be the result of running the <a>steps
-          for processing the <code>starturl</code> member</a>.
+          for processing the <code>starturl</code> member</a>, with either the
+          <code>document</code>'s URL or an application-specific URL (e.g.,
+          "app://") as the <var>base URL</var>.
           </li>
           <li>Let <var>display modes</var> be the result of running <a>steps
           for processing the <code>display</code> member</a> with
@@ -373,12 +340,12 @@ installButton.addEventListener("click", function(e){
           <var>display modes</var>.
           </li>
           <li>Let <var>orientations</var> be the result of running the <a>steps
-          for processing the <code>default-orientation</code></a> member with
+          for processing the <code>default-orientation</code> member</a> with
           <var>manifest</var> and <var>default display mode</var> as arguments.
           </li>
           <li>From <var>orientations</var>, select a suitable orientation for
-          the application and let that serve as the default orientation for the
-          life of the web application.
+          the application and let that serve as the <var>default
+          orientation</var> for the life of the web application.
           </li>
         </ol>
       </section>
@@ -389,20 +356,20 @@ installButton.addEventListener("click", function(e){
         <p>
           The <code>display</code> member is an <a href="#json-array">array</a>
           of <a href="#json-string">strings</a>, whose items represent the
-          preferred <a>display modes</a> for the web application. Order in the
-          <a href="#json-array">array</a> is significant, with the first item
-          being the developer's most preferred, followed by the next most
-          preferred and so forth. When the member is missing or
-          <span data-dobid="hdw">erroneous</span>, the user agent uses the
-          fallback display mode.
+          preferred <a title="display mode">display modes</a> for the web
+          application. Order in the <a href="#json-array">array</a> is
+          significant, with the first item being the developer's most
+          preferred, followed by the next most preferred and so forth. When the
+          member is missing or <span data-dobid="hdw">erroneous</span>, the
+          user agent uses the fallback display mode.
         </p>
         <p>
           The <dfn>steps for processing the <code>display</code> member</dfn>
           are given by the following algorithm. The algorithm takes a manifest
-          <var>manifest</var> as an argument, and returns an set.
+          <var>manifest</var> as an argument, and returns a set.
         </p>
         <ol>
-          <li>Let <var>result</var> be an ordered set.
+          <li>Let <var>result</var> be a set.
           </li>
           <li>Let <var>display values</var> be the result of calling the
           [[\GetOwnProperty]] internal method of <var>manifest</var> passing
@@ -413,7 +380,7 @@ installButton.addEventListener("click", function(e){
             Array</a>:
             <ol>
               <li>If <a>Type</a>(<var>display value</var>) is not "undefined",
-              issue a developer warning that the type is not supported.
+              <a>issue a developer warning</a> that the type is not supported.
               </li>
             </ol>
           </li>
@@ -458,9 +425,9 @@ installButton.addEventListener("click", function(e){
           within the array is significant, with the first item being the
           developer's most preferred, followed by the next most preferred and
           so forth. When the <a><code>default-orientation</code></a> member is
-          missing, unsupported, or the value is <span data-dobid=
-          "hdw">erroneous</span>, the user agent provides a user agent specific
-          default orientation for the web application.
+          missing, , or all the declared items are unsupported, the user agent
+          provides an implementation-specific default orientation for the web
+          application.
         </p>
         <p>
           Although the specification relies on the <a href=
@@ -480,23 +447,21 @@ installButton.addEventListener("click", function(e){
           the orientation to the default orientation any time the orientation
           is unlocked [[!screen-orientation]] or the top-level browsing context
           is <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#navigate">naviagated</a>.
+          "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigated.</a>
         </p>
         <p>
-          Note: the <code>orientations</code> member's items are expected to
-          only apply when the web application is launched. Once the web
-          application is running, it is expected that other means could be used
-          to change the orientation of the application (such as via
-          [[!screen-orientation]] API).
+          Note: Once the web application is running, other means can change the
+          orientation of a <code>document</code> of the Web application (such
+          as via [[!screen-orientation]] API).
         </p>
         <p>
-          The <dfn>steps for processing the <code>orientations</code>
+          The <dfn>steps for processing the <code>default-orientation</code>
           member</dfn> are given by the following algorithm. The algorithm
           takes a <a>manifest</a> <var>manifest</var> and display mode
-          <var>mode</var> as an argument, and returns an set.
+          <var>mode</var> as an argument, and returns a set.
         </p>
         <ol>
-          <li>Let <var>result</var> be a new set.
+          <li>Let <var>result</var> be a set.
           </li>
           <li>Let <var>orientations</var> be the result of calling the
           [[\GetOwnProperty]] internal method of <var>manifest</var> passing
@@ -514,12 +479,13 @@ installButton.addEventListener("click", function(e){
           <li>Otherwise, for each <var>item</var> in <var>orientations</var> in
           order from first to last:
             <ol>
-              <li>If type(<var>item</var>) is not "string", ignore this
-              <var>item</var>, <a>issue a developer warning</a>, and move onto
-              the next item in <var>orientations</var> (if any).
+              <li>If <a>Type</a>(<var>item</var>) is not "string", <a>issue a
+              developer warning</a>, ignore this <var>item</var> and proceed to
+              the next.
               </li>
-              <li>Trim(<var>item</var>) and set <var>item</var> to be the
-              resulting string.
+              <li>
+                <a>Trim</a>(<var>item</var>) and set <var>item</var> to be the
+                resulting string.
               </li>
               <li>If <var>item</var> is not an orientation that the user agent
               supports, or <var>result</var> already contains <var>item</var>,
@@ -548,28 +514,25 @@ installButton.addEventListener("click", function(e){
           clicks on the icon of the web application from a device's application
           menu or homescreen). When the developer omits the
           <code>starturl</code> member from the <a>manifest</a>, the user agent
-          will instead use the <a href=
+          can use either the <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> of the
-          <code>document</code> from which the web application was bookmarked.
+          <code>document</code> from which the web application was bookmarked
+          or some other application-specific <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a>.
         </p>
         <p>
           The <a title="member-url"><code>starturl</code></a> member is purely
           advisory, and a user agent MAY <a>ignore</a> it or provide the
-          end-user the choice not to make use of it. In the case where the user
-          agent ignores the <a title="member-url"><code>starturl</code></a>
-          member, it MAY fall back to using the URL of the document from which
-          the page is being bookmarked.
-        </p>
-        <p>
-          A user agent MAY also allow the end-user to modify the URL when the
-          bookmark is being added or any time thereafter.
+          end-user the choice not to make use of it. A user agent MAY also
+          allow the end-user to modify the URL when the bookmark is being
+          created or any time thereafter.
         </p>
         <p>
           The <dfn>steps for processing the <code>starturl</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
           <a>manifest</a> <var>manifest</var> and a <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a> <var>document
-          URL</var>. This algorithm will return a <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a> <var>base
+          URL</var>. This algorithm returns a <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#valid-url">valid
           URL</a>.
         </p>
@@ -586,13 +549,13 @@ installButton.addEventListener("click", function(e){
               optionally issue a developer warning that the type is not
               supported.
               </li>
-              <li>Return <var>document URL</var>.
+              <li>Return <var>base URL</var>.
               </li>
             </ol>
           </li>
           <li>Otherwise, <a href=
           "http://url.spec.whatwg.org/#parsing">parse</a> <var>value</var>
-          using <var>document URL</var> as the base URL and return the result.
+          using <var>base URL</var> as the base URL and return the result.
           </li>
         </ol>
       </section>
@@ -631,8 +594,9 @@ installButton.addEventListener("click", function(e){
           </tr>
           <tr>
             <td>
-              <code title="rel-manifest">manifest</code>
-            </td><!-- second most used <link rel> value -->
+              <code><dfn title="rel-manifest" id=
+              "rel-manifest">manifest</dfn></code>
+            </td>
             <td>
               <a href=
               "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
@@ -642,15 +606,16 @@ installButton.addEventListener("click", function(e){
               not allowed
             </td>
             <td>
-              Imports or links to a manifest.
+              Imports or links to a <a>manifest</a>.
             </td>
           </tr>
         </table>
         <p>
-          The default media type for resources associated with the
-          <code>manifest</code> <a href=
+          The <a>media type for a manifest</a> serves as the default media type
+          for resources associated with the <code><a href=
+          "#rel-manifest">manifest</a></code> <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#linkTypes">link
-          type</a> is <code>application/manifest+json</code>.
+          type</a>.
         </p>
         <p>
           In cases where more than one <a href=
@@ -678,39 +643,11 @@ installButton.addEventListener("click", function(e){
           and scripts required by the <code>document</code>).
         </p>
         <p>
-          Certain error conditions can result in a manifest being treated as an
-          <a>invalid manifest</a>. An <dfn>invalid manifest</dfn> is one that
-          is deemed to be non-conforming in such a way that it would not be
-          possible for the user agent to continue processing (e.g., it can't be
-          parsed by the JSON parser because of syntax errors, it couldn't be
-          fetched from the network). In such a case, it is RECOMMENDED that the
-          user agent <a>issue a developer warning</a>. In either case, when a
-          step results in an <a>invalid manifest</a> the user agent MUST abort
-          whatever step or sub-step caused the condition.
+          To process a <a href=
+          "http://fetch.spec.whatwg.org/#concept-fetch">fetched</a>
+          <a>manifest</a>, the user agent MUST run the <a>steps for processing
+          a manifest</a>.
         </p>
-        <p>
-          To obtain a manifest, a user agent MUST:
-        </p>
-        <ol>
-          <li>If the <code>link</code> element lacks a <code>href</code>
-          attribute, abort this algorithm.
-          </li>
-          <li>Run the <a>steps for fetching a manifest</a>, with the value of
-          <code>href</code> attribute as the url, and let <var>response</var>
-          be the response.
-          </li>
-          <li>If response's type is "error", treat this as an <span>invalid
-          manifest</span>.
-          </li>
-          <li>Otherwise, let <var>manifest</var> be the result of running the
-          <a>steps for processing a manifest</a>.
-          </li>
-          <li>Otherwise, in a user agent specific manner, and when the end-user
-          so desires, provide a means for the end-user to view the relevant
-          contents of the <var>manifest</var>; and provide a means for the
-          end-user to create a bookmark based on that information.
-          </li>
-        </ol>
       </section>
       <section id="proprietary-extensions" class="informative">
         <h3>
@@ -718,11 +655,11 @@ installButton.addEventListener("click", function(e){
         </h3>
         <p>
           Although proprietary extensions are undesirable, they can't
-          realistically be avoided. As such, the RECOMMENDED way to add
+          realistically be avoided. As such, the RECOMMENDED way to add a
           proprietary extension is to use a vendor prefix.
         </p>
         <p>
-          This following is an example of two hypothetical vendor extensions.
+          The following is an example of two hypothetical vendor extensions.
         </p>
         <pre class="example highlight json" title="vendor extensions">
 {
@@ -731,22 +668,8 @@ installButton.addEventListener("click", function(e){
   "moz-awesome-thing": { ... }
   ...
 }
-        
 </pre>
       </section>
-    </section>
-    <section>
-      <h2>
-        Launching a standalone web application
-      </h2>
-      <p>
-        When an application is launched:
-      </p>
-      <ol>
-        <li>If the web application has a required orientation, run the
-        <span>steps for selecting the orientation</span>.
-        </li>
-      </ol>
     </section>
     <section>
       <h2>
@@ -754,26 +677,26 @@ installButton.addEventListener("click", function(e){
       </h2>
       <dl class="idl" title="partial interface Navigator">
         <dt>
-          readonly attribute DOMString? displayMode
+          readonly attribute DisplayMode? displayMode
         </dt>
         <dd>
           The <code>displayMode</code> attribute provides a means for a
-          developer to check which display mode the application is in. When
-          getting, the user agent MUST return a DOMString that represents the
-          display mode of the Web application. If the <a>display mode</a> is
-          unknow, return <code>null</code>.
+          developer to check which display mode the web application is in. When
+          getting, the user agent MUST return a <code>DisplayMode</code> that
+          represents the <a>display mode</a> of the Web application. If the
+          <a>display mode</a> is unknown, return <code>null</code>.
         </dd>
         <dt>
-          Promise requestBookmark()
+          Promise&lt;(void or DOMException)&gt; requestBookmark()
         </dt>
         <dd>
-          When invoked, the user agent MUST run the <a>steps to request to add
+          When invoked, the user agent MUST run the <a>steps to request a
           bookmark</a>.
         </dd>
       </dl>
       <p>
-        The <dfn>steps to request to add a bookmark</dfn> are given by the
-        following algorithm. The algorithm returns a promise.
+        The <dfn>steps to request a bookmark</dfn> are given by the following
+        algorithm. The algorithm returns a promise.
       </p>
       <ol>
         <li>Let <var>promise</var> be a newly-created <a>promise</a>.
@@ -789,7 +712,7 @@ installButton.addEventListener("click", function(e){
             </li>
           </ol>
         </li>
-        <li>If the document's <a>mode of operation</a> is <a>standalone</a>:
+        <li>If the <a>display mode</a> is not "browser":
           <ol>
             <li>Reject <var>promise</var> with a new <code><a href=
             "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
@@ -799,12 +722,15 @@ installButton.addEventListener("click", function(e){
             </li>
           </ol>
         </li>
-        <li>Let <var>info</var> be the result of getting a web application's
-        metadata.
+        <li>Continue the following steps asynchronously.
         </li>
-        <li>Using <var>info</var>, and in a manner that is user-agent specific,
-        allow the end user to make a choice as to whether they want to add the
-        bookmark:
+        <li>If not already acquired, asynchronously attempt to <a href=
+        "http://fetch.spec.whatwg.org/#concept-fetch">fetch</a> the manifest in
+        the manner specified in the <a href="#linking">linking</a> section of
+        this document.
+        </li>
+        <li>In a user-agent specific manner, allow the end user to make a
+        choice as to whether they want to add the bookmark:
           <ol>
             <li>If the end-user aborts the request to add the bookmark (e.g.,
             they hit escape, or press a "cancel" button), then Reject
@@ -837,12 +763,10 @@ installButton.addEventListener("click", function(e){
         </h3>
         <p>
           The <dfn>well-known manifest</dfn> is a manifest that a user agent
-          fetches in the following manner.
-        </p>
-        <p>
-          If a user agent attempts to <a>obtain a manifest from a top-level
-          document</a>, but no manifest link relationship is declared, the user
-          agent MUST attempt to <a href=
+          fetches in the following manner. If a user agent attempts to obtain a
+          manifest from a top-level document, but no <code><a href=
+          "#rel-manifest">manifest</a></code> link relationship is declared,
+          the user agent MUST attempt to <a href=
           "http://fetch.spec.whatwg.org/#concept-fetch">fetch</a> a manifest
           from the <a href=
           "http://url.spec.whatwg.org/#concept-absolute-url">absolute URL</a>
@@ -949,8 +873,8 @@ installButton.addEventListener("click", function(e){
               environment. As such, implementors need to be aware of the
               security implications for the types they support. Specifically,
               implementors need to consider the security implications outlined
-              in the [[!CSS-MIME]] specification, the [[!ECMAScript-MIME]]
-              specification, and the [[!HTML]] specification.
+              in at least the following specifications: [[!CSS-MIME]],
+              [[!ECMAScript-MIME]], [[!HTML]].
             </p>
             <p>
               As web applications can contain content that is able to
@@ -1046,15 +970,21 @@ installButton.addEventListener("click", function(e){
         There is only one class of product that can claim conformance to this
         specification: a <dfn>user agent</dfn>.
       </p>
+      <p>
+        The <a href="http://heycam.github.io/webidl/#dfn-idl-fragment">IDL
+        fragments</a> in this specification MUST be interpreted as required
+        for&nbsp;<a href=
+        "http://heycam.github.io/webidl/#dfn-conforming-idl-fragment">conforming
+        IDL fragments</a>, as described in the [[!WEBIDL]] specification.
+      </p>
     </section>
     <section class="appendix">
       <h2>
         Acknowledgments
       </h2>
       <p>
-        This document reuses text from the WHATWG [[!HTML]] specification as
-        permitted by the license of that specification. The [[!HTML]]
-        specification is edited by Ian Hickson.
+        This document reuses text from the [[!HTML]] specification, edited by
+        Ian Hickson, as permitted by the license of that specification.
       </p>
     </section>
   </body>
