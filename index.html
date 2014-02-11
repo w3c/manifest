@@ -696,7 +696,7 @@ installButton.addEventListener("click", function(e){
       </dl>
       <p>
         The <dfn>steps to request a bookmark</dfn> are given by the following
-        algorithm. The algorithm returns a promise.
+        algorithm. The algorithm returns a <a>promise</a>.
       </p>
       <ol>
         <li>Let <var>promise</var> be a newly-created <a>promise</a>.
@@ -712,12 +712,12 @@ installButton.addEventListener("click", function(e){
             </li>
           </ol>
         </li>
-        <li>If the <a>display mode</a> is not "browser":
+        <li>If this method was not invoked from a top-level document, then:
           <ol>
-            <li>Reject <var>promise</var> with a new <code><a href=
+            <li>Reject <var>promise</var> with new <code><a href=
             "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
             whose name is "<code><a href=
-            "http://dom.spec.whatwg.org/#notsupportederror">NotSupported</a></code>"
+            "http://dom.spec.whatwg.org/#wrongdocumenterror">WrongDocumentError</a></code>"
             and return.
             </li>
           </ol>
