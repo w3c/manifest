@@ -119,10 +119,22 @@
         </h3>
         <p>
           Example of using a <code>link</code> element to associate a website
-          with a <a>manifest</a>.
+          with a <a>manifest</a>. The example also shows how to use [[!HTML]]'s
+          <code>link</code> and <code>meta</code> elements to give a web
+          application a name and a set of icons.
         </p>
         <pre class="example highlight html" title="linking to a manifest">
+&lt;!doctype&gt;
+&lt;html&gt;
+&lt;title&gt;Store finder - search&lt;/title&gt;
+
+&lt;!-- Startup configuration --&gt;
 &lt;link rel="manifest" href="add_to_homescreen.json"&gt;
+
+&lt;!-- Application metadata --&gt; 
+&lt;meta name="application-name" content="Store Finder"&gt;
+&lt;link rel="icon" sizes="16x16 32x32 48x48" href="lo_def.ico"&gt;
+&lt;link rel="icon" sizes="512x512" href="hi_def.png"&gt;
 </pre>
       </section>
       <section class="informative">
