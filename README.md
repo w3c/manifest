@@ -15,7 +15,8 @@ For the first version, we aim to standardize the following:
 * A standard file name for a manifest resource (i.e., manifest.json).  
 * Start URL.
 * Screen orientation hinting for when launching the app.
-* Different display modes: fullscreen, minimal-ui, open in browser, etc.
+* Launch the app in different display modes: fullscreen, minimal-ui, open in browser, etc.
+* A way of for scripts to check if the application was launched from a bookmark (i.e., similar to Safari's navigator.standalone). 
 
 
 ## Goals for v2 and beyond
