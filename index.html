@@ -569,7 +569,7 @@ installButton.addEventListener("click", function(e){
           "http://url.spec.whatwg.org/#parsing">parsing</a> <var>value</var>
           using <var>base URL</var> as the base URL.
           </li>
-          <li>If <var>potential URL</var> resulted in a failure, return
+          <li>If <var>potential URL</var> is failure, return
           <var>base URL</var>.
           </li>
           <li>Otherwise, return <var>potential URL</var>.
@@ -704,7 +704,7 @@ installButton.addEventListener("click", function(e){
           <a>display mode</a> is unknown, return <code>null</code>.
         </dd>
         <dt>
-          Promise&lt;(void or DOMException)&gt; requestBookmark()
+          Promise&lt;(undefined)&gt; requestBookmark()
         </dt>
         <dd>
           When invoked, the user agent MUST run the <a>steps to request a
