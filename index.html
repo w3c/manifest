@@ -70,8 +70,8 @@
       </p>
       <p>
         This specification also defines an API for requesting that a web
-        application is to be bookmarked, as well as a means for checking the
-        <a>display mode</a> of the web application.
+        application is to be bookmarked, as well as a means for checking is the
+        web application was launched from a bookmark.
       </p>
       <p>
         In addition, this specification defines the <code>manifest</code> link
@@ -143,13 +143,13 @@
           Using the API
         </h3>
         <p>
-          This example shows how to check if the <a>display mode</a> of the web
-          application is "<a href="#standalone">standalone</a>".
+          This example shows how to check if the application was launched from
+          a bookmark.
         </p>
         <pre class="example highlight html" title="detecting standalone mode">
 &lt;script&gt;
-if (navigator.displayMode === "standalone") {
-   //Do standalone specific stuff...
+if (navigator.isHosted) {
+   //Do installed application specific stuff...
    document.documentElement.classList.add("standalone");
 }
 &lt;/script&gt;
@@ -249,27 +249,8 @@ installButton.addEventListener("click", function(e){
         the <a>default display mode</a>.
       </p>
       <p>
-        The <code><a href="#idl-def-DisplayMode">DisplayMode</a></code>
-        enumeration is used to select the <a>display mode</a>. The possible
-        values are as follows:
+        The <dfn>display modes values</dfn> are as follows:
       </p>
-      <dl class="idl" title="enum DisplayMode">
-        <dt>
-          <dfn>browser</dfn>
-        </dt>
-        <dt>
-          <dfn>standalone</dfn>
-        </dt>
-        <dt>
-          <dfn>fullscreen</dfn>
-        </dt>
-        <dt>
-          <dfn>minimal-ui</dfn>
-        </dt>
-        <dt>
-          <dfn>unknown</dfn>
-        </dt>
-      </dl>
       <dl>
         <dt>
           "<code id="dm-browser">browser</code>"
@@ -392,7 +373,8 @@ installButton.addEventListener("click", function(e){
         </h3>
         <p>
           The <code>display</code> member is an <a href="#json-array">array</a>
-          of <a href="#json-string">strings</a>, whose items represent the
+          of <a href="#json-string">strings</a>, whose items are one or more
+          <a>display modes values</a>. The items represent a developer's
           preferred <a title="display mode">display modes</a> for the web
           application. Order in the <a href="#json-array">array</a> is
           significant, with the first item being the developer's most
@@ -719,76 +701,97 @@ installButton.addEventListener("click", function(e){
       </h2>
       <dl class="idl" title="partial interface Navigator">
         <dt>
-          readonly attribute DisplayMode displayMode
+          readonly attribute boolean isHosted
         </dt>
         <dt>
           Promise&lt;(undefined)&gt; requestBookmark()
         </dt>
       </dl>
-      <p>
-        On getting, the <code>displayMode</code> attribute MUST return a
-        <code>DisplayMode</code> that represents the <a>display mode</a> of the
-        web application.
-      </p>
-      <p>
-        When the <code>requestBookmark()</code> method is invoked, the user
-        agent MUST run the <a>steps to request a bookmark</a>.
-      </p>
-      <p>
-        The <dfn>steps to request a bookmark</dfn> are given by the following
-        algorithm. The algorithm returns a <a>promise</a>.
-      </p>
-      <ol>
-        <li>Let <var>promise</var> be a newly-created <a>promise</a>.
-        </li>
-        <li>If this method was not invoked as a result of explicit user action,
-        then:
-          <ol>
-            <li>Reject <var>promise</var> with new <code><a href=
-            "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
-            whose name is "<code><a href=
-            "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>"
-            and return.
-            </li>
-          </ol>
-        </li>
-        <li>If this method was not invoked from a top-level document of the
-        browsing context, then:
-          <ol>
-            <li>Reject <var>promise</var> with new <code><a href=
-            "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
-            whose name is "<code><a href=
-            "http://dom.spec.whatwg.org/#wrongdocumenterror">WrongDocumentError</a></code>"
-            and return.
-            </li>
-          </ol>
-        </li>
-        <li>Continue the following steps asynchronously.
-        </li>
-        <li>If not already acquired, asynchronously attempt to <a href=
-        "http://fetch.spec.whatwg.org/#concept-fetch">fetch</a> the manifest in
-        the manner specified in the <a href="#linking">linking</a> section of
-        this document.
-        </li>
-        <li>In a user-agent specific manner, allow the end user to make a
-        choice as to whether they want to add the bookmark:
-          <ol>
-            <li>If the end-user aborts the request to add the bookmark (e.g.,
-            they hit escape, or press a "cancel" button), then Reject
-            <var>promise</var> with a new <code><a href=
-            "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
-            whose name is "<code><a href=
-            "http://dom.spec.whatwg.org/#aborterror">AbortError</a></code>" and
-            return.
-            </li>
-            <li>Otherwise, resolve <var>promise</var> with
-            <code>undefined</code>.
-            </li>
-          </ol>
-        </li>
-        <li>Return <var>promise</var>.
-        </li>
-      </ol>
+      <section>
+        <h3>
+          <code>isHosted</code> attribute
+        </h3>
+        <p>
+          The <code><dfn id="widl-Navigator-isHosted">isHosted</dfn></code>
+          attribute indicates if the web application was launched from a
+          bookmark.
+        </p>
+        <p>
+          On getting the <code>isHosted</code> attribute, the user agent MUST
+          return <code>true</code> if the web application was launched from a
+          bookmark, or <code>false</code> otherwise.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <code>requestBookmark()</code> method
+        </h3>
+        <p>
+          The <code><dfn id=
+          "widl-Navigator-requestBookmark-Promise--undefined">requestBookmark()</dfn></code>
+          method provides a way for scripts to ask the user if they would like
+          to bookmark the web application.
+        </p>
+        <p>
+          When the <code>requestBookmark()</code> method is invoked, the user
+          agent MUST run the <a>steps to request a bookmark</a>.
+        </p>
+        <p>
+          The <dfn>steps to request a bookmark</dfn> are given by the following
+          algorithm. The algorithm returns a <a>promise</a>.
+        </p>
+        <ol>
+          <li>Let <var>promise</var> be a newly-created <a>promise</a>.
+          </li>
+          <li>If this method was not invoked as a result of explicit user
+          action, then:
+            <ol>
+              <li>Reject <var>promise</var> with new <code><a href=
+              "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
+              whose name is "<code><a href=
+              "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>"
+              and return.
+              </li>
+            </ol>
+          </li>
+          <li>If this method was not invoked from a top-level document of the
+          browsing context, then:
+            <ol>
+              <li>Reject <var>promise</var> with new <code><a href=
+              "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
+              whose name is "<code><a href=
+              "http://dom.spec.whatwg.org/#wrongdocumenterror">WrongDocumentError</a></code>"
+              and return.
+              </li>
+            </ol>
+          </li>
+          <li>Continue the following steps asynchronously.
+          </li>
+          <li>If not already acquired, asynchronously attempt to <a href=
+          "http://fetch.spec.whatwg.org/#concept-fetch">fetch</a> the manifest
+          in the manner specified in the <a href="#linking">linking</a> section
+          of this document.
+          </li>
+          <li>In a user-agent specific manner, allow the end user to make a
+          choice as to whether they want to add the bookmark:
+            <ol>
+              <li>If the end-user aborts the request to add the bookmark (e.g.,
+              they hit escape, or press a "cancel" button), then Reject
+              <var>promise</var> with a new <code><a href=
+              "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
+              whose name is "<code><a href=
+              "http://dom.spec.whatwg.org/#aborterror">AbortError</a></code>"
+              and return.
+              </li>
+              <li>Otherwise, resolve <var>promise</var> with
+              <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>promise</var>.
+          </li>
+        </ol>
+      </section>
     </section>
     <section>
       <h2>
