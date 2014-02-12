@@ -36,6 +36,7 @@
     wgURI: 'http://www.w3.org/2008/webapps/',
     wgPublicList: 'public-webapps',
     wgPatentURI: 'http://www.w3.org/2004/01/pp-impl/42538/status',
+    noLegacyStyle: true,
     otherLinks: [
         {
         key: 'Repository',
@@ -60,7 +61,7 @@
         developers with a centralized place to declare startup parameters and
         application defaults. This includes, but is not limited to, declaring
         the default orientation for a web application as well as how the
-        application is to be displayed when launched (e.g., fullscreen).
+        application is to be displayed when launched (e.g., in fullscreen).
       </p>
       <p>
         Using this data, user agents can provide developers with a means to
@@ -69,7 +70,7 @@
       </p>
       <p>
         This specification also defines an API for requesting that a web
-        application be bookmarked, as well as a means for checking the
+        application is to be bookmarked, as well as a means for checking the
         <a>display mode</a> of the web application.
       </p>
       <p>
@@ -86,7 +87,7 @@
         incompatible ways.</strong> Vendors interested in implementing this
         specification before it eventually reaches the Candidate Recommendation
         phase should join the aforementioned mailing lists, or <a href=
-        "'https://github.com/w3c/manifest">subscribe to the repository on
+        "https://github.com/w3c/manifest">subscribe to the repository on
         GitHub</a>, and take part in the discussions.
       </p>
     </section>
@@ -156,7 +157,7 @@ if (navigator.displayMode === "standalone") {
       </section>
       <section class="informative">
         <h3>
-          Requesting the document be bookmarked
+          Requesting the document to be bookmarked
         </h3>
         <p>
           The following example shows how a developer can ask a user to
@@ -240,33 +241,50 @@ installButton.addEventListener("click", function(e){
         functionality in use on a given platform.
       </p>
       <p>
-        The display modes, as well as hints as to what kind of experience they
-        are intended to provide when a web application is opened from a
-        bookmark, are defined as part of the <code><a href=
-        "#idl-def-DisplayMode">DisplayMode</a></code> enumeration type.
-      </p>
-      <p>
-        Once a user agent applies a particular display mode to a web
-        application, it becomes that applications <dfn>default display
-        mode</dfn> for the lifetime of the application (i.e., it is used as the
+        Once a user agent applies a particular <a>display mode</a> to a web
+        application, it becomes the <dfn>default display mode</dfn> for the
+        top-level document of the browsing context (i.e., it is used as the
         display mode for all top-level documents to which the window is
         navigated). Other specifications, as well as the end user, MAY override
         the <a>default display mode</a>.
       </p>
+      <p>
+        The <code><a href="#idl-def-DisplayMode">DisplayMode</a></code>
+        enumeration is used to select the <a>display mode</a>. The possible
+        values are as follows:
+      </p>
       <dl class="idl" title="enum DisplayMode">
         <dt>
-          <dfn id="dm-browser">browser</dfn>
+          <dfn>browser</dfn>
+        </dt>
+        <dt>
+          <dfn>standalone</dfn>
+        </dt>
+        <dt>
+          <dfn>fullscreen</dfn>
+        </dt>
+        <dt>
+          <dfn>minimal-ui</dfn>
+        </dt>
+        <dt>
+          <dfn>unknown</dfn>
+        </dt>
+      </dl>
+      <dl>
+        <dt>
+          "<code id="dm-browser">browser</code>"
         </dt>
         <dd>
-          Open the web application using whatever is the normal convention for
+          Opens the web application using the platform-specific convention for
           opening hyperlinks in the user agent (e.g., in a browser tab or a new
           window). The <code>browser</code> display mode is the <dfn>fallback
-          display mode</dfn> for when the developer does not declare one in the
-          manifest, or for when none of the developer's preferred <a title=
-          "display mode">display modes</a> are supported by the user agent.
+          display mode</dfn> to be used as the default if there is no valid
+          <code>display</code> member in the manifest, or none of the preferred
+          <a title="display mode">display modes</a> are supported by the user
+          agent.
         </dd>
         <dt>
-          <dfn id="dm-standalone">standalone</dfn>
+          "<code id="dm-standalone">standalone</code>"
         </dt>
         <dd>
           Opens the web application without UI elements for controlling
@@ -275,14 +293,14 @@ installButton.addEventListener("click", function(e){
           standalone window outside the browser.
         </dd>
         <dt>
-          <dfn id="dm-fullscreen">fullscreen</dfn>
+          "<code id="dm-fullscreen">fullscreen</code>"
         </dt>
         <dd>
           Opens the web application without any user agent&nbsp;chrome and
-          taking up the entirety of the available display area.
+          takes up the entirety of the available display area.
         </dd>
         <dt>
-          <dfn id="dm-minimal-ui">minimal-ui</dfn>
+          "<code id="dm-minimal-ui">minimal-ui</code>"
         </dt>
         <dd>
           Same as <a href="#dm-standalone">standalone</a>, but provides the
@@ -292,8 +310,13 @@ installButton.addEventListener("click", function(e){
           other platform specific UI elements, such as "share" and "print"
           buttons or whatever is customary on the platform and/or user agent.
         </dd>
-        <dt><dfn>unknown</dfn></dt>
-        <dd>The display mode is unknown to the user agent. </dd>
+        <dt>
+          "<code id="dm-unknown">unknown</code>"
+        </dt>
+        <dd>
+          The display mode is unknown to the user agent, or the user agent does
+          not provide the information, e.g. for privacy reasons.
+        </dd>
       </dl>
     </section>
     <section>
@@ -359,7 +382,7 @@ installButton.addEventListener("click", function(e){
           </li>
           <li>From <var>orientations</var>, select a suitable orientation for
           the application and let that serve as the <var>default
-          orientation</var> for the life of the web application.
+          orientation</var> as long as the application exists.
           </li>
         </ol>
       </section>
@@ -439,7 +462,7 @@ installButton.addEventListener("click", function(e){
           within the array is significant, with the first item being the
           developer's most preferred, followed by the next most preferred and
           so forth. When the <a><code>default_orientation</code></a> member is
-          missing, , or all the declared items are unsupported, the user agent
+          missing, or all the declared items are unsupported, the user agent
           provides an implementation-specific default orientation for the web
           application.
         </p>
@@ -527,8 +550,8 @@ installButton.addEventListener("click", function(e){
           load</a> when the user activates a bookmark (e.g., when the user
           clicks on the icon of the web application from a device's application
           menu or homescreen). When the developer omits the
-          <code>start_url</code> member from the <a>manifest</a>, the user agent
-          can use either the <a href=
+          <code>start_url</code> member from the <a>manifest</a>, the user
+          agent can use either the <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> of the
           <code>document</code> from which the web application was bookmarked
           or some other application-specific <a href=
@@ -571,8 +594,8 @@ installButton.addEventListener("click", function(e){
           "http://url.spec.whatwg.org/#parsing">parsing</a> <var>value</var>
           using <var>base URL</var> as the base URL.
           </li>
-          <li>If <var>potential URL</var> is failure, return
-          <var>base URL</var>.
+          <li>If <var>potential URL</var> is failure, return <var>base
+          URL</var>.
           </li>
           <li>Otherwise, return <var>potential URL</var>.
           </li>
@@ -696,23 +719,21 @@ installButton.addEventListener("click", function(e){
       </h2>
       <dl class="idl" title="partial interface Navigator">
         <dt>
-          readonly attribute DisplayMode? displayMode
+          readonly attribute DisplayMode displayMode
         </dt>
-        <dd>
-          The <code>displayMode</code> attribute provides a means for a
-          developer to check which display mode the web application is in. When
-          getting, the user agent MUST return a <code>DisplayMode</code> that
-          represents the <a>display mode</a> of the Web application. If the
-          <a>display mode</a> is unknown, return <code>null</code>.
-        </dd>
         <dt>
           Promise&lt;(undefined)&gt; requestBookmark()
         </dt>
-        <dd>
-          When invoked, the user agent MUST run the <a>steps to request a
-          bookmark</a>.
-        </dd>
       </dl>
+      <p>
+        On getting, the <code>displayMode</code> attribute MUST return a
+        <code>DisplayMode</code> that represents the <a>display mode</a> of the
+        web application.
+      </p>
+      <p>
+        When the <code>requestBookmark()</code> method is invoked, the user
+        agent MUST run the <a>steps to request a bookmark</a>.
+      </p>
       <p>
         The <dfn>steps to request a bookmark</dfn> are given by the following
         algorithm. The algorithm returns a <a>promise</a>.
@@ -731,7 +752,8 @@ installButton.addEventListener("click", function(e){
             </li>
           </ol>
         </li>
-        <li>If this method was not invoked from a top-level document, then:
+        <li>If this method was not invoked from a top-level document of the
+        browsing context, then:
           <ol>
             <li>Reject <var>promise</var> with new <code><a href=
             "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
