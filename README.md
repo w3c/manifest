@@ -13,10 +13,20 @@ For the first version, we aim to standardize the following:
 
 * A link relationship for manifests (so they can be used with `<link>`).
 * A standard file name for a manifest resource (i.e., manifest.json).  
-* Launch URL.
-* Application's name.
+* Start URL.
 * Screen orientation hinting for when launching the app.
-* Fullscreen at launch.
-* Open in browser vs. open as "standalone".
-* For standalone, enabling back-button and other UI (e.g., `minimal-ui`).
+* Launch the app in different display modes: fullscreen, minimal-ui, open in browser, etc.
+* A way of for scripts to check if the application was launched from a bookmark (i.e., similar to Safari's navigator.standalone). 
+* Application's name and icons - and how they interact with HTML equivs.
 
+## Goals for v2 and beyond
+* Media query based orientation and display mode.
+* CSS media features for display modes - `@media all and (display-mode: browser)`.
+* [Define how navigation works](https://github.com/w3c/manifest/issues/142).
+* URL scope for a web application (i.e., "foo.com/bar/*" is my app, other stuff opens in default browser).
+* Service Worker intergration
+* CSP policy tightening
+* Updatable manifests - update the installed application to enable new capabilities after install.
+* [Clarify how this works with HTTP's Link header](https://github.com/w3c/manifest/issues/98).
+* [Inline manifests](https://github.com/w3c/manifest/issues/91) (or HTML meta equivs?).
+* [Splash screens](https://github.com/w3c/manifest/issues/9) (or prerendered pages that serve as one?).
