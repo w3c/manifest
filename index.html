@@ -107,7 +107,7 @@
         </p>
         <pre class="example highlight json" title="typical manifest">
 {
-  "startURL": "/start.html",
+  "start-url": "/start.html",
   "display": ["fullscreen"],
   "default-orientation": ["landscape"]
 }
@@ -340,7 +340,7 @@ installButton.addEventListener("click", function(e){
             </ol>
           </li>
           <li>Let <var>start url</var> be the result of running the <a>steps
-          for processing the <code>startURL</code> member</a>, with either the
+          for processing the <code>start-url</code> member</a>, with either the
           <code>document</code>'s URL or an application-specific URL (e.g.,
           "app://") as the <var>base URL</var>.
           </li>
@@ -514,10 +514,10 @@ installButton.addEventListener("click", function(e){
       </section>
       <section>
         <h3>
-          <code>startURL</code> member
+          <code>start-url</code> member
         </h3>
         <p>
-          The <dfn title="member-url">startURL</dfn> member is a <a title=
+          The <dfn title="member-url">start-url</dfn> member is a <a title=
           "json-string">string</a> that represents the <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> that the developer
           would prefer the user agent <a href=
@@ -525,7 +525,7 @@ installButton.addEventListener("click", function(e){
           load</a> when the user activates a bookmark (e.g., when the user
           clicks on the icon of the web application from a device's application
           menu or homescreen). When the developer omits the
-          <code>startURL</code> member from the <a>manifest</a>, the user agent
+          <code>start-url</code> member from the <a>manifest</a>, the user agent
           can use either the <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> of the
           <code>document</code> from which the web application was bookmarked
@@ -533,14 +533,14 @@ installButton.addEventListener("click", function(e){
           "http://url.spec.whatwg.org/#concept-url">URL</a>.
         </p>
         <p>
-          The <a title="member-url"><code>startURL</code></a> member is purely
+          The <a title="member-url"><code>start-url</code></a> member is purely
           advisory, and a user agent MAY <a>ignore</a> it or provide the
           end-user the choice not to make use of it. A user agent MAY also
           allow the end-user to modify the URL when the bookmark is being
           created or any time thereafter.
         </p>
         <p>
-          The <dfn>steps for processing the <code>startURL</code> member</dfn>
+          The <dfn>steps for processing the <code>start-url</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
           <a>manifest</a> <var>manifest</var> and a <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> <var>base
