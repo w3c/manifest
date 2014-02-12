@@ -11,7 +11,7 @@ the [Web Applications Working Group](http://www.w3.org/2008/webapps/).
 
 For the first version, we aim to standardize the following: 
 
-*A link relationship for manifests (so they can be used with `<link>`).
+* A link relationship for manifests (so they can be used with `<link>`).
 * A standard file name for a manifest resource (i.e., manifest.json).  
 * Start URL.
 * Screen orientation hinting for when launching the app.
