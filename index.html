@@ -852,6 +852,179 @@ installButton.addEventListener("click", function(e){
     </section>
     <section>
       <h2>
+	Icon object and its members
+      </h2>
+      <p>
+	Each <dfn>icon object</dfn> represents an icon for an application
+	suitable to use in various contexts (e.g., an application menu).
+      </p>
+      <p>
+	<span class="note">For all intents and purposes, an <a>icon object</a>
+	is functionally equivalent to <code>link</code> element whose
+	<code>rel</code> attribute is icon in a <code>document</code>.</span>
+      </p>
+      <section>
+	<h3>
+	  <code>sizes</code> member
+	</h3>
+	<p>
+	  The <dfn title="icon-sizes">sizes</dfn> member is a <a title=
+	  "json-string">string</a> consisting of an&nbsp;<a href=
+	  "http://www.whatwg.org/specs/web-apps/current-work/#unordered-set-of-unique-space-separated-tokens">unordered
+	  set of unique space-separated tokens</a>&nbsp;which are&nbsp;<a href=
+	  "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">ASCII
+	  case-insensitive</a> that represents the dimensions of an icon for
+	  visual media. Each keyword is either an&nbsp;<a href=
+	  "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">ASCII
+	  case-insensitive</a>&nbsp;match for the string "<a href=
+	  "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes-any">any</a>",
+	  or a value that consists of two&nbsp;<a href=
+	  "http://www.whatwg.org/specs/web-apps/current-work/#valid-non-negative-integer"
+	  title="valid non-negative integer">valid non-negative
+	  integers</a>&nbsp;that do not have a leading U+0030 DIGIT ZERO (0)
+	  character and that are separated by a single U+0078 LATIN SMALL
+	  LETTER X or U+0058 LATIN CAPITAL LETTER X character. The keywords
+	  represent icon sizes in raw pixels (as opposed to CSS pixels). When
+	  multiple <a title="icon object">icon objects</a> are available, a
+	  user agent can use the value to decide which icon is most suitable
+	  for a display context (and ignore any that are inappropriate).
+	</p>
+	<p>
+	  The <dfn>steps for processing a <code>sizes</code> member of an
+	  icon</dfn> are given by the following algorithm. The algorithm takes
+	  an <a>icon object</a> <var>icon</var>. This algorithm will return a
+	  set.
+	</p>
+	<ol>
+	  <li>Let <var>sizes</var> be an empty set.
+	  </li>
+	  <li>Let <var>value</var> be the result of calling the
+	  [[\GetOwnProperty]] internal method of <var>icon</var> passing <var>
+	    key</var> as the argument.
+	  </li>
+	  <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+	  </li>
+	  <li>If <var>type</var> is not "string", then:
+	    <ol>
+	      <li>If <var>type</var> is not "<code>undefined</code>", issue a
+	      developer warning that the type is not supported.
+	      </li>
+	    </ol>
+	  </li>
+	  <li>Otherwise, parse <var>value</var> as if it was a [[!HTML]] <code>
+	    <a href=
+	    "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes">
+	    sizes</a></code> attribute. For each resulting <var>keyword</var>:
+	    <ol>
+	      <li>Convert <var>keyword</var> <a href=
+	      "http://www.whatwg.org/specs/web-apps/current-work/#converted-to-ascii-lowercase">
+		to ASCII lowercase</a>.
+	      </li>
+	      <li>If <var>sizes</var> doesn't already contain
+	      <var>keyword</var>, then add the resulting <var>keyword</var> to
+	      <var>sizes</var>.
+	      </li>
+	    </ol>
+	  </li>
+	  <li>Return <var>sizes.</var>
+	  </li>
+	</ol>
+      </section>
+      <section>
+	<h3>
+	  <code>src</code> member
+	</h3>
+	<p>
+	  The <dfn title="icon-density">src</dfn> member of an icon is a URL
+	  from which a user agent can fetch the icon's data.
+	</p>
+	<p>
+	  The <dfn>steps for processing the <code>src</code> member of an
+	  icon</dfn> are given by the following algorithm. The algorithm takes
+	  a <a>icon object</a> <var>icon</var>, and a <a href=
+	  "http://url.spec.whatwg.org/#concept-url">URL</a> <var>manifest
+	  URL</var>, which is the URL from which the <var>manifest</var> was
+	  fetched. This algorithm will return a <a href=
+	  "http://url.spec.whatwg.org/#concept-url">URL</a> or
+	  <code>undefined</code>.
+	</p>
+	<ol>
+	  <li>Let <var>value</var> be the result of calling the
+	  [[\GetOwnProperty]] internal method of <var>icon</var> passing
+	  "<code>src</code>" as the argument.
+	  </li>
+	  <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+	  </li>
+	  <li>If <var>type</var> is not "string", then:
+	    <ol>
+	      <li>If <var>type</var> is not "<code>undefined</code>", issue a
+	      developer warning that the type is not supported.
+	      </li>
+	      <li>Return <code>undefined</code>.
+	      </li>
+	    </ol>
+	  </li>
+	  <li>
+	    <a href="http://url.spec.whatwg.org/#parsing">Parse</a>
+	    <var>value</var> using <var>manifest URL</var> as the base URL and
+	    return the result.
+	  </li>
+	</ol>
+      </section>
+      <section>
+	<h3>
+	  <code>type</code> member
+	</h3>
+	<p>
+	  The <dfn title="icon-type">type</dfn> member of an icon is a hint as
+	  to the media type of the icon. The purpose of this member is to allow
+	  a user agent to ignore icons of media types it does not support.
+	</p>
+	<p>
+	  There is no default MIME type for icon objects. However, for the
+	  purposes of&nbsp;<a href=
+	  "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-type-sniffing">determining
+	  the type of the resource</a>, user agents must expect the resource to
+	  be an image.
+	</p>
+	<p>
+	  The <dfn>steps for processing the <code>type</code> member of an
+	  icon</dfn> are given by the following algorithm. The algorithm takes
+	  an <var>icon</var> object as an argument, and returns either a string
+	  or <code>undefined</code>.
+	</p>
+	<ol>
+	  <li>Let <var>value</var> be the result of calling the
+	  [[\GetOwnProperty]] internal method of <var>potential icon</var>
+	  passing "<code>type</code>" as the argument.
+	  </li>
+	  <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+	  </li>
+	  <li>If <var>type</var> is not "string", then:
+	    <ol>
+	      <li>If <var>type</var> is not "<code>undefined</code>", issue a
+	      developer warning that the type is not supported.
+	      </li>
+	      <li>Return <code>undefined</code>.
+	      </li>
+	    </ol>
+	  </li>
+	  <li>Trim(<var>value</var>) and set <var>value</var> to be resulting
+	  string.
+	  </li>
+	  <li>If <var>value</var> is not a <a href=
+	  "http://www.whatwg.org/specs/web-apps/current-work/#valid-mime-type">
+	    valid MIME type</a> or the value of <var>type</var> is not a
+	    supported media format, issue a developer warning and return
+	    <code>undefined</code>.
+	  </li>
+	  <li>Return <var>value</var>.
+	  </li>
+	</ol>
+      </section>
+    </section>
+    <section>
+      <h2>
         Extensions to the <code>Navigator</code> object
       </h2>
       <dl class="idl" title="partial interface Navigator">
