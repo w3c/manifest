@@ -374,6 +374,64 @@ installButton.addEventListener("click", function(e){
       </section>
       <section>
         <h3>
+	  <code title="">name</code> member
+	</h3>
+	<p>
+	  The <dfn id="member-name"><code>name</code></dfn> member is a
+	  <a title="json-string">string</a> that represents the name of the web
+	  application as it is usually displayed to the user (e.g., amongst a
+	  list of other applications, or as a label for an icon).
+	</p>
+	<p class="note">
+	  For all intents and purposes, the <code><a href=
+	  "#member-name">name</a></code> member is functionally equivalent to
+	  having a <code><a href=
+	  "http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
+	  meta</a></code> element whose <a href=
+	  "http://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name">name</a>
+	  attribute is <a href=
+	  "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
+	  <code>application-name</code></a> in a document.
+	</p>
+	<p>
+	  The <dfn>steps for processing the name member</dfn> is given by the
+	  following algorithm. The algorithm takes a <var>manifest</var> as an
+	  argument. This algorithm will return a string.
+	</p>
+	<ol>
+	  <li>Let <var>value</var> be the result of calling the
+	  [[\GetOwnProperty]] internal method of <var>manifest</var> with
+	  argument "name".
+	  </li>
+	  <li>If <a>Type</a>(<var>value</var>) is not "string" or if
+	  <a>Trim</a>(value) is the empty string:
+	    <ol>
+	      <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+	      optionally <a>issue a developer warning</a> that the type is not
+	      supported.
+	      </li>
+	      <li>If bookmarking was initiated from a web page, and the <code>
+		document</code> has any <code><a href=
+		"http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
+		meta</a></code> elements whose <a href=
+		"http://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name">
+		name</a> attribute matches <code><a href=
+		"http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
+		application-name</a></code>, then process those elements as per
+		[[!HTML]] and return the application name found.
+	      </li>
+	      <li>Otherwise, return an implementation specific string that can
+	      serve as a suitable name for the web application. This MAY
+	      include using the document's title [[!HTML]].
+	      </li>
+	    </ol>
+	  </li>
+	  <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+	  </li>
+	</ol>
+      </section>
+      <section>
+	<h3>
           <code>display</code> member
         </h3>
         <p>
