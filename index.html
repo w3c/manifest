@@ -432,9 +432,101 @@ installButton.addEventListener("click", function(e){
       </section>
       <section>
 	<h3>
-          <code>display</code> member
-        </h3>
-        <p>
+	  <code title="">icons</code> member
+	</h3>
+	<p>
+	  The <dfn id="member-icons">icons</dfn> is an <a title=
+	  "json-array">array</a> of <a title="icon object">icon objects</a>
+	  that can serve as iconic representations of the web application in
+	  various contexts. For example, they can be used to represent the web
+	  application amongst a list of other applications, or to integrate the
+	  web application with an <abbr title="operating system">OS</abbr>'s
+	  task switcher and/or system preferences.
+	</p>
+	<p>
+	  Note: If the web application is bookmarked from a
+	  <code>document</code>, the icons in the manifest override any icons
+	  listed in the HTML <code>document</code> (i.e., via link elements
+	  whole relationship is icon). However, if no icons are listed in the
+	  manifest (or none of them are found to be suitable during
+	  processing), the user agent will fall back to trying to use any found
+	  in the HTML document. This fall back behavior is enforced during the
+	  <a>steps for processing a manifest instead of this section</a>.
+	</p>
+	<p>
+	  The <dfn>steps for processing the <code>icons</code> member</dfn> are
+	  given by the following algorithm. The algorithm takes a manifest, and
+	  a <a href="http://url.spec.whatwg.org/#concept-url">URL</a>
+	  <var>manifest URL</var>, which is the URL from which the
+	  <var>manifest</var> was fetched. This algorithm will return a list of
+	  icons objects <var>icons</var>, which can be empty.
+	</p>
+	<ol>
+	  <li>Let <var>icons</var> be an empty list.
+	  </li>
+	  <li>Let <var>unprocessed icons</var> be the result of calling the
+	  [[\GetOwnProperty]] internal method of <var>manifest</var> with
+	  argument "<code>icons</code>".
+	  </li>
+	  <li>If <var>unprocessed icons</var> is an <a title=
+	  "json-array">array</a>, then for each <var>potential icon</var> in
+	  the array:
+	    <ol>
+	      <li>Let <var>src</var> be the result of running the <a>steps for
+	      processing the <code>src</code> member of an icon</a> with <var>
+		potential icon</var> and <var>manifest URL</var>.
+	      </li>
+	      <li>If <var>src</var> is <code>undefined</code>, move onto the
+	      next item in <var>icons</var> (if any are left).
+	      </li>
+	      <li>Let <var>type</var> be the result of running the <a>steps for
+	      processing the <code>type</code> member of an icon</a> passing
+	      <var>potential icon</var>.
+	      </li>
+	      <li>If <var>type</var> is an error, move onto the next item in
+	      <var>orientations</var> (if any are left).
+	      </li>
+	      <li>Let <var>sizes</var> be the list that result from running the
+	      <a>steps for processing the <code>sizes</code> member of an
+	      icon</a> passing <var>potential icon</var>.
+	      </li>
+	      <li>Let <var>icon</var> be an object with properties
+	      <code>src</code>, <code>type</code>, <code>sizes</code>, whose
+	      values are <var>src</var>, <var>type</var> and <var>sizes</var>
+	      respectively.
+	      </li>
+	      <li>Append <var>icon</var> to <var>icons</var>.
+	      </li>
+	    </ol>
+	  </li>
+	  <li>Otherwise, if <var>unprocessed icons</var> is not an <a title=
+	  "json-array">array</a>:
+	    <ol>
+	      <li>
+		<a>Issue a developer warning</a> that the type is not
+		supported.
+	      </li>
+	    </ol>
+	  </li>
+	  <li>Return <var>icons</var>.
+	  </li>
+	</ol>
+	<p>
+	  If there are multiple equally appropriate icons in <var>icons</var>,
+	  a user agent MUST use the last one declared in order at the time that
+	  the user agent collected the list of <var>icons</var>. If the user
+	  agent tries to use an icon but that icon is determined, upon closer
+	  examination, to in fact be inappropriate (e.g. because its content
+	  type is not supported), then the user agent MUST try the
+	  next-most-appropriate icon as determined by examining the <a title=
+	  "icon object">icon object's</a> members.
+	</p>
+      </section>
+      <section>
+	<h3>
+	  <code>display</code> member
+	</h3>
+	<p>
           The <code>display</code> member is an <a href="#json-array">array</a>
           of <a href="#json-string">strings</a>, whose items are one or more
           <a>display modes values</a>. The items represent a developer's
