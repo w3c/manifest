@@ -62,7 +62,7 @@
         web application. This includes, but is not limited to, the name of the
         web application, links to icons, as well as the preferred URL at which
         the web application should open when it is launched by the user. The
-        manifest also allows developers the default orientation for their web
+        manifest also allows developers to declare a default orientation for their web
         application, as well as how the application is to be displayed when
         launched (e.g., in fullscreen).
       </p>
@@ -440,7 +440,7 @@ installButton.addEventListener("click", function(e){
                 "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
                 application-name</a></code>, then process those elements as per
                 [[!HTML]] and return the application name found. Using the
-                value of the document's <code>title</code> is also suitable.
+                value of the <code>document</code>'s title is also suitable.
               </li>
               <li>If no suitable <var>name</var> is found in the top-level
               document, or the user agent <a>obtained a manifest directly</a>,
@@ -449,7 +449,26 @@ installButton.addEventListener("click", function(e){
               </li>
             </ol>
           </li>
-          <li>dd
+          <li>Let <var>icons</var> be the result of running the <a>steps for
+          processing the <code>icons</code> member</a>.
+          </li>
+          <li>If <var>icons</var> contains no items:
+            <ol>
+              <li>If the user agent <a>obtained a manifest from a top-level
+              document</a>, attempt to derive the icons for the Web
+              application&nbsp;from the top-level document. For example, if
+              bookmarking was initiated from a [[!HTML]] <code>document</code>,
+              icon link relationships, or a <code>favicon.ico</code>, can serve as
+              suitable fallbacks. </li>
+              <li>If no suitable icons are found in the top-level document, or
+              the user agent <a>obtained a manifest directly</a>, then provide
+              implementation specific icon or icons that can serve as suitable
+              icons for the web application.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, treat <var>icons</var> as the <dfn>default icons for the web
+          application</dfn>.
           </li>
         </ol>
       </section>
@@ -512,11 +531,10 @@ installButton.addEventListener("click", function(e){
           task switcher and/or system preferences.
         </p>
         <p>
-          Note: If the web application is bookmarked from a
-          <code>document</code>, the icons in the manifest override any icons
-          listed in the HTML <code>document</code> (i.e., via link elements
-          whole relationship is icon). However, if no icons are listed in the
-          manifest (or none of them are found to be suitable during
+          Note: If the user agent <a>obtained a manifest from a top-level
+          document</a>, the icons in the manifest override any icons listed in
+          the [[!HTML] <code>document</code>. However, if no icons are listed
+          in the manifest (or none of them are found to be suitable during
           processing), the user agent will fall back to trying to use any found
           in the HTML document. This fall back behavior is enforced during the
           <a>steps for processing a manifest instead of this section</a>.
