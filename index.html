@@ -57,11 +57,14 @@
   <body>
     <section id='abstract'>
       <p>
-        This specification defines a JSON-based document, which provides
-        developers with a centralized place to declare startup parameters and
-        application defaults. This includes, but is not limited to, declaring
-        the default orientation for a web application as well as how the
-        application is to be displayed when launched (e.g., in fullscreen).
+	This specification defines a JSON-based <em>manifest</em>, which
+	provides developers with a centralized place to put metadata about a
+	web application. This includes, but is not limited to, the name of the
+	web application, links to icons, as well as the preferred URL at which
+	the web application should open when it is launched by the user. The
+	manifest also allows developers the default orientation for their web
+	application, as well as how the application is to be displayed when
+	launched (e.g., in fullscreen).
       </p>
       <p>
         Using this data, user agents can provide developers with a means to
@@ -69,9 +72,9 @@
         application.
       </p>
       <p>
-        This specification also defines an API for requesting that a web
-        application is to be bookmarked, as well as a means for checking is the
-        web application was launched from a bookmark.
+	This specification also defines an API for requesting that a user
+	bookmark a web application. It also provides a means for scripts to
+	check if the web application was launched from a bookmark.
       </p>
       <p>
         In addition, this specification defines the <code>manifest</code> link
@@ -108,6 +111,8 @@
         </p>
         <pre class="example highlight json" title="typical manifest">
 {
+  "name": "Super Racer 2000",
+  "icons": [{<br>      "src": "icon/lowres",<br>      "sizes": "64x64",<br>      "type": "image/webp"<br>    }, {<br>      "src": "icon/hd_small",<br>      "sizes": "64x64"<br>    }, {<br>      "src": "icon/hd_hi",<br>      "sizes": "128x128"<br>    }]
   "start_url": "/start.html",
   "display": ["fullscreen"],
   "default_orientation": ["landscape"]
@@ -122,7 +127,7 @@
           Example of using a <code>link</code> element to associate a website
           with a <a>manifest</a>. The example also shows how to use [[!HTML]]'s
           <code>link</code> and <code>meta</code> elements to give a web
-          application a name and a set of icons.
+	  application fallback a name and a set of icons.
         </p>
         <pre class="example highlight html" title="linking to a manifest">
 &lt;!doctype&gt;
