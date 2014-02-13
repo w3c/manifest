@@ -207,7 +207,7 @@ installButton.addEventListener("click", function(e){
       <p id="ecmascript-abstractop">
         The <dfn><a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
-        [[\GetOwnProperty]]</a></dfn> operations, <dfn>promise</dfn> objects,
+        [[\GetOwnProperty]]</a></dfn> operation, <dfn>promise</dfn> objects,
         and the <a class="external" href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
         <dfn>Type</dfn>(<var>x</var>)</a> notation are defined in
@@ -333,10 +333,9 @@ installButton.addEventListener("click", function(e){
           document. For example, the user uses the browser's user interface to
           either bookmark or add the web app to the home screen. The manifest
           is associated with a document through either the
-          <code>manifest</code> link relationship or through the
-          <a><a>well-known manifest</a> - this includes via successful requests
-          to bookmark a web application through the
-          <code>requestBookmark()</code> method.</a>
+          <code>manifest</code> link relationship or through the <a>well-known
+          manifest</a> - this includes via successful requests to bookmark a
+          web application through the <code>requestBookmark()</code> method.
         </p>
         <p>
           Conversely, a user agent is said to have <dfn>obtained a manifest
@@ -345,9 +344,7 @@ installButton.addEventListener("click", function(e){
           manifest from a URL without first navigating to any
           <code>document</code> or the user agent makes use of the well-know
           manifest without first navigating to the web application.
-      </p>
-      </section>
-      <section>
+        </p>
       </section>
       <section>
         <h3>
@@ -477,8 +474,8 @@ installButton.addEventListener("click", function(e){
         </h3>
         <p>
           A user agent MAY periodically check if the contents of a manifest has
-          changed (e.g., by honoring [[!HTTP]] cache directives associated with
-          the manifest or by checking for updates after the web application has
+          changed (e.g., by honoring HTTP cache directives associated with the
+          manifest or by checking for updates after the web application has
           been launched). In the event the members of the manifest has been
           updated, as determined by running the <a>steps for processing a
           manifest</a> and seeing if anything has changed, the user agent MAY
@@ -517,8 +514,8 @@ installButton.addEventListener("click", function(e){
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>manifest</var> with
-          argument "name".
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "name".
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
@@ -550,11 +547,11 @@ installButton.addEventListener("click", function(e){
         <p>
           Note: If the user agent <a>obtained a manifest from a top-level
           document</a>, the icons in the manifest override any icons listed in
-          the [[!HTML] <code>document</code>. However, if no icons are listed
+          the [[!HTML]] <code>document</code>. However, if no icons are listed
           in the manifest (or none of them are found to be suitable during
           processing), the user agent will fall back to trying to use any found
           in the HTML document. This fall back behavior is enforced during the
-          <a>steps for processing a manifest instead of this section</a>.
+          <a>steps for processing a manifest</a> instead of this section.
         </p>
         <p>
           The <dfn>steps for processing the <code>icons</code> member</dfn> are
@@ -567,9 +564,9 @@ installButton.addEventListener("click", function(e){
         <ol>
           <li>Let <var>icons</var> be an empty list.
           </li>
-          <li>Let <var>unprocessed icons</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>manifest</var> with
-          argument "<code>icons</code>".
+          <li>Let <var>unprocessed icons</var> be the result of calling the <a>
+            [[\GetOwnProperty]]</a> internal method of <var>manifest</var> with
+            argument "<code>icons</code>".
           </li>
           <li>If <var>unprocessed icons</var> is an <a title=
           "json-array">array</a>, then for each <var>potential icon</var> in
@@ -590,7 +587,7 @@ installButton.addEventListener("click", function(e){
               <var>orientations</var> (if any are left).
               </li>
               <li>Let <var>sizes</var> be the list that result from running the
-              <a>steps for processing the <code>sizes</code> member of an
+              <a>steps for processing a <code>sizes</code> member of an
               icon</a> passing <var>potential icon</var>.
               </li>
               <li>Let <var>icon</var> be an object with properties
@@ -649,8 +646,8 @@ installButton.addEventListener("click", function(e){
           <li>Let <var>result</var> be a set.
           </li>
           <li>Let <var>display values</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
-          "<code>display</code>" as the argument.
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          passing "<code>display</code>" as the argument.
           </li>
           <li>If <var>display values</var> is not an instance of <a href=
           "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array-exotic-objects">
@@ -698,7 +695,7 @@ installButton.addEventListener("click", function(e){
           orientations in which to display the web application. The possible
           values are any of the <a href=
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
-          allowed orientations</a> as defined in [[!screen-orientation]]. Order
+          allowed orientations</a> as defined in [[!SCREEN-ORIENTATION]]. Order
           within the array is significant, with the first item being the
           developer's most preferred, followed by the next most preferred and
           so forth. When the <a><code>default_orientation</code></a> member is
@@ -741,8 +738,8 @@ installButton.addEventListener("click", function(e){
           <li>Let <var>result</var> be a set.
           </li>
           <li>Let <var>orientations</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
-          "<code>default_orientations</code>" as the argument.
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          passing "<code>default_orientations</code>" as the argument.
           </li>
           <li>If <var>orientations</var> is not an instance of <a href=
           "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array-exotic-objects">
@@ -815,8 +812,8 @@ installButton.addEventListener("click", function(e){
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of the <var>manifest</var> with
-          argument "<code>url</code>".
+          <a>[[\GetOwnProperty]]</a> internal method of the <var>manifest</var>
+          with argument "<code>url</code>".
           </li>
           <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
@@ -1002,8 +999,8 @@ installButton.addEventListener("click", function(e){
           <li>Let <var>sizes</var> be an empty set.
           </li>
           <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>icon</var> passing <var>
-            key</var> as the argument.
+          <a>[[\GetOwnProperty]]</a> internal method of <var>icon</var> passing
+          <var>key</var> as the argument.
           </li>
           <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
@@ -1053,7 +1050,7 @@ installButton.addEventListener("click", function(e){
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>icon</var> passing
+          <a>[[\GetOwnProperty]]</a> internal method of <var>icon</var> passing
           "<code>src</code>" as the argument.
           </li>
           <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
@@ -1098,8 +1095,8 @@ installButton.addEventListener("click", function(e){
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>potential icon</var>
-          passing "<code>type</code>" as the argument.
+          <a>[[\GetOwnProperty]]</a> internal method of <var>potential
+          icon</var> passing "<code>type</code>" as the argument.
           </li>
           <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
