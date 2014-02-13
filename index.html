@@ -319,6 +319,58 @@ installButton.addEventListener("click", function(e){
       </p>
       <section>
         <h3>
+	  Obtaining a manifest
+	</h3>
+	<p>
+	  A user agent can obtain a manifest either from a top-level document
+	  or by fetching it directly from some URL (independently of a
+	  top-level document).
+	</p>
+	<p>
+	  A user agent is said to have <dfn>obtained a manifest from a
+	  top-level document</dfn> when a user navigates to a web application
+	  and she or he explicitly makes a request to bookmark the top-level
+	  document. For example, the user uses the browser's user interface to
+	  either bookmark or add the web app to the home screen. The manifest
+	  is associated with a document through either the
+	  <code>manifest</code> link relationship or through the
+	  <a><a>well-known manifest</a> - this includes via successful requests
+	  to bookmark a web application through the
+	  <code>requestBookmark()</code> method.</a>
+	</p>
+	<p>
+	  Conversely, a user agent is said to have <dfn>obtained a manifest
+	  directly</dfn> when the user agent fetches the manifest independently
+	  of any top-level document. For example, a user agent fetches a
+	  manifest from a URL without first navigating to any
+	  <code>document</code> or the user agent makes use of the well-know
+	  manifest without first navigating to the web application.
+	</p>
+	<p>
+	  It is OPTIONAL for a user agent to support the ability to <a>obtain a
+	  manifests directly</a>.
+	</p>
+      </section>
+      <section>
+	<h3>
+	  Fetching a manifest
+	</h3>
+	<p>
+	  The <dfn>steps for fetching a manifest</dfn> are given by the
+	  following algorithm. It takes a URL <var>url</var> as an argument.
+	  This algorithm will return either a response or an error.
+	</p>
+	<ol>
+	  <li>Let <var>response</var> be the result of <a href=
+	  "http://fetch.spec.whatwg.org/#concept-fetch">fetching</a> the
+	  manifest from <var>url</var>.
+	  </li>
+	  <li>Return <var>response</var>.
+	  </li>
+	</ol>
+      </section>
+      <section>
+	<h3>
           Processing the manifest
         </h3>
         <p>
