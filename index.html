@@ -696,7 +696,7 @@ installButton.addEventListener("click", function(e){
           orientations in which to display the web application. The possible
           values are any of the <a href=
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
-          allowed orientations</a> as defined in [[!screen-orientation]]. Order
+          allowed orientations</a> as defined in [[!SCREEN-ORIENTATION]]. Order
           within the array is significant, with the first item being the
           developer's most preferred, followed by the next most preferred and
           so forth. When the <a><code>default_orientation</code></a> member is
@@ -707,10 +707,10 @@ installButton.addEventListener("click", function(e){
         <p>
           Although the specification relies on the <a href=
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
-          allowed orientations</a> from the [[!screen-orientation]]
+          allowed orientations</a> from the [[!SCREEN-ORIENTATION]]
           specification, it is OPTIONAL for a user agent to implement the
-          [[!screen-orientation]] API. Supporting the
-          [[!screen-orientation]] API is, of course, RECOMMENDED.
+          [[!SCREEN-ORIENTATION]] API. Supporting the
+          [[!SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
         </p>
         <p>
           If the user agent chooses to use one of the <a href=
@@ -720,14 +720,14 @@ installButton.addEventListener("click", function(e){
           as long as the application is running (unless overridden by some
           other means at runtime). This means that the user agent MUST return
           the orientation to the default orientation any time the orientation
-          is unlocked [[!screen-orientation]] or the top-level browsing context
+          is unlocked [[!SCREEN-ORIENTATION]] or the top-level browsing context
           is <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigated.</a>
         </p>
         <p>
           Note: Once the web application is running, other means can change the
           orientation of a <code>document</code> of the Web application (such
-          as via [[!screen-orientation]] API).
+          as via [[!SCREEN-ORIENTATION]] API).
         </p>
         <p>
           The <dfn>steps for processing the <code>default_orientation</code>
