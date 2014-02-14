@@ -128,7 +128,7 @@
           Example of using a <code>link</code> element to associate a website
           with a <a>manifest</a>. The example also shows how to use [[!HTML]]'s
           <code>link</code> and <code>meta</code> elements to give a web
-          application fallback a name and a set of icons.
+          application a fallback name and a set of icons.
         </p>
         <pre class="example highlight html" title="linking to a manifest">
 &lt;!doctype&gt;
@@ -421,7 +421,7 @@ installButton.addEventListener("click", function(e){
           <li>Let <var>name</var> be the result of running the <a>steps for
           processing the <code>name</code> member</a>.
           </li>
-          <li>If <var>name</var> is <code>undefined</code> or the empty string:
+          <li>If <var>name</var> is <code>undefined</code> or an empty string:
             <ol>
               <li>If the user agent <a>obtained a manifest from a top-level
               document</a>, attempt to derive the name of the Web
@@ -459,8 +459,8 @@ installButton.addEventListener("click", function(e){
               </li>
               <li>If no suitable icons are found in the top-level document, or
               the user agent <a>obtained a manifest directly</a>, then provide
-              implementation specific icon or icons that can serve as suitable
-              icons for the web application.
+              an implementation specific icon or icons that can serve as
+              suitable icons for the web application.
               </li>
             </ol>
           </li>
@@ -477,7 +477,7 @@ installButton.addEventListener("click", function(e){
           A user agent MAY periodically check if the contents of a manifest has
           changed (e.g., by honoring HTTP cache directives associated with the
           manifest or by checking for updates after the web application has
-          been launched). In the event the members of the manifest has been
+          been launched). In the event the members of the manifest have been
           updated, as determined by running the <a>steps for processing a
           manifest</a> and seeing if anything has changed, the user agent MAY
           update the bookmark details corresponding to the web application
