@@ -58,23 +58,23 @@
     <section id='abstract'>
       <p>
         This specification defines a JSON-based <em>manifest</em>, which
-        provides developers with a centralized place to put metadata about a
-        web application. This includes, but is not limited to, the name of the
-        web application, links to icons, as well as the preferred URL at which
-        the web application should open when it is launched by the user. The
-        manifest also allows developers to declare a default orientation for
+        provides developers with a centralized place to put metadata associated
+        with a web application. This includes, but is not limited to, the name
+        of the web application, links to icons, as well as the preferred URL at
+        which the web application should open when it is launched by the user. The
+        manifest also allows developers to declare a default orientation set for
         their web application, as well as how the application is to be
         displayed when launched (e.g., in fullscreen).
       </p>
       <p>
-        Using this data, user agents can provide developers with a means to
+        Using this data, user agents can provide developers with means to
         create user experiences that are more comparable to that of a native
         application.
       </p>
       <p>
         This specification also defines an API for requesting that a user
-        bookmark a web application. It also provides a means for scripts to
-        check if the web application was launched from a bookmark.
+        bookmarks a web application. It also provides means for scripts to
+        check whether the web application was launched from a bookmark, or not.
       </p>
       <p>
         In addition, this specification defines the <code>manifest</code> link
@@ -126,8 +126,8 @@
         <p>
           Example of using a <code>link</code> element to associate a website
           with a <a>manifest</a>. The example also shows how to use [[!HTML]]'s
-          <code>link</code> and <code>meta</code> elements to give a web
-          application fallback a name and a set of icons.
+          <code>link</code> and <code>meta</code> elements to give the web
+          application a fallback name and set of icons.
         </p>
         <pre class="example highlight html" title="linking to a manifest">
 &lt;!doctype&gt;
@@ -137,7 +137,7 @@
 &lt;!-- Startup configuration --&gt;
 &lt;link rel="manifest" href="add_to_homescreen.json"&gt;
 
-&lt;!-- Application metadata --&gt; 
+&lt;!-- Application metadata --&gt;
 &lt;meta name="application-name" content="Store Finder"&gt;
 &lt;link rel="icon" sizes="16x16 32x32 48x48" href="lo_def.ico"&gt;
 &lt;link rel="icon" sizes="512x512" href="hi_def.png"&gt;
@@ -154,7 +154,9 @@
         <pre class="example highlight html" title="detecting standalone mode">
 &lt;script&gt;
 if (navigator.isHosted) {
-   //Do installed application specific stuff...
+   // Do installed application specific stuff.
+   // ...
+
    document.documentElement.classList.add("standalone");
 }
 &lt;/script&gt;
@@ -162,7 +164,7 @@ if (navigator.isHosted) {
       </section>
       <section class="informative">
         <h3>
-          Requesting the document to be bookmarked
+          Requesting bookmarking of a specific document
         </h3>
         <p>
           The following example shows how a developer can ask a user to
@@ -238,8 +240,8 @@ installButton.addEventListener("click", function(e){
         Display modes
       </h2>
       <p>
-        A <dfn>display mode</dfn> is the manner in which a developer would like
-        the Web application to be shown to a user when it is launched from a
+        A <dfn>display mode</dfn> describes the manner in which a developer would
+        like the Web application to be shown to a user when it is launched from a
         bookmark (e.g., in <code><a href=
         "#idl-def-DisplayMode.fullscreen">fullscreen</a></code>). Display modes
         are intended to correspond to the user interface metaphors and
@@ -276,7 +278,7 @@ installButton.addEventListener("click", function(e){
           Opens the web application without UI elements for controlling
           navigation, but can include other UI elements such as a status bar.
           On desktop platforms, for example, this would open the bookmark in a
-          standalone window outside the browser.
+          standalone window outside of the browser.
         </dd>
         <dt>
           "<code id="dm-fullscreen">fullscreen</code>"
@@ -371,7 +373,7 @@ installButton.addEventListener("click", function(e){
         <p>
           The <dfn>steps for processing a manifest</dfn> are given by the
           following algorithm. The algorithm takes a <var>text</var> string as
-          an argument, which represents a <a>manifest</a>.
+          argument, which represents a <a>manifest</a>.
         </p>
         <p>
           When instructed to <dfn>issue a developer warning</dfn>, the user
@@ -397,7 +399,7 @@ installButton.addEventListener("click", function(e){
               </li>
             </ol>
           </li>
-          <li>Let <var>start url</var> be the result of running the <a>steps
+          <li>Let <var>start URL</var> be the result of running the <a>steps
           for processing the <code>start_url</code> member</a>, with either the
           <code>document</code>'s URL or an application-specific URL (e.g.,
           "app://") as the <var>base URL</var>.
@@ -509,7 +511,7 @@ installButton.addEventListener("click", function(e){
         </p>
         <p>
           The <dfn>steps for processing the name member</dfn> is given by the
-          following algorithm. The algorithm takes a <var>manifest</var> as an
+          following algorithm. The algorithm takes a <var>manifest</var> as
           argument. This algorithm returns a string or <code>undefined</code>.
         </p>
         <ol>
@@ -552,7 +554,7 @@ installButton.addEventListener("click", function(e){
           in the manifest (or none of them are found to be suitable during
           processing), the user agent will fall back to trying to use any found
           in the HTML document. This fall back behavior is enforced during the
-          <a>steps for processing a manifest</a> instead of this section.
+          <a>steps for processing a manifest</a> instead of in this section.
         </p>
         <p>
           The <dfn>steps for processing the <code>icons</code> member</dfn> are
@@ -712,7 +714,7 @@ installButton.addEventListener("click", function(e){
           allowed orientations</a> from the [[!SCREEN-ORIENTATION]]
           specification, it is OPTIONAL for a user agent to implement the
           [[!SCREEN-ORIENTATION]] API. Supporting the
-          [[!SCREEN-ORIENTATION]]API is, of course, RECOMMENDED.
+          [[!SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
         </p>
         <p>
           If the user agent chooses to use one of the <a href=
@@ -823,8 +825,7 @@ installButton.addEventListener("click", function(e){
           <li>If <var>type</var> is not "string", then:
             <ol>
               <li>If <var>type</var> is not "<code>undefined</code>",
-              optionally issue a developer warning that the type is not
-              supported.
+              issue a developer warning that the type is not supported.
               </li>
               <li>Return <var>base URL</var>.
               </li>
@@ -921,8 +922,8 @@ installButton.addEventListener("click", function(e){
           title="insert an element into a document">inserted into a
           document</a>, whichever happens last. However, a user agent MAY opt
           to delay fetching a manifest until after the document and its other
-          resources have loaded (i.e., to not delay the availability of content
-          and scripts required by the <code>document</code>).
+          resources have been fully loaded (i.e., to not delay the availability
+          of content and scripts required by the <code>document</code>).
         </p>
         <p>
           To process a <a href=
@@ -946,8 +947,8 @@ installButton.addEventListener("click", function(e){
         <pre class="example highlight json" title="vendor extensions">
 {
   ...
-  "webkit-fancyfeature": "some/url/img",
-  "moz-awesome-thing": { ... }
+  "webkit_fancy_feature": "some/url/img",
+  "moz_awesome_thing": { ... }
   ...
 }
 </pre>
@@ -958,7 +959,7 @@ installButton.addEventListener("click", function(e){
         Icon object and its members
       </h2>
       <p>
-        Each <dfn>icon object</dfn> represents an icon for an application
+        Each <dfn>icon object</dfn> represents an icon for an application,
         suitable to use in various contexts (e.g., an application menu).
       </p>
       <p>
