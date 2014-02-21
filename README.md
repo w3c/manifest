@@ -30,3 +30,4 @@ For the first version, we aim to standardize the following:
 * [Clarify how this works with HTTP's Link header](https://github.com/w3c/manifest/issues/98).
 * [Inline manifests](https://github.com/w3c/manifest/issues/91) (or HTML meta equivs?).
 * [Splash screens](https://github.com/w3c/manifest/issues/9) (or prerendered pages that serve as one?).
+* Make installable apps sharable.
