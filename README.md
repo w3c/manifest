@@ -16,10 +16,10 @@ For the first version, we aim to standardize the following:
 * Start URL.
 * Screen orientation hinting for when launching the app.
 * Launch the app in different display modes: fullscreen, minimal-ui, open in browser, etc.
-* A way of for scripts to check if the application was launched from a bookmark (i.e., similar to Safari's navigator.standalone). 
 * Application's name and icons - and how they interact with HTML equivs.
 
 ## Goals for v2 and beyond
+* A way of for scripts to check if the application was launched from a bookmark (i.e., similar to Safari's navigator.standalone). 
 * Media query based orientation and display mode.
 * CSS media features for display modes - `@media all and (display-mode: browser)`.
 * [Define how navigation works](https://github.com/w3c/manifest/issues/142).
