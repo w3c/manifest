@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>
-      Manifest for bookmarking web applications
+      Manifest for web application
     </title>
     <script src="http://www.w3.org/Tools/respec/respec-w3c-common" class=
     "remove">
@@ -57,17 +57,17 @@
   <body>
     <section id='abstract'>
       <p>
-        This specification defines a JSON-based <em>manifest</em>, which
-        provides developers with a centralized place to put metadata associated
-        with a web application. This includes, but is not limited to, the name
-        of the web application, links to icons, as well as the preferred URL at
-        which the web application should open when it is launched by the user.
-        The manifest also allows developers to declare a default orientation
-        set for their web application, as well as how the application is to be
-        displayed when launched (e.g., in fullscreen).
+        This specification defines a JSON-based manifest, which provides
+        developers with a centralized place to put metadata associated with a
+        web application. This includes, but is not limited to, the web
+        application's name, links to icons, as well as the preferred URL to
+        open when the user launches the web application. The manifest also
+        allows developers to declare a default orientation for their web
+        application, as well as how the application is to be displayed by the
+        user agent (e.g., in fullscreen).
       </p>
       <p>
-        Using this data, user agents can provide developers with means to
+        Using this meta data, user agents can provide developers with means to
         create user experiences that are more comparable to that of a native
         application.
       </p>
@@ -110,7 +110,7 @@
   "icons": [{<br>      "src": "icon/lowres",<br>      "sizes": "64x64",<br>      "type": "image/webp"<br>    }, {<br>      "src": "icon/hd_small",<br>      "sizes": "64x64"<br>    }, {<br>      "src": "icon/hd_hi",<br>      "sizes": "128x128"<br>    }],
   "start_url": "/start.html",
   "display": ["fullscreen"],
-  "default_orientation": ["landscape"]
+  "default_orientation": "landscape"
 }
 </pre>
       </section>
@@ -188,11 +188,9 @@
       </h2>
       <p>
         A <dfn>display mode</dfn> describes the manner in which a developer
-        would like the web application to be shown to a user when it is
-        launched from a bookmark (e.g., in <code><a href=
-        "#idl-def-DisplayMode.fullscreen">fullscreen</a></code>). Display modes
-        are intended to correspond to the user interface metaphors and
-        functionality in use on a given platform.
+        would like the web application to be shown to a user (e.g., in
+        fullscreen). Display modes are intended to correspond to the user
+        interface metaphors and functionality in use on a given platform.
       </p>
       <p>
         Once a user agent applies a particular <a>display mode</a> to a web
@@ -207,7 +205,7 @@
       </p>
       <dl>
         <dt>
-          "<code id="dm-browser">browser</code>"
+          <dfn id="dm-browser">browser</dfn>
         </dt>
         <dd>
           Opens the web application using the platform-specific convention for
@@ -219,23 +217,23 @@
           agent.
         </dd>
         <dt>
-          "<code id="dm-standalone">standalone</code>"
+          <dfn id="dm-standalone">standalone</dfn>
         </dt>
         <dd>
           Opens the web application without UI elements for controlling
           navigation, but can include other UI elements such as a status bar.
-          On desktop platforms, for example, this would open the bookmark in a
-          standalone window outside of the browser.
+          On desktop platforms, for example, this would open the web
+          application in a standalone window outside of the browser.
         </dd>
         <dt>
-          "<code id="dm-fullscreen">fullscreen</code>"
+          <dfn id="dm-fullscreen">fullscreen</dfn>
         </dt>
         <dd>
           Opens the web application without any user agent chrome and takes up
           the entirety of the available display area.
         </dd>
         <dt>
-          "<code id="dm-minimal-ui">minimal-ui</code>"
+          <dfn id="dm-minimal-ui">minimal-ui</dfn>
         </dt>
         <dd>
           Same as <a href="#dm-standalone">standalone</a>, but provides the
@@ -254,7 +252,7 @@
       <p>
         A <dfn>manifest</dfn> is a JSON document that contains startup
         parameters and application defaults for when a web application is
-        launched from a bookmark. A manifest consists of a top-level <a href=
+        launched. A manifest consists of a top-level <a href=
         "#json-object">object</a> that contains zero or more members. Each of
         the members are defined below, as well as how their values are
         processed.
@@ -265,24 +263,20 @@
         </h3>
         <p>
           A user agent can obtain a manifest either from a top-level document
-          or by fetching it directly from some URL (independently of a
+          or by fetching it directly from a [[!URL]] (independently of a
           top-level document).
         </p>
         <p>
           A user agent is said to have <dfn>obtained a manifest from a
-          top-level document</dfn> when a user navigates to a web application
-          and she or he explicitly makes a request to bookmark the top-level
-          document. For example, the user uses the browser's user interface to
-          either bookmark or add the web app to the home screen. The manifest
-          is associated with a document through either the
-          <code>manifest</code> link relationship or through the <a>well-known
-          manifest</a>.
+          top-level document</dfn> when the manifest is associated with a
+          <code>document</code> through either the <code>manifest</code> link
+          type or through the <a>well-known manifest</a>.
         </p>
         <p>
           Conversely, a user agent is said to have <dfn>obtained a manifest
           directly</dfn> when the user agent fetches the manifest independently
           of any top-level document. For example, a user agent fetches a
-          manifest from a URL without first navigating to any
+          manifest from a URL without first navigating to a
           <code>document</code> or the user agent makes use of the well-know
           manifest without first navigating to the web application.
         </p>
@@ -312,7 +306,7 @@
         <p>
           The <dfn>steps for processing a manifest</dfn> are given by the
           following algorithm. The algorithm takes a <var>text</var> string as
-          argument, which represents a <a>manifest</a>.
+          an argument, which represents a <a>manifest</a>.
         </p>
         <p>
           When instructed to <dfn>issue a developer warning</dfn>, the user
@@ -348,7 +342,8 @@
           </li>
           <li>
             <a>Extension point</a>: process any proprietary and/or other
-            supported members at this point in the algorithm.
+            supported members at this point in the algorithm. <a>Issue a
+            developer warning</a> for any unsupported members.
           </li>
           <li>Let <var>start URL</var> be the result of running the <a>steps
           for processing the <code>start_url</code> member</a>, with either the
@@ -362,13 +357,15 @@
           <li>Let <var>default display mode</var> be the first item of
           <var>display modes</var>.
           </li>
-          <li>Let <var>orientations</var> be the result of running the <a>steps
-          for processing the <code>default_orientation</code> member</a> with
-          <var>manifest</var> and <var>default display mode</var> as arguments.
+          <li>Let <var>default orientation</var> be the result of running the
+          <a>steps for processing the <code>default_orientation</code>
+          member</a> with <var>manifest</var> and <var>default display
+          mode</var> as an arguments.
           </li>
-          <li>From <var>orientations</var>, select a suitable orientation for
-          the application and let that serve as the <var>default
-          orientation</var> for as long as the application exists.
+          <li>Let <var>default orientation</var> serve as the <a href=
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
+            default orientation</a> for all top-level browsing contexts of the
+            web application.
           </li>
           <li>Let <var>name</var> be the result of running the <a>steps for
           processing the <code>name</code> member</a>.
@@ -378,17 +375,11 @@
               <li>If the user agent <a>obtained a manifest from a top-level
               document</a>, attempt to derive the name of the Web application
               from the top-level document and set <var>name</var> to be the
-              result. For example, if bookmarking was initiated from a
-              [[!HTML]] <code>document</code>, and the <code>document</code>
-              has any <code><a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
-                meta</a></code> elements whose <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name">
-                name</a> attribute matches <code><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
-                application-name</a></code>, then process those elements as per
-                [[!HTML]] and return the application name found. Using the
-                value of the <code>document</code>'s title is also suitable.
+              result (i.e., use [[!HTML]]'s <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
+                application-name</a> or <code><a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/#the-title-element">
+                title</a></code> element).
               </li>
               <li>If no suitable <var>name</var> is found in the top-level
               document, or the user agent <a>obtained a manifest directly</a>,
@@ -404,15 +395,15 @@
             <ol>
               <li>If the user agent <a>obtained a manifest from a top-level
               document</a>, attempt to derive the icons for the Web application
-              from the top-level document. For example, if bookmarking was
-              initiated from a [[!HTML]] <code>document</code>, icon link
-              relationships, or a <code>favicon.ico</code>, can serve as
-              suitable fallbacks.
+              from the top-level document. For example, an <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#rel-icon">icon
+              link type</a> or a <code>favicon.ico</code> can serve as suitable
+              fallbacks.
               </li>
               <li>If no suitable icons are found in the top-level document, or
               the user agent <a>obtained a manifest directly</a>, then provide
-              implementation specific icon or icons that can serve as suitable
-              icons for the web application.
+              implementation specific icon that can serve as suitable icon for
+              the web application.
               </li>
             </ol>
           </li>
@@ -427,16 +418,26 @@
         </h3>
         <p>
           A user agent MAY periodically check if the contents of a manifest has
-          changed (e.g., by honoring HTTP cache directives associated with the
-          manifest or by checking for updates after the web application has
-          been launched). In the event the members of the manifest have been
-          updated, as determined by running the <a>steps for processing a
-          manifest</a> and seeing if anything has changed, the user agent MAY
-          update the bookmark details corresponding to the web application
-          (e.g., by updating the name, icons, or whatever other members have
-          been changed). For security reasons, it is RECOMMENDED that users be
-          made aware of any such updates using implementation or platform
-          specific conventions.
+          been modified (e.g., by honoring HTTP cache directives associated
+          with the manifest or by checking for updates after the web
+          application has been launched). In the event that the members of the
+          manifest have been updated, as determined by running the <a>steps for
+          processing a manifest</a> and seeing if anything has changed, the
+          user agent MAY update the metadata corresponding to the web
+          application (e.g., by updating or discarding the name, icons, or
+          whatever other members have been changed).
+        </p>
+        <p>
+          In addition, even if the manifest has not been modified, the user
+          agents MAY periodically check if resources referenced from a manifest
+          (e.g., the icons) have been modified by honoring HTTP cache
+          directives. If any resources have been modified, the user agent MAY
+          replace any stale resources.
+        </p>
+        <p>
+          To avoid one application masquerading as another, it is RECOMMENDED
+          that users be made aware of any such updates using implementation or
+          platform specific conventions.
         </p>
       </section>
       <section>
@@ -458,11 +459,11 @@
           "http://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name">name</a>
           attribute is <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
-          <code>application-name</code></a> in a document.
+          <code>application-name</code></a> in a [[!HTML]] document.
         </p>
         <p>
           The <dfn>steps for processing the name member</dfn> is given by the
-          following algorithm. The algorithm takes a <var>manifest</var> as
+          following algorithm. The algorithm takes a <var>manifest</var> as an
           argument. This algorithm returns a string or <code>undefined</code>.
         </p>
         <ol>
@@ -646,87 +647,76 @@
         <p>
           The <dfn id=
           "member-default-orientation"><code>default_orientation</code></dfn>
-          member is an <a href="#json-array">array</a> of <a href=
-          "#json-string">strings</a> that serve as hints for the user agent as
-          to the preferred screen orientations in which to display the web
-          application. The possible values are any of the <a href=
+          member is a <a href="#json-string">string</a> that serves as the
+          <a href=
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
+          default orientation</a> for all top-level browsing contexts of the
+          web application. The possible values is one of the <a href=
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
-          allowed orientations</a> as defined in [[!SCREEN-ORIENTATION]]. Order
-          within the array is significant, with the first item being the
-          developer's most preferred, followed by the next most preferred and
-          so forth. When the <a><code>default_orientation</code></a> member is
-          missing, or all the declared items are unsupported, the user agent
-          provides an implementation-specific default orientation for the web
-          application.
+          allowed orientations</a> defined in [[!SCREEN-ORIENTATION]].
         </p>
         <p>
-          Although the specification relies on the <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
-          allowed orientations</a> from the [[!SCREEN-ORIENTATION]]
-          specification, it is OPTIONAL for a user agent to implement the
-          [[!SCREEN-ORIENTATION]] API. Supporting the [[!SCREEN-ORIENTATION]]
-          API is, of course, RECOMMENDED.
-        </p>
-        <p>
-          If the user agent chooses to use one of the <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
-          allowed orientations</a> in the <code>orientations</code> member,
-          then that becomes the default orientation for the web application for
-          as long as the application is running (unless overridden by some
-          other means at runtime). This means that the user agent MUST return
-          the orientation to the default orientation any time the orientation
-          is unlocked [[!SCREEN-ORIENTATION]] or the top-level browsing context
-          is <a href=
+          If the user agent honors the value of the
+          <code>default_orientation</code> member as the <a href=
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
+          default orientation</a>, then that serves as the <a href=
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
+          default orientation</a> for the life of the web application (unless
+          overridden by some other means at runtime). This means that the user
+          agent MUST return the orientation to the <a href=
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
+          default orientation</a> any time the orientation is unlocked
+          [[!SCREEN-ORIENTATION]] or the top-level browsing context is <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigated.</a>
         </p>
         <p>
+          Although the specification relies on the [[!SCREEN-ORIENTATION]]'s
+          <a href=
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
+          allowed orientations</a>, it is OPTIONAL for a user agent to
+          implement the [[!SCREEN-ORIENTATION]] API. Supporting the
+          [[!SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
+        </p>
+        <p>
           Note: Once the web application is running, other means can change the
-          orientation of a <code>document</code> of the web application (such
-          as via [[!SCREEN-ORIENTATION]] API).
+          orientation of of a top-level browser ontext (such as via
+          [[!SCREEN-ORIENTATION]] API).
         </p>
         <p>
           The <dfn>steps for processing the <code>default_orientation</code>
           member</dfn> are given by the following algorithm. The algorithm
           takes a <a>manifest</a> <var>manifest</var> and display mode
-          <var>mode</var> as an argument, and returns a set.
+          <var>display mode</var> as an argument, and returns a string.
         </p>
         <ol>
-          <li>Let <var>result</var> be a set.
-          </li>
-          <li>Let <var>orientations</var> be the result of calling the
+          <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          passing "<code>default_orientations</code>" as the argument.
+          with argument "default_orientation".
           </li>
-          <li>If <var>orientations</var> is not an instance of <a href=
-          "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array-exotic-objects">
-            Array</a>:
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>orientations</var>) is not "undefined",
-              issue a developer warning.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
+              </li>
+              <li>Return "any".
               </li>
             </ol>
           </li>
-          <li>Otherwise, for each <var>item</var> in <var>orientations</var> in
-          order from first to last:
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
+          to be the result.
+          </li>
+          <li>If <var>value</var> is unsupported by the user agent, or the
+          <var>value</var> cannot be used together with <var>display
+          mode:</var>
             <ol>
-              <li>If <a>Type</a>(<var>item</var>) is not "string", <a>issue a
-              developer warning</a>, ignore this <var>item</var> and proceed to
-              the next.
-              </li>
               <li>
-                <a>Trim</a>(<var>item</var>) and set <var>item</var> to be the
-                resulting string.
+                <a>Issue a developer warning</a>.
               </li>
-              <li>If <var>item</var> is not an orientation that the user agent
-              supports, or <var>result</var> already contains <var>item</var>,
-              or the item cannot be used together with <var>mode</var> ignore
-              this <var>item</var> and proceed to the next.
-              </li>
-              <li>Otherwise, append <var>item</var> to <var>result</var>.
+              <li>Return "any".
               </li>
             </ol>
           </li>
-          <li>Return <var>result</var>.
+          <li>Return <var>value</var>.
           </li>
         </ol>
       </section>
@@ -740,22 +730,16 @@
           "http://url.spec.whatwg.org/#concept-url">URL</a> that the developer
           would prefer the user agent <a href=
           "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
-          load</a> when the user activates a bookmark (e.g., when the user
-          clicks on the icon of the web application from a device's application
-          menu or homescreen). When the developer omits the
-          <code>start_url</code> member from the <a>manifest</a>, the user
-          agent can use either the <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a> of the
-          <code>document</code> from which the web application was bookmarked
-          or some other application-specific <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a>.
+          load</a> when the user launches the web application (e.g., when the
+          user clicks on the icon of the web application from a device's
+          application menu or homescreen).
         </p>
         <p>
           The <a title="member-url"><code>start_url</code></a> member is purely
           advisory, and a user agent MAY <a>ignore</a> it or provide the
           end-user the choice not to make use of it. A user agent MAY also
-          allow the end-user to modify the URL when the bookmark is being
-          created or any time thereafter.
+          allow the end-user to modify the URL when, for instance, a bookmark
+          for the web application is being create or any time thereafter.
         </p>
         <p>
           The <dfn>steps for processing the <code>start_url</code> member</dfn>
@@ -1122,8 +1106,8 @@
           The <dfn>well-known manifest</dfn> is a manifest that a user agent
           fetches in the following manner. If a user agent attempts to obtain a
           manifest from a top-level document, but no <code><a href=
-          "#rel-manifest">manifest</a></code> link relationship is declared,
-          the user agent MUST attempt to <a href=
+          "#rel-manifest">manifest</a></code> link type is declared, the user
+          agent MUST attempt to <a href=
           "http://fetch.spec.whatwg.org/#concept-fetch">fetch</a> a manifest
           from the <a href=
           "http://url.spec.whatwg.org/#concept-absolute-url">absolute URL</a>
