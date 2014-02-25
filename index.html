@@ -61,20 +61,15 @@
         provides developers with a centralized place to put metadata associated
         with a web application. This includes, but is not limited to, the name
         of the web application, links to icons, as well as the preferred URL at
-        which the web application should open when it is launched by the user. The
-        manifest also allows developers to declare a default orientation set for
-        their web application, as well as how the application is to be
+        which the web application should open when it is launched by the user.
+        The manifest also allows developers to declare a default orientation
+        set for their web application, as well as how the application is to be
         displayed when launched (e.g., in fullscreen).
       </p>
       <p>
         Using this data, user agents can provide developers with means to
         create user experiences that are more comparable to that of a native
         application.
-      </p>
-      <p>
-        This specification also defines an API for requesting that a user
-        bookmarks a web application. It also provides means for scripts to
-        check whether the web application was launched from a bookmark, or not.
       </p>
       <p>
         In addition, this specification defines the <code>manifest</code> link
@@ -143,54 +138,6 @@
 &lt;link rel="icon" sizes="512x512" href="hi_def.png"&gt;
 </pre>
       </section>
-      <section class="informative">
-        <h3>
-          Using the API
-        </h3>
-        <p>
-          This example shows how to check if the application was launched from
-          a bookmark.
-        </p>
-        <pre class="example highlight html" title="detecting standalone mode">
-&lt;script&gt;
-if (navigator.isHosted) {
-   // Do installed application specific stuff.
-   // ...
-
-   document.documentElement.classList.add("standalone");
-}
-&lt;/script&gt;
-</pre>
-      </section>
-      <section class="informative">
-        <h3>
-          Requesting bookmarking of a specific document
-        </h3>
-        <p>
-          The following example shows how a developer can ask a user to
-          bookmark a web application through an activation gesture, such as the
-          click of a button. Similarly to <code>window.open()</code>, the
-          <code><span class=
-          "example highlight html">requestBookmark</span>()</code> method only
-          works through explicit user action; calling it without any user
-          interaction will simply cause the resulting promise to be rejected
-          with an error.
-        </p>
-        <pre class="example highlight html" title=
-        "requesting to bookmark a web app">
-&lt;script&gt;
-var installButton = document.querySelector("#install");
-
-installButton.addEventListener("click", function(e){
-   navigator.requestBookmark().then(thankUser, stopBuggingUser);
-});
-&lt;/script&gt;
-
-&lt;button id="install"&gt;
-  Bookmark &lt;b&gt;Awesome App!&lt;/b&gt;
-&lt;/button&gt;
-</pre>
-      </section>
     </section>
     <section>
       <h2>
@@ -209,7 +156,7 @@ installButton.addEventListener("click", function(e){
       <p id="ecmascript-abstractop">
         The <dfn><a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
-        [[\GetOwnProperty]]</a></dfn> operation, <dfn>promise</dfn> objects,
+        [[\GetOwnProperty]]</a></dfn> operation,
         and the <a class="external" href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
         <dfn>Type</dfn>(<var>x</var>)</a> notation are defined in
@@ -240,9 +187,9 @@ installButton.addEventListener("click", function(e){
         Display modes
       </h2>
       <p>
-        A <dfn>display mode</dfn> describes the manner in which a developer would
-        like the web application to be shown to a user when it is launched from a
-        bookmark (e.g., in <code><a href=
+        A <dfn>display mode</dfn> describes the manner in which a developer
+        would like the web application to be shown to a user when it is
+        launched from a bookmark (e.g., in <code><a href=
         "#idl-def-DisplayMode.fullscreen">fullscreen</a></code>). Display modes
         are intended to correspond to the user interface metaphors and
         functionality in use on a given platform.
@@ -336,8 +283,7 @@ installButton.addEventListener("click", function(e){
           either bookmark or add the web app to the home screen. The manifest
           is associated with a document through either the
           <code>manifest</code> link relationship or through the <a>well-known
-          manifest</a> - this includes via successful requests to bookmark a
-          web application through the <code>requestBookmark()</code> method.
+          manifest</a>.
         </p>
         <p>
           Conversely, a user agent is said to have <dfn>obtained a manifest
@@ -713,8 +659,8 @@ installButton.addEventListener("click", function(e){
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
           allowed orientations</a> from the [[!SCREEN-ORIENTATION]]
           specification, it is OPTIONAL for a user agent to implement the
-          [[!SCREEN-ORIENTATION]] API. Supporting the
-          [[!SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
+          [[!SCREEN-ORIENTATION]] API. Supporting the [[!SCREEN-ORIENTATION]]
+          API is, of course, RECOMMENDED.
         </p>
         <p>
           If the user agent chooses to use one of the <a href=
@@ -824,8 +770,8 @@ installButton.addEventListener("click", function(e){
           </li>
           <li>If <var>type</var> is not "string", then:
             <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>",
-              issue a developer warning that the type is not supported.
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is not supported.
               </li>
               <li>Return <var>base URL</var>.
               </li>
@@ -1129,104 +1075,6 @@ installButton.addEventListener("click", function(e){
     </section>
     <section>
       <h2>
-        Extensions to the <code>Navigator</code> object
-      </h2>
-      <dl class="idl" title="partial interface Navigator">
-        <dt>
-          readonly attribute boolean isHosted
-        </dt>
-        <dt>
-          Promise&lt;(undefined)&gt; requestBookmark()
-        </dt>
-      </dl>
-      <section>
-        <h3>
-          <code>isHosted</code> attribute
-        </h3>
-        <p>
-          The <code><dfn id="widl-Navigator-isHosted">isHosted</dfn></code>
-          attribute indicates if the web application was launched from a
-          bookmark.
-        </p>
-        <p>
-          On getting the <code>isHosted</code> attribute, the user agent MUST
-          return <code>true</code> if the web application was launched from a
-          bookmark, or <code>false</code> otherwise.
-        </p>
-      </section>
-      <section>
-        <h3>
-          <code>requestBookmark()</code> method
-        </h3>
-        <p>
-          The <code><dfn id=
-          "widl-Navigator-requestBookmark-Promise--undefined">requestBookmark()</dfn></code>
-          method provides a way for scripts to ask the user if they would like
-          to bookmark the web application.
-        </p>
-        <p>
-          When the <code>requestBookmark()</code> method is invoked, the user
-          agent MUST run the <a>steps to request a bookmark</a>.
-        </p>
-        <p>
-          The <dfn>steps to request a bookmark</dfn> are given by the following
-          algorithm. The algorithm returns a <a>promise</a>.
-        </p>
-        <ol>
-          <li>Let <var>promise</var> be a newly-created <a>promise</a>.
-          </li>
-          <li>If this method was not invoked as a result of explicit user
-          action, then:
-            <ol>
-              <li>Reject <var>promise</var> with new <code><a href=
-              "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
-              whose name is "<code><a href=
-              "http://dom.spec.whatwg.org/#securityerror">SecurityError</a></code>"
-              and return.
-              </li>
-            </ol>
-          </li>
-          <li>If this method was not invoked from a top-level document of the
-          browsing context, then:
-            <ol>
-              <li>Reject <var>promise</var> with new <code><a href=
-              "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
-              whose name is "<code><a href=
-              "http://dom.spec.whatwg.org/#wrongdocumenterror">WrongDocumentError</a></code>"
-              and return.
-              </li>
-            </ol>
-          </li>
-          <li>Continue the following steps asynchronously.
-          </li>
-          <li>If not already acquired, asynchronously attempt to <a href=
-          "http://fetch.spec.whatwg.org/#concept-fetch">fetch</a> the manifest
-          in the manner specified in the <a href="#linking">linking</a> section
-          of this document.
-          </li>
-          <li>In a user-agent specific manner, allow the end user to make a
-          choice as to whether they want to add the bookmark:
-            <ol>
-              <li>If the end-user aborts the request to add the bookmark (e.g.,
-              they hit escape, or press a "cancel" button), then Reject
-              <var>promise</var> with a new <code><a href=
-              "http://dom.spec.whatwg.org/#exception-domexception">DOMException</a></code>
-              whose name is "<code><a href=
-              "http://dom.spec.whatwg.org/#aborterror">AbortError</a></code>"
-              and return.
-              </li>
-              <li>Otherwise, resolve <var>promise</var> with
-              <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>promise</var>.
-          </li>
-        </ol>
-      </section>
-    </section>
-    <section>
-      <h2>
         IANA considerations
       </h2>
       <p>
@@ -1445,12 +1293,6 @@ installButton.addEventListener("click", function(e){
       <p>
         There is only one class of product that can claim conformance to this
         specification: a <dfn>user agent</dfn>.
-      </p>
-      <p>
-        Implementations that use ECMAScript to implement the APIs defined in
-        this specification MUST implement them in a manner consistent with the
-        ECMAScript Bindings defined in the Web IDL specification [[!WEBIDL]],
-        as this specification uses that specification and terminology.
       </p>
     </section>
     <section class="appendix">
