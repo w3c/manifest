@@ -156,8 +156,8 @@
       <p id="ecmascript-abstractop">
         The <dfn><a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
-        [[\GetOwnProperty]]</a></dfn> operation,
-        and the <a class="external" href=
+        [[\GetOwnProperty]]</a></dfn> operation, and the <a class="external"
+        href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
         <dfn>Type</dfn>(<var>x</var>)</a> notation are defined in
         [[!ECMASCRIPT]]. Processing also relies on various algorithms defined
@@ -231,8 +231,8 @@
           "<code id="dm-fullscreen">fullscreen</code>"
         </dt>
         <dd>
-          Opens the web application without any user agent&nbsp;chrome and
-          takes up the entirety of the available display area.
+          Opens the web application without any user agent chrome and takes up
+          the entirety of the available display area.
         </dd>
         <dt>
           "<code id="dm-minimal-ui">minimal-ui</code>"
@@ -371,12 +371,12 @@
           <li>If <var>name</var> is <code>undefined</code> or the empty string:
             <ol>
               <li>If the user agent <a>obtained a manifest from a top-level
-              document</a>, attempt to derive the name of the Web
-              application&nbsp;from the top-level document and set
-              <var>name</var> to be the result. For example, if bookmarking was
-              initiated from a [[!HTML]] <code>document</code>, and the <code>
-                document</code> has any <code><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
+              document</a>, attempt to derive the name of the Web application
+              from the top-level document and set <var>name</var> to be the
+              result. For example, if bookmarking was initiated from a
+              [[!HTML]] <code>document</code>, and the <code>document</code>
+              has any <code><a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
                 meta</a></code> elements whose <a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name">
                 name</a> attribute matches <code><a href=
@@ -398,11 +398,11 @@
           <li>If <var>icons</var> contains no items:
             <ol>
               <li>If the user agent <a>obtained a manifest from a top-level
-              document</a>, attempt to derive the icons for the Web
-              application&nbsp;from the top-level document. For example, if
-              bookmarking was initiated from a [[!HTML]] <code>document</code>,
-              icon link relationships, or a <code>favicon.ico</code>, can serve
-              as suitable fallbacks.
+              document</a>, attempt to derive the icons for the Web application
+              from the top-level document. For example, if bookmarking was
+              initiated from a [[!HTML]] <code>document</code>, icon link
+              relationships, or a <code>favicon.ico</code>, can serve as
+              suitable fallbacks.
               </li>
               <li>If no suitable icons are found in the top-level document, or
               the user agent <a>obtained a manifest directly</a>, then provide
@@ -919,25 +919,25 @@
         </h3>
         <p>
           The <dfn title="icon-sizes">sizes</dfn> member is a <a title=
-          "json-string">string</a> consisting of an&nbsp;<a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#unordered-set-of-unique-space-separated-tokens">unordered
-          set of unique space-separated tokens</a>&nbsp;which are&nbsp;<a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">ASCII
-          case-insensitive</a> that represents the dimensions of an icon for
-          visual media. Each keyword is either an&nbsp;<a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">ASCII
-          case-insensitive</a>&nbsp;match for the string "<a href=
+          "json-string">string</a> consisting of an <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#unordered-set-of-unique-space-separated-tokens">
+          unordered set of unique space-separated tokens</a> which are <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">
+          ASCII case-insensitive</a> that represents the dimensions of an icon
+          for visual media. Each keyword is either an <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">
+          ASCII case-insensitive</a> match for the string "<a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes-any">any</a>",
-          or a value that consists of two&nbsp;<a href=
+          or a value that consists of two <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#valid-non-negative-integer"
-          title="valid non-negative integer">valid non-negative
-          integers</a>&nbsp;that do not have a leading U+0030 DIGIT ZERO (0)
-          character and that are separated by a single U+0078 LATIN SMALL
-          LETTER X or U+0058 LATIN CAPITAL LETTER X character. The keywords
-          represent icon sizes in raw pixels (as opposed to CSS pixels). When
-          multiple <a title="icon object">icon objects</a> are available, a
-          user agent can use the value to decide which icon is most suitable
-          for a display context (and ignore any that are inappropriate).
+          title="valid non-negative integer">valid non-negative integers</a>
+          that do not have a leading U+0030 DIGIT ZERO (0) character and that
+          are separated by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN
+          CAPITAL LETTER X character. The keywords represent icon sizes in raw
+          pixels (as opposed to CSS pixels). When multiple <a title=
+          "icon object">icon objects</a> are available, a user agent can use
+          the value to decide which icon is most suitable for a display context
+          (and ignore any that are inappropriate).
         </p>
         <p>
           The <dfn>steps for processing a <code>sizes</code> member of an
@@ -1032,10 +1032,10 @@
         </p>
         <p>
           There is no default MIME type for icon objects. However, for the
-          purposes of&nbsp;<a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-type-sniffing">determining
-          the type of the resource</a>, user agents must expect the resource to
-          be an image.
+          purposes of <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-type-sniffing">
+          determining the type of the resource</a>, user agents must expect the
+          resource to be an image.
         </p>
         <p>
           The <dfn>steps for processing the <code>type</code> member of an
