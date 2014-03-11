@@ -332,6 +332,14 @@
           whatever member or value caused the condition was absent from the
           manifest document.
         </p>
+        <p>
+          The algorithm provides an <dfn>extension point</dfn>: other
+          specifications that add new members to the manifest are encouraged to
+          hook themselves into this specification at this point in the
+          algorithm. This is to avoid <a href=
+          "http://annevankesteren.nl/2014/02/monkey-patch">issues related to
+          monkey patching</a>.
+        </p>
         <ol>
           <li>Let <var>manifest</var> be the result of <a href=
           "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
@@ -344,6 +352,10 @@
                 parsing</a> the string <code>"{}"</code>.
               </li>
             </ol>
+          </li>
+          <li>
+            <a>Extension point</a>: process any proprietary and/or other
+            supported members at this point in the algorithm.
           </li>
           <li>Let <var>start URL</var> be the result of running the <a>steps
           for processing the <code>start_url</code> member</a>, with either the
@@ -876,6 +888,34 @@
           "http://fetch.spec.whatwg.org/#concept-fetch">fetched</a>
           <a>manifest</a>, the user agent MUST run the <a>steps for processing
           a manifest</a>.
+        </p>
+      </section>
+      <section class="informative">
+        <h3>
+          Extending the manifest
+        </h3>
+        <p>
+          This specification is designed to be extensible. Other specifications
+          are encouraged to define new members for the manifest. However, in
+          doing so, please follow the conventions used in this specification.
+          In particular, use the <a>extension point</a> to hook into the
+          <a>steps for processing a manifest</a>. Also, be sure to specify the
+          steps for processing your particular member in the manner set forth
+          in this specification. This will help keep this part of the platform
+          consistent.
+        </p>
+        <p>
+          When specifying an new member, don't override or <a href=
+          "http://annevankesteren.nl/2014/02/monkey-patch">monkey patch</a>
+          anything defined in this specification. Also, don't assume your
+          member will be processed before or after any other member. Keep your
+          new member, and its processing, atomic and self contained.
+        </p>
+        <p>
+          If you are writing a specification and temporarily want to patch this
+          specification to help implementations along, <a href=
+          "https://github.com/w3c/manifest/issues">file a bug</a> so the
+          community is informed of what you are trying to do.
         </p>
       </section>
       <section id="proprietary-extensions" class="informative">
