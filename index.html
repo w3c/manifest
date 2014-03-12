@@ -304,18 +304,18 @@
         <ol>
           <li>Let <var>response</var> be the result of <a href=
           "http://fetch.spec.whatwg.org/#concept-fetch">fetching</a> the
-          manifest from <var>url</var>. HTTP caching semantics should be
-          honored for this request. User agents may also have other caches in
-          place that are also honored.
+          manifest from <var>url</var>.
           </li>
           <li>Return <var>response</var>.
           </li>
         </ol>
         <div class="note">
-          Authors are encouraged to use the HTTP cache directives to explicitly
-          cache the manifest. For example, the following response would cause a
-          cached manifest to be used one year from the time the response is
-          sent:
+          <p>
+            Authors are encouraged to use the HTTP cache directives to
+            explicitly cache the manifest. For example, the following response
+            would cause a cached manifest to be used one year from the time the
+            response is sent:
+          </p>
           <pre class="example highlight">
             HTTP/1.1 200 OK
             Cache-Control: max-age=31536000
@@ -848,27 +848,31 @@
         </div>
         <p>
           The <dfn>steps for processing the csp member</dfn> is given by the
-          following algorithm. The algorithm takes a <var>manifest</var> as
-          argument. This algorithm returns a <a>valid supplemental security
-          policy</a> or <code>undefined</code>.
+          following algorithm. The algorithm takes a <a>manifest</a>
+          <var>manifest</var> as an argument, and returns a <a>valid
+          supplemental security policy</a> or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>policy</var> be the result of calling the
+          <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "csp".
           </li>
-          <li>If <a>Type</a>(<var>policy</var>) is not "string", return <code>
-            undefined</code>.
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string", and is not
+          <code>undefined</code>, then <a>issue a developer warning</a> that
+          the type of the policy is invalid, and return <code>undefined</code>.
           </li>
           <li>Let <var>set of directives</var> be a set returned by the
             <a href="http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html#parse-a-policy">
             parse a policy</a> [[!CSP11]] algorithm, that takes
-            <var>policy</var> as argument.
+            <var>value</var> as argument.
           </li>
           <li>If <var>set of directives</var> matches the <a href=
           "http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html#policies">
             <code>policy</code> production</a> [[!CSP11]], return <var>set of
-            directives</var>, otherwise, return <code>undefined</code>.
+            directives</var>, otherwise, <a>issue a developer warning</a> that
+            the policy is invalid and return <code>undefined</code>.
           </li>
         </ol>
       </section>
