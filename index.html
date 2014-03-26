@@ -259,6 +259,17 @@
       </p>
       <section>
         <h3>
+          Associating a resource with a manifest
+        </h3>
+        <p>
+          A resource is said to be <dfn>associated with a manifest</dfn> if the
+          resource representation, an HTML document, has a <a href=
+          "#linking"><code>manifest</code> link relationship</a>, or the
+          resource has a <a>well-known manifest</a>.
+        </p>
+      </section>
+      <section>
+        <h3>
           Obtaining a manifest
         </h3>
         <p>
@@ -298,6 +309,25 @@
           <li>Return <var>response</var>.
           </li>
         </ol>
+        <div class="note">
+          <p>
+            Authors are encouraged to use the HTTP cache directives to
+            explicitly cache the manifest. For example, the following response
+            would cause a cached manifest to be used one year from the time the
+            response is sent:
+          </p>
+          <pre class="example highlight">
+            HTTP/1.1 200 OK
+            Cache-Control: max-age=31536000
+            Content-Type: application/manifest+json
+            
+            {
+              "name": "Super Racer 2000"
+              /* ... */
+            }
+          
+</pre>
+        </div>
       </section>
       <section>
         <h3>
@@ -409,6 +439,19 @@
           </li>
           <li>Otherwise, treat <var>icons</var> as the <dfn>default icons for
           the web application</dfn>.
+          </li>
+          <li>Let <var>set of directives</var> be the result of running the <a>
+            steps for processing the <code>csp</code> member</a>.
+          </li>
+          <li>If <var>set of directives</var> is <code>undefined</code>, then
+          skip this substep:
+            <ol>
+              <li>For any subsequent fetch of a resource that is <a>associated
+              with a manifest</a> <var>manifest</var>, append a header named
+              "<code>Content-Security-Policy</code>" with value <var>set of
+              directives</var> to its response headers.
+              </li>
+            </ol>
           </li>
         </ol>
       </section>
@@ -774,6 +817,62 @@
           URL</var>.
           </li>
           <li>Otherwise, return <var>potential URL</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">csp</code> member
+        </h3>
+        <p>
+          The <dfn id="member-csp"><code>csp</code></dfn> member is a <a title=
+          "json-string">string</a> that represents a <dfn>supplemental <a href=
+          "http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html#dfn-security-policy">
+          security policy</a></dfn>. The string is a <dfn>valid supplemental
+          security policy</dfn> if it matches the <a href=
+          "http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html#policies">
+          <code>policy</code> production</a> defined in [[!CSP11]].
+        </p>
+        <div class="note">
+          <p>
+            The <code>csp</code> member supplements the <a href=
+            "http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html#policy-delivery">
+            policy delivery</a> mechanisms defined in [[!CSP11]], and allows
+            the author to indicate that the user agent is to enforce a
+            <a>supplemental security policy</a> (according to the rules of
+            <a href=
+            "http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html#enforcing-multiple-policies.x">
+            enforcing multiple policies</a> [[!CSP11]]) for a resource
+            <a>associated with a manifest</a>.
+          </p>
+        </div>
+        <p>
+          The <dfn>steps for processing the csp member</dfn> is given by the
+          following algorithm. The algorithm takes a <a>manifest</a>
+          <var>manifest</var> as an argument, and returns a <a>valid
+          supplemental security policy</a> or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "csp".
+          </li>
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string", and is not
+          <code>undefined</code>, then <a>issue a developer warning</a> that
+          the type of the policy is invalid, and return <code>undefined</code>.
+          </li>
+          <li>Let <var>set of directives</var> be a set returned by the
+            <a href="http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html#parse-a-policy">
+            parse a policy</a> [[!CSP11]] algorithm, that takes
+            <var>value</var> as argument.
+          </li>
+          <li>If <var>set of directives</var> matches the <a href=
+          "http://w3c.github.io/webappsec/specs/content-security-policy/csp-specification.dev.html#policies">
+            <code>policy</code> production</a> [[!CSP11]], return <var>set of
+            directives</var>, otherwise, <a>issue a developer warning</a> that
+            the policy is invalid and return <code>undefined</code>.
           </li>
         </ol>
       </section>
