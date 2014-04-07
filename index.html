@@ -109,7 +109,7 @@
   "name": "Super Racer 2000",
   "icons": [{<br>      "src": "icon/lowres",<br>      "sizes": "64x64",<br>      "type": "image/webp"<br>    }, {<br>      "src": "icon/hd_small",<br>      "sizes": "64x64"<br>    }, {<br>      "src": "icon/hd_hi",<br>      "sizes": "128x128"<br>    }],
   "start_url": "/start.html",
-  "display": ["fullscreen"],
+  "display": "fullscreen",
   "orientation": "landscape"
 }
 </pre>
@@ -201,6 +201,10 @@
         the <a>default display mode</a>.
       </p>
       <p>
+        When a <a>display mode</a> is not supported by a user agent, its
+        <dfn>fallback mode</dfn> MUST be used instead.
+      </p>
+      <p>
         The <dfn>display modes values</dfn> are as follows:
       </p>
       <dl>
@@ -212,36 +216,44 @@
           opening hyperlinks in the user agent (e.g., in a browser tab or a new
           window). The <code>browser</code> display mode is the <dfn>fallback
           display mode</dfn> to be used as the default if there is no valid
-          <code>display</code> member in the manifest, or none of the preferred
+          <code>display</code> member in the manifest, or none of the other
           <a title="display mode">display modes</a> are supported by the user
-          agent.
+          agent. This <a>display mode</a> MUST be supported by the user agent.
+        </dd>
+        <dt>
+          <dfn id="dm-minimal-ui">minimal-ui</dfn>
+        </dt>
+        <dd>
+          Same as <a href="#dm-standalone">standalone</a>, but MUST provides
+          the end-user with some means to access a minimal set of UI elements
+          for controlling navigation (i.e., back, forward, reload, and perhaps
+          some way of viewing the document's address). A user agent MAY include
+          other platform specific UI elements, such as "share" and "print"
+          buttons or whatever is customary on the platform and user agent.<br>
+          <code>minimal-ui</code> <a>fallback mode</a> is <code>browser</code>.
         </dd>
         <dt>
           <dfn id="dm-standalone">standalone</dfn>
         </dt>
         <dd>
-          Opens the web application without UI elements for controlling
-          navigation, but can include other UI elements such as a status bar.
-          On desktop platforms, for example, this would open the web
-          application in a standalone window outside of the browser.
+          Opens the web application as close as possible as a standalone
+          application. The user agent SHOULD make the web application look like
+          a native application on the running platform. Often, that will
+          include having a different window, its own icon in the application
+          switcher, etc. The web application MUST not have UI elements for
+          controlling navigation, but MAY include other UI elements such as a
+          status bar.<br>
+          <code>standalone</code> <a>fallback mode</a> is
+          <code>minimal-ui</code>.
         </dd>
         <dt>
           <dfn id="dm-fullscreen">fullscreen</dfn>
         </dt>
         <dd>
           Opens the web application without any user agent chrome and takes up
-          the entirety of the available display area.
-        </dd>
-        <dt>
-          <dfn id="dm-minimal-ui">minimal-ui</dfn>
-        </dt>
-        <dd>
-          Same as <a href="#dm-standalone">standalone</a>, but provides the
-          end-user with some means to access a minimal set of UI elements for
-          controlling navigation (i.e., back, forward, reload, and perhaps some
-          way of viewing the document's address). A user agent MAY include
-          other platform specific UI elements, such as "share" and "print"
-          buttons or whatever is customary on the platform and/or user agent.
+          the entirety of the available display area.<br>
+          <code>fullscreen</code> <a>fallback mode</a> is
+          <code>standalone</code>.
         </dd>
       </dl>
     </section>
@@ -380,16 +392,13 @@
           <code>document</code>'s URL or an application-specific URL (e.g.,
           "app://") as the <var>base URL</var>.
           </li>
-          <li>Let <var>display modes</var> be the result of running <a>steps
+          <li>Let <var>display mode</var> be the result of running the <a>steps
           for processing the <code>display</code> member</a> with
           <var>manifest</var> as the argument.
           </li>
-          <li>Let <var>default display mode</var> be the first item of
-          <var>display modes</var>.
-          </li>
           <li>Let <var>orientation</var> be the result of running the <a>steps
           for processing the <code>orientation</code> member</a> with
-          <var>manifest</var> and <var>default display mode</var> as arguments.
+          <var>manifest</var> and <var>display mode</var> as arguments.
           </li>
           <li>If <var>orientation</var> is not the empty string, let it serves
           as the <a href=
@@ -625,61 +634,41 @@
           <code>display</code> member
         </h3>
         <p>
-          The <dfn id="member-display"><code>display</code></dfn> member is an
-          <a href="#json-array">array</a> of <a href=
-          "#json-string">strings</a>, whose items are one or more <a>display
-          modes values</a>. The items represent a developer's preferred
-          <a title="display mode">display modes</a> for the web application.
-          Order in the <a href="#json-array">array</a> is significant, with the
-          first item being the developer's most preferred, followed by the next
-          most preferred and so forth. When the member is missing or
-          <span data-dobid="hdw">erroneous</span>, the user agent uses the
-          fallback display mode.
+          The <dfn id="member-display"><code>display</code></dfn> member is a
+          <a href="#json-string">string</a>, whose value is one of <a>display
+          modes values</a>. The item represents the developer's preferred
+          <a>display mode</a> for the web application. When the member is
+          missing or <span data-dobid="hdw">erroneous</span>, the user agent
+          MUST use the <a>fallback display mode</a>.
         </p>
         <p>
           The <dfn>steps for processing the <code>display</code> member</dfn>
           are given by the following algorithm. The algorithm takes a manifest
-          <var>manifest</var> as an argument, and returns a set.
+          <var>manifest</var> as an argument, and returns a string.
         </p>
         <ol>
-          <li>Let <var>result</var> be a set.
-          </li>
-          <li>Let <var>display values</var> be the result of calling the
+          <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           passing "<code>display</code>" as the argument.
           </li>
-          <li>If <var>display values</var> is not an instance of <a href=
-          "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array-exotic-objects">
-            Array</a>:
+          <li>If <a>Type</a>(<var>value</var>) is not "string" or
+          <var>value</var> is not part of the <a>display modes values</a>:
             <ol>
-              <li>If <a>Type</a>(<var>display value</var>) is not "undefined",
-              <a>issue a developer warning</a> that the type is unsupported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is unsupported.
+              </li>
+              <li>Return the <a>fallback display mode</a>'s value.
               </li>
             </ol>
           </li>
-          <li>Otherwise, for each <var>item</var> in <var>display values</var>
-          in order from first to last:
-            <ol>
-              <li>If <a>Type</a>(<var>item</var>) is not "string", ignore this
-              <var>item</var> and move onto the next item in <var>display
-              values</var> (if any are left).
-              </li>
-              <li>
-                <a>Trim</a>(<var>item</var>) and set <var>item</var> to be the
-                resulting string.
-              </li>
-              <li>If <var>item</var> is not a display mode that the user agent
-              supports, or <var>result</var> already contains <var>item</var>,
-              ignore this <var>item</var> and proceed to the next.
-              </li>
-              <li>Otherwise, append <var>item</var> to <var>result</var>.
-              </li>
-            </ol>
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
+          to be the result.
           </li>
-          <li>If result contains no items, add the <a>fallback display mode</a>
-          to <var>result</var>.
+          <li>If <var>value</var> is not a display mode that the user agent
+          supports, set <var>value</var> to <var>value</var>'s <a>fallback
+          mode</a> and rerun this step.
           </li>
-          <li>Return <var>result</var>.
+          <li>Return <var>value</var>.
           </li>
         </ol>
       </section>
