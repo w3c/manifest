@@ -110,7 +110,7 @@
   "icons": [{<br>      "src": "icon/lowres",<br>      "sizes": "64x64",<br>      "type": "image/webp"<br>    }, {<br>      "src": "icon/hd_small",<br>      "sizes": "64x64"<br>    }, {<br>      "src": "icon/hd_hi",<br>      "sizes": "128x128"<br>    }],
   "start_url": "/start.html",
   "display": ["fullscreen"],
-  "default_orientation": "landscape"
+  "orientation": "landscape"
 }
 </pre>
       </section>
@@ -320,12 +320,12 @@
             HTTP/1.1 200 OK
             Cache-Control: max-age=31536000
             Content-Type: application/manifest+json
-            
+
             {
               "name": "Super Racer 2000"
               /* ... */
             }
-          
+
 </pre>
         </div>
       </section>
@@ -387,12 +387,11 @@
           <li>Let <var>default display mode</var> be the first item of
           <var>display modes</var>.
           </li>
-          <li>Let <var>default orientation</var> be the result of running the
-          <a>steps for processing the <code>default_orientation</code>
-          member</a> with <var>manifest</var> and <var>default display
-          mode</var> as an arguments.
+          <li>Let <var>orientation</var> be the result of running the <a>steps
+          for processing the <code>orientation</code> member</a> with
+          <var>manifest</var> and <var>default display mode</var> as arguments.
           </li>
-          <li>Let <var>default orientation</var> serve as the <a href=
+          <li>Let <var>orientation</var> serve as the <a href=
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
             default orientation</a> for all top-level browsing contexts of the
             web application.
@@ -685,11 +684,10 @@
       </section>
       <section>
         <h3>
-          <code>default_orientation</code> member
+          <code>orientation</code> member
         </h3>
         <p>
-          The <dfn id=
-          "member-default-orientation"><code>default_orientation</code></dfn>
+          The <dfn id="member-orientation"><code>orientation</code></dfn>
           member is a <a href="#json-string">string</a> that serves as the
           <a href=
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
@@ -699,8 +697,8 @@
           allowed orientations</a> defined in [[!SCREEN-ORIENTATION]].
         </p>
         <p>
-          If the user agent honors the value of the
-          <code>default_orientation</code> member as the <a href=
+          If the user agent honors the value of the <code>orientation</code>
+          member as the <a href=
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
           default orientation</a>, then that serves as the <a href=
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
@@ -726,7 +724,7 @@
           [[!SCREEN-ORIENTATION]] API).
         </p>
         <p>
-          The <dfn>steps for processing the <code>default_orientation</code>
+          The <dfn>steps for processing the <code>orientation</code>
           member</dfn> are given by the following algorithm. The algorithm
           takes a <a>manifest</a> <var>manifest</var> and display mode
           <var>display mode</var> as an argument, and returns a string.
@@ -734,7 +732,7 @@
         <ol>
           <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "default_orientation".
+          with argument "orientation".
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
