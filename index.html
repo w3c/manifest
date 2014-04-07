@@ -387,16 +387,13 @@
           <code>document</code>'s URL or an application-specific URL (e.g.,
           "app://") as the <var>base URL</var>.
           </li>
-          <li>Let <var>display modes</var> be the result of running <a>steps
+          <li>Let <var>display mode</var> be the result of running the <a>steps
           for processing the <code>display</code> member</a> with
           <var>manifest</var> as the argument.
           </li>
-          <li>Let <var>default display mode</var> be the first item of
-          <var>display modes</var>.
-          </li>
           <li>Let <var>orientation</var> be the result of running the <a>steps
           for processing the <code>orientation</code> member</a> with
-          <var>manifest</var> and <var>default display mode</var> as arguments.
+          <var>manifest</var> and <var>display mode</var> as arguments.
           </li>
           <li>Let <var>orientation</var> serve as the <a href=
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
