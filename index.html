@@ -212,36 +212,43 @@
           opening hyperlinks in the user agent (e.g., in a browser tab or a new
           window). The <code>browser</code> display mode is the <dfn>fallback
           display mode</dfn> to be used as the default if there is no valid
-          <code>display</code> member in the manifest, or none of the preferred
+          <code>display</code> member in the manifest, or none of the other
           <a title="display mode">display modes</a> are supported by the user
           agent.
+        </dd>
+        <dt>
+          <dfn id="dm-minimal-ui">minimal-ui</dfn>
+        </dt>
+        <dd>
+          Same as <a href="#dm-standalone">standalone</a>, but MUST provides the
+          end-user with some means to access a minimal set of UI elements for
+          controlling navigation (i.e., back, forward, reload, and perhaps some
+          way of viewing the document's address). A user agent MAY include
+          other platform specific UI elements, such as "share" and "print"
+          buttons or whatever is customary on the platform and user agent.
+          <br>
+          <code>minimal-ui</code> fallback mode is <code>browser</code>.
         </dd>
         <dt>
           <dfn id="dm-standalone">standalone</dfn>
         </dt>
         <dd>
-          Opens the web application without UI elements for controlling
-          navigation, but can include other UI elements such as a status bar.
-          On desktop platforms, for example, this would open the web
-          application in a standalone window outside of the browser.
+          Opens the web application as close as possible as a standalone
+          application. The user agent SHOULD make the web application look like
+          a native application on the running platform. Often, that will include
+          having a different window, its own icon in the application switcher,
+          etc. The web application MUST not have UI elements for controlling
+          navigation, but MAY include other UI elements such as a status bar.
+          <br>
+          <code>standalone</code> fallback mode is <code>minimal-ui</code>.
         </dd>
         <dt>
           <dfn id="dm-fullscreen">fullscreen</dfn>
         </dt>
         <dd>
           Opens the web application without any user agent chrome and takes up
-          the entirety of the available display area.
-        </dd>
-        <dt>
-          <dfn id="dm-minimal-ui">minimal-ui</dfn>
-        </dt>
-        <dd>
-          Same as <a href="#dm-standalone">standalone</a>, but provides the
-          end-user with some means to access a minimal set of UI elements for
-          controlling navigation (i.e., back, forward, reload, and perhaps some
-          way of viewing the document's address). A user agent MAY include
-          other platform specific UI elements, such as "share" and "print"
-          buttons or whatever is customary on the platform and/or user agent.
+          the entirety of the available display area.<br>
+          <code>fullscreen</code> fallback mode is <code>standalone</code>.
         </dd>
       </dl>
     </section>
