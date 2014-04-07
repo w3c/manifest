@@ -201,6 +201,10 @@
         the <a>default display mode</a>.
       </p>
       <p>
+        When a <a>display mode</a> is not supported by a user agent, its <dfn>
+        fallback mode</dfn> MUST be used instead.
+      </p>
+      <p>
         The <dfn>display modes values</dfn> are as follows:
       </p>
       <dl>
@@ -214,7 +218,7 @@
           display mode</dfn> to be used as the default if there is no valid
           <code>display</code> member in the manifest, or none of the other
           <a title="display mode">display modes</a> are supported by the user
-          agent.
+          agent. This <a>display mode</a> MUST be supported by the user agent.
         </dd>
         <dt>
           <dfn id="dm-minimal-ui">minimal-ui</dfn>
@@ -227,7 +231,7 @@
           other platform specific UI elements, such as "share" and "print"
           buttons or whatever is customary on the platform and user agent.
           <br>
-          <code>minimal-ui</code> fallback mode is <code>browser</code>.
+          <code>minimal-ui</code> <a>fallback mode</a> is <code>browser</code>.
         </dd>
         <dt>
           <dfn id="dm-standalone">standalone</dfn>
@@ -240,7 +244,7 @@
           etc. The web application MUST not have UI elements for controlling
           navigation, but MAY include other UI elements such as a status bar.
           <br>
-          <code>standalone</code> fallback mode is <code>minimal-ui</code>.
+          <code>standalone</code> <a>fallback mode</a> is <code>minimal-ui</code>.
         </dd>
         <dt>
           <dfn id="dm-fullscreen">fullscreen</dfn>
@@ -248,7 +252,7 @@
         <dd>
           Opens the web application without any user agent chrome and takes up
           the entirety of the available display area.<br>
-          <code>fullscreen</code> fallback mode is <code>standalone</code>.
+          <code>fullscreen</code> <a>fallback mode</a> is <code>standalone</code>.
         </dd>
       </dl>
     </section>
@@ -658,8 +662,8 @@
           <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
           to be the result.
           <li>If <var>value</var> is not a display mode that the user agent
-          supports, set <var>value</var> to <var>value</var>'s fallback mode and
-          rerun this step.
+          supports, set <var>value</var> to <var>value</var>'s <a>fallback
+          mode</a> and rerun this step.
           </li>
           <li>Return <var>value</var>.
           </li>
