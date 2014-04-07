@@ -648,7 +648,8 @@
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           passing "<code>display</code>" as the argument.
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
+          <li>If <a>Type</a>(<var>value</var>) is not "string" or
+          <var>value</var> is not part of the <a>display modes values</a>:
             <ol>
               <li>If <a>Type</a>(<var>value</var>) is not "undefined",
               <a>issue a developer warning</a> that the type is unsupported.
@@ -661,7 +662,7 @@
           to be the result.
           <li>If <var>value</var> is not a display mode that the user agent
           supports, set <var>value</var> to <var>value</var>'s fallback mode and
-          restart these steps from the previous one.
+          rerun this step.
           </li>
           <li>Return <var>value</var>.
           </li>
