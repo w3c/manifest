@@ -624,61 +624,39 @@
           <code>display</code> member
         </h3>
         <p>
-          The <dfn id="member-display"><code>display</code></dfn> member is an
-          <a href="#json-array">array</a> of <a href=
-          "#json-string">strings</a>, whose items are one or more <a>display
-          modes values</a>. The items represent a developer's preferred
-          <a title="display mode">display modes</a> for the web application.
-          Order in the <a href="#json-array">array</a> is significant, with the
-          first item being the developer's most preferred, followed by the next
-          most preferred and so forth. When the member is missing or
-          <span data-dobid="hdw">erroneous</span>, the user agent uses the
-          fallback display mode.
+          The <dfn id="member-display"><code>display</code></dfn> member is a
+          <a href="#json-string">string</a>, whose value is one of <a>display
+          modes values</a>. The item represents the developer's preferred
+          <a>display mode</a> for the web application.
+          When the member is missing or <span data-dobid="hdw">erroneous</span>,
+          the user agent MUST use the <a>fallback display mode</a>.
         </p>
         <p>
           The <dfn>steps for processing the <code>display</code> member</dfn>
           are given by the following algorithm. The algorithm takes a manifest
-          <var>manifest</var> as an argument, and returns a set.
+          <var>manifest</var> as an argument, and returns a string.
         </p>
         <ol>
-          <li>Let <var>result</var> be a set.
-          </li>
-          <li>Let <var>display values</var> be the result of calling the
+          <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           passing "<code>display</code>" as the argument.
           </li>
-          <li>If <var>display values</var> is not an instance of <a href=
-          "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-array-exotic-objects">
-            Array</a>:
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>display value</var>) is not "undefined",
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
               <a>issue a developer warning</a> that the type is unsupported.
               </li>
-            </ol>
-          </li>
-          <li>Otherwise, for each <var>item</var> in <var>display values</var>
-          in order from first to last:
-            <ol>
-              <li>If <a>Type</a>(<var>item</var>) is not "string", ignore this
-              <var>item</var> and move onto the next item in <var>display
-              values</var> (if any are left).
-              </li>
-              <li>
-                <a>Trim</a>(<var>item</var>) and set <var>item</var> to be the
-                resulting string.
-              </li>
-              <li>If <var>item</var> is not a display mode that the user agent
-              supports, or <var>result</var> already contains <var>item</var>,
-              ignore this <var>item</var> and proceed to the next.
-              </li>
-              <li>Otherwise, append <var>item</var> to <var>result</var>.
+              <li>Return the <a>fallback display mode</a>'s value.
               </li>
             </ol>
           </li>
-          <li>If result contains no items, add the <a>fallback display mode</a>
-          to <var>result</var>.
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
+          to be the result.
+          <li>If <var>value</var> is not a display mode that the user agent
+          supports, set <var>value</var> to <var>value</var>'s fallback mode and
+          restart these steps from the previous one.
           </li>
-          <li>Return <var>result</var>.
+          <li>Return <var>value</var>.
           </li>
         </ol>
       </section>
