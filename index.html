@@ -391,7 +391,8 @@
           for processing the <code>orientation</code> member</a> with
           <var>manifest</var> and <var>default display mode</var> as arguments.
           </li>
-          <li>Let <var>orientation</var> serve as the <a href=
+          <li>If <var>orientation</var> is not the empty string, let it serves
+          as the <a href=
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
             default orientation</a> for all top-level browsing contexts of the
             web application.
@@ -693,8 +694,8 @@
           "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
           default orientation</a> for all top-level browsing contexts of the
           web application. The possible values is one of the <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
-          allowed orientations</a> defined in [[!SCREEN-ORIENTATION]].
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#idl-def-OrientationLockType">
+          OrientationLockType</a> enum defined in [[!SCREEN-ORIENTATION]].
         </p>
         <p>
           If the user agent honors the value of the <code>orientation</code>
@@ -713,9 +714,9 @@
         <p>
           Although the specification relies on the [[!SCREEN-ORIENTATION]]'s
           <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#allowed-orientations">
-          allowed orientations</a>, it is OPTIONAL for a user agent to
-          implement the [[!SCREEN-ORIENTATION]] API. Supporting the
+          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#idl-def-OrientationLockType">
+          OrientationLockType</a>, it is OPTIONAL for a user agent to implement
+          the [[!SCREEN-ORIENTATION]] API. Supporting the
           [[!SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
         </p>
         <p>
@@ -739,7 +740,7 @@
               <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
               a developer warning</a> that the type is not supported.
               </li>
-              <li>Return "any".
+              <li>Return the empty string.
               </li>
             </ol>
           </li>
@@ -753,7 +754,7 @@
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return "any".
+              <li>Return the empty string.
               </li>
             </ol>
           </li>
