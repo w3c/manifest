@@ -11,21 +11,21 @@ the [Web Applications Working Group](http://www.w3.org/2008/webapps/).
 
 For the first version, we aim to standardize the following: 
 
-* A link relationship for manifests (so they can be used with `<link>`).
-* A standard file name for a manifest resource (i.e., manifest.json).  
+* A link relationship for manifests (`<link rel="manifest" href="...">`).
+* The well-known URI for a manifest resource (`/.well-known/manifest.json` if no link relationship).
+* Application's name and icons and how they interact with HTML equivalents.
+* Display mode hinting (browser, minimal-ui, standalone, fullscreen).
+* Screen orientation hinting.
 * Start URL.
-* Screen orientation hinting for when launching the app.
-* Launch the app in different display modes: fullscreen, minimal-ui, open in browser, etc.
-* Application's name and icons - and how they interact with HTML equivs.
 
 ## Goals for v2 and beyond
 * A way of for scripts to check if the application was launched from a bookmark (i.e., similar to Safari's navigator.standalone). 
 * Media query based orientation and display mode.
-* CSS media features for display modes - `@media all and (display-mode: browser)`.
+* [CSS media features for display modes](https://github.com/w3c/manifest/issues/155) - `@media all and (display-mode: browser)`.
 * [Define how navigation works](https://github.com/w3c/manifest/issues/142).
-* URL scope for a web application (i.e., "foo.com/bar/*" is my app, other stuff opens in default browser).
-* Service Worker intergration
-* CSP policy tightening
+* [URL scope for a web application](https://github.com/w3c/manifest/issues/114) (i.e., "foo.com/bar/*" is my app, other stuff opens in default browser).
+* [Service Worker integration](https://github.com/w3c/manifest/issues/161).
+* [CSP policy tightening](https://github.com/w3c/manifest/pull/162).
 * Updatable manifests - update the installed application to enable new capabilities after install.
 * [Clarify how this works with HTTP's Link header](https://github.com/w3c/manifest/issues/98).
 * [Inline manifests](https://github.com/w3c/manifest/issues/91) (or HTML meta equivs?).
