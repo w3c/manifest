@@ -25,7 +25,7 @@ For the first version, we aim to standardize the following:
 * [Define how navigation works](https://github.com/w3c/manifest/issues/142).
 * [URL scope for a web application](https://github.com/w3c/manifest/issues/114) (i.e., "foo.com/bar/*" is my app, other stuff opens in default browser).
 * [Service Worker integration](https://github.com/w3c/manifest/issues/161).
-* [CSP policy tightening](https://github.com/w3c/manifest/pull/162).
+* [CSP policy tightening](http://w3c.github.io/manifest-csp/).
 * Updatable manifests - update the installed application to enable new capabilities after install.
 * [Clarify how this works with HTTP's Link header](https://github.com/w3c/manifest/issues/98).
 * [Inline manifests](https://github.com/w3c/manifest/issues/91) (or HTML meta equivs?).
