@@ -595,8 +595,8 @@
               processing the <code>type</code> member of an icon</a> passing
               <var>potential icon</var>.
               </li>
-              <li>If <var>type</var> is an error, move onto the next item in
-              <var>orientations</var> (if any are left).
+              <li>If <var>type</var> is <code>undefined</code>, move onto the
+              next item in <var>orientations</var> (if any are left).
               </li>
               <li>Let <var>sizes</var> be the list that result from running the
               <a>steps for processing a <code>sizes</code> member of an
@@ -685,23 +685,23 @@
           The <dfn id="member-orientation"><code>orientation</code></dfn>
           member is a <a href="#json-string">string</a> that serves as the
           <a href=
-          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">
-          default orientation</a> for all top-level browsing contexts of the
-          web application. The possible values is one of the <a href=
+          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">default
+          orientation</a> for all top-level browsing contexts of the web
+          application. The possible values is one of the <a href=
           "https://w3c.github.io/screen-orientation/#idl-def-OrientationLockType">
           OrientationLockType</a> enum defined in [[!SCREEN-ORIENTATION]].
         </p>
         <p>
           If the user agent honors the value of the <code>orientation</code>
           member as the <a href=
-          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">
-          default orientation</a>, then that serves as the <a href=
-          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">
-          default orientation</a> for the life of the web application (unless
+          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">default
+          orientation</a>, then that serves as the <a href=
+          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">default
+          orientation</a> for the life of the web application (unless
           overridden by some other means at runtime). This means that the user
           agent MUST return the orientation to the <a href=
-          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">
-          default orientation</a> any time the orientation is unlocked
+          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">default
+          orientation</a> any time the orientation is unlocked
           [[!SCREEN-ORIENTATION]] or the top-level browsing context is <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigated.</a>
         </p>
@@ -1059,7 +1059,7 @@
           </li>
           <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>icon</var> passing
-          <var>key</var> as the argument.
+          "<var>sizes</var>" as the argument.
           </li>
           <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
