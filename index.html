@@ -407,7 +407,7 @@
           </li>
           <li>If <var>orientation</var> is not the empty string, let it serves
           as the <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
+          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">
             default orientation</a> for all top-level browsing contexts of the
             web application.
           </li>
@@ -685,22 +685,22 @@
           The <dfn id="member-orientation"><code>orientation</code></dfn>
           member is a <a href="#json-string">string</a> that serves as the
           <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
+          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">
           default orientation</a> for all top-level browsing contexts of the
           web application. The possible values is one of the <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#idl-def-OrientationLockType">
+          "https://w3c.github.io/screen-orientation/#idl-def-OrientationLockType">
           OrientationLockType</a> enum defined in [[!SCREEN-ORIENTATION]].
         </p>
         <p>
           If the user agent honors the value of the <code>orientation</code>
           member as the <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
+          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">
           default orientation</a>, then that serves as the <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
+          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">
           default orientation</a> for the life of the web application (unless
           overridden by some other means at runtime). This means that the user
           agent MUST return the orientation to the <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#dfn-default-orientation">
+          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">
           default orientation</a> any time the orientation is unlocked
           [[!SCREEN-ORIENTATION]] or the top-level browsing context is <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigated.</a>
@@ -708,7 +708,7 @@
         <p>
           Although the specification relies on the [[!SCREEN-ORIENTATION]]'s
           <a href=
-          "https://dvcs.w3.org/hg/screen-orientation/raw-file/tip/Overview.html#idl-def-OrientationLockType">
+          "https://w3c.github.io/screen-orientation/#idl-def-OrientationLockType">
           OrientationLockType</a>, it is OPTIONAL for a user agent to implement
           the [[!SCREEN-ORIENTATION]] API. Supporting the
           [[!SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
