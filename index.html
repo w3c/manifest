@@ -5,7 +5,7 @@
     <title>
       Manifest for web application
     </title>
-    <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class=
+    <script src="http://www.w3.org/Tools/respec/respec-w3c-common" class=
     "remove">
 </script>
     <script class='remove'>
@@ -111,17 +111,7 @@
         <pre class="example highlight json" title="typical manifest">
 {
   "name": "Super Racer 2000",
-  "icons": [{
-        "src": "icon/lowres",
-        "sizes": "64x64",
-        "type": "image/webp"
-      }, {
-        "src": "icon/hd_small",
-        "sizes": "64x64"
-      }, {
-        "src": "icon/hd_hi",
-        "sizes": "128x128"
-      }],
+  "icons": [{<br>      "src": "icon/lowres",<br>      "sizes": "64x64",<br>      "type": "image/webp"<br>    }, {<br>      "src": "icon/hd_small",<br>      "sizes": "64x64"<br>    }, {<br>      "src": "icon/hd_hi",<br>      "sizes": "128x128"<br>    }],
   "start_url": "/start.html",
   "display": "fullscreen",
   "orientation": "landscape"
@@ -216,9 +206,7 @@
       </p>
       <p>
         When a <a>display mode</a> is not supported by a user agent, its
-        <dfn>fallback mode</dfn> is used instead. This creates a fallback
-        chain, with <code>browser</code> being the last link in the chain if no
-        other display mode is supported by the user agent.
+        <dfn>fallback mode</dfn> MUST be used instead.
       </p>
       <p>
         The <dfn>display modes values</dfn> are as follows:
@@ -240,32 +228,26 @@
           <dfn id="dm-minimal-ui">minimal-ui</dfn>
         </dt>
         <dd>
-          Same as <a href="#dm-standalone">standalone</a>, but provides the
-          end-user with some means to access a minimal set of user interface
-          elements for controlling navigation (i.e., back, forward, reload, and
-          perhaps some way of viewing the document's address). A user agent can
-          include other platform specific user interface elements, such as
-          "share" and "print" buttons or whatever is customary on the platform
-          and user agent.
-        </dd>
-        <dd>
-          The <a>fallback mode</a> for <code>minimal-ui</code> is
-          <code>browser</code>.
+          Same as <a href="#dm-standalone">standalone</a>, but MUST provides
+          the end-user with some means to access a minimal set of UI elements
+          for controlling navigation (i.e., back, forward, reload, and perhaps
+          some way of viewing the document's address). A user agent MAY include
+          other platform specific UI elements, such as "share" and "print"
+          buttons or whatever is customary on the platform and user agent.<br>
+          <code>minimal-ui</code> <a>fallback mode</a> is <code>browser</code>.
         </dd>
         <dt>
           <dfn id="dm-standalone">standalone</dfn>
         </dt>
         <dd>
-          Opens the web application as close as possible as a standalone native
-          application. That is, the user agent makes the web application feel
-          like a native application on the running platform. Often, that will
+          Opens the web application as close as possible as a standalone
+          application. The user agent SHOULD make the web application look like
+          a native application on the running platform. Often, that will
           include having a different window, its own icon in the application
-          switcher, etc. The user agent excludes user interface elements for
-          controlling navigation, but includes other user interface elements
-          such as a status bar.
-        </dd>
-        <dd>
-          The <a>fallback mode</a> for <code>standalone</code> is
+          switcher, etc. The web application MUST not have UI elements for
+          controlling navigation, but MAY include other UI elements such as a
+          status bar.<br>
+          <code>standalone</code> <a>fallback mode</a> is
           <code>minimal-ui</code>.
         </dd>
         <dt>
@@ -273,10 +255,8 @@
         </dt>
         <dd>
           Opens the web application without any user agent chrome and takes up
-          the entirety of the available display area.
-        </dd>
-        <dd>
-          The <a>fallback mode</a> for <code>fullscreen</code> is
+          the entirety of the available display area.<br>
+          <code>fullscreen</code> <a>fallback mode</a> is
           <code>standalone</code>.
         </dd>
       </dl>
@@ -349,8 +329,8 @@
           <p>
             Authors are encouraged to use the HTTP cache directives to
             explicitly cache the manifest. For example, the following response
-            would cause a cached manifest to be used for one year from the time
-            the response is sent:
+            would cause a cached manifest to be used one year from the time the
+            response is sent:
           </p>
           <pre class="example highlight">
             HTTP/1.1 200 OK
@@ -735,7 +715,7 @@
         </p>
         <p>
           Note: Once the web application is running, other means can change the
-          orientation of of a top-level browser ontext (such as via
+          orientation of a top-level browsing context (such as via
           [[!SCREEN-ORIENTATION]] API).
         </p>
         <p>
