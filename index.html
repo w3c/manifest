@@ -1079,17 +1079,15 @@
           <li>Otherwise, parse <var>value</var> as if it was a [[!HTML]] <code>
             <a href=
             "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes">
-            sizes</a></code> attribute and let <var>keywords</var> be the result. 
-
-            <li>For each <var>keyword</var> in <var>keywords</var>:
+            sizes</a></code> attribute and let <var>keywords</var> be the
+            result.
+          </li>
+          <li>For each <var>keyword</var> in <var>keywords</var>:
             <ol>
-              <li>Convert <var>size</var> <a href=
+              <li>Convert <var>keyword</var> <a href=
               "http://www.whatwg.org/specs/web-apps/current-work/#converted-to-ascii-lowercase">
-                to ASCII lowercase</a>.
-              </li>
-              <li>If <var>sizes</var> doesn't already contain
-              <var>keyword</var>, then add the resulting <var>size</var> to
-              <var>sizes</var>.
+                to ASCII lowercase</a> and add the resulting string to
+                <var>sizes</var>.
               </li>
             </ol>
           </li>
