@@ -5,8 +5,7 @@
     <title>
       Manifest for web application
     </title>
-    <script src="//www.w3.org/Tools/respec/respec-w3c-common" class=
-    "remove">
+    <script src="//www.w3.org/Tools/respec/respec-w3c-common" class="remove">
 </script>
     <script class='remove'>
 /**/
@@ -170,8 +169,10 @@
       <p id="ecmascript-abstractop">
         The <dfn><a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
-        [[\GetOwnProperty]]</a></dfn> operation, and the <a class="external"
-        href=
+        [[\GetOwnProperty]]</a></dfn> operation and the abstract operation
+        <dfn><a href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-hasownproperty">
+        hasOwnProperty</a></dfn>, and the <a class="external" href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
         <dfn>Type</dfn>(<var>x</var>)</a> notation are defined in
         [[!ECMASCRIPT]]. Processing also relies on various algorithms defined
@@ -630,7 +631,7 @@
           "json-array">array</a>, then:
             <ol>
               <li>From unprocess icons, filter out any <var>item</var> where
-              <a>HasOwnProperty(item,"src")</a> returns <code>false</code>.
+              <a>HasOwnProperty</a>(item,"src") returns <code>false</code>.
               </li>
               <li>for each <var>potential icon</var> in the array:
                 <ol>
