@@ -581,33 +581,39 @@
             argument "<code>icons</code>".
           </li>
           <li>If <var>unprocessed icons</var> is an <a title=
-          "json-array">array</a>, then for each <var>potential icon</var> in
-          the array:
+          "json-array">array</a>, then:
             <ol>
-              <li>Let <var>src</var> be the result of running the <a>steps for
-              processing the <code>src</code> member of an icon</a> with <var>
-                potential icon</var> and <var>manifest URL</var>.
+              <li>From unprocess icons, filter out any <var>item</var> where
+              <a>HasOwnProperty(item,"src")</a> returns <code>false</code>.
               </li>
-              <li>If <var>src</var> is <code>undefined</code>, move onto the
-              next item in <var>icons</var> (if any are left).
-              </li>
-              <li>Let <var>type</var> be the result of running the <a>steps for
-              processing the <code>type</code> member of an icon</a> passing
-              <var>potential icon</var>.
-              </li>
-              <li>If <var>type</var> is <code>undefined</code>, move onto the
-              next item in <var>orientations</var> (if any are left).
-              </li>
-              <li>Let <var>sizes</var> be the list that result from running the
-              <a>steps for processing a <code>sizes</code> member of an
-              icon</a> passing <var>potential icon</var>.
-              </li>
-              <li>Let <var>icon</var> be an object with properties
-              <code>src</code>, <code>type</code>, <code>sizes</code>, whose
-              values are <var>src</var>, <var>type</var> and <var>sizes</var>
-              respectively.
-              </li>
-              <li>Append <var>icon</var> to <var>icons</var>.
+              <li>for each <var>potential icon</var> in the array:
+                <ol>
+                  <li>Let <var>src</var> be the result of running the <a>steps
+                  for processing the <code>src</code> member of an icon</a>
+                  with <var>potential icon</var> and <var>manifest URL</var>.
+                  </li>
+                  <li>If <var>src</var> is <code>undefined</code>, move onto
+                  the next item in <var>icons</var> (if any are left).
+                  </li>
+                  <li>Let <var>type</var> be the result of running the <a>steps
+                  for processing the <code>type</code> member of an icon</a>
+                  passing <var>potential icon</var>.
+                  </li>
+                  <li>If <var>type</var> is <code>undefined</code>, move onto
+                  the next item in <var>orientations</var> (if any are left).
+                  </li>
+                  <li>Let <var>sizes</var> be the list that result from running
+                  the <a>steps for processing a <code>sizes</code> member of an
+                  icon</a> passing <var>potential icon</var>.
+                  </li>
+                  <li>Let <var>icon</var> be an object with properties
+                  <code>src</code>, <code>type</code>, <code>sizes</code>,
+                  whose values are <var>src</var>, <var>type</var> and
+                  <var>sizes</var> respectively.
+                  </li>
+                  <li>Append <var>icon</var> to <var>icons</var>.
+                  </li>
+                </ol>
               </li>
             </ol>
           </li>
@@ -1073,19 +1079,21 @@
           <li>Otherwise, parse <var>value</var> as if it was a [[!HTML]] <code>
             <a href=
             "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes">
-            sizes</a></code> attribute. For each resulting <var>keyword</var>:
+            sizes</a></code> attribute and let <var>keywords</var> be the result. 
+
+            <li>For each <var>keyword</var> in <var>keywords</var>:
             <ol>
-              <li>Convert <var>keyword</var> <a href=
+              <li>Convert <var>size</var> <a href=
               "http://www.whatwg.org/specs/web-apps/current-work/#converted-to-ascii-lowercase">
                 to ASCII lowercase</a>.
               </li>
               <li>If <var>sizes</var> doesn't already contain
-              <var>keyword</var>, then add the resulting <var>keyword</var> to
+              <var>keyword</var>, then add the resulting <var>size</var> to
               <var>sizes</var>.
               </li>
             </ol>
           </li>
-          <li>Return <var>sizes.</var>
+          <li>Return <var>sizes</var>.
           </li>
         </ol>
       </section>
