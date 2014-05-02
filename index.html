@@ -260,6 +260,13 @@
           <code>standalone</code>.
         </dd>
       </dl>
+      <p class="note">
+        The <a id="#dm-fullscreen">fullscreen</a> display mode is orthogonal
+        to, and works independently of, the [[FULLSCREEN]] API: the fullscreen
+        display mode is applied to the browser window, and not to a DOM
+        element. As such, an web application can be displayed fullscreen, but
+        <code>document.mozFullScreenElement</code> would be <code>null</code>.
+      </p>
     </section>
     <section>
       <h2>
