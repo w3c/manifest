@@ -403,7 +403,8 @@ Content-Type: application/manifest+json
         <p>
           The <dfn>steps for processing a manifest</dfn> are given by the
           following algorithm. The algorithm takes a <var>text</var> string as
-          an argument, which represents a <a>manifest</a>.
+          an argument, which represents a <a>manifest, and</a> a <var>manifest
+          URL</var> URL which represents the location of the manifest.
         </p>
         <p>
           When instructed to <dfn>issue a developer warning</dfn>, the user
@@ -427,9 +428,12 @@ Content-Type: application/manifest+json
         <ol>
           <li>Let <var>manifest</var> be the result of <a href=
           "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
-            parsing</a> <var>text</var>. If parsing throws an error:
+            parsing</a> <var>text</var>. If <a href=
+            "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
+            parsing</a> throws an error:
             <ol>
-              <li>Issue a developer warning.
+              <li>Issue a developer warning with any details about the parsing
+              error.
               </li>
               <li>Set <var>manifest</var> to be the result of <a href=
               "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
@@ -443,9 +447,8 @@ Content-Type: application/manifest+json
             developer warning</a> for any unsupported members.
           </li>
           <li>Let <var>start URL</var> be the result of running the <a>steps
-          for processing the <code>start_url</code> member</a>, with either the
-          <code>document</code>'s URL or an application-specific URL (e.g.,
-          "app://") as the <var>base URL</var>.
+          for processing the <code>start_url</code> member</a>, with the
+          manifest's URL as the <var>base URL</var>.
           </li>
           <li>Let <var>display mode</var> be the result of running the <a>steps
           for processing the <code>display</code> member</a> with
