@@ -930,11 +930,27 @@ Content-Type: application/manifest+json
           "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
           <code>link</code></a> element with a <code>manifest</code> link type
           appears in a <code>document</code>, the user agent MUST use the first
-          inserted link element and ignore all subsequent <a href=
+          link element in tree order and ignore all subsequent <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
           <code>link</code></a> elements with a <code>manifest</code> link type
           (even if the first element was <span data-dobid=
           "hdw">erroneous</span>).
+        </p>
+        <p>
+          The user agent MUST ignore the <code>media</code> attribute. This is a
+          willful violation of the [[!HTML]] specification.
+        </p>
+        <p>
+          The user agent MUST ignore the hint provided by the <code>type</code>
+          attribute.
+        </p>
+        <p>
+          The user agent MUST NOT fire a <code>load</code> or <code>error</code>
+          event on the link element.
+        </p>
+        <p>
+          The <code>sizes</code> and <code>hreflang</code> attributes do not
+          apply to the manifest and hence SHOULD be ignored.
         </p>
         <p>
           The appropriate time to <a href=
