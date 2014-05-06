@@ -299,11 +299,15 @@
         </dd>
       </dl>
       <p class="note">
-        The <a id="#dm-fullscreen">fullscreen</a> display mode is orthogonal
-        to, and works independently of, the [[FULLSCREEN]] API: the fullscreen
-        display mode is applied to the browser window, and not to a DOM
-        element. As such, an web application can be displayed fullscreen, but
-        <code>document.mozFullScreenElement</code> would be <code>null</code>.
+        The <a>fullscreen</a> <a>display mode</a> is orthogonal to, and works
+        independently of, the [[FULLSCREEN]] API. The
+        <a><code>fullscreen</code></a> <a>display mode</a> affects the
+        fullscreen state of the browser window, while the [[FULLSCREEN]] API
+        operates on an element contained within the viewport. As such, a web
+        application can have its <a>display mode</a> set to
+        <a><code>fullscreen</code></a>, while
+        <code>document.fullScreenElement</code> returns <code>null</code>, and
+        <code>fullscreenEnabled</code> returns <code>false</code>.
       </p>
     </section>
     <section>
