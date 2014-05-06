@@ -870,13 +870,20 @@
           "hdw">erroneous</span>).
         </p>
         <p>
-          The user agent MUST ignore the <code>hreflang</code>,
-          <code>type</code> , <code>sizes</code> and <code>media</code>
-          attributes defined on the link element associated to a manifest.
+          The user agent MUST ignore the <code>media</code> attribute. This is a
+          willful violation of the [[!HTML]] specification.
+        </p>
+        <p>
+          The user agent MUST ignore the hint provided by the <code>type</code>
+          attribute.
         </p>
         <p>
           The user agent MUST NOT fire a <code>load</code> or <code>error</code>
           event on the link element.
+        </p>
+        <p>
+          The <code>sizes</code> and <code>hreflang</code> attributes do not
+          apply to the manifest and hence SHOULD be ignored.
         </p>
         <p>
           The appropriate time to <a href=
