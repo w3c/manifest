@@ -986,31 +986,8 @@
               </li>
               <li>If <var>response</var> is a <a href=
               "http://fetch.spec.whatwg.org/#concept-network-error">network
-              error</a> and <var>manifest link</var> is not <code>null</code>:
-                <ol>
-                  <li>
-                    <a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/#queue-a-task">
-                    Queue a task</a>&nbsp;to&nbsp;<a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/#fire-a-simple-event">fire
-                    a simple event</a>&nbsp;named 'error' at <var>manifest
-                    link</var>.
-                  </li>
-                  <li>Terminate this algorithm.
-                  </li>
-                </ol>
-              </li>
-              <li>If <var>manifest element</var> is not <code>null</code>:
-                <ol>
-                  <li>
-                    <a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/#queue-a-task">
-                    Queue a task</a>&nbsp;to&nbsp;<a href=
-                    "http://www.whatwg.org/specs/web-apps/current-work/#fire-a-simple-event">fire
-                    a simple event</a>&nbsp;named 'load' at <var>manifest
-                    element</var>.
-                  </li>
-                </ol>
+              error</a> and <var>manifest link</var> is not <code>null</code>,
+              terminate this algorithm.
               </li>
               <li>Let <var>manifest</var> be the result of running the <a>steps
               for processing a manifest</a> with <var>response</var>'s
