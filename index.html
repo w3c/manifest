@@ -612,8 +612,8 @@
           <a href="#json-string">string</a>, whose value is one of <a>display
           modes values</a>. The item represents the developer's preferred
           <a>display mode</a> for the web application. When the member is
-          missing or <span data-dobid="hdw">erroneous</span>, the user agent
-          MUST use the <a>fallback display mode</a>.
+          missing or erroneous, the user agent MUST use the <a>fallback display
+          mode</a>.
         </p>
         <p>
           The <dfn>steps for processing the <code>display</code> member</dfn>
@@ -853,9 +853,8 @@
           link element in tree order and ignores all subsequent <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
           <code>link</code></a> elements with a <code>manifest</code> link type
-          (even if the first element was <span data-dobid=
-          "hdw">erroneous</span>). See the <a>steps for obtaining a
-          manifest</a>.
+          (even if the first element was erroneous). See the <a>steps for
+          obtaining a manifest</a>.
         </p>
         <p>
           To obtain a manifest, the user agent MUST run the <a>steps for
@@ -904,18 +903,19 @@
           </li>
           <li>If <var>manifest link</var> is not <code>null</code>:
             <ol>
-              <li>If the&nbsp;<a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-href"><code>href</code></a>&nbsp;attribute's
-              value of the <var>manifest link</var> is the empty string, then
-              terminate this algorithm.
+              <li>If the <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-href">
+                <code>href</code></a> attribute's value of the <var>manifest
+                link</var> is the empty string, then terminate this algorithm.
               </li>
               <li>Let <var>url</var> be the result of <a href=
               "http://www.whatwg.org/specs/web-apps/current-work/#resolve-a-url"
-                title="resolve a url">resolving</a>&nbsp;the&nbsp;<a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#url">URL</a>&nbsp;given
-                by the&nbsp;<a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-href"><code>href</code></a>&nbsp;attribute,
-                relative to the <var>manifest link</var>.
+                title="resolve a url">resolving</a> the <a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/#url">URL</a>
+                given by the <a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-href">
+                <code>href</code></a> attribute, relative to the <var>manifest
+                link</var>.
               </li>
               <li>If the previous step fails, terminate this algorithm.
               </li>
@@ -941,11 +941,11 @@
               </li>
             </ol>
           </li>
-          <li>Using the&nbsp;<a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#networking-task-source">networking
-          task source</a>, <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#queue-a-task">queue
-          a task</a>&nbsp;to perform the following:
+          <li>Using the <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#networking-task-source">
+            networking task source</a>, <a href=
+            "http://www.whatwg.org/specs/web-apps/current-work/#queue-a-task">queue
+            a task</a> to perform the following:
             <ol>
               <li>Let <var>req</var> be a new [[!FETCH]] <a href=
               "http://fetch.spec.whatwg.org/#concept-request" title=
@@ -1086,10 +1086,10 @@ Content-Type: application/manifest+json
         Each <dfn>icon object</dfn> represents an icon for an application,
         suitable to use in various contexts (e.g., an application menu).
       </p>
-      <p>
-        <span class="note">For all intents and purposes, an <a>icon object</a>
-        is functionally equivalent to <code>link</code> element whose
-        <code>rel</code> attribute is icon in a <code>Document</code>.</span>
+      <p class="note">
+        For all intents and purposes, an <a>icon object</a> is functionally
+        equivalent to <code>link</code> element whose <code>rel</code>
+        attribute is icon in a <code>Document</code>.
       </p>
       <section>
         <h3>
