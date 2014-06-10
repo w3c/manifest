@@ -227,7 +227,7 @@
         <code>browser</code> <a>display mode</a>.
       </p>
       <p>
-        Each <a>display mode</a>, except <code>browser</code>, has a recursive 
+        Each <a>display mode</a>, except <code>browser</code>, has a recursive
         <dfn>fallback display mode</dfn>, which is the <a>display mode</a> that
         the user agent can try to use if it doesn't support a particular
         <a>display mode</a>. If the user agent does support a fallback display
@@ -364,10 +364,9 @@
         </p>
         <div class="note">
           <p>
-            The <a accesskey="">extension point</a> is meant to help
-            avoid <a href=
-            "http://annevankesteren.nl/2014/02/monkey-patch">issues related to
-            monkey patching</a>.
+            The <a accesskey="">extension point</a> is meant to help avoid
+            <a href="http://annevankesteren.nl/2014/02/monkey-patch">issues
+            related to monkey patching</a>.
           </p>
         </div>
         <p>
@@ -402,7 +401,8 @@
           </li>
           <li>Let <var>start URL</var> of <var>parsed manifest</var> be the
           result of running the <a>steps for processing the
-          <code>start_url</code> member</a> with <var>manifest URL</var>.
+          <code>start_url</code> member</a> with <var>manifest URL</var> and
+          <var>doc URL</var>.
           </li>
           <li>If <var>start URL</var> of <var>parsed manifest</var> is
           <code>undefined</code>, set <var>start URL</var> of <var>parsed
@@ -762,9 +762,11 @@
         <p>
           The <dfn>steps for processing the <code>start_url</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
-          <a>manifest</a> <var>manifest</var> and a <a href=
+          <a>manifest</a> <var>manifest</var>, a <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> <var>manifest
-          URL</var>. This algorithm returns a [[!URL]] or
+          URL</var>, and a <a href=
+          "http://url.spec.whatwg.org/#concept-url">URL</a> <var>origin
+          URL</var>. This algorithm returns a [[!URL] or
           <code>undefined</code>.
         </p>
         <ol>
@@ -789,6 +791,20 @@
           using <var>manifest URL</var> as the base URL.
           </li>
           <li>If <var>url</var> is failure, return <code>undefined</code>.
+          </li>
+          <li>If url is not <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#same-origin">same
+          origin</a> as document URL:
+            <ol>
+              <li>
+                <a>Issue a developer warning</a> that the
+                <code>start_url</code> needs to be <a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/#same-origin">
+                same-origin</a> as the document.
+              </li>
+              <li>Return <var>undefined</var>.
+              </li>
+            </ol>
           </li>
           <li>Otherwise, return <var>url</var>.
           </li>
@@ -885,10 +901,7 @@
         </h3>
         <p>
           The <dfn>steps for obtaining a manifest</dfn> are given by the
-          following algorithm. A user agent MUST use this algorithm instead of
-          [[!HTML]]'s algorithm for <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
-          obtaining a resource</a>. The algorithm, if successful, returns a
+          following algorithm. The algorithm, if successful, returns a
           <a>processed manifest</a>. In running these steps, a user agent MUST
           NOT <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#delay-the-load-event">
@@ -906,34 +919,19 @@
             "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-rel"><code>
             rel</code></a> attribute contains the token <code>manifest</code>.
           </li>
-          <li>Set <var>omit-credentials mode</var> to "always".
-          </li>
           <li>If <var>manifest link</var> is not <code>null</code>:
             <ol>
-              <li>If the <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-href">
-                <code>href</code></a> attribute's value of the <var>manifest
-                link</var> is the empty string, then terminate this algorithm.
+              <li>Honoring the <code>manifest-src</code> [[!CSP]] directive,
+              <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
+                obtain a resource</a> as per [[!HTML]]. If the <a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
+                obtain a resource</a> algorithm terminates prematurely, or is
+                denied by [[!CSP]], terminate this algorithm.
               </li>
-              <li>Let <var>url</var> be the result of <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#resolve-a-url"
-                title="resolve a url">resolving</a> the <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#url">URL</a>
-                given by the <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-href">
-                <code>href</code></a> attribute, relative to the <var>manifest
-                link</var>.
-              </li>
-              <li>If the previous step fails, terminate this algorithm.
-              </li>
-              <li>If <var>manifest link</var> has a <code><a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-crossorigin">
-                crossorigin</a></code> attribute, and the value of the
-                <code><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#dom-link-crossorigin">
-                crossOrigin</a></code> IDL attribute is
-                <code>use-credentials</code>, let <var>omit-credentials
-                mode</var> be "never".
+              <li>Let <var>response</var> be a [[!FETCH]] the <a href=
+              "http://fetch.spec.whatwg.org/#concept-response">response</a>
+              resulting obtained resource.
               </li>
             </ol>
           </li>
@@ -968,7 +966,7 @@
               </li>
               <li>Set <var>req</var>'s <a href=
               "http://fetch.spec.whatwg.org/#concept-request-origin" title=
-              "concept-request-origin">origin</a> to the <a href=
+              "concept-request-origin">origin</a> to be the <a href=
               "http://www.whatwg.org/specs/web-apps/current-work/#origin">origin</a>
               of the <a href=
               "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
@@ -976,7 +974,7 @@
               </li>
               <li>Set <var>req</var>'s <a href=
               "http://fetch.spec.whatwg.org/#concept-request-mode">mode</a> to
-              "CORS".
+              be "CORS".
               </li>
               <li>Set <var>req</var>'s <a href=
               "http://fetch.spec.whatwg.org/#concept-request-referrer" title=
@@ -987,8 +985,7 @@
               </li>
               <li>Set <var>req</var>'s <a href=
               "http://fetch.spec.whatwg.org/#concept-request-omit-credentials-mode">
-                omit credentials mode</a> to the value of <var>omit-credentials
-                mode</var>.
+                omit credentials mode</a> to "always".
               </li>
               <li>
                 <a href="http://fetch.spec.whatwg.org/#concept-fetch">Fetch</a>
@@ -997,21 +994,20 @@
               </li>
               <li>If <var>response</var> is a <a href=
               "http://fetch.spec.whatwg.org/#concept-network-error">network
-              error</a> and <var>manifest link</var> is not <code>null</code>,
-              terminate this algorithm.
-              </li>
-              <li>Let <var>manifest</var> be the result of running the <a>steps
-              for processing a manifest</a> with <var>response</var>'s
-                <a href="http://fetch.spec.whatwg.org/#concept-request-body">body</a>
-                as the <var>text</var>, and <var>url</var> as the <var>manifest
-                URL</var>, the the URL the <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-                top-level browsing context's</a><a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#the-document's-address">address</a>.
-              </li>
-              <li>Return <var>manifest</var>.
+              error</a>, terminate this algorithm.
               </li>
             </ol>
+          </li>
+          <li>Let <var>manifest</var> be the result of running the <a>steps for
+          processing a manifest</a> with <var>response</var>'s <a href=
+          "http://fetch.spec.whatwg.org/#concept-request-body">body</a> as the
+          <var>text</var>, and <var>url</var> as the <var>manifest URL</var>,
+          the URL the <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
+            top-level browsing context's</a><a href=
+            "http://www.whatwg.org/specs/web-apps/current-work/#the-document's-address">address</a>.
+          </li>
+          <li>Return <var>manifest</var>.
           </li>
         </ol>
         <div class="note">
