@@ -423,6 +423,10 @@
           of running the <a>steps for processing the <code>name</code>
           member</a>.
           </li>
+          <li>Let <var>short name</var> of <var>parsed manifest</var> be the
+          result of running the <a>steps for processing the
+          <code>short_name</code> member</a>.
+          </li>
           <li>Let <var>icons</var> of <var>parsed manifest</var> be the result
           of running the <a>steps for processing the <code>icons</code>
           member</a>.
@@ -495,6 +499,42 @@
           <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>name</code>".
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              optionally <a>issue a developer warning</a> that the type is not
+              supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">short_name</code> member
+        </h3>
+        <p>
+          The <dfn id="member-short_name"><code>short_name</code></dfn> member
+          is a <a title="json-string">string</a> that represents a short
+          version of the name of the web application. It is intended to be used
+          where there is insufficient space to display the full name of the web
+          application.
+        </p>
+        <p>
+          The <dfn>steps for processing the short name member</dfn> is given by
+          the following algorithm. The algorithm takes a <var>manifest</var> as
+          an argument. This algorithm returns a string or
+          <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "short_<code>name</code>".
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
