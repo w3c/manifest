@@ -897,6 +897,61 @@
       </section>
       <section>
         <h3>
+          Content security policy
+        </h3>
+        <p class="issue">
+          The `<code>manifest-src</code>` hasn't yet been added to the CSP
+          spec. However, a <a href=
+          "https://github.com/w3c/webappsec/issues/29">feature request has been
+          filed</a> and accepted by the Editor.
+        </p>
+        <p>
+          Just like [[!HTML]] documents, a manifest can have an associated
+          [[!CSP]] policy. The manifest's policy controls, for example, where
+          resources like <a title="icon object">icons</a> can be loaded from
+          (via the <code><a href=
+          "https://w3c.github.io/webappsec/specs/content-security-policy/#directive-img-src">
+          img-src</a></code> directive).
+        </p>
+        <p>
+          A user agent MUST treat the a manifest's policy as indipendent of any
+          policy applied to [[!HTML]] document. A manifest's [[!CSP]] policy
+          can only be delivered over HTTP.
+        </p>
+        <div class="example">
+          <figure>
+            <img src="images/indipendent_policies.svg" width="224" height="332"
+            alt="">
+            <figcaption>
+              The [[!CSP]] policy applied to a [[!HTML]] document is
+              independent from, and does not interact with, the policy applied
+              to the manifest. Where are manifest can be loaded from is
+              controlled by the HTML's document's CSP policy.
+            </figcaption>
+          </figure>
+        </div>
+        <p>
+          For [[!HTML]] document, [[!CSP]]'s <code>manifest-src</code>
+          directive controls the sources from which a [[!HTML]] document can
+          load a manifest from.
+        </p>
+        <div class="example">
+          <figure class="exaple">
+            <img src="images/manifest-src-directive.svg" width="704" height=
+            "342" alt="">
+            <figcaption>
+              The `<code>manifest-src</code>` directive controls where an HTML
+              document can load a manifest from. In this case, it's from
+              "bar.com". In turn, bar.com applies its own policy to the
+              manifest, which itself restricts where, for instance, <a title=
+              "icon object">icons</a> can be loaded from. In this case, that is
+              from "icons.com".
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+      <section>
+        <h3>
           Obtaining a manifest
         </h3>
         <p>
@@ -1112,6 +1167,39 @@ Content-Type: application/manifest+json
         equivalent to <code>link</code> element whose <code>rel</code>
         attribute is icon in a <code>Document</code>.
       </p>
+      <section>
+        <h3>
+          Content security policy of icon object
+        </h3>
+        <p>
+          Fetching icons is governed by the <code>img-src</code> CSP directive
+          as applied to the manifest.
+        </p>
+        <div class="example">
+          <p>
+            For example, the following policy restricts loading icons the
+            <code>icons.example.com</code> domain. Thus, trying to load icons
+            from "other.com" would fail.
+          </p>
+          <pre class="highlight">
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Security-Policy: img-src icons.example.com;
+
+{
+    "name": "custom manifest",
+    "start_url": "http://boo",
+    "icons": [{
+        "src": "//icons.example.com/lowres"
+      },
+      {
+        "src": "//other.com/hi-res"
+      }]
+}
+        
+</pre>
+        </div>
+      </section>
       <section>
         <h3>
           <code>sizes</code> member
