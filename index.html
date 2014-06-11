@@ -1101,11 +1101,13 @@ Content-Type: application/manifest+json
           consistent.
         </p>
         <p>
-          When specifying an new member, don't override or <a href=
+          When specifying a new member, don't override or <a href=
           "http://annevankesteren.nl/2014/02/monkey-patch">monkey patch</a>
           anything defined in this specification. Also, don't assume your
           member will be processed before or after any other member. Keep your
-          new member, and its processing, atomic and self contained.
+          new member, and its processing, atomic and self contained. Note 
+          also that implementations are free to ignore any new property 
+          they do not recognize or support.
         </p>
         <p>
           If you are writing a specification and temporarily want to patch this
@@ -1134,6 +1136,85 @@ Content-Type: application/manifest+json
   ...
 }
 </pre>
+      </section>
+      <section id="json-ld-extensions" class="informative">
+        <h3>JSON-LD extensions to the manifest</h3>
+        <p>
+          The mechanisms defined by the [[JSON-LD]] specification MAY be 
+          used as an alternative mechanism for extending the manifest.
+        </p>
+        <p>
+          In the follow example, for instance, elements from both the Dublin
+          Core Metadata Set [[DC-TERMS]], the Friend of a Friend [[FOAF]] vocabulary, 
+          and the <a href="https://github.com/edumbill/doap/wiki">Description of a 
+          Project (DOAP)</a> vocabulary are used to provide additional information 
+          in the manifest:
+        </p>
+        <pre class="example hightlight json" title="JSON-LD extensions">
+{
+  "@context": {
+    "@vocab": "http://www.w3.org/TR/appmanifest/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "dct": "http://purl.org/dc/terms/",
+    "doap": "http://usefulinc.com/ns/doap#"
+  },
+  "name": "Super Racer 2000",
+  "dct:creator": "http://example.com",
+  "dct:abstract": "A Super Racer Game!",
+  "doap:maintainer": {
+    "foaf:name": "Joe"
+  },
+  "icons": [{
+        "src": "icon/lowres",
+        "sizes": "64x64",
+        "type": "image/webp"
+      }, {
+        "src": "icon/hd_small",
+        "sizes": "64x64"
+      }, {
+        "src": "icon/hd_hi",
+        "sizes": "128x128"
+      }],
+  "start_url": "/start.html",
+  "display": "fullscreen",
+  "orientation": "landscape"
+}
+        </pre>
+        <p>
+          Non JSON-LD implementations can simply ignore the additional JSON-LD
+          specific metadata such as <code>@context</code> and the extension
+          properties <code>dct:creator</code>, <code>dct:abstract</code> and 
+          <code>doap:maintainer</code>.
+        </p>
+        <p>
+          For implementations that do process the manifest as JSON-LD, the 
+          manifest's own property names are interpreted relative to the 
+          base URI "<code>http://www.w3.org/TR/appmanifest/</code>".
+        </p>
+        <p>
+          After processing the example above, a JSON-LD implementation would
+          yield the following normalized output:
+        </p>
+        <pre class="example highlight">
+_:c14n0 &lt;http://www.w3.org/TR/appmanifest/sizes> "64x64" .
+_:c14n0 &lt;http://www.w3.org/TR/appmanifest/src> "icon/hd_small" .
+_:c14n1 &lt;http://purl.org/dc/terms/abstract> "A Super Racer Game!" .
+_:c14n1 &lt;http://purl.org/dc/terms/creator> "http://example.com" .
+_:c14n1 &lt;http://usefulinc.com/ns/doap#maintainer> _:c14n4 .
+_:c14n1 &lt;http://www.w3.org/TR/appmanifest/display> "fullscreen" .
+_:c14n1 &lt;http://www.w3.org/TR/appmanifest/icons> _:c14n0 .
+_:c14n1 &lt;http://www.w3.org/TR/appmanifest/icons> _:c14n2 .
+_:c14n1 &lt;http://www.w3.org/TR/appmanifest/icons> _:c14n3 .
+_:c14n1 &lt;http://www.w3.org/TR/appmanifest/name> "Super Racer 2000" .
+_:c14n1 &lt;http://www.w3.org/TR/appmanifest/orientation> "landscape" .
+_:c14n1 &lt;http://www.w3.org/TR/appmanifest/start_url> "/start.html" .
+_:c14n2 &lt;http://www.w3.org/TR/appmanifest/sizes> "64x64" .
+_:c14n2 &lt;http://www.w3.org/TR/appmanifest/src> "icon/lowres" .
+_:c14n2 &lt;http://www.w3.org/TR/appmanifest/type> "image/webp" .
+_:c14n3 &lt;http://www.w3.org/TR/appmanifest/sizes> "128x128" .
+_:c14n3 &lt;http://www.w3.org/TR/appmanifest/src> "icon/hd_hi" .
+_:c14n4 &lt;http://xmlns.com/foaf/0.1/name> "Joe" .
+        </pre>
       </section>
       <section>
         <h3>
