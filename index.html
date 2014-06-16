@@ -114,7 +114,8 @@
         "sizes": "64x64"
       }, {
         "src": "icon/hd_hi",
-        "sizes": "128x128"
+        "sizes": "128x128",
+        "density": "2"
       }],
   "start_url": "/start.html",
   "display": "fullscreen",
@@ -167,8 +168,10 @@
         [[\GetOwnProperty]]</a></dfn> operation and the abstract operation
         <dfn><a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-hasownproperty">
-        hasOwnProperty</a></dfn>, and the <a class="external" href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
+        hasOwnProperty</a></dfn>, <dfn title="parseFloat"><a href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-parsefloat-string">
+        parseFloat(string)</a></dfn> function, and the <a class="external"
+        href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
         <dfn>Type</dfn>(<var>x</var>)</a> notation are defined in
         [[!ECMASCRIPT]].
       </p>
@@ -596,7 +599,7 @@
               <li>From unprocessed icons, filter out any <var>item</var> where
               <a>HasOwnProperty</a>(item,"src") returns <code>false</code>.
               </li>
-              <li>for each <var>potential icon</var> in the array:
+              <li>For each <var>potential icon</var> in the array:
                 <ol>
                   <li>Let <var>src</var> be the result of running the <a>steps
                   for processing the <code>src</code> member of an icon</a>
@@ -605,21 +608,38 @@
                   <li>If <var>src</var> is <code>undefined</code>, move onto
                   the next item in <var>icons</var> (if any are left).
                   </li>
+                  <li>Otherwise, let <var>icon</var> be an object with
+                  properties <code>src</code>, <code>type</code>,
+                  <code>sizes</code>, and <code>density</code>. All properties
+                  initially set to <code>undefined</code>.
+                  </li>
+                  <li>Set <var>icon</var>'s <code>src</code> property to be
+                  <var>src</var>.
+                  </li>
                   <li>Let <var>type</var> be the result of running the <a>steps
                   for processing the <code>type</code> member of an icon</a>
                   passing <var>potential icon</var>.
                   </li>
-                  <li>If <var>type</var> is <code>undefined</code>, move onto
-                  the next item in <var>icons</var> (if any are left).
+                  <li>If <var>type</var> is not <code>undefined</code>, set
+                  <var>icon</var>'s <code>type</code> property to be
+                  <var>type</var>.
                   </li>
                   <li>Let <var>sizes</var> be the list that result from running
                   the <a>steps for processing a <code>sizes</code> member of an
                   icon</a> passing <var>potential icon</var>.
                   </li>
-                  <li>Let <var>icon</var> be an object with properties
-                  <code>src</code>, <code>type</code>, <code>sizes</code>,
-                  whose values are <var>src</var>, <var>type</var> and
-                  <var>sizes</var> respectively.
+                  <li>If <var>sizes</var> is not <code>undefined</code>, set
+                  <var>icon</var>'s <code>sizes</code> property to be
+                  <var>sizes</var>.
+                  </li>
+                  <li>Let <var>density</var> be the result from running the <a>
+                    steps for processing a <code>density</code> member of an
+                    icon</a> are given by the passing <var>potential
+                    icon</var>.
+                  </li>
+                  <li>If <var>density</var> is not <code>undefined</code>, set
+                  <var>icon</var>'s <code>density</code> property to be
+                  <var>value</var>.
                   </li>
                   <li>Append <var>icon</var> to <var>icons</var>.
                   </li>
@@ -1237,6 +1257,39 @@ Content-Security-Policy: img-src icons.example.com;
 }
 </pre>
         </div>
+      </section>
+      <section>
+        <h3>
+          <code>density</code> member
+        </h3>
+        <p>
+          The <dfn id="icon-densitiy">density</dfn> member of an icon is the
+          device pixel density for which this icon was designed. The device
+          pixel density is expressed as the number of dots per 'px' unit
+          (equivalent to a dppx as defined in [[!css3-values]]). The value is a
+          positive number greater than 0. If the developer omits the value, the
+          user agent assumes the value <code>1.0</code>.
+        </p>
+        <p>
+          The <dfn>steps for processing a <code>density</code> member of an
+          icon</dfn> are given by the following algorithm. The algorithm thanks
+          an <var>icon</var> object as an argument and returns a positive
+          number.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>icon</var> passing
+          "<code>density</code>" as the argument.
+          </li>
+          <li>Let <var>result</var> be the result of
+          <a>parseFloat</a>(<var>value</var>);
+          </li>
+          <li>If <var>result</var> is <code>NaN</code>, +∞, or less than or
+          equal to +0, let <var>result</var> be 1.0.
+          </li>
+          <li>Return <var>result</var>.
+          </li>
+        </ol>
       </section>
       <section>
         <h3>
