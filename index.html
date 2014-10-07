@@ -728,7 +728,8 @@
           top-level browsing contexts</a> of the web application. The possible
           values is one of the <a href=
           "https://w3c.github.io/screen-orientation/#idl-def-OrientationLockType">
-          OrientationLockType</a> enum defined in [[!SCREEN-ORIENTATION]].
+          <dfn>OrientationLockType</dfn></a> enum defined in
+          [[!SCREEN-ORIENTATION]].
         </p>
         <p>
           If the user agent honors the value of the <code>orientation</code>
@@ -784,8 +785,9 @@
           <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
           to be the result.
           </li>
-          <li>If <var>value</var> is unsupported by the user agent, or the
-          <var>value</var> cannot be used together with <var>display
+          <li>If <var>value</var> is not one of the <a>OrientationLockType</a>
+          enum values, or <var>value</var> is unsupported by the user agent, or
+          the <var>value</var> cannot be used together with <var>display
           mode:</var>
             <ol>
               <li>
