@@ -389,8 +389,9 @@
             "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
             parsing</a> throws an error:
             <ol>
-              <li>Issue a developer warning with any details pertaining to the
-              JSON parsing error.
+              <li>
+                <a>Issue a developer warning</a> with any details pertaining to
+                the JSON parsing error.
               </li>
               <li>Set <var>manifest</var> to be the result of <a href=
               "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
@@ -537,7 +538,7 @@
         <ol>
           <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "short_<code>name</code>".
+          with argument "<code>short_name</code>".
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
@@ -705,9 +706,9 @@
           <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
           to be the result.
           </li>
-          <li>If <var>value</var> is not a display mode that the user agent
-          supports, set <var>value</var> to <var>value</var>'s <a>fallback
-          display mode</a> and rerun this step.
+          <li>If <var>value</var> is not a <a>display mode</a> that the user
+          agent supports, set <var>value</var> to <var>value</var>'s
+          <a>fallback display mode</a> and rerun this step.
           </li>
           <li>Return <var>value</var>.
           </li>
@@ -763,7 +764,7 @@
         <p>
           The <dfn>steps for processing the <code>orientation</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>manifest</a> <var>manifest</var> and display mode
+          takes a <a>manifest</a> <var>manifest</var> and <a>display mode</a>
           <var>display mode</var> as an argument, and returns a string.
         </p>
         <ol>
@@ -826,7 +827,7 @@
           "http://url.spec.whatwg.org/#concept-url">URL</a> <var>manifest
           URL</var>, and a <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> <var>origin
-          URL</var>. This algorithm returns a [[!URL] or
+          URL</var>. This algorithm returns a [[!URL]] or
           <code>undefined</code>.
         </p>
         <ol>
