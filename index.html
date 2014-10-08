@@ -408,11 +408,6 @@
           <code>start_url</code> member</a> with <var>manifest URL</var> and
           <var>doc URL</var>.
           </li>
-          <li>If <var>start URL</var> of <var>parsed manifest</var> is
-          <code>undefined</code>, set <var>start URL</var> of <var>parsed
-          manifest</var> to be <var>doc URL</var><a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-document's-address"></a>.
-          </li>
           <li>Let <var>display mode</var> of <var>parsed manifest</var> be the
           result of running the <a>steps for processing the
           <code>display</code> member</a> with <var>manifest</var> as the
@@ -708,7 +703,7 @@
           </li>
           <li>If <var>value</var> is not a <a>display mode</a> that the user
           agent supports, set <var>value</var> to <var>value</var>'s
-          <a>fallback display mode</a> and rerun this step.
+          <a>fallback display mode</a> and re-run this step.
           </li>
           <li>Return <var>value</var>.
           </li>
@@ -829,8 +824,7 @@
           "http://url.spec.whatwg.org/#concept-url">URL</a> <var>manifest
           URL</var>, and a <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> <var>origin
-          URL</var>. This algorithm returns a [[!URL]] or
-          <code>undefined</code>.
+          URL</var>. This algorithm returns a [[!URL]].
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
@@ -842,30 +836,42 @@
           <li>If <var>type</var> is not "string" or <var>value</var> is the
           empty string, then:
             <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is unsupported.
+              <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
+              a developer warning</a> that the type is unsupported.
               </li>
-              <li>Return <code>undefined</code>.
+              <li>Return a new [[!URL]] whose <var>input</var> is <var>origin
+              URL</var>.
               </li>
             </ol>
           </li>
-          <li>Let <var>url</var> be the result of <a href=
-          "http://url.spec.whatwg.org/#parsing">parsing</a> <var>value</var>
-          using <var>manifest URL</var> as the base URL.
+          <li>Let <var>url</var> be a new [[!URL]] using <var>value</var> as
+          <var>input</var> and <var>manifest URL</var> as the <var>base</var>
+          URL.
           </li>
-          <li>If <var>url</var> is failure, return <code>undefined</code>.
+          <li>If <var>url</var> is failure:
+            <ul>
+              <li>
+                <a>Issue a developer warning</a>.
+              </li>
+              <li>Return a new [[!URL]] whose <var>input</var> is <var>origin
+              URL</var>.
+              </li>
+            </ul>
           </li>
           <li>If url is not <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#same-origin">same
-          origin</a> as document URL:
+          origin</a> as <var>origin URL</var>:
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the
                 <code>start_url</code> needs to be <a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/#same-origin">
-                same-origin</a> as the document.
+                same-origin</a> as <code>Document</code> of the <a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
+                top-level browsing context</a>.
               </li>
-              <li>Return <var>undefined</var>.
+              <li>Return a new [[!URL]] whose <var>input</var> is <var>origin
+              URL</var>.
               </li>
             </ol>
           </li>
