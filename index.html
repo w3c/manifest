@@ -1189,55 +1189,6 @@ Content-Type: application/manifest+json
           </figure>
         </div>
       </section>
-      <section class="informative">
-        <h3>
-          Extending the manifest
-        </h3>
-        <p>
-          This specification is designed to be extensible. Other specifications
-          are encouraged to define new members for the manifest. However, in
-          doing so, please follow the conventions used in this specification.
-          In particular, use the <a>extension point</a> to hook into the
-          <a>steps for processing a manifest</a>. Also, be sure to specify the
-          steps for processing your particular member in the manner set forth
-          in this specification. This will help keep this part of the platform
-          consistent.
-        </p>
-        <p>
-          When specifying an new member, don't override or <a href=
-          "http://annevankesteren.nl/2014/02/monkey-patch">monkey patch</a>
-          anything defined in this specification. Also, don't assume your
-          member will be processed before or after any other member. Keep your
-          new member, and its processing, atomic and self contained.
-        </p>
-        <p>
-          If you are writing a specification and temporarily want to patch this
-          specification to help implementations along, <a href=
-          "https://github.com/w3c/manifest/issues">file a bug</a> so the
-          community is informed of what you are trying to do.
-        </p>
-      </section>
-      <section id="proprietary-extensions" class="informative">
-        <h3>
-          Proprietary extensions to the manifest
-        </h3>
-        <p>
-          Although proprietary extensions are undesirable, they can't
-          realistically be avoided. As such, the RECOMMENDED way to add a
-          proprietary extension is to use a vendor prefix.
-        </p>
-        <p>
-          The following is an example of two hypothetical vendor extensions.
-        </p>
-        <pre class="example highlight json" title="vendor extensions">
-{
-  ...
-  "webkit_fancy_feature": "some/url/img",
-  "moz_awesome_thing": { ... }
-  ...
-}
-</pre>
-      </section>
       <section>
         <h3>
           Internationalization and localization
@@ -1694,6 +1645,56 @@ Content-Security-Policy: img-src icons.example.com;
         There is only one class of product that can claim conformance to this
         specification: a <dfn>user agent</dfn>.
       </p>
+      <section class="informative">
+        <h3>
+          Extensibility
+        </h3>
+        <p>
+          This specification is designed to be extensible. Other specifications
+          are encouraged to define new members for the manifest. However, in
+          doing so, please follow the conventions used in this specification.
+          In particular, use the <a>extension point</a> to hook into the
+          <a>steps for processing a manifest</a>. Also, be sure to specify the
+          steps for processing your particular member in the manner set forth
+          in this specification. This will help keep this part of the platform
+          consistent.
+        </p>
+        <p>
+          When specifying an new member, don't override or <a href=
+          "http://annevankesteren.nl/2014/02/monkey-patch">monkey patch</a>
+          anything defined in this specification. Also, don't assume your
+          member will be processed before or after any other member. Keep your
+          new member, and its processing, atomic and self contained.
+        </p>
+        <p>
+          If you are writing a specification and temporarily want to patch this
+          specification to help implementations along, <a href=
+          "https://github.com/w3c/manifest/issues">file a bug</a> so the
+          community is informed of what you are trying to do.
+        </p>
+        <section id="proprietary-extensions" class="informative">
+          <h3>
+            Proprietary manifest members
+          </h3>
+          <p>
+            Although proprietary extensions are undesirable, they can't
+            realistically be avoided. As such, the RECOMMENDED way to add a
+            proprietary extension is to use a vendor prefix.
+          </p>
+          <p>
+            The following is an example of two hypothetical vendor extensions.
+          </p>
+          <pre class="example highlight json" title="vendor extensions">
+  {
+    ...
+    "webkit_fancy_feature": "some/url/img",
+    "moz_awesome_thing": { ... }
+    ...
+  }
+          
+</pre>
+        </section>
+      </section>
     </section>
     <section class="appendix">
       <h2>
