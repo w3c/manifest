@@ -442,16 +442,8 @@
     </section>
     <section>
       <h2>
-        Manifest
+        Manifest processing model
       </h2>
-      <p>
-        A <dfn>manifest</dfn> is a JSON document that contains startup
-        parameters and application defaults for when a web application is
-        launched. A manifest consists of a top-level <a href=
-        "#json-object">object</a> that contains zero or more members. Each of
-        the members are defined below, as well as how their values are
-        processed.
-      </p>
       <section>
         <h3>
           Obtaining a manifest
@@ -584,7 +576,7 @@ Content-Type: application/manifest+json
   "display": "fullscreen",
   "orientation": "landscape"
 }
-          
+
 </pre>
         </div>
       </section>
@@ -706,6 +698,19 @@ Content-Type: application/manifest+json
           platform specific conventions.
         </p>
       </section>
+    </section>
+    <section>
+      <h2>
+        Manifest members
+      </h2>
+      <p>
+        A <dfn>manifest</dfn> is a JSON document that contains startup
+        parameters and application defaults for when a web application is
+        launched. A manifest consists of a top-level <a href=
+        "#json-object">object</a> that contains zero or more members. Each of
+        the members are defined below, as well as how their values are
+        processed.
+      </p>
       <section>
         <h3>
           <code title="">name</code> member
