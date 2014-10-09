@@ -322,6 +322,125 @@
       </p>
     </section>
     <section>
+      <h3>
+        Associating a resource with a manifest
+      </h3>
+      <p>
+        A resource is said to be <dfn>associated with a manifest</dfn> if the
+        resource representation, an HTML document, has a <a href=
+        "#linking"><code>manifest</code> link relationship</a>, or the resource
+        has a <a>well-known manifest</a>.
+      </p>
+      <section id="linking">
+        <h3>
+          Linking to a manifest
+        </h3>
+        <p>
+          The <code>manifest</code> keyword can be used with a [[!HTML]]
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
+          link</a> element. This keyword creates an <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+          title="external resource link">external resource link</a>.
+        </p>
+        <table border="1">
+          <tr>
+            <th rowspan="2">
+              Link type
+            </th>
+            <th colspan="2">
+              Effect on...
+            </th>
+            <th rowspan="2">
+              Brief description
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <code><a href="#the-link-element">link</a></code>
+            </th>
+            <th>
+              <code><a href="#the-a-element">a</a></code> and <code><a href=
+              "#the-area-element">area</a></code>
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <code><dfn title="rel-manifest" id=
+              "rel-manifest">manifest</dfn></code>
+            </td>
+            <td>
+              <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+              title="external resource link">External Resource</a>
+            </td>
+            <td>
+              not allowed
+            </td>
+            <td>
+              Imports or links to a <a>manifest</a>.
+            </td>
+          </tr>
+        </table>
+        <p>
+          The <a>media type for a manifest</a> serves as the default media type
+          for resources associated with the <code><a href=
+          "#rel-manifest">manifest</a></code> <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#linkTypes">link
+          type</a>.
+        </p>
+        <p class="note">
+          In cases where more than one <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
+          <code>link</code></a> element with a <code>manifest</code> link type
+          appears in a <code>Document</code>, the user agent uses the first
+          link element in tree order and ignores all subsequent <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
+          <code>link</code></a> elements with a <code>manifest</code> link type
+          (even if the first element was erroneous). See the <a>steps for
+          obtaining a manifest</a>.
+        </p>
+        <p>
+          To obtain a manifest, the user agent MUST run the <a>steps for
+          obtaining a manifest</a>. The appropriate time to obtain the manifest
+          is left up to implementations. A user agent MAY opt to delay fetching
+          a manifest until after the document and its other resources have been
+          fully loaded (i.e., to not delay the availability of content and
+          scripts required by the <code>document</code>).
+        </p>
+        <p>
+          A <a>manifest</a> is obtained and applied regardless of the <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-link-media">
+          <code>media</code></a> attribute of the <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-link-element">
+          <code>link</code></a> matches the environment or not.
+        </p>
+      </section>
+      <section>
+        <h3>
+          The "manifest.json" well-known URI
+        </h3>
+        <p>
+          The <dfn>well-known manifest</dfn> is a manifest resource located at
+          standardized URI. This specification registers the "manifest.json"
+          well-known URI in the <a href=
+          "http://www.iana.org/assignments/well-known-uris/well-known-uris.xml">
+          Well-Known URI Registry</a> as required by [[!RFC5785]].
+        </p>
+        <div class="example">
+          <p>
+            An example of a <a href="#dfn-well-known-manifest" class=
+            "internalDFN">well-known manifest</a>:
+          </p>
+          <ul>
+            <li>
+              <code>http://example.com/.well-known/manifest.json</code>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </section>
+    <section>
       <h2>
         Manifest
       </h2>
@@ -333,17 +452,6 @@
         the members are defined below, as well as how their values are
         processed.
       </p>
-      <section>
-        <h3>
-          Associating a resource with a manifest
-        </h3>
-        <p>
-          A resource is said to be <dfn>associated with a manifest</dfn> if the
-          resource representation, an HTML document, has a <a href=
-          "#linking"><code>manifest</code> link relationship</a>, or the
-          resource has a <a>well-known manifest</a>.
-        </p>
-      </section>
       <section>
         <h3>
           Obtaining a manifest
@@ -1015,91 +1123,6 @@ Content-Type: application/manifest+json
           </li>
         </ol>
       </section>
-      <section id="linking">
-        <h3>
-          Linking to a manifest
-        </h3>
-        <p>
-          The <code>manifest</code> keyword can be used with a [[!HTML]]
-          <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
-          link</a> element. This keyword creates an <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
-          title="external resource link">external resource link</a>.
-        </p>
-        <table border="1">
-          <tr>
-            <th rowspan="2">
-              Link type
-            </th>
-            <th colspan="2">
-              Effect on...
-            </th>
-            <th rowspan="2">
-              Brief description
-            </th>
-          </tr>
-          <tr>
-            <th>
-              <code><a href="#the-link-element">link</a></code>
-            </th>
-            <th>
-              <code><a href="#the-a-element">a</a></code> and <code><a href=
-              "#the-area-element">area</a></code>
-            </th>
-          </tr>
-          <tr>
-            <td>
-              <code><dfn title="rel-manifest" id=
-              "rel-manifest">manifest</dfn></code>
-            </td>
-            <td>
-              <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
-              title="external resource link">External Resource</a>
-            </td>
-            <td>
-              not allowed
-            </td>
-            <td>
-              Imports or links to a <a>manifest</a>.
-            </td>
-          </tr>
-        </table>
-        <p>
-          The <a>media type for a manifest</a> serves as the default media type
-          for resources associated with the <code><a href=
-          "#rel-manifest">manifest</a></code> <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#linkTypes">link
-          type</a>.
-        </p>
-        <p class="note">
-          In cases where more than one <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
-          <code>link</code></a> element with a <code>manifest</code> link type
-          appears in a <code>Document</code>, the user agent uses the first
-          link element in tree order and ignores all subsequent <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
-          <code>link</code></a> elements with a <code>manifest</code> link type
-          (even if the first element was erroneous). See the <a>steps for
-          obtaining a manifest</a>.
-        </p>
-        <p>
-          To obtain a manifest, the user agent MUST run the <a>steps for
-          obtaining a manifest</a>. The appropriate time to obtain the manifest
-          is left up to implementations. A user agent MAY opt to delay fetching
-          a manifest until after the document and its other resources have been
-          fully loaded (i.e., to not delay the availability of content and
-          scripts required by the <code>document</code>).
-        </p>
-        <p>
-          A <a>manifest</a> is obtained and applied regardless of the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-link-media">
-          <code>media</code></a> attribute of the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-link-element">
-          <code>link</code></a> matches the environment or not.
-        </p>
-      </section>
       <section>
         <h3>
           Content security policy
@@ -1473,24 +1496,6 @@ Content-Security-Policy: img-src icons.example.com;
         <h3>
           The "manifest.json" well-known URI
         </h3>
-        <p>
-          The <dfn>well-known manifest</dfn> is a manifest resource located at
-          standardized URI. This specification registers the "manifest.json"
-          well-known URI in the <a href=
-          "http://www.iana.org/assignments/well-known-uris/well-known-uris.xml">
-          Well-Known URI Registry</a> as required by [[!RFC5785]].
-        </p>
-        <div class="example">
-          <p>
-            An example of a <a href="#dfn-well-known-manifest" class=
-            "internalDFN">well-known manifest</a>:
-          </p>
-          <ul>
-            <li>
-              <code>http://example.com/.well-known/manifest.json</code>
-            </li>
-          </ul>
-        </div>
         <dl>
           <dt>
             URI suffix:
