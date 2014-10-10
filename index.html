@@ -618,9 +618,10 @@ Content-Type: application/manifest+json
           The <dfn>steps for processing a manifest</dfn> are given by the
           following algorithm. The algorithm takes a <var>text</var> string as
           an argument, which represents a <a>manifest</a>, and a <var>manifest
-          URL</var> [[!URL]], which represents the location of the manifest,
-          and a <var>doc URL</var> [[!URL]]. The output from inputting an JSON
-          document into this algorithm is a <dfn>processed manifest</dfn>.
+          URL</var> [[!WHATWG-URL]], which represents the location of the
+          manifest, and a <var>doc URL</var> [[!WHATWG-URL]]. The output from
+          inputting an JSON document into this algorithm is a <dfn>processed
+          manifest</dfn>.
         </p>
         <ol>
           <li>Let <var>parsed manifest</var> be an empty object.
@@ -1079,7 +1080,7 @@ Content-Type: application/manifest+json
           "http://url.spec.whatwg.org/#concept-url">URL</a> <var>manifest
           URL</var>, and a <a href=
           "http://url.spec.whatwg.org/#concept-url">URL</a> <var>origin
-          URL</var>. This algorithm returns a [[!URL]].
+          URL</var>. This algorithm returns a [[!WHATWG-URL]].
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
@@ -1094,22 +1095,22 @@ Content-Type: application/manifest+json
               <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
               a developer warning</a> that the type is unsupported.
               </li>
-              <li>Return a new [[!URL]] whose <var>input</var> is <var>origin
-              URL</var>.
+              <li>Return a new [[!WHATWG-URL]] whose <var>input</var> is <var>
+                origin URL</var>.
               </li>
             </ol>
           </li>
-          <li>Let <var>url</var> be a new [[!URL]] using <var>value</var> as
-          <var>input</var> and <var>manifest URL</var> as the <var>base</var>
-          URL.
+          <li>Let <var>url</var> be a new [[!WHATWG-URL]] using
+          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
+          the <var>base</var> URL.
           </li>
           <li>If <var>url</var> is failure:
             <ul>
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return a new [[!URL]] whose <var>input</var> is <var>origin
-              URL</var>.
+              <li>Return a new [[!WHATWG-URL]] whose <var>input</var> is <var>
+                origin URL</var>.
               </li>
             </ul>
           </li>
@@ -1125,8 +1126,8 @@ Content-Type: application/manifest+json
                 "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
                 top-level browsing context</a>.
               </li>
-              <li>Return a new [[!URL]] whose <var>input</var> is <var>origin
-              URL</var>.
+              <li>Return a new [[!WHATWG-URL]] whose <var>input</var> is <var>
+                origin URL</var>.
               </li>
             </ol>
           </li>
@@ -1566,8 +1567,8 @@ Content-Security-Policy: img-src icons.example.com;
             <p>
               As this specification allows for the declaration of URLs within
               certain members of a manifest, implementors need to consider the
-              security considerations discussed in the [[!URL]] specification.
-              Implementations intending to display <abbr title=
+              security considerations discussed in the [[!WHATWG-URL]]
+              specification. Implementations intending to display <abbr title=
               "Internationalized Resource Identifiers">IRIs</abbr> and
               <abbr title="Internationalized domain name">IDNA</abbr> addresses
               found in the manifest are strongly encouraged to follow the
