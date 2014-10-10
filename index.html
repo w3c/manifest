@@ -322,29 +322,271 @@
       </p>
     </section>
     <section>
-      <h2>
-        Manifest
-      </h2>
+      <h3>
+        Associating a resource with a manifest
+      </h3>
       <p>
-        A <dfn>manifest</dfn> is a JSON document that contains startup
-        parameters and application defaults for when a web application is
-        launched. A manifest consists of a top-level <a href=
-        "#json-object">object</a> that contains zero or more members. Each of
-        the members are defined below, as well as how their values are
-        processed.
+        A resource is said to be <dfn>associated with a manifest</dfn> if the
+        resource representation, an HTML document, has a <a href=
+        "#linking"><code>manifest</code> link relationship</a>, or the resource
+        has a <a>well-known manifest</a>.
       </p>
-      <section>
+      <section id="linking">
         <h3>
-          Associating a resource with a manifest
+          Linking to a manifest
         </h3>
         <p>
-          A resource is said to be <dfn>associated with a manifest</dfn> if the
-          resource representation, an HTML document, has a <a href=
-          "#linking"><code>manifest</code> link relationship</a>, or the
-          resource has a <a>well-known manifest</a>.
+          The <code>manifest</code> keyword can be used with a [[!HTML]]
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
+          link</a> element. This keyword creates an <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+          title="external resource link">external resource link</a>.
+        </p>
+        <table border="1">
+          <tr>
+            <th rowspan="2">
+              Link type
+            </th>
+            <th colspan="2">
+              Effect on...
+            </th>
+            <th rowspan="2">
+              Brief description
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <code><a href="#the-link-element">link</a></code>
+            </th>
+            <th>
+              <code><a href="#the-a-element">a</a></code> and <code><a href=
+              "#the-area-element">area</a></code>
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <code><dfn title="rel-manifest" id=
+              "rel-manifest">manifest</dfn></code>
+            </td>
+            <td>
+              <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
+              title="external resource link">External Resource</a>
+            </td>
+            <td>
+              not allowed
+            </td>
+            <td>
+              Imports or links to a <a>manifest</a>.
+            </td>
+          </tr>
+        </table>
+        <p>
+          The <a>media type for a manifest</a> serves as the default media type
+          for resources associated with the <code><a href=
+          "#rel-manifest">manifest</a></code> <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#linkTypes">link
+          type</a>.
+        </p>
+        <p class="note">
+          In cases where more than one <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
+          <code>link</code></a> element with a <code>manifest</code> link type
+          appears in a <code>Document</code>, the user agent uses the first
+          link element in tree order and ignores all subsequent <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
+          <code>link</code></a> elements with a <code>manifest</code> link type
+          (even if the first element was erroneous). See the <a>steps for
+          obtaining a manifest</a>.
+        </p>
+        <p>
+          To obtain a manifest, the user agent MUST run the <a>steps for
+          obtaining a manifest</a>. The appropriate time to obtain the manifest
+          is left up to implementations. A user agent MAY opt to delay fetching
+          a manifest until after the document and its other resources have been
+          fully loaded (i.e., to not delay the availability of content and
+          scripts required by the <code>document</code>).
+        </p>
+        <p>
+          A <a>manifest</a> is obtained and applied regardless of the <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-link-media">
+          <code>media</code></a> attribute of the <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-link-element">
+          <code>link</code></a> matches the environment or not.
         </p>
       </section>
       <section>
+        <h3>
+          The "manifest.json" well-known URI
+        </h3>
+        <p>
+          The <dfn>well-known manifest</dfn> is a manifest resource located at
+          standardized URI. This specification registers the "manifest.json"
+          well-known URI in the <a href=
+          "http://www.iana.org/assignments/well-known-uris/well-known-uris.xml">
+          Well-Known URI Registry</a> as required by [[!RFC5785]].
+        </p>
+        <div class="example">
+          <p>
+            An example of a <a href="#dfn-well-known-manifest" class=
+            "internalDFN">well-known manifest</a>:
+          </p>
+          <ul>
+            <li>
+              <code>http://example.com/.well-known/manifest.json</code>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </section>
+    <section>
+      <h2>
+        Manifest processing model
+      </h2>
+      <p>
+        This section defines algorithms for <a href="#obtaining">obtaining</a>
+        and <a href="#processing">processing</a> a <a>manifest</a>, and gives
+        recommendations to implementers on how to react, when the manifest is
+        <a href="#updating">updated</a>.
+      </p>
+      <section id="obtaining">
+        <h3>
+          Obtaining a manifest
+        </h3>
+        <p>
+          The <dfn>steps for obtaining a manifest</dfn> are given by the
+          following algorithm. The algorithm, if successful, returns a
+          <a>processed manifest</a>. In running these steps, a user agent MUST
+          NOT <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#delay-the-load-event">
+          delay the load event</a>.
+        </p>
+        <ol>
+          <li>From the <code>Document</code> of the <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
+            top-level browsing context</a>, let <var>manifest link</var> be the
+            first <a href=
+            "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
+            <code>link</code></a> element in <a href=
+            "http://www.whatwg.org/specs/web-apps/current-work/#tree-order">tree
+            order</a> whose <a href=
+            "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-rel"><code>
+            rel</code></a> attribute contains the token <code>manifest</code>.
+          </li>
+          <li>If <var>manifest link</var> is not <code>null</code>:
+            <ol>
+              <li>Honoring the <code>manifest-src</code> [[!CSP]] directive,
+              <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
+                obtain a resource</a> as per [[!HTML]]. If the <a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
+                obtain a resource</a> algorithm terminates prematurely, or is
+                denied by [[!CSP]], terminate this algorithm.
+              </li>
+              <li>Let <var>response</var> be a [[!FETCH]] the <a href=
+              "http://fetch.spec.whatwg.org/#concept-response">response</a>
+              resulting obtained resource.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, if <var>manifest element</var> is <code>null</code>:
+            <ol>
+              <li>Let <var>url</var> be the result of resolving the URL
+              "<code>/.well-known/manifest.json</code>" using the <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
+                top-level browsing context's</a> <a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/#the-document's-address">
+                address</a> as the base.
+              </li>
+            </ol>
+          </li>
+          <li>Using the <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#networking-task-source">
+            networking task source</a>, <a href=
+            "http://www.whatwg.org/specs/web-apps/current-work/#queue-a-task">queue
+            a task</a> to perform the following:
+            <ol>
+              <li>Let <var>req</var> be a new [[!FETCH]] <a href=
+              "http://fetch.spec.whatwg.org/#concept-request" title=
+              "concept-request">request</a>.
+              </li>
+              <li>Set <var>req</var>'s <a href=
+              "http://fetch.spec.whatwg.org/#concept-request-context">context</a>
+              to be "manifest".
+              </li>
+              <li>Set <var>req</var>'s <a href=
+              "http://fetch.spec.whatwg.org/#concept-request-url">url</a> to be
+              <var>url</var>.
+              </li>
+              <li>Set <var>req</var>'s <a href=
+              "http://fetch.spec.whatwg.org/#concept-request-origin" title=
+              "concept-request-origin">origin</a> to be the <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#origin">origin</a>
+              of the <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
+                top-level browsing context</a>.
+              </li>
+              <li>Set <var>req</var>'s <a href=
+              "http://fetch.spec.whatwg.org/#concept-request-mode">mode</a> to
+              be "CORS".
+              </li>
+              <li>Set <var>req</var>'s <a href=
+              "http://fetch.spec.whatwg.org/#concept-request-referrer" title=
+              "concept-request-referrer">referrer</a> to be the
+              <code>Document</code> of the <a href=
+              "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
+                top-level browsing context</a>.
+              </li>
+              <li>Set <var>req</var>'s <a href=
+              "http://fetch.spec.whatwg.org/#concept-request-omit-credentials-mode">
+                omit credentials mode</a> to "always".
+              </li>
+              <li>
+                <a href="http://fetch.spec.whatwg.org/#concept-fetch">Fetch</a>
+                <var>req</var> and let <var>response</var> be the <a href=
+                "http://fetch.spec.whatwg.org/#concept-response">response</a>.
+              </li>
+              <li>If <var>response</var> is a <a href=
+              "http://fetch.spec.whatwg.org/#concept-network-error">network
+              error</a>, terminate this algorithm.
+              </li>
+            </ol>
+          </li>
+          <li>Let <var>manifest</var> be the result of running the <a>steps for
+          processing a manifest</a> with <var>response</var>'s <a href=
+          "http://fetch.spec.whatwg.org/#concept-request-body">body</a> as the
+          <var>text</var>, and <var>url</var> as the <var>manifest URL</var>,
+          the URL the <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
+            top-level browsing context's</a> address.
+          </li>
+          <li>Return <var>manifest</var>.
+          </li>
+        </ol>
+        <div class="note">
+          <p>
+            Authors are encouraged to use the HTTP cache directives to
+            explicitly cache the manifest. For example, the following response
+            would cause a cached manifest to be used one year from the time the
+            response is sent:
+          </p>
+          <pre class="highlight">
+HTTP/1.1 200 OK
+Cache-Control: max-age=31536000
+Content-Type: application/manifest+json
+
+{
+  "name": "Super Racer 2000",
+  "start_url": "/start.html",
+  "display": "fullscreen",
+  "orientation": "landscape"
+}
+
+</pre>
+        </div>
+      </section>
+      <section id="processing">
         <h3>
           Processing the manifest
         </h3>
@@ -434,7 +676,7 @@
           </li>
         </ol>
       </section>
-      <section>
+      <section id="updating">
         <h3>
           Updating the manifest
         </h3>
@@ -462,6 +704,19 @@
           platform specific conventions.
         </p>
       </section>
+    </section>
+    <section>
+      <h2>
+        Manifest members
+      </h2>
+      <p>
+        A <dfn>manifest</dfn> is a JSON document that contains startup
+        parameters and application defaults for when a web application is
+        launched. A manifest consists of a top-level <a href=
+        "#json-object">object</a> that contains zero or more members. Each of
+        the members are defined below, as well as how their values are
+        processed.
+      </p>
       <section>
         <h3>
           <code title="">name</code> member
@@ -879,91 +1134,6 @@
           </li>
         </ol>
       </section>
-      <section id="linking">
-        <h3>
-          Linking to a manifest
-        </h3>
-        <p>
-          The <code>manifest</code> keyword can be used with a [[!HTML]]
-          <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
-          link</a> element. This keyword creates an <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
-          title="external resource link">external resource link</a>.
-        </p>
-        <table border="1">
-          <tr>
-            <th rowspan="2">
-              Link type
-            </th>
-            <th colspan="2">
-              Effect on...
-            </th>
-            <th rowspan="2">
-              Brief description
-            </th>
-          </tr>
-          <tr>
-            <th>
-              <code><a href="#the-link-element">link</a></code>
-            </th>
-            <th>
-              <code><a href="#the-a-element">a</a></code> and <code><a href=
-              "#the-area-element">area</a></code>
-            </th>
-          </tr>
-          <tr>
-            <td>
-              <code><dfn title="rel-manifest" id=
-              "rel-manifest">manifest</dfn></code>
-            </td>
-            <td>
-              <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
-              title="external resource link">External Resource</a>
-            </td>
-            <td>
-              not allowed
-            </td>
-            <td>
-              Imports or links to a <a>manifest</a>.
-            </td>
-          </tr>
-        </table>
-        <p>
-          The <a>media type for a manifest</a> serves as the default media type
-          for resources associated with the <code><a href=
-          "#rel-manifest">manifest</a></code> <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#linkTypes">link
-          type</a>.
-        </p>
-        <p class="note">
-          In cases where more than one <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
-          <code>link</code></a> element with a <code>manifest</code> link type
-          appears in a <code>Document</code>, the user agent uses the first
-          link element in tree order and ignores all subsequent <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
-          <code>link</code></a> elements with a <code>manifest</code> link type
-          (even if the first element was erroneous). See the <a>steps for
-          obtaining a manifest</a>.
-        </p>
-        <p>
-          To obtain a manifest, the user agent MUST run the <a>steps for
-          obtaining a manifest</a>. The appropriate time to obtain the manifest
-          is left up to implementations. A user agent MAY opt to delay fetching
-          a manifest until after the document and its other resources have been
-          fully loaded (i.e., to not delay the availability of content and
-          scripts required by the <code>document</code>).
-        </p>
-        <p>
-          A <a>manifest</a> is obtained and applied regardless of the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-link-media">
-          <code>media</code></a> attribute of the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-link-element">
-          <code>link</code></a> matches the environment or not.
-        </p>
-      </section>
       <section>
         <h3>
           Content security policy
@@ -1018,190 +1188,6 @@
             </figcaption>
           </figure>
         </div>
-      </section>
-      <section>
-        <h3>
-          Obtaining a manifest
-        </h3>
-        <p>
-          The <dfn>steps for obtaining a manifest</dfn> are given by the
-          following algorithm. The algorithm, if successful, returns a
-          <a>processed manifest</a>. In running these steps, a user agent MUST
-          NOT <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#delay-the-load-event">
-          delay the load event</a>.
-        </p>
-        <ol>
-          <li>From the <code>Document</code> of the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-            top-level browsing context</a>, let <var>manifest link</var> be the
-            first <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
-            <code>link</code></a> element in <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#tree-order">tree
-            order</a> whose <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-rel"><code>
-            rel</code></a> attribute contains the token <code>manifest</code>.
-          </li>
-          <li>If <var>manifest link</var> is not <code>null</code>:
-            <ol>
-              <li>Honoring the <code>manifest-src</code> [[!CSP]] directive,
-              <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
-                obtain a resource</a> as per [[!HTML]]. If the <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
-                obtain a resource</a> algorithm terminates prematurely, or is
-                denied by [[!CSP]], terminate this algorithm.
-              </li>
-              <li>Let <var>response</var> be a [[!FETCH]] the <a href=
-              "http://fetch.spec.whatwg.org/#concept-response">response</a>
-              resulting obtained resource.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, if <var>manifest element</var> is <code>null</code>:
-            <ol>
-              <li>Let <var>url</var> be the result of resolving the URL
-              "<code>/.well-known/manifest.json</code>" using the <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-                top-level browsing context's</a> <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#the-document's-address">
-                address</a> as the base.
-              </li>
-            </ol>
-          </li>
-          <li>Using the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#networking-task-source">
-            networking task source</a>, <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#queue-a-task">queue
-            a task</a> to perform the following:
-            <ol>
-              <li>Let <var>req</var> be a new [[!FETCH]] <a href=
-              "http://fetch.spec.whatwg.org/#concept-request" title=
-              "concept-request">request</a>.
-              </li>
-              <li>Set <var>req</var>'s <a href=
-              "http://fetch.spec.whatwg.org/#concept-request-context">context</a>
-              to be "manifest".
-              </li>
-              <li>Set <var>req</var>'s <a href=
-              "http://fetch.spec.whatwg.org/#concept-request-url">url</a> to be
-              <var>url</var>.
-              </li>
-              <li>Set <var>req</var>'s <a href=
-              "http://fetch.spec.whatwg.org/#concept-request-origin" title=
-              "concept-request-origin">origin</a> to be the <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#origin">origin</a>
-              of the <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-                top-level browsing context</a>.
-              </li>
-              <li>Set <var>req</var>'s <a href=
-              "http://fetch.spec.whatwg.org/#concept-request-mode">mode</a> to
-              be "CORS".
-              </li>
-              <li>Set <var>req</var>'s <a href=
-              "http://fetch.spec.whatwg.org/#concept-request-referrer" title=
-              "concept-request-referrer">referrer</a> to be the
-              <code>Document</code> of the <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-                top-level browsing context</a>.
-              </li>
-              <li>Set <var>req</var>'s <a href=
-              "http://fetch.spec.whatwg.org/#concept-request-omit-credentials-mode">
-                omit credentials mode</a> to "always".
-              </li>
-              <li>
-                <a href="http://fetch.spec.whatwg.org/#concept-fetch">Fetch</a>
-                <var>req</var> and let <var>response</var> be the <a href=
-                "http://fetch.spec.whatwg.org/#concept-response">response</a>.
-              </li>
-              <li>If <var>response</var> is a <a href=
-              "http://fetch.spec.whatwg.org/#concept-network-error">network
-              error</a>, terminate this algorithm.
-              </li>
-            </ol>
-          </li>
-          <li>Let <var>manifest</var> be the result of running the <a>steps for
-          processing a manifest</a> with <var>response</var>'s <a href=
-          "http://fetch.spec.whatwg.org/#concept-request-body">body</a> as the
-          <var>text</var>, and <var>url</var> as the <var>manifest URL</var>,
-          the URL the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-            top-level browsing context's</a> address.
-          </li>
-          <li>Return <var>manifest</var>.
-          </li>
-        </ol>
-        <div class="note">
-          <p>
-            Authors are encouraged to use the HTTP cache directives to
-            explicitly cache the manifest. For example, the following response
-            would cause a cached manifest to be used one year from the time the
-            response is sent:
-          </p>
-          <pre class="highlight">
-HTTP/1.1 200 OK
-Cache-Control: max-age=31536000
-Content-Type: application/manifest+json
-
-{
-  "name": "Super Racer 2000",
-  "start_url": "/start.html",
-  "display": "fullscreen",
-  "orientation": "landscape"
-}
-</pre>
-        </div>
-      </section>
-      <section class="informative">
-        <h3>
-          Extending the manifest
-        </h3>
-        <p>
-          This specification is designed to be extensible. Other specifications
-          are encouraged to define new members for the manifest. However, in
-          doing so, please follow the conventions used in this specification.
-          In particular, use the <a>extension point</a> to hook into the
-          <a>steps for processing a manifest</a>. Also, be sure to specify the
-          steps for processing your particular member in the manner set forth
-          in this specification. This will help keep this part of the platform
-          consistent.
-        </p>
-        <p>
-          When specifying an new member, don't override or <a href=
-          "http://annevankesteren.nl/2014/02/monkey-patch">monkey patch</a>
-          anything defined in this specification. Also, don't assume your
-          member will be processed before or after any other member. Keep your
-          new member, and its processing, atomic and self contained.
-        </p>
-        <p>
-          If you are writing a specification and temporarily want to patch this
-          specification to help implementations along, <a href=
-          "https://github.com/w3c/manifest/issues">file a bug</a> so the
-          community is informed of what you are trying to do.
-        </p>
-      </section>
-      <section id="proprietary-extensions" class="informative">
-        <h3>
-          Proprietary extensions to the manifest
-        </h3>
-        <p>
-          Although proprietary extensions are undesirable, they can't
-          realistically be avoided. As such, the RECOMMENDED way to add a
-          proprietary extension is to use a vendor prefix.
-        </p>
-        <p>
-          The following is an example of two hypothetical vendor extensions.
-        </p>
-        <pre class="example highlight json" title="vendor extensions">
-{
-  ...
-  "webkit_fancy_feature": "some/url/img",
-  "moz_awesome_thing": { ... }
-  ...
-}
-</pre>
       </section>
       <section>
         <h3>
@@ -1472,24 +1458,6 @@ Content-Security-Policy: img-src icons.example.com;
         <h3>
           The "manifest.json" well-known URI
         </h3>
-        <p>
-          The <dfn>well-known manifest</dfn> is a manifest resource located at
-          standardized URI. This specification registers the "manifest.json"
-          well-known URI in the <a href=
-          "http://www.iana.org/assignments/well-known-uris/well-known-uris.xml">
-          Well-Known URI Registry</a> as required by [[!RFC5785]].
-        </p>
-        <div class="example">
-          <p>
-            An example of a <a href="#dfn-well-known-manifest" class=
-            "internalDFN">well-known manifest</a>:
-          </p>
-          <ul>
-            <li>
-              <code>http://example.com/.well-known/manifest.json</code>
-            </li>
-          </ul>
-        </div>
         <dl>
           <dt>
             URI suffix:
@@ -1677,6 +1645,57 @@ Content-Security-Policy: img-src icons.example.com;
         There is only one class of product that can claim conformance to this
         specification: a <dfn>user agent</dfn>.
       </p>
+      <section class="informative">
+        <h3>
+          Extensibility
+        </h3>
+        <p>
+          This specification is designed to be extensible. Other specifications
+          are encouraged to define new members for the manifest. However, in
+          doing so, please follow the conventions used in this specification.
+          In particular, use the <a>extension point</a> to hook into the
+          <a>steps for processing a manifest</a>. Also, be sure to specify the
+          steps for processing your particular member in the manner set forth
+          in this specification. This will help keep this part of the platform
+          consistent.
+        </p>
+        <p>
+          When specifying an new member, don't override or <a href=
+          "http://annevankesteren.nl/2014/02/monkey-patch">monkey patch</a>
+          anything defined in this specification. Also, don't assume your
+          member will be processed before or after any other member. Keep your
+          new member, and its processing, atomic and self contained.
+        </p>
+        <p>
+          If you are writing a specification and temporarily want to patch this
+          specification to help implementations along, <a href=
+          "https://github.com/w3c/manifest/issues">file a bug</a> so the
+          community is informed of what you are trying to do.
+        </p>
+        <section id="proprietary-extensions" class="informative">
+          <h3>
+            Proprietary manifest members
+          </h3>
+          <p>
+            Although proprietary extensions are undesirable, they can't
+            realistically be avoided. As such, the RECOMMENDED way to add a new
+            proprietary manifest member as an extension is to use a vendor
+            prefix.
+          </p>
+          <p>
+            The following is an example of two hypothetical vendor extensions.
+          </p>
+          <pre class="example highlight json" title="vendor extensions">
+  {
+    ...
+    "webkit_fancy_feature": "some/url/img",
+    "moz_awesome_thing": { ... }
+    ...
+  }
+          
+</pre>
+        </section>
+      </section>
     </section>
     <section class="appendix">
       <h2>
