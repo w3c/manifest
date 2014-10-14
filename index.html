@@ -642,6 +642,18 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
+          <li>If <a>Type</a>(<var>manfiest</var>) is not "object":
+            <ol>
+              <li>
+                <a>Issue a developer warning</a> that the manifest needs to be
+                an object.
+              </li>
+              <li>Set <var>manifest</var> to be the result of <a href=
+              "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
+                parsing</a> the string <code>"{}"</code>.
+              </li>
+            </ol>
+          </li>
           <li>
             <a>Extension point</a>: process any proprietary and/or other
             supported members at this point in the algorithm.
