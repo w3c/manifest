@@ -1403,10 +1403,11 @@ Content-Security-Policy: img-src icons.example.com;
               </li>
             </ol>
           </li>
-          <li>
-            <a href="http://url.spec.whatwg.org/#parsing">Parse</a>
-            <var>value</var> using <var>manifest URL</var> as the base URL and
-            return the result.
+          <li>If <a>Trim</a>(value) is the empty string, then return
+          <code>undefined</code>.
+          </li>
+          <li>Otherwise, <a title="URL parsing">parse</a> <var>value</var>
+          using <var>manifest URL</var> as the base URL and return the result.
           </li>
         </ol>
       </section>
