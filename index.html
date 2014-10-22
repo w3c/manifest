@@ -193,6 +193,12 @@
         required to process a particular member and what to do when a type does
         not match what is expected.
       </p>
+      <p>
+        The <dfn><a href=
+        "https://url.spec.whatwg.org/#url-parsing">URL</a></dfn> concept and
+        <dfn><a href="https://url.spec.whatwg.org/#url-parsing">URL
+        parsing</a></dfn> are defined in [[!WHATWG-URL]].
+      </p>
     </section>
     <section>
       <h2>
@@ -492,7 +498,8 @@
           </li>
           <li>Otherwise, if <var>manifest element</var> is <code>null</code>:
             <ol>
-              <li>Let <var>url</var> be the result of resolving the URL
+              <li>Let <var>url</var> be the result of <a title=
+              "URL parsing">parsing</a> the URL
               "<code>/.well-known/manifest.json</code>" using the <a href=
               "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
                 top-level browsing context's</a> <a href=
@@ -617,9 +624,9 @@ Content-Type: application/manifest+json
         <p>
           The <dfn>steps for processing a manifest</dfn> are given by the
           following algorithm. The algorithm takes a <var>text</var> string as
-          an argument, which represents a <a>manifest</a>, and a <var>manifest
-          URL</var> [[!WHATWG-URL]], which represents the location of the
-          manifest, and a <var>doc URL</var> [[!WHATWG-URL]]. The output from
+          an argument, which represents a <a>manifest</a>, and a <a>URL</a>
+          <var>manifest URL</var>, which represents the location of the
+          manifest, and a <a>URL</a> <var>document URL</var>. The output from
           inputting an JSON document into this algorithm is a <dfn>processed
           manifest</dfn>.
         </p>
@@ -661,7 +668,7 @@ Content-Type: application/manifest+json
           <li>Let <var>start URL</var> of <var>parsed manifest</var> be the
           result of running the <a>steps for processing the
           <code>start_url</code> member</a> with <var>manifest URL</var> and
-          <var>doc URL</var>.
+          <var>document URL</var>.
           </li>
           <li>Let <var>display mode</var> of <var>parsed manifest</var> be the
           result of running the <a>steps for processing the
@@ -846,8 +853,7 @@ Content-Type: application/manifest+json
         <p>
           The <dfn>steps for processing the <code>icons</code> member</dfn> are
           given by the following algorithm. The algorithm takes a manifest, and
-          a <a href="http://url.spec.whatwg.org/#concept-url">URL</a>
-          <var>manifest URL</var>, which is the URL from which the
+          a <a>URL</a> <var>manifest URL</var>, which is the URL from which the
           <var>manifest</var> was fetched. This algorithm will return a list of
           icons objects <var>icons</var>, which can be empty.
         </p>
@@ -1071,9 +1077,8 @@ Content-Type: application/manifest+json
         </h3>
         <p>
           The <dfn title="member-url"><code>start_url</code></dfn> member is a
-          <a title="json-string">string</a> that represents the <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a> that the developer
-          would prefer the user agent <a href=
+          <a title="json-string">string</a> that represents the <a>URL</a> that
+          the developer would prefer the user agent <a href=
           "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
           load</a> when the user launches the web application (e.g., when the
           user clicks on the icon of the web application from a device's
@@ -1089,11 +1094,9 @@ Content-Type: application/manifest+json
         <p>
           The <dfn>steps for processing the <code>start_url</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
-          <a>manifest</a> <var>manifest</var>, a <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a> <var>manifest
-          URL</var>, and a <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a> <var>origin
-          URL</var>. This algorithm returns a [[!WHATWG-URL]].
+          <a>manifest</a> <var>manifest</var>, a <a>URL</a> <var>manifest
+          URL</var>, and a <a>URL</a> <var>origin URL</var>. This algorithm
+          returns a <a>URL</a>.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
@@ -1108,22 +1111,22 @@ Content-Type: application/manifest+json
               <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
               a developer warning</a> that the type is unsupported.
               </li>
-              <li>Return a new [[!WHATWG-URL]] whose <var>input</var> is <var>
-                origin URL</var>.
+              <li>Return a new <a>URL</a> whose <var>input</var> is <var>origin
+              URL</var>.
               </li>
             </ol>
           </li>
-          <li>Let <var>url</var> be a new [[!WHATWG-URL]] using
-          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
-          the <var>base</var> URL.
+          <li>Let <var>url</var> be a new <a>URL</a> using <var>value</var> as
+          <var>input</var> and <var>manifest URL</var> as the <var>base</var>
+          URL.
           </li>
           <li>If <var>url</var> is failure:
             <ul>
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return a new [[!WHATWG-URL]] whose <var>input</var> is <var>
-                origin URL</var>.
+              <li>Return a new <a>URL</a> whose <var>input</var> is <var>origin
+              URL</var>.
               </li>
             </ul>
           </li>
@@ -1139,8 +1142,8 @@ Content-Type: application/manifest+json
                 "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
                 top-level browsing context</a>.
               </li>
-              <li>Return a new [[!WHATWG-URL]] whose <var>input</var> is <var>
-                origin URL</var>.
+              <li>Return a new <a>URL</a> whose <var>input</var> is <var>origin
+              URL</var>.
               </li>
             </ol>
           </li>
@@ -1372,17 +1375,15 @@ Content-Security-Policy: img-src icons.example.com;
           <code>src</code> member
         </h3>
         <p>
-          The <dfn title="icon-density">src</dfn> member of an icon is a URL
-          from which a user agent can fetch the icon's data.
+          The <dfn title="icon-density">src</dfn> member of an icon is a
+          <a>URL</a> from which a user agent can fetch the icon's data.
         </p>
         <p>
           The <dfn>steps for processing the <code>src</code> member of an
           icon</dfn> are given by the following algorithm. The algorithm takes
-          a <a>icon object</a> <var>icon</var>, and a <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a> <var>manifest
-          URL</var>, which is the URL from which the <var>manifest</var> was
-          fetched. This algorithm will return a <a href=
-          "http://url.spec.whatwg.org/#concept-url">URL</a> or
+          a <a>icon object</a> <var>icon</var>, and a <a>URL</a> <var>manifest
+          URL</var>, which is the <a>URL</a> from which the <var>manifest</var>
+          was fetched. This algorithm will return a <a>URL</a> or
           <code>undefined</code>.
         </p>
         <ol>
