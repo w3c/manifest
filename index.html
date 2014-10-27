@@ -1095,7 +1095,8 @@ Content-Type: application/manifest+json
           The <dfn>steps for processing the <code>start_url</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
           <a>manifest</a> <var>manifest</var>, a <a>URL</a> <var>manifest
-          URL</var>, and a <a>URL</a> <var>origin URL</var>. This algorithm
+          URL</var>, and a <a>URL</a> <var>origin URL</var> and depends on the
+          <a>URL parsing</a> algorithm from [[!WHATWG-URL]]. This algorithm
           returns a <a>URL</a>.
         </p>
         <ol>
@@ -1116,9 +1117,9 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>Let <var>url</var> be a new <a>URL</a> using <var>value</var> as
-          <var>input</var> and <var>manifest URL</var> as the <var>base</var>
-          URL.
+          <li>Let <var>url</var> be the result of <a title=
+          "URL parsing">parsing</a> <var>value</var> as <var>input</var> and
+          <var>manifest URL</var> as the <var>base</var> URL.
           </li>
           <li>If <var>url</var> is failure:
             <ul>
@@ -1150,6 +1151,15 @@ Content-Type: application/manifest+json
           <li>Otherwise, return <var>url</var>.
           </li>
         </ol>
+        <div class="example">
+          <p>
+            For example, if the <var>value</var> of <code>start_url</code> is
+            "<samp>../start_point.html</samp>", and the manifest's URL is
+            <samp>https://example.com/resources/manifest.json</samp>, then
+            result of <a>URL parsing</a> would be:
+            <samp>https://example.com/start_point.html</samp>.
+          </p>
+        </div>
       </section>
       <section>
         <h3>
@@ -1360,7 +1370,8 @@ Content-Security-Policy: img-src icons.example.com;
           icon</dfn> are given by the following algorithm. The algorithm takes
           a <a>icon object</a> <var>icon</var>, and a <a>URL</a> <var>manifest
           URL</var>, which is the <a>URL</a> from which the <var>manifest</var>
-          was fetched. This algorithm will return a <a>URL</a> or
+          was fetched. This algorithm depends on the <a>URL parsing</a>
+          algorithm from [[!WHATWG-URL]] and returns a valid <a>URL</a> or
           <code>undefined</code>.
         </p>
         <ol>
