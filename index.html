@@ -483,7 +483,7 @@
           <li>If <var>manifest link</var> is not <code>null</code>:
             <ol>
               <li>Honoring the <code>manifest-src</code> [[!CSP2]] directive,
-              <a href=
+              and respecting [[!MIX]], <a href=
               "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
                 obtain a resource</a> as per [[!HTML]]. If the <a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
@@ -1025,6 +1025,15 @@ Content-Type: application/manifest+json
           the [[!SCREEN-ORIENTATION]] API. Supporting the
           [[!SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
         </p>
+        <p>
+          Certain UI/UX concerns and/or platform conventions will mean that
+          some screen orientations and display modes <dfn>cannot be used
+          together</dfn>. Which orientations and display modes cannot be used
+          together is left to the discretion of implementers. For example, for
+          some user agents, it might not make sense to change the <a>default
+          orientation</a> of an application while in <code>browser</code>
+          <a>display mode</a>.
+        </p>
         <p class="note">
           Once the web application is running, other means can change the
           orientation of a <a href=
@@ -1057,7 +1066,7 @@ Content-Type: application/manifest+json
           </li>
           <li>If <var>value</var> is not one of the <a>OrientationLockType</a>
           enum values, or <var>value</var> is unsupported by the user agent, or
-          the <var>value</var> cannot be used together with <var>display
+          the <var>value</var> <a>cannot be used together</a> with <var>display
           mode:</var>
             <ol>
               <li>
