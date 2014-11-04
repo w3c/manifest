@@ -1672,11 +1672,13 @@ Content-Security-Policy: img-src icons.example.com;
           consistent.
         </p>
         <p>
-          When specifying an new member, don't override or <a href=
+          When specifying a new member, don't override or <a href=
           "http://annevankesteren.nl/2014/02/monkey-patch">monkey patch</a>
           anything defined in this specification. Also, don't assume your
           member will be processed before or after any other member. Keep your
-          new member, and its processing, atomic and self contained.
+          new member, and its processing, atomic and self contained. Note also
+          that implementations are free to ignore any new property they do not
+          recognize or support.
         </p>
         <p>
           If you are writing a specification and temporarily want to patch this
