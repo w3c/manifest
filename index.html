@@ -1173,29 +1173,31 @@ Content-Type: application/manifest+json
         <h3>
           Content security policy
         </h3>
-        <p class="issue">
-          The `<code>manifest-src</code>` hasn't yet been added to the
-          [[!CSP2]] spec. However, a <a href=
-          "https://github.com/w3c/webappsec/issues/29">feature request has been
-          filed</a> and a <a href=
-          "https://github.com/w3c/webappsec/pull/66">pull request
-          submitted</a>.
-        </p>
         <p>
-          The security policy that governs whether a <a>user agent</a> can
-          fetch a <code>Document</code>'s <a>manifest</a> is governed by the
-          <code>manifest-src</code> [[!CSP2]] associated of the manifest's
-          owner <code>Document</code>.
+          A user agent MUST support [[!CSP2]].
         </p>
         <div class="example">
+          <p>
+            The <code>manifest-src</code> and <code>default-src</code>
+            directives govern the origins from which a <a>user agent</a> can
+            <a>fetch</a> a manifest. As with other directives, by default the
+            <code>manifest-src</code> directive is <code>*</code>, meaning that
+            a user agent can, [[!CORS]] permitting, fetch the manifest
+            cross-domain. Remote origins (e.g., a <acronym title=
+            "content delivery network">CDN</acronym>) wanting to host manifests
+            for various web applications will need to include the appropriate
+            [[!CORS]] response header in their HTTP response (e.g.,
+            <code>Access-Control-Allow-Origin: https://example.com</code>).
+          </p>
           <figure class="exaple">
             <img src="images/manifest-src-directive.svg" width="704" height=
             "342" alt="">
             <figcaption>
               For a [[!HTML]] document, [[!CSP2]]'s <code>manifest-src</code>
               directive controls the sources from which a [[!HTML]] document
-              can load a manifest from. The same policy, via the image-src
-              directive, controls where the icon's images can be fetched from.
+              can load a manifest from. The same CSP policy's
+              <code>image-src</code> directive controls where the icon's images
+              can be fetched from.
             </figcaption>
           </figure>
         </div>
