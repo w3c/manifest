@@ -1586,6 +1586,14 @@ Content-Security-Policy: img-src icons.example.com;
               found in the manifest are strongly encouraged to follow the
               security advice given in [[!UNICODE-SECURITY]].
             </p>
+            <p>
+              Developers need to be aware of the security considerations
+              discussed throughout the [[!CSP2]] specification, particularly in
+              relation to making <code>data:</code> a valid source for the
+              purpose of <q>inlining</q> a manifest. Doing so can enable XSS
+              attacks by allowing a manifest to be included directly in the
+              document itself; this is best avoided completely.
+            </p>
           </dd>
           <dt>
             Applications that use this media type:
