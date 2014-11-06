@@ -1795,6 +1795,87 @@ _:c14n4 &lt;http://xmlns.com/foaf/0.1/name&gt; "Joe" .
     </section>
     <section class="appendix">
       <h2>
+        Relationship to HTML's <code>link</code> and <code>meta</code> elements
+      </h2>
+      <p>
+        An extensive discussion of why we chose to use JSON instead of HTML
+        <code>meta</code>/<code>link</code> tags for this specification is
+        available on <a href=
+        "https://github.com/w3c/manifest/issues/97">GitHub</a> and on the
+        <a href=
+        "http://lists.w3.org/Archives/Public/www-tag/2014Jan/0139.html">www-tag</a>
+        list. Below is a short summary of the key points raised in those
+        discussions.
+      </p>
+      <p>
+        The document format defined in this specification provides a unified
+        means of encapsulating metadata about a Web application in a way that
+        we hope will avoid existing pitfalls with both proprietary and
+        [[!HTML]]'s <code>meta</code>/<code>link</code> tags. Those pitfalls
+        include:
+      </p>
+      <ul>
+        <li>Developers have to duplicate the icons and application name in each
+        page of a web site, leading to significant redundancy across pages.
+        This is compounded if that information never gets used by the user
+        agent (e.g., the user never bookmarks the web application).
+        </li>
+        <li>Spreading metadata across multiple documents can cause data to fall
+        out of sync.
+        </li>
+        <li>If the metadata for a web application lives in a HTML document,
+        that significantly increases the cost to user agents (and users) of
+        checking for updates to the metadata of a site. Since the HTML file is
+        likely to change often, it means that a user agent will often have to
+        download the whole HTML file in order to check if any of the relevant
+        meta tags have changed. If this resource contains inlined resources
+        like JavaScript, images, or stylesheets, this could be a non-trivial
+        download.
+        </li>
+      </ul>
+      <p>
+        Although it would be unrealistic to think that this specification won't
+        bring its own set of problems, externalizing this data in the form of a
+        manifest solves the problems described above. These problems are solved
+        by:
+      </p>
+      <ul>
+        <li>Making the manifest externally linkable: External manifest files
+        can be cached as external resources, saving both bytes and redundancy
+        in the markup.
+        </li>
+        <li>Flexible value types: unlike HTML attributes, members of the
+        manifest can represent data using complex types, such as objects and
+        arrays, rather than just strings. This solves the problem of the
+        awkward and highly inconsistent formats the values of proprietary
+        <code>meta</code> tags are currently using, especially when a tag's
+        value contains several sub-values.
+        </li>
+      </ul>
+      <p>
+        In addition, standardizing the functionality currently provided by the
+        various <code>meta</code> tag-based solutions within the manifest
+        solves the problem of having to declare large number of proprietary and
+        standard [[!HTML]] tags that all achieve the same thing. Of course,
+        this hinges on the standard actually getting implemented by browsers
+        and those browsers getting widely deployed to users: if this happens,
+        the Web community might be able to retire many of the proprietary
+        <code>meta</code> tags plaguing the Web at the time of writing. More
+        information about the proprietary tags can be found in the
+        <cite><a href="http://w3c-webmob.github.io/installable-webapps/">Use
+        Cases and Requirements for Installable Web Apps</a></cite>.
+      </p>
+      <p>
+        Lastly, this specification does not make the standardized solutions
+        found in [[!HTML]] redundant. When members like the <code>name</code>
+        or <code>icons</code> is missing from the manifest, user agents can
+        search in a manifest's owner [[!HTML]] document for things like icons
+        and the application name (or a user agent might even fallback to
+        proprietary tags/metadata, if they are present in a document).
+      </p>
+    </section>
+    <section class="appendix">
+      <h2>
         JSON Schema
       </h2>
       <p>
