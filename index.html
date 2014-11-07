@@ -407,14 +407,6 @@
           obtaining a manifest</a>.
         </p>
         <p>
-          To obtain a manifest, the user agent MUST run the <a>steps for
-          obtaining a manifest</a>. The appropriate time to obtain the manifest
-          is left up to implementations. A user agent MAY opt to delay fetching
-          a manifest until after the document and its other resources have been
-          fully loaded (i.e., to not delay the availability of content and
-          scripts required by the <code>document</code>).
-        </p>
-        <p>
           A <a>manifest</a> is obtained and applied regardless of the <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-link-media">
           <code>media</code></a> attribute of the <a href=
@@ -461,12 +453,21 @@
           Obtaining a manifest
         </h3>
         <p>
+          To obtain a manifest, the user agent MUST run the <a>steps for
+          obtaining a manifest</a>. The appropriate time to obtain the manifest
+          is left up to implementations. A user agent MAY opt to delay
+          obtaining a manifest until after the document and its other resources
+          have been fully loaded (i.e., to not delay the availability of
+          content and scripts required by the <code>document</code>).
+          Alternatively, because obtaining the manifest is intended to be a
+          low-priority asynchronous operation, a user agent can opt to obtain a
+          manifest only when needed to perform some particular action (and
+          hence, in certain situations might never need to fetch it at all!).
+        </p>
+        <p>
           The <dfn>steps for obtaining a manifest</dfn> are given by the
           following algorithm. The algorithm, if successful, returns a
-          <a>processed manifest</a>. In running these steps, a user agent MUST
-          NOT <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#delay-the-load-event">
-          delay the load event</a>.
+          <a>processed manifest</a>.
         </p>
         <ol>
           <li>From the <code>Document</code> of the <a href=
@@ -482,8 +483,8 @@
           </li>
           <li>If <var>manifest link</var> is not <code>null</code>:
             <ol>
-              <li>Honoring the <code>manifest-src</code> [[!CSP2]] directive,
-              and respecting [[!MIX]], <a href=
+              <li>Honoring the relevant [[!CSP2]] directives, and respecting
+              [[!MIX]], <a href=
               "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
                 obtain a resource</a> as per [[!HTML]]. If the <a href=
                 "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
