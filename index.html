@@ -334,8 +334,7 @@
       <p>
         A resource is said to be <dfn>associated with a manifest</dfn> if the
         resource representation, an HTML document, has a <a href=
-        "#linking"><code>manifest</code> link relationship</a>, or the resource
-        has a <a>well-known manifest</a>.
+        "#linking"><code>manifest</code> link relationship</a>.
       </p>
       <section id="linking">
         <h3>
@@ -422,29 +421,6 @@
           <code>link</code></a> matches the environment or not.
         </p>
       </section>
-      <section>
-        <h3>
-          The "manifest.json" well-known URI
-        </h3>
-        <p>
-          The <dfn>well-known manifest</dfn> is a manifest resource located at
-          standardized URI. This specification registers the "manifest.json"
-          well-known URI in the <a href=
-          "http://www.iana.org/assignments/well-known-uris/well-known-uris.xml">
-          Well-Known URI Registry</a> as required by [[!RFC5785]].
-        </p>
-        <div class="example">
-          <p>
-            An example of a <a href="#dfn-well-known-manifest" class=
-            "internalDFN">well-known manifest</a>:
-          </p>
-          <ul>
-            <li>
-              <code>http://example.com/.well-known/manifest.json</code>
-            </li>
-          </ul>
-        </div>
-      </section>
     </section>
     <section>
       <h2>
@@ -496,17 +472,8 @@
               </li>
             </ol>
           </li>
-          <li>Otherwise, if <var>manifest element</var> is <code>null</code>:
-            <ol>
-              <li>Let <var>url</var> be the result of <a title=
-              "URL parsing">parsing</a> the URL
-              "<code>/.well-known/manifest.json</code>" using the <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-                top-level browsing context's</a> <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#the-document's-address">
-                address</a> as the base.
-              </li>
-            </ol>
+          <li>Otherwise, if <var>manifest element</var> is <code>null</code>,
+          terminate this algorithm.
           </li>
           <li>Using the <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#networking-task-source">
@@ -1468,32 +1435,6 @@ Content-Security-Policy: img-src icons.example.com;
         The following registration is for community review and will be
         submitted to the IESG for review, approval, and registration with IANA.
       </p>
-      <section>
-        <h3>
-          The "manifest.json" well-known URI
-        </h3>
-        <dl>
-          <dt>
-            URI suffix:
-          </dt>
-          <dd>
-            manifest.json
-          </dd>
-          <dt>
-            Change controller:
-          </dt>
-          <dd>
-            <a href="www.w3.org/2008/webapps/">Web Applications (WebApps)
-            Working Group</a>
-          </dd>
-          <dt>
-            Specification document(s):
-          </dt>
-          <dd>
-            This document is the relevant specification.
-          </dd>
-        </dl>
-      </section>
       <section>
         <h3>
           Media type registration
