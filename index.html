@@ -1272,9 +1272,10 @@ Content-Type: application/manifest+json
           Content security policy of icon object
         </h3>
         <p>
-          The security policy that governs wether a <a>user agent</a> can fetch
-          an icon image is governed by the <code>image-src</code> directive
-          [[!CSP2]] associated of the manifest's owner <code>Document</code>.
+          The security policy that governs whether a <a>user agent</a> can
+          fetch an icon image is governed by the <code>image-src</code>
+          directive [[!CSP2]] associated with the manifest's owner
+          <code>Document</code>.
         </p>
         <div class="example">
           <p>
@@ -1557,11 +1558,12 @@ Content-Security-Policy: img-src icons.example.com;
               As the manifest format is JSON and will commonly be encoded using
               [[!UNICODE]], the security considerations described in
               [[!ECMA-404]] and [[!UNICODE-SECURITY]] apply. In addition,
-              implementors need to impose their own implementation-specific
-              limits on the values of otherwise unconstrained member types,
-              e.g. to prevent denial of service attacks, to guard against
-              running out of memory, or to work around platform-specific
-              limitations.
+              because there is no way to prevent developers from including
+              custom/unrestrained data in a <a>manifest</a>, implementors need
+              to impose their own implementation-specific limits on the values
+              of otherwise unconstrained member types, e.g. to prevent denial
+              of service attacks, to guard against running out of memory, or to
+              work around platform-specific limitations.
             </p>
             <p>
               Web applications will generally contain ECMAScript, HTML, CSS
