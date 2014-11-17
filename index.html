@@ -326,6 +326,72 @@
         <code>document.fullScreenElement</code> returns <code>null</code>, and
         <code>fullscreenEnabled</code> returns <code>false</code>.
       </p>
+      <section>
+        <h3>
+          The <code>'display-mode'</code> media feature
+        </h3>
+        <p>
+          The <code><dfn>display-mode</dfn></code> media feature represents,
+          via a CSS media query [[!MEDIAQ]], the <a>display mode</a> that the
+          user agent is applying to the web application.
+        </p>
+        <dl>
+          <dt>
+            Value:
+          </dt>
+          <dd>
+            <a>fullscreen</a> | <a>standalone</a> | <a>minimal-ui</a> |
+            <a>browser</a>
+          </dd>
+          <dt>
+            Applies to:
+          </dt>
+          <dd>
+            visual media types
+          </dd>
+          <dt>
+            Accepts min/max prefixes:
+          </dt>
+          <dd>
+            No
+          </dd>
+        </dl>
+        <p>
+          A user agent MUST reflect the applied <a>display mode</a> of the web
+          application via a CSS media query [[!MEDIAQ]].
+        </p>
+        <section>
+          <h4>
+            Examples
+          </h4>
+          <p>
+            An example in CSS:
+          </p>
+          <pre class='example highlight'>
+@media all and (display-mode: minimal-ui) {
+  /* ... */
+}
+@media all and (display-mode: standalone) {
+  /* ... */
+}
+</pre>
+          <p>
+            Accessing the display-mode media feature in ECMAScript through
+            <code>matchMedia()</code> of [[cssom-view]]:
+          </p>
+          <pre class="example">
+let standalone = matchMedia( '(display-mode: standalone)' );
+
+standalone.onchange = function(e) {
+  /* handle changes to display mode */
+}
+
+if (standalone.matches) {
+  /* do standalone things */
+}
+</pre>
+        </section>
+      </section>
     </section>
     <section>
       <h3>
