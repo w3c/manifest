@@ -1320,6 +1320,12 @@ Content-Security-Policy: img-src icons.example.com;
           number.
         </p>
         <ol>
+          <li>If [[\HasOwnProperty]] internal method of <var>icon</var> passing
+          <code>density</code> as the argument returns <code>false</code>:
+          <ol>
+            <li>Return 1.0.</li>
+          </ol>
+          </li>
           <li>Let <var>value</var> be the result of calling the
           [[\GetOwnProperty]] internal method of <var>icon</var> passing
           "<code>density</code>" as the argument.
@@ -1328,8 +1334,14 @@ Content-Security-Policy: img-src icons.example.com;
           <a>parseFloat</a>(<var>value</var>);
           </li>
           <li>If <var>result</var> is <code>NaN</code>, +∞, or less than or
-          equal to +0, let <var>result</var> be 1.0.
+          equal to +0, then:
           </li>
+          <ol>
+            <li><a>Issue a developer warning</a>.
+            </li>
+            <li>Let <var>result</var> be 1.0.
+            </li>
+          </ol>
           <li>Return <var>result</var>.
           </li>
         </ol>
@@ -1725,7 +1737,7 @@ Content-Security-Policy: img-src icons.example.com;
     "moz_awesome_thing": { ... }
     ...
   }
-          
+
 </pre>
         </section>
       </section>
