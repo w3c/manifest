@@ -149,7 +149,7 @@
 </pre>
       </section>
     </section>
-    <section class="informative">
+    <section>
       <h2>
         Installable web applications
       </h2>
@@ -218,48 +218,6 @@
     </section>
     <section>
       <h2>
-        Common conventions and dependencies
-      </h2>
-      <p id="ecmascript-abstractop">
-        The <dfn><a href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
-        [[\GetOwnProperty]]</a></dfn> operation and the abstract operation
-        <dfn><a href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-hasownproperty">
-        hasOwnProperty</a></dfn>, <dfn title="parseFloat"><a href=
-        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-parsefloat-string">
-        parseFloat(string)</a></dfn> function, and the <a class="external"
-        href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
-        <dfn>Type</dfn>(<var>x</var>)</a> notation are defined in
-        [[!ECMASCRIPT]].
-      </p>
-      <p>
-        When instructed to <dfn>Trim</dfn>(<var>x</var>), a user agent MUST
-        behave as if [[!ECMASCRIPT]]'s <a href=
-        "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-string.prototype.trim">
-        String.prototype.trim()</a> function had been called on the string
-        <var>x</var>.
-      </p>
-      <p>
-        As the manifest uses the JSON format, this specification relies on the
-        types defined in [[!ECMA-404]] specification: namely <dfn title=
-        "json-object">object</dfn>, <dfn title="json-array">array</dfn>,
-        <dfn title="json-number">number</dfn>, <dfn title=
-        "json-string">string</dfn>, <code>true</code>, <code>false</code>, and
-        <code>null</code>. Strict type checking is not enforced by this
-        specification. Instead, each member's definition specifies the steps
-        required to process a particular member and what to do when a type does
-        not match what is expected.
-      </p>
-      <p>
-        The <dfn><a href=
-        "https://url.spec.whatwg.org/#url-parsing">URL</a></dfn> concept and
-        <dfn><a href="https://url.spec.whatwg.org/#url-parsing">URL
-        parsing</a></dfn> are defined in [[!WHATWG-URL]].
-      </p>
-    </section>
-    <section>
-      <h2>
         Display modes
       </h2>
       <p>
@@ -271,20 +229,14 @@
         interpret them how they best see fit.
       </p>
       <p>
-        Once a user agent applies a particular <a>display mode</a> to a web
-        application, it becomes the <dfn>default display mode</dfn> for the
-        <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-        top-level browsing context</a> (i.e., it is used as the display mode
-        when the window is <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigated</a>).
-        The user agent MAY override the <a>default display mode</a> for
-        security reasons (e.g., the <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-        top-level browsing context</a> is <a href=
-        "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigated</a>
-        to another origin) and/or the user agent MAY provide the user with a
-        means of switching to another <a>display mode</a>.
+        Once a user agent applies a particular <a>display mode</a> to an
+        <a>application context</a>, it becomes the <dfn>default display
+        mode</dfn> for the <a>top-level browsing context</a> (i.e., it is used
+        as the display mode when the window is <a>navigated</a>). The user
+        agent MAY override the <a>default display mode</a> for security reasons
+        (e.g., the <a>top-level browsing context</a> is <a>navigated</a> to
+        another origin) and/or the user agent MAY provide the user with a means
+        of switching to another <a>display mode</a>.
       </p>
       <p>
         When the <code>display</code> member is missing, or if there is no
@@ -306,12 +258,12 @@
       <div class="example">
         <p>
           For example, Awesome Browser only supports the
-          <code>minimal-ui</code> and <code>browser</code> display modes, but
+          <code>minimal-ui</code> and <code>browser</code> display modes, but a
           developer declares that she wants <code>fullscreen</code> in the
           manifest. In this case, the user agent will first check if it
-          supports <code>fullscreen</code> (it doesn't), then fall back to
+          supports <code>fullscreen</code> (it doesn't), so it falls back to
           <code>standalone</code> (which it also doesn't support), and
-          ultimately fall back to <code>minimal-ui</code>.
+          ultimately falls back to <code>minimal-ui</code>.
         </p>
       </div>
       <p>
@@ -391,7 +343,7 @@
         <p>
           The <code><dfn>display-mode</dfn></code> media feature represents,
           via a CSS media query [[!MEDIAQ]], the <a>display mode</a> that the
-          user agent is applying to the web application.
+          user agent is <a title="applied">applying</a> to the web application.
         </p>
         <dl>
           <dt>
@@ -466,11 +418,8 @@ if (standalone.matches) {
         </h3>
         <p>
           The <code>manifest</code> keyword can be used with a [[!HTML]]
-          <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
-          link</a> element. This keyword creates an <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
-          title="external resource link">external resource link</a>.
+          <a><code>link</code> element</a>. This keyword creates an <a>external
+          resource link</a>.
         </p>
         <table border="1">
           <tr>
@@ -486,11 +435,11 @@ if (standalone.matches) {
           </tr>
           <tr>
             <th>
-              <code><a href="#the-link-element">link</a></code>
+              <code><a title="link element">link</a></code>
             </th>
             <th>
-              <code><a href="#the-a-element">a</a></code> and <code><a href=
-              "#the-area-element">area</a></code>
+              <code><a title="a element">a</a></code> and <code><a title=
+              "area element">area</a></code>
             </th>
           </tr>
           <tr>
@@ -499,9 +448,7 @@ if (standalone.matches) {
               "rel-manifest">manifest</dfn></code>
             </td>
             <td>
-              <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link"
-              title="external resource link">External Resource</a>
+              <a title="external resource link">External Resource</a>
             </td>
             <td>
               not allowed
@@ -514,20 +461,16 @@ if (standalone.matches) {
         <p>
           The <a>media type for a manifest</a> serves as the default media type
           for resources associated with the <code><a href=
-          "#rel-manifest">manifest</a></code> <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#linkTypes">link
-          type</a>.
+          "#rel-manifest">manifest</a></code> <a>link type</a>.
         </p>
         <p class="note">
-          In cases where more than one <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
-          <code>link</code></a> element with a <code>manifest</code> link type
-          appears in a <code>Document</code>, the user agent uses the first
-          link element in tree order and ignores all subsequent <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
-          <code>link</code></a> elements with a <code>manifest</code> link type
-          (even if the first element was erroneous). See the <a>steps for
-          obtaining a manifest</a>.
+          In cases where more than one <a><code>link</code> element</a> with a
+          <code>manifest</code> link type appears in a <code>Document</code>,
+          the user agent uses the first <a><code>link</code> element</a> in
+          tree order and ignores all subsequent <a title=
+          "link element"><code>link</code> element</a> with a
+          <code>manifest</code> link type (even if the first element was
+          erroneous). See the <a>steps for obtaining a manifest</a>.
         </p>
         <p>
           To obtain a manifest, the user agent MUST run the <a>steps for
@@ -538,23 +481,22 @@ if (standalone.matches) {
           scripts required by the <code>document</code>).
         </p>
         <p>
-          A <a>manifest</a> is obtained and applied regardless of the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-link-media">
-          <code>media</code></a> attribute of the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-link-element">
-          <code>link</code></a> matches the environment or not.
+          A <a>manifest</a> is obtained and applied regardless of the
+          <a><code>media</code></a> attribute of the <a><code>link</code>
+          element</a> matches the environment or not.
         </p>
       </section>
     </section>
     <section>
       <h2>
-        Manifest processing model
+        Manifest life-cycle
       </h2>
       <p>
-        This section defines algorithms for <a href="#obtaining">obtaining</a>
-        and <a href="#processing">processing</a> a <a>manifest</a>, and gives
-        recommendations to implementers on how to react, when the manifest is
-        <a href="#updating">updated</a>.
+        This section defines algorithms for <a href="#obtaining">obtaining</a>,
+        <a href="#processing">processing</a>, and <a href=
+        "#applying">applying</a> a <a>manifest</a>, and gives recommendations
+        to implementers on how to react when the manifest is <a href=
+        "#updating">updated</a>.
       </p>
       <section id="obtaining">
         <h3>
@@ -564,31 +506,20 @@ if (standalone.matches) {
           The <dfn>steps for obtaining a manifest</dfn> are given by the
           following algorithm. The algorithm, if successful, returns a
           <a>processed manifest</a>. In running these steps, a user agent MUST
-          NOT <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#delay-the-load-event">
-          delay the load event</a>.
+          NOT <a>delay the load event</a>.
         </p>
         <ol>
-          <li>From the <code>Document</code> of the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-            top-level browsing context</a>, let <var>manifest link</var> be the
-            first <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#the-link-element">
-            <code>link</code></a> element in <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#tree-order">tree
-            order</a> whose <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-rel"><code>
-            rel</code></a> attribute contains the token <code>manifest</code>.
+          <li>From the <code>Document</code> of the <a>top-level browsing
+          context</a>, let <var>manifest link</var> be the first
+          <a><code>link</code> element</a> in <a>tree order</a> whose <a><code>
+            rel</code> attribute</a> contains the token <code>manifest</code>.
           </li>
           <li>If <var>manifest link</var> is not <code>null</code>:
             <ol>
               <li>Honoring the <code>manifest-src</code> [[!CSP2]] directive,
-              and respecting [[!MIX]], <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
-                obtain a resource</a> as per [[!HTML]]. If the <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
-                obtain a resource</a> algorithm terminates prematurely, or is
-                denied by [[!CSP2]], terminate this algorithm.
+              and respecting [[!MIX]], <a>obtain a resource</a> as per
+              [[!HTML]]. If the <a>obtain a resource</a> algorithm terminates
+              prematurely, or is denied by [[!CSP2]], terminate this algorithm.
               </li>
               <li>Let <var>response</var> be a [[!FETCH]] the <a href=
               "http://fetch.spec.whatwg.org/#concept-response">response</a>
@@ -599,11 +530,8 @@ if (standalone.matches) {
           <li>Otherwise, if <var>manifest element</var> is <code>null</code>,
           terminate this algorithm.
           </li>
-          <li>Using the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#networking-task-source">
-            networking task source</a>, <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#queue-a-task">queue
-            a task</a> to perform the following:
+          <li>Using the <a>networking task source</a>, <a>queue a task</a> to
+          perform the following:
             <ol>
               <li>Let <var>req</var> be a new [[!FETCH]] <a href=
               "http://fetch.spec.whatwg.org/#concept-request" title=
@@ -619,11 +547,8 @@ if (standalone.matches) {
               </li>
               <li>Set <var>req</var>'s <a href=
               "http://fetch.spec.whatwg.org/#concept-request-origin" title=
-              "concept-request-origin">origin</a> to be the <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#origin">origin</a>
-              of the <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-                top-level browsing context</a>.
+              "concept-request-origin">origin</a> to be the <a>origin</a> of
+              the <a>top-level browsing context</a>.
               </li>
               <li>Set <var>req</var>'s <a href=
               "http://fetch.spec.whatwg.org/#concept-request-mode">mode</a> to
@@ -632,9 +557,7 @@ if (standalone.matches) {
               <li>Set <var>req</var>'s <a href=
               "http://fetch.spec.whatwg.org/#concept-request-referrer" title=
               "concept-request-referrer">referrer</a> to be the
-              <code>Document</code> of the <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-                top-level browsing context</a>.
+              <code>Document</code> of the <a>top-level browsing context</a>.
               </li>
               <li>Set <var>req</var>'s <a href=
               "http://fetch.spec.whatwg.org/#concept-request-omit-credentials-mode">
@@ -655,9 +578,8 @@ if (standalone.matches) {
           processing a manifest</a> with <var>response</var>'s <a href=
           "http://fetch.spec.whatwg.org/#concept-request-body">body</a> as the
           <var>text</var>, and <var>url</var> as the <var>manifest URL</var>,
-          the URL the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-            top-level browsing context's</a> address.
+          the URL the <a title="top-level browsing context">top-level browsing
+          context's</a> address.
           </li>
           <li>Return <var>manifest</var>.
           </li>
@@ -680,7 +602,6 @@ Content-Type: application/manifest+json
   "display": "fullscreen",
   "orientation": "landscape"
 }
-
 </pre>
         </div>
       </section>
@@ -802,9 +723,8 @@ Content-Type: application/manifest+json
         </p>
         <p>
           When an <a>application context</a> is created, the user agent MUST
-          immediately <a>navigate</a> to the <a>start URL</a> with <a href=
-          "https://html.spec.whatwg.org/multipage/browsers.html#replacement-enabled">
-          replacement enabled</a>.
+          immediately <a title="navigated">navigate</a> to the <a>start URL</a>
+          with <a>replacement enabled</a>.
         </p>
         <div>
           <p>
@@ -815,9 +735,9 @@ Content-Type: application/manifest+json
           </p>
         </div>
         <p>
-          The appropriate time to <a title="applying">apply</a> a manifest is
-          when the <a>application context</a> is created and before navigation
-          to the <a>start URL</a> begins.
+          The appropriate time to <a title="applied">apply</a> a manifest is
+          when the <a>application context</a> is created and before <a title=
+          "navigated">navigation</a> to the <a>start URL</a> begins.
         </p>
       </section>
       <section id="updating">
@@ -872,21 +792,13 @@ Content-Type: application/manifest+json
           list of other applications, or as a label for an icon).
         </p>
         <p class="note">
-          For all intents and purposes, the <code><a href=
-          "#member-name">name</a></code> member is functionally equivalent to
-          having a <code><a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
-          meta</a></code> element whose <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name">name</a>
-          attribute is <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
-          <code>application-name</code></a> in a [[!HTML]] document. In cases
-          where no suitable name can be derived from processing a manifest,
-          [[!HTML]]'s <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
-          application-name</a> or the <code><a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#the-title-element">
-          title</a></code> element serve as suitable fallbacks.
+          For all intents and purposes, the <a><code>name</code></a> member is
+          functionally equivalent to having a <a><code>meta</code> element</a>
+          whose <a title="name attribute">name</a> attribute is
+          <a><code>application-name</code></a> in a [[!HTML]] document. In
+          cases where no suitable name can be derived from processing a
+          manifest, [[!HTML]]'s <a>application-name</a> or the
+          <a><code>title</code> element</a> serve as suitable fallbacks.
         </p>
         <p>
           The <dfn>steps for processing the <code>name</code> member</dfn> is
@@ -967,11 +879,8 @@ Content-Type: application/manifest+json
           If no icons are listed in the manifest (or none of them are found to
           be suitable during processing), it is RECOMMENDED that the user agent
           fall back to using any icons found in the <code>Document</code> of
-          the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-          top-level browsing context</a>. For example, an <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#rel-icon">icon
-          link type</a> and/or a <code>favicon.ico</code> can serve as suitable
+          the <a>top-level browsing context</a>. For example, an <a>icon link
+          type</a> and/or a <code>favicon.ico</code> can serve as suitable
           fallbacks.
         </p>
         <p>
@@ -1119,38 +1028,26 @@ Content-Type: application/manifest+json
         <p>
           The <dfn id="member-orientation"><code>orientation</code></dfn>
           member is a <a href="#json-string">string</a> that serves as the
-          <a href=
-          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">default
-          orientation</a> for all <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-          top-level browsing contexts</a> of the web application. The possible
-          values is one of the <a href=
-          "https://w3c.github.io/screen-orientation/#idl-def-OrientationLockType">
-          <dfn>OrientationLockType</dfn></a> enum defined in
+          <a>default orientation</a> for all <a title=
+          "top-level browsing context">top-level browsing contexts</a> of the
+          web application. The possible values is one of the
+          <a><code>OrientationLockType</code></a> enum defined in
           [[!SCREEN-ORIENTATION]].
         </p>
         <p>
           If the user agent honors the value of the <code>orientation</code>
-          member as the <a href=
-          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">default
-          orientation</a>, then that serves as the <a href=
-          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">default
-          orientation</a> for the life of the web application (unless
-          overridden by some other means at runtime). This means that the user
-          agent MUST return the orientation to the <a href=
-          "https://w3c.github.io/screen-orientation/#dfn-default-orientation">default
+          member as the <a>default orientation</a>, then that serves as the
+          <a>default orientation</a> for the life of the web application
+          (unless overridden by some other means at runtime). This means that
+          the user agent MUST return the orientation to the <a>default
           orientation</a> any time the orientation is unlocked
-          [[!SCREEN-ORIENTATION]] or the <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-          top-level browsing context</a> is <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#navigate">navigated</a>.
+          [[!SCREEN-ORIENTATION]] or the <a>top-level browsing context</a> is
+          <a>navigated</a>.
         </p>
         <p>
           Although the specification relies on the [[!SCREEN-ORIENTATION]]'s
-          <a href=
-          "https://w3c.github.io/screen-orientation/#idl-def-OrientationLockType">
-          OrientationLockType</a>, it is OPTIONAL for a user agent to implement
-          the [[!SCREEN-ORIENTATION]] API. Supporting the
+          <a><code>OrientationLockType</code></a>, it is OPTIONAL for a user
+          agent to implement the [[!SCREEN-ORIENTATION]] API. Supporting the
           [[!SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
         </p>
         <p>
@@ -1164,10 +1061,8 @@ Content-Type: application/manifest+json
         </p>
         <p class="note">
           Once the web application is running, other means can change the
-          orientation of a <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-          top-level browsing context</a> (such as via [[!SCREEN-ORIENTATION]]
-          API).
+          orientation of a <a>top-level browsing context</a> (such as via
+          [[!SCREEN-ORIENTATION]] API).
         </p>
         <p>
           The <dfn>steps for processing the <code>orientation</code>
@@ -1192,9 +1087,10 @@ Content-Type: application/manifest+json
           <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
           to be the result.
           </li>
-          <li>If <var>value</var> is not one of the <a>OrientationLockType</a>
-          enum values, or <var>value</var> is unsupported by the user agent, or
-          the <var>value</var> <a>cannot be used together</a> with <var>display
+          <li>If <var>value</var> is not one of the
+          <a><code>OrientationLockType</code></a> enum values, or
+          <var>value</var> is unsupported by the user agent, or the
+          <var>value</var> <a>cannot be used together</a> with <var>display
           mode:</var>
             <ol>
               <li>
@@ -1214,12 +1110,11 @@ Content-Type: application/manifest+json
         </h3>
         <p>
           The <dfn title="member-url"><code>start_url</code></dfn> member is a
-          <a title="json-string">string</a> that represents the <a>URL</a> that
-          the developer would prefer the user agent <a href=
-          "http://www.w3.org/html/wg/drafts/html/master/single-page.html#browsers">
-          load</a> when the user launches the web application (e.g., when the
-          user clicks on the icon of the web application from a device's
-          application menu or homescreen).
+          <a title="json-string">string</a> that represents the <dfn>start
+          URL</dfn>, which is <a>URL</a> that the developer would prefer the
+          user agent load when the user launches the web application (e.g.,
+          when the user clicks on the icon of the web application from a
+          device's application menu or homescreen).
         </p>
         <p>
           The <a title="member-url"><code>start_url</code></a> member is purely
@@ -1267,17 +1162,12 @@ Content-Type: application/manifest+json
               </li>
             </ul>
           </li>
-          <li>If url is not <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#same-origin">same
-          origin</a> as <var>origin URL</var>:
+          <li>If url is not <a>same origin</a> as <var>origin URL</var>:
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the
-                <code>start_url</code> needs to be <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#same-origin">
-                same-origin</a> as <code>Document</code> of the <a href=
-                "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-                top-level browsing context</a>.
+                <code>start_url</code> needs to be <a>same-origin</a> as
+                <code>Document</code> of the <a>top-level browsing context</a>.
               </li>
               <li>Return a new <a>URL</a> whose <var>input</var> is <var>origin
               URL</var>.
@@ -1308,7 +1198,7 @@ Content-Type: application/manifest+json
           <p>
             The <code>manifest-src</code> and <code>default-src</code>
             directives govern the origins from which a <a>user agent</a> can
-            <a>fetch</a> a manifest. As with other directives, by default the
+            fetch a manifest. As with other directives, by default the
             <code>manifest-src</code> directive is <code>*</code>, meaning that
             a user agent can, [[!CORS]] permitting, fetch the manifest
             cross-domain. Remote origins (e.g., a <acronym title=
@@ -1359,8 +1249,8 @@ Content-Type: application/manifest+json
       </p>
       <p class="note">
         For all intents and purposes, an <a>icon object</a> is functionally
-        equivalent to <code>link</code> element whose <code>rel</code>
-        attribute is icon in a <code>Document</code>.
+        equivalent to <a><code>link</code> element</a> whose
+        <a><code>rel</code> attribute</a> is icon in a <code>Document</code>.
       </p>
       <section>
         <h3>
@@ -1449,20 +1339,14 @@ Content-Security-Policy: img-src icons.example.com;
         </h3>
         <p>
           The <dfn title="icon-sizes">sizes</dfn> member is a <a title=
-          "json-string">string</a> consisting of an <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#unordered-set-of-unique-space-separated-tokens">
-          unordered set of unique space-separated tokens</a> which are <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">
-          ASCII case-insensitive</a> that represents the dimensions of an icon
-          for visual media. Each keyword is either an <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">
-          ASCII case-insensitive</a> match for the string "<a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes-any">any</a>",
-          or a value that consists of two <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#valid-non-negative-integer"
-          title="valid non-negative integer">valid non-negative integers</a>
-          that do not have a leading U+0030 DIGIT ZERO (0) character and that
-          are separated by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN
+          "json-string">string</a> consisting of an <a>unordered set of unique
+          space-separated tokens</a> which are <a>ASCII case-insensitive</a>
+          that represents the dimensions of an icon for visual media. Each
+          keyword is either an <a>ASCII case-insensitive</a> match for the
+          string "<a>any</a>", or a value that consists of two <a title=
+          "valid non-negative integer">valid non-negative integers</a> that do
+          not have a leading U+0030 DIGIT ZERO (0) character and that are
+          separated by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN
           CAPITAL LETTER X character. The keywords represent icon sizes in raw
           pixels (as opposed to CSS pixels). When multiple <a title=
           "icon object">icon objects</a> are available, a user agent can use
@@ -1492,17 +1376,13 @@ Content-Security-Policy: img-src icons.example.com;
             </ol>
           </li>
           <li>Otherwise, parse <var>value</var> as if it was a [[!HTML]] <code>
-            <a href=
-            "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes">
-            sizes</a></code> attribute and let <var>keywords</var> be the
+            <a>sizes</a></code> attribute and let <var>keywords</var> be the
             result.
           </li>
           <li>For each <var>keyword</var> in <var>keywords</var>:
             <ol>
-              <li>Convert <var>keyword</var> <a href=
-              "http://www.whatwg.org/specs/web-apps/current-work/#converted-to-ascii-lowercase">
-                to ASCII lowercase</a> and add the resulting string to
-                <var>sizes</var>.
+              <li>Convert <var>keyword</var> <a>to ASCII lowercase</a> and add
+              the resulting string to <var>sizes</var>.
               </li>
             </ol>
           </li>
@@ -1562,10 +1442,8 @@ Content-Security-Policy: img-src icons.example.com;
         </p>
         <p>
           There is no default MIME type for icon objects. However, for the
-          purposes of <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-type-sniffing">
-          determining the type of the resource</a>, user agents must expect the
-          resource to be an image.
+          purposes of <a>determining the type of the resource</a>, user agents
+          must expect the resource to be an image.
         </p>
         <p>
           The <dfn>steps for processing the <code>type</code> member of an
@@ -1592,16 +1470,221 @@ Content-Security-Policy: img-src icons.example.com;
           <li>Trim(<var>value</var>) and set <var>value</var> to be resulting
           string.
           </li>
-          <li>If <var>value</var> is not a <a href=
-          "http://www.whatwg.org/specs/web-apps/current-work/#valid-mime-type">
-            valid MIME type</a> or the value of <var>type</var> is not a
-            supported media format, issue a developer warning and return
-            <code>undefined</code>.
+          <li>If <var>value</var> is not a <a>valid MIME type</a> or the value
+          of <var>type</var> is not a supported media format, issue a developer
+          warning and return <code>undefined</code>.
           </li>
           <li>Return <var>value</var>.
           </li>
         </ol>
       </section>
+    </section>
+    <section>
+      <h2>
+        Common conventions and dependencies
+      </h2>
+      <p>
+        The <a href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ordinary-object-internal-methods-and-internal-slots-navigate-p">
+        <dfn>[[\GetOwnProperty]]</dfn></a> operation and the abstract operation
+        <dfn><a href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-hasownproperty">
+        hasOwnProperty</a></dfn>, <dfn title="parseFloat"><a href=
+        "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-parsefloat-string">
+        parseFloat(string)</a></dfn> function, and the <a class="external"
+        href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
+        <dfn>Type</dfn>(<var>x</var>)</a> notation are defined in
+        [[!ECMASCRIPT]].
+      </p>
+      <p>
+        When instructed to <dfn>Trim</dfn>(<var>x</var>), a user agent MUST
+        behave as if [[!ECMASCRIPT]]'s <a href=
+        "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-string.prototype.trim">
+        String.prototype.trim()</a> function had been called on the string
+        <var>x</var>.
+      </p>
+      <p>
+        As the manifest uses the JSON format, this specification relies on the
+        types defined in [[!ECMA-404]] specification: namely <dfn title=
+        "json-object">object</dfn>, <dfn title="json-array">array</dfn>,
+        <dfn title="json-number">number</dfn>, <dfn title=
+        "json-string">string</dfn>, <code>true</code>, <code>false</code>, and
+        <code>null</code>. Strict type checking is not enforced by this
+        specification. Instead, each member's definition specifies the steps
+        required to process a particular member and what to do when a type does
+        not match what is expected.
+      </p>
+      <p>
+        The <dfn><a href=
+        "https://url.spec.whatwg.org/#url-parsing">URL</a></dfn> concept and
+        <dfn><a href="https://url.spec.whatwg.org/#url-parsing">URL
+        parsing</a></dfn> are defined in [[!WHATWG-URL]].
+      </p>
+      <p>
+        The <a href=
+        "https://w3c.github.io/screen-orientation/#dfn-default-orientation"><dfn>
+        default orientation</dfn></a> concept and the <a href=
+        "https://w3c.github.io/screen-orientation/#idl-def-OrientationLockType">
+        <dfn><code>OrientationLockType</code></dfn></a> enum, are defined in
+        [[!SCREEN-ORIENTATION]].
+      </p>
+      <p>
+        The following are defined in [[!HTML]]:
+      </p>
+      <ul>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link">
+          <dfn>External Resource link</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
+          <dfn>top-level browsing context</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#same-origin"><dfn>
+          same-origin</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#unordered-set-of-unique-space-separated-tokens">
+          <dfn>unordered set of unique space-separated tokens</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#navigate"><dfn>navigated</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "https://html.spec.whatwg.org/multipage/browsers.html#replacement-enabled">
+          <dfn>replacement enabled</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-link-element">
+          <dfn><code>link</code> element</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#linkTypes"><dfn>link
+          type</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-link-media">
+          <dfn>media</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#delay-the-load-event">
+          <dfn>delay the load event</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#tree-order"><dfn>tree
+          order</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-rel"><dfn>
+          <code>rel</code> attribute</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
+          <dfn>obtain a resource</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#networking-task-source">
+          <dfn>networking task source</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#queue-a-task"><dfn>
+          queue a task</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#origin"><dfn>origin</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-a-element"><dfn>
+          <code>a</code> element</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
+          <dfn><code>meta</code> element</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-area-element">
+          <dfn><code>area</code> element</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name"><dfn>
+          <code>name</code> attribute</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
+          <dfn>application-name</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#the-title-element">
+          <dfn><code>title</code> element</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#rel-icon"><dfn>icon
+          link type</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">
+          <dfn>ASCII case-insensitive</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes-any">
+          <dfn>any</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#valid-non-negative-integer">
+          <dfn>valid non-negative integer</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes"><dfn>
+          sizes</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#converted-to-ascii-lowercase">
+          <dfn>to ASCII lowercase</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#concept-link-type-sniffing">
+          <dfn>determining the type of the resource</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#valid-mime-type"><dfn>
+          valid MIME type</dfn></a>
+        </li>
+        <li>
+          <a href="https://html.spec.whatwg.org/#same-origin"><dfn>Same
+          origin</dfn></a>
+        </li>
+      </ul>
     </section>
     <section>
       <h2>
@@ -1834,7 +1917,6 @@ Content-Security-Policy: img-src icons.example.com;
     "moz_awesome_thing": { ... }
     ...
   }
-
 </pre>
         </section>
       </section>
