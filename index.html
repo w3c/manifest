@@ -5,7 +5,8 @@
     <title>
       Manifest for web application
     </title>
-    <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class="remove">
+    <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class=
+    "remove">
 </script>
     <script class='remove'>
 /**/
@@ -1002,8 +1003,8 @@ Content-Type: application/manifest+json
               <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
               a developer warning</a> that the type is unsupported.
               </li>
-              <li>If <var>value</var> is not part of the <a>display modes values
-              </a>, <a>issue a developer warning</a> that the value is
+              <li>If <var>value</var> is not part of the <a>display modes
+              values</a> , <a>issue a developer warning</a> that the value is
               unsupported.
               </li>
               <li>Return the <a>fallback display mode</a>'s value.
@@ -1326,9 +1327,10 @@ Content-Security-Policy: img-src icons.example.com;
         <ol>
           <li>If [[\HasOwnProperty]] internal method of <var>icon</var> passing
           <code>density</code> as the argument returns <code>false</code>:
-          <ol>
-            <li>Return 1.0.</li>
-          </ol>
+            <ol>
+              <li>Return 1.0.
+              </li>
+            </ol>
           </li>
           <li>Let <var>value</var> be the result of calling the
           [[\GetOwnProperty]] internal method of <var>icon</var> passing
@@ -1339,13 +1341,14 @@ Content-Security-Policy: img-src icons.example.com;
           </li>
           <li>If <var>result</var> is <code>NaN</code>, +∞, or less than or
           equal to +0, then:
+            <ol>
+              <li>
+                <a>Issue a developer warning</a>.
+              </li>
+              <li>Let <var>result</var> be 1.0.
+              </li>
+            </ol>
           </li>
-          <ol>
-            <li><a>Issue a developer warning</a>.
-            </li>
-            <li>Let <var>result</var> be 1.0.
-            </li>
-          </ol>
           <li>Return <var>result</var>.
           </li>
         </ol>
