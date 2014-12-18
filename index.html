@@ -741,9 +741,13 @@ Content-Type: application/manifest+json
         </p>
         <p>
           A <a>top-level browsing context</a> that has a manifest applied to it
-          is an referred to as <dfn>application context</dfn>. When an
-          <a>application context</a> is created, its <a>session history</a> is
-          empty.
+          is an referred to as <dfn>application context</dfn>.
+        </p>
+        <p>
+          When an <a>application context</a> is created, the user agent MUST
+          immediately <a>navigate</a> to the <a>start URL</a> with <a href=
+          "https://html.spec.whatwg.org/multipage/browsers.html#replacement-enabled">
+          replacement enabled</a>.
         </p>
         <p>
           The appropriate time to <a title="applying">apply</a> a manifest is
