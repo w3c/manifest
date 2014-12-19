@@ -203,6 +203,51 @@
     </section>
     <section>
       <h2>
+        Navigation scope
+      </h2>
+      <p>
+        A <dfn>navigation scope</dfn> is a [[!URL]] that represents the set of
+        URLs to which an <a>application context</a> can be navigated while the
+        manifest is being <a>applied</a>. A developer specifies the navigation
+        scope via the <a><code>scope</code></a> member.
+      </p>
+      <p>
+        A URL <var>A</var> is said the be <dfn>within scope</dfn> of navigation
+        scope <var>B</var>, if:
+      </p>
+      <ul>
+        <li>
+          <var>B</var> is <code>undefined</code>.
+        </li>
+        <li>the scheme, host, and port components of <var>A</var> match those
+        of <var>B</var>.
+        </li>
+        <li>the path component of <var>A</var> matches, or subsumes, the path
+        component of <var>B</var> (see URL spec <a href=
+        "https://github.com/webspecs/url/issues/20">issue 20</a> regarding
+        "subsumes").
+        </li>
+      </ul>
+      <div class="issue" title="🐒 Monkey patch">
+        <p>
+          Enforcing the navigation scope depends on [[!HTML]]'s navigate
+          algorithm. As such, the following algorithm monkey patches [[!HTML]].
+          <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=27653">Bug
+          27653</a> has been filed to address this.
+        </p>
+      </div>
+      <p>
+        The user agent MUST navigate the application context as per [[!HTML]]'s
+        navigate algorithm with exceptions enabled. If the URL being navigated
+        to is not <a>within scope</a> of the navigation scope, then the user
+        agent MUST behave as if the application context is not <a>allowed to
+        navigate</a>. If during the <a>handle redirects</a> step of HTML's
+        navigate algorithm, if the redirect URL is not <a>within scope</a>,
+        abort HTML's navigation algorithm with a <code>SecurityError</code>.
+      </p>
+    </section>
+    <section>
+      <h2>
         Display modes
       </h2>
       <p>
@@ -856,6 +901,82 @@ Content-Type: application/manifest+json
             </ol>
           </li>
           <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>scope</code> member
+        </h3>
+        <p>
+          The <dfn id="member-scope"><code>scope</code></dfn> member is a
+          string that represents the navigation scope of this web application's
+          <a>application context</a>.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>scope</code> member</dfn> is
+          given by the following algorithm. The algorithm takes a
+          <a>manifest</a> <var>manifest</var>, a <a>URL</a> <var>manifest
+          URL</var>, a <a>URL</a> <var>origin URL</var>, and a URL <var>start
+          URL</var>. This algorithm returns a <a>URL</a> or
+          <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of the <var>manifest</var>
+          with argument "<code>scope</code>".
+          </li>
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string" or <var>value</var> is the
+          empty string, then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
+              a developer warning</a> that the type is unsupported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Let <var>scope URL</var> be a new <a>URL</a> using
+          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
+          the <var>base</var> URL.
+          </li>
+          <li>If <var>scope URL</var> is failure:
+            <ul>
+              <li>
+                <a>Issue a developer warning</a>.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ul>
+          </li>
+          <li>If <var>scope URL</var> is not <a href=
+          "http://www.whatwg.org/specs/web-apps/current-work/#same-origin">same
+          origin</a> as <var>origin URL</var>:
+            <ol>
+              <li>
+                <a>Issue a developer warning</a> that the <code>scope</code>
+                needs to be <a href=
+                "http://www.whatwg.org/specs/web-apps/current-work/#same-origin">
+                same-origin</a> as <code>Document</code> of the <a>application
+                context</a>.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>If <var>start URL</var> is not <a>within scope</a> of scope URL:
+            <ol>
+              <li>
+                <a>Issue a developer warning</a> that the start URL did was not
+                <a>within scope</a> of the navigation scope.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, return <var>scope URL</var>.
           </li>
         </ol>
       </section>
