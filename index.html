@@ -149,15 +149,72 @@
 </pre>
       </section>
     </section>
-    <section>
+    <section class="informative">
       <h2>
-        Use cases and requirements
+        Installable web applications
       </h2>
       <p>
         This document attempts to address the <cite><a href=
         "http://w3c-webmob.github.io/installable-webapps/">Use Cases and
         Requirements for Installable Web Apps</a></cite>.
       </p>
+      <p>
+        A web application is <dfn>installed</dfn> if the user agent has
+        provided the end-user with a means of instantiating a new <a>top-level
+        browsing context</a> that has the manifest's members applied to it.
+        That is, the manifest's members, or their defaults, are in effect on
+        the <a>top-level browsing context</a> (see <a>application context</a>).
+      </p>
+      <p>
+        An example of <a title="installed">installing</a> would be a user agent
+        that allows the end-user to add a shortcut to a web application on
+        their device's homescreen (using the name and one of the icons found in
+        the manifest). Then, when the end-user launches a web application
+        through this explicit means, the manifest is applied to the browsing
+        context prior to the <a>start URL</a> being loaded. This gives the user
+        agent time to apply the relevant values of the manifest, possibly
+        changing the display mode and screen orientation of the web
+        application.
+      </p>
+      <section>
+        <h3>
+          Installability signals
+        </h3>
+        <p>
+          By design, this specification does not provide developers with an
+          explicit API to "install" a web applications. Instead, a manifest can
+          serve as an <dfn>installability signal</dfn> (amongst other <a title=
+          "installability signal">signals</a>) to a user agent that a web
+          application can be <a>installed</a>.
+        </p>
+        <p>
+          <a title="installability signal">Installability signals</a> can
+          include things like the ones in the following list (this list is not
+          exhaustive and some items might not apply to all user agents). For
+          instance, the web application is:
+        </p>
+        <ul>
+          <li>is served over a secure network connection.
+          </li>
+          <li>has a sensible content security policy.
+          </li>
+          <li>is able to function without a network connection.
+          </li>
+          <li>is repeatedly used by the end-user over some extended period of
+          time.
+          </li>
+          <li>explicitly marked by the user as one that they value and trust
+          (e.g., by bookmarking or "staring" it).
+          </li>
+          <li>And so on...
+          </li>
+        </ul>
+        <p>
+          How a user agent makes use of these <a title=
+          "installability signal">installability signals</a> to determine if a
+          web application is installable is left to implementers.
+        </p>
+      </section>
     </section>
     <section>
       <h2>
