@@ -730,6 +730,39 @@ Content-Type: application/manifest+json
           </li>
         </ol>
       </section>
+      <section>
+        <h3 id="applying">
+          Applying the manifest
+        </h3>
+        <p>
+          A <a>manifest</a> is <dfn>applied</dfn> to a <a>top-level browsing
+          context</a>, meaning that the members of the <a>manifest</a> are
+          affecting the presentation or behavior of a browsing context.
+        </p>
+        <p>
+          A <a>top-level browsing context</a> that has a manifest applied to it
+          is referred to as an <dfn>application context</dfn>.
+        </p>
+        <p>
+          When an <a>application context</a> is created, the user agent MUST
+          immediately <a>navigate</a> to the <a>start URL</a> with <a href=
+          "https://html.spec.whatwg.org/multipage/browsers.html#replacement-enabled">
+          replacement enabled</a>.
+        </p>
+        <div>
+          <p>
+            Please note that the <a>start URL</a> is not nessesarily the value
+            of the start_url member: the user or user agent could have changed
+            it when the application was added to home-screen or otherwise
+            bookmarked.
+          </p>
+        </div>
+        <p>
+          The appropriate time to <a title="applying">apply</a> a manifest is
+          when the <a>application context</a> is created and before navigation
+          to the <a>start URL</a> begins.
+        </p>
+      </section>
       <section id="updating">
         <h3>
           Updating the manifest
