@@ -223,26 +223,31 @@
       <p>
         A <dfn>navigation scope</dfn> is a [[!URL]] that represents the set of
         URLs to which an <a>application context</a> can be navigated while the
-        manifest is being <a>applied</a>. A developer specifies the navigation
-        scope via the <a><code>scope</code></a> member.
+        manifest is <a>applied</a>. To determine if a URL is within the
+        <a>navigation scope</a>, the user agent MUST run the <a>within
+        scope</a> algorithm.
       </p>
       <p>
-        A URL <var>A</var> is said the be <dfn>within scope</dfn> of navigation
-        scope <var>B</var>, if:
+        A string <var>targetURL</var> is said the be <dfn>within scope</dfn> of
+        navigation scope <var>scopeURL</var> if the following algorithm returns
+        <code>true</code>:
       </p>
-      <ul>
-        <li>
-          <var>B</var> is <code>undefined</code>.
+      <ol>
+        <li>If <var>scopeURL</var> is <code>undefined</code> (i.e., it is
+        <a>unbounded</a> because of an error or it was not declared in the
+        manifest), return <code>true</code>.
         </li>
-        <li>the scheme, host, and port components of <var>A</var> match those
-        of <var>B</var>.
+        <li>Let <var>target</var> be a new URL using <var>targetURL</var> as
+        input. If <var>target</var> is failure, return <code>false</code>.
         </li>
-        <li>the path component of <var>A</var> matches, or subsumes, the path
-        component of <var>B</var> (see URL spec <a href=
-        "https://github.com/webspecs/url/issues/20">issue 20</a> regarding
-        "subsumes").
+        <li>If <var>target</var> is <a>same origin</a> as <var>scope</var> and
+        <var>target</var>'s <code><a>pathname</a></code> starts with
+        <var>scope</var>'s <code><a>pathname</a></code>, return
+        <code>true</code>.
         </li>
-      </ul>
+        <li>Otherwise, return <code>false</code>.
+        </li>
+      </ol>
       <div class="issue" title="🐒 Monkey patch">
         <p>
           Enforcing the navigation scope depends on [[!HTML]]'s navigate
@@ -256,10 +261,43 @@
         navigate algorithm with exceptions enabled. If the URL being navigated
         to is not <a>within scope</a> of the navigation scope, then the user
         agent MUST behave as if the application context is not <a>allowed to
-        navigate</a>. If during the <a>handle redirects</a> step of HTML's
+        navigate</a>: this provides the ability for the user agent to perform
+        the navigation in a different browsing context - or in a different user
+        agent entirely. If during the <a>handle redirects</a> step of HTML's
         navigate algorithm, if the redirect URL is not <a>within scope</a>,
         abort HTML's navigation algorithm with a <code>SecurityError</code>.
       </p>
+      <p>
+        A developer specifies the navigation scope via the
+        <a><code>scope</code></a> member. In the case where the
+        <a><code>scope</code></a> member is missing or in error, the navigation
+        scope is treated as <dfn>unbounded</dfn> (represented as the value
+        <code>undefined</code>). In such a case, the manifest is applied to all
+        URLs the application context is navigated to (see related security
+        considerations).
+      </p>
+      <section>
+        <h3>
+          Security considerations
+        </h3>
+        <p>
+          When the navigation scope is <a>unbounded</a> and a <a>display
+          mode</a> other than <code>browser</code> is being applied, it is
+          RECOMMENDED that user agents signal to the end-user when security
+          and/or privacy sensitive navigations occur. The manner of signaling
+          is left up to implementers, but can include things like showing the
+          URL of the application context, dropping out of fullscreen to the
+          browser display mode. Examples of security and/or privacy sensitive
+          navigations include, but are not limited to:
+        </p>
+        <ul>
+          <li>the application context being navigated from a secure connection
+          to an insecure connection (or vice versa).
+          </li>
+          <li>the application context being navigated to a different origin.
+          </li>
+        </ul>
+      </section>
     </section>
     <section>
       <h2>
