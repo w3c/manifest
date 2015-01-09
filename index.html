@@ -118,7 +118,8 @@
         "sizes": "128x128",
         "density": 2
       }],
-  "start_url": "/start.html",
+  "scope": "/racer/",
+  "start_url": "/racer/start.html",
   "display": "fullscreen",
   "orientation": "landscape"
 }
@@ -182,7 +183,7 @@
         </h3>
         <p>
           By design, this specification does not provide developers with an
-          explicit API to "install" a web applications. Instead, a manifest can
+          explicit API to "install" a web application. Instead, a manifest can
           serve as an <dfn>installability signal</dfn> (amongst other <a title=
           "installability signal">signals</a>) to a user agent that a web
           application can be <a>installed</a>.
@@ -581,6 +582,28 @@ if (standalone.matches) {
         to implementers on how to react when the manifest is <a href=
         "#updating">updated</a>.
       </p>
+      <section>
+        <h3>
+          Identity of an installed web application
+        </h3>
+        <p>
+          The <dfn>identity</dfn> of an <a>installed</a> web application is
+          composed of the <a>start URL</a> and the <a>manifest URL</a>. Using
+          these two URLs, a user agent can manage the life-cycle of an
+          installed web application.
+        </p>
+        <p>
+          For example, the user agent can use the start URL to verify that it
+          hasn't already installed a web application: this can help prevent
+          multiple instances of a web application being installed. The manifest
+          URL, on the other hand, serves as the URL from which a user agent can
+          update the metadata of a web application.
+        </p>
+        <p>
+          A user agent SHOULD use the <a>identity</a> of a web application to
+          manage the life-cycle of an installed web application.
+        </p>
+      </section>
       <section id="obtaining">
         <h3>
           Obtaining a manifest
@@ -588,8 +611,11 @@ if (standalone.matches) {
         <p>
           The <dfn>steps for obtaining a manifest</dfn> are given by the
           following algorithm. The algorithm, if successful, returns a
-          <a>processed manifest</a>. In running these steps, a user agent MUST
-          NOT <a>delay the load event</a>.
+          <a>processed manifest</a> and the <var>manifest URL</var>; otherwise,
+          it terminates prematurely and returns nothing. In ther case of
+          nothing being return, the user agent MUST ignore the manifest
+          declaration. In running these steps, a user agent MUST NOT <a>delay
+          the load event</a>.
         </p>
         <ol>
           <li>From the <code>Document</code> of the <a>top-level browsing
@@ -597,74 +623,26 @@ if (standalone.matches) {
           <a><code>link</code> element</a> in <a>tree order</a> whose <a><code>
             rel</code> attribute</a> contains the token <code>manifest</code>.
           </li>
-          <li>If <var>manifest link</var> is not <code>null</code>:
-            <ol>
-              <li>Honoring the <code>manifest-src</code> [[!CSP2]] directive,
-              and respecting [[!MIX]], <a>obtain a resource</a> as per
-              [[!HTML]]. If the <a>obtain a resource</a> algorithm terminates
-              prematurely, or is denied by [[!CSP2]], terminate this algorithm.
-              </li>
-              <li>Let <var>response</var> be a [[!FETCH]] the <a href=
-              "http://fetch.spec.whatwg.org/#concept-response">response</a>
-              resulting obtained resource.
-              </li>
-            </ol>
+          <li>If <var>manifest link</var> is <code>null</code>, terminate this
+          algorithm.
           </li>
-          <li>Otherwise, if <var>manifest element</var> is <code>null</code>,
-          terminate this algorithm.
+          <li>
+            <a>Obtain a resource</a> as per [[!HTML]] and let
+            <var>response</var> be the [[!FETCH]] <a href=
+            "http://fetch.spec.whatwg.org/#concept-response">response</a>. If
+            the <a>obtain a resource</a> algorithm terminates prematurely or
+            <var>response</var> is a network error, terminate this algorithm.
           </li>
-          <li>Using the <a>networking task source</a>, <a>queue a task</a> to
-          perform the following:
-            <ol>
-              <li>Let <var>req</var> be a new [[!FETCH]] <a href=
-              "http://fetch.spec.whatwg.org/#concept-request" title=
-              "concept-request">request</a>.
-              </li>
-              <li>Set <var>req</var>'s <a href=
-              "http://fetch.spec.whatwg.org/#concept-request-context">context</a>
-              to be "manifest".
-              </li>
-              <li>Set <var>req</var>'s <a href=
-              "http://fetch.spec.whatwg.org/#concept-request-url">url</a> to be
-              <var>url</var>.
-              </li>
-              <li>Set <var>req</var>'s <a href=
-              "http://fetch.spec.whatwg.org/#concept-request-origin" title=
-              "concept-request-origin">origin</a> to be the <a>origin</a> of
-              the <a>top-level browsing context</a>.
-              </li>
-              <li>Set <var>req</var>'s <a href=
-              "http://fetch.spec.whatwg.org/#concept-request-mode">mode</a> to
-              be "CORS".
-              </li>
-              <li>Set <var>req</var>'s <a href=
-              "http://fetch.spec.whatwg.org/#concept-request-referrer" title=
-              "concept-request-referrer">referrer</a> to be the
-              <code>Document</code> of the <a>top-level browsing context</a>.
-              </li>
-              <li>Set <var>req</var>'s <a href=
-              "http://fetch.spec.whatwg.org/#concept-request-omit-credentials-mode">
-                omit credentials mode</a> to "always".
-              </li>
-              <li>
-                <a href="http://fetch.spec.whatwg.org/#concept-fetch">Fetch</a>
-                <var>req</var> and let <var>response</var> be the <a href=
-                "http://fetch.spec.whatwg.org/#concept-response">response</a>.
-              </li>
-              <li>If <var>response</var> is a <a href=
-              "http://fetch.spec.whatwg.org/#concept-network-error">network
-              error</a>, terminate this algorithm.
-              </li>
-            </ol>
+          <li>Let <var>manifest URL</var> be the <var>response</var>'s URL.
           </li>
           <li>Let <var>manifest</var> be the result of running the <a>steps for
           processing a manifest</a> with <var>response</var>'s <a href=
           "http://fetch.spec.whatwg.org/#concept-request-body">body</a> as the
-          <var>text</var>, and <var>url</var> as the <var>manifest URL</var>,
-          the URL the <a title="top-level browsing context">top-level browsing
-          context's</a> address.
+          <var>text</var>, <var>manifest URL</var>, and the URL that represents
+          the address of the <a title="top-level browsing context">top-level
+          browsing context</a>.
           </li>
-          <li>Return <var>manifest</var>.
+          <li>Return <var>manifest</var> and <var>manifest URL</var>.
           </li>
         </ol>
         <div class="note">
@@ -700,8 +678,7 @@ Content-Type: application/manifest+json
         </p>
         <p>
           When instructed to <dfn>ignore</dfn>, the user agent MUST act as if
-          whatever member or value caused the condition was absent from the
-          manifest document.
+          whatever manifest, member, or value caused the condition is absent.
         </p>
         <p>
           The following algorithm provides an <dfn>extension point</dfn>: other
@@ -787,6 +764,11 @@ Content-Type: application/manifest+json
           of running the <a>steps for processing the <code>icons</code>
           member</a>.
           </li>
+          <li>Let <var>scope</var> of <var>parsed manifest</var> be the result
+          of running the <a>steps for processing the <code>scope</code>
+          member</a> with <var>manifest</var>, <var>manifest URL</var>,
+          <var>document URL</var>, <var>start URL</var> as input.
+          </li>
           <li>Return <var>parsed manifest</var>.
           </li>
         </ol>
@@ -828,15 +810,16 @@ Content-Type: application/manifest+json
           Updating the manifest
         </h3>
         <p>
-          A user agent MAY periodically check if the contents of a manifest has
-          been modified (e.g., by honoring HTTP cache directives associated
-          with the manifest or by checking for updates after the web
-          application has been launched). In the event that the members of the
-          manifest have been updated, as determined by running the <a>steps for
-          processing a manifest</a> and seeing if anything has changed, the
-          user agent MAY update the metadata corresponding to the web
-          application (e.g., by updating or discarding the name, icons, or
-          whatever other members have been changed).
+          By using the <a>manifest URL</a>, a user agent MAY periodically check
+          if the contents of a manifest has been modified (e.g., by honoring
+          HTTP cache directives associated with the manifest or by checking for
+          updates after the web application has been launched). In the event
+          that the members of the manifest have been updated, as determined by
+          running the <a>steps for processing a manifest</a> and seeing if
+          anything has changed, the user agent MAY update the metadata
+          corresponding to the web application (e.g., by replacing the name,
+          icons, <a>navigatoin scope</a>, or whatever other data has been
+          changed).
         </p>
         <p>
           In addition, even if the manifest has not been modified, the user
@@ -854,7 +837,7 @@ Content-Type: application/manifest+json
     </section>
     <section>
       <h2>
-        Manifest members
+        Manifest and its members
       </h2>
       <p>
         A <dfn>manifest</dfn> is a JSON document that contains startup
@@ -863,6 +846,10 @@ Content-Type: application/manifest+json
         "#json-object">object</a> that contains zero or more members. Each of
         the members are defined below, as well as how their values are
         processed.
+      </p>
+      <p>
+        Every manifest has an associated <dfn>manifest URL</dfn>, which the
+        [[!URL]] from which the <a>manifest</a> was fetched.
       </p>
       <section>
         <h3>
@@ -2052,7 +2039,7 @@ Content-Security-Policy: img-src icons.example.com;
           anything defined in this specification. Also, don't assume your
           member will be processed before or after any other member. Keep your
           new member, and its processing, atomic and self contained. Note also
-          that implementations are free to ignore any new property they do not
+          that implementations are free to ignore any member they do not
           recognize or support.
         </p>
         <p>
