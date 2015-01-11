@@ -582,6 +582,28 @@ if (standalone.matches) {
         to implementers on how to react when the manifest is <a href=
         "#updating">updated</a>.
       </p>
+      <section>
+        <h3>
+          Identity of an installed web application
+        </h3>
+        <p>
+          The <dfn>identity</dfn> of an <a>installed</a> web application is
+          composed of the <a>start URL</a> and the <a>manifest URL</a>. Using
+          these two URLs, a user agent can manage the life-cycle of an
+          installed web application.
+        </p>
+        <p>
+          For example, the user agent can use the start URL to verify that it
+          hasn't already installed a web application: this can help prevent
+          multiple instances of a web application being installed. The manifest
+          URL, on the other hand, serves as the URL from which a user agent can
+          update the metadata of a web application.
+        </p>
+        <p>
+          A user agent SHOULD use the <a>identity</a> of a web application to
+          manage the life-cycle of an installed web application.
+        </p>
+      </section>
       <section id="obtaining">
         <h3>
           Obtaining a manifest
