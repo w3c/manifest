@@ -1368,9 +1368,61 @@ Content-Type: application/manifest+json
         Icon object and its members
       </h2>
       <p>
-        Each <dfn>icon object</dfn> represents an icon for an application,
-        suitable to use in various contexts (e.g., an application menu).
+        Each <dfn>icon object</dfn> represents an icon for a web application,
+        suitable to use in various contexts (e.g., an application menu). As
+        icons are usually images, this specification provides developers with a
+        means of specifying the dimensions, optimal pixel density, and media
+        type of an icon. A user agent can use these values to select an icon
+        that is best suited to display on the end-user's device or most closely
+        matches the end-user's preferences.
       </p>
+      <div class="example">
+        <p>
+          In the following example, the developer has made the following
+          choices about the icons of the web application:
+        </p>
+        <ul>
+          <li>The developer has included two icons at the same size, but in
+          different formats. One is explicitly marked as WebP through the
+          <code>type</code> member. If the user agent doesn't support WebP, it
+          falls back to the second icon of the same size (and density). The
+          media type of this icon can then be either determined via a HTTP
+          header, or can be sniffed by the user agent once the first few bytes
+          of the icon are received.
+          </li>
+          <li>The developer wants to use an SVG icon for devices with at least
+          2dppx as the display density and only when the available dimensions
+          are at least 72px. She has found that the SVG file looks too blurry
+          at small sizes, even on high-density screens. To deal with this
+          problem, she's included an SVG icon that is only used when the
+          dimensions are at least 72px and the pixel density is at least 2dppx.
+          Otherwise, the user agent uses the ICO file (hd_hi.ico), which
+          includes a gamut of icons individually tailored for small display
+          sizes.
+          </li>
+        </ul>
+        <pre class="">
+{
+  "icons": [
+      {
+        "src": "icon/lowres.webp",
+        "sizes": "48x48",
+        "type": "image/webp"
+      },{
+        "src": "icon/lowres",
+        "sizes": "48x48"
+      },{
+        "src": "icon/hd_hi.ico",
+        "sizes": "72x72 96x96 128x128 256x256"
+      },{
+        "src": "icon/hd_hi.svg",
+        "sizes": "72x72",
+        "density": 2
+      }]  
+ }
+      
+</pre>
+      </div>
       <p class="note">
         For all intents and purposes, an <a>icon object</a> is functionally
         equivalent to <a><code>link</code> element</a> whose
