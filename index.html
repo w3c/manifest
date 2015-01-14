@@ -269,6 +269,10 @@
         abort HTML's navigation algorithm with a <code>SecurityError</code>.
       </p>
       <p>
+        A <dfn>deep link</dfn> is a URL that is <a>within scope</a> of an
+        <a>installed</a> web application.
+      </p>
+      <p>
         A developer specifies the navigation scope via the
         <a><code>scope</code></a> member. In the case where the
         <a><code>scope</code></a> member is missing or in error, the navigation
@@ -787,7 +791,11 @@ Content-Type: application/manifest+json
           is referred to as an <dfn>application context</dfn>.
         </p>
         <p>
-          When an <a>application context</a> is created, the user agent MUST
+          If an <a>application context</a> is created as a result of the user
+          agent being asked to navigate to a <a>deep link</a>, the user agent
+          MUST immediately <a title="navigated">navigate</a> to the <a>deep
+          link</a> with <a>replacement enabled</a>. Otherwise, when the
+          <a>application context</a> is created, the user agent MUST
           immediately <a title="navigated">navigate</a> to the <a>start URL</a>
           with <a>replacement enabled</a>.
         </p>
