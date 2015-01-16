@@ -257,9 +257,8 @@
         input. If <var>target</var> is failure, return <code>false</code>.
         </li>
         <li>If <var>target</var> is <a>same origin</a> as <var>scope</var> and
-        <var>target</var>'s <code><a>pathname</a></code> starts with
-        <var>scope</var>'s <code><a>pathname</a></code>, return
-        <code>true</code>.
+        <var>target</var>'s <code>pathname</code> starts with
+        <var>scope</var>'s <code>pathname</code>, return <code>true</code>.
         </li>
         <li>Otherwise, return <code>false</code>.
         </li>
@@ -279,9 +278,10 @@
         agent MUST behave as if the application context is not <a>allowed to
         navigate</a>: this provides the ability for the user agent to perform
         the navigation in a different browsing context - or in a different user
-        agent entirely. If during the <a>handle redirects</a> step of HTML's
-        navigate algorithm, if the redirect URL is not <a>within scope</a>,
-        abort HTML's navigation algorithm with a <code>SecurityError</code>.
+        agent entirely. If during the handle redirects step of HTML's <a title=
+        "navigated">navigate algorithm</a>, if the redirect URL is not
+        <a>within scope</a>, abort HTML's navigation algorithm with a
+        <code>SecurityError</code>.
       </p>
       <p>
         A developer specifies the navigation scope via the
@@ -289,8 +289,8 @@
         <a><code>scope</code></a> member is missing or in error, the navigation
         scope is treated as <dfn>unbounded</dfn> (represented as the value
         <code>undefined</code>). In such a case, the manifest is applied to all
-        URLs the application context is navigated to (see related security
-        considerations).
+        URLs the application context is <a>navigated</a> to (see related
+        security considerations).
       </p>
       <section>
         <h3>
@@ -307,10 +307,11 @@
           navigations include, but are not limited to:
         </p>
         <ul>
-          <li>the application context being navigated from a secure connection
-          to an insecure connection (or vice versa).
+          <li>the application context being <a>navigated</a> from a secure
+          connection to an insecure connection (or vice versa).
           </li>
-          <li>the application context being navigated to a different origin.
+          <li>the application context being <a>navigated</a> to a different
+          origin.
           </li>
         </ul>
       </section>
@@ -767,8 +768,8 @@ Content-Type: application/manifest+json
           <var>display mode</var> as arguments.
           </li>
           <li>Let <var>name</var> of <var>parsed manifest</var> be the result
-          of running the <a>steps for processing the <code>name</code> member
-          with <var>manifest</var> as the argument</a>.
+          of running the <a>steps for processing the <code>name</code>
+          member</a> with <var>manifest</var> as the argument.
           </li>
           <li>Let <var>short name</var> of <var>parsed manifest</var> be the
           result of running the <a>steps for processing the
@@ -804,12 +805,13 @@ Content-Type: application/manifest+json
         </p>
         <p>
           If an <a>application context</a> is created as a result of the user
-          agent being asked to navigate to a <a>deep link</a>, the user agent
-          MUST immediately <a title="navigated">navigate</a> to the <a>deep
-          link</a> with <a>replacement enabled</a>. Otherwise, when the
-          <a>application context</a> is created, the user agent MUST
-          immediately <a title="navigated">navigate</a> to the <a>start URL</a>
-          with <a>replacement enabled</a>.
+          agent being asked to <a title="navigated">navigate</a> to a <a>deep
+          link</a>, the user agent MUST immediately <a title=
+          "navigated">navigate</a> to the <a>deep link</a> with <a>replacement
+          enabled</a>. Otherwise, when the <a>application context</a> is
+          created, the user agent MUST immediately <a title=
+          "navigated">navigate</a> to the <a>start URL</a> with <a>replacement
+          enabled</a>.
         </p>
         <div>
           <p>
