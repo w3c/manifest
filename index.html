@@ -57,14 +57,17 @@
   <body>
     <section id='abstract'>
       <p>
-        This specification defines a JSON-based manifest, which provides
+        This specification defines a JSON-based manifest that provides
         developers with a centralized place to put metadata associated with a
         web application. This includes, but is not limited to, the web
         application's name, links to icons, as well as the preferred URL to
         open when a user launches the web application. The manifest also allows
         developers to declare a default orientation for their web application,
         as well as providing the ability to set the display mode for the
-        application (e.g., in fullscreen).
+        application (e.g., in fullscreen). Additionally, the manifest allows a
+        developer to "scope" a web application to a URL. This restricts the
+        URLs to which the application can be navigated and provides a means to
+        "deep link" into a web application from other applications.
       </p>
       <p>
         Using this metadata, user agents can provide developers with means to
@@ -79,8 +82,10 @@
     </section>
     <section id="sotd">
       <p>
-        Implementors need to be aware that this specification is extremely
-        unstable. <strong>Implementors who are not taking part in the
+        Implementors need to be aware that this specification is starting to
+        stabilize. Aspects of this specification are shipping in at least one
+        browser (see links to implementation status at the top of this
+        document). <strong>Implementors who are not taking part in the
         discussions will find the specification changing out from under them in
         incompatible ways.</strong> Vendors interested in implementing this
         specification before it eventually reaches the Candidate Recommendation
@@ -106,6 +111,7 @@
         <pre class="example highlight json" title="typical manifest">
 {
   "name": "Super Racer 2000",
+  "short_name": "Racer2K",
   "icons": [{
         "src": "icon/lowres",
         "sizes": "64x64",
@@ -175,9 +181,12 @@
         context prior to the <a>start URL</a> being loaded. This gives the user
         agent time to apply the relevant values of the manifest, possibly
         changing the display mode and screen orientation of the web
-        application.
+        application. Alternatively, an application context can be launched
+        through a <a>deep link</a> (a URL that is within scope of the installed
+        web application); in which case, the manifest is applied and the deep
+        link is loaded within the context of web application.
       </p>
-      <section>
+      <section class="informative">
         <h3>
           Installability signals
         </h3>
@@ -192,20 +201,26 @@
           <a title="installability signal">Installability signals</a> can
           include things like the ones in the following list (this list is not
           exhaustive and some items might not apply to all user agents). For
-          instance, the web application is:
+          instance, the web application:
         </p>
         <ul>
+          <li>contains a manifest with at least a <code>name</code> member and
+          a suitable icon.
+          </li>
           <li>is served over a secure network connection.
           </li>
           <li>has a sensible content security policy.
+          </li>
+          <li>is able to reponsibly adapt to display on a variety of screen
+          sizes, catering for both mobile and desktop.
           </li>
           <li>is able to function without a network connection.
           </li>
           <li>is repeatedly used by the end-user over some extended period of
           time.
           </li>
-          <li>explicitly marked by the user as one that they value and trust
-          (e.g., by bookmarking or "staring" it).
+          <li>has been explicitly marked by the user as one that they value and
+          trust (e.g., by bookmarking or "staring" it).
           </li>
           <li>And so on...
           </li>
@@ -269,10 +284,6 @@
         abort HTML's navigation algorithm with a <code>SecurityError</code>.
       </p>
       <p>
-        A <dfn>deep link</dfn> is a URL that is <a>within scope</a> of an
-        <a>installed</a> web application.
-      </p>
-      <p>
         A developer specifies the navigation scope via the
         <a><code>scope</code></a> member. In the case where the
         <a><code>scope</code></a> member is missing or in error, the navigation
@@ -302,6 +313,27 @@
           <li>the application context being navigated to a different origin.
           </li>
         </ul>
+      </section>
+      <section>
+        <h3>
+          Deep links
+        </h3>
+        <p>
+          A <dfn>deep link</dfn> is a URL that is <a>within scope</a> of an
+          <a>installed</a> web application.
+        </p>
+        <div class="note">
+          <p>
+            The concept of a <a>deep link</a> is useful in that it allows
+            hyperlinking from one installed application to another. This can be
+            from a native application to an <a>installed</a> web application
+            (and possibly vice versa!). Theoretically, this can provide
+            seamless context switching between native and web applications
+            through standard hyperlinks. And in the case where a particular web
+            application is not <a>installed</a>, then the OS can just open the
+            link in the user's prefered web browser.
+          </p>
+        </div>
       </section>
     </section>
     <section>
@@ -594,10 +626,10 @@ if (standalone.matches) {
           The <dfn>steps for obtaining a manifest</dfn> are given by the
           following algorithm. The algorithm, if successful, returns a
           <a>processed manifest</a> and the <var>manifest URL</var>; otherwise,
-          it terminates prematurely and returns nothing. In ther case of
-          nothing being return, the user agent MUST ignore the manifest
-          declaration. In running these steps, a user agent MUST NOT <a>delay
-          the load event</a>.
+          it terminates prematurely and returns nothing. In the case of nothing
+          being return, the user agent MUST ignore the manifest declaration. In
+          running these steps, a user agent MUST NOT <a>delay the load
+          event</a>.
         </p>
         <ol>
           <li>From the <code>Document</code> of the <a>top-level browsing
@@ -721,8 +753,8 @@ Content-Type: application/manifest+json
           </li>
           <li>Let <var>start URL</var> of <var>parsed manifest</var> be the
           result of running the <a>steps for processing the
-          <code>start_url</code> member</a> with <var>manifest URL</var> and
-          <var>document URL</var>.
+          <code>start_url</code> member</a> with <var>manifest</var>,
+          <var>manifest URL,</var> and <var>document URL</var> as arguments.
           </li>
           <li>Let <var>display mode</var> of <var>parsed manifest</var> be the
           result of running the <a>steps for processing the
@@ -735,21 +767,23 @@ Content-Type: application/manifest+json
           <var>display mode</var> as arguments.
           </li>
           <li>Let <var>name</var> of <var>parsed manifest</var> be the result
-          of running the <a>steps for processing the <code>name</code>
-          member</a>.
+          of running the <a>steps for processing the <code>name</code> member
+          with <var>manifest</var> as the argument</a>.
           </li>
           <li>Let <var>short name</var> of <var>parsed manifest</var> be the
           result of running the <a>steps for processing the
-          <code>short_name</code> member</a>.
+          <code>short_name</code> member</a> with <var>manifest</var> as the
+          argument.
           </li>
           <li>Let <var>icons</var> of <var>parsed manifest</var> be the result
           of running the <a>steps for processing the <code>icons</code>
-          member</a>.
+          member</a> with <var>manifest</var> and <var>manifest URL</var> as
+          arguments.
           </li>
           <li>Let <var>scope</var> of <var>parsed manifest</var> be the result
           of running the <a>steps for processing the <code>scope</code>
           member</a> with <var>manifest</var>, <var>manifest URL</var>,
-          <var>document URL</var>, <var>start URL</var> as input.
+          <var>document URL</var>, <var>start URL</var> as arguments.
           </li>
           <li>Return <var>parsed manifest</var>.
           </li>
@@ -930,7 +964,7 @@ Content-Type: application/manifest+json
           The <dfn>steps for processing the <code>scope</code> member</dfn> is
           given by the following algorithm. The algorithm takes a
           <a>manifest</a> <var>manifest</var>, a <a>URL</a> <var>manifest
-          URL</var>, a <a>URL</a> <var>origin URL</var>, and a URL <var>start
+          URL</var>, a <a>URL</a> <var>document URL</var>, and a URL <var>start
           URL</var>. This algorithm returns a <a>URL</a> or
           <code>undefined</code>.
         </p>
@@ -966,7 +1000,7 @@ Content-Type: application/manifest+json
           </li>
           <li>If <var>scope URL</var> is not <a href=
           "http://www.whatwg.org/specs/web-apps/current-work/#same-origin">same
-          origin</a> as <var>origin URL</var>:
+          origin</a> as <var>document URL</var>:
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the <code>scope</code>
@@ -1259,7 +1293,7 @@ Content-Type: application/manifest+json
           The <dfn>steps for processing the <code>start_url</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
           <a>manifest</a> <var>manifest</var>, a <a>URL</a> <var>manifest
-          URL</var>, and a <a>URL</a> <var>origin URL</var>. This algorithm
+          URL</var>, and a <a>URL</a> <var>document URL</var>. This algorithm
           returns a <a>URL</a>.
         </p>
         <ol>
@@ -1275,8 +1309,8 @@ Content-Type: application/manifest+json
               <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
               a developer warning</a> that the type is unsupported.
               </li>
-              <li>Return a new <a>URL</a> whose <var>input</var> is <var>origin
-              URL</var>.
+              <li>Return a new <a>URL</a> whose <var>input</var> is
+              <var>document URL</var>.
               </li>
             </ol>
           </li>
@@ -1289,20 +1323,20 @@ Content-Type: application/manifest+json
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return a new <a>URL</a> whose <var>input</var> is <var>origin
-              URL</var>.
+              <li>Return a new <a>URL</a> whose <var>input</var> is
+              <var>document URL</var>.
               </li>
             </ul>
           </li>
-          <li>If url is not <a>same origin</a> as <var>origin URL</var>:
+          <li>If url is not <a>same origin</a> as <var>document URL</var>:
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the
                 <code>start_url</code> needs to be <a>same-origin</a> as
                 <code>Document</code> of the <a>top-level browsing context</a>.
               </li>
-              <li>Return a new <a>URL</a> whose <var>input</var> is <var>origin
-              URL</var>.
+              <li>Return a new <a>URL</a> whose <var>input</var> is
+              <var>document URL</var>.
               </li>
             </ol>
           </li>
@@ -1426,9 +1460,8 @@ Content-Type: application/manifest+json
         "src": "icon/hd_hi.svg",
         "sizes": "72x72",
         "density": 2
-      }]  
+      }]
  }
-      
 </pre>
       </div>
       <p class="note">
