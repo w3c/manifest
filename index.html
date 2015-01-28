@@ -680,6 +680,40 @@ Content-Type: application/manifest+json
 }
 </pre>
         </div>
+        <section>
+          <h4>
+            Content security policy
+          </h4>
+          <p>
+            A user agent MUST support [[!CSP2]].
+          </p>
+          <div class="example">
+            <p>
+              The <code>manifest-src</code> and <code>default-src</code>
+              directives govern the origins from which a <a>user agent</a> can
+              fetch a manifest. As with other directives, by default the
+              <code>manifest-src</code> directive is <code>*</code>, meaning
+              that a user agent can, [[!CORS]] permitting, fetch the manifest
+              cross-domain. Remote origins (e.g., a <acronym title=
+              "content delivery network">CDN</acronym>) wanting to host
+              manifests for various web applications will need to include the
+              appropriate [[!CORS]] response header in their HTTP response
+              (e.g., <code>Access-Control-Allow-Origin:
+              https://example.com</code>).
+            </p>
+            <figure class="exaple">
+              <img src="images/manifest-src-directive.svg" width="704" height=
+              "342" alt="">
+              <figcaption>
+                For a [[!HTML]] document, [[!CSP2]]'s <code>manifest-src</code>
+                directive controls the sources from which a [[!HTML]] document
+                can load a manifest from. The same CSP policy's
+                <code>image-src</code> directive controls where the icon's
+                images can be fetched from.
+              </figcaption>
+            </figure>
+          </div>
+        </section>
       </section>
       <section id="processing">
         <h3>
@@ -1353,39 +1387,6 @@ Content-Type: application/manifest+json
             result of <a>URL parsing</a> would be
             <samp>https://example.com/start_point.html</samp>.
           </p>
-        </div>
-      </section>
-      <section>
-        <h3>
-          Content security policy
-        </h3>
-        <p>
-          A user agent MUST support [[!CSP2]].
-        </p>
-        <div class="example">
-          <p>
-            The <code>manifest-src</code> and <code>default-src</code>
-            directives govern the origins from which a <a>user agent</a> can
-            fetch a manifest. As with other directives, by default the
-            <code>manifest-src</code> directive is <code>*</code>, meaning that
-            a user agent can, [[!CORS]] permitting, fetch the manifest
-            cross-domain. Remote origins (e.g., a <acronym title=
-            "content delivery network">CDN</acronym>) wanting to host manifests
-            for various web applications will need to include the appropriate
-            [[!CORS]] response header in their HTTP response (e.g.,
-            <code>Access-Control-Allow-Origin: https://example.com</code>).
-          </p>
-          <figure class="exaple">
-            <img src="images/manifest-src-directive.svg" width="704" height=
-            "342" alt="">
-            <figcaption>
-              For a [[!HTML]] document, [[!CSP2]]'s <code>manifest-src</code>
-              directive controls the sources from which a [[!HTML]] document
-              can load a manifest from. The same CSP policy's
-              <code>image-src</code> directive controls where the icon's images
-              can be fetched from.
-            </figcaption>
-          </figure>
         </div>
       </section>
     </section>
