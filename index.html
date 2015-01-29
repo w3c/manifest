@@ -314,6 +314,15 @@
           origin.
           </li>
         </ul>
+        <p>
+          This specification distinguishes between behavior in first-party and
+          third-party contexts. In particular, if a <code>scope</code> member
+          is declared in the manifest, it is not possible to navigate the
+          top-level browsing context to somewhere outside the scope while the
+          manifest is being applied. That's not to say that the web application
+          cannot be navigated: just that the set of URLs to which the manifest
+          applies is restricted by the <a>navigation scope</a>.
+        </p>
       </section>
       <section>
         <h3>
@@ -521,6 +530,30 @@ if (standalone.matches) {
   /* do standalone things */
 }
 </pre>
+        </section>
+        <section>
+          <h3>
+            Security and privacy considerations
+          </h3>
+          <p>
+            The <code>'display-mode'</code> media feature allows an origin
+            access to aspects of a user’s local computing environment and,
+            together with the <code>display</code> member, allows an origin
+            some measure of control over a user agent’s native UI: Through a
+            CSS media query, a script can know the display mode of a web
+            application. An attacker could, in such a case, exploit the fact
+            that an application is being displayed in fullscreen to mimic the
+            user interface of another application.
+          </p>
+          <p>
+            Furthermore, by neglecting to define a scope member in the
+            manifest, it's possible to put a web application into a <a>display
+            mode</a> that persists cross-origin (for legacy reasons, this is
+            the default behavior). In case where the navigation scope is
+            unbounded, it is left to the user agent to either stop applying the
+            manifest when a cross-origin navigation occurs or to show some sort
+            of security warning to the user.
+          </p>
         </section>
       </section>
     </section>
@@ -1950,9 +1983,14 @@ Content-Security-Policy: img-src icons.example.com;
             Same as for application/json
           </dd>
           <dt>
-            Security considerations:
+            Security and privacy considerations:
           </dt>
           <dd>
+            <p>
+              This specification does not directly deal with high-value data.
+              However, <a>installed</a> web applications and their data could
+              be seen as "high value" (particulaly from a privacy perspective).
+            </p>
             <p>
               As the manifest format is JSON and will commonly be encoded using
               [[!UNICODE]], the security considerations described in
