@@ -1363,7 +1363,7 @@ if (standalone.matches) {
       <p>
         A <dfn id="dfn-manifest">manifest</dfn> is a JSON document that contains startup
         parameters and application defaults for when a web application is
-        launched. A manifest consists of a top-level <a href="#json-object">object</a> that contains zero or more members. Each of
+        launched. A manifest consists of a top-level <a href="#dfn-json-object">object</a> that contains zero or more members. Each of
         the members are defined below, as well as how their values are
         processed.
       </p>
@@ -1641,7 +1641,7 @@ if (standalone.matches) {
         </span></h3>
         <p>
           The <dfn id="member-display"><code>display</code></dfn> member is a
-          <a href="#json-string">string</a>, whose value is one of <a href="#dfn-display-modes-values" class="internalDFN">display
+          <a href="#dfn-json-string">string</a>, whose value is one of <a href="#dfn-display-modes-values" class="internalDFN">display  
           modes values</a>. The item represents the developer's preferred
           <a href="#dfn-display-mode" class="internalDFN">display mode</a> for the web application. When the member is
           missing or erroneous, the user agent <em class="rfc2119" title="MUST">MUST</em> use the <a href="#dfn-fallback-display-mode" class="internalDFN">fallback display
@@ -1688,7 +1688,7 @@ if (standalone.matches) {
         </span></h3>
         <p>
           The <dfn id="member-orientation"><code>orientation</code></dfn>
-          member is a <a href="#json-string">string</a> that serves as the
+          member is a <a href="#dfn-json-string">string</a> that serves as the
           <a href="#dfn-default-orientation" class="internalDFN">default orientation</a> for all <a title="top-level browsing context" href="#dfn-top-level-browsing-context" class="internalDFN">top-level browsing contexts</a> of the
           web application. The possible values is one of the
           <a href="#dfn-orientationlocktype" class="internalDFN"><code>OrientationLockType</code></a> enum defined in
