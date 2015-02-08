@@ -1,0 +1,2754 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" typeof="bibo:Document w3p:WD" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#">
+<head><meta lang="" property="dc:language" content="en">
+    <meta charset="utf-8">
+    <title>
+      Manifest for web application
+    </title>
+    
+    
+  <style>/*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
+
+/* --- INLINES --- */
+em.rfc2119 { 
+    text-transform:     lowercase;
+    font-variant:       small-caps;
+    font-style:         normal;
+    color:              #900;
+}
+
+h1 acronym, h2 acronym, h3 acronym, h4 acronym, h5 acronym, h6 acronym, a acronym,
+h1 abbr, h2 abbr, h3 abbr, h4 abbr, h5 abbr, h6 abbr, a abbr {
+    border: none;
+}
+
+dfn {
+    font-weight:    bold;
+}
+
+a.internalDFN {
+    color:  inherit;
+    border-bottom:  1px solid #99c;
+    text-decoration:    none;
+}
+
+a.externalDFN {
+    color:  inherit;
+    border-bottom:  1px dotted #ccc;
+    text-decoration:    none;
+}
+
+a.bibref {
+    text-decoration:    none;
+}
+
+cite .bibref {
+    font-style: normal;
+}
+
+code {
+    color:  #C83500;
+}
+
+/* --- TOC --- */
+.toc a, .tof a {
+    text-decoration:    none;
+}
+
+a .secno, a .figno {
+    color:  #000;
+}
+
+ul.tof, ol.tof {
+    list-style: none outside none;
+}
+
+.caption {
+    margin-top: 0.5em;
+    font-style:   italic;
+}
+
+/* --- TABLE --- */
+table.simple {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    border-bottom:  3px solid #005a9c;
+}
+
+.simple th {
+    background: #005a9c;
+    color:  #fff;
+    padding:    3px 5px;
+    text-align: left;
+}
+
+.simple th[scope="row"] {
+    background: inherit;
+    color:  inherit;
+    border-top: 1px solid #ddd;
+}
+
+.simple td {
+    padding:    3px 10px;
+    border-top: 1px solid #ddd;
+}
+
+.simple tr:nth-child(even) {
+    background: #f0f6ff;
+}
+
+/* --- DL --- */
+.section dd > p:first-child {
+    margin-top: 0;
+}
+
+.section dd > p:last-child {
+    margin-bottom: 0;
+}
+
+.section dd {
+    margin-bottom:  1em;
+}
+
+.section dl.attrs dd, .section dl.eldef dd {
+    margin-bottom:  0;
+}
+
+@media print {
+    .removeOnSave {
+        display: none;
+    }
+}
+</style><style>/* --- EXAMPLES --- */
+div.example-title {
+    min-width: 7.5em;
+    color: #b9ab2d;
+}
+div.example-title span {
+    text-transform: uppercase;   
+}
+aside.example, div.example, div.illegal-example {
+    padding: 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+div.illegal-example { color: red }
+div.illegal-example p { color: black }
+aside.example, div.example {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+    border-color: #e0cb52;
+    background: #fcfaee;    
+}
+
+aside.example div.example {
+    border-left-width: .1em;
+    border-color: #999;
+    background: #fff;
+}
+aside.example div.example div.example-title {
+    color: #999;
+}
+</style><style>/* --- ISSUES/NOTES --- */
+div.issue-title, div.note-title , div.warning-title {
+    padding-right:  1em;
+    min-width: 7.5em;
+    color: #b9ab2d;
+}
+div.issue-title { color: #e05252; }
+div.note-title { color: #2b2; }
+div.warning-title { color: #f22; }
+div.issue-title span, div.note-title span, div.warning-title span {
+    text-transform: uppercase;
+}
+div.note, div.issue, div.warning {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.note > p:first-child, .issue > p:first-child, .warning > p:first-child { margin-top: 0 }
+.issue, .note, .warning {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+}
+div.issue, div.note , div.warning {
+    padding: 1em 1.2em 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+span.note, span.issue, span.warning { padding: .1em .5em .15em; }
+
+.issue {
+    border-color: #e05252;
+    background: #fbe9e9;
+}
+.note {
+    border-color: #52e052;
+    background: #e9fbe9;
+}
+
+.warning {
+    border-color: #f11;
+    border-right-width: .2em;
+    border-top-width: .2em;
+    border-bottom-width: .2em;
+    border-style: solid;
+    background: #fbe9e9;
+}
+
+.warning-title:before{
+    content: "⚠"; /*U+26A0 WARNING SIGN*/
+    font-size: 3em;
+    float: left;
+    height: 100%;
+    padding-right: .3em;
+    vertical-align: top;
+    margin-top: -0.5em;
+}
+</style><style>/* HIGHLIGHTS */
+code.prettyprint {
+    color:  inherit;
+}
+
+/* this from google-code-prettify */
+.pln{color:#000}@media screen{.str{color:#080}.kwd{color:#008}.com{color:#800}.typ{color:#606}.lit{color:#066}.pun,.opn,.clo{color:#660}.tag{color:#008}.atn{color:#606}.atv{color:#080}.dec,.var{color:#606}.fun{color:red}}@media print,projection{.str{color:#060}.kwd{color:#006;font-weight:bold}.com{color:#600;font-style:italic}.typ{color:#404;font-weight:bold}.lit{color:#044}.pun,.opn,.clo{color:#440}.tag{color:#006;font-weight:bold}.atn{color:#404}.atv{color:#060}}ol.linenums{margin-top:0;margin-bottom:0}li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8{list-style-type:none}li.L1,li.L3,li.L5,li.L7,li.L9{background:#eee}
+</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-WD"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]--></head>
+  <body class="h-entry" role="document" id="respecDocument"><div class="head" role="contentinfo" id="respecHeader">
+  <p>
+      
+        
+            <a href="http://www.w3.org/"><img width="72" height="48" src="https://www.w3.org/Icons/w3c_home" alt="W3C"></a>
+        
+      
+  </p>
+  <h1 class="title p-name" id="title" property="dcterms:title">Manifest for web application</h1>
+  
+  <h2 id="w3c-working-draft-10-february-2015"><abbr title="World Wide Web Consortium">W3C</abbr> Working Draft <time property="dcterms:issued" class="dt-published" datetime="2015-02-10">10 February 2015</time></h2>
+  <dl>
+    
+      <dt>This version:</dt>
+      <dd><a class="u-url" href="http://www.w3.org/TR/2015/WD-appmanifest-20150210/">http://www.w3.org/TR/2015/WD-appmanifest-20150210/</a></dd>
+      <dt>Latest published version:</dt>
+      <dd><a href="http://www.w3.org/TR/appmanifest/">http://www.w3.org/TR/appmanifest/</a></dd>
+    
+    
+      <dt>Latest editor's draft:</dt>
+      <dd><a href="http://w3c.github.io/manifest/">http://w3c.github.io/manifest/</a></dd>
+    
+    
+    
+    
+    
+    
+      <dt>Previous version:</dt>
+      <dd><a rel="dcterms:replaces" href="http://www.w3.org/TR/2013/WD-appmanifest-20131217/">http://www.w3.org/TR/2013/WD-appmanifest-20131217/</a></dd>
+    
+    
+    <dt>Editor:</dt>
+    <dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0"><span property="rdf:first" typeof="foaf:Person"><meta property="foaf:name" content="Contributors list available on GitHub"><a class="u-url url p-name fn" property="foaf:homepage" href="https://github.com/w3c/manifest/graphs/contributors">Contributors list available on GitHub</a></span>
+<span property="rdf:rest" resource="rdf:nil"></span>
+</dd>
+
+    
+    
+      
+        
+          <dt>Repository:</dt>
+          
+             
+                
+                  <dd>
+                    <a href="https://github.com/w3c/manifest">
+                      We are on Github.
+                    </a>
+                  </dd>
+                
+             
+                
+                  <dd>
+                    <a href="https://github.com/w3c/manifest/issues">
+                      File a bug.
+                    </a>
+                  </dd>
+                
+             
+                
+                  <dd>
+                    <a href="https://github.com/w3c/manifest/commits/gh-pages">
+                      Commit history.
+                    </a>
+                  </dd>
+                
+             
+                
+                  <dd>
+                    <a href="http://lists.w3.org/Archives/Public/public-webapps/">
+                      Mailing list.
+                    </a>
+                  </dd>
+                
+             
+          
+        
+      
+        
+          <dt>Implementation status:</dt>
+          
+             
+                
+                  <dd>
+                    <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=997779">
+                      Gecko
+                    </a>
+                  </dd>
+                
+             
+                
+                  <dd>
+                    <a href="https://code.google.com/p/chromium/issues/detail?id=366145">
+                      Blink
+                    </a>
+                  </dd>
+                
+             
+          
+        
+      
+    
+  </dl>
+  
+  
+  
+  
+    
+      <p class="copyright">
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> ©
+        2015
+        
+        <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
+        (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+        <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+        <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>), 
+        
+        All Rights Reserved.
+        
+        <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+        
+          <a href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a>
+        
+        rules apply.
+      </p>
+    
+  
+  <hr>
+</div>
+    <section id="abstract" class="introductory" property="dc:abstract"><h2 id="h-abstract" resource="#h-abstract"><span property="xhv:role" resource="xhv:heading">Abstract</span></h2>
+      <p>
+        This specification defines a JSON-based manifest that provides
+        developers with a centralized place to put metadata associated with a
+        web application. This includes, but is not limited to, the web
+        application's name, links to icons, as well as the preferred URL to
+        open when a user launches the web application. The manifest also allows
+        developers to declare a default orientation for their web application,
+        as well as providing the ability to set the display mode for the
+        application (e.g., in fullscreen). Additionally, the manifest allows a
+        developer to "scope" a web application to a URL. This restricts the
+        URLs to which the application can be navigated and provides a means to
+        "deep link" into a web application from other applications.
+      </p>
+      <p>
+        Using this metadata, user agents can provide developers with means to
+        create user experiences that are more comparable to that of a native
+        application.
+      </p>
+      <p>
+        In addition, this specification defines the <code>manifest</code> link
+        type, which provides a declarative means for a document to be
+        associated with a manifest.
+      </p>
+    </section><section id="sotd" class="introductory"><h2 id="h-sotd" resource="#h-sotd"><span property="xhv:role" resource="xhv:heading">Status of This Document</span></h2>
+  
+    
+      
+        <p>
+          <em>This section describes the status of this document at the time of its publication.
+          Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the
+          latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at
+          http://www.w3.org/TR/.</em>
+        </p>
+        
+        
+      <p>
+        Implementors need to be aware that this specification is starting to
+        stabilize. Aspects of this specification are shipping in at least one
+        browser (see links to implementation status at the top of this
+        document). <strong>Implementors who are not taking part in the
+        discussions will find the specification changing out from under them in
+        incompatible ways.</strong> Vendors interested in implementing this
+        specification before it eventually reaches the Candidate Recommendation
+        phase should <a href="https://github.com/w3c/manifest/issues">subscribe
+        to the repository on GitHub</a> and take part in the discussions.
+      </p>
+
+
+      <p>
+        This Working Draft is intended to meet the  <em>wide review</em>
+        requirements as defined in the
+        <a href="http://www.w3.org/2014/Process-20140801/#wide-review">2014 Process Document</a>. 
+        <strong>The deadline for comments is 3 March 2015.</strong>
+        The next anticipated publication of this specification is a 
+        <a href="http://www.w3.org/2014/Process-20140801/#candidate-rec">Candidate Recommendation</a>. 
+        See <a href="https://github.com/w3c/manifest/issues/308">Issue 308</a>
+        for the specification's Candidate Recommendation status.
+      </p>
+        
+        <p>
+          This document was published by the <a href="http://www.w3.org/2008/webapps/">Web Applications (WebApps) Working Group</a> as a Working Draft.
+          
+            This document is intended to become a <abbr title="World Wide Web Consortium">W3C</abbr> Recommendation.
+          
+          
+            If you wish to make comments regarding this document, please send them to 
+            <a href="mailto:public-webapps@w3.org">public-webapps@w3.org</a> 
+            (<a href="mailto:public-webapps-request@w3.org?subject=subscribe">subscribe</a>,
+            <a href="http://lists.w3.org/Archives/Public/public-webapps/">archives</a>).
+          
+          
+          
+          
+          
+            
+            All comments are welcome.
+            
+          
+        </p>
+        
+        
+        
+          <p>
+            Publication as a Working Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr>
+            Membership. This is a draft document and may be updated, replaced or obsoleted by other
+            documents at any time. It is inappropriate to cite this document as other than work in
+            progress.
+          </p>
+        
+        
+        
+        <p>
+          
+            This document was produced by a group operating under the 
+            <a id="sotd_patent" property="w3p:patentRules" href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
+            Policy</a>.
+          
+          
+          
+            
+              <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/42538/status" rel="disclosure">public list of any patent
+              disclosures</a> 
+            
+            made in connection with the deliverables of the group; that page also includes
+            instructions for disclosing a patent. An individual who has actual knowledge of a patent
+            which the individual believes contains
+            <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
+            Claim(s)</a> must disclose the information in accordance with
+            <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
+            6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
+          
+          
+        </p>
+        
+          <p>This document is governed by the <a id="w3c_process_revision" href="http://www.w3.org/2014/Process-20140801/">1 August 2014 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+          </p>
+        
+        
+      
+    
+  
+</section><section id="toc"><h2 class="introductory" id="h-toc" resource="#h-toc"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2><ul class="toc" role="directory" id="respecContents"><li class="tocline"><a href="#usage-examples" class="tocxref"><span class="secno">1. </span>
+        Usage Examples
+      </a><ul class="toc"><li class="tocline"><a href="#example-manifest" class="tocxref"><span class="secno">1.1 </span>
+          Example manifest
+        </a></li><li class="tocline"><a href="#using-a-link-element-to-link-to-a-manifest" class="tocxref"><span class="secno">1.2 </span>
+          Using a <code>link</code> element to link to a manifest
+        </a></li></ul></li><li class="tocline"><a href="#installable-web-applications" class="tocxref"><span class="secno">2. </span>
+        Installable web applications
+      </a><ul class="toc"><li class="tocline"><a href="#installability-signals" class="tocxref"><span class="secno">2.1 </span>
+          Installability signals
+        </a></li></ul></li><li class="tocline"><a href="#navigation-scope" class="tocxref"><span class="secno">3. </span>
+        Navigation scope
+      </a><ul class="toc"><li class="tocline"><a href="#security-considerations" class="tocxref"><span class="secno">3.1 </span>
+          Security considerations
+        </a></li><li class="tocline"><a href="#deep-links" class="tocxref"><span class="secno">3.2 </span>
+          Deep links
+        </a></li></ul></li><li class="tocline"><a href="#display-modes" class="tocxref"><span class="secno">4. </span>
+        Display modes
+      </a><ul class="toc"><li class="tocline"><a href="#the-display-mode-media-feature" class="tocxref"><span class="secno">4.1 </span>
+          The <code>'display-mode'</code> media feature
+        </a><ul class="toc"><li class="tocline"><a href="#examples" class="tocxref"><span class="secno">4.1.1 </span>
+            Examples
+          </a></li><li class="tocline"><a href="#security-and-privacy-considerations" class="tocxref"><span class="secno">4.1.2 </span>
+            Security and privacy considerations
+          </a></li></ul></li></ul></li><li class="tocline"><a href="#associating-a-resource-with-a-manifest" class="tocxref"><span class="secno">5. </span>
+        Associating a resource with a manifest
+      </a><ul class="toc"><li class="tocline"><a href="#linking" class="tocxref"><span class="secno">5.1 </span>
+          Linking to a manifest
+        </a></li></ul></li><li class="tocline"><a href="#manifest-life-cycle" class="tocxref"><span class="secno">6. </span>
+        Manifest life-cycle
+      </a><ul class="toc"><li class="tocline"><a href="#obtaining" class="tocxref"><span class="secno">6.1 </span>
+          Obtaining a manifest
+        </a><ul class="toc"><li class="tocline"><a href="#content-security-policy" class="tocxref"><span class="secno">6.1.1 </span>
+            Content security policy
+          </a></li></ul></li><li class="tocline"><a href="#processing" class="tocxref"><span class="secno">6.2 </span>
+          Processing the manifest
+        </a></li><li class="tocline"><a href="#applying-the-manifest" class="tocxref"><span class="secno">6.3 </span>
+          Applying the manifest
+        </a></li><li class="tocline"><a href="#updating" class="tocxref"><span class="secno">6.4 </span>
+          Updating the manifest
+        </a></li></ul></li><li class="tocline"><a href="#manifest-and-its-members" class="tocxref"><span class="secno">7. </span>
+        Manifest and its members
+      </a><ul class="toc"><li class="tocline"><a href="#name-member" class="tocxref"><span class="secno">7.1 </span>
+          <code title="">name</code> member
+        </a></li><li class="tocline"><a href="#short_name-member" class="tocxref"><span class="secno">7.2 </span>
+          <code title="">short_name</code> member
+        </a></li><li class="tocline"><a href="#scope-member" class="tocxref"><span class="secno">7.3 </span>
+          <code>scope</code> member
+        </a></li><li class="tocline"><a href="#icons-member" class="tocxref"><span class="secno">7.4 </span>
+          <code title="">icons</code> member
+        </a></li><li class="tocline"><a href="#display-member" class="tocxref"><span class="secno">7.5 </span>
+          <code>display</code> member
+        </a></li><li class="tocline"><a href="#orientation-member" class="tocxref"><span class="secno">7.6 </span>
+          <code>orientation</code> member
+        </a></li><li class="tocline"><a href="#start_url-member" class="tocxref"><span class="secno">7.7 </span>
+          <code>start_url</code> member
+        </a></li></ul></li><li class="tocline"><a href="#icon-object-and-its-members" class="tocxref"><span class="secno">8. </span>
+        Icon object and its members
+      </a><ul class="toc"><li class="tocline"><a href="#content-security-policy-of-icon-object" class="tocxref"><span class="secno">8.1 </span>
+          Content security policy of icon object
+        </a></li><li class="tocline"><a href="#density-member" class="tocxref"><span class="secno">8.2 </span>
+          <code>density</code> member
+        </a></li><li class="tocline"><a href="#sizes-member" class="tocxref"><span class="secno">8.3 </span>
+          <code>sizes</code> member
+        </a></li><li class="tocline"><a href="#src-member" class="tocxref"><span class="secno">8.4 </span>
+          <code>src</code> member
+        </a></li><li class="tocline"><a href="#type-member" class="tocxref"><span class="secno">8.5 </span>
+          <code>type</code> member
+        </a></li></ul></li><li class="tocline"><a href="#common-conventions-and-dependencies" class="tocxref"><span class="secno">9. </span>
+        Common conventions and dependencies
+      </a></li><li class="tocline"><a href="#iana-considerations" class="tocxref"><span class="secno">10. </span>
+        IANA considerations
+      </a><ul class="toc"><li class="tocline"><a href="#media-type-registration" class="tocxref"><span class="secno">10.1 </span>
+          Media type registration
+        </a></li></ul></li><li class="tocline"><a href="#conformance" class="tocxref"><span class="secno">11. </span>Conformance</a><ul class="toc"><li class="tocline"><a href="#extensibility" class="tocxref"><span class="secno">11.1 </span>
+          Extensibility
+        </a><ul class="toc"><li class="tocline"><a href="#proprietary-extensions" class="tocxref"><span class="secno">11.1.1 </span>
+            Proprietary manifest members
+          </a></li></ul></li></ul></li><li class="tocline"><a href="#json-ld-extensions" class="tocxref"><span class="secno">A. </span>
+        JSON-LD extensions to the manifest
+      </a></li><li class="tocline"><a href="#relationship-to-html-s-link-and-meta-elements" class="tocxref"><span class="secno">B. </span>
+        Relationship to HTML's <code>link</code> and <code>meta</code> elements
+      </a></li><li class="tocline"><a href="#json-schema" class="tocxref"><span class="secno">C. </span>
+        JSON Schema
+      </a></li><li class="tocline"><a href="#acknowledgments" class="tocxref"><span class="secno">D. </span>
+        Acknowledgments
+      </a></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">E. </span>References</a><ul class="toc"><li class="tocline"><a href="#normative-references" class="tocxref"><span class="secno">E.1 </span>Normative references</a></li><li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">E.2 </span>Informative references</a></li></ul></li></ul></section>
+    
+    <section class="informative" id="usage-examples" typeof="bibo:Chapter" resource="#usage-examples" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-usage-examples" resource="#h-usage-examples"><span property="xhv:role" resource="xhv:heading"><span class="secno">1. </span>
+        Usage Examples
+      </span></h2><p><em>This section is non-normative.</em></p>
+      <p>
+        This section shows how developers can make use of the various features
+        of this specification.
+      </p>
+      <section class="informative" id="example-manifest" typeof="bibo:Chapter" resource="#example-manifest" property="bibo:hasPart">
+        <h3 id="h-example-manifest" resource="#h-example-manifest"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.1 </span>
+          Example manifest
+        </span></h3><p><em>This section is non-normative.</em></p>
+        <p>
+          The following shows a typical <a href="#dfn-manifest" class="internalDFN">manifest</a>.
+        </p>
+        <div class="example"><div class="example-title"><span>Example 1</span>: typical manifest</div><pre class="example highlight json prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+  </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Super Racer 2000"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"short_name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Racer2K"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"icons"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[{</span><span class="pln">
+        </span><span class="str">"src"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"icon/lowres"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"sizes"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"64x64"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"type"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"image/webp"</span><span class="pln">
+      </span><span class="pun">},</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="str">"src"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"icon/hd_small"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"sizes"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"64x64"</span><span class="pln">
+      </span><span class="pun">},</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="str">"src"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"icon/hd_hi"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"sizes"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"128x128"</span><span class="pun">,</span><span class="pln">
+        </span><span class="str">"density"</span><span class="pun">:</span><span class="pln"> </span><span class="lit">2</span><span class="pln">
+      </span><span class="pun">}],</span><span class="pln">
+  </span><span class="str">"scope"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"/racer/"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"start_url"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"/racer/start.html"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"display"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"fullscreen"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"orientation"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"landscape"</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
+      </section>
+      <section class="informative" id="using-a-link-element-to-link-to-a-manifest" typeof="bibo:Chapter" resource="#using-a-link-element-to-link-to-a-manifest" property="bibo:hasPart">
+        <h3 id="h-using-a-link-element-to-link-to-a-manifest" resource="#h-using-a-link-element-to-link-to-a-manifest"><span property="xhv:role" resource="xhv:heading"><span class="secno">1.2 </span>
+          Using a <code>link</code> element to link to a manifest
+        </span></h3><p><em>This section is non-normative.</em></p>
+        <p>
+          Example of using a <code>link</code> element to associate a website
+          with a <a href="#dfn-manifest" class="internalDFN">manifest</a>. The example also shows how to use [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>]'s
+          <code>link</code> and <code>meta</code> elements to give the web
+          application a fallback name and set of icons.
+        </p>
+        <div class="example"><div class="example-title"><span>Example 2</span>: linking to a manifest</div><pre class="example highlight html prettyprint prettyprinted"><span class="dec">&lt;!doctype&gt;</span><span class="pln">
+</span><span class="tag">&lt;html&gt;</span><span class="pln">
+</span><span class="tag">&lt;title&gt;</span><span class="pln">Store finder - search</span><span class="tag">&lt;/title&gt;</span><span class="pln">
+
+</span><span class="com">&lt;!-- Startup configuration --&gt;</span><span class="pln">
+</span><span class="tag">&lt;link</span><span class="pln"> </span><span class="atn">rel</span><span class="pun">=</span><span class="atv">"manifest"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"manifest.json"</span><span class="tag">&gt;</span><span class="pln">
+
+</span><span class="com">&lt;!-- Fallback application metadata for legacy browsers --&gt;</span><span class="pln">
+</span><span class="tag">&lt;meta</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"application-name"</span><span class="pln"> </span><span class="atn">content</span><span class="pun">=</span><span class="atv">"Store Finder"</span><span class="tag">&gt;</span><span class="pln">
+</span><span class="tag">&lt;link</span><span class="pln"> </span><span class="atn">rel</span><span class="pun">=</span><span class="atv">"icon"</span><span class="pln"> </span><span class="atn">sizes</span><span class="pun">=</span><span class="atv">"16x16 32x32 48x48"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"lo_def.ico"</span><span class="tag">&gt;</span><span class="pln">
+</span><span class="tag">&lt;link</span><span class="pln"> </span><span class="atn">rel</span><span class="pun">=</span><span class="atv">"icon"</span><span class="pln"> </span><span class="atn">sizes</span><span class="pun">=</span><span class="atv">"512x512"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"hi_def.png"</span><span class="tag">&gt;</span></pre></div>
+      </section>
+    </section>
+    <section id="installable-web-applications" typeof="bibo:Chapter" resource="#installable-web-applications" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-installable-web-applications" resource="#h-installable-web-applications"><span property="xhv:role" resource="xhv:heading"><span class="secno">2. </span>
+        Installable web applications
+      </span></h2>
+      <p>
+        This document attempts to address the <cite><a href="http://w3c-webmob.github.io/installable-webapps/">Use Cases and
+        Requirements for Installable Web Apps</a></cite>.
+      </p>
+      <p>
+        A web application is <dfn id="dfn-installed">installed</dfn> if the user agent has
+        provided the end-user with a means of instantiating a new <a href="#dfn-top-level-browsing-context" class="internalDFN">top-level
+        browsing context</a> that has the manifest's members applied to it.
+        That is, the manifest's members, or their defaults, are in effect on
+        the <a href="#dfn-top-level-browsing-context" class="internalDFN">top-level browsing context</a> (see <a href="#dfn-application-context" class="internalDFN">application context</a>).
+      </p>
+      <p>
+        An example of <a title="installed" href="#dfn-installed" class="internalDFN">installing</a> would be a user agent
+        that allows the end-user to add a shortcut to a web application on
+        their device's homescreen (using the name and one of the icons found in
+        the manifest). Then, when the end-user launches a web application
+        through this explicit means, the manifest is applied to the browsing
+        context prior to the <a href="#dfn-start-url" class="internalDFN">start URL</a> being loaded. This gives the user
+        agent time to apply the relevant values of the manifest, possibly
+        changing the display mode and screen orientation of the web
+        application. Alternatively, an application context can be launched
+        through a <a href="#dfn-deep-link" class="internalDFN">deep link</a> (a URL that is within scope of the installed
+        web application); in which case, the manifest is applied and the deep
+        link is loaded within the context of web application.
+      </p>
+      <section class="informative" id="installability-signals" typeof="bibo:Chapter" resource="#installability-signals" property="bibo:hasPart">
+        <h3 id="h-installability-signals" resource="#h-installability-signals"><span property="xhv:role" resource="xhv:heading"><span class="secno">2.1 </span>
+          Installability signals
+        </span></h3><p><em>This section is non-normative.</em></p>
+        <p>
+          By design, this specification does not provide developers with an
+          explicit API to "install" a web application. Instead, a manifest can
+          serve as an <dfn id="dfn-installability-signal">installability signal</dfn> (amongst other <a title="installability signal" href="#dfn-installability-signal" class="internalDFN">signals</a>) to a user agent that a web
+          application can be <a href="#dfn-installed" class="internalDFN">installed</a>.
+        </p>
+        <p>
+          <a title="installability signal" href="#dfn-installability-signal" class="internalDFN">Installability signals</a> can
+          include things like the ones in the following list (this list is not
+          exhaustive and some items might not apply to all user agents). For
+          instance, the web application:
+        </p>
+        <ul>
+          <li>contains a manifest with at least a <code>name</code> member and
+          a suitable icon.
+          </li>
+          <li>is served over a secure network connection.
+          </li>
+          <li>has a sensible content security policy.
+          </li>
+          <li>is able to responsibly adapt to display on a variety of screen
+          sizes, catering for both mobile and desktop.
+          </li>
+          <li>is able to function without a network connection.
+          </li>
+          <li>is repeatedly used by the end-user over some extended period of
+          time.
+          </li>
+          <li>has been explicitly marked by the user as one that they value and
+          trust (e.g., by bookmarking or "staring" it).
+          </li>
+          <li>And so on...
+          </li>
+        </ul>
+        <p>
+          How a user agent makes use of these <a title="installability signal" href="#dfn-installability-signal" class="internalDFN">installability signals</a> to determine if a
+          web application is installable is left to implementers.
+        </p>
+      </section>
+    </section>
+    <section id="navigation-scope" typeof="bibo:Chapter" resource="#navigation-scope" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-navigation-scope" resource="#h-navigation-scope"><span property="xhv:role" resource="xhv:heading"><span class="secno">3. </span>
+        Navigation scope
+      </span></h2>
+      <p>
+        A <dfn id="dfn-navigation-scope">navigation scope</dfn> is a [<cite><a class="bibref" href="#bib-URL">URL</a></cite>] that represents the set of
+        URLs to which an <a href="#dfn-application-context" class="internalDFN">application context</a> can be navigated while the
+        manifest is <a href="#dfn-applied" class="internalDFN">applied</a>. To determine if a URL is within the
+        <a href="#dfn-navigation-scope" class="internalDFN">navigation scope</a>, the user agent <em class="rfc2119" title="MUST">MUST</em> run the <a href="#dfn-within-scope" class="internalDFN">within
+        scope</a> algorithm.
+      </p>
+      <p>
+        A string <var>targetURL</var> is said the be <dfn id="dfn-within-scope">within scope</dfn> of
+        navigation scope <var>scopeURL</var> if the following algorithm returns
+        <code>true</code>:
+      </p>
+      <ol>
+        <li>If <var>scopeURL</var> is <code>undefined</code> (i.e., it is
+        <a href="#dfn-unbounded" class="internalDFN">unbounded</a> because of an error or it was not declared in the
+        manifest), return <code>true</code>.
+        </li>
+        <li>Let <var>target</var> be a new URL using <var>targetURL</var> as
+        input. If <var>target</var> is failure, return <code>false</code>.
+        </li>
+        <li>If <var>target</var> is <a href="#dfn-same-origin-1" class="internalDFN">same origin</a> as <var>scope</var> and
+        <var>target</var>'s <code>pathname</code> starts with
+        <var>scope</var>'s <code>pathname</code>, return <code>true</code>.
+        </li>
+        <li>Otherwise, return <code>false</code>.
+        </li>
+      </ol>
+      <div class="issue"><div class="issue-title" aria-level="3" role="heading" id="h-issue1"><span>Issue 1</span>: 🐒 Monkey patch</div><div class="">
+        <p>
+          Enforcing the navigation scope depends on [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>]'s navigate
+          algorithm. As such, the following algorithm monkey patches [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>].
+          <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=27653">Bug
+          27653</a> has been filed to address this.
+        </p>
+      </div></div>
+      <p>
+        The user agent <em class="rfc2119" title="MUST">MUST</em> navigate the application context as per [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>]'s
+        navigate algorithm with exceptions enabled. If the URL being navigated
+        to is not <a href="#dfn-within-scope" class="internalDFN">within scope</a> of the navigation scope, then the user
+        agent <em class="rfc2119" title="MUST">MUST</em> behave as if the application context is not <a href="#dfn-allowed-to-navigate" class="internalDFN">allowed to
+        navigate</a>: this provides the ability for the user agent to perform
+        the navigation in a different browsing context - or in a different user
+        agent entirely. If during the handle redirects step of HTML's <a title="navigated" href="#dfn-navigated" class="internalDFN">navigate algorithm</a>, if the redirect URL is not
+        <a href="#dfn-within-scope" class="internalDFN">within scope</a>, abort HTML's navigation algorithm with a
+        <code>SecurityError</code>.
+      </p>
+      <p>
+        A developer specifies the navigation scope via the
+        <a href="#member-scope" class="internalDFN"><code>scope</code></a> member. In the case where the
+        <a href="#member-scope" class="internalDFN"><code>scope</code></a> member is missing or in error, the navigation
+        scope is treated as <dfn id="dfn-unbounded">unbounded</dfn> (represented as the value
+        <code>undefined</code>). In such a case, the manifest is applied to all
+        URLs the application context is <a href="#dfn-navigated" class="internalDFN">navigated</a> to (see related
+        security considerations).
+      </p>
+      <section id="security-considerations" typeof="bibo:Chapter" resource="#security-considerations" property="bibo:hasPart">
+        <h3 id="h-security-considerations" resource="#h-security-considerations"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.1 </span>
+          Security considerations
+        </span></h3>
+        <p>
+          When the navigation scope is <a href="#dfn-unbounded" class="internalDFN">unbounded</a> and a <a href="#dfn-display-mode" class="internalDFN">display
+          mode</a> other than <code>browser</code> is being applied, it is
+          <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> that user agents signal to the end-user when security
+          and/or privacy sensitive navigations occur. The manner of signaling
+          is left up to implementers, but can include things like showing the
+          URL of the application context, dropping out of fullscreen to the
+          browser display mode. Examples of security and/or privacy sensitive
+          navigations include, but are not limited to:
+        </p>
+        <ul>
+          <li>the application context being <a href="#dfn-navigated" class="internalDFN">navigated</a> from a secure
+          connection to an insecure connection (or vice versa).
+          </li>
+          <li>the application context being <a href="#dfn-navigated" class="internalDFN">navigated</a> to a different
+          origin.
+          </li>
+        </ul>
+        <p>
+          This specification distinguishes between behavior in first-party and
+          third-party contexts. In particular, if a <code>scope</code> member
+          is declared in the manifest, it is not possible to navigate the
+          top-level browsing context to somewhere outside the scope while the
+          manifest is being applied. That's not to say that the web application
+          cannot be navigated: just that the set of URLs to which the manifest
+          applies is restricted by the <a href="#dfn-navigation-scope" class="internalDFN">navigation scope</a>.
+        </p>
+      </section>
+      <section id="deep-links" typeof="bibo:Chapter" resource="#deep-links" property="bibo:hasPart">
+        <h3 id="h-deep-links" resource="#h-deep-links"><span property="xhv:role" resource="xhv:heading"><span class="secno">3.2 </span>
+          Deep links
+        </span></h3>
+        <p>
+          A <dfn id="dfn-deep-link">deep link</dfn> is a URL that is <a href="#dfn-within-scope" class="internalDFN">within scope</a> of an
+          <a href="#dfn-installed" class="internalDFN">installed</a> web application.
+        </p>
+        <div class="note"><div class="note-title" aria-level="4" role="heading" id="h-note1"><span>Note</span></div><div class="">
+          <p>
+            The concept of a <a href="#dfn-deep-link" class="internalDFN">deep link</a> is useful in that it allows
+            hyperlinking from one installed application to another. This can be
+            from a native application to an <a href="#dfn-installed" class="internalDFN">installed</a> web application
+            (and possibly vice versa!). Theoretically, this can provide
+            seamless context switching between native and web applications
+            through standard hyperlinks. And in the case where a particular web
+            application is not <a href="#dfn-installed" class="internalDFN">installed</a>, then the <abbr title="operating system">OS</abbr> can just open the
+            link in the user's preferred web browser.
+          </p>
+        </div></div>
+      </section>
+    </section>
+    <section id="display-modes" typeof="bibo:Chapter" resource="#display-modes" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-display-modes" resource="#h-display-modes"><span property="xhv:role" resource="xhv:heading"><span class="secno">4. </span>
+        Display modes
+      </span></h2>
+      <p>
+        A <dfn id="dfn-display-mode">display mode</dfn> represents how developers would like the user
+        agent to present the web application to a user (e.g., in fullscreen).
+        Display modes correspond to user interface (UI) metaphors and
+        functionality in use on a given platform. The UI conventions of the
+        display modes are purely advisory and implementers are free to
+        interpret them how they best see fit.
+      </p>
+      <p>
+        Once a user agent applies a particular <a href="#dfn-display-mode" class="internalDFN">display mode</a> to an
+        <a href="#dfn-application-context" class="internalDFN">application context</a>, it becomes the <dfn id="dfn-default-display-mode">default display
+        mode</dfn> for the <a href="#dfn-top-level-browsing-context" class="internalDFN">top-level browsing context</a> (i.e., it is used
+        as the display mode when the window is <a href="#dfn-navigated" class="internalDFN">navigated</a>). The user
+        agent <em class="rfc2119" title="MAY">MAY</em> override the <a href="#dfn-default-display-mode" class="internalDFN">default display mode</a> for security reasons
+        (e.g., the <a href="#dfn-top-level-browsing-context" class="internalDFN">top-level browsing context</a> is <a href="#dfn-navigated" class="internalDFN">navigated</a> to
+        another origin) and/or the user agent <em class="rfc2119" title="MAY">MAY</em> provide the user with a means
+        of switching to another <a href="#dfn-display-mode" class="internalDFN">display mode</a>.
+      </p>
+      <p>
+        When the <code>display</code> member is missing, or if there is no
+        valid <code>display</code> member, the user agent uses the
+        <code>browser</code> <a href="#dfn-display-mode" class="internalDFN">display mode</a> as the <a href="#dfn-default-display-mode" class="internalDFN">default display
+        mode</a>. As such, the user agent is <em class="rfc2119" title="REQUIRED">REQUIRED</em> to support the
+        <code>browser</code> <a href="#dfn-display-mode" class="internalDFN">display mode</a>.
+      </p>
+      <p>
+        Each <a href="#dfn-display-mode" class="internalDFN">display mode</a>, except <code>browser</code>, has a recursive
+        <dfn id="dfn-fallback-display-mode">fallback display mode</dfn>, which is the <a href="#dfn-display-mode" class="internalDFN">display mode</a> that
+        the user agent can try to use if it doesn't support a particular
+        <a href="#dfn-display-mode" class="internalDFN">display mode</a>. If the user agent does support a fallback display
+        mode, then it checks to see if it can use that display mode's fallback
+        display mode. This creates a fallback chain, with the <a href="#dfn-default-display-mode" class="internalDFN">default
+        display mode</a> (<code>browser</code>) being the last item in the
+        chain.
+      </p>
+      <div class="example">
+        <p>
+          For example, Awesome Browser only supports the
+          <code>minimal-ui</code> and <code>browser</code> display modes, but a
+          developer declares that she wants <code>fullscreen</code> in the
+          manifest. In this case, the user agent will first check if it
+          supports <code>fullscreen</code> (it doesn't), so it falls back to
+          <code>standalone</code> (which it also doesn't support), and
+          ultimately falls back to <code>minimal-ui</code>.
+        </p>
+      </div>
+      <p>
+        The <dfn id="dfn-display-modes-values">display modes values</dfn> and their corresponding <a title="fallback display mode" href="#dfn-fallback-display-mode" class="internalDFN">fallback display modes</a> are as follows:
+      </p>
+      <dl>
+        <dt>
+          <dfn id="dm-fullscreen">fullscreen</dfn>
+        </dt>
+        <dd>
+          Opens the web application without any user agent chrome and takes up
+          the entirety of the available display area.
+        </dd>
+        <dd>
+          The <a href="#dfn-fallback-display-mode" class="internalDFN">fallback display mode</a> for <code>fullscreen</code> is
+          <code>standalone</code>.
+        </dd>
+        <dt>
+          <dfn id="dm-standalone">standalone</dfn>
+        </dt>
+        <dd>
+          Opens the web application to look and feel like a standalone native
+          application. This can include the application having a different
+          window, its own icon in the application launcher, etc. In this mode,
+          the user agent will exclude UI elements for controlling navigation,
+          but can include other UI elements such as a status bar.
+        </dd>
+        <dd>
+          The <a href="#dfn-fallback-display-mode" class="internalDFN">fallback display mode</a> for <code>standalone</code> is
+          <code>minimal-ui</code>.
+        </dd>
+        <dt>
+          <dfn id="dm-minimal-ui">minimal-ui</dfn>
+        </dt>
+        <dd>
+          This mode is similar to <a href="#dm-fullscreen" class="internalDFN">fullscreen</a>, but provides the end-user
+          with some means to access a minimal set of UI elements for
+          controlling navigation (i.e., back, forward, reload, and perhaps some
+          way of viewing the document's address). A user agent can include
+          other platform specific UI elements, such as "share" and "print"
+          buttons or whatever is customary on the platform and user agent.
+        </dd>
+        <dd>
+          The <a href="#dfn-fallback-display-mode" class="internalDFN">fallback display mode</a> for <code>minimal-ui</code> is
+          <code>browser</code>.
+        </dd>
+        <dt>
+          <dfn id="dm-browser">browser</dfn>
+        </dt>
+        <dd>
+          Opens the web application using the platform-specific convention for
+          opening hyperlinks in the user agent (e.g., in a browser tab or a new
+          window).
+        </dd>
+        <dd>
+          The <code>browser</code> <a href="#dfn-display-mode" class="internalDFN">display mode</a> doesn't have a
+          <a href="#dfn-fallback-display-mode" class="internalDFN">fallback display mode</a> (conforming user agents are required to
+          support the <code>browser</code> <a href="#dfn-display-mode" class="internalDFN">display mode</a>).
+        </dd>
+      </dl>
+      <div class="note"><div class="note-title" aria-level="3" role="heading" id="h-note2"><span>Note</span></div><p class="">
+        The <a href="#dm-fullscreen" class="internalDFN">fullscreen</a> <a href="#dfn-display-mode" class="internalDFN">display mode</a> is orthogonal to, and works
+        independently of, the [<cite><a class="bibref" href="#bib-WHATWG-FULLSCREEN">WHATWG-FULLSCREEN</a></cite>] API. The
+        <a href="#dm-fullscreen" class="internalDFN"><code>fullscreen</code></a> <a href="#dfn-display-mode" class="internalDFN">display mode</a> affects the
+        fullscreen state of the browser window, while the [<cite><a class="bibref" href="#bib-WHATWG-FULLSCREEN">WHATWG-FULLSCREEN</a></cite>]
+        API operates on an element contained within the viewport. As such, a
+        web application can have its <a href="#dfn-display-mode" class="internalDFN">display mode</a> set to
+        <a href="#dm-fullscreen" class="internalDFN"><code>fullscreen</code></a>, while
+        <code>document.fullScreenElement</code> returns <code>null</code>, and
+        <code>fullscreenEnabled</code> returns <code>false</code>.
+      </p></div>
+      <section id="the-display-mode-media-feature" typeof="bibo:Chapter" resource="#the-display-mode-media-feature" property="bibo:hasPart">
+        <h3 id="h-the-display-mode-media-feature" resource="#h-the-display-mode-media-feature"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.1 </span>
+          The <code>'display-mode'</code> media feature
+        </span></h3>
+        <p>
+          The <code><dfn id="dfn-display-mode-1">display-mode</dfn></code> media feature represents,
+          via a CSS media query [<cite><a class="bibref" href="#bib-MEDIAQ">MEDIAQ</a></cite>], the <a href="#dfn-display-mode" class="internalDFN">display mode</a> that the
+          user agent is <a title="applied" href="#dfn-applied" class="internalDFN">applying</a> to the web application.
+        </p>
+        <dl>
+          <dt>
+            Value:
+          </dt>
+          <dd>
+            <a href="#dm-fullscreen" class="internalDFN">fullscreen</a> | <a href="#dm-standalone" class="internalDFN">standalone</a> | <a href="#dm-minimal-ui" class="internalDFN">minimal-ui</a> |
+            <a href="#dm-browser" class="internalDFN">browser</a>
+          </dd>
+          <dt>
+            Applies to:
+          </dt>
+          <dd>
+            visual media types
+          </dd>
+          <dt>
+            Accepts min/max prefixes:
+          </dt>
+          <dd>
+            No
+          </dd>
+        </dl>
+        <p>
+          A user agent <em class="rfc2119" title="MUST">MUST</em> reflect the applied <a href="#dfn-display-mode" class="internalDFN">display mode</a> of the web
+          application via a CSS media query [<cite><a class="bibref" href="#bib-MEDIAQ">MEDIAQ</a></cite>].
+        </p>
+        <section id="examples" typeof="bibo:Chapter" resource="#examples" property="bibo:hasPart">
+          <h4 id="h-examples" resource="#h-examples"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.1.1 </span>
+            Examples
+          </span></h4>
+          <p>
+            An example in CSS:
+          </p>
+          <div class="example"><div class="example-title"><span>Example 3</span></div><pre class="example highlight prettyprint prettyprinted"><span class="lit">@media</span><span class="pln"> all </span><span class="kwd">and</span><span class="pln"> </span><span class="pun">(</span><span class="pln">display</span><span class="pun">-</span><span class="pln">mode</span><span class="pun">:</span><span class="pln"> minimal</span><span class="pun">-</span><span class="pln">ui</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="com">/* ... */</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+</span><span class="lit">@media</span><span class="pln"> all </span><span class="kwd">and</span><span class="pln"> </span><span class="pun">(</span><span class="pln">display</span><span class="pun">-</span><span class="pln">mode</span><span class="pun">:</span><span class="pln"> standalone</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="com">/* ... */</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
+          <p>
+            Accessing the display-mode media feature in ECMAScript through
+            <code>matchMedia()</code> of [<cite><a class="bibref" href="#bib-cssom-view">cssom-view</a></cite>]:
+          </p>
+          <div class="example"><div class="example-title"><span>Example 4</span></div><pre class="example">let standalone = matchMedia( '(display-mode: standalone)' );
+
+standalone.onchange = function(e) {
+  /* handle changes to display mode */
+}
+
+if (standalone.matches) {
+  /* do standalone things */
+}</pre></div>
+        </section>
+        <section id="security-and-privacy-considerations" typeof="bibo:Chapter" resource="#security-and-privacy-considerations" property="bibo:hasPart">
+          <h4 id="h-security-and-privacy-considerations" resource="#h-security-and-privacy-considerations"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.1.2 </span>
+            Security and privacy considerations
+          </span></h4>
+          <p>
+            The <code>'display-mode'</code> media feature allows an origin
+            access to aspects of a user’s local computing environment and,
+            together with the <code>display</code> member, allows an origin
+            some measure of control over a user agent’s native UI: Through a
+            CSS media query, a script can know the display mode of a web
+            application. An attacker could, in such a case, exploit the fact
+            that an application is being displayed in fullscreen to mimic the
+            user interface of another application.
+          </p>
+          <p>
+            Furthermore, by neglecting to define a scope member in the
+            manifest, it's possible to put a web application into a <a href="#dfn-display-mode" class="internalDFN">display
+            mode</a> that persists cross-origin (for legacy reasons, this is
+            the default behavior). In case where the navigation scope is
+            unbounded, it is left to the user agent to either stop applying the
+            manifest when a cross-origin navigation occurs or to show some sort
+            of security warning to the user.
+          </p>
+        </section>
+      </section>
+    </section>
+    <section id="associating-a-resource-with-a-manifest" typeof="bibo:Chapter" resource="#associating-a-resource-with-a-manifest" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-associating-a-resource-with-a-manifest" resource="#h-associating-a-resource-with-a-manifest"><span property="xhv:role" resource="xhv:heading"><span class="secno">5. </span>
+        Associating a resource with a manifest
+      </span></h2>
+      <p>
+        A resource is said to be <dfn id="dfn-associated-with-a-manifest">associated with a manifest</dfn> if the
+        resource representation, an HTML document, has a <a href="#linking"><code>manifest</code> link relationship</a>.
+      </p>
+      <section id="linking" typeof="bibo:Chapter" resource="#linking" property="bibo:hasPart">
+        <h3 id="h-linking" resource="#h-linking"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1 </span>
+          Linking to a manifest
+        </span></h3>
+        <p>
+          The <code>manifest</code> keyword can be used with a [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>]
+          <a href="#dfn-link-element" class="internalDFN"><code>link</code> element</a>. This keyword creates an <a href="#dfn-external-resource-link" class="internalDFN">external
+          resource link</a>.
+        </p>
+        <table border="1">
+          <tbody><tr>
+            <th rowspan="2">
+              Link type
+            </th>
+            <th colspan="2">
+              Effect on...
+            </th>
+            <th rowspan="2">
+              Brief description
+            </th>
+          </tr>
+          <tr>
+            <th>
+              <code><a title="link element" href="#dfn-link-element" class="internalDFN">link</a></code>
+            </th>
+            <th>
+              <code><a title="a element" href="#dfn-a-element" class="internalDFN">a</a></code> and <code><a title="area element" href="#dfn-area-element" class="internalDFN">area</a></code>
+            </th>
+          </tr>
+          <tr>
+            <td>
+              <code><dfn title="rel-manifest" id="rel-manifest">manifest</dfn></code>
+            </td>
+            <td>
+              <a title="external resource link" href="#dfn-external-resource-link" class="internalDFN">External Resource</a>
+            </td>
+            <td>
+              not allowed
+            </td>
+            <td>
+              Imports or links to a <a href="#dfn-manifest" class="internalDFN">manifest</a>.
+            </td>
+          </tr>
+        </tbody></table>
+        <p>
+          The <a href="#dfn-media-type-for-a-manifest" class="internalDFN">media type for a manifest</a> serves as the default media type
+          for resources associated with the <code><a href="#rel-manifest">manifest</a></code> <a href="#dfn-link-type" class="internalDFN">link type</a>.
+        </p>
+        <div class="note"><div class="note-title" aria-level="4" role="heading" id="h-note3"><span>Note</span></div><p class="">
+          In cases where more than one <a href="#dfn-link-element" class="internalDFN"><code>link</code> element</a> with a
+          <code>manifest</code> link type appears in a <code>Document</code>,
+          the user agent uses the first <a href="#dfn-link-element" class="internalDFN"><code>link</code> element</a> in
+          tree order and ignores all subsequent <a title="link element" href="#dfn-link-element" class="internalDFN"><code>link</code> element</a> with a
+          <code>manifest</code> link type (even if the first element was
+          erroneous). See the <a href="#dfn-steps-for-obtaining-a-manifest" class="internalDFN">steps for obtaining a manifest</a>.
+        </p></div>
+        <p>
+          To obtain a manifest, the user agent <em class="rfc2119" title="MUST">MUST</em> run the <a href="#dfn-steps-for-obtaining-a-manifest" class="internalDFN">steps for
+          obtaining a manifest</a>. The appropriate time to obtain the manifest
+          is left up to implementations. A user agent <em class="rfc2119" title="MAY">MAY</em> opt to delay fetching
+          a manifest until after the document and its other resources have been
+          fully loaded (i.e., to not delay the availability of content and
+          scripts required by the <code>document</code>).
+        </p>
+        <p>
+          A <a href="#dfn-manifest" class="internalDFN">manifest</a> is obtained and applied regardless of the
+          <a href="#dfn-media" class="internalDFN"><code>media</code></a> attribute of the <a href="#dfn-link-element" class="internalDFN"><code>link</code>
+          element</a> matches the environment or not.
+        </p>
+      </section>
+    </section>
+    <section id="manifest-life-cycle" typeof="bibo:Chapter" resource="#manifest-life-cycle" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-manifest-life-cycle" resource="#h-manifest-life-cycle"><span property="xhv:role" resource="xhv:heading"><span class="secno">6. </span>
+        Manifest life-cycle
+      </span></h2>
+      <p>
+        This section defines algorithms for <a href="#obtaining">obtaining</a>,
+        <a href="#processing">processing</a>, and <a href="#applying">applying</a> a <a href="#dfn-manifest" class="internalDFN">manifest</a>, and gives recommendations
+        to implementers on how to react when the manifest is <a href="#updating">updated</a>.
+      </p>
+      <section id="obtaining" typeof="bibo:Chapter" resource="#obtaining" property="bibo:hasPart">
+        <h3 id="h-obtaining" resource="#h-obtaining"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.1 </span>
+          Obtaining a manifest
+        </span></h3>
+        <p>
+          The <dfn id="dfn-steps-for-obtaining-a-manifest">steps for obtaining a manifest</dfn> are given by the
+          following algorithm. The algorithm, if successful, returns a
+          <a href="#dfn-processed-manifest" class="internalDFN">processed manifest</a> and the <var>manifest URL</var>; otherwise,
+          it terminates prematurely and returns nothing. In the case of nothing
+          being return, the user agent <em class="rfc2119" title="MUST">MUST</em> ignore the manifest declaration. In
+          running these steps, a user agent <em class="rfc2119" title="MUST NOT">MUST NOT</em> <a href="#dfn-delay-the-load-event" class="internalDFN">delay the load
+          event</a>.
+        </p>
+        <ol>
+          <li>From the <code>Document</code> of the <a href="#dfn-top-level-browsing-context" class="internalDFN">top-level browsing
+          context</a>, let <var>manifest link</var> be the first
+          <a href="#dfn-link-element" class="internalDFN"><code>link</code> element</a> in <a href="#dfn-tree-order" class="internalDFN">tree order</a> whose <a href="#dfn-rel-attribute" class="internalDFN"><code>
+            rel</code> attribute</a> contains the token <code>manifest</code>.
+          </li>
+          <li>If <var>manifest link</var> is <code>null</code>, terminate this
+          algorithm.
+          </li>
+          <li>
+            <a href="#dfn-obtain-a-resource" class="internalDFN">Obtain a resource</a> as per [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>] and let
+            <var>response</var> be the [<cite><a class="bibref" href="#bib-FETCH">FETCH</a></cite>] <a href="http://fetch.spec.whatwg.org/#concept-response">response</a>. If
+            the <a href="#dfn-obtain-a-resource" class="internalDFN">obtain a resource</a> algorithm terminates prematurely or
+            <var>response</var> is a network error, terminate this algorithm.
+          </li>
+          <li>Let <var>manifest URL</var> be the <var>response</var>'s URL.
+          </li>
+          <li>Let <var>manifest</var> be the result of running the <a href="#dfn-steps-for-processing-a-manifest" class="internalDFN">steps for
+          processing a manifest</a> with <var>response</var>'s <a href="http://fetch.spec.whatwg.org/#concept-request-body">body</a> as the
+          <var>text</var>, <var>manifest URL</var>, and the URL that represents
+          the address of the <a title="top-level browsing context" href="#dfn-top-level-browsing-context" class="internalDFN">top-level
+          browsing context</a>.
+          </li>
+          <li>Return <var>manifest</var> and <var>manifest URL</var>.
+          </li>
+        </ol>
+        <div class="note"><div class="note-title" aria-level="4" role="heading" id="h-note4"><span>Note</span></div><div class="">
+          <p>
+            Authors are encouraged to use the HTTP cache directives to
+            explicitly cache the manifest. For example, the following response
+            would cause a cached manifest to be used one year from the time the
+            response is sent:
+          </p>
+          <pre class="highlight prettyprint prettyprinted"><span class="pln">HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln"> </span><span class="lit">200</span><span class="pln"> OK
+</span><span class="typ">Cache</span><span class="pun">-</span><span class="typ">Control</span><span class="pun">:</span><span class="pln"> max</span><span class="pun">-</span><span class="pln">age</span><span class="pun">=</span><span class="lit">31536000</span><span class="pln">
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">manifest</span><span class="pun">+</span><span class="pln">json
+
+</span><span class="pun">{</span><span class="pln">
+  </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"Super Racer 2000"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"start_url"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"/start.html"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"display"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"fullscreen"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"orientation"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"landscape"</span><span class="pln">
+</span><span class="pun">}</span></pre>
+        </div></div>
+        <section id="content-security-policy" typeof="bibo:Chapter" resource="#content-security-policy" property="bibo:hasPart">
+          <h4 id="h-content-security-policy" resource="#h-content-security-policy"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.1.1 </span>
+            Content security policy
+          </span></h4>
+          <p>
+            A user agent <em class="rfc2119" title="MUST">MUST</em> support [<cite><a class="bibref" href="#bib-CSP2">CSP2</a></cite>].
+          </p>
+          <div class="example">
+            <p>
+              The <code>manifest-src</code> and <code>default-src</code>
+              directives govern the origins from which a <a href="#dfn-user-agent" class="internalDFN">user agent</a> can
+              fetch a manifest. As with other directives, by default the
+              <code>manifest-src</code> directive is <code>*</code>, meaning
+              that a user agent can, [<cite><a class="bibref" href="#bib-CORS">CORS</a></cite>] permitting, fetch the manifest
+              cross-domain. Remote origins (e.g., a <abbr title="content delivery network">CDN</abbr>) wanting to host
+              manifests for various web applications will need to include the
+              appropriate [<cite><a class="bibref" href="#bib-CORS">CORS</a></cite>] response header in their HTTP response
+              (e.g., <code>Access-Control-Allow-Origin:
+              https://example.com</code>).
+            </p>
+            <figure class="exaple" id="fig-for-a-html-document-csp2-s-manifest-src-directive-controls-the-sources-from-which-a-html-document-can-load-a-manifest-from.-the-same-csp-policy-s-image-src-directive-controls-where-the-icon-s-images-can-be-fetched-from.x">
+              <img src="images/manifest-src-directive.svg" width="704" height="342" alt="">
+              <figcaption>Fig. <span class="figno">1</span> <span class="fig-title">
+                For a [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>] document, [<cite><a class="bibref" href="#bib-CSP2">CSP2</a></cite>]'s <code>manifest-src</code>
+                directive controls the sources from which a [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>] document
+                can load a manifest from. The same CSP policy's
+                <code>image-src</code> directive controls where the icon's
+                images can be fetched from.
+              </span></figcaption>
+            </figure>
+          </div>
+        </section>
+      </section>
+      <section id="processing" typeof="bibo:Chapter" resource="#processing" property="bibo:hasPart">
+        <h3 id="h-processing" resource="#h-processing"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.2 </span>
+          Processing the manifest
+        </span></h3>
+        <p>
+          When instructed to <dfn id="dfn-issue-a-developer-warning">issue a developer warning</dfn>, the user
+          agent <em class="rfc2119" title="MAY">MAY</em> report the conformance violation to the developer in a
+          user-agent-specific manner (e.g., report the problem in an error
+          console), or <em class="rfc2119" title="MAY">MAY</em> ignore the error and do nothing.
+        </p>
+        <p>
+          When instructed to <dfn id="dfn-ignore">ignore</dfn>, the user agent <em class="rfc2119" title="MUST">MUST</em> act as if
+          whatever manifest, member, or value caused the condition is absent.
+        </p>
+        <p>
+          The following algorithm provides an <dfn id="dfn-extension-point">extension point</dfn>: other
+          specifications that add new members to the manifest are encouraged to
+          hook themselves into this specification at this point in the
+          algorithm.
+        </p>
+        <div class="note"><div class="note-title" aria-level="4" role="heading" id="h-note5"><span>Note</span></div><div class="">
+          <p>
+            The <a href="#dfn-extension-point" class="internalDFN">extension point</a> is meant to help avoid <a href="http://annevankesteren.nl/2014/02/monkey-patch">issues related to
+            monkey patching</a>.
+          </p>
+        </div></div>
+        <p>
+          The <dfn id="dfn-steps-for-processing-a-manifest">steps for processing a manifest</dfn> are given by the
+          following algorithm. The algorithm takes a <var>text</var> string as
+          an argument, which represents a <a href="#dfn-manifest" class="internalDFN">manifest</a>, and a <a href="#dfn-url" class="internalDFN">URL</a>
+          <var>manifest URL</var>, which represents the location of the
+          manifest, and a <a href="#dfn-url" class="internalDFN">URL</a> <var>document URL</var>. The output from
+          inputting an JSON document into this algorithm is a <dfn id="dfn-processed-manifest">processed
+          manifest</dfn>.
+        </p>
+        <ol>
+          <li>Let <var>parsed manifest</var> be an empty object.
+          </li>
+          <li>Let <var>manifest</var> be the result of <a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
+            parsing</a> <var>text</var>. If <a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
+            parsing</a> throws an error:
+            <ol>
+              <li>
+                <a href="#dfn-issue-a-developer-warning" class="internalDFN">Issue a developer warning</a> with any details pertaining to
+                the JSON parsing error.
+              </li>
+              <li>Set <var>manifest</var> to be the result of <a href="https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
+                parsing</a> the string <code>"{}"</code>.
+              </li>
+            </ol>
+          </li>
+          <li>If <a href="#dfn-type" class="internalDFN">Type</a>(<var>manifest</var>) is not "object":
+            <ol>
+              <li>
+                <a href="#dfn-issue-a-developer-warning" class="internalDFN">Issue a developer warning</a> that the manifest needs to be
+                an object.
+              </li>
+              <li>Set <var>manifest</var> to be the result of <a href="https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
+                parsing</a> the string <code>"{}"</code>.
+              </li>
+            </ol>
+          </li>
+          <li>
+            <a href="#dfn-extension-point" class="internalDFN">Extension point</a>: process any proprietary and/or other
+            supported members at this point in the algorithm.
+          </li>
+          <li>Let <var>start URL</var> of <var>parsed manifest</var> be the
+          result of running the <a href="#dfn-steps-for-processing-the-start_url-member" class="internalDFN">steps for processing the
+          <code>start_url</code> member</a> with <var>manifest</var>,
+          <var>manifest URL,</var> and <var>document URL</var> as arguments.
+          </li>
+          <li>Let <var>display mode</var> of <var>parsed manifest</var> be the
+          result of running the <a href="#dfn-steps-for-processing-the-display-member" class="internalDFN">steps for processing the
+          <code>display</code> member</a> with <var>manifest</var> as the
+          argument.
+          </li>
+          <li>Let <var>orientation</var> of <var>parsed manifest</var> be the
+          result of running the <a href="#dfn-steps-for-processing-the-orientation-member" class="internalDFN">steps for processing the
+          <code>orientation</code> member</a> with <var>manifest</var> and
+          <var>display mode</var> as arguments.
+          </li>
+          <li>Let <var>name</var> of <var>parsed manifest</var> be the result
+          of running the <a href="#dfn-steps-for-processing-the-name-member" class="internalDFN">steps for processing the <code>name</code>
+          member</a> with <var>manifest</var> as the argument.
+          </li>
+          <li>Let <var>short name</var> of <var>parsed manifest</var> be the
+          result of running the <a href="#dfn-steps-for-processing-the-short_name-member" class="internalDFN">steps for processing the
+          <code>short_name</code> member</a> with <var>manifest</var> as the
+          argument.
+          </li>
+          <li>Let <var>icons</var> of <var>parsed manifest</var> be the result
+          of running the <a href="#dfn-steps-for-processing-the-icons-member" class="internalDFN">steps for processing the <code>icons</code>
+          member</a> with <var>manifest</var> and <var>manifest URL</var> as
+          arguments.
+          </li>
+          <li>Let <var>scope</var> of <var>parsed manifest</var> be the result
+          of running the <a href="#dfn-steps-for-processing-the-scope-member" class="internalDFN">steps for processing the <code>scope</code>
+          member</a> with <var>manifest</var>, <var>manifest URL</var>,
+          <var>document URL</var>, <var>start URL</var> as arguments.
+          </li>
+          <li>Return <var>parsed manifest</var>.
+          </li>
+        </ol>
+      </section>
+      <section id="applying-the-manifest" typeof="bibo:Chapter" resource="#applying-the-manifest" property="bibo:hasPart">
+        <h3 id="applying" resource="#applying"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.3 </span>
+          Applying the manifest
+        </span></h3>
+        <p>
+          A <a href="#dfn-manifest" class="internalDFN">manifest</a> is <dfn id="dfn-applied">applied</dfn> to a <a href="#dfn-top-level-browsing-context" class="internalDFN">top-level browsing
+          context</a>, meaning that the members of the <a href="#dfn-manifest" class="internalDFN">manifest</a> are
+          affecting the presentation or behavior of a browsing context.
+        </p>
+        <p>
+          A <a href="#dfn-top-level-browsing-context" class="internalDFN">top-level browsing context</a> that has a manifest applied to it
+          is referred to as an <dfn id="dfn-application-context">application context</dfn>.
+        </p>
+        <p>
+          If an <a href="#dfn-application-context" class="internalDFN">application context</a> is created as a result of the user
+          agent being asked to <a title="navigated" href="#dfn-navigated" class="internalDFN">navigate</a> to a <a href="#dfn-deep-link" class="internalDFN">deep
+          link</a>, the user agent <em class="rfc2119" title="MUST">MUST</em> immediately <a title="navigated" href="#dfn-navigated" class="internalDFN">navigate</a> to the <a href="#dfn-deep-link" class="internalDFN">deep link</a> with <a href="#dfn-replacement-enabled" class="internalDFN">replacement
+          enabled</a>. Otherwise, when the <a href="#dfn-application-context" class="internalDFN">application context</a> is
+          created, the user agent <em class="rfc2119" title="MUST">MUST</em> immediately <a title="navigated" href="#dfn-navigated" class="internalDFN">navigate</a> to the <a href="#dfn-start-url" class="internalDFN">start URL</a> with <a href="#dfn-replacement-enabled" class="internalDFN">replacement
+          enabled</a>.
+        </p>
+        <div>
+          <p>
+            Please note that the <a href="#dfn-start-url" class="internalDFN">start URL</a> is not necessarily the value
+            of the start_url member: the user or user agent could have changed
+            it when the application was added to home-screen or otherwise
+            bookmarked.
+          </p>
+        </div>
+        <p>
+          The appropriate time to <a title="applied" href="#dfn-applied" class="internalDFN">apply</a> a manifest is
+          when the <a href="#dfn-application-context" class="internalDFN">application context</a> is created and before <a title="navigated" href="#dfn-navigated" class="internalDFN">navigation</a> to the <a href="#dfn-start-url" class="internalDFN">start URL</a> begins.
+        </p>
+      </section>
+      <section id="updating" typeof="bibo:Chapter" resource="#updating" property="bibo:hasPart">
+        <h3 id="h-updating" resource="#h-updating"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4 </span>
+          Updating the manifest
+        </span></h3>
+        <p>
+          By using the <a href="#dfn-manifest-url" class="internalDFN">manifest URL</a>, a user agent <em class="rfc2119" title="MAY">MAY</em> periodically check
+          if the contents of a manifest has been modified (e.g., by honoring
+          HTTP cache directives associated with the manifest or by checking for
+          updates after the web application has been launched). In the event
+          that the members of the manifest have been updated, as determined by
+          running the <a href="#dfn-steps-for-processing-a-manifest" class="internalDFN">steps for processing a manifest</a> and seeing if
+          anything has changed, the user agent <em class="rfc2119" title="MAY">MAY</em> update the metadata
+          corresponding to the web application (e.g., by replacing the name,
+          icons, <a href="#dfn-navigation-scope" class="internalDFN">navigation scope</a>, or whatever other data has been
+          changed).
+        </p>
+        <p>
+          In addition, even if the manifest has not been modified, the user
+          agents <em class="rfc2119" title="MAY">MAY</em> periodically check if resources referenced from a manifest
+          (e.g., the icons) have been modified by honoring HTTP cache
+          directives. If any resources have been modified, the user agent <em class="rfc2119" title="MAY">MAY</em>
+          replace any stale resources.
+        </p>
+        <p>
+          To avoid one application masquerading as another, it is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>
+          that users be made aware of any such updates using implementation or
+          platform specific conventions.
+        </p>
+      </section>
+    </section>
+    <section id="manifest-and-its-members" typeof="bibo:Chapter" resource="#manifest-and-its-members" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-manifest-and-its-members" resource="#h-manifest-and-its-members"><span property="xhv:role" resource="xhv:heading"><span class="secno">7. </span>
+        Manifest and its members
+      </span></h2>
+      <p>
+        A <dfn id="dfn-manifest">manifest</dfn> is a JSON document that contains startup
+        parameters and application defaults for when a web application is
+        launched. A manifest consists of a top-level <a href="#json-object">object</a> that contains zero or more members. Each of
+        the members are defined below, as well as how their values are
+        processed.
+      </p>
+      <p>
+        Every manifest has an associated <dfn id="dfn-manifest-url">manifest URL</dfn>, which the
+        [<cite><a class="bibref" href="#bib-URL">URL</a></cite>] from which the <a href="#dfn-manifest" class="internalDFN">manifest</a> was fetched.
+      </p>
+      <section id="name-member" typeof="bibo:Chapter" resource="#name-member" property="bibo:hasPart">
+        <h3 id="h-name-member" resource="#h-name-member"><span property="xhv:role" resource="xhv:heading"><span class="secno">7.1 </span>
+          <code title="">name</code> member
+        </span></h3>
+        <p>
+          The <dfn id="member-name"><code>name</code></dfn> member is a
+          <a title="json-string" href="#dfn-json-string" class="internalDFN">string</a> that represents the name of the web
+          application as it is usually displayed to the user (e.g., amongst a
+          list of other applications, or as a label for an icon).
+        </p>
+        <div class="note"><div class="note-title" aria-level="4" role="heading" id="h-note6"><span>Note</span></div><p class="">
+          For all intents and purposes, the <a href="#member-name" class="internalDFN"><code>name</code></a> member is
+          functionally equivalent to having a <a href="#dfn-meta-element" class="internalDFN"><code>meta</code> element</a>
+          whose <a title="name attribute" href="#dfn-name-attribute" class="internalDFN">name</a> attribute is
+          <a href="#dfn-application-name" class="internalDFN"><code>application-name</code></a> in a [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>] document. In
+          cases where no suitable name can be derived from processing a
+          manifest, [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>]'s <a href="#dfn-application-name" class="internalDFN">application-name</a> or the
+          <a href="#dfn-title-element" class="internalDFN"><code>title</code> element</a> serve as suitable fallbacks.
+        </p></div>
+        <p>
+          The <dfn id="dfn-steps-for-processing-the-name-member">steps for processing the <code>name</code> member</dfn> is
+          given by the following algorithm. The algorithm takes a
+          <var>manifest</var> as an argument. This algorithm returns a string
+          or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a href="#dfn-getownproperty" class="internalDFN">[[GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>name</code>".
+          </li>
+          <li>If <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>) is not "undefined",
+              optionally <a href="#dfn-issue-a-developer-warning" class="internalDFN">issue a developer warning</a> that the type is not
+              supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a href="#dfn-trim" class="internalDFN">Trim</a>(<var>value</var>) and return the result.
+          </li>
+        </ol>
+      </section>
+      <section id="short_name-member" typeof="bibo:Chapter" resource="#short_name-member" property="bibo:hasPart">
+        <h3 id="h-short_name-member" resource="#h-short_name-member"><span property="xhv:role" resource="xhv:heading"><span class="secno">7.2 </span>
+          <code title="">short_name</code> member
+        </span></h3>
+        <p>
+          The <dfn id="member-short_name"><code>short_name</code></dfn> member
+          is a <a title="json-string" href="#dfn-json-string" class="internalDFN">string</a> that represents a short
+          version of the name of the web application. It is intended to be used
+          where there is insufficient space to display the full name of the web
+          application.
+        </p>
+        <p>
+          The <dfn id="dfn-steps-for-processing-the-short_name-member">steps for processing the <code>short_name</code>
+          member</dfn> is given by the following algorithm. The algorithm takes
+          a <var>manifest</var> as an argument. This algorithm returns a string
+          or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a href="#dfn-getownproperty" class="internalDFN">[[GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>short_name</code>".
+          </li>
+          <li>If <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>) is not "undefined",
+              optionally <a href="#dfn-issue-a-developer-warning" class="internalDFN">issue a developer warning</a> that the type is not
+              supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a href="#dfn-trim" class="internalDFN">Trim</a>(<var>value</var>) and return the result.
+          </li>
+        </ol>
+      </section>
+      <section id="scope-member" typeof="bibo:Chapter" resource="#scope-member" property="bibo:hasPart">
+        <h3 id="h-scope-member" resource="#h-scope-member"><span property="xhv:role" resource="xhv:heading"><span class="secno">7.3 </span>
+          <code>scope</code> member
+        </span></h3>
+        <p>
+          The <dfn id="member-scope"><code>scope</code></dfn> member is a
+          string that represents the navigation scope of this web application's
+          <a href="#dfn-application-context" class="internalDFN">application context</a>.
+        </p>
+        <p>
+          The <dfn id="dfn-steps-for-processing-the-scope-member">steps for processing the <code>scope</code> member</dfn> is
+          given by the following algorithm. The algorithm takes a
+          <a href="#dfn-manifest" class="internalDFN">manifest</a> <var>manifest</var>, a <a href="#dfn-url" class="internalDFN">URL</a> <var>manifest
+          URL</var>, a <a href="#dfn-url" class="internalDFN">URL</a> <var>document URL</var>, and a URL <var>start
+          URL</var>. This algorithm returns a <a href="#dfn-url" class="internalDFN">URL</a> or
+          <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a href="#dfn-getownproperty" class="internalDFN">[[GetOwnProperty]]</a> internal method of the <var>manifest</var>
+          with argument "<code>scope</code>".
+          </li>
+          <li>Let <var>type</var> be <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string" or <var>value</var> is the
+          empty string, then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", <a href="#dfn-issue-a-developer-warning" class="internalDFN">issue
+              a developer warning</a> that the type is unsupported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Let <var>scope URL</var> be a new <a href="#dfn-url" class="internalDFN">URL</a> using
+          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
+          the <var>base</var> URL.
+          </li>
+          <li>If <var>scope URL</var> is failure:
+            <ul>
+              <li>
+                <a href="#dfn-issue-a-developer-warning" class="internalDFN">Issue a developer warning</a>.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ul>
+          </li>
+          <li>If <var>scope URL</var> is not <a href="http://www.whatwg.org/specs/web-apps/current-work/#same-origin">same
+          origin</a> as <var>document URL</var>:
+            <ol>
+              <li>
+                <a href="#dfn-issue-a-developer-warning" class="internalDFN">Issue a developer warning</a> that the <code>scope</code>
+                needs to be <a href="http://www.whatwg.org/specs/web-apps/current-work/#same-origin">
+                same-origin</a> as <code>Document</code> of the <a href="#dfn-application-context" class="internalDFN">application
+                context</a>.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>If <var>start URL</var> is not <a href="#dfn-within-scope" class="internalDFN">within scope</a> of scope URL:
+            <ol>
+              <li>
+                <a href="#dfn-issue-a-developer-warning" class="internalDFN">Issue a developer warning</a> that the start URL is not
+                <a href="#dfn-within-scope" class="internalDFN">within scope</a> of the navigation scope.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, return <var>scope URL</var>.
+          </li>
+        </ol>
+      </section>
+      <section id="icons-member" typeof="bibo:Chapter" resource="#icons-member" property="bibo:hasPart">
+        <h3 id="h-icons-member" resource="#h-icons-member"><span property="xhv:role" resource="xhv:heading"><span class="secno">7.4 </span>
+          <code title="">icons</code> member
+        </span></h3>
+        <p>
+          The <dfn id="member-icons"><code>icons</code></dfn> member is an
+          <a title="json-array" href="#dfn-json-array" class="internalDFN">array</a> of <a title="icon object" href="#dfn-icon-object" class="internalDFN">icon
+          objects</a> that can serve as iconic representations of the web
+          application in various contexts. For example, they can be used to
+          represent the web application amongst a list of other applications,
+          or to integrate the web application with an <abbr title="operating system">OS</abbr>'s task switcher and/or system
+          preferences.
+        </p>
+        <div class="note"><div class="note-title" aria-level="4" role="heading" id="h-note7"><span>Note</span></div><p class="">
+          If no icons are listed in the manifest (or none of them are found to
+          be suitable during processing), it is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> that the user agent
+          fall back to using any icons found in the <code>Document</code> of
+          the <a href="#dfn-top-level-browsing-context" class="internalDFN">top-level browsing context</a>. For example, an <a href="#dfn-icon-link-type" class="internalDFN">icon link
+          type</a> and/or a <code>favicon.ico</code> can serve as suitable
+          fallbacks.
+        </p></div>
+        <p>
+          The <dfn id="dfn-steps-for-processing-the-icons-member">steps for processing the <code>icons</code> member</dfn> are
+          given by the following algorithm. The algorithm takes a manifest, and
+          a <a href="#dfn-url" class="internalDFN">URL</a> <var>manifest URL</var>, which is the URL from which the
+          <var>manifest</var> was fetched. This algorithm will return a list of
+          icons objects <var>icons</var>, which can be empty.
+        </p>
+        <ol>
+          <li>Let <var>icons</var> be an empty list.
+          </li>
+          <li>Let <var>unprocessed icons</var> be the result of calling the <a href="#dfn-getownproperty" class="internalDFN">
+            [[GetOwnProperty]]</a> internal method of <var>manifest</var> with
+            argument "<code>icons</code>".
+          </li>
+          <li>If <var>unprocessed icons</var> is an <a title="json-array" href="#dfn-json-array" class="internalDFN">array</a>, then:
+            <ol>
+              <li>From unprocessed icons, filter out any <var>item</var> where
+              <a href="#dfn-hasownproperty" class="internalDFN">HasOwnProperty</a>(item,"src") returns <code>false</code>.
+              </li>
+              <li>For each <var>potential icon</var> in the array:
+                <ol>
+                  <li>Let <var>src</var> be the result of running the <a href="#dfn-steps-for-processing-the-src-member-of-an-icon" class="internalDFN">steps
+                  for processing the <code>src</code> member of an icon</a>
+                  with <var>potential icon</var> and <var>manifest URL</var>.
+                  </li>
+                  <li>If <var>src</var> is <code>undefined</code>, move onto
+                  the next item in <var>icons</var> (if any are left).
+                  </li>
+                  <li>Otherwise, let <var>icon</var> be an object with
+                  properties <code>src</code>, <code>type</code>,
+                  <code>sizes</code>, and <code>density</code>. All properties
+                  initially set to <code>undefined</code>.
+                  </li>
+                  <li>Set <var>icon</var>'s <code>src</code> property to be
+                  <var>src</var>.
+                  </li>
+                  <li>Let <var>type</var> be the result of running the <a href="#dfn-steps-for-processing-the-type-member-of-an-icon" class="internalDFN">steps
+                  for processing the <code>type</code> member of an icon</a>
+                  passing <var>potential icon</var>.
+                  </li>
+                  <li>If <var>type</var> is not <code>undefined</code>, set
+                  <var>icon</var>'s <code>type</code> property to be
+                  <var>type</var>.
+                  </li>
+                  <li>Let <var>sizes</var> be the list that result from running
+                  the <a href="#dfn-steps-for-processing-a-sizes-member-of-an-icon" class="internalDFN">steps for processing a <code>sizes</code> member of an
+                  icon</a> passing <var>potential icon</var>.
+                  </li>
+                  <li>If <var>sizes</var> is not <code>undefined</code>, set
+                  <var>icon</var>'s <code>sizes</code> property to be
+                  <var>sizes</var>.
+                  </li>
+                  <li>Let <var>density</var> be the result from running the <a href="#dfn-steps-for-processing-a-density-member-of-an-icon" class="internalDFN">
+                    steps for processing a <code>density</code> member of an
+                    icon</a> are given by the passing <var>potential
+                    icon</var>.
+                  </li>
+                  <li>If <var>density</var> is not <code>undefined</code>, set
+                  <var>icon</var>'s <code>density</code> property to be
+                  <var>value</var>.
+                  </li>
+                  <li>Append <var>icon</var> to <var>icons</var>.
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, if <var>unprocessed icons</var> is not
+          <code>undefined</code>:
+            <ol>
+              <li>
+                <a href="#dfn-issue-a-developer-warning" class="internalDFN">Issue a developer warning</a> that the type is not
+                supported.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>icons</var>.
+          </li>
+        </ol>
+        <p>
+          If there are multiple equally appropriate icons in <var>icons</var>,
+          a user agent <em class="rfc2119" title="MUST">MUST</em> use the last one declared in order at the time that
+          the user agent collected the list of <var>icons</var>. If the user
+          agent tries to use an icon but that icon is determined, upon closer
+          examination, to in fact be inappropriate (e.g. because its content
+          type is unsupported), then the user agent <em class="rfc2119" title="MUST">MUST</em> try the
+          next-most-appropriate icon as determined by examining the <a title="icon object" href="#dfn-icon-object" class="internalDFN">icon object's</a> members.
+        </p>
+      </section>
+      <section id="display-member" typeof="bibo:Chapter" resource="#display-member" property="bibo:hasPart">
+        <h3 id="h-display-member" resource="#h-display-member"><span property="xhv:role" resource="xhv:heading"><span class="secno">7.5 </span>
+          <code>display</code> member
+        </span></h3>
+        <p>
+          The <dfn id="member-display"><code>display</code></dfn> member is a
+          <a href="#json-string">string</a>, whose value is one of <a href="#dfn-display-modes-values" class="internalDFN">display
+          modes values</a>. The item represents the developer's preferred
+          <a href="#dfn-display-mode" class="internalDFN">display mode</a> for the web application. When the member is
+          missing or erroneous, the user agent <em class="rfc2119" title="MUST">MUST</em> use the <a href="#dfn-fallback-display-mode" class="internalDFN">fallback display
+          mode</a>.
+        </p>
+        <p>
+          The <dfn id="dfn-steps-for-processing-the-display-member">steps for processing the <code>display</code> member</dfn>
+          are given by the following algorithm. The algorithm takes a manifest
+          <var>manifest</var> as an argument, and returns a string.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a href="#dfn-getownproperty" class="internalDFN">[[GetOwnProperty]]</a> internal method of <var>manifest</var>
+          passing "<code>display</code>" as the argument.
+          </li>
+          <li>If <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>) is not "string" or
+          <var>value</var> is not part of the <a href="#dfn-display-modes-values" class="internalDFN">display modes values</a>:
+            <ol>
+              <li>If <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>) is not "undefined", <a href="#dfn-issue-a-developer-warning" class="internalDFN">issue
+              a developer warning</a> that the type is unsupported.
+              </li>
+              <li>If <var>value</var> is not part of the <a href="#dfn-display-modes-values" class="internalDFN">display modes
+              values</a> , <a href="#dfn-issue-a-developer-warning" class="internalDFN">issue a developer warning</a> that the value is
+              unsupported.
+              </li>
+              <li>Return the <a href="#dfn-fallback-display-mode" class="internalDFN">fallback display mode</a>'s value.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a href="#dfn-trim" class="internalDFN">Trim</a>(<var>value</var>) and set <var>value</var>
+          to be the result.
+          </li>
+          <li>If <var>value</var> is not a <a href="#dfn-display-mode" class="internalDFN">display mode</a> that the user
+          agent supports, set <var>value</var> to <var>value</var>'s
+          <a href="#dfn-fallback-display-mode" class="internalDFN">fallback display mode</a> and re-run this step.
+          </li>
+          <li>Return <var>value</var>.
+          </li>
+        </ol>
+      </section>
+      <section id="orientation-member" typeof="bibo:Chapter" resource="#orientation-member" property="bibo:hasPart">
+        <h3 id="h-orientation-member" resource="#h-orientation-member"><span property="xhv:role" resource="xhv:heading"><span class="secno">7.6 </span>
+          <code>orientation</code> member
+        </span></h3>
+        <p>
+          The <dfn id="member-orientation"><code>orientation</code></dfn>
+          member is a <a href="#json-string">string</a> that serves as the
+          <a href="#dfn-default-orientation" class="internalDFN">default orientation</a> for all <a title="top-level browsing context" href="#dfn-top-level-browsing-context" class="internalDFN">top-level browsing contexts</a> of the
+          web application. The possible values is one of the
+          <a href="#dfn-orientationlocktype" class="internalDFN"><code>OrientationLockType</code></a> enum defined in
+          [<cite><a class="bibref" href="#bib-SCREEN-ORIENTATION">SCREEN-ORIENTATION</a></cite>].
+        </p>
+        <p>
+          If the user agent honors the value of the <code>orientation</code>
+          member as the <a href="#dfn-default-orientation" class="internalDFN">default orientation</a>, then that serves as the
+          <a href="#dfn-default-orientation" class="internalDFN">default orientation</a> for the life of the web application
+          (unless overridden by some other means at runtime). This means that
+          the user agent <em class="rfc2119" title="MUST">MUST</em> return the orientation to the <a href="#dfn-default-orientation" class="internalDFN">default
+          orientation</a> any time the orientation is unlocked
+          [<cite><a class="bibref" href="#bib-SCREEN-ORIENTATION">SCREEN-ORIENTATION</a></cite>] or the <a href="#dfn-top-level-browsing-context" class="internalDFN">top-level browsing context</a> is
+          <a href="#dfn-navigated" class="internalDFN">navigated</a>.
+        </p>
+        <p>
+          Although the specification relies on the [<cite><a class="bibref" href="#bib-SCREEN-ORIENTATION">SCREEN-ORIENTATION</a></cite>]'s
+          <a href="#dfn-orientationlocktype" class="internalDFN"><code>OrientationLockType</code></a>, it is <em class="rfc2119" title="OPTIONAL">OPTIONAL</em> for a user
+          agent to implement the [<cite><a class="bibref" href="#bib-SCREEN-ORIENTATION">SCREEN-ORIENTATION</a></cite>] API. Supporting the
+          [<cite><a class="bibref" href="#bib-SCREEN-ORIENTATION">SCREEN-ORIENTATION</a></cite>] API is, of course, <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>.
+        </p>
+        <p>
+          Certain UI/UX concerns and/or platform conventions will mean that
+          some screen orientations and display modes <dfn id="dfn-cannot-be-used-together">cannot be used
+          together</dfn>. Which orientations and display modes cannot be used
+          together is left to the discretion of implementers. For example, for
+          some user agents, it might not make sense to change the <a href="#dfn-default-orientation" class="internalDFN">default
+          orientation</a> of an application while in <code>browser</code>
+          <a href="#dfn-display-mode" class="internalDFN">display mode</a>.
+        </p>
+        <div class="note"><div class="note-title" aria-level="4" role="heading" id="h-note8"><span>Note</span></div><p class="">
+          Once the web application is running, other means can change the
+          orientation of a <a href="#dfn-top-level-browsing-context" class="internalDFN">top-level browsing context</a> (such as via
+          [<cite><a class="bibref" href="#bib-SCREEN-ORIENTATION">SCREEN-ORIENTATION</a></cite>] API).
+        </p></div>
+        <p>
+          The <dfn id="dfn-steps-for-processing-the-orientation-member">steps for processing the <code>orientation</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes a <a href="#dfn-manifest" class="internalDFN">manifest</a> <var>manifest</var> and <a href="#dfn-display-mode" class="internalDFN">display mode</a>
+          <var>display mode</var> as an argument, and returns a string.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a href="#dfn-getownproperty" class="internalDFN">[[GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>orientation</code>".
+          </li>
+          <li>If <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>) is not "undefined", <a href="#dfn-issue-a-developer-warning" class="internalDFN">issue
+              a developer warning</a> that the type is not supported.
+              </li>
+              <li>Return the empty string.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a href="#dfn-trim" class="internalDFN">Trim</a>(<var>value</var>) and set <var>value</var>
+          to be the result.
+          </li>
+          <li>If <var>value</var> is not one of the
+          <a href="#dfn-orientationlocktype" class="internalDFN"><code>OrientationLockType</code></a> enum values, or
+          <var>value</var> is unsupported by the user agent, or the
+          <var>value</var> <a href="#dfn-cannot-be-used-together" class="internalDFN">cannot be used together</a> with <var>display
+          mode:</var>
+            <ol>
+              <li>
+                <a href="#dfn-issue-a-developer-warning" class="internalDFN">Issue a developer warning</a>.
+              </li>
+              <li>Return the empty string.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>value</var>.
+          </li>
+        </ol>
+      </section>
+      <section id="start_url-member" typeof="bibo:Chapter" resource="#start_url-member" property="bibo:hasPart">
+        <h3 id="h-start_url-member" resource="#h-start_url-member"><span property="xhv:role" resource="xhv:heading"><span class="secno">7.7 </span>
+          <code>start_url</code> member
+        </span></h3>
+        <p>
+          The <dfn title="member-url" id="dfn-member-url"><code>start_url</code></dfn> member is a
+          <a title="json-string" href="#dfn-json-string" class="internalDFN">string</a> that represents the <dfn id="dfn-start-url">start
+          URL</dfn>, which is <a href="#dfn-url" class="internalDFN">URL</a> that the developer would prefer the
+          user agent load when the user launches the web application (e.g.,
+          when the user clicks on the icon of the web application from a
+          device's application menu or homescreen).
+        </p>
+        <p>
+          The <a title="member-url" href="#dfn-member-url" class="internalDFN"><code>start_url</code></a> member is purely
+          advisory, and a user agent <em class="rfc2119" title="MAY">MAY</em> <a href="#dfn-ignore" class="internalDFN">ignore</a> it or provide the
+          end-user the choice not to make use of it. A user agent <em class="rfc2119" title="MAY">MAY</em> also
+          allow the end-user to modify the URL when, for instance, a bookmark
+          for the web application is being create or any time thereafter.
+        </p>
+        <p>
+          The <dfn id="dfn-steps-for-processing-the-start_url-member">steps for processing the <code>start_url</code> member</dfn>
+          are given by the following algorithm. The algorithm takes a
+          <a href="#dfn-manifest" class="internalDFN">manifest</a> <var>manifest</var>, a <a href="#dfn-url" class="internalDFN">URL</a> <var>manifest
+          URL</var>, and a <a href="#dfn-url" class="internalDFN">URL</a> <var>document URL</var>. This algorithm
+          returns a <a href="#dfn-url" class="internalDFN">URL</a>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a href="#dfn-getownproperty" class="internalDFN">[[GetOwnProperty]]</a> internal method of the <var>manifest</var>
+          with argument "<code>start_url</code>".
+          </li>
+          <li>Let <var>type</var> be <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string" or <var>value</var> is the
+          empty string, then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", <a href="#dfn-issue-a-developer-warning" class="internalDFN">issue
+              a developer warning</a> that the type is unsupported.
+              </li>
+              <li>Return a new <a href="#dfn-url" class="internalDFN">URL</a> whose <var>input</var> is
+              <var>document URL</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Let <var>url</var> be a new <a href="#dfn-url" class="internalDFN">URL</a> using <var>value</var> as
+          <var>input</var> and <var>manifest URL</var> as the <var>base</var>
+          URL.
+          </li>
+          <li>If <var>url</var> is failure:
+            <ul>
+              <li>
+                <a href="#dfn-issue-a-developer-warning" class="internalDFN">Issue a developer warning</a>.
+              </li>
+              <li>Return a new <a href="#dfn-url" class="internalDFN">URL</a> whose <var>input</var> is
+              <var>document URL</var>.
+              </li>
+            </ul>
+          </li>
+          <li>If url is not <a href="#dfn-same-origin-1" class="internalDFN">same origin</a> as <var>document URL</var>:
+            <ol>
+              <li>
+                <a href="#dfn-issue-a-developer-warning" class="internalDFN">Issue a developer warning</a> that the
+                <code>start_url</code> needs to be <a href="#dfn-same-origin" class="internalDFN">same-origin</a> as
+                <code>Document</code> of the <a href="#dfn-top-level-browsing-context" class="internalDFN">top-level browsing context</a>.
+              </li>
+              <li>Return a new <a href="#dfn-url" class="internalDFN">URL</a> whose <var>input</var> is
+              <var>document URL</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, return <var>url</var>.
+          </li>
+        </ol>
+        <div class="example">
+          <p>
+            For example, if the <var>value</var> of <code>start_url</code> is
+            <samp>../start_point.html</samp>, and the manifest's URL is
+            <samp>https://example.com/resources/manifest.json</samp>, then the
+            result of <a href="#dfn-url-parsing" class="internalDFN">URL parsing</a> would be
+            <samp>https://example.com/start_point.html</samp>.
+          </p>
+        </div>
+      </section>
+    </section>
+    <section id="icon-object-and-its-members" typeof="bibo:Chapter" resource="#icon-object-and-its-members" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-icon-object-and-its-members" resource="#h-icon-object-and-its-members"><span property="xhv:role" resource="xhv:heading"><span class="secno">8. </span>
+        Icon object and its members
+      </span></h2>
+      <p>
+        Each <dfn id="dfn-icon-object">icon object</dfn> represents an icon for a web application,
+        suitable to use in various contexts (e.g., an application menu). As
+        icons are usually images, this specification provides developers with a
+        means of specifying the dimensions, optimal pixel density, and media
+        type of an icon. A user agent can use these values to select an icon
+        that is best suited to display on the end-user's device or most closely
+        matches the end-user's preferences.
+      </p>
+      <div class="example">
+        <p>
+          In the following example, the developer has made the following
+          choices about the icons of the web application:
+        </p>
+        <ul>
+          <li>The developer has included two icons at the same size, but in
+          different formats. One is explicitly marked as WebP through the
+          <code>type</code> member. If the user agent doesn't support WebP, it
+          falls back to the second icon of the same size (and density). The
+          media type of this icon can then be either determined via a HTTP
+          header, or can be sniffed by the user agent once the first few bytes
+          of the icon are received.
+          </li>
+          <li>The developer wants to use an SVG icon for devices with at least
+          2dppx as the display density and only when the available dimensions
+          are at least 72px. She has found that the SVG file looks too blurry
+          at small sizes, even on high-density screens. To deal with this
+          problem, she's included an SVG icon that is only used when the
+          dimensions are at least 72px and the pixel density is at least 2dppx.
+          Otherwise, the user agent uses the ICO file (hd_hi.ico), which
+          includes a gamut of icons individually tailored for small display
+          sizes.
+          </li>
+        </ul>
+        <pre class="">{
+  "icons": [
+      {
+        "src": "icon/lowres.webp",
+        "sizes": "48x48",
+        "type": "image/webp"
+      },{
+        "src": "icon/lowres",
+        "sizes": "48x48"
+      },{
+        "src": "icon/hd_hi.ico",
+        "sizes": "72x72 96x96 128x128 256x256"
+      },{
+        "src": "icon/hd_hi.svg",
+        "sizes": "72x72",
+        "density": 2
+      }]
+ }
+</pre>
+      </div>
+      <div class="note"><div class="note-title" aria-level="3" role="heading" id="h-note9"><span>Note</span></div><p class="">
+        For all intents and purposes, an <a href="#dfn-icon-object" class="internalDFN">icon object</a> is functionally
+        equivalent to <a href="#dfn-link-element" class="internalDFN"><code>link</code> element</a> whose
+        <a href="#dfn-rel-attribute" class="internalDFN"><code>rel</code> attribute</a> is icon in a <code>Document</code>.
+      </p></div>
+      <section id="content-security-policy-of-icon-object" typeof="bibo:Chapter" resource="#content-security-policy-of-icon-object" property="bibo:hasPart">
+        <h3 id="h-content-security-policy-of-icon-object" resource="#h-content-security-policy-of-icon-object"><span property="xhv:role" resource="xhv:heading"><span class="secno">8.1 </span>
+          Content security policy of icon object
+        </span></h3>
+        <p>
+          The security policy that governs whether a <a href="#dfn-user-agent" class="internalDFN">user agent</a> can
+          fetch an icon image is governed by the <code>image-src</code>
+          directive [<cite><a class="bibref" href="#bib-CSP2">CSP2</a></cite>] associated with the manifest's owner
+          <code>Document</code>.
+        </p>
+        <div class="example">
+          <p>
+            For example, the following policy restricts loading icons the
+            <code>icons.example.com</code> domain. Thus, trying to load icons
+            from "other.com" would fail.
+          </p>
+          <pre class="highlight prettyprint prettyprinted"><span class="pln">HTTP</span><span class="pun">/</span><span class="lit">1.1</span><span class="pln"> </span><span class="lit">200</span><span class="pln"> OK
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Type</span><span class="pun">:</span><span class="pln"> application</span><span class="pun">/</span><span class="pln">json
+</span><span class="typ">Content</span><span class="pun">-</span><span class="typ">Security</span><span class="pun">-</span><span class="typ">Policy</span><span class="pun">:</span><span class="pln"> img</span><span class="pun">-</span><span class="pln">src icons</span><span class="pun">.</span><span class="pln">example</span><span class="pun">.</span><span class="pln">com</span><span class="pun">;</span><span class="pln">
+
+</span><span class="pun">{</span><span class="pln">
+    </span><span class="str">"name"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"custom manifest"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"start_url"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"http://boo"</span><span class="pun">,</span><span class="pln">
+    </span><span class="str">"icons"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[{</span><span class="pln">
+        </span><span class="str">"src"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"//icons.example.com/lowres"</span><span class="pln">
+      </span><span class="pun">},</span><span class="pln">
+      </span><span class="pun">{</span><span class="pln">
+        </span><span class="str">"src"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"//other.com/hi-res"</span><span class="pln">
+      </span><span class="pun">}]</span><span class="pln">
+</span><span class="pun">}</span></pre>
+        </div>
+      </section>
+      <section id="density-member" typeof="bibo:Chapter" resource="#density-member" property="bibo:hasPart">
+        <h3 id="h-density-member" resource="#h-density-member"><span property="xhv:role" resource="xhv:heading"><span class="secno">8.2 </span>
+          <code>density</code> member
+        </span></h3>
+        <p>
+          The <dfn id="icon-densitiy">density</dfn> member of an icon is the
+          device pixel density for which this icon was designed. The device
+          pixel density is expressed as the number of dots per 'px' unit
+          (equivalent to a dppx as defined in [<cite><a class="bibref" href="#bib-css3-values">css3-values</a></cite>]). The value is a
+          positive number greater than 0. If the developer omits the value, the
+          user agent assumes the value <code>1.0</code>.
+        </p>
+        <p>
+          The <dfn id="dfn-steps-for-processing-a-density-member-of-an-icon">steps for processing a <code>density</code> member of an
+          icon</dfn> are given by the following algorithm. The algorithm thanks
+          an <var>icon</var> object as an argument and returns a positive
+          number.
+        </p>
+        <ol>
+          <li>If [[HasOwnProperty]] internal method of <var>icon</var> passing
+          <code>density</code> as the argument returns <code>false</code>:
+            <ol>
+              <li>Return 1.0.
+              </li>
+            </ol>
+          </li>
+          <li>Let <var>value</var> be the result of calling the
+          [[GetOwnProperty]] internal method of <var>icon</var> passing
+          "<code>density</code>" as the argument.
+          </li>
+          <li>Let <var>result</var> be the result of
+          <a href="#dfn-parsefloat" class="internalDFN">parseFloat</a>(<var>value</var>);
+          </li>
+          <li>If <var>result</var> is <code>NaN</code>, +∞, or less than or
+          equal to +0, then:
+            <ol>
+              <li>
+                <a href="#dfn-issue-a-developer-warning" class="internalDFN">Issue a developer warning</a>.
+              </li>
+              <li>Let <var>result</var> be 1.0.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>result</var>.
+          </li>
+        </ol>
+      </section>
+      <section id="sizes-member" typeof="bibo:Chapter" resource="#sizes-member" property="bibo:hasPart">
+        <h3 id="h-sizes-member" resource="#h-sizes-member"><span property="xhv:role" resource="xhv:heading"><span class="secno">8.3 </span>
+          <code>sizes</code> member
+        </span></h3>
+        <p>
+          The <dfn title="icon-sizes" id="dfn-icon-sizes">sizes</dfn> member is a <a title="json-string" href="#dfn-json-string" class="internalDFN">string</a> consisting of an <a href="#dfn-unordered-set-of-unique-space-separated-tokens" class="internalDFN">unordered set of unique
+          space-separated tokens</a> which are <a href="#dfn-ascii-case-insensitive" class="internalDFN">ASCII case-insensitive</a>
+          that represents the dimensions of an icon for visual media. Each
+          keyword is either an <a href="#dfn-ascii-case-insensitive" class="internalDFN">ASCII case-insensitive</a> match for the
+          string "<a href="#dfn-any" class="internalDFN">any</a>", or a value that consists of two <a title="valid non-negative integer" href="#dfn-valid-non-negative-integer" class="internalDFN">valid non-negative integers</a> that do
+          not have a leading U+0030 DIGIT ZERO (0) character and that are
+          separated by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN
+          CAPITAL LETTER X character. The keywords represent icon sizes in raw
+          pixels (as opposed to CSS pixels). When multiple <a title="icon object" href="#dfn-icon-object" class="internalDFN">icon objects</a> are available, a user agent can use
+          the value to decide which icon is most suitable for a display context
+          (and ignore any that are inappropriate).
+        </p>
+        <p>
+          The <dfn id="dfn-steps-for-processing-a-sizes-member-of-an-icon">steps for processing a <code>sizes</code> member of an
+          icon</dfn> are given by the following algorithm. The algorithm takes
+          an <a href="#dfn-icon-object" class="internalDFN">icon object</a> <var>icon</var>. This algorithm will return a
+          set.
+        </p>
+        <ol>
+          <li>Let <var>sizes</var> be an empty set.
+          </li>
+          <li>Let <var>value</var> be the result of calling the
+          <a href="#dfn-getownproperty" class="internalDFN">[[GetOwnProperty]]</a> internal method of <var>icon</var> passing
+          "<code>sizes</code>" as the argument.
+          </li>
+          <li>Let <var>type</var> be <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string", then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", <a href="#dfn-issue-a-developer-warning" class="internalDFN">issue
+              a developer warning</a> that the type is unsupported.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, parse <var>value</var> as if it was a [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>] <code>
+            <a href="#dfn-sizes" class="internalDFN">sizes</a></code> attribute and let <var>keywords</var> be the
+            result.
+          </li>
+          <li>For each <var>keyword</var> in <var>keywords</var>:
+            <ol>
+              <li>Convert <var>keyword</var> <a href="#dfn-to-ascii-lowercase" class="internalDFN">to ASCII lowercase</a> and add
+              the resulting string to <var>sizes</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>sizes</var>.
+          </li>
+        </ol>
+      </section>
+      <section id="src-member" typeof="bibo:Chapter" resource="#src-member" property="bibo:hasPart">
+        <h3 id="h-src-member" resource="#h-src-member"><span property="xhv:role" resource="xhv:heading"><span class="secno">8.4 </span>
+          <code>src</code> member
+        </span></h3>
+        <p>
+          The <dfn title="icon-density" id="dfn-icon-density">src</dfn> member of an icon is a
+          <a href="#dfn-url" class="internalDFN">URL</a> from which a user agent can fetch the icon's data.
+        </p>
+        <p>
+          The <dfn id="dfn-steps-for-processing-the-src-member-of-an-icon">steps for processing the <code>src</code> member of an
+          icon</dfn> are given by the following algorithm. The algorithm takes
+          a <a href="#dfn-icon-object" class="internalDFN">icon object</a> <var>icon</var>, and a <a href="#dfn-url" class="internalDFN">URL</a> <var>manifest
+          URL</var>, which is the <a href="#dfn-url" class="internalDFN">URL</a> from which the <var>manifest</var>
+          was fetched. This algorithm will return a <a href="#dfn-url" class="internalDFN">URL</a> or
+          <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a href="#dfn-getownproperty" class="internalDFN">[[GetOwnProperty]]</a> internal method of <var>icon</var> passing
+          "<code>src</code>" as the argument.
+          </li>
+          <li>Let <var>type</var> be <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string", or <var>value</var> is the
+          empty string, then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is unsupported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>If <a href="#dfn-trim" class="internalDFN">Trim</a>(value) is the empty string, then return
+          <code>undefined</code>.
+          </li>
+          <li>Otherwise, <a title="URL parsing" href="#dfn-url-parsing" class="internalDFN">parse</a> <var>value</var>
+          using <var>manifest URL</var> as the base URL and return the result.
+          </li>
+        </ol>
+      </section>
+      <section id="type-member" typeof="bibo:Chapter" resource="#type-member" property="bibo:hasPart">
+        <h3 id="h-type-member" resource="#h-type-member"><span property="xhv:role" resource="xhv:heading"><span class="secno">8.5 </span>
+          <code>type</code> member
+        </span></h3>
+        <p>
+          The <dfn title="icon-type" id="dfn-icon-type">type</dfn> member of an icon is a hint as
+          to the media type of the icon. The purpose of this member is to allow
+          a user agent to ignore icons of media types it does not support.
+        </p>
+        <p>
+          There is no default MIME type for icon objects. However, for the
+          purposes of <a href="#dfn-determining-the-type-of-the-resource" class="internalDFN">determining the type of the resource</a>, user agents
+          must expect the resource to be an image.
+        </p>
+        <p>
+          The <dfn id="dfn-steps-for-processing-the-type-member-of-an-icon">steps for processing the <code>type</code> member of an
+          icon</dfn> are given by the following algorithm. The algorithm takes
+          an <var>icon</var> object as an argument, and returns either a string
+          or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a href="#dfn-getownproperty" class="internalDFN">[[GetOwnProperty]]</a> internal method of <var>potential
+          icon</var> passing "<code>type</code>" as the argument.
+          </li>
+          <li>Let <var>type</var> be <a href="#dfn-type" class="internalDFN">Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string", then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is unsupported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Trim(<var>value</var>) and set <var>value</var> to be resulting
+          string.
+          </li>
+          <li>If <var>value</var> is not a <a href="#dfn-valid-mime-type" class="internalDFN">valid MIME type</a> or the value
+          of <var>type</var> is not a supported media format, issue a developer
+          warning and return <code>undefined</code>.
+          </li>
+          <li>Return <var>value</var>.
+          </li>
+        </ol>
+      </section>
+    </section>
+    <section id="common-conventions-and-dependencies" typeof="bibo:Chapter" resource="#common-conventions-and-dependencies" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-common-conventions-and-dependencies" resource="#h-common-conventions-and-dependencies"><span property="xhv:role" resource="xhv:heading"><span class="secno">9. </span>
+        Common conventions and dependencies
+      </span></h2>
+      <p>
+        The <a href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
+        <dfn id="dfn-getownproperty">[[GetOwnProperty]]</dfn></a> operation and the abstract operation
+        <dfn id="dfn-hasownproperty"><a href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-hasownproperty">
+        hasOwnProperty</a></dfn>, <dfn title="parseFloat" id="dfn-parsefloat"><a href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-parsefloat-string">
+        parseFloat(string)</a></dfn> function, and the <a class="external" href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
+        <dfn id="dfn-type">Type</dfn>(<var>x</var>)</a> notation are defined in
+        [<cite><a class="bibref" href="#bib-ECMASCRIPT">ECMASCRIPT</a></cite>].
+      </p>
+      <p>
+        When instructed to <dfn id="dfn-trim">Trim</dfn>(<var>x</var>), a user agent <em class="rfc2119" title="MUST">MUST</em>
+        behave as if [<cite><a class="bibref" href="#bib-ECMASCRIPT">ECMASCRIPT</a></cite>]'s <a href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-string.prototype.trim">
+        String.prototype.trim()</a> function had been called on the string
+        <var>x</var>.
+      </p>
+      <p>
+        As the manifest uses the JSON format, this specification relies on the
+        types defined in [<cite><a class="bibref" href="#bib-ECMA-404">ECMA-404</a></cite>] specification: namely <dfn title="json-object" id="dfn-json-object">object</dfn>, <dfn title="json-array" id="dfn-json-array">array</dfn>,
+        <dfn title="json-number" id="dfn-json-number">number</dfn>, <dfn title="json-string" id="dfn-json-string">string</dfn>, <code>true</code>, <code>false</code>, and
+        <code>null</code>. Strict type checking is not enforced by this
+        specification. Instead, each member's definition specifies the steps
+        required to process a particular member and what to do when a type does
+        not match what is expected.
+      </p>
+      <p>
+        The <dfn id="dfn-url"><a href="https://url.spec.whatwg.org/#concept-url">URL</a></dfn> concept and
+        <dfn id="dfn-url-parsing"><a href="https://url.spec.whatwg.org/#url-parsing">URL
+        parsing</a></dfn> are defined in [<cite><a class="bibref" href="#bib-WHATWG-URL">WHATWG-URL</a></cite>].
+      </p>
+      <p>
+        The <a href="https://w3c.github.io/screen-orientation/#dfn-default-orientation"><dfn id="dfn-default-orientation">
+        default orientation</dfn></a> concept and the <a href="https://w3c.github.io/screen-orientation/#idl-def-OrientationLockType">
+        <dfn id="dfn-orientationlocktype"><code>OrientationLockType</code></dfn></a> enum, are defined in
+        [<cite><a class="bibref" href="#bib-SCREEN-ORIENTATION">SCREEN-ORIENTATION</a></cite>].
+      </p>
+      <p>
+        The following are defined in [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>]:
+      </p>
+      <ul>
+        <li>
+          <a href="https://html.spec.whatwg.org/multipage/browsers.html#allowed-to-navigate">
+          <dfn id="dfn-allowed-to-navigate">allowed to navigate</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#external-resource-link">
+          <dfn id="dfn-external-resource-link">external Resource link</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
+          <dfn id="dfn-top-level-browsing-context">top-level browsing context</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#same-origin"><dfn id="dfn-same-origin">
+          same-origin</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#unordered-set-of-unique-space-separated-tokens">
+          <dfn id="dfn-unordered-set-of-unique-space-separated-tokens">unordered set of unique space-separated tokens</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#navigate"><dfn id="dfn-navigated">navigated</dfn></a>
+        </li>
+        <li>
+          <a href="https://html.spec.whatwg.org/multipage/browsers.html#replacement-enabled">
+          <dfn id="dfn-replacement-enabled">replacement enabled</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-link-element">
+          <dfn id="dfn-link-element"><code>link</code> element</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#linkTypes"><dfn id="dfn-link-type">link
+          type</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-link-media">
+          <dfn id="dfn-media">media</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#delay-the-load-event">
+          <dfn id="dfn-delay-the-load-event">delay the load event</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#tree-order"><dfn id="dfn-tree-order">tree
+          order</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#attr-link-rel"><dfn id="dfn-rel-attribute">
+          <code>rel</code> attribute</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
+          <dfn id="dfn-obtain-a-resource">obtain a resource</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#networking-task-source">
+          <dfn id="dfn-networking-task-source">networking task source</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#queue-a-task"><dfn id="dfn-queue-a-task">
+          queue a task</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#origin"><dfn id="dfn-origin">origin</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#the-a-element"><dfn id="dfn-a-element">
+          <code>a</code> element</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
+          <dfn id="dfn-meta-element"><code>meta</code> element</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#the-area-element">
+          <dfn id="dfn-area-element"><code>area</code> element</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name"><dfn id="dfn-name-attribute">
+          <code>name</code> attribute</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
+          <dfn id="dfn-application-name">application-name</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#the-title-element">
+          <dfn id="dfn-title-element"><code>title</code> element</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#rel-icon"><dfn id="dfn-icon-link-type">icon
+          link type</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">
+          <dfn id="dfn-ascii-case-insensitive">ASCII case-insensitive</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes-any">
+          <dfn id="dfn-any">any</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#valid-non-negative-integer">
+          <dfn id="dfn-valid-non-negative-integer">valid non-negative integer</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes"><dfn id="dfn-sizes">
+          sizes</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#converted-to-ascii-lowercase">
+          <dfn id="dfn-to-ascii-lowercase">to ASCII lowercase</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#concept-link-type-sniffing">
+          <dfn id="dfn-determining-the-type-of-the-resource">determining the type of the resource</dfn></a>
+        </li>
+        <li>
+          <a href="http://www.whatwg.org/specs/web-apps/current-work/#valid-mime-type"><dfn id="dfn-valid-mime-type">
+          valid MIME type</dfn></a>
+        </li>
+        <li>
+          <a href="https://html.spec.whatwg.org/#same-origin"><dfn id="dfn-same-origin-1">same
+          origin</dfn></a>
+        </li>
+      </ul>
+    </section>
+    <section id="iana-considerations" typeof="bibo:Chapter" resource="#iana-considerations" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-iana-considerations" resource="#h-iana-considerations"><span property="xhv:role" resource="xhv:heading"><span class="secno">10. </span>
+        IANA considerations
+      </span></h2>
+      <p>
+        The following registration is for community review and will be
+        submitted to the IESG for review, approval, and registration with IANA.
+      </p>
+      <section id="media-type-registration" typeof="bibo:Chapter" resource="#media-type-registration" property="bibo:hasPart">
+        <h3 id="h-media-type-registration" resource="#h-media-type-registration"><span property="xhv:role" resource="xhv:heading"><span class="secno">10.1 </span>
+          Media type registration
+        </span></h3>
+        <p>
+          This section contains the required text for MIME media type
+          registration with IANA.
+        </p>
+        <p>
+          The <dfn id="dfn-media-type-for-a-manifest">media type for a manifest</dfn> is
+          <code>application/manifest+json</code>.
+        </p>
+        <p>
+          If the protocol over which the manifest is transferred supports the
+          [<cite><a class="bibref" href="#bib-MIME-TYPES">MIME-TYPES</a></cite>] specification (e.g. HTTP), it is <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> that the
+          manifest be labeled with the <a href="#dfn-media-type-for-a-manifest" class="internalDFN">media type for a manifest</a>.
+        </p>
+        <dl>
+          <dt>
+            Type name:
+          </dt>
+          <dd>
+            application
+          </dd>
+          <dt>
+            Subtype name:
+          </dt>
+          <dd>
+            manifest+json
+          </dd>
+          <dt>
+            Required parameters:
+          </dt>
+          <dd>
+            N/A
+          </dd>
+          <dt>
+            Optional parameters:
+          </dt>
+          <dd>
+            N/A
+          </dd>
+          <dt>
+            Encoding considerations:
+          </dt>
+          <dd>
+            Same as for application/json
+          </dd>
+          <dt>
+            Security and privacy considerations:
+          </dt>
+          <dd>
+            <p>
+              This specification does not directly deal with high-value data.
+              However, <a href="#dfn-installed" class="internalDFN">installed</a> web applications and their data could
+              be seen as "high value" (particulaly from a privacy perspective).
+            </p>
+            <p>
+              As the manifest format is JSON and will commonly be encoded using
+              [<cite><a class="bibref" href="#bib-UNICODE">UNICODE</a></cite>], the security considerations described in
+              [<cite><a class="bibref" href="#bib-ECMA-404">ECMA-404</a></cite>] and [<cite><a class="bibref" href="#bib-UNICODE-SECURITY">UNICODE-SECURITY</a></cite>] apply. In addition,
+              because there is no way to prevent developers from including
+              custom/unrestrained data in a <a href="#dfn-manifest" class="internalDFN">manifest</a>, implementors need
+              to impose their own implementation-specific limits on the values
+              of otherwise unconstrained member types, e.g. to prevent denial
+              of service attacks, to guard against running out of memory, or to
+              work around platform-specific limitations.
+            </p>
+            <p>
+              Web applications will generally contain ECMAScript, HTML, CSS
+              files, and other media, which are executed in a sand-boxed
+              environment. As such, implementors need to be aware of the
+              security implications for the types they support. Specifically,
+              implementors need to consider the security implications outlined
+              in at least the following specifications: [<cite><a class="bibref" href="#bib-CSS-MIME">CSS-MIME</a></cite>],
+              [<cite><a class="bibref" href="#bib-ECMAScript-MIME">ECMAScript-MIME</a></cite>], [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>].
+            </p>
+            <p>
+              As web applications can contain content that is able to
+              simultaneously interact with the local device and a remote host,
+              implementors need to consider the privacy implications resulting
+              from exposing private information to a remote host. Mitigation
+              and in-depth defensive measures are an implementation
+              responsibility and not prescribed by this specification. However,
+              in designing these measures, implementors are advised to enable
+              user awareness of information sharing, and to provide easy access
+              to interfaces that enable revocation of permissions.
+            </p>
+            <p>
+              As this specification allows for the declaration of URLs within
+              certain members of a manifest, implementors need to consider the
+              security considerations discussed in the [<cite><a class="bibref" href="#bib-WHATWG-URL">WHATWG-URL</a></cite>]
+              specification. Implementations intending to display <abbr title="Internationalized Resource Identifiers">IRIs</abbr> and
+              <abbr title="Internationalized domain name">IDNA</abbr> addresses
+              found in the manifest are strongly encouraged to follow the
+              security advice given in [<cite><a class="bibref" href="#bib-UNICODE-SECURITY">UNICODE-SECURITY</a></cite>].
+            </p>
+            <p>
+              Developers need to be aware of the security considerations
+              discussed throughout the [<cite><a class="bibref" href="#bib-CSP2">CSP2</a></cite>] specification, particularly in
+              relation to making <code>data:</code> a valid source for the
+              purpose of <q>inlining</q> a manifest. Doing so can enable XSS
+              attacks by allowing a manifest to be included directly in the
+              document itself; this is best avoided completely.
+            </p>
+          </dd>
+          <dt>
+            Applications that use this media type:
+          </dt>
+          <dd>
+            Web browsers
+          </dd>
+          <dt>
+            Additional information:
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                Magic number(s):
+              </dt>
+              <dd>
+                N/A
+              </dd>
+              <dt>
+                File extension(s):
+              </dt>
+              <dd>
+                .json, .manifest
+              </dd>
+              <dt>
+                Macintosh file type code(s):
+              </dt>
+              <dd>
+                TEXT
+              </dd>
+            </dl>
+          </dd>
+          <dt>
+            Person &amp; email address to contact for further information:
+          </dt>
+          <dd>
+            The <a href="http://www.w3.org/2008/webapps/" rel="nofollow">Web
+            Applications (WebApps) Working Group</a> can be contacted at
+            <a href="http://lists.w3.org/Archives/Public/public-webapps/" rel="nofollow">public-webapps@w3.org</a>.
+          </dd>
+          <dt>
+            Intended usage:
+          </dt>
+          <dd>
+            COMMON
+          </dd>
+          <dt>
+            Restrictions on usage:
+          </dt>
+          <dd>
+            none
+          </dd>
+          <dt>
+            Author:
+          </dt>
+          <dd>
+            <abbr title="World Wide Web Consortium">W3C</abbr>'s Web Applications (WebApps) Working Group.
+          </dd>
+          <dt>
+            Change controller:
+          </dt>
+          <dd>
+            <abbr title="World Wide Web Consortium">W3C</abbr>.
+          </dd>
+        </dl>
+      </section>
+    </section>
+    <section id="conformance" data-status="done" typeof="bibo:Chapter" resource="#conformance" property="bibo:hasPart"><!--OddPage--><h2 id="h-conformance" resource="#h-conformance"><span property="xhv:role" resource="xhv:heading"><span class="secno">11. </span>Conformance</span></h2>
+<p>
+  As well as sections marked as non-normative, all authoring guidelines, diagrams, examples,
+  and notes in this specification are non-normative. Everything else in this specification is
+  normative.
+</p>
+<p id="respecRFC2119">The key words <em class="rfc2119" title="MAY">MAY</em>, <em class="rfc2119" title="MUST">MUST</em>, <em class="rfc2119" title="MUST NOT">MUST NOT</em>, <em class="rfc2119" title="OPTIONAL">OPTIONAL</em>, <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em>, and <em class="rfc2119" title="REQUIRED">REQUIRED</em> are 
+  to be interpreted as described in [<cite><a class="bibref" href="#bib-RFC2119">RFC2119</a></cite>].
+</p>
+
+      <p>
+        There is only one class of product that can claim conformance to this
+        specification: a <dfn id="dfn-user-agent">user agent</dfn>.
+      </p>
+      <section class="informative" id="extensibility" typeof="bibo:Chapter" resource="#extensibility" property="bibo:hasPart">
+        <h3 id="h-extensibility" resource="#h-extensibility"><span property="xhv:role" resource="xhv:heading"><span class="secno">11.1 </span>
+          Extensibility
+        </span></h3><p><em>This section is non-normative.</em></p>
+        <p>
+          This specification is designed to be extensible. Other specifications
+          are encouraged to define new members for the manifest. However, in
+          doing so, please follow the conventions used in this specification.
+          In particular, use the <a href="#dfn-extension-point" class="internalDFN">extension point</a> to hook into the
+          <a href="#dfn-steps-for-processing-a-manifest" class="internalDFN">steps for processing a manifest</a>. Also, be sure to specify the
+          steps for processing your particular member in the manner set forth
+          in this specification. This will help keep this part of the platform
+          consistent.
+        </p>
+        <p>
+          When specifying a new member, don't override or <a href="http://annevankesteren.nl/2014/02/monkey-patch">monkey patch</a>
+          anything defined in this specification. Also, don't assume your
+          member will be processed before or after any other member. Keep your
+          new member, and its processing, atomic and self contained. Note also
+          that implementations are free to ignore any member they do not
+          recognize or support.
+        </p>
+        <p>
+          If you are writing a specification and temporarily want to patch this
+          specification to help implementations along, <a href="https://github.com/w3c/manifest/issues">file a bug</a> so the
+          community is informed of what you are trying to do.
+        </p>
+        <section id="proprietary-extensions" class="informative" typeof="bibo:Chapter" resource="#proprietary-extensions" property="bibo:hasPart">
+          <h4 id="h-proprietary-extensions" resource="#h-proprietary-extensions"><span property="xhv:role" resource="xhv:heading"><span class="secno">11.1.1 </span>
+            Proprietary manifest members
+          </span></h4><p><em>This section is non-normative.</em></p>
+          <p>
+            Although proprietary extensions are undesirable, they can't
+            realistically be avoided. As such, the <em class="rfc2119" title="RECOMMENDED">RECOMMENDED</em> way to add a new
+            proprietary manifest member as an extension is to use a vendor
+            prefix.
+          </p>
+          <p>
+            The following is an example of two hypothetical vendor extensions.
+          </p>
+          <div class="example"><div class="example-title"><span>Example 5</span>: vendor extensions</div><pre class="example highlight json prettyprint prettyprinted"><span class="pun">{</span><span class="pln">
+  </span><span class="pun">...</span><span class="pln">
+  </span><span class="str">"webkit_fancy_feature"</span><span class="pun">:</span><span class="pln"> </span><span class="str">"some/url/img"</span><span class="pun">,</span><span class="pln">
+  </span><span class="str">"moz_awesome_thing"</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="pun">...</span><span class="pln"> </span><span class="pun">}</span><span class="pln">
+  </span><span class="pun">...</span><span class="pln">
+</span><span class="pun">}</span></pre></div>
+        </section>
+      </section>
+    </section>
+    <section id="json-ld-extensions" class="appendix" typeof="bibo:Chapter" resource="#json-ld-extensions" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-json-ld-extensions" resource="#h-json-ld-extensions"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>
+        JSON-LD extensions to the manifest
+      </span></h2>
+      <p>
+        The mechanisms defined by the [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>] specification can be used as
+        an alternative mechanism for extending the manifest.
+      </p>
+      <p>
+        In the following example, for instance, elements from both the Dublin
+        Core Metadata Set [<cite><a class="bibref" href="#bib-DC-TERMS">DC-TERMS</a></cite>], the Friend of a Friend [<cite><a class="bibref" href="#bib-FOAF">FOAF</a></cite>]
+        vocabulary, and the <a href="https://github.com/edumbill/doap/wiki">Description of a Project
+        (DOAP)</a> vocabulary are used to provide additional information in the
+        manifest:
+      </p>
+      <div class="example"><div class="example-title"><span>Example 6</span>: JSON-LD extensions</div><pre class="example hightlight json">{
+  "@context": {
+    "@vocab": "http://www.w3.org/TR/appmanifest/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "dct": "http://purl.org/dc/terms/",
+    "doap": "http://usefulinc.com/ns/doap#"
+  },
+  "name": "Super Racer 2000",
+  "dct:creator": "http://example.com",
+  "dct:abstract": "A Super Racer Game!",
+  "doap:maintainer": {
+    "foaf:name": "Joe"
+  },
+  "icons": [{
+    "src": "icon/lowres",
+    "sizes": "64x64",
+    "type": "image/webp"
+  }, {
+    "src": "icon/hd_small",
+    "sizes": "64x64"
+  }, {
+    "src": "icon/hd_hi",
+    "sizes": "128x128"
+  }],
+  "start_url": "/start.html",
+  "display": "fullscreen",
+  "orientation": "landscape"
+}</pre></div>
+      <p>
+        Non JSON-LD implementations can simply ignore the additional JSON-LD
+        specific metadata such as <code>@context</code> and the extension
+        properties <code>dct:creator</code>, <code>dct:abstract</code> and
+        <code>doap:maintainer</code>.
+      </p>
+      <p>
+        For implementations that do process the manifest as JSON-LD, the
+        manifest's own property names are interpreted relative to the base URI
+        "<code>http://www.w3.org/TR/appmanifest/</code>".
+      </p>
+      <p>
+        After processing the example above, a JSON-LD implementation would
+        yield the following normalized output:
+      </p>
+      <div class="example"><div class="example-title"><span>Example 7</span></div><pre class="example highlight prettyprint prettyprinted"><span class="pln">_</span><span class="pun">:</span><span class="pln">c14n0 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/sizes&gt; "64x64" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n0 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/src&gt; "icon/hd_small" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n1 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//purl.org/dc/terms/abstract&gt; "A Super Racer Game!" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n1 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//purl.org/dc/terms/creator&gt; "http://example.com" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n1 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//usefulinc.com/ns/doap#maintainer&gt; _:c14n4 .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n1 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/display&gt; "fullscreen" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n1 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/icons&gt; _:c14n0 .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n1 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/icons&gt; _:c14n2 .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n1 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/icons&gt; _:c14n3 .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n1 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/name&gt; "Super Racer 2000" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n1 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/orientation&gt; "landscape" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n1 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/start_url&gt; "/start.html" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n2 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/sizes&gt; "64x64" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n2 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/src&gt; "icon/lowres" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n2 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/type&gt; "image/webp" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n3 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/sizes&gt; "128x128" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n3 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//www.w3.org/TR/appmanifest/src&gt; "icon/hd_hi" .</span><span class="pln">
+_</span><span class="pun">:</span><span class="pln">c14n4 </span><span class="pun">&lt;</span><span class="pln">http</span><span class="pun">:</span><span class="com">//xmlns.com/foaf/0.1/name&gt; "Joe" .</span></pre></div>
+    </section>
+    <section class="appendix" id="relationship-to-html-s-link-and-meta-elements" typeof="bibo:Chapter" resource="#relationship-to-html-s-link-and-meta-elements" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-relationship-to-html-s-link-and-meta-elements" resource="#h-relationship-to-html-s-link-and-meta-elements"><span property="xhv:role" resource="xhv:heading"><span class="secno">B. </span>
+        Relationship to HTML's <code>link</code> and <code>meta</code> elements
+      </span></h2>
+      <p>
+        An extensive discussion of why we chose to use JSON instead of HTML
+        <code>meta</code>/<code>link</code> tags for this specification is
+        available on <a href="https://github.com/w3c/manifest/issues/97">GitHub</a> and on the
+        <a href="http://lists.w3.org/Archives/Public/www-tag/2014Jan/0139.html">www-tag</a>
+        list. Below is a short summary of the key points raised in those
+        discussions.
+      </p>
+      <p>
+        The document format defined in this specification provides a unified
+        means of encapsulating metadata about a Web application in a way that
+        we hope will avoid existing pitfalls with both proprietary and
+        [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>]'s <code>meta</code>/<code>link</code> tags. Those pitfalls
+        include:
+      </p>
+      <ul>
+        <li>Developers have to duplicate the icons and application name in each
+        page of a web site, leading to significant redundancy across pages.
+        This is compounded if that information never gets used by the user
+        agent (e.g., the user never bookmarks the web application).
+        </li>
+        <li>Spreading metadata across multiple documents can cause data to fall
+        out of sync.
+        </li>
+        <li>If the metadata for a web application lives in a HTML document,
+        that significantly increases the cost to user agents (and users) of
+        checking for updates to the metadata of a site. Since the HTML file is
+        likely to change often, it means that a user agent will often have to
+        download the whole HTML file in order to check if any of the relevant
+        meta tags have changed. If this resource contains inlined resources
+        like JavaScript, images, or stylesheets, this could be a non-trivial
+        download.
+        </li>
+      </ul>
+      <p>
+        Although it would be unrealistic to think that this specification won't
+        bring its own set of problems, externalizing this data in the form of a
+        manifest solves the problems described above. These problems are solved
+        by:
+      </p>
+      <ul>
+        <li>Making the manifest externally linkable: External manifest files
+        can be cached as external resources, saving both bytes and redundancy
+        in the markup.
+        </li>
+        <li>Flexible value types: unlike HTML attributes, members of the
+        manifest can represent data using complex types, such as objects and
+        arrays, rather than just strings. This solves the problem of the
+        awkward and highly inconsistent formats the values of proprietary
+        <code>meta</code> tags are currently using, especially when a tag's
+        value contains several sub-values.
+        </li>
+      </ul>
+      <p>
+        In addition, standardizing the functionality currently provided by the
+        various <code>meta</code> tag-based solutions within the manifest
+        solves the problem of having to declare large number of proprietary and
+        standard [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>] tags that all achieve the same thing. Of course,
+        this hinges on the standard actually getting implemented by browsers
+        and those browsers getting widely deployed to users: if this happens,
+        the Web community might be able to retire many of the proprietary
+        <code>meta</code> tags plaguing the Web at the time of writing. More
+        information about the proprietary tags can be found in the
+        <cite><a href="http://w3c-webmob.github.io/installable-webapps/">Use
+        Cases and Requirements for Installable Web Apps</a></cite>.
+      </p>
+      <p>
+        Lastly, this specification does not make the standardized solutions
+        found in [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>] redundant. When members like the <code>name</code>
+        or <code>icons</code> is missing from the manifest, user agents can
+        search in a manifest's owner [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>] document for things like icons
+        and the application name (or a user agent might even fallback to
+        proprietary tags/metadata, if they are present in a document).
+      </p>
+    </section>
+    <section class="appendix" id="json-schema" typeof="bibo:Chapter" resource="#json-schema" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-json-schema" resource="#h-json-schema"><span property="xhv:role" resource="xhv:heading"><span class="secno">C. </span>
+        JSON Schema
+      </span></h2>
+      <p>
+        Developers interested in validating <a href="#dfn-manifest" class="internalDFN">manifest</a> documents can find
+        an unofficial <a href="http://json.schemastore.org/web-manifest">JSON
+        schema for the manifest format</a> at <a href="http://schemastore.org/">schemastore.org</a>. It is licensed under
+        <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache
+        2.0</a>. It is kindly maintained by <a href="https://github.com/madskristensen">Mads Kristensen</a>. If you find
+        any issues with the JSON schema, please <a href="https://github.com/madskristensen/SchemaStore/issues/">file a bug</a>
+        at the <a href="https://github.com/madskristensen/SchemaStore/">SchemaStore
+        repository</a> on GitHub.
+      </p>
+    </section>
+    <section class="appendix" id="acknowledgments" typeof="bibo:Chapter" resource="#acknowledgments" property="bibo:hasPart">
+      <!--OddPage--><h2 id="h-acknowledgments" resource="#h-acknowledgments"><span property="xhv:role" resource="xhv:heading"><span class="secno">D. </span>
+        Acknowledgments
+      </span></h2>
+      <p>
+        This document reuses text from the [<cite><a class="bibref" href="#bib-HTML">HTML</a></cite>] specification, edited by
+        Ian Hickson, as permitted by the license of that specification.
+      </p>
+    </section>
+  
+
+<section id="references" class="appendix" typeof="bibo:Chapter" resource="#references" property="bibo:hasPart"><!--OddPage--><h2 id="h-references" resource="#h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">E. </span>References</span></h2><section id="normative-references" typeof="bibo:Chapter" resource="#normative-references" property="bibo:hasPart"><h3 id="h-normative-references" resource="#h-normative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">E.1 </span>Normative references</span></h3><dl class="bibliography" resource=""><dt id="bib-CORS">[CORS]</dt><dd>Anne van Kesteren. <a href="http://www.w3.org/TR/cors/" property="dc:requires"><cite>Cross-Origin Resource Sharing</cite></a>. 16 January 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/cors/" property="dc:requires">http://www.w3.org/TR/cors/</a>
+</dd><dt id="bib-CSP2">[CSP2]</dt><dd>Mike West; Adam Barth; Daniel Veditz. <a href="http://www.w3.org/TR/CSP2/" property="dc:requires"><cite>Content Security Policy Level 2</cite></a>. 3 July 2014. W3C Last Call Working Draft. URL: <a href="http://www.w3.org/TR/CSP2/" property="dc:requires">http://www.w3.org/TR/CSP2/</a>
+</dd><dt id="bib-CSS-MIME">[CSS-MIME]</dt><dd>H. Lie; B. Bos; C. Lilley. <a href="https://tools.ietf.org/html/rfc2318" property="dc:requires"><cite>The text/css Media Type</cite></a>. March 1998. Informational. URL: <a href="https://tools.ietf.org/html/rfc2318" property="dc:requires">https://tools.ietf.org/html/rfc2318</a>
+</dd><dt id="bib-ECMA-404">[ECMA-404]</dt><dd>. <a href="http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf" property="dc:requires"><cite>The JSON Data Interchange Format</cite></a>. 1 October 2013. Standard. URL: <a href="http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf" property="dc:requires">http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf</a>
+</dd><dt id="bib-ECMASCRIPT">[ECMASCRIPT]</dt><dd>Allen Wirfs-Brock. <a href="http://people.mozilla.org/~jorendorff/es6-draft.html" property="dc:requires"><cite>ECMA-262 ECMAScript Language Specification, Edition 6</cite></a>. Draft. URL: <a href="http://people.mozilla.org/~jorendorff/es6-draft.html" property="dc:requires">http://people.mozilla.org/~jorendorff/es6-draft.html</a>
+</dd><dt id="bib-ECMAScript-MIME">[ECMAScript-MIME]</dt><dd>B. Hoehrmann. <a href="https://tools.ietf.org/html/rfc4329" property="dc:requires"><cite>Scripting Media Types</cite></a>. April 2006. Informational. URL: <a href="https://tools.ietf.org/html/rfc4329" property="dc:requires">https://tools.ietf.org/html/rfc4329</a>
+</dd><dt id="bib-FETCH">[FETCH]</dt><dd>Anne van Kesteren. <a href="https://fetch.spec.whatwg.org/" property="dc:requires"><cite>Fetch Standard</cite></a>. Living Standard. URL: <a href="https://fetch.spec.whatwg.org/" property="dc:requires">https://fetch.spec.whatwg.org/</a>
+</dd><dt id="bib-HTML">[HTML]</dt><dd>Ian Hickson. <a href="https://html.spec.whatwg.org/" property="dc:requires"><cite>HTML</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/" property="dc:requires">https://html.spec.whatwg.org/</a>
+</dd><dt id="bib-MEDIAQ">[MEDIAQ]</dt><dd>Florian Rivoal et al. <a href="http://www.w3.org/TR/css3-mediaqueries/" property="dc:requires"><cite>Media Queries</cite></a>. 19 June 2012. W3C Recommendation. URL: <a href="http://www.w3.org/TR/css3-mediaqueries/" property="dc:requires">http://www.w3.org/TR/css3-mediaqueries/</a>
+</dd><dt id="bib-MIME-TYPES">[MIME-TYPES]</dt><dd>N. Freed; N. Borenstein. <a href="https://tools.ietf.org/html/rfc2046" property="dc:requires"><cite>Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</cite></a>. November 1996. Draft Standard. URL: <a href="https://tools.ietf.org/html/rfc2046" property="dc:requires">https://tools.ietf.org/html/rfc2046</a>
+</dd><dt id="bib-RFC2119">[RFC2119]</dt><dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires">https://tools.ietf.org/html/rfc2119</a>
+</dd><dt id="bib-SCREEN-ORIENTATION">[SCREEN-ORIENTATION]</dt><dd>Mounir Lamouri; Marcos Caceres. <a href="http://www.w3.org/TR/screen-orientation/" property="dc:requires"><cite>The Screen Orientation API</cite></a>. 23 October 2014. W3C Working Draft. URL: <a href="http://www.w3.org/TR/screen-orientation/" property="dc:requires">http://www.w3.org/TR/screen-orientation/</a>
+</dd><dt id="bib-UNICODE">[UNICODE]</dt><dd><a href="http://www.unicode.org/versions/latest/" property="dc:requires"><cite>The Unicode Standard</cite></a>. URL: <a href="http://www.unicode.org/versions/latest/" property="dc:requires">http://www.unicode.org/versions/latest/</a>
+</dd><dt id="bib-UNICODE-SECURITY">[UNICODE-SECURITY]</dt><dd>Mark Davis; Michel Suignard. <a href="http://www.unicode.org/reports/tr36/" property="dc:requires"><cite>Unicode Security Considerations</cite></a>. URL: <a href="http://www.unicode.org/reports/tr36/" property="dc:requires">http://www.unicode.org/reports/tr36/</a>
+</dd><dt id="bib-URL">[URL]</dt><dd>Anne van Kesteren; Sam Ruby. <a href="http://www.w3.org/TR/url-1/" property="dc:requires"><cite>URL</cite></a>. 9 December 2014. W3C Working Draft. URL: <a href="http://www.w3.org/TR/url-1/" property="dc:requires">http://www.w3.org/TR/url-1/</a>
+</dd><dt id="bib-WHATWG-URL">[WHATWG-URL]</dt><dd>Anne van Kesteren. <a href="https://url.spec.whatwg.org/" property="dc:requires"><cite>URL Standard</cite></a>. Living Standard. URL: <a href="https://url.spec.whatwg.org/" property="dc:requires">https://url.spec.whatwg.org/</a>
+</dd></dl></section><section id="informative-references" typeof="bibo:Chapter" resource="#informative-references" property="bibo:hasPart"><h3 id="h-informative-references" resource="#h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">E.2 </span>Informative references</span></h3><dl class="bibliography" resource=""><dt id="bib-DC-TERMS">[DC-TERMS]</dt><dd>Dublin Core Metadata Initiative. <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:references"><cite>Dublin Core Metadata Initiative Terms, version 1.1.</cite></a> 11 October 2010. DCMI Recommendation. URL: <a href="http://dublincore.org/documents/2010/10/11/dcmi-terms/" property="dc:references">http://dublincore.org/documents/2010/10/11/dcmi-terms/</a>.
+</dd><dt id="bib-FOAF">[FOAF]</dt><dd>Dan Brickley; Libby Miller. <a href="http://xmlns.com/foaf/spec" property="dc:references"><cite>FOAF Vocabulary Specification 0.99 (Paddington Edition)</cite></a>. 14 January 2014. URL: <a href="http://xmlns.com/foaf/spec" property="dc:references">http://xmlns.com/foaf/spec</a>
+</dd><dt id="bib-JSON-LD">[JSON-LD]</dt><dd>Manu Sporny; Gregg Kellogg; Markus Lanthaler. <a href="http://www.w3.org/TR/json-ld/" property="dc:references"><cite>JSON-LD 1.0</cite></a>. 16 January 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/json-ld/" property="dc:references">http://www.w3.org/TR/json-ld/</a>
+</dd><dt id="bib-WHATWG-FULLSCREEN">[WHATWG-FULLSCREEN]</dt><dd>Anne van Kesteren. <a href="https://fullscreen.spec.whatwg.org/" property="dc:references"><cite>Fullscreen</cite></a>. Living Standard. URL: <a href="https://fullscreen.spec.whatwg.org/" property="dc:references">https://fullscreen.spec.whatwg.org/</a>
+</dd><dt id="bib-css3-values">[css3-values]</dt><dd>Håkon Wium Lie; Tab Atkins Jr.; Elika Etemad. <a href="http://www.w3.org/TR/css3-values/" property="dc:references"><cite>CSS Values and Units Module Level 3</cite></a>. 30 July 2013. W3C Candidate Recommendation. URL: <a href="http://www.w3.org/TR/css3-values/" property="dc:references">http://www.w3.org/TR/css3-values/</a>
+</dd><dt id="bib-cssom-view">[cssom-view]</dt><dd>Simon Pieters; Glenn Adams. <a href="http://www.w3.org/TR/cssom-view/" property="dc:references"><cite>CSSOM View Module</cite></a>. 17 December 2013. W3C Working Draft. URL: <a href="http://www.w3.org/TR/cssom-view/" property="dc:references">http://www.w3.org/TR/cssom-view/</a>
+</dd></dl></section></section></body></html>
