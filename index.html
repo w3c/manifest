@@ -2107,6 +2107,46 @@ Content-Security-Policy: img-src icons.example.com;
           </dd>
         </dl>
       </section>
+      <section>
+        <h3>
+          Link relation type registration
+        </h3>
+        <p>
+          The link relation type below has been registered by IANA per Section 6.2.1
+          of [[!RFC5988]]:
+        </p>
+        <dl>
+          <dt>
+            Relation Name:
+          </dt>
+          <dd>
+            manifest
+          </dd>
+          <dt>
+            Description:
+          </dt>
+          <dd>
+            Links to a manifest. A manifest provides developers with a centralized
+            place to put metadata associated with a web application.
+          </dd>
+          <dt>
+            Reference:
+          </dt>
+          <dd>
+            <a href="http://www.w3.org/TR/appmanifest/">http://www.w3.org/TR/appmanifest/</a>
+          </dd>
+          <dt>
+            Notes:
+          </dt>
+          <dd>
+            In cases where more than one link element with a manifest link type
+            appears in a Document, a client should use the first link element
+            in tree order and ignore all subsequent link element with a manifest
+            link relation type (even if the first element was erroneous). See
+            the steps for obtaining a manifest. 
+          </dd>
+        </dl>
+      </section>
     </section>
     <section id="conformance" data-status="done">
       <p>
