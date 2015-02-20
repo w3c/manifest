@@ -853,6 +853,16 @@ Content-Type: application/manifest+json
           member</a> with <var>manifest</var>, <var>manifest URL</var>,
           <var>document URL</var>, <var>start URL</var> as arguments.
           </li>
+          <li>Let <var>width</var> of <var>parsed manifest</var> be the result
+          of running the <a>steps for processing a <code>width</code> or <code>
+            height</code> member</a> with <var>manifest</var> and "width" as
+            the arguments.
+          </li>
+          <li>Let <var>height</var> of <var>parsed manifest</var> be the result
+          of he <a>steps for processing a <code>width</code> or
+          <code>height</code> member</a> with <var>manifest</var> and "height"
+          as the arguments.running t
+          </li>
           <li>Return <var>parsed manifest</var>.
           </li>
         </ol>
@@ -1421,6 +1431,58 @@ Content-Type: application/manifest+json
             <samp>https://example.com/start_point.html</samp>.
           </p>
         </div>
+      </section>
+      <section>
+        <h3>
+          The <code>width</code> and <code>height</code> members
+        </h3>
+        <p>
+          The <dfn>width</dfn> and <dfn>height</dfn> members are a number
+          greater than or equal to 0 that represent, in CSS pixels, the
+          developer's ideal viewport dimensions for the <a>application
+          context</a>.
+        </p>
+        <p>
+          The <dfn>steps for processing a <code>width</code> or
+          <code>height</code> member</dfn> are given by the following
+          algorithm. The algorithm thanks an <var>manifest</var> object and a
+          string <var>memeber-name</var> represeting the name of the member
+          being sought (either "width" or "height"), as an argument and returns
+          a positive number or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>If [[\HasOwnProperty]] internal method of <var>manifest</var>
+          passing <var>member-name</var> as the argument returns
+          <code>false</code>:
+            <ol>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Let <var>value</var> be the result of calling the
+          [[\GetOwnProperty]] internal method of <var>manifest</var> passing
+          <var>member-name</var> as the argument.
+          </li>
+          <li>Let <var>result</var> be the result of
+          <a>parseFloat</a>(<var>value</var>);
+          </li>
+          <li>If <var>result</var> is <code>NaN</code>, +∞, or less than or
+          equal to +0, then:
+            <ol>
+              <li>
+                <a>Issue a developer warning</a>.
+              </li>
+              <li>Let <var>result</var> be <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>If the <var>result</var> is not within platform conventions
+          (e.g., it's too big or small to be usable), adjust <var>result</var>
+          to be a value within platform conventions.
+          </li>
+          <li>Return <var>result</var>.
+          </li>
+        </ol>
       </section>
     </section>
     <section>
