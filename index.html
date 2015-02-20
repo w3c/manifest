@@ -9,26 +9,42 @@
     "remove">
 </script>
     <script class='remove'>
-/**/
-    var respecConfig = {
-    specStatus: 'ED',
-    shortName: 'appmanifest',
-    subtitle: 'Living Document',
-    edDraftURI: 'http://w3c.github.io/manifest/',
-    previousMaturity: 'FPWD',
-    previousURI: 'http://www.w3.org/TR/2013/WD-appmanifest-20131217/',
-    editors: [{
-        name: 'Contributors list available on GitHub',
-        url:"https://github.com/w3c/manifest/graphs/contributors"
-    }],
-    wg: 'Web Applications (WebApps) Working Group',
-    wgURI: 'http://www.w3.org/2008/webapps/',
-    wgPublicList: 'public-webapps',
-    wgPatentURI: 'http://www.w3.org/2004/01/pp-impl/42538/status',
-    noLegacyStyle: true,
-    otherLinks: [{
-                key: 'Repository',
-                data: [{
+var respecConfig = {
+        previousPublishDate: "2013-12-17",
+        specStatus: 'WD',
+        shortName: 'appmanifest',
+        subtitle: 'Living Document',
+        prevVersion: 'FPWD',
+        previousMaturity: "WD",
+        editors: [{
+            name: "Marcos Caceres",
+            company: "Mozilla Corporation",
+            companyURL: "http://mozilla.org/",
+            w3cid: 39125
+        }, {
+            name: "Kenneth Rohde Christiansen",
+            company: "Intel Corporation",
+            companyURL: "http://intel.com",
+            w3cid: 57705
+        }, {
+            name: "Mounir Lamouri",
+            company: "Google Inc.",
+            companyURL: "http://google.com",
+            w3cid: 45389
+        }, {
+            name: "Anssi Kostiainen",
+            company: "Intel Corporation",
+            companyURL: "http://intel.com",
+            w3cid: 41974
+        }],
+        wg: 'Web Applications (WebApps) Working Group',
+        wgURI: 'http://www.w3.org/2008/webapps/',
+        wgPublicList: 'public-webapps',
+        wgPatentURI: 'http://www.w3.org/2004/01/pp-impl/42538/status',
+        noLegacyStyle: true,
+        otherLinks: [{
+            key: 'Repository',
+            data: [{
                 value: 'We are on Github.',
                 href: 'https://github.com/w3c/manifest'
             }, {
@@ -165,7 +181,7 @@
       <p>
         This document attempts to address the <cite><a href=
         "http://w3c-webmob.github.io/installable-webapps/">Use Cases and
-        Requirements for Installable Web Apps</a></cite>.
+        Requirements for Installable Web Apps</a></cite> .
       </p>
       <p>
         A web application is <dfn>installed</dfn> if the user agent has
@@ -807,12 +823,11 @@ Content-Type: application/manifest+json
               fetch a manifest. As with other directives, by default the
               <code>manifest-src</code> directive is <code>*</code>, meaning
               that a user agent can, [[!CORS]] permitting, fetch the manifest
-              cross-domain. Remote origins (e.g., a <acronym title=
-              "content delivery network">CDN</acronym>) wanting to host
-              manifests for various web applications will need to include the
-              appropriate [[!CORS]] response header in their HTTP response
-              (e.g., <code>Access-Control-Allow-Origin:
-              https://example.com</code>).
+              cross-domain. Remote origins (e.g., a <abbr title=
+              "content delivery network">CDN</abbr>) wanting to host manifests
+              for various web applications will need to include the appropriate
+              [[!CORS]] response header in their HTTP response (e.g.,
+              <code>Access-Control-Allow-Origin: https://example.com</code>).
             </p>
             <figure class="exaple">
               <img src="images/manifest-src-directive.svg" width="704" height=
@@ -862,7 +877,7 @@ Content-Type: application/manifest+json
           <var>manifest URL</var>, which represents the location of the
           manifest, and a <a>URL</a> <var>document URL</var>. The output from
           inputting an JSON document into this algorithm is a <dfn>processed
-          manifest</dfn>.
+          manifest</dfn> .
         </p>
         <ol>
           <li>Let <var>parsed manifest</var> be an empty object.
@@ -883,7 +898,7 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>If <a>Type</a>(<var>manifest</var>) is not "object":
+          <li>If <a>Type</a>( <var>manifest</var>) is not "object":
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the manifest needs to be
@@ -1045,9 +1060,9 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>name</code>".
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
+          <li>If <a>Type</a>( <var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
               optionally <a>issue a developer warning</a> that the type is not
               supported.
               </li>
@@ -1055,7 +1070,7 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          <li>Otherwise, <a>Trim</a>( <var>value</var>) and return the result.
           </li>
         </ol>
       </section>
@@ -1089,9 +1104,9 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>name</code>".
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
+          <li>If <a>Type</a>( <var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
               optionally <a>issue a developer warning</a> that the type is not
               supported.
               </li>
@@ -1099,7 +1114,7 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          <li>Otherwise, <a>Trim</a>( <var>value</var>) and return the result.
           </li>
         </ol>
       </section>
@@ -1125,9 +1140,9 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>short_name</code>".
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
+          <li>If <a>Type</a>( <var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
               optionally <a>issue a developer warning</a> that the type is not
               supported.
               </li>
@@ -1135,7 +1150,7 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          <li>Otherwise, <a>Trim</a>( <var>value</var>) and return the result.
           </li>
         </ol>
       </section>
@@ -1152,8 +1167,8 @@ Content-Type: application/manifest+json
           The <dfn>steps for processing the <code>scope</code> member</dfn> is
           given by the following algorithm. The algorithm takes a
           <a>manifest</a> <var>manifest</var>, a <a>URL</a> <var>manifest
-          URL</var>, a <a>URL</a> <var>document URL</var>, and a URL <var>start
-          URL</var>. This algorithm returns a <a>URL</a> or
+          URL</var> , a <a>URL</a> <var>document URL</var>, and a URL
+          <var>start URL</var> . This algorithm returns a <a>URL</a> or
           <code>undefined</code>.
         </p>
         <ol>
@@ -1161,7 +1176,7 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of the <var>manifest</var>
           with argument "<code>scope</code>".
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
           </li>
           <li>If <var>type</var> is not "string" or <var>value</var> is the
           empty string, then:
@@ -1292,8 +1307,8 @@ Content-Type: application/manifest+json
                   </li>
                   <li>Let <var>density</var> be the result from running the <a>
                     steps for processing a <code>density</code> member of an
-                    icon</a> are given by the passing <var>potential
-                    icon</var>.
+                    icon</a> are given by the passing <var>potential icon</var>
+                    .
                   </li>
                   <li>If <var>density</var> is not <code>undefined</code>, set
                   <var>icon</var>'s <code>density</code> property to be
@@ -1350,11 +1365,11 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           passing "<code>display</code>" as the argument.
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string" or
+          <li>If <a>Type</a>( <var>value</var>) is not "string" or
           <var>value</var> is not part of the <a>display modes values</a>:
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is unsupported.
+              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
+              <a>issue a developer warning</a> that the type is unsupported.
               </li>
               <li>If <var>value</var> is not part of the <a>display modes
               values</a> , <a>issue a developer warning</a> that the value is
@@ -1364,8 +1379,8 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
-          to be the result.
+          <li>Otherwise, <a>Trim</a>( <var>value</var>) and set
+          <var>value</var> to be the result.
           </li>
           <li>If <var>value</var> is not a <a>display mode</a> that the user
           agent supports, set <var>value</var> to <var>value</var>'s
@@ -1407,7 +1422,7 @@ Content-Type: application/manifest+json
         <p>
           Certain UI/UX concerns and/or platform conventions will mean that
           some screen orientations and display modes <dfn>cannot be used
-          together</dfn>. Which orientations and display modes cannot be used
+          together</dfn> . Which orientations and display modes cannot be used
           together is left to the discretion of implementers. For example, for
           some user agents, it might not make sense to change the <a>default
           orientation</a> of an application while in <code>browser</code>
@@ -1429,17 +1444,17 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>orientation</code>".
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
+          <li>If <a>Type</a>( <var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
+              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
+              <a>issue a developer warning</a> that the type is not supported.
               </li>
               <li>Return the empty string.
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
-          to be the result.
+          <li>Otherwise, <a>Trim</a>( <var>value</var>) and set
+          <var>value</var> to be the result.
           </li>
           <li>If <var>value</var> is not one of the
           <a><code>OrientationLockType</code></a> enum values, or
@@ -1465,7 +1480,7 @@ Content-Type: application/manifest+json
         <p>
           The <dfn title="member-url"><code>start_url</code></dfn> member is a
           <a title="json-string">string</a> that represents the <dfn>start
-          URL</dfn>, which is <a>URL</a> that the developer would prefer the
+          URL</dfn> , which is <a>URL</a> that the developer would prefer the
           user agent load when the user launches the web application (e.g.,
           when the user clicks on the icon of the web application from a
           device's application menu or homescreen).
@@ -1481,7 +1496,7 @@ Content-Type: application/manifest+json
           The <dfn>steps for processing the <code>start_url</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
           <a>manifest</a> <var>manifest</var>, a <a>URL</a> <var>manifest
-          URL</var>, and a <a>URL</a> <var>document URL</var>. This algorithm
+          URL</var> , and a <a>URL</a> <var>document URL</var>. This algorithm
           returns a <a>URL</a>.
         </p>
         <ol>
@@ -1489,7 +1504,7 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of the <var>manifest</var>
           with argument "<code>start_url</code>".
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
           </li>
           <li>If <var>type</var> is not "string" or <var>value</var> is the
           empty string, then:
@@ -1582,9 +1597,9 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>theme_color</code>".
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
+          <li>If <a>Type</a>( <var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
               optionally <a>issue a developer warning</a> that the type is not
               supported.
               </li>
@@ -1738,11 +1753,11 @@ Content-Security-Policy: img-src icons.example.com;
             </ol>
           </li>
           <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>icon</var> passing
-          "<code>density</code>" as the argument.
+          [[\GetOwnProperty]] internal method of <var>icon</var> passing "
+          <code>density</code>" as the argument.
           </li>
-          <li>Let <var>result</var> be the result of
-          <a>parseFloat</a>(<var>value</var>);
+          <li>Let <var>result</var> be the result of <a>parseFloat</a>(
+          <var>value</var>);
           </li>
           <li>If <var>result</var> is <code>NaN</code>, +∞, or less than or
           equal to +0, then:
@@ -1789,9 +1804,9 @@ Content-Security-Policy: img-src icons.example.com;
           </li>
           <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>icon</var> passing
-          "<code>sizes</code>" as the argument.
+          " <code>sizes</code>" as the argument.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
           </li>
           <li>If <var>type</var> is not "string", then:
             <ol>
@@ -1827,16 +1842,16 @@ Content-Security-Policy: img-src icons.example.com;
           The <dfn>steps for processing the <code>src</code> member of an
           icon</dfn> are given by the following algorithm. The algorithm takes
           a <a>icon object</a> <var>icon</var>, and a <a>URL</a> <var>manifest
-          URL</var>, which is the <a>URL</a> from which the <var>manifest</var>
-          was fetched. This algorithm will return a <a>URL</a> or
-          <code>undefined</code>.
+          URL</var> , which is the <a>URL</a> from which the
+          <var>manifest</var> was fetched. This algorithm will return a
+          <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>icon</var> passing
-          "<code>src</code>" as the argument.
+          " <code>src</code>" as the argument.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
           </li>
           <li>If <var>type</var> is not "string", or <var>value</var> is the
           empty string, then:
@@ -1881,7 +1896,7 @@ Content-Security-Policy: img-src icons.example.com;
           <a>[[\GetOwnProperty]]</a> internal method of <var>potential
           icon</var> passing "<code>type</code>" as the argument.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
           </li>
           <li>If <var>type</var> is not "string", then:
             <ol>
@@ -1892,7 +1907,7 @@ Content-Security-Policy: img-src icons.example.com;
               </li>
             </ol>
           </li>
-          <li>Trim(<var>value</var>) and set <var>value</var> to be resulting
+          <li>Trim( <var>value</var>) and set <var>value</var> to be resulting
           string.
           </li>
           <li>If <var>value</var> is not a <a>valid MIME type</a> or the value
@@ -1914,15 +1929,15 @@ Content-Security-Policy: img-src icons.example.com;
         <dfn>[[\GetOwnProperty]]</dfn></a> operation and the abstract operation
         <dfn><a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-hasownproperty">
-        hasOwnProperty</a></dfn>, <dfn title="parseFloat"><a href=
+        hasOwnProperty</a></dfn> , <dfn title="parseFloat"><a href=
         "http://people.mozilla.org/~jorendorff/es6-draft.html#sec-parsefloat-string">
         parseFloat(string)</a></dfn> function, and the <a class="external"
         href="http://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
-        <dfn>Type</dfn>(<var>x</var>)</a> notation are defined in
+        <dfn>Type</dfn>( <var>x</var>)</a> notation are defined in
         [[!ECMASCRIPT]].
       </p>
       <p>
-        When instructed to <dfn>Trim</dfn>(<var>x</var>), a user agent MUST
+        When instructed to <dfn>Trim</dfn>( <var>x</var>), a user agent MUST
         behave as if [[!ECMASCRIPT]]'s <a href=
         "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-string.prototype.trim">
         String.prototype.trim()</a> function had been called on the string
@@ -2475,7 +2490,7 @@ Content-Security-Policy: img-src icons.example.com;
         <code>meta</code> tags plaguing the Web at the time of writing. More
         information about the proprietary tags can be found in the
         <cite><a href="http://w3c-webmob.github.io/installable-webapps/">Use
-        Cases and Requirements for Installable Web Apps</a></cite>.
+        Cases and Requirements for Installable Web Apps</a></cite> .
       </p>
       <p>
         Lastly, this specification does not make the standardized solutions
