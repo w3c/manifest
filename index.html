@@ -351,8 +351,8 @@
         Display modes
       </h2>
       <p>
-        A <dfn>display mode</dfn> represents how developers would like the user
-        agent to present the web application to a user (e.g., in fullscreen).
+        A <dfn>display mode</dfn> represents how the web application is being
+        presented within the context of an OS (e.g., in fullscreen, etc.).
         Display modes correspond to user interface (UI) metaphors and
         functionality in use on a given platform. The UI conventions of the
         display modes are purely advisory and implementers are free to
@@ -472,9 +472,52 @@
         </h3>
         <p>
           The <code><dfn>display-mode</dfn></code> media feature represents,
-          via a CSS media query [[!MEDIAQ]], the <a>display mode</a> that the
-          user agent is <a title="applied">applying</a> to the web application.
+          via a CSS media query [[!MEDIAQ]], the <a>display mode</a> of the web
+          application. This media feature applies to the top-level browsing
+          context and any child browsing contexts. Child browsing contexts
+          reflect the <a>display mode</a> of the <a>top-level browsing
+          context</a>.
         </p>
+        <p>
+          A user agent MUST expose the '<code>display-mode</code>' media
+          feature irrespective of whether a manifest is being applied to a
+          browsing context. For example, if the end-user puts the whole user
+          agent into fullscreen, then the user agent would reflect this change
+          to CSS and scripts via the 'display-mode' media feature.
+        </p>
+        <div class="note">
+          <p>
+            Please note that the <code>fullscreen</code> <a>display mode</a> is
+            not directly related to the CSS <code>:fullscreen</code>
+            pseudo-class specified in the [[WHATWG-FULLSCREEN]] API. The
+            <code>:fullscreen</code> psudo-class matches exclusively when a
+            [[!HTML]] element is put into the fullscreen element stack.
+            However, a side effect of calling the
+            <code>requestFullscreen()</code> method on an elemet using the
+            [[WHATWG-FULLSCREEN]] API is that the browser window can enter a
+            fullscreen mode at the OS-level (e.g., as happens in MacOS X). In
+            such a case, both <code>:fullscreen</code> and <code>(display-mode:
+            fullscreen)</code> will match.
+          </p>
+          <p>
+            On some platforms, it is possible for a user to put a browser
+            window into fullscreen without the aid of the [[WHATWG-FULLSCREEN]]
+            API. When this happens, the <code>:fullscreen</code> psudo class
+            will not match, but <code>(display-mode: fullscreen)</code> will
+            match. This is examplified in CSS code below.
+          </p>
+          <pre class='example highlight'>
+/* applies when the window is fullscreen */
+@media all and (display-mode: fullscreen) {
+    ...
+}
+
+/* applies when an element goes fullscreen */
+#game:fullsceen{
+    ...
+}
+</pre>
+        </div>
         <dl>
           <dt>
             Value:
