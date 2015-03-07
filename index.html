@@ -1252,7 +1252,7 @@ Content-Type: application/manifest+json
         </h3>
         <p>
           The <dfn id="member-icons"><code>icons</code></dfn> member is an
-          <a title="json-array">array</a> of <a title="icon object">icon
+          <a title="json-array">array</a> of <a title="icon object">image
           objects</a> that can serve as iconic representations of the web
           application in various contexts. For example, they can be used to
           represent the web application amongst a list of other applications,
@@ -1356,8 +1356,54 @@ Content-Type: application/manifest+json
           examination, to in fact be inappropriate (e.g. because its content
           type is unsupported), then the user agent MUST try the
           next-most-appropriate icon as determined by examining the <a title=
-          "icon object">icon object's</a> members.
+          "image object">image object's</a> members.
         </p>
+        <div class="example">
+          <p>
+            In the following example, the developer has made the following
+            choices about the icons associated with the web application:
+          </p>
+          <ul>
+            <li>The developer has included two icons at the same size, but in
+            two different formats. One is explicitly marked as WebP through the
+            <code>type</code> member. If the user agent doesn't support WebP,
+            it falls back to the second icon of the same size (and density).
+            The media type of this icon can then be either determined via a
+            HTTP header, or can be sniffed by the user agent once the first few
+            bytes of the icon are received.
+            </li>
+            <li>The developer wants to use an SVG icon for devices with at
+            least 2dppx as the display density and only when the available
+            dimensions are at least 72px. She has found that the SVG file looks
+            too blurry at small sizes, even on high-density screens. To deal
+            with this problem, she's included an SVG icon that is only used
+            when the dimensions are at least 72px and the pixel density is at
+            least 2dppx. Otherwise, the user agent uses the ICO file
+            (hd_hi.ico), which includes a gamut of icons individually tailored
+            for small display sizes.
+            </li>
+          </ul>
+          <pre class="">
+{
+  "icons": [
+      {
+        "src": "icon/lowres.webp",
+        "sizes": "48x48",
+        "type": "image/webp"
+      },{
+        "src": "icon/lowres",
+        "sizes": "48x48"
+      },{
+        "src": "icon/hd_hi.ico",
+        "sizes": "72x72 96x96 128x128 256x256"
+      },{
+        "src": "icon/hd_hi.svg",
+        "sizes": "72x72",
+        "density": 2
+      }]
+ }
+</pre>
+        </div>
       </section>
       <section>
         <h3>
@@ -1775,71 +1821,23 @@ Content-Type: application/manifest+json
     </section>
     <section>
       <h2>
-        Icon object and its members
+        Image object and its members
       </h2>
       <p>
-        Each <dfn>icon object</dfn> represents an icon for a web application,
-        suitable to use in various contexts (e.g., an application menu). As
-        icons are usually images, this specification provides developers with a
-        means of specifying the dimensions, optimal pixel density, and media
-        type of an icon. A user agent can use these values to select an icon
-        that is best suited to display on the end-user's device or most closely
-        matches the end-user's preferences.
-      </p>
-      <div class="example">
-        <p>
-          In the following example, the developer has made the following
-          choices about the icons of the web application:
-        </p>
-        <ul>
-          <li>The developer has included two icons at the same size, but in
-          different formats. One is explicitly marked as WebP through the
-          <code>type</code> member. If the user agent doesn't support WebP, it
-          falls back to the second icon of the same size (and density). The
-          media type of this icon can then be either determined via a HTTP
-          header, or can be sniffed by the user agent once the first few bytes
-          of the icon are received.
-          </li>
-          <li>The developer wants to use an SVG icon for devices with at least
-          2dppx as the display density and only when the available dimensions
-          are at least 72px. She has found that the SVG file looks too blurry
-          at small sizes, even on high-density screens. To deal with this
-          problem, she's included an SVG icon that is only used when the
-          dimensions are at least 72px and the pixel density is at least 2dppx.
-          Otherwise, the user agent uses the ICO file (hd_hi.ico), which
-          includes a gamut of icons individually tailored for small display
-          sizes.
-          </li>
-        </ul>
-        <pre class="">
-{
-  "icons": [
-      {
-        "src": "icon/lowres.webp",
-        "sizes": "48x48",
-        "type": "image/webp"
-      },{
-        "src": "icon/lowres",
-        "sizes": "48x48"
-      },{
-        "src": "icon/hd_hi.ico",
-        "sizes": "72x72 96x96 128x128 256x256"
-      },{
-        "src": "icon/hd_hi.svg",
-        "sizes": "72x72",
-        "density": 2
-      }]
- }
-</pre>
-      </div>
-      <p class="note">
-        For all intents and purposes, an <a>icon object</a> is functionally
-        equivalent to <a><code>link</code> element</a> whose
-        <a><code>rel</code> attribute</a> is icon in a <code>Document</code>.
+        Each <dfn>image object</dfn> represents an image that is used as part
+        of a web application, suitable to use in various contexts depending on
+        the semantics of the member that is using the object (e.g., an icon
+        that is part of an application menu, a splashscreen, etc.). For an
+        image object, this specification provides developers with a means of
+        specifying the dimensions, optimal pixel density, and media type of an
+        image (i.e., a "responsive image" solution [[respimg-usecases]]). A
+        user agent can use these values to select an image that is best suited
+        to display on the end-user's device or most closely matches the
+        end-user's preferences.
       </p>
       <section>
         <h3>
-          Content security policy of icon object
+          Content security policy of image objects
         </h3>
         <p>
           The security policy that governs whether a <a>user agent</a> can
@@ -1876,29 +1874,30 @@ Content-Security-Policy: img-src icons.example.com;
           <code>density</code> member
         </h3>
         <p>
-          The <dfn id="icon-densitiy">density</dfn> member of an icon is the
-          device pixel density for which this icon was designed. The device
-          pixel density is expressed as the number of dots per 'px' unit
-          (equivalent to a dppx as defined in [[css3-values]]). The value is a
-          positive number greater than 0. If the developer omits the value, the
-          user agent assumes the value <code>1.0</code>.
+          The <dfn id="icon-densitiy">density</dfn> member of an <a>image
+          object</a> is the device pixel density for which this image was
+          designed. The device pixel density is expressed as the number of dots
+          per 'px' unit (equivalent to a dppx as defined in [[css3-values]]).
+          The value is a positive number greater than 0. If the developer omits
+          the value, the user agent assumes the value <code>1.0</code>.
         </p>
         <p>
           The <dfn>steps for processing a <code>density</code> member of an
-          icon</dfn> are given by the following algorithm. The algorithm thanks
-          an <var>icon</var> object as an argument and returns a positive
-          number.
+          image</dfn> are given by the following algorithm. The algorithm takes
+          an <var>image</var> <a>image object</a> as an argument and returns a
+          positive number.
         </p>
         <ol>
-          <li>If [[\HasOwnProperty]] internal method of <var>icon</var> passing
-          <code>density</code> as the argument returns <code>false</code>:
+          <li>If [[\HasOwnProperty]] internal method of <var>image</var>
+          passing <code>density</code> as the argument returns
+          <code>false</code>:
             <ol>
               <li>Return 1.0.
               </li>
             </ol>
           </li>
           <li>Let <var>value</var> be the result of calling the
-          [[\GetOwnProperty]] internal method of <var>icon</var> passing "
+          [[\GetOwnProperty]] internal method of <var>image</var> passing "
           <code>density</code>" as the argument.
           </li>
           <li>Let <var>result</var> be the result of <a>parseFloat</a>(
@@ -1923,10 +1922,10 @@ Content-Security-Policy: img-src icons.example.com;
           <code>sizes</code> member
         </h3>
         <p>
-          The <dfn title="icon-sizes">sizes</dfn> member is a <a title=
-          "json-string">string</a> consisting of an <a>unordered set of unique
-          space-separated tokens</a> which are <a>ASCII case-insensitive</a>
-          that represents the dimensions of an icon for visual media. Each
+          The <dfn title="icon-sizes">sizes</dfn> member of an image object is
+          a <a title="json-string">string</a> consisting of an <a>unordered set
+          of unique space-separated tokens</a> which are <a>ASCII
+          case-insensitive</a> that represents the dimensions of an image. Each
           keyword is either an <a>ASCII case-insensitive</a> match for the
           string "<a>any</a>", or a value that consists of two <a title=
           "valid non-negative integer">valid non-negative integers</a> that do
@@ -1934,22 +1933,22 @@ Content-Security-Policy: img-src icons.example.com;
           separated by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN
           CAPITAL LETTER X character. The keywords represent icon sizes in raw
           pixels (as opposed to CSS pixels). When multiple <a title=
-          "icon object">icon objects</a> are available, a user agent can use
+          "image object">image objects</a> are available, a user agent can use
           the value to decide which icon is most suitable for a display context
           (and ignore any that are inappropriate).
         </p>
         <p>
           The <dfn>steps for processing a <code>sizes</code> member of an
-          icon</dfn> are given by the following algorithm. The algorithm takes
-          an <a>icon object</a> <var>icon</var>. This algorithm will return a
+          image</dfn> are given by the following algorithm. The algorithm takes
+          an <a>image object</a> <var>image</var>. This algorithm will return a
           set.
         </p>
         <ol>
           <li>Let <var>sizes</var> be an empty set.
           </li>
           <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>icon</var> passing
-          " <code>sizes</code>" as the argument.
+          <a>[[\GetOwnProperty]]</a> internal method of <var>image</var>
+          passing " <code>sizes</code>" as the argument.
           </li>
           <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
           </li>
@@ -1980,21 +1979,21 @@ Content-Security-Policy: img-src icons.example.com;
           <code>src</code> member
         </h3>
         <p>
-          The <dfn title="icon-density">src</dfn> member of an icon is a
-          <a>URL</a> from which a user agent can fetch the icon's data.
+          The <dfn title="icon-src">src</dfn> member of an <a>image object</a>
+          is a <a>URL</a> from which a user agent can fetch the image's data.
         </p>
         <p>
           The <dfn>steps for processing the <code>src</code> member of an
-          icon</dfn> are given by the following algorithm. The algorithm takes
-          a <a>icon object</a> <var>icon</var>, and a <a>URL</a> <var>manifest
+          image</dfn> are given by the following algorithm. The algorithm takes
+          a <a>image object</a> <var>icon</var>, and a <a>URL</a> <var>manifest
           URL</var> , which is the <a>URL</a> from which the
           <var>manifest</var> was fetched. This algorithm will return a
           <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>icon</var> passing
-          " <code>src</code>" as the argument.
+          <a>[[\GetOwnProperty]]</a> internal method of <var>image</var>
+          passing " <code>src</code>" as the argument.
           </li>
           <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
           </li>
@@ -2021,25 +2020,26 @@ Content-Security-Policy: img-src icons.example.com;
           <code>type</code> member
         </h3>
         <p>
-          The <dfn title="icon-type">type</dfn> member of an icon is a hint as
-          to the media type of the icon. The purpose of this member is to allow
-          a user agent to ignore icons of media types it does not support.
+          The <dfn title="icon-type">type</dfn> member of an <a>image
+          object</a> is a hint as to the media type of the image. The purpose
+          of this member is to allow a user agent to ignore images of media
+          types it does not support.
         </p>
         <p>
-          There is no default MIME type for icon objects. However, for the
+          There is no default MIME type for image objects. However, for the
           purposes of <a>determining the type of the resource</a>, user agents
           must expect the resource to be an image.
         </p>
         <p>
           The <dfn>steps for processing the <code>type</code> member of an
-          icon</dfn> are given by the following algorithm. The algorithm takes
-          an <var>icon</var> object as an argument, and returns either a string
-          or <code>undefined</code>.
+          image</dfn> are given by the following algorithm. The algorithm takes
+          an <var>image</var> object as an argument, and returns either a
+          string or <code>undefined</code>.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>potential
-          icon</var> passing "<code>type</code>" as the argument.
+          image</var> passing "<code>type</code>" as the argument.
           </li>
           <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
           </li>
@@ -2322,8 +2322,8 @@ Content-Security-Policy: img-src icons.example.com;
         </li>
         <li>
           <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#tree-order"><dfn>tree
-          order</dfn></a>
+          "https://www.whatwg.org/specs/web-apps/current-work/#tree-order"><dfn>
+          tree order</dfn></a>
         </li>
         <li>
           <a href=
@@ -2401,8 +2401,8 @@ Content-Security-Policy: img-src icons.example.com;
         </li>
         <li>
           <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes"><dfn>
-          sizes</dfn></a>
+          "https://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes">
+          <dfn>sizes</dfn></a>
         </li>
         <li>
           <a href=
@@ -2416,8 +2416,8 @@ Content-Security-Policy: img-src icons.example.com;
         </li>
         <li>
           <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#valid-mime-type"><dfn>
-          valid MIME type</dfn></a>
+          "https://www.whatwg.org/specs/web-apps/current-work/#valid-mime-type">
+          <dfn>valid MIME type</dfn></a>
         </li>
         <li>
           <a href="https://html.spec.whatwg.org/#same-origin"><dfn>same
@@ -2432,7 +2432,8 @@ Content-Security-Policy: img-src icons.example.com;
       <p>
         The following registrations are for community review and will be
         submitted to the <a href="https://www.ietf.org/iesg/">IESG</a> for
-        review, approval, and registration with <a href="https://www.iana.org/">IANA</a>.
+        review, approval, and registration with <a href=
+        "https://www.iana.org/">IANA</a>.
       </p>
       <section>
         <h3>
@@ -2801,9 +2802,8 @@ Content-Security-Policy: img-src icons.example.com;
         2.0</a>. It is kindly maintained by <a href=
         "https://github.com/madskristensen">Mads Kristensen</a>. If you find
         any issues with the JSON schema, please <a href=
-        "https://github.com/SchemaStore/schemastore/issues/">file a bug</a>
-        at the <a href=
-        "https://github.com/SchemaStore/schemastore">SchemaStore
+        "https://github.com/SchemaStore/schemastore/issues/">file a bug</a> at
+        the <a href="https://github.com/SchemaStore/schemastore">SchemaStore
         repository</a> on GitHub.
       </p>
     </section>
