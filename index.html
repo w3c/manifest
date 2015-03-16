@@ -492,21 +492,21 @@
             Please note that the <code>fullscreen</code> <a>display mode</a> is
             not directly related to the CSS <code>:fullscreen</code>
             pseudo-class specified in the [[WHATWG-FULLSCREEN]] API. The
-            <code>:fullscreen</code> psudo-class matches exclusively when a
+            <code>:fullscreen</code> pseudo-class matches exclusively when a
             [[!HTML]] element is put into the fullscreen element stack.
             However, a side effect of calling the
-            <code>requestFullscreen()</code> method on an elemet using the
+            <code>requestFullscreen()</code> method on an element using the
             [[WHATWG-FULLSCREEN]] API is that the browser window can enter a
-            fullscreen mode at the OS-level (e.g., as happens in MacOS X). In
+            fullscreen mode at the OS-level (e.g., as happens in Mac OS X). In
             such a case, both <code>:fullscreen</code> and <code>(display-mode:
             fullscreen)</code> will match.
           </p>
           <p>
             On some platforms, it is possible for a user to put a browser
             window into fullscreen without the aid of the [[WHATWG-FULLSCREEN]]
-            API. When this happens, the <code>:fullscreen</code> psudo class
+            API. When this happens, the <code>:fullscreen</code> pseudo class
             will not match, but <code>(display-mode: fullscreen)</code> will
-            match. This is examplified in CSS code below.
+            match. This is exemplified in CSS code below.
           </p>
           <pre class='example highlight'>
 /* applies when the window is fullscreen */
