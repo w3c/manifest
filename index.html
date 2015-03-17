@@ -188,6 +188,34 @@
         web application); in which case, the manifest is applied and the deep
         link is loaded within the context of web application.
       </p>
+      <section>
+        <h3>
+          Identity
+        </h3>
+        <p>
+          This specification assumes that when a web application is
+          <a>installed</a>, it is given an <dfn>identity</dfn>: that is, the
+          web application gets some kind of unique identifier assigned to it by
+          either the user agent or the underlying OS. The identity serves to
+          uniquely identify the installed web application amongst other native
+          and <a>installed</a> web applications. The identity also facilitates
+          the life cycle management of the web application, including updates
+          and uninstallation, and possibly management of API permissions, local
+          storage, and cookies.
+        </p>
+        <p>
+          It is RECOMMENDED that a user agent <a title="identity">identify</a>
+          an installed web application via the manifest's URL.
+        </p>
+        <p class="note">
+          Authors need to take care to avoid assigning the same manifest URL to
+          multiple web applications on a single domain. Failure to do so can
+          result in the web application not being installed. Please also note
+          that manifest's URL has to be <a>same origin</a>, so you can't use
+          them directly with a <abbr title=
+          "content distribution network">CDN</abbr>.
+        </p>
+      </section>
       <section class="informative">
         <h3>
           Installability signals
@@ -718,6 +746,12 @@ if (standalone.matches) {
           </li>
           <li>If <var>manifest link</var> is <code>null</code>, terminate this
           algorithm.
+          </li>
+          <li>If the URL of <var>manifest link</var>'s <code>src</code>
+          attribute is not <a>same origin</a> as its owner
+          <code>Document</code>, then <a>issue a developer warning</a>
+          explaining that the manifest's URL needs to be <a>same origin</a> as
+          the owner <code>Document</code> and terminate this algorithm.
           </li>
           <li>
             <a>Obtain a resource</a> as per [[!HTML]] and let
