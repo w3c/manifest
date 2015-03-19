@@ -6,3 +6,6 @@ env:
  
 script:
   - curl "https://labs.w3.org/echidna/api/request" --data "url=$URL" --data "decision=$DECISION" --data "token=$TOKEN"
+branches:
+  only:
+    - gh-pages
