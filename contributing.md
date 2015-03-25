@@ -14,12 +14,12 @@ operates under the [W3C Patent Policy which](http://www.w3.org/Consortium
 /Patent-Policy-20040205/)  aims to enable implementations of W3C Recommendations
 without the need to pay royalty fees. If you want to make contributions that can
 be used in normative parts of our specifications, we require you to [make the
-appropriate licensing commitments](http://www.w3.org/2004/01/pp-impl/58119/status).
+appropriate licensing commitments](http://www.w3.org/2004/01/pp-impl/49309/status).
 
 
 # Style guide to contributors 
 
-- the spec uses [ReSpec](http://dev.w3.org/2009/dap/ReSpec.js/documentation.html) 
+- the spec uses [ReSpec](https://www.w3.org/respec/) 
 - the spec is tidied using [HTML5 Tidy](https://github.com/w3c/tidy-html5). For
 instructions on running HTML5 tidy, see below.  
 - put comments in front of sections, for better readability with
