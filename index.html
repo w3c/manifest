@@ -1633,6 +1633,136 @@ Content-Type: application/manifest+json
           </li>
         </ol>
       </section>
+      <section>
+        <h3>
+          <code title="">related_applications</code> member
+        </h3>
+        <p>
+          The <dfn id=
+          "member-related_applications"><code>related_applications</code></dfn>
+          member lists all the applications related to the web application.
+        </p>
+        <p>
+          The <code>related_applications</code> member is as an indication of a
+          relationship of the web application and the listed applications. This
+          relationship is unidirectional and unless a listed application claims
+          the same relationship, the <a>user agent</a> MUST NOT assume a
+          bi-directional endorsement.
+        </p>
+        <p>
+          Example of usages of the <code>related_applications</code> could be a
+          crawler that would use that information to gather more information
+          about the web application or a browser that could suggest a listed
+          application as an alternative if the user wants to install the web
+          application.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>related_applications</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes a manifest as an argument. This algorithm returns a list of
+          applications objects <var>applications</var>, which can be empty.
+        </p>
+        <ol>
+          <li>Let <var>applications</var> be an empty list.
+          </li>
+          <li>Let <var>unprocessed applications</var> be the result of calling
+          the <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>related_applications</code>".
+          </li>
+          <li>If <var>unprocessed applications</var> is an <a title=
+          "json-array">array</a>, then:
+            <ol>
+              <li>For each <var>potential application</var> in the array:
+                <ol>
+                  <li>Let <var>platform</var> be the result of running the <a>
+                    steps for processing the <code>platform</code> member of an
+                    application</a> with <var>potential application</var>.
+                  </li>
+                  <li>If <var>platform</var> is <code>undefined</code>, move
+                  onto the next item if any are left.
+                  </li>
+                  <li>Let <var>id</var> be the result of running the <a>steps
+                  for processing the <code>id</code> member of an
+                  application</a> with <var>potential application</var>.
+                  </li>
+                  <li>Let <var>url</var> be the result of running the <a>steps
+                  for processing the <code>url</code> member of an
+                  application</a> with <var>potential application</var>.
+                  </li>
+                  <li>If both <var>id</var> and <var>url</var> are
+                  <code>undefined</code>, move onto the next item if any are
+                  left.
+                  </li>
+                  <li>Otherwise, let <var>application</var> be an object with
+                  properties <code>platform</code>, <code>id</code>,
+                  <code>url</code> respectively set to <var>platform</var>,
+                  <var>id</var> and <var>url</var>.
+                  </li>
+                  <li>Append <var>application</var> to <var>applications</var>.
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, if <var>unprocessed applications</var> is not
+          <code>undefined</code>:
+            <ol>
+              <li>
+                <a>Issue a developer warning</a> that the type is not
+                supported.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>applications</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">prefer_related_applications</code> member
+        </h3>
+        <p>
+          The <dfn id=
+          "member-prefer_related_applications"><code>prefer_related_applications</code></dfn>
+          member is a boolean value this is used as a hint for the user agent
+          to say that related applications should be preferred over the web
+          application. The user agent MUST consider the missing value as
+          equivalent to have it set to <code>false</code>.
+        </p>
+        <p>
+          The <code>prefer_related_applications</code> member is as an
+          indication to the user agent that related applications should be
+          preferred over the web application when appropriate. For example, if
+          the user agent wants to suggest to install the web application and
+          the <code>prefer_related_applications</code> is set to
+          <code>true</code>, the user agent might want to suggest installing
+          one of the listed related applications instead.
+        </p>
+        <p>
+          The <dfn>steps for processing the
+          <code>prefer_related_applications</code> member</dfn> are given by
+          the following algorithm. The algorithm takes a manifest as an
+          argument. This algorithm returns a boolean.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>prefer_related_applications</code>".
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "boolean":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              optionally issue a developer warning that the type is not
+              supported.
+              </li>
+              <li>Return <code>false</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>value</var>.
+          </li>
+        </ol>
+      </section>
     </section>
     <section>
       <h2>
@@ -1921,6 +2051,150 @@ Content-Security-Policy: img-src icons.example.com;
           warning and return <code>undefined</code>.
           </li>
           <li>Return <var>value</var>.
+          </li>
+        </ol>
+      </section>
+    </section>
+    <section>
+      <h2>
+        Application object and its members
+      </h2>
+      <p>
+        Each <dfn>application object</dfn> represents an application related to
+        the web application. An application object has three properties: a
+        <code>platform</code> which represents the platform it is associated
+        to, a <code>url</code> which represents the URL where the application
+        can be found and an <code>id</code> which can be used as an information
+        additional to the URL or instead of the URL, depending on the platform.
+        A valid <a>application object</a> MUST have <code>platform</code> and
+        either an <code>url</code> or an <code>id</code> (or both).
+      </p>
+      <div class="example">
+        <p>
+          In the following example, the web application is listing two
+          different related applications, one on Google Play Store and the
+          other one on the iTunes Store:
+        </p>
+        <pre class="">
+{
+  "related_applications": [
+      {
+        "platform": "play",
+        "url": "https://play.google.com/store/apps/details?id=com.example.app1",
+        "id": "com.example.app1"
+      }, {
+        "platform": "itunes",
+        "url": "https://itunes.apple.com/app/example-app1/id123456789",
+      }]
+ }
+</pre>
+      </div>
+      <p class="issue">
+        Where should the <code>platform</code> expected value be listed?
+      </p>
+      <section>
+        <h3>
+          <code>platform</code> member
+        </h3>
+        <p>
+          The <dfn title="application-platform">platform</dfn> member of an
+          application object represents the platform on which the application
+          can be found.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>platform</code> member of an
+          application</dfn> are given by the following algorithm. The algorithm
+          takes an <a>application object</a> <var>application</var>. This
+          algorithm will return a string or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>application</var>
+          passing "<code>platform</code>" as the argument.
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              optionally issue a developer warning that the type is not
+              supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>url</code> member
+        </h3>
+        <p>
+          The <dfn title="application-url">url</dfn> member of an application
+          object represents the url at which the application can be found.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>url</code> member of an
+          application</dfn> are given by the following algorithm. The algorithm
+          takes an <a>application object</a> <var>application</var>. This
+          algorithm will return an <a>URL</a> or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>application</var>
+          passing "<code>url</code>" as the argument.
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              optionally issue a developer warning that the type is not
+              supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Trim( <var>value</var>) and set <var>value</var> to be resulting
+          string.
+          </li>
+          <li>Otherwise, <a title="URL parsing">parse</a> <var>value</var> and
+          if the result is not failure, return the result, otherwise return
+          <code>undefined</code>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>id</code> member
+        </h3>
+        <p>
+          The <dfn title="application-id">id</dfn> member of an application
+          object represents the id which is used to represent the application
+          on the platform.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>id</code> member of an
+          application</dfn> are given by the following algorithm. The algorithm
+          takes an <a>application object</a> <var>application</var>. This
+          algorithm will return a string or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>application</var>
+          passing "<code>id</code>" as the argument.
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              optionally issue a developer warning that the type is not
+              supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
           </li>
         </ol>
       </section>
