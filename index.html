@@ -158,7 +158,7 @@
           Example of using a <code>link</code> element to associate a website
           with a <a>manifest</a>. The example also shows how to use [[!HTML]]'s
           <code>link</code> and <code>meta</code> elements to give the web
-          application a fallback name and set of icons.
+          application a fallback short name and set of icons.
         </p>
         <pre class="example highlight html" title="linking to a manifest">
 &lt;!doctype&gt;
@@ -786,6 +786,11 @@ if (standalone.matches) {
           the address of the <a title="top-level browsing context">top-level
           browsing context</a>.
           </li>
+          <li>If the <var>manifest</var> has any <code>undefined</code> member
+          values, search the manifest's owner <code>Document</code> for
+          fallback equivalents (see each member's definition for RECOMMENDED
+          [[!HTML]] fallback alternatives).
+          </li>
           <li>Return <var>manifest</var> and <var>manifest URL</var>.
           </li>
         </ol>
@@ -1051,6 +1056,13 @@ Content-Type: application/manifest+json
           <code>short_name</code> members.
         </p>
         <p>
+          In cases where no suitable <code title='member-name'>lang</code> can
+          be derived from processing a manifest, and the manifest is being
+          obtained from a <code>link</code> element, it is RECOMMENDED that the
+          user agent <a>determine the language</a> of the <code>link</code>
+          element as per [[!HTML]] and use that language as the fallback value.
+        </p>
+        <p>
           The <dfn>steps for processing the <code>lang</code> member</dfn> is
           given by the following algorithm. The algorithm takes a
           <var>manifest</var> as an argument. This algorithm returns a string
@@ -1085,14 +1097,11 @@ Content-Type: application/manifest+json
           application as it is usually displayed to the user (e.g., amongst a
           list of other applications, or as a label for an icon).
         </p>
-        <p class="note">
-          For all intents and purposes, the <a><code>name</code></a> member is
-          functionally equivalent to having a <a><code>meta</code> element</a>
-          whose <a title="name attribute">name</a> attribute is
-          <a><code>application-name</code></a> in a [[!HTML]] document. In
-          cases where no suitable name can be derived from processing a
-          manifest, [[!HTML]]'s <a>application-name</a> or the
-          <a><code>title</code> element</a> serve as suitable fallbacks.
+        <p>
+          In cases where no suitable <code title='member-name'>name</code> can
+          be derived from processing a manifest, it is RECOMMENDED that the
+          user agent use the contents of the [[!HTML]] document's
+          <code>title</code> element as a fallback.
         </p>
         <p>
           The <dfn>steps for processing the <code>name</code> member</dfn> is
@@ -1129,6 +1138,15 @@ Content-Type: application/manifest+json
           version of the name of the web application. It is intended to be used
           where there is insufficient space to display the full name of the web
           application.
+        </p>
+        <p>
+          For all intents and purposes, the <a><code>short_name</code></a>
+          member is functionally equivalent to having a <a><code>meta</code>
+          element</a> whose <a title="name attribute">name</a> attribute is
+          <a><code>application-name</code></a> in a [[!HTML]] document. In
+          cases where no suitable <a><code>short_name</code></a> can be derived
+          from processing a manifest, it is RECOMMENDED that the user agent use
+          [[!HTML]]'s <a>application-name</a> as a suitable fallback.
         </p>
         <p>
           The <dfn>steps for processing the <code>short_name</code>
@@ -1245,7 +1263,7 @@ Content-Type: application/manifest+json
           "operating system">OS</abbr>'s task switcher and/or system
           preferences.
         </p>
-        <p class="note">
+        <p>
           If no icons are listed in the manifest (or none of them are found to
           be suitable during processing), it is RECOMMENDED that the user agent
           fall back to using any icons found in the <code>Document</code> of
@@ -1579,13 +1597,13 @@ Content-Type: application/manifest+json
           to [[!META-THEME-COLOR]] in a document, or the <a>top-level browsing
           context</a> is <a>navigated</a> to a URL that is <a>within scope</a>.
         </p>
-        <p class="note">
+        <p>
           For all intents and purposes, the <a><code>theme_color</code></a>
           member is functionally equivalent to having a <a><code>meta</code>
           element</a> whose <a title="name attribute">name</a> attribute is
           <a><code>theme_color</code></a> in a [[!HTML]] document. In cases
-          where no suitable theme can be derived from processing a manifest, a
-          [[!META-THEME-COLOR]] can serve as a suitable fallback.
+          where no suitable theme can be derived from processing a manifest, it
+          is RECOMMENDED that [[!META-THEME-COLOR]] be used as a fallback.
         </p>
         <p>
           The <dfn>steps for processing the <code>theme_color</code>
@@ -2134,6 +2152,11 @@ Content-Security-Policy: img-src icons.example.com;
         <li>
           <a href="https://html.spec.whatwg.org/#same-origin"><dfn>same
           origin</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "https://html.spec.whatwg.org/multipage/dom.html#language"><dfn>determine
+          the language</dfn></a>
         </li>
       </ul>
     </section>
