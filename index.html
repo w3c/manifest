@@ -315,7 +315,7 @@
         <li>Otherwise, return <code>false</code>.
         </li>
       </ol>
-      <div class="issue" title="&#128018; Monkey patch">
+      <div class="issue" title="🐒 Monkey patch">
         <p>
           Enforcing the navigation scope depends on [[!HTML]]'s navigate
           algorithm. As such, the following algorithm monkey patches [[!HTML]].
@@ -957,6 +957,16 @@ Content-Type: application/manifest+json
           of running the <a>steps for processing the <code>scope</code>
           member</a> with <var>manifest</var>, <var>manifest URL</var>,
           <var>document URL</var>, <var>start URL</var> as arguments.
+          </li>
+          <li>Let <var>related_applications</var> of <var>parsed manifest</var>
+          be the result of running the <a>steps for processing the
+          <code>related_applications</code> member</a> with <var>manifest</var>
+          as argument.
+          </li>
+          <li>Let <var>prefer_related_applications</var> of <var>parsed
+          manifest</var> be the result of running the <a>steps for processing
+          the <code>prefer_related_applications</code> member</a> with
+          <var>manifest</var> as argument.
           </li>
           <li>Return <var>parsed manifest</var>.
           </li>
@@ -1639,8 +1649,9 @@ Content-Type: application/manifest+json
         </h3>
         <p>
           A <dfn>related application</dfn> is an application accessible to the
-          underlying application platform that has a relationship with the
-          web application <a>associated with a manifest</a>.
+          underlying application platform that has a relationship with the web
+          application <a>associated with a manifest</a>.
+        </p>
         <p>
           The <dfn id=
           "member-related_applications"><code>related_applications</code></dfn>
