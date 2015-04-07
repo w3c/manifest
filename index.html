@@ -83,8 +83,8 @@
         as well as providing the ability to set the display mode for the
         application (e.g., in fullscreen). Additionally, the manifest allows a
         developer to "scope" a web application to a URL. This restricts the
-        URLs to which the application can be navigated and provides a means to
-        "deep link" into a web application from other applications.
+        URLs to which the manifest is applied and provides a means to "deep
+        link" into a web application from other applications.
       </p>
       <p>
         Using this metadata, user agents can provide developers with means to
@@ -92,15 +92,17 @@
         application.
       </p>
       <p>
-        In addition, this specification defines the <code>manifest</code> link
-        type, which provides a declarative means for a document to be
-        associated with a manifest.
+        To associate documents of a web application with a manifest, this
+        specification defines the <code>manifest</code> link type as a
+        declarative means for a document to be associated with a manifest
+        (either directly in a HTML document or over the wire using
+        [[RCF5988]]).
       </p>
     </section>
     <section id="sotd">
       <p>
-        Implementors need to be aware that this specification is starting to
-        stabilize. Aspects of this specification are shipping in at least one
+        Implementors need to be aware that this specification is not stable.
+        However, aspects of this specification are shipping in at least one
         browser (see links to implementation status at the top of this
         document). <strong>Implementors who are not taking part in the
         discussions will find the specification changing out from under them in
@@ -200,10 +202,13 @@
         context prior to the <a>start URL</a> being loaded. This gives the user
         agent time to apply the relevant values of the manifest, possibly
         changing the display mode and screen orientation of the web
-        application. Alternatively, an application context can be launched
-        through a <a>deep link</a> (a URL that is within scope of the installed
-        web application); in which case, the manifest is applied and the deep
-        link is loaded within the context of web application.
+        application.
+      </p>
+      <p>
+        Alternatively, an application context can be launched through a <a>deep
+        link</a> (a URL that is within scope of the installed web application);
+        in which case, the manifest is applied and the deep link is loaded
+        within the context of web application.
       </p>
       <section>
         <h3>
@@ -530,7 +535,7 @@
           feature irrespective of whether a manifest is being applied to a
           browsing context. For example, if the end-user puts the whole user
           agent into fullscreen, then the user agent would reflect this change
-          to CSS and scripts via the 'display-mode' media feature.
+          to CSS and scripts via the '<code>display-mode</code>' media feature.
         </p>
         <div class="note">
           <p>
@@ -542,8 +547,8 @@
             However, a side effect of calling the
             <code>requestFullscreen()</code> method on an element using the
             [[WHATWG-FULLSCREEN]] API is that the browser window can enter a
-            fullscreen mode at the OS-level (e.g., as happens in Mac OS X). In
-            such a case, both <code>:fullscreen</code> and <code>(display-mode:
+            fullscreen mode at the OS-level. In such a case, both
+            <code>:fullscreen</code> and <code>(display-mode:
             fullscreen)</code> will match.
           </p>
           <p>
@@ -610,9 +615,9 @@
             <code>matchMedia()</code> of [[cssom-view]]:
           </p>
           <pre class="example">
-let standalone = matchMedia( '(display-mode: standalone)' );
+const standalone = matchMedia( '(display-mode: standalone)' );
 
-standalone.onchange = function(e) {
+standalone.onchange = (e) =&gt; {
   /* handle changes to display mode */
 }
 
