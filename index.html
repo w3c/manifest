@@ -771,16 +771,12 @@ if (standalone.matches) {
           <li>If <var>manifest link</var> is <code>null</code>, terminate this
           algorithm.
           </li>
-          <li>If the URL of <var>manifest link</var>'s <code>src</code>
-          attribute is not <a>same origin</a> as its owner
-          <code>Document</code>, then <a>issue a developer warning</a>
-          explaining that the manifest's URL needs to be <a>same origin</a> as
-          the owner <code>Document</code> and terminate this algorithm.
-          </li>
           <li>
-            <a>Obtain a resource</a> as per [[!HTML]] and let
-            <var>response</var> be the [[!FETCH]] <a href=
-            "https://fetch.spec.whatwg.org/#concept-response">response</a>. If
+            <a>Obtain a resource</a> with <var>mode</var> set to "<a href=
+            'https://html.spec.whatwg.org/multipage/infrastructure.html#attr-crossorigin-use-credentials'>Use
+            Credentials</a>" and let <var>response</var> be the [[!FETCH]]
+            <a href=
+            "http://fetch.spec.whatwg.org/#concept-response">response</a>. If
             the <a>obtain a resource</a> algorithm terminates prematurely or
             <var>response</var> is a network error, terminate this algorithm.
           </li>
