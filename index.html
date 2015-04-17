@@ -820,30 +820,31 @@ Content-Type: application/manifest+json
             Content security policy
           </h4>
           <p>
-            A user agent MUST support [[!CSP2]].
+            A user agent MUST support [[!CSP3]].
           </p>
           <div class="example">
             <p>
-              The <code>manifest-src</code> and <code>default-src</code>
-              directives govern the origins from which a <a>user agent</a> can
-              fetch a manifest. As with other directives, by default the
-              <code>manifest-src</code> directive is <code>*</code>, meaning
-              that a user agent can, [[!CORS]] permitting, fetch the manifest
-              cross-domain. Remote origins (e.g., a <abbr title=
-              "content delivery network">CDN</abbr>) wanting to host manifests
-              for various web applications will need to include the appropriate
-              [[!CORS]] response header in their HTTP response (e.g.,
-              <code>Access-Control-Allow-Origin: https://example.com</code>).
+              The <a><code>manifest-src</code></a> and <a><code>default-src
+              </code></a> directives govern the origins from which a <a>user
+              agent</a> can fetch a manifest. As with other directives, by
+              default the <a><code>manifest-src</code></a> directive is
+              <code>*</code>, meaning that a user agent can, [[!CORS]]
+              permitting, fetch the manifest cross-domain. Remote origins
+              (e.g., a <abbr title="content delivery network">CDN</abbr>)
+              wanting to host manifests for various web applications will need
+              to include the appropriate [[!CORS]] response header in their
+              HTTP response (e.g., <code>Access-Control-Allow-Origin:
+              https://example.com</code>).
             </p>
             <figure class="exaple">
               <img src="images/manifest-src-directive.svg" width="704" height=
               "342" alt="">
               <figcaption>
-                For a [[!HTML]] document, [[!CSP2]]'s <code>manifest-src</code>
-                directive controls the sources from which a [[!HTML]] document
-                can load a manifest from. The same CSP policy's
-                <code>image-src</code> directive controls where the icon's
-                images can be fetched from.
+                For a [[!HTML]] document, [[!CSP3]]'s <a><code>manifest-src
+                </code></a> directive controls the sources from which a
+                [[!HTML]] document can load a manifest from. The same CSP
+                policy's <code>img-src</code> directive controls where the
+                icon's images can be fetched from.
               </figcaption>
             </figure>
           </div>
@@ -1841,8 +1842,8 @@ Content-Type: application/manifest+json
         </h3>
         <p>
           The security policy that governs whether a <a>user agent</a> can
-          fetch an icon image is governed by the <code>image-src</code>
-          directive [[!CSP2]] associated with the manifest's owner
+          fetch an icon image is governed by the <code>img-src</code>
+          directive [[!CSP3]] associated with the manifest's owner
           <code>Document</code>.
         </p>
         <div class="example">
@@ -2263,6 +2264,17 @@ Content-Security-Policy: img-src icons.example.com;
         a component value</dfn></a> is defined in [[!CSS-SYNTAX-3]].
       </p>
       <p>
+        The <a href=
+        "https://w3c.github.io/webappsec/specs/content-security-policy/#manifest_src">
+        <dfn><code>manifest-src</code></dfn></a>,
+        <a href=
+        "https://w3c.github.io/webappsec/specs/content-security-policy/#img_src">
+        <dfn><code>img-src</code></dfn></a>, and
+        <a href=
+        "https://w3c.github.io/webappsec/specs/content-security-policy/#default_src">
+        <dfn><code>default-src</code></dfn></a> directives are defined in [[!CSP3]].
+      </p>
+      <p>
         The following are defined in [[!HTML]]:
       </p>
       <ul>
@@ -2536,7 +2548,7 @@ Content-Security-Policy: img-src icons.example.com;
             </p>
             <p>
               Developers need to be aware of the security considerations
-              discussed throughout the [[!CSP2]] specification, particularly in
+              discussed throughout the [[!CSP3]] specification, particularly in
               relation to making <code>data:</code> a valid source for the
               purpose of <q>inlining</q> a manifest. Doing so can enable XSS
               attacks by allowing a manifest to be included directly in the
