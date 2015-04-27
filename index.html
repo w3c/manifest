@@ -96,7 +96,7 @@
         specification defines the <code>manifest</code> link type as a
         declarative means for a document to be associated with a manifest
         (either directly in a HTML document or over the wire using
-        [[RCF5988]]).
+        [[RFC5988]]).
       </p>
     </section>
     <section id="sotd">
@@ -1253,7 +1253,7 @@ Content-Type: application/manifest+json
         </h3>
         <p>
           The <dfn id="member-icons"><code>icons</code></dfn> member is an
-          <a title="json-array">array</a> of <a title="icon object">image
+          <a title="json-array">array</a> of <a title="image object">image
           objects</a> that can serve as iconic representations of the web
           application in various contexts. For example, they can be used to
           represent the web application amongst a list of other applications,
@@ -1292,7 +1292,7 @@ Content-Type: application/manifest+json
               <li>For each <var>potential icon</var> in the array:
                 <ol>
                   <li>Let <var>src</var> be the result of running the <a>steps
-                  for processing the <code>src</code> member of an icon</a>
+                  for processing the <code>src</code> member of an image</a>
                   with <var>potential icon</var> and <var>manifest URL</var>.
                   </li>
                   <li>If <var>src</var> is <code>undefined</code>, move onto
@@ -1307,7 +1307,7 @@ Content-Type: application/manifest+json
                   <var>src</var>.
                   </li>
                   <li>Let <var>type</var> be the result of running the <a>steps
-                  for processing the <code>type</code> member of an icon</a>
+                  for processing the <code>type</code> member of an image</a>
                   passing <var>potential icon</var>.
                   </li>
                   <li>If <var>type</var> is not <code>undefined</code>, set
@@ -1316,7 +1316,7 @@ Content-Type: application/manifest+json
                   </li>
                   <li>Let <var>sizes</var> be the list that result from running
                   the <a>steps for processing a <code>sizes</code> member of an
-                  icon</a> passing <var>potential icon</var>.
+                  image</a> passing <var>potential icon</var>.
                   </li>
                   <li>If <var>sizes</var> is not <code>undefined</code>, set
                   <var>icon</var>'s <code>sizes</code> property to be
@@ -1324,8 +1324,8 @@ Content-Type: application/manifest+json
                   </li>
                   <li>Let <var>density</var> be the result from running the <a>
                     steps for processing a <code>density</code> member of an
-                    icon</a> are given by the passing <var>potential icon</var>
-                    .
+                    image</a> are given by the passing <var>potential
+                    icon</var> .
                   </li>
                   <li>If <var>density</var> is not <code>undefined</code>, set
                   <var>icon</var>'s <code>density</code> property to be
