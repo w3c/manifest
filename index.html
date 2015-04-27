@@ -144,6 +144,17 @@
         "sizes": "128x128",
         "density": 2
       }],
+  "splash_screens": [{
+        "src": "splash/lowres",
+        "sizes": "320x240"
+      }, {
+        "src": "splash/hd_small",
+        "sizes": "1334x750"
+      }, {
+        "src": "splash/hd_hi",
+        "sizes": "1920x1080",
+        "density": 3
+      }],
   "scope": "/racer/",
   "start_url": "/racer/start.html",
   "display": "fullscreen",
@@ -950,9 +961,14 @@ Content-Type: application/manifest+json
           argument.
           </li>
           <li>Let <var>icons</var> of <var>parsed manifest</var> be the result
-          of running the <a>steps for processing the <code>icons</code>
-          member</a> with <var>manifest</var> and <var>manifest URL</var> as
+          of running the <a>steps for processing an array of images</a> with
+          <var>manifest</var>, <var>manifest URL</var>, and "icons" as
           arguments.
+          </li>
+          <li>Let <var>splash screens</var> of <var>parsed manifest</var> be
+          the result of running the <a>steps for processing an array of
+          images</a> with <var>manifest</var>, <var>manifest URL</var>, and
+          "splashscreen" as arguments.
           </li>
           <li>Let <var>scope</var> of <var>parsed manifest</var> be the result
           of running the <a>steps for processing the <code>scope</code>
@@ -1266,6 +1282,38 @@ Content-Type: application/manifest+json
       </section>
       <section>
         <h3>
+          <code title="">splash_screens</code> member
+        </h3>
+        <p>
+          The <dfn id="member-splash_screens"><code>splash_screens</code></dfn>
+          member is an <a title="json-array">array</a> of <a title=
+          "image object">image objects</a> that can serve as a loading screen
+          for the web application. A splash screen indicates to the end user
+          that a loading process is occurring (in effect, that the web
+          application is being prepared by the user agent in the background).
+          As the <code>splash_screens</code> member is an array of <a title=
+          "image object">image objects</a>, developers can use unique image
+          objects definitions to target minimum screen resolutions and pixel
+          densities.
+        </p>
+        <p>
+          This feature is primarily intended for user agents that take a
+          perceptible amount of time to self-initialize (e.g., take longer than
+          200ms to be able to render content) - as such, it is OPTIONAL for a
+          user agent to display a splash screen while the web application is
+          being loaded. On launching a web application, if displaying a splash
+          screen, the user agent MUST <a>queue a post-load task</a> on the
+          <code>Document</code> of the <a>start URL</a> to remove the
+          splashscreen, or, alternatively can follow platform conventions for
+          how long a splash screen is displayed (e.g., a minimum of 1 second).
+        </p>
+        <p class="note">
+          The <code>splashscreen</code> member is processed using the <a>steps
+          for processing an array of images</a>.
+        </p>
+      </section>
+      <section>
+        <h3>
           <code title="">icons</code> member
         </h3>
         <p>
@@ -1279,6 +1327,10 @@ Content-Type: application/manifest+json
           preferences.
         </p>
         <p class="note">
+          The <code>splashscreen</code> member is processed using the <a>steps
+          for processing an array of images</a>.
+        </p>
+        <p class="note">
           If no icons are listed in the manifest (or none of them are found to
           be suitable during processing), it is RECOMMENDED that the user agent
           fall back to using any icons found in the <code>Document</code> of
@@ -1286,94 +1338,6 @@ Content-Type: application/manifest+json
           type</a> and/or a <code>favicon.ico</code> can serve as suitable
           fallbacks.
         </p>
-        <p>
-          The <dfn>steps for processing the <code>icons</code> member</dfn> are
-          given by the following algorithm. The algorithm takes a manifest, and
-          a <a>URL</a> <var>manifest URL</var>, which is the URL from which the
-          <var>manifest</var> was fetched. This algorithm will return a list of
-          icons objects <var>icons</var>, which can be empty.
-        </p>
-        <ol>
-          <li>Let <var>icons</var> be an empty list.
-          </li>
-          <li>Let <var>unprocessed icons</var> be the result of calling the <a>
-            [[\GetOwnProperty]]</a> internal method of <var>manifest</var> with
-            argument "<code>icons</code>".
-          </li>
-          <li>If <var>unprocessed icons</var> is an <a title=
-          "json-array">array</a>, then:
-            <ol>
-              <li>From unprocessed icons, filter out any <var>item</var> where
-              <a>HasOwnProperty</a>(item,"src") returns <code>false</code>.
-              </li>
-              <li>For each <var>potential icon</var> in the array:
-                <ol>
-                  <li>Let <var>src</var> be the result of running the <a>steps
-                  for processing the <code>src</code> member of an image</a>
-                  with <var>potential icon</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>If <var>src</var> is <code>undefined</code>, move onto
-                  the next item in <var>icons</var> (if any are left).
-                  </li>
-                  <li>Otherwise, let <var>icon</var> be an object with
-                  properties <code>src</code>, <code>type</code>,
-                  <code>sizes</code>, and <code>density</code>. All properties
-                  initially set to <code>undefined</code>.
-                  </li>
-                  <li>Set <var>icon</var>'s <code>src</code> property to be
-                  <var>src</var>.
-                  </li>
-                  <li>Let <var>type</var> be the result of running the <a>steps
-                  for processing the <code>type</code> member of an image</a>
-                  passing <var>potential icon</var>.
-                  </li>
-                  <li>If <var>type</var> is not <code>undefined</code>, set
-                  <var>icon</var>'s <code>type</code> property to be
-                  <var>type</var>.
-                  </li>
-                  <li>Let <var>sizes</var> be the list that result from running
-                  the <a>steps for processing a <code>sizes</code> member of an
-                  image</a> passing <var>potential icon</var>.
-                  </li>
-                  <li>If <var>sizes</var> is not <code>undefined</code>, set
-                  <var>icon</var>'s <code>sizes</code> property to be
-                  <var>sizes</var>.
-                  </li>
-                  <li>Let <var>density</var> be the result from running the <a>
-                    steps for processing a <code>density</code> member of an
-                    image</a> are given by the passing <var>potential
-                    icon</var> .
-                  </li>
-                  <li>If <var>density</var> is not <code>undefined</code>, set
-                  <var>icon</var>'s <code>density</code> property to be
-                  <var>value</var>.
-                  </li>
-                  <li>Let <var>bgcolor</var> be the result of running the
-                  <a>steps for processing the <code>background_color</code>
-                  member of an image</a> with <var>potential icon</var>.
-                  </li>
-                  <li>If <var>bgcolor</var> is not <code>undefined</code>, set
-                  <var>icon</var>'s <code>background</code> property to be
-                  <var>bgcolor</var>.
-                  </li>
-                  <li>Append <var>icon</var> to <var>icons</var>.
-                  </li>
-                </ol>
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, if <var>unprocessed icons</var> is not
-          <code>undefined</code>:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a> that the type is not
-                supported.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>icons</var>.
-          </li>
-        </ol>
         <p>
           If there are multiple equally appropriate icons in <var>icons</var>,
           a user agent MUST use the last one declared in order at the time that
@@ -2150,6 +2114,94 @@ Content-Security-Policy: img-src icons.example.com;
           </li>
         </ol>
       </section>
+      <section>
+        <h3>
+          Processing an array of images
+        </h3>
+        <p>
+          The <dfn>steps for processing an array of images</dfn> are given by
+          the following algorithm. The algorithm takes a manifest, a <a>URL</a>
+          <var>manifest URL</var>, which is the URL from which the
+          <var>manifest</var> was fetched, and a string that represents the
+          <var>member name</var> of the member which contains the array of
+          <a title="image object">image objects</a>. This algorithm returns a
+          list of <a title="image object">image objects</a>, which can be
+          empty.
+        </p>
+        <ol>
+          <li>Let <var>images</var> be an empty list.
+          </li>
+          <li>Let <var>unprocessed images</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with <var>member name</var> as the argument.
+          </li>
+          <li>If <var>unprocessed images</var> is an <a title=
+          "json-array">array</a>, then:
+            <ol>
+              <li>From unprocessed images, filter out any <var>item</var> where
+              <a>HasOwnProperty</a>(item,"src") returns <code>false</code>.
+              </li>
+              <li>For each <var>potential image</var> in the array:
+                <ol>
+                  <li>Let <var>src</var> be the result of running the <a>steps
+                  for processing the <code>src</code> member of an image</a>
+                  with <var>potential image</var> and <var>manifest URL</var>.
+                  </li>
+                  <li>If <var>src</var> is <code>undefined</code>, move onto
+                  the next item in <var>images</var> (if any are left).
+                  </li>
+                  <li>Otherwise, let <var>image</var> be an object with
+                  properties <code>src</code>, <code>type</code>,
+                  <code>sizes</code>, and <code>density</code>. All properties
+                  initially set to <code>undefined</code>.
+                  </li>
+                  <li>Set <var>image</var>'s <code>src</code> property to be
+                  <var>src</var>.
+                  </li>
+                  <li>Let <var>type</var> be the result of running the <a>steps
+                  for processing the <code>type</code> member of an image</a>
+                  passing <var>potential image</var>.
+                  </li>
+                  <li>If <var>type</var> is not <code>undefined</code>, set
+                  <var>image</var>'s <code>type</code> property to be
+                  <var>type</var>.
+                  </li>
+                  <li>Let <var>sizes</var> be the list that result from running
+                  the <a>steps for processing a <code>sizes</code> member of an
+                  image</a> passing <var>potential image</var>.
+                  </li>
+                  <li>If <var>sizes</var> is not <code>undefined</code>, set
+                  <var>image</var>'s <code>sizes</code> property to be
+                  <var>sizes</var>.
+                  </li>
+                  <li>Let <var>density</var> be the result from running the <a>
+                    steps for processing a <code>density</code> member of an
+                    image</a> are given by the passing <var>potential
+                    image</var> .
+                  </li>
+                  <li>If <var>density</var> is not <code>undefined</code>, set
+                  <var>image</var>'s <code>density</code> property to be <var>
+                    value</var>.
+                  </li>
+                  <li>Append <var>image</var> to <var>images</var>.
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, if <var>unprocessed images</var> is not
+          <code>undefined</code>:
+            <ol>
+              <li>
+                <a>Issue a developer warning</a> that the type is not
+                supported.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>images</var>.
+          </li>
+        </ol>
+      </section>
     </section>
     <section>
       <h2>
@@ -2535,6 +2587,11 @@ Content-Security-Policy: img-src icons.example.com;
         <li>
           <a href="https://html.spec.whatwg.org/#same-origin"><dfn>same
           origin</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "https://html.spec.whatwg.org/#queue-a-post-load-task"><dfn>queue a
+          post-load task</dfn></a>
         </li>
       </ul>
     </section>
