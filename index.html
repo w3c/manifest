@@ -1062,9 +1062,26 @@ Content-Type: application/manifest+json
         </h3>
         <p>
           The <dfn id="member-lang"><code>lang</code></dfn> member is a
-          [[!BCP47]] language tag (string) that specifies the primary language
-          for the values of the manifest's <code>name</code> and
+          <a>language tag</a> (string) that specifies the primary language for
+          the values of the manifest's <code>name</code> and
           <code>short_name</code> members.
+        </p>
+        <p>
+          A <dfn>language tag</dfn> is a string that matches the production of
+          a <code>Language-Tag</code> defined in the [[!BCP47]] specifications
+          (see the <a href=
+          "http://www.iana.org/assignments/language-subtag-registry">IANA
+          Language Subtag Registry</a> for an authoritative list of possible
+          values, see also the <a href=
+          "http://www.iso.org/iso/country_codes/iso_3166_code_lists/country_names_and_code_elements">
+          Maintenance Agency for ISO 3166 country codes</a>). That is, a
+          language range is composed of one or more <dfn>subtags</dfn> that are
+          delimited by a U+002D HYPHEN-MINUS ("-"). For example, the
+          '<code>en-AU</code>' language range represents English as spoken in
+          Australia, and '<code>fr-CA</code>' represents French as spoken in
+          Canada. Language tags that meet the validity criteria of [[!RFC5646]]
+          section 2.2.9 that can be verified without reference to the IANA
+          Language Subtag Registry are considered structurally valid.
         </p>
         <p>
           The <dfn>steps for processing the <code>lang</code> member</dfn> is
@@ -2131,7 +2148,16 @@ Content-Security-Policy: img-src icons.example.com;
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and let <var>tag</var>
+          be the result.
+          </li>
+          <li>If calling <a>IsStructurallyValidLanguageTag</a> with
+          <var>tag</var> as the argument returns <code>false</code>, then
+          return <code>undefined</code>.
+          </li>
+          <li>Otherwise, return the result of calling the
+          <a>CanonicalizeLanguageTag</a> abstract operation, passing
+          <var>tag</var> as the argument.
           </li>
         </ol>
       </section>
@@ -2271,6 +2297,13 @@ Content-Security-Policy: img-src icons.example.com;
         "https://w3c.github.io/webappsec/specs/content-security-policy/#default_src">
         <dfn><code>default-src</code></dfn></a> directives are defined in
         [[!CSP3]].
+      </p>
+      <p>
+        The <a href=
+        "http://www.ecma-international.org/ecma-402/1.0/#sec-6.2.2"><dfn>IsStructurallyValidLanguageTag</dfn></a>
+        and <a href=
+        "www.ecma-international.org//1.0/#sec-6.2.2"><dfn>CanonicalizeLanguageTag</dfn></a>
+        abstract operations are defined in [[!ECMAS-402]].
       </p>
       <p>
         The following are defined in [[!HTML]]:
