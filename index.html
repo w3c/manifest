@@ -215,30 +215,18 @@
       </p>
       <section>
         <h3>
-          Identity
+          Authority of the manifest's metadata
         </h3>
         <p>
-          This specification assumes that when a web application is
-          <a>installed</a>, it is given an <dfn>identity</dfn>: that is, the
-          web application gets some kind of unique identifier assigned to it by
-          either the user agent or the underlying OS. The identity serves to
-          uniquely identify the installed web application amongst other native
-          and <a>installed</a> web applications. The identity also facilitates
-          the life cycle management of the web application, including updates
-          and uninstallation, and possibly management of API permissions, local
-          storage, and cookies.
-        </p>
-        <p>
-          It is RECOMMENDED that a user agent <a title="identity">identify</a>
-          an installed web application via the manifest's URL.
-        </p>
-        <p class="note">
-          Authors need to take care to avoid assigning the same manifest URL to
-          multiple web applications on a single domain. Failure to do so can
-          result in the web application not being installed. Please also note
-          that manifest's URL has to be <a>same origin</a>, so you can't use
-          them directly with a <abbr title=
-          "content distribution network">CDN</abbr>.
+          When a <a>manifest</a> is linked from a <code>Document</code>, it
+          indicates to the user agent that the metadata is
+          <dfn>authoritative</dfn>: that is, the user agent SHOULD use the
+          metadata of the manifest instead of the one in the
+          <code>Document</code>. However, it cases where metadata is missing,
+          or in error, a user agent MAY fallback to the <code>Document</code>
+          to find suitable replacements for missing manifest members (e.g.,
+          using <code>application-name</code> in place of
+          <code>short_name</code>).
         </p>
       </section>
       <section class="informative">
@@ -772,20 +760,27 @@ if (standalone.matches) {
           <li>If <var>manifest link</var> is <code>null</code>, terminate this
           algorithm.
           </li>
-          <li>If the URL of <var>manifest link</var>'s <code>src</code>
-          attribute is not <a>same origin</a> as its owner
-          <code>Document</code>, then <a>issue a developer warning</a>
-          explaining that the manifest's URL needs to be <a>same origin</a> as
-          the owner <code>Document</code> and terminate this algorithm.
+          <li>If <var>manifest link</var>'s <code>href</code> attribute's value
+          is the empty string, then abort these steps.
           </li>
-          <li>
-            <a>Obtain a resource</a> as per [[!HTML]] and let
-            <var>response</var> be the [[!FETCH]] <a href=
-            "https://fetch.spec.whatwg.org/#concept-response">response</a>. If
-            the <a>obtain a resource</a> algorithm terminates prematurely or
-            <var>response</var> is a network error, terminate this algorithm.
+          <li>Let <var>manifest URL</var> be the result of <a title=
+          "URL parsing">parsing</a> the value of the <code>href</code>
+          attribute, relative to <a>the element's base URL</a>. If parsing
+          fails, then abort these steps.
           </li>
-          <li>Let <var>manifest URL</var> be the <var>response</var>'s URL.
+          <li>Let <var>request</var> be a new [[!Fetch]] <a>request</a>, whose
+          URL is <var>manifest URL</var>, and whose <a>context</a> is
+          "<code>manifest</code>".
+          </li>
+          <li>If the <var>manifest link</var>'s <code>crossOrigin</code>
+          attribute's value is '<code>use-credentials</code>', then set
+          <var>request</var>'s credentials to '<code>include</code>'.
+          </li>
+          <li>Await the result of performing a <a>fetch</a> with
+          <var>request</var>, letting <var>response</var> be the result.
+          </li>
+          <li>If <var>response</var> is a <a>network error</a>, terminate this
+          algorithm.
           </li>
           <li>Let <var>manifest</var> be the result of running the <a>steps for
           processing a manifest</a> with <var>response</var>'s <a href=
@@ -1121,15 +1116,6 @@ Content-Type: application/manifest+json
           application as it is usually displayed to the user (e.g., amongst a
           list of other applications, or as a label for an icon).
         </p>
-        <p class="note">
-          For all intents and purposes, the <a><code>name</code></a> member is
-          functionally equivalent to having a <a><code>meta</code> element</a>
-          whose <a title="name attribute">name</a> attribute is
-          <a><code>application-name</code></a> in a [[!HTML]] document. In
-          cases where no suitable name can be derived from processing a
-          manifest, [[!HTML]]'s <a>application-name</a> or the
-          <a><code>title</code> element</a> serve as suitable fallbacks.
-        </p>
         <p>
           The <dfn>steps for processing the <code>name</code> member</dfn> is
           given by the following algorithm. The algorithm takes a
@@ -1280,14 +1266,6 @@ Content-Type: application/manifest+json
           or to integrate the web application with an <abbr title=
           "operating system">OS</abbr>'s task switcher and/or system
           preferences.
-        </p>
-        <p class="note">
-          If no icons are listed in the manifest (or none of them are found to
-          be suitable during processing), it is RECOMMENDED that the user agent
-          fall back to using any icons found in the <code>Document</code> of
-          the <a>top-level browsing context</a>. For example, an <a>icon link
-          type</a> and/or a <code>favicon.ico</code> can serve as suitable
-          fallbacks.
         </p>
         <p>
           The <dfn>steps for processing the <code>icons</code> member</dfn> are
@@ -1677,14 +1655,6 @@ Content-Type: application/manifest+json
           color</a> when there are no <code>meta</code> elements that conform
           to [[!META-THEME-COLOR]] in a document, or the <a>top-level browsing
           context</a> is <a>navigated</a> to a URL that is <a>within scope</a>.
-        </p>
-        <p class="note">
-          For all intents and purposes, the <a><code>theme_color</code></a>
-          member is functionally equivalent to having a <a><code>meta</code>
-          element</a> whose <a title="name attribute">name</a> attribute is
-          <a><code>theme_color</code></a> in a [[!HTML]] document. In cases
-          where no suitable theme can be derived from processing a manifest, a
-          [[!META-THEME-COLOR]] can serve as a suitable fallback.
         </p>
         <p>
           The <dfn>steps for processing the <code>theme_color</code>
@@ -2379,6 +2349,32 @@ Content-Security-Policy: img-src icons.example.com;
         abstract operations are defined in [[!ECMAS-402]].
       </p>
       <p>
+        The following are defined in [[!FETCH]]:
+      </p>
+      <ul>
+        <li>
+          <a href=
+          "https://fetch.spec.whatwg.org/#concept-fetch"><dfn>Fetch</dfn></a>.
+        </li>
+        <li>
+          <a href=
+          "https://fetch.spec.whatwg.org/#concept-response"><dfn>Response</dfn></a>.
+        </li>
+        <li>
+          <a href=
+          "https://fetch.spec.whatwg.org/#concept-request"><dfn>Request</dfn></a>.
+        </li>
+        <li>
+          <a href=
+          "https://fetch.spec.whatwg.org/#concept-network-error"><dfn>Network
+          error</dfn></a>.
+        </li>
+        <li>
+          <a href=
+          "https://fetch.spec.whatwg.org/#concept-request-context"><dfn>Context</dfn></a>
+        </li>
+      </ul>
+      <p>
         The following are defined in [[!HTML]]:
       </p>
       <ul>
@@ -2538,6 +2534,11 @@ Content-Security-Policy: img-src icons.example.com;
         <li>
           <a href="https://html.spec.whatwg.org/#same-origin"><dfn>same
           origin</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "https://html.spec.whatwg.org/#the-element's-base-url"><dfn>the
+          element's base URL</dfn></a> .
         </li>
       </ul>
     </section>
