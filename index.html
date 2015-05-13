@@ -914,7 +914,7 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>If <a>Type</a>( <var>manifest</var>) is not "object":
+          <li>If <a>Type</a>(<var>manifest</var>) is not "object":
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the manifest needs to be
@@ -1108,9 +1108,9 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>lang</code>".
           </li>
-          <li>If <a>Type</a>( <var>value</var>) is not "string":
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
               optionally <a>issue a developer warning</a> that the type is not
               supported.
               </li>
@@ -1118,7 +1118,7 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>( <var>value</var>) and return the result.
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
           </li>
         </ol>
       </section>
@@ -1143,9 +1143,9 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>name</code>".
           </li>
-          <li>If <a>Type</a>( <var>value</var>) is not "string":
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
               optionally <a>issue a developer warning</a> that the type is not
               supported.
               </li>
@@ -1153,7 +1153,7 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>( <var>value</var>) and return the result.
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
           </li>
         </ol>
       </section>
@@ -1179,9 +1179,9 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>short_name</code>".
           </li>
-          <li>If <a>Type</a>( <var>value</var>) is not "string":
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
               optionally <a>issue a developer warning</a> that the type is not
               supported.
               </li>
@@ -1189,7 +1189,7 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>( <var>value</var>) and return the result.
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
           </li>
         </ol>
       </section>
@@ -1215,7 +1215,7 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of the <var>manifest</var>
           with argument "<code>scope</code>".
           </li>
-          <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
           <li>If <var>type</var> is not "string" or <var>value</var> is the
           empty string, then:
@@ -1398,11 +1398,11 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           passing "<code>display</code>" as the argument.
           </li>
-          <li>If <a>Type</a>( <var>value</var>) is not "string" or
+          <li>If <a>Type</a>(<var>value</var>) is not "string" or
           <var>value</var> is not part of the <a>display modes values</a>:
             <ol>
-              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
-              <a>issue a developer warning</a> that the type is unsupported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is unsupported.
               </li>
               <li>If <var>value</var> is not part of the <a>display modes
               values</a> , <a>issue a developer warning</a> that the value is
@@ -1412,8 +1412,8 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>( <var>value</var>) and set
-          <var>value</var> to be the result.
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
+          to be the result.
           </li>
           <li>If <var>value</var> is not a <a>display mode</a> that the user
           agent supports, set <var>value</var> to <var>value</var>'s
@@ -1477,17 +1477,17 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>orientation</code>".
           </li>
-          <li>If <a>Type</a>( <var>value</var>) is not "string":
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
-              <a>issue a developer warning</a> that the type is not supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
               </li>
               <li>Return the empty string.
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>( <var>value</var>) and set
-          <var>value</var> to be the result.
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
+          to be the result.
           </li>
           <li>If <var>value</var> is not one of the
           <a><code>OrientationLockType</code></a> enum values, or
@@ -1537,7 +1537,7 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of the <var>manifest</var>
           with argument "<code>start_url</code>".
           </li>
-          <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
           <li>If <var>type</var> is not "string" or <var>value</var> is the
           empty string, then:
@@ -1631,9 +1631,9 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>theme_color</code>".
           </li>
-          <li>If <a>Type</a>( <var>value</var>) is not "string":
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
               optionally <a>issue a developer warning</a> that the type is not
               supported.
               </li>
@@ -1863,9 +1863,9 @@ Content-Security-Policy: img-src icons.example.com;
           <a>[[\GetOwnProperty]]</a> internal method of <var>image</var> with
           argument "<code>background_color</code>".
           </li>
-          <li>If <a>Type</a>( <var>value</var>) is not "string":
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>( <var>value</var>) is not "undefined",
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
               optionally <a>issue a developer warning</a> that the type is not
               supported.
               </li>
@@ -1974,7 +1974,7 @@ Content-Security-Policy: img-src icons.example.com;
           <a>[[\GetOwnProperty]]</a> internal method of <var>image</var>
           passing " <code>sizes</code>" as the argument.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
           <li>If <var>type</var> is not "string", then:
             <ol>
@@ -2019,7 +2019,7 @@ Content-Security-Policy: img-src icons.example.com;
           <a>[[\GetOwnProperty]]</a> internal method of <var>image</var>
           passing " <code>src</code>" as the argument.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
           <li>If <var>type</var> is not "string", or <var>value</var> is the
           empty string, then:
@@ -2065,7 +2065,7 @@ Content-Security-Policy: img-src icons.example.com;
           <a>[[\GetOwnProperty]]</a> internal method of <var>potential
           image</var> passing "<code>type</code>" as the argument.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>( <var>value</var>).
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
           <li>If <var>type</var> is not "string", then:
             <ol>
@@ -2076,7 +2076,7 @@ Content-Security-Policy: img-src icons.example.com;
               </li>
             </ol>
           </li>
-          <li>Trim( <var>value</var>) and set <var>value</var> to be resulting
+          <li>Trim(<var>value</var>) and set <var>value</var> to be resulting
           string.
           </li>
           <li>If <var>value</var> is not a <a>valid MIME type</a> or the value
@@ -2285,7 +2285,7 @@ Content-Security-Policy: img-src icons.example.com;
               </li>
             </ol>
           </li>
-          <li>Trim( <var>value</var>) and set <var>value</var> to be resulting
+          <li>Trim(<var>value</var>) and set <var>value</var> to be resulting
           string.
           </li>
           <li>Otherwise, <a title="URL parsing">parse</a> <var>value</var> and
@@ -2343,11 +2343,11 @@ Content-Security-Policy: img-src icons.example.com;
         "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-parsefloat-string">
         parseFloat(string)</a></dfn> function, and the <a class="external"
         href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
-        <dfn>Type</dfn>( <var>x</var>)</a> notation are defined in
+        <dfn>Type</dfn>(<var>x</var>)</a> notation are defined in
         [[!ECMASCRIPT]].
       </p>
       <p>
-        When instructed to <dfn>Trim</dfn>( <var>x</var>), a user agent MUST
+        When instructed to <dfn>Trim</dfn>(<var>x</var>), a user agent MUST
         behave as if [[!ECMASCRIPT]]'s <a href=
         "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-string.prototype.trim">
         String.prototype.trim()</a> function had been called on the string
