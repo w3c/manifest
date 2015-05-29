@@ -1,4 +1,4 @@
-This repository is the home of the **Manifest** specification being worked on by
+This repository is the home of the :star: **[Web Manifest](https://w3c.github.io/manifest/)** :star: specification being worked on by
 the [Web Applications Working Group](http://www.w3.org/2008/webapps/).
 
 ## Useful links
