@@ -296,8 +296,8 @@
       </p>
       <p>
         A string <var>targetURL</var> is said the be <dfn>within scope</dfn> of
-        navigation scope <var>scopeURL</var> if the following algorithm returns
-        <code>true</code>:
+        <a>navigation scope</a> <var>scopeURL</var> if the following algorithm
+        returns <code>true</code>:
       </p>
       <ol>
         <li>If <var>scopeURL</var> is <code>undefined</code> (i.e., it is
@@ -314,7 +314,7 @@
         <li>Otherwise, return <code>false</code>.
         </li>
       </ol>
-      <div class="issue" title=" Monkey patch">
+      <div class="issue" title="&#128018; Monkey patch">
         <p>
           Enforcing the navigation scope depends on [[!HTML]]'s navigate
           algorithm. As such, the following algorithm monkey patches [[!HTML]].
@@ -324,15 +324,15 @@
       </div>
       <p>
         The user agent MUST navigate the application context as per [[!HTML]]'s
-        navigate algorithm with exceptions enabled. If the URL being navigated
-        to is not <a>within scope</a> of the navigation scope, then the user
-        agent MUST behave as if the application context is not <a>allowed to
-        navigate</a>: this provides the ability for the user agent to perform
-        the navigation in a different browsing context - or in a different user
-        agent entirely. If during the handle redirects step of HTML's <a title=
-        "navigated">navigate algorithm</a>, if the redirect URL is not
-        <a>within scope</a>, abort HTML's navigation algorithm with a
-        <code>SecurityError</code>.
+        navigate algorithm with exceptions enabled. If the URL of the resource
+        being loaded in the navigation is not <a>within scope</a> of the
+        navigation scope, then the user agent MUST behave as if the application
+        context is not <a>allowed to navigate</a> (this provides the ability
+        for the user agent to perform the navigation in a different browsing
+        context, or in a different user agent entirely). If during the handle
+        redirects step of HTML's <a title="navigated">navigate algorithm</a>
+        the redirect URL is not <a>within scope</a>, abort HTML's navigation
+        algorithm with a <code>SecurityError</code>.
       </p>
       <p>
         A developer specifies the navigation scope via the
@@ -341,10 +341,11 @@
         scope is treated as <dfn>unbounded</dfn> (represented as the value
         <code>undefined</code>). In such a case, the manifest is applied to all
         URLs the application context is <a>navigated</a> to (see related
-        security considerations).
+        <a href="#navigation-scope-security-considerations">security
+        considerations</a>).
       </p>
       <section>
-        <h3>
+        <h3 id="navigation-scope-security-considerations">
           Security considerations
         </h3>
         <p>
@@ -369,8 +370,9 @@
           This specification distinguishes between behavior in first-party and
           third-party contexts. In particular, if a <code>scope</code> member
           is declared in the manifest, it is not possible to navigate the
-          top-level browsing context to somewhere outside the scope while the
-          manifest is being applied. That's not to say that the web application
+          <a>top-level browsing context</a> to somewhere outside the scope
+          while the <a>manifest</a> is <a>applied</a> to the <a>top-level
+          browsing context</a>. That's not to say that the web application
           cannot be navigated: just that the set of URLs to which the manifest
           applies is restricted by the <a>navigation scope</a>.
         </p>
