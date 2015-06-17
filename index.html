@@ -246,20 +246,17 @@
         </h3>
         <p>
           By design, this specification does not provide developers with an
-          explicit API to "install" a web application. Instead, a manifest can
-          serve as an <dfn>installability signal</dfn> (amongst other <a title=
-          "installability signal">signals</a>) to a user agent that a web
-          application can be <a>installed</a>.
+          explicit API to "install" a web application. Instead, a
+          <a>manifest</a> can serve as an <dfn>installability signal</dfn> to a
+          user agent that a web application can be <a>installed</a>.
         </p>
         <p>
-          <a title="installability signal">Installability signals</a> can
-          include things like the ones in the following list (this list is not
-          exhaustive and some items might not apply to all user agents). For
-          instance, the web application:
+          Examples of <a title="installability signal">installability
+          signals</a> for a web application:
         </p>
         <ul>
-          <li>contains a manifest with at least a <code>name</code> member and
-          a suitable icon.
+          <li>is <a>associated with a manifest</a> with at least a
+          <code>name</code> member and a suitable icon.
           </li>
           <li>is served over a secure network connection.
           </li>
@@ -276,13 +273,13 @@
           <li>has been explicitly marked by the user as one that they value and
           trust (e.g., by bookmarking or "starring" it).
           </li>
-          <li>And so on...
-          </li>
         </ul>
         <p>
-          How a user agent makes use of these <a title=
+          This list is not exhaustive and some <a title=
+          "installability signal">installability signals</a> might not apply to
+          all user agents. How a user agent makes use of these <a title=
           "installability signal">installability signals</a> to determine if a
-          web application is installable is left to implementers.
+          web application can be <a>installed</a> is left to implementers.
         </p>
       </section>
     </section>
@@ -317,7 +314,7 @@
         <li>Otherwise, return <code>false</code>.
         </li>
       </ol>
-      <div class="issue" title="🐒 Monkey patch">
+      <div class="issue" title=" Monkey patch">
         <p>
           Enforcing the navigation scope depends on [[!HTML]]'s navigate
           algorithm. As such, the following algorithm monkey patches [[!HTML]].
