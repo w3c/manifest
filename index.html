@@ -1545,7 +1545,7 @@ Content-Type: application/manifest+json
           advisory, and a user agent MAY <a>ignore</a> it or provide the
           end-user the choice not to make use of it. A user agent MAY also
           allow the end-user to modify the URL when, for instance, a bookmark
-          for the web application is being create or any time thereafter.
+          for the web application is being created or any time thereafter.
         </p>
         <p>
           The <dfn>steps for processing the <code>start_url</code> member</dfn>
@@ -1562,7 +1562,7 @@ Content-Type: application/manifest+json
           <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
           <li>If <var>type</var> is not "string" or <var>value</var> is the
-          empty string, then:
+          empty string:
             <ol>
               <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
               a developer warning</a> that the type is unsupported.
