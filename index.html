@@ -7,9 +7,9 @@
     </title>
     <script src="https://www.w3.org/Tools/respec/respec-w3c-common" class=
     "remove">
-</script>
+    </script>
     <script class='remove'>
-//make tidy happy
+    //make tidy happy
     var respecConfig = {
         previousPublishDate: "2013-12-17",
         specStatus: 'WD',
@@ -246,20 +246,17 @@
         </h3>
         <p>
           By design, this specification does not provide developers with an
-          explicit API to "install" a web application. Instead, a manifest can
-          serve as an <dfn>installability signal</dfn> (amongst other <a title=
-          "installability signal">signals</a>) to a user agent that a web
-          application can be <a>installed</a>.
+          explicit API to "install" a web application. Instead, a
+          <a>manifest</a> can serve as an <dfn>installability signal</dfn> to a
+          user agent that a web application can be <a>installed</a>.
         </p>
         <p>
-          <a title="installability signal">Installability signals</a> can
-          include things like the ones in the following list (this list is not
-          exhaustive and some items might not apply to all user agents). For
-          instance, the web application:
+          Examples of <a title="installability signal">installability
+          signals</a> for a web application:
         </p>
         <ul>
-          <li>contains a manifest with at least a <code>name</code> member and
-          a suitable icon.
+          <li>is <a>associated with a manifest</a> with at least a
+          <code>name</code> member and a suitable icon.
           </li>
           <li>is served over a secure network connection.
           </li>
@@ -276,13 +273,13 @@
           <li>has been explicitly marked by the user as one that they value and
           trust (e.g., by bookmarking or "starring" it).
           </li>
-          <li>And so on...
-          </li>
         </ul>
         <p>
-          How a user agent makes use of these <a title=
+          This list is not exhaustive and some <a title=
+          "installability signal">installability signals</a> might not apply to
+          all user agents. How a user agent makes use of these <a title=
           "installability signal">installability signals</a> to determine if a
-          web application is installable is left to implementers.
+          web application can be <a>installed</a> is left to implementers.
         </p>
       </section>
     </section>
@@ -299,8 +296,8 @@
       </p>
       <p>
         A string <var>targetURL</var> is said the be <dfn>within scope</dfn> of
-        navigation scope <var>scopeURL</var> if the following algorithm returns
-        <code>true</code>:
+        <a>navigation scope</a> <var>scopeURL</var> if the following algorithm
+        returns <code>true</code>:
       </p>
       <ol>
         <li>If <var>scopeURL</var> is <code>undefined</code> (i.e., it is
@@ -317,7 +314,7 @@
         <li>Otherwise, return <code>false</code>.
         </li>
       </ol>
-      <div class="issue" title="🐒 Monkey patch">
+      <div class="issue" title="&#128018; Monkey patch">
         <p>
           Enforcing the navigation scope depends on [[!HTML]]'s navigate
           algorithm. As such, the following algorithm monkey patches [[!HTML]].
@@ -327,15 +324,15 @@
       </div>
       <p>
         The user agent MUST navigate the application context as per [[!HTML]]'s
-        navigate algorithm with exceptions enabled. If the URL being navigated
-        to is not <a>within scope</a> of the navigation scope, then the user
-        agent MUST behave as if the application context is not <a>allowed to
-        navigate</a>: this provides the ability for the user agent to perform
-        the navigation in a different browsing context - or in a different user
-        agent entirely. If during the handle redirects step of HTML's <a title=
-        "navigated">navigate algorithm</a>, if the redirect URL is not
-        <a>within scope</a>, abort HTML's navigation algorithm with a
-        <code>SecurityError</code>.
+        navigate algorithm with exceptions enabled. If the URL of the resource
+        being loaded in the navigation is not <a>within scope</a> of the
+        navigation scope, then the user agent MUST behave as if the application
+        context is not <a>allowed to navigate</a> (this provides the ability
+        for the user agent to perform the navigation in a different browsing
+        context, or in a different user agent entirely). If during the handle
+        redirects step of HTML's <a title="navigated">navigate algorithm</a>
+        the redirect URL is not <a>within scope</a>, abort HTML's navigation
+        algorithm with a <code>SecurityError</code>.
       </p>
       <p>
         A developer specifies the navigation scope via the
@@ -344,10 +341,11 @@
         scope is treated as <dfn>unbounded</dfn> (represented as the value
         <code>undefined</code>). In such a case, the manifest is applied to all
         URLs the application context is <a>navigated</a> to (see related
-        security considerations).
+        <a href="#navigation-scope-security-considerations">security
+        considerations</a>).
       </p>
       <section>
-        <h3>
+        <h3 id="navigation-scope-security-considerations">
           Security considerations
         </h3>
         <p>
@@ -372,8 +370,9 @@
           This specification distinguishes between behavior in first-party and
           third-party contexts. In particular, if a <code>scope</code> member
           is declared in the manifest, it is not possible to navigate the
-          top-level browsing context to somewhere outside the scope while the
-          manifest is being applied. That's not to say that the web application
+          <a>top-level browsing context</a> to somewhere outside the scope
+          while the <a>manifest</a> is <a>applied</a> to the <a>top-level
+          browsing context</a>. That's not to say that the web application
           cannot be navigated: just that the set of URLs to which the manifest
           applies is restricted by the <a>navigation scope</a>.
         </p>
@@ -394,8 +393,14 @@
             (and possibly vice versa!). Theoretically, this can provide
             seamless context switching between native and web applications
             through standard hyperlinks. And in the case where a particular web
-            application is not <a>installed</a>, then the OS can just open the
-            link in the user's preferred web browser.
+            application is not <a>installed</a>, the OS can just open the link
+            in the user's preferred web browser.
+          </p>
+          <p>
+            Implementers are encouraged make such context switching obvious to
+            the user, for example, by adhering to the human interface
+            guidelines of the underlying platform with respect to application
+            switching.
           </p>
         </div>
       </section>
@@ -430,14 +435,14 @@
         <code>browser</code> <a>display mode</a>.
       </p>
       <p>
-        Each <a>display mode</a>, except <code>browser</code>, has a recursive
+        Each <a>display mode</a>, except <code>browser</code>, has a
         <dfn>fallback display mode</dfn>, which is the <a>display mode</a> that
         the user agent can try to use if it doesn't support a particular
-        <a>display mode</a>. If the user agent does support a fallback display
-        mode, then it checks to see if it can use that display mode's fallback
-        display mode. This creates a fallback chain, with the <a>default
-        display mode</a> (<code>browser</code>) being the last item in the
-        chain.
+        <a>display mode</a>. If the user agent does support a <a>fallback
+        display mode</a>, then it checks to see if it can use that <a>display
+        mode</a>'s <a>fallback display mode</a>. This creates a fallback chain,
+        with the <a>default display mode</a> (<code>browser</code>) being the
+        last item in the chain.
       </p>
       <div class="example">
         <p>
@@ -1415,13 +1420,14 @@ Content-Type: application/manifest+json
           passing "<code>display</code>" as the argument.
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string" or
-          <var>value</var> is not part of the <a>display modes values</a>:
+          <a>Trim</a>(<var>value</var>) is not part of the <a>display modes
+          values</a>:
             <ol>
               <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
               a developer warning</a> that the type is unsupported.
               </li>
               <li>If <var>value</var> is not part of the <a>display modes
-              values</a> , <a>issue a developer warning</a> that the value is
+              values</a>, <a>issue a developer warning</a> that the value is
               unsupported.
               </li>
               <li>Return the <a>fallback display mode</a>'s value.
@@ -1448,7 +1454,7 @@ Content-Type: application/manifest+json
           member is a <a title="json-string">string</a> that serves as the
           <a>default orientation</a> for all <a title=
           "top-level browsing context">top-level browsing contexts</a> of the
-          web application. The possible values is one of the
+          web application. The possible values are those of the
           <a><code>OrientationLockType</code></a> enum defined in
           [[!SCREEN-ORIENTATION]].
         </p>
@@ -1539,7 +1545,7 @@ Content-Type: application/manifest+json
           advisory, and a user agent MAY <a>ignore</a> it or provide the
           end-user the choice not to make use of it. A user agent MAY also
           allow the end-user to modify the URL when, for instance, a bookmark
-          for the web application is being create or any time thereafter.
+          for the web application is being created or any time thereafter.
         </p>
         <p>
           The <dfn>steps for processing the <code>start_url</code> member</dfn>
@@ -1556,7 +1562,7 @@ Content-Type: application/manifest+json
           <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
           <li>If <var>type</var> is not "string" or <var>value</var> is the
-          empty string, then:
+          empty string:
             <ol>
               <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
               a developer warning</a> that the type is unsupported.
@@ -1599,8 +1605,8 @@ Content-Type: application/manifest+json
           <p>
             For example, if the <var>value</var> of <code>start_url</code> is
             <samp>../start_point.html</samp>, and the manifest's URL is
-            <samp>https://example.com/resources/manifest.webmanifest</samp>, then the
-            result of <a>URL parsing</a> would be
+            <samp>https://example.com/resources/manifest.webmanifest</samp>,
+            then the result of <a>URL parsing</a> would be
             <samp>https://example.com/start_point.html</samp>.
           </p>
         </div>
@@ -1834,15 +1840,25 @@ Content-Type: application/manifest+json
         </p>
         <div class="example">
           <p>
-            For example, the following policy restricts loading icons the
-            <code>icons.example.com</code> domain. Thus, trying to load icons
-            from "other.com" would fail.
+            For example, given the following <code>img-src</code> directive in
+            the <code>Content-Security-Policy</code> HTTP header of the
+            manifest's owner <code>Document</code>:
           </p>
           <pre class="highlight">
 HTTP/1.1 200 OK
-Content-Type: application/json
-Content-Security-Policy: img-src icons.example.com;
+Content-Type: text/html
+Content-Security-Policy: img-src icons.example.com
 
+&lt;!doctype&gt;
+&lt;html&gt;
+&lt;link rel="manifest" href="manifest.webmanifest"&gt;
+
+
+</pre>
+          <p>
+            And given the following <code>manifest.webmanifest</code>:
+          </p>
+          <pre class="highlight">
 {
     "name": "custom manifest",
     "start_url": "http://boo",
@@ -1854,6 +1870,11 @@ Content-Security-Policy: img-src icons.example.com;
       }]
 }
 </pre>
+          <p>
+            The fetching of icon resources from
+            <code>icons.example.com/lowres</code> would succeed, while fetching
+            from <code>other.com/hi-res</code> would fail.
+          </p>
         </div>
       </section>
       <section>
@@ -1949,7 +1970,7 @@ Content-Security-Policy: img-src icons.example.com;
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Let <var>result</var> be 1.0.
+              <li>Return 1.0.
               </li>
             </ol>
           </li>
@@ -1973,7 +1994,7 @@ Content-Security-Policy: img-src icons.example.com;
           separated by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN
           CAPITAL LETTER X character. The keywords represent icon sizes in raw
           pixels (as opposed to CSS pixels). When multiple <a title=
-          "image object">image objects</a> are available, a user agent can use
+          "image object">image objects</a> are available, a user agent MAY use
           the value to decide which icon is most suitable for a display context
           (and ignore any that are inappropriate).
         </p>
@@ -1997,6 +2018,7 @@ Content-Security-Policy: img-src icons.example.com;
               <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
               a developer warning</a> that the type is unsupported.
               </li>
+              <li>Return <code>undefined</code>.</li>
             </ol>
           </li>
           <li>Otherwise, parse <var>value</var> as if it was a [[!HTML]] <code>
@@ -2037,8 +2059,7 @@ Content-Security-Policy: img-src icons.example.com;
           </li>
           <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
-          <li>If <var>type</var> is not "string", or <var>value</var> is the
-          empty string, then:
+          <li>If <var>type</var> is not "string", then:
             <ol>
               <li>If <var>type</var> is not "<code>undefined</code>", issue a
               developer warning that the type is unsupported.
