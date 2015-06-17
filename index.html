@@ -1420,13 +1420,14 @@ Content-Type: application/manifest+json
           passing "<code>display</code>" as the argument.
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string" or
-          <var>value</var> is not part of the <a>display modes values</a>:
+          <a>Trim</a>(<var>value</var>) is not part of the <a>display modes
+          values</a>:
             <ol>
               <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
               a developer warning</a> that the type is unsupported.
               </li>
               <li>If <var>value</var> is not part of the <a>display modes
-              values</a> , <a>issue a developer warning</a> that the value is
+              values</a>, <a>issue a developer warning</a> that the value is
               unsupported.
               </li>
               <li>Return the <a>fallback display mode</a>'s value.
