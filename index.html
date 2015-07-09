@@ -149,6 +149,7 @@
         "sizes": "128x128",
         "density": 2
       }],
+  "background_color": "red",
   "splash_screens": [{
         "src": "splash/lowres",
         "sizes": "320x240"
@@ -971,6 +972,10 @@ Content-Type: application/manifest+json
           <var>manifest</var>, <var>manifest URL</var>, and "icons" as
           arguments.
           </li>
+          <li>Let <var>background color</var> of <var>parsed manifest</var> be
+          the result of running the <a>steps for processing the
+          <code>background_color</code> member</a> with <var>manifest</var>.
+          </li>
           <li>Let <var>splash screens</var> of <var>parsed manifest</var> be
           the result of running the <a>steps for processing an array of
           images</a> with <var>manifest</var>, <var>manifest URL</var>, and
@@ -1403,10 +1408,60 @@ Content-Type: application/manifest+json
         "src": "icon/hd_hi.svg",
         "sizes": "72x72",
         "density": 2
-      }]
+      }],
  }
 </pre>
         </div>
+      </section>
+      <section>
+        <h3>
+          <code>background_color</code> member
+        </h3>
+        <p>
+          The <dfn><code>background_color</code></dfn> member is a
+          [[!CSS3-Color]] color value. It represents the background color of
+          the web application.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>background_color</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes an <var>manifest</var> object as an argument, and returns
+          either a string or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>background_color</code>".
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              optionally <a>issue a developer warning</a> that the type is not
+              supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, let <var>potential color</var> be the result of
+          running [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm
+          with <var>value</var> as input. If parsing returns a syntax error,
+          return <code>undefined</code>.
+          </li>
+          <li>Let <var>color</var> be the result of attempting to parse
+          <var>potential color</var> as a CSS color, as per [[!CSS-SYNTAX-3]].
+          If parsing fails:
+            <ol>
+              <li>
+                <a>Issue a developer warning</a>.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>color</var>.
+          </li>
+        </ol>
       </section>
       <section>
         <h3>
@@ -1889,59 +1944,6 @@ Content-Security-Policy: img-src icons.example.com
             from <code>other.com/hi-res</code> would fail.
           </p>
         </div>
-      </section>
-      <section>
-        <h3>
-          <code>background_color</code> member
-        </h3>
-        <p>
-          The <dfn><code>background_color</code></dfn> member of an <a>image
-          object</a> is a color, expressed as a [[!CSS3-Color]] value, that
-          represents a color on which a user agent SHOULD render an <a>image
-          object</a>. For example, this color can be used when the dimensions
-          of the display context exceeds those of the <a>image object</a> -
-          and/or when the image contains transparent regions.
-        </p>
-        <p>
-          The <dfn>steps for processing the <code>background_color</code>
-          member of an image</dfn> are given by the following algorithm. The
-          algorithm takes an <var>image</var> object as an argument, and
-          returns either a string or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>image</var> with
-          argument "<code>background_color</code>".
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, let <var>potential color</var> be the result of
-          running [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm
-          with <var>value</var> as input. If parsing returns a syntax error,
-          return <code>undefined</code>.
-          </li>
-          <li>Let <var>color</var> be the result of attempting to parse
-          <var>potential color</var> as a CSS color, as per [[!CSS-SYNTAX-3]].
-          If parsing fails:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a>.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>color</var>.
-          </li>
-        </ol>
       </section>
       <section>
         <h3>
