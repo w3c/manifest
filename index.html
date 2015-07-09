@@ -151,7 +151,7 @@
         "sizes": "128x128",
         "density": 2
       }],
-  "icons_background_color": "red",
+  "background_color": "red",
   "splash_screens": [{
         "src": "splash/lowres",
         "sizes": "320x240"
@@ -974,10 +974,9 @@ Content-Type: application/manifest+json
           <var>manifest</var>, <var>manifest URL</var>, and "icons" as
           arguments.
           </li>
-          <li>Let <var>icons background color</var> of <var>parsed
-          manifest</var> be the result of running the <a>steps for processing
-          the <code>icons_background_color</code> member</a> with
-          <var>manifest</var>.
+          <li>Let <var>background color</var> of <var>parsed manifest</var> be
+          the result of running the <a>steps for processing the
+          <code>background_color</code> member</a> with <var>manifest</var>.
           </li>
           <li>Let <var>splash screens</var> of <var>parsed manifest</var> be
           the result of running the <a>steps for processing an array of
@@ -1534,20 +1533,15 @@ Content-Type: application/manifest+json
       </section>
       <section>
         <h3>
-          <code>icons_background_color</code> member
+          <code>background_color</code> member
         </h3>
         <p>
-          The <dfn><code>icons_background_color</code></dfn> member is a
-          [[!CSS3-Color]] color value. When presenting an <a>image object</a>
-          from the <code>icons</code> members, the user agent SHOULD render
-          this color underneath the <a>image object</a> (filling the available
-          space in which the icon is to be displayed with that color). For
-          example, a user agent could use this color when the dimensions of the
-          display context exceeds those of the <a>image object</a> - and/or
-          when the image contains transparent regions.
+          The <dfn><code>background_color</code></dfn> member is a
+          [[!CSS3-Color]] color value. It represents the background color of
+          the web application.
         </p>
         <p>
-          The <dfn>steps for processing the <code>icons_background_color</code>
+          The <dfn>steps for processing the <code>background_color</code>
           member</dfn> are given by the following algorithm. The algorithm
           takes an <var>manifest</var> object as an argument, and returns
           either a string or <code>undefined</code>.
@@ -1555,7 +1549,7 @@ Content-Type: application/manifest+json
         <ol>
           <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>icons_background_color</code>".
+          with argument "<code>background_color</code>".
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
