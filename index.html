@@ -203,22 +203,22 @@
         Requirements for Installable Web Apps</a></cite> .
       </p>
       <p>
-        A web application is <dfn>installed</dfn> if the user agent has
-        provided the end-user with a means of instantiating a new <a>top-level
-        browsing context</a> that has the manifest's members applied to it.
-        That is, the manifest's members, or their defaults, are in effect on
-        the <a>top-level browsing context</a> (see <a>application context</a>).
+        A web application is <dfn data-lt=
+        "installed|installing">installed</dfn> if the user agent has provided
+        the end-user with a means of instantiating a new <a>top-level browsing
+        context</a> that has the manifest's members applied to it. That is, the
+        manifest's members, or their defaults, are in effect on the
+        <a>top-level browsing context</a> (see <a>application context</a>).
       </p>
       <p>
-        An example of <a title="installed">installing</a> would be a user agent
-        that allows the end-user to add a shortcut to a web application on
-        their device's homescreen (using the name and one of the icons found in
-        the manifest). Then, when the end-user launches a web application
-        through this explicit means, the manifest is applied to the browsing
-        context prior to the <a>start URL</a> being loaded. This gives the user
-        agent time to apply the relevant values of the manifest, possibly
-        changing the display mode and screen orientation of the web
-        application.
+        An example of <a>installing</a> would be a user agent that allows the
+        end-user to add a shortcut to a web application on their device's
+        homescreen (using the name and one of the icons found in the manifest).
+        Then, when the end-user launches a web application through this
+        explicit means, the manifest is applied to the browsing context prior
+        to the <a>start URL</a> being loaded. This gives the user agent time to
+        apply the relevant values of the manifest, possibly changing the
+        display mode and screen orientation of the web application.
       </p>
       <p>
         Alternatively, an application context can be launched through a <a>deep
@@ -249,12 +249,13 @@
         <p>
           By design, this specification does not provide developers with an
           explicit API to "install" a web application. Instead, a
-          <a>manifest</a> can serve as an <dfn>installability signal</dfn> to a
-          user agent that a web application can be <a>installed</a>.
+          <a>manifest</a> can serve as an <dfn data-lt=
+          "installability signals|installability signal">installability
+          signal</dfn> to a user agent that a web application can be
+          <a>installed</a>.
         </p>
         <p>
-          Examples of <a title="installability signal">installability
-          signals</a> for a web application:
+          Examples of <a>installability signals</a> for a web application:
         </p>
         <ul>
           <li>is <a>associated with a manifest</a> with at least a
@@ -277,11 +278,10 @@
           </li>
         </ul>
         <p>
-          This list is not exhaustive and some <a title=
-          "installability signal">installability signals</a> might not apply to
-          all user agents. How a user agent makes use of these <a title=
-          "installability signal">installability signals</a> to determine if a
-          web application can be <a>installed</a> is left to implementers.
+          This list is not exhaustive and some <a>installability signals</a>
+          might not apply to all user agents. How a user agent makes use of
+          these <a>installability signals</a> to determine if a web application
+          can be <a>installed</a> is left to implementers.
         </p>
       </section>
     </section>
@@ -326,15 +326,15 @@
       </div>
       <p>
         The user agent MUST navigate the application context as per [[!HTML]]'s
-        navigate algorithm with exceptions enabled. If the URL of the resource
-        being loaded in the navigation is not <a>within scope</a> of the
-        navigation scope, then the user agent MUST behave as if the application
-        context is not <a>allowed to navigate</a> (this provides the ability
-        for the user agent to perform the navigation in a different browsing
-        context, or in a different user agent entirely). If during the handle
-        redirects step of HTML's <a title="navigated">navigate algorithm</a>
-        the redirect URL is not <a>within scope</a>, abort HTML's navigation
-        algorithm with a <code>SecurityError</code>.
+        <a>navigate algorithm</a> with exceptions enabled. If the URL of the
+        resource being loaded in the navigation is not <a>within scope</a> of
+        the navigation scope, then the user agent MUST behave as if the
+        application context is not <a>allowed to navigate</a> (this provides
+        the ability for the user agent to perform the navigation in a different
+        browsing context, or in a different user agent entirely). If during the
+        handle redirects step of HTML's <a>navigate algorithm</a> the redirect
+        URL is not <a>within scope</a>, abort HTML's navigation algorithm with
+        a <code>SecurityError</code>.
       </p>
       <p>
         A developer specifies the navigation scope via the
@@ -439,10 +439,11 @@
       </p>
       <p>
         Each <a>display mode</a>, except <code>browser</code>, has a
-        <dfn>fallback display mode</dfn>, which is the <a>display mode</a> that
-        the user agent can try to use if it doesn't support a particular
-        <a>display mode</a>. If the user agent does support a <a>fallback
-        display mode</a>, then it checks to see if it can use that <a>display
+        <dfn data-lt="fallback display modes|fallback display mode">fallback
+        display mode</dfn>, which is the <a>display mode</a> that the user
+        agent can try to use if it doesn't support a particular <a>display
+        mode</a>. If the user agent does support a <a>fallback display
+        mode</a>, then it checks to see if it can use that <a>display
         mode</a>'s <a>fallback display mode</a>. This creates a fallback chain,
         with the <a>default display mode</a> (<code>browser</code>) being the
         last item in the chain.
@@ -459,8 +460,8 @@
         </p>
       </div>
       <p>
-        The <dfn>display modes values</dfn> and their corresponding <a title=
-        "fallback display mode">fallback display modes</a> are as follows:
+        The <dfn>display modes values</dfn> and their corresponding <a>fallback
+        display modes</a> are as follows:
       </p>
       <dl>
         <dt>
@@ -694,20 +695,19 @@ if (standalone.matches) {
           </tr>
           <tr>
             <th>
-              <code><a title="link element">link</a></code>
+              <code><a>link</a></code>
             </th>
             <th>
-              <code><a title="a element">a</a></code> and <code><a title=
-              "area element">area</a></code>
+              <code><a>a</a></code> and <code><a>area</a></code>
             </th>
           </tr>
           <tr>
             <td>
-              <code><dfn title="rel-manifest" id=
+              <code><dfn data-lt="rel-manifest" id=
               "rel-manifest">manifest</dfn></code>
             </td>
             <td>
-              <a title="external resource link">External Resource</a>
+              <a>External Resource</a>
             </td>
             <td>
               not allowed
@@ -726,10 +726,10 @@ if (standalone.matches) {
           In cases where more than one <a><code>link</code> element</a> with a
           <code>manifest</code> link type appears in a <code>Document</code>,
           the user agent uses the first <a><code>link</code> element</a> in
-          tree order and ignores all subsequent <a title=
-          "link element"><code>link</code> element</a> with a
-          <code>manifest</code> link type (even if the first element was
-          erroneous). See the <a>steps for obtaining a manifest</a>.
+          tree order and ignores all subsequent <a><code>link</code>
+          element</a> with a <code>manifest</code> link type (even if the first
+          element was erroneous). See the <a>steps for obtaining a
+          manifest</a>.
         </p>
         <p>
           To obtain a manifest, the user agent MUST run the <a>steps for
@@ -752,10 +752,9 @@ if (standalone.matches) {
       </h2>
       <p>
         This section defines algorithms for <a href="#obtaining">obtaining</a>,
-        <a href="#processing">processing</a>, and <a href=
-        "#applying">applying</a> a <a>manifest</a>, and gives recommendations
-        to implementers on how to react when the manifest is <a href=
-        "#updating">updated</a>.
+        <a href="#processing">processing</a>, and <a>applying</a> a
+        <a>manifest</a>, and gives recommendations to implementers on how to
+        react when the manifest is <a href="#updating">updated</a>.
       </p>
       <section id="obtaining">
         <h3>
@@ -782,10 +781,9 @@ if (standalone.matches) {
           <li>If <var>manifest link</var>'s <code>href</code> attribute's value
           is the empty string, then abort these steps.
           </li>
-          <li>Let <var>manifest URL</var> be the result of <a title=
-          "URL parsing">parsing</a> the value of the <code>href</code>
-          attribute, relative to <a>the element's base URL</a>. If parsing
-          fails, then abort these steps.
+          <li>Let <var>manifest URL</var> be the result of <a>parsing</a> the
+          value of the <code>href</code> attribute, relative to <a>the
+          element's base URL</a>. If parsing fails, then abort these steps.
           </li>
           <li>Let <var>request</var> be a new [[!FETCH]] <a>request</a>, whose
           URL is <var>manifest URL</var>, and whose <a>context</a> is
@@ -805,8 +803,7 @@ if (standalone.matches) {
           processing a manifest</a> with <var>response</var>'s <a href=
           "https://fetch.spec.whatwg.org/#concept-request-body">body</a> as the
           <var>text</var>, <var>manifest URL</var>, and the URL that represents
-          the address of the <a title="top-level browsing context">top-level
-          browsing context</a>.
+          the address of the <a>top-level browsing context</a>.
           </li>
           <li>Return <var>manifest</var> and <var>manifest URL</var>.
           </li>
@@ -900,8 +897,8 @@ Content-Type: application/manifest+json
           an argument, which represents a <a>manifest</a>, and a <a>URL</a>
           <var>manifest URL</var>, which represents the location of the
           manifest, and a <a>URL</a> <var>document URL</var>. The output from
-          inputting an JSON document into this algorithm is a <dfn>processed
-          manifest</dfn> .
+          inputting an JSON document into this algorithm is a <dfn data-lt=
+          "processed manifest">processed manifest</dfn> .
         </p>
         <ol>
           <li>Let <var>parsed manifest</var> be an empty object.
@@ -1005,7 +1002,8 @@ Content-Type: application/manifest+json
           Applying the manifest
         </h3>
         <p>
-          A <a>manifest</a> is <dfn>applied</dfn> to a <a>top-level browsing
+          A <a>manifest</a> is <dfn data-lt=
+          "applied|apply|applying">applied</dfn> to a <a>top-level browsing
           context</a>, meaning that the members of the <a>manifest</a> are
           affecting the presentation or behavior of a browsing context.
         </p>
@@ -1015,12 +1013,11 @@ Content-Type: application/manifest+json
         </p>
         <p>
           If an <a>application context</a> is created as a result of the user
-          agent being asked to <a title="navigated">navigate</a> to a <a>deep
-          link</a>, the user agent MUST immediately <a title=
-          "navigated">navigate</a> to the <a>deep link</a> with <a>replacement
-          enabled</a>. Otherwise, when the <a>application context</a> is
-          created, the user agent MUST immediately <a title=
-          "navigated">navigate</a> to the <a>start URL</a> with <a>replacement
+          agent being asked to <a>navigate</a> to a <a>deep link</a>, the user
+          agent MUST immediately <a>navigate</a> to the <a>deep link</a> with
+          <a>replacement enabled</a>. Otherwise, when the <a>application
+          context</a> is created, the user agent MUST immediately
+          <a>navigate</a> to the <a>start URL</a> with <a>replacement
           enabled</a>.
         </p>
         <div>
@@ -1032,9 +1029,9 @@ Content-Type: application/manifest+json
           </p>
         </div>
         <p>
-          The appropriate time to <a title="applied">apply</a> a manifest is
-          when the <a>application context</a> is created and before <a title=
-          "navigated">navigation</a> to the <a>start URL</a> begins.
+          The appropriate time to <a>apply</a> a manifest is when the
+          <a>application context</a> is created and before <a>navigation</a> to
+          the <a>start URL</a> begins.
         </p>
       </section>
       <section id="updating">
@@ -1075,10 +1072,9 @@ Content-Type: application/manifest+json
       <p>
         A <dfn>manifest</dfn> is a JSON document that contains startup
         parameters and application defaults for when a web application is
-        launched. A manifest consists of a top-level <a title=
-        "json-object">object</a> that contains zero or more members. Each of
-        the members are defined below, as well as how their values are
-        processed.
+        launched. A manifest consists of a top-level <a>object</a> that
+        contains zero or more members. Each of the members are defined below,
+        as well as how their values are processed.
       </p>
       <p>
         Every manifest has an associated <dfn>manifest URL</dfn>, which the
@@ -1086,7 +1082,7 @@ Content-Type: application/manifest+json
       </p>
       <section>
         <h3>
-          <code title="">lang</code> member
+          <code>lang</code> member
         </h3>
         <p>
           The <dfn id="member-lang"><code>lang</code></dfn> member is a
@@ -1158,9 +1154,9 @@ Content-Type: application/manifest+json
         </h3>
         <p>
           The <dfn id="member-name"><code>name</code></dfn> member is a
-          <a title="json-string">string</a> that represents the name of the web
-          application as it is usually displayed to the user (e.g., amongst a
-          list of other applications, or as a label for an icon).
+          <a>string</a> that represents the name of the web application as it
+          is usually displayed to the user (e.g., amongst a list of other
+          applications, or as a label for an icon).
         </p>
         <p>
           The <dfn>steps for processing the <code>name</code> member</dfn> is
@@ -1193,10 +1189,9 @@ Content-Type: application/manifest+json
         </h3>
         <p>
           The <dfn id="member-short_name"><code>short_name</code></dfn> member
-          is a <a title="json-string">string</a> that represents a short
-          version of the name of the web application. It is intended to be used
-          where there is insufficient space to display the full name of the web
-          application.
+          is a <a>string</a> that represents a short version of the name of the
+          web application. It is intended to be used where there is
+          insufficient space to display the full name of the web application.
         </p>
         <p>
           The <dfn>steps for processing the <code>short_name</code>
@@ -1307,15 +1302,13 @@ Content-Type: application/manifest+json
         <div class="issue" data-number="372"></div>
         <p>
           The <dfn id="member-splash_screens"><code>splash_screens</code></dfn>
-          member is an <a title="json-array">array</a> of <a title=
-          "image object">image objects</a> that can serve as a loading screen
-          for the web application. A splash screen indicates to the end user
-          that a loading process is occurring (in effect, that the web
-          application is being prepared by the user agent in the background).
-          As the <code>splash_screens</code> member is an array of <a title=
-          "image object">image objects</a>, developers can use unique image
-          objects definitions to target minimum screen resolutions and pixel
-          densities.
+          member is an <a>array</a> of <a>image objects</a> that can serve as a
+          loading screen for the web application. A splash screen indicates to
+          the end user that a loading process is occurring (in effect, that the
+          web application is being prepared by the user agent in the
+          background). As the <code>splash_screens</code> member is an array of
+          <a>image objects</a>, developers can use unique image objects
+          definitions to target minimum screen resolutions and pixel densities.
         </p>
         <p>
           This feature is primarily intended for user agents that take a
@@ -1339,13 +1332,12 @@ Content-Type: application/manifest+json
         </h3>
         <p>
           The <dfn id="member-icons"><code>icons</code></dfn> member is an
-          <a title="json-array">array</a> of <a title="image object">image
-          objects</a> that can serve as iconic representations of the web
-          application in various contexts. For example, they can be used to
-          represent the web application amongst a list of other applications,
-          or to integrate the web application with an <abbr title=
-          "operating system">OS</abbr>'s task switcher and/or system
-          preferences.
+          <a>array</a> of <a>image objects</a> that can serve as iconic
+          representations of the web application in various contexts. For
+          example, they can be used to represent the web application amongst a
+          list of other applications, or to integrate the web application with
+          an <abbr title="operating system">OS</abbr>'s task switcher and/or
+          system preferences.
         </p>
         <p class="note">
           The <code>icons</code> member is processed using the <a>steps for
@@ -1358,8 +1350,8 @@ Content-Type: application/manifest+json
           agent tries to use an icon but that icon is determined, upon closer
           examination, to in fact be inappropriate (e.g. because its content
           type is unsupported), then the user agent MUST try the
-          next-most-appropriate icon as determined by examining the <a title=
-          "image object">image object's</a> members.
+          next-most-appropriate icon as determined by examining the <a>image
+          object's</a> members.
         </p>
         <div class="example">
           <p>
@@ -1414,11 +1406,10 @@ Content-Type: application/manifest+json
         </h3>
         <p>
           The <dfn id="member-display"><code>display</code></dfn> member is a
-          <a title="json-string">string</a>, whose value is one of <a>display
-          modes values</a>. The item represents the developer's preferred
-          <a>display mode</a> for the web application. When the member is
-          missing or erroneous, the user agent MUST use the <a>fallback display
-          mode</a>.
+          <a>string</a>, whose value is one of <a>display modes values</a>. The
+          item represents the developer's preferred <a>display mode</a> for the
+          web application. When the member is missing or erroneous, the user
+          agent MUST use the <a>fallback display mode</a>.
         </p>
         <p>
           The <dfn>steps for processing the <code>display</code> member</dfn>
@@ -1462,10 +1453,9 @@ Content-Type: application/manifest+json
         </h3>
         <p>
           The <dfn id="member-orientation"><code>orientation</code></dfn>
-          member is a <a title="json-string">string</a> that serves as the
-          <a>default orientation</a> for all <a title=
-          "top-level browsing context">top-level browsing contexts</a> of the
-          web application. The possible values are those of the
+          member is a <a>string</a> that serves as the <a>default
+          orientation</a> for all <a>top-level browsing contexts</a> of the web
+          application. The possible values are those of the
           <a><code>OrientationLockType</code></a> enum defined in
           [[!SCREEN-ORIENTATION]].
         </p>
@@ -1544,19 +1534,18 @@ Content-Type: application/manifest+json
           <code>start_url</code> member
         </h3>
         <p>
-          The <dfn title="member-url"><code>start_url</code></dfn> member is a
-          <a title="json-string">string</a> that represents the <dfn>start
-          URL</dfn> , which is <a>URL</a> that the developer would prefer the
-          user agent load when the user launches the web application (e.g.,
-          when the user clicks on the icon of the web application from a
-          device's application menu or homescreen).
+          The <dfn><code>start_url</code></dfn> member is a <a>string</a> that
+          represents the <dfn>start URL</dfn> , which is <a>URL</a> that the
+          developer would prefer the user agent load when the user launches the
+          web application (e.g., when the user clicks on the icon of the web
+          application from a device's application menu or homescreen).
         </p>
         <p>
-          The <a title="member-url"><code>start_url</code></a> member is purely
-          advisory, and a user agent MAY <a>ignore</a> it or provide the
-          end-user the choice not to make use of it. A user agent MAY also
-          allow the end-user to modify the URL when, for instance, a bookmark
-          for the web application is being created or any time thereafter.
+          The <a><code>start_url</code></a> member is purely advisory, and a
+          user agent MAY <a>ignore</a> it or provide the end-user the choice
+          not to make use of it. A user agent MAY also allow the end-user to
+          modify the URL when, for instance, a bookmark for the web application
+          is being created or any time thereafter.
         </p>
         <p>
           The <dfn>steps for processing the <code>start_url</code> member</dfn>
@@ -1699,19 +1688,19 @@ Content-Type: application/manifest+json
           <code title="">related_applications</code> member
         </h3>
         <p>
-          A <dfn>related application</dfn> is an application accessible to the
-          underlying application platform that has a relationship with the web
-          application <a>associated with a manifest</a>.
+          A <dfn data-lt="related application|related applications">related
+          application</dfn> is an application accessible to the underlying
+          application platform that has a relationship with the web application
+          <a>associated with a manifest</a>.
         </p>
         <p>
           The <dfn id=
           "member-related_applications"><code>related_applications</code></dfn>
-          member lists <a title="related application">related applications</a>
-          and serves as an indication of such a relationship between web
-          application and <a>related application</a>s. This relationship is
-          unidirectional and unless a listed application claims the same
-          relationship, the <a>user agent</a> MUST NOT assume a bi-directional
-          endorsement.
+          member lists <a>related applications</a> and serves as an indication
+          of such a relationship between web application and <a>related
+          applications</a>. This relationship is unidirectional and unless a
+          listed application claims the same relationship, the <a>user
+          agent</a> MUST NOT assume a bi-directional endorsement.
         </p>
         <p>
           Example of usages of the <code>related_applications</code> could be a
@@ -1733,8 +1722,7 @@ Content-Type: application/manifest+json
           the <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>related_applications</code>".
           </li>
-          <li>If <var>unprocessed applications</var> is an <a title=
-          "json-array">array</a>, then:
+          <li>If <var>unprocessed applications</var> is an <a>array</a>, then:
             <ol>
               <li>For each <var>potential application</var> in the array:
                 <ol>
@@ -1790,13 +1778,12 @@ Content-Type: application/manifest+json
           The <dfn id=
           "member-prefer_related_applications"><code>prefer_related_applications</code></dfn>
           member is a boolean value that is used as a hint for the user agent
-          to say that <a title="related application">related applications</a>
-          should be preferred over the web application. The user agent MUST
-          consider the missing value as equivalent to have it set to
-          <code>false</code>. If the <code>prefer_related_applications</code>
-          is set to <code>true</code>, and the user agent wants to suggest to
-          install the web application, the user agent might want to suggest
-          installing one of the <a title="related application">related
+          to say that <a>related applications</a> should be preferred over the
+          web application. The user agent MUST consider the missing value as
+          equivalent to have it set to <code>false</code>. If the
+          <code>prefer_related_applications</code> is set to <code>true</code>,
+          and the user agent wants to suggest to install the web application,
+          the user agent might want to suggest installing one of the <a>related
           applications</a> instead.
         </p>
         <p>
@@ -1831,11 +1818,12 @@ Content-Type: application/manifest+json
       </h2>
       <div class="issue" data-number="361"></div>
       <p>
-        Each <dfn>image object</dfn> represents an image that is used as part
-        of a web application, suitable to use in various contexts depending on
-        the semantics of the member that is using the object (e.g., an icon
-        that is part of an application menu, a splashscreen, etc.). For an
-        image object, this specification provides developers with a means of
+        Each <dfn data-lt="image object|image objects|image object's">image
+        object</dfn> represents an image that is used as part of a web
+        application, suitable to use in various contexts depending on the
+        semantics of the member that is using the object (e.g., an icon that is
+        part of an application menu, a splashscreen, etc.). For an image
+        object, this specification provides developers with a means of
         specifying the dimensions, optimal pixel density, and media type of an
         image (i.e., a "responsive image" solution [[respimg-usecases]]). A
         user agent can use these values to select an image that is best suited
@@ -1943,20 +1931,19 @@ Content-Security-Policy: img-src icons.example.com
           <code>sizes</code> member
         </h3>
         <p>
-          The <dfn title="icon-sizes">sizes</dfn> member of an image object is
-          a <a title="json-string">string</a> consisting of an <a>unordered set
-          of unique space-separated tokens</a> which are <a>ASCII
-          case-insensitive</a> that represents the dimensions of an image. Each
-          keyword is either an <a>ASCII case-insensitive</a> match for the
-          string "<a>any</a>", or a value that consists of two <a title=
-          "valid non-negative integer">valid non-negative integers</a> that do
+          The <dfn data-lt="icon-sizes">sizes</dfn> member of an image object
+          is a <a>string</a> consisting of an <a>unordered set of unique
+          space-separated tokens</a> which are <a>ASCII case-insensitive</a>
+          that represents the dimensions of an image. Each keyword is either an
+          <a>ASCII case-insensitive</a> match for the string "<a>any</a>", or a
+          value that consists of two <a>valid non-negative integers</a> that do
           not have a leading U+0030 DIGIT ZERO (0) character and that are
           separated by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN
           CAPITAL LETTER X character. The keywords represent icon sizes in raw
-          pixels (as opposed to CSS pixels). When multiple <a title=
-          "image object">image objects</a> are available, a user agent MAY use
-          the value to decide which icon is most suitable for a display context
-          (and ignore any that are inappropriate).
+          pixels (as opposed to CSS pixels). When multiple <a>image objects</a>
+          are available, a user agent MAY use the value to decide which icon is
+          most suitable for a display context (and ignore any that are
+          inappropriate).
         </p>
         <p>
           The <dfn>steps for processing a <code>sizes</code> member of an
@@ -2002,8 +1989,9 @@ Content-Security-Policy: img-src icons.example.com
           <code>src</code> member
         </h3>
         <p>
-          The <dfn title="icon-src">src</dfn> member of an <a>image object</a>
-          is a <a>URL</a> from which a user agent can fetch the image's data.
+          The <dfn data-lt="icon-src">src</dfn> member of an <a>image
+          object</a> is a <a>URL</a> from which a user agent can fetch the
+          image's data.
         </p>
         <p>
           The <dfn>steps for processing the <code>src</code> member of an
@@ -2032,8 +2020,8 @@ Content-Security-Policy: img-src icons.example.com
           <li>If <a>Trim</a>(value) is the empty string, then return
           <code>undefined</code>.
           </li>
-          <li>Otherwise, <a title="URL parsing">parse</a> <var>value</var>
-          using <var>manifest URL</var> as the base URL and return the result.
+          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
+          URL</var> as the base URL and return the result.
           </li>
         </ol>
       </section>
@@ -2042,7 +2030,7 @@ Content-Security-Policy: img-src icons.example.com
           <code>type</code> member
         </h3>
         <p>
-          The <dfn title="icon-type">type</dfn> member of an <a>image
+          The <dfn data-lt="icon-type">type</dfn> member of an <a>image
           object</a> is a hint as to the media type of the image. The purpose
           of this member is to allow a user agent to ignore images of media
           types it does not support.
@@ -2095,9 +2083,8 @@ Content-Security-Policy: img-src icons.example.com
           <var>manifest URL</var>, which is the URL from which the
           <var>manifest</var> was fetched, and a string that represents the
           <var>member name</var> of the member which contains the array of
-          <a title="image object">image objects</a>. This algorithm returns a
-          list of <a title="image object">image objects</a>, which can be
-          empty.
+          <a>image objects</a>. This algorithm returns a list of <a>image
+          objects</a>, which can be empty.
         </p>
         <ol>
           <li>Let <var>images</var> be an empty list.
@@ -2106,8 +2093,7 @@ Content-Security-Policy: img-src icons.example.com
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with <var>member name</var> as the argument.
           </li>
-          <li>If <var>unprocessed images</var> is an <a title=
-          "json-array">array</a>, then:
+          <li>If <var>unprocessed images</var> is an <a>array</a>, then:
             <ol>
               <li>From unprocessed images, filter out any <var>item</var> where
               <a>HasOwnProperty</a>(item,"src") returns <code>false</code>.
@@ -2216,7 +2202,7 @@ Content-Security-Policy: img-src icons.example.com
           <code>platform</code> member
         </h3>
         <p>
-          The <dfn title="application-platform">platform</dfn> member of an
+          The <dfn data-lt="application-platform">platform</dfn> member of an
           application object represents the platform on which the application
           can be found.
         </p>
@@ -2250,7 +2236,7 @@ Content-Security-Policy: img-src icons.example.com
           <code>url</code> member
         </h3>
         <p>
-          The <dfn title="application-url">url</dfn> member of an application
+          The <dfn data-lt="application-url">url</dfn> member of an application
           object represents the url at which the application can be found.
         </p>
         <p>
@@ -2277,9 +2263,8 @@ Content-Security-Policy: img-src icons.example.com
           <li>Trim(<var>value</var>) and set <var>value</var> to be resulting
           string.
           </li>
-          <li>Otherwise, <a title="URL parsing">parse</a> <var>value</var> and
-          if the result is not failure, return the result, otherwise return
-          <code>undefined</code>.
+          <li>Otherwise, <a>parse</a> <var>value</var> and if the result is not
+          failure, return the result, otherwise return <code>undefined</code>.
           </li>
         </ol>
       </section>
@@ -2288,7 +2273,7 @@ Content-Security-Policy: img-src icons.example.com
           <code>id</code> member
         </h3>
         <p>
-          The <dfn title="application-id">id</dfn> member of an application
+          The <dfn data-lt="application-id">id</dfn> member of an application
           object represents the id which is used to represent the application
           on the platform.
         </p>
@@ -2328,7 +2313,7 @@ Content-Security-Policy: img-src icons.example.com
         <dfn>[[\GetOwnProperty]]</dfn></a> operation and the abstract operation
         <dfn><a href=
         "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-hasownproperty">
-        hasOwnProperty</a></dfn> , <dfn title="parseFloat"><a href=
+        hasOwnProperty</a></dfn> , <dfn data-lt="parseFloat"><a href=
         "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-parsefloat-string">
         parseFloat(string)</a></dfn> function, and the <a class="external"
         href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
@@ -2344,20 +2329,20 @@ Content-Security-Policy: img-src icons.example.com
       </p>
       <p>
         As the manifest uses the JSON format, this specification relies on the
-        types defined in [[!ECMA-404]] specification: namely <dfn title=
-        "json-object">object</dfn>, <dfn title="json-array">array</dfn>,
-        <dfn title="json-number">number</dfn>, <dfn title=
-        "json-string">string</dfn>, <code>true</code>, <code>false</code>, and
-        <code>null</code>. Strict type checking is not enforced by this
-        specification. Instead, each member's definition specifies the steps
-        required to process a particular member and what to do when a type does
-        not match what is expected.
+        types defined in [[!ECMA-404]] specification: namely <dfn>object</dfn>,
+        <dfn>array</dfn>, <dfn>number</dfn>, <dfn>string</dfn>,
+        <code>true</code>, <code>false</code>, and <code>null</code>. Strict
+        type checking is not enforced by this specification. Instead, each
+        member's definition specifies the steps required to process a
+        particular member and what to do when a type does not match what is
+        expected.
       </p>
       <p>
         The <dfn><a href=
         "https://url.spec.whatwg.org/#concept-url">URL</a></dfn> concept and
-        <dfn><a href="https://url.spec.whatwg.org/#url-parsing">URL
-        parsing</a></dfn> are defined in [[!WHATWG-URL]].
+        <dfn data-lt="parse|parsing|URL parsing"><a href=
+        "https://url.spec.whatwg.org/#concept-url-parser">URL parser</a></dfn>
+        are defined in [[!WHATWG-URL]].
       </p>
       <p>
         The <a href=
@@ -2427,12 +2412,15 @@ Content-Security-Policy: img-src icons.example.com
         <li>
           <a href=
           "https://www.whatwg.org/specs/web-apps/current-work/#external-resource-link">
-          <dfn>external Resource link</dfn></a>
+          <dfn data-lt="External Resource|external resource link">external
+          Resource link</dfn></a>
         </li>
         <li>
           <a href=
           "https://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
-          <dfn>top-level browsing context</dfn></a>
+          <dfn data-lt=
+          "top-level browsing context|top-level browsing contexts">top-level
+          browsing context</dfn></a>
         </li>
         <li>
           <a href=
@@ -2446,7 +2434,8 @@ Content-Security-Policy: img-src icons.example.com
         </li>
         <li>
           <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#navigate"><dfn>navigated</dfn></a>
+          "https://www.whatwg.org/specs/web-apps/current-work/#navigate"><dfn data-lt="navigated|navigate|navigate algorithm|navigation">
+          navigate algorithm</dfn></a>
         </li>
         <li>
           <a href=
@@ -2456,7 +2445,7 @@ Content-Security-Policy: img-src icons.example.com
         <li>
           <a href=
           "https://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-link-element">
-          <dfn><code>link</code> element</dfn></a>
+          <dfn data-lt="link element|link"><code>link</code> element</dfn></a>
         </li>
         <li>
           <a href=
@@ -2504,18 +2493,18 @@ Content-Security-Policy: img-src icons.example.com
         </li>
         <li>
           <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#the-a-element"><dfn>
+          "https://www.whatwg.org/specs/web-apps/current-work/#the-a-element"><dfn data-lt="a element|a">
           <code>a</code> element</dfn></a>
         </li>
         <li>
           <a href=
           "https://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
-          <dfn><code>meta</code> element</dfn></a>
+          <dfn data-lt="meta element|meta"><code>meta</code> element</dfn></a>
         </li>
         <li>
           <a href=
           "https://www.whatwg.org/specs/web-apps/current-work/#the-area-element">
-          <dfn><code>area</code> element</dfn></a>
+          <dfn data-lt="area|area element"><code>area</code> element</dfn></a>
         </li>
         <li>
           <a href=
@@ -2550,7 +2539,9 @@ Content-Security-Policy: img-src icons.example.com
         <li>
           <a href=
           "https://www.whatwg.org/specs/web-apps/current-work/#valid-non-negative-integer">
-          <dfn>valid non-negative integer</dfn></a>
+          <dfn data-lt=
+          "valid non-negative integers|valid non-negative integer">valid
+          non-negative integer</dfn></a>
         </li>
         <li>
           <a href=
@@ -2808,8 +2799,7 @@ Content-Security-Policy: img-src icons.example.com
           </dt>
           <dd>
             Please refer to the <a>steps for obtaining a manifest</a> for
-            details about how to fetch and <a title="applied">apply</a> a
-            <a>manifest</a>.
+            details about how to fetch and <a>apply</a> a <a>manifest</a>.
           </dd>
         </dl>
       </section>
@@ -2824,8 +2814,7 @@ Content-Security-Policy: img-src icons.example.com
         is feasible that other software could also implement this specification
         in a conforming manner. For instance, search engines, or crawlers,
         could find and process manifests to build up catalogs of sites that
-        potentially work as <a title="installed">installable web
-        applications</a>.
+        potentially work as installable web applications.
       </p>
       <section class="informative">
         <h3>
