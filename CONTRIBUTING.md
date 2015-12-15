@@ -9,12 +9,28 @@ For more substantial contributions that, please first start a thread in the
 [webapps mailing list](http://lists.w3.org/Archives/Public/public-webapps/)  at
 the W3C.
 
-Note: The [Web Applications Working Group](http://www.w3.org/2012/webapps/)
-operates under the [W3C Patent Policy which](http://www.w3.org/Consortium
-/Patent-Policy-20040205/)  aims to enable implementations of W3C Recommendations
-without the need to pay royalty fees. If you want to make contributions that can
-be used in normative parts of our specifications, we require you to [make the
-appropriate licensing commitments](http://www.w3.org/2004/01/pp-impl/49309/status).
+Note: Contributions to this repository are intended to become part of Recommendation-track documents governed by the
+[W3C Patent Policy](http://www.w3.org/Consortium/Patent-Policy-20040205/) and
+[Software and Document License](http://www.w3.org/Consortium/Legal/copyright-software). To make substantive contributions to specifications, you must either participate
+in the relevant W3C Working Group or make a non-member patent licensing commitment.
+
+If you are not the sole contributor to a contribution (pull request), please identify all 
+contributors in the pull request comment.
+
+To add a contributor (other than yourself, that's automatic), mark them one per line as follows:
+
+```
++@github_username
+```
+
+If you added a contributor by mistake, you can remove them in a comment with:
+
+```
+-@github_username
+```
+
+If you are making a pull request on behalf of someone else but you had no part in designing the 
+feature, you can remove yourself with the above syntax.
 
 
 # Style guide to contributors 
@@ -40,26 +56,3 @@ running tidy, as the changes are destructive ... in a good way:)):
 ```bash 
 tidy -config tidyconfig.txt -o index.html index.html
 ```
-
-Contributions to this repository are intended to become part of Recommendation-track documents governed by the
-[W3C Patent Policy](http://www.w3.org/Consortium/Patent-Policy-20040205/) and
-[Software and Document License](http://www.w3.org/Consortium/Legal/copyright-software). To make substantive contributions to specifications, you must either participate
-in the relevant W3C Working Group or make a non-member patent licensing commitment.
-
-If you are not the sole contributor to a contribution (pull request), please identify all 
-contributors in the pull request comment.
-
-To add a contributor (other than yourself, that's automatic), mark them one per line as follows:
-
-```
-+@github_username
-```
-
-If you added a contributor by mistake, you can remove them in a comment with:
-
-```
--@github_username
-```
-
-If you are making a pull request on behalf of someone else but you had no part in designing the 
-feature, you can remove yourself with the above syntax.
