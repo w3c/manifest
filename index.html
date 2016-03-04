@@ -813,12 +813,12 @@ if (standalone.matches) {
           <p>
             Authors are encouraged to use the HTTP cache directives to
             explicitly cache the manifest. For example, the following response
-            would cause a cached manifest to be used one year from the time the
+            would cause a cached manifest to be used 30 days from the time the
             response is sent:
           </p>
           <pre class="highlight">
 HTTP/1.1 200 OK
-Cache-Control: max-age=31536000
+Cache-Control: max-age=2592000
 Content-Type: application/manifest+json
 
 {
