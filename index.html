@@ -3137,11 +3137,46 @@ Content-Security-Policy: img-src icons.example.com
         repository</a> on GitHub.
       </p>
     </section>
-    <section id="internationalization">
+    <section id="internationalization" class="appendix">
       <h2>
-        internationalization
+        Internationalization
       </h2>
-      <div class="issue" data-number="323"></div>
+      <p>
+        It is expected that authors will localize the content of a manifest by
+        using one of the following options:
+      </p>
+      <dl>
+        <dt>
+          Dynamically setting the language:
+        </dt>
+        <dd>
+          This can include, for instance, asking the user what their preferred
+          language is and dynamically adding or replacing the manifest link
+          relationship to the document based on that language preference (e.g.,
+          using a URL like "manifest.php?lang=fr").
+        </dd>
+        <dt>
+          Using content-negotiation, or geotargeting, etc. on the server:
+        </dt>
+        <dd>
+          The server that hosts the web application could attempt to
+          predetermine the user's language by using <a href=
+          "https://en.wikipedia.org/wiki/Geotargeting">geotargeting</a> or by
+          using content negotiation (e.g., using [[RFC7540]]'s
+          "<code>Accept-Language</code>" header, or even a custom HTTP header).
+        </dd>
+      </dl>
+      <p>
+        Given the options above, developers need to be mindful of the
+        end-user's privacy with respect to their preferred language: When the
+        end-user has explicitly indicated their language preference to a web
+        application (i.e., when not just using the user-agent default language
+        settings), sending the user's preferred language in the clear over the
+        wire is generally not OK. Doing so would reveal personal information
+        about an end-user. As such, developers are encouraged to use [[TLS]] to
+        reduce the chances of pervasive monitoring of their Web applications
+        [[RFC7258]].
+      </p>
     </section>
     <section id="issue-summary"></section>
     <section class="appendix">
