@@ -136,6 +136,7 @@
         <pre class="example highlight json" title="typical manifest">
 {
   "lang": "en",
+  "dir": "ltr",
   "name": "Super Racer 2000",
   "short_name": "Racer2K",
   "icons": [{
@@ -934,6 +935,11 @@ Content-Type: application/manifest+json
             <a>Extension point</a>: process any proprietary and/or other
             supported members at this point in the algorithm.
           </li>
+          <li>Let the <var>default direction</var> of <var>parsed
+          manifest</var> be the result of running the <a>steps for processing
+          the <code>dir</code> member</a> with <var>manifest</var> as the
+          argument.
+          </li>
           <li>Let <var>start URL</var> of <var>parsed manifest</var> be the
           result of running the <a>steps for processing the
           <code>start_url</code> member</a> with <var>manifest</var>,
@@ -1084,6 +1090,121 @@ Content-Type: application/manifest+json
         Every manifest has an associated <dfn>manifest URL</dfn>, which the
         [[!WHATWG-URL]] from which the <a>manifest</a> was fetched.
       </p>
+      <section>
+        <h3>
+          <code>dir</code> member
+        </h3>
+        <p>
+          The <dfn><code>dir</code> member</dfn> specifies the <dfn>base
+          direction</dfn> for the <a>directionality-capable members</a> of the
+          <a>manifest</a>. The <code>dir</code> member's value can be set to
+          one of the <a>text-direction values</a>.
+        </p>
+        <p>
+          The <dfn>directionality-capable members</dfn> are:
+        </p>
+        <ul>
+          <li>
+            <a><code>name</code> member</a>.
+          </li>
+          <li>
+            <a><code>short_name</code></a> member.
+          </li>
+        </ul>
+        <p>
+          The <dfn data-lt="text-direction value">text-direction values</dfn>
+          are the following, implying that the value of the
+          <a>directionality-capable members</a> is by default:
+        </p>
+        <dl>
+          <dt>
+            <dfn data-lt="direction ltr">ltr</dfn>
+          </dt>
+          <dd>
+            left-to-right text.
+          </dd>
+          <dt>
+            <dfn data-lt="direction rtl">rtl</dfn>
+          </dt>
+          <dd>
+            right-to-left text.
+          </dd>
+          <dt>
+            <dfn data-lt="direction auto">auto</dfn>
+          </dt>
+          <dd>
+            <a data-lt=
+            "steps to programmatically determine the directionality of a member">
+            programmatically determined</a> from the value of the member.
+          </dd>
+        </dl>
+        <p>
+          When displaying the <a>directionality-capable members</a> to an
+          end-user, the user agent MUST use the <a>base direction</a> to
+          compute directional runs and layout or position text correctly in
+          text containing mixed-direction sequences [[!BIDI]]. When the <a>base
+          direction</a> is "<a data-lt="direction auto">auto</a>" the user
+          agent MUST run the <a>steps to programmatically determine the
+          directionality of a member</a> - and use the resulting
+          <a>text-direction value</a> to assist in displaying the value of the
+          member.
+        </p>
+        <p>
+          The <dfn>steps to programmatically determine the directionality of a
+          member</dfn> are as follows. The algorithm takes the <var>value</var>
+          of a member.
+        </p>
+        <ol>
+          <li>Find the first character (in logical order) of the
+          <var>value</var> that is of bidirectional character type L, AL, or R
+          [[!BIDI]].
+          </li>
+          <li>If such a character is found and it is of bidirectional character
+          type AL or R, return "rtl".
+          </li>
+          <li>Otherwise, return "ltr".
+          </li>
+        </ol>
+        <p>
+          The <dfn>steps for processing the <code>dir</code> member</dfn> is
+          given by the following algorithm. The algorithm takes a
+          <var>manifest</var> as an argument. This algorithm returns one of the
+          <a>text-direction values</a>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>dir</code>".
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              optionally <a>issue a developer warning</a> that the type is not
+              supported.
+              </li>
+              <li>If <a>Type</a>(<var>value</var>) is "undefined", return
+              "auto".
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and let
+          <var>direction</var> be the result.
+          </li>
+          <li>If <var>direction</var> not one one the <a>text-direction
+          values</a>, then:
+            <ol>
+              <li>
+                <a>issue a developer warning</a> that the <var>value</var> is
+                invalid.
+              </li>
+              <li>Return "auto".
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>direction</var>.
+          </li>
+        </ol>
+      </section>
       <section>
         <h3>
           <code>lang</code> member
