@@ -1736,6 +1736,27 @@ Content-Type: application/manifest+json
             <samp>https://example.com/start_point.html</samp>.
           </p>
         </div>
+        <section>
+          <h3>
+            Privacy consideration: <code>start_url</code> tracking
+          </h3>
+          <p>
+            It's conceivable that the <code>start_url</code> could be crafted
+            to indicate that the application was launched from outside the
+            browser (e.g., <code>"start_url":
+            "index.html?launcher=homescreen"</code>). This can be useful for
+            analytics and possibly other customizations. However, it is also
+            conceivable that developers could encode strings into the start_url
+            that uniquely identify the user (e.g., a server assigned
+            <abbr>UUID</abbr>). This is fingerprinting/privacy sensitive
+            information that the user might not be aware of.
+          </p>
+          <p>
+            Given the above, it RECOMMENDED that, upon installation, or any
+            time thereafter, a user agent allow the user to inspect and, if
+            necessary, modify the <a>start URL</a> of an application.
+          </p>
+        </section>
       </section>
       <section>
         <h3>
