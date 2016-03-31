@@ -231,8 +231,18 @@
       </p>
       <section>
         <h3>
-          Security consideration
+          Security considerations
         </h3>
+        <p>
+          When <a>installing</a> a web application, it is RECOMMENDED that the
+          user agent allow the user to inspect the icon, name, <a>start
+          URL</a>, origin, etc. pertaining to a web application. This is to
+          give the end-user an opportunity to make a conscious decision about
+          approving, and possibly modify, the information pertaining to the web
+          application before installing it. This also gives the end-user an
+          opportunity to know if the user agent is spoofing another web
+          application, by, for example, using an unexpected icon or name.
+        </p>
         <p>
           It is RECOMMENDED that user agents prevent other applications from
           determining which applications are installed on the system (e.g., via
@@ -240,7 +250,7 @@
           for example, invalidating from the user agent's cache resources were
           linked to from the manifest (for example, icons) after a web
           application is <a>installed</a> - or by using an entirely different
-          cache from that used for regular web browsing.
+          cache than that used for regular web browsing.
         </p>
       </section>
       <section>
