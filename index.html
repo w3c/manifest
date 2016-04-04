@@ -231,6 +231,30 @@
       </p>
       <section>
         <h3>
+          Security considerations
+        </h3>
+        <p>
+          When <a>installing</a> a web application, it is RECOMMENDED that the
+          user agent allow the user to inspect the icon, name, <a>start
+          URL</a>, origin, etc. pertaining to a web application. This is to
+          give the end-user an opportunity to make a conscious decision about
+          approving, and possibly modify, the information pertaining to the web
+          application before installing it. This also gives the end-user an
+          opportunity to know if the user agent is spoofing another web
+          application, by, for example, using an unexpected icon or name.
+        </p>
+        <p>
+          It is RECOMMENDED that user agents prevent other applications from
+          determining which applications are installed on the system (e.g., via
+          a timing attack on the user agent's cache). This could be done by,
+          for example, invalidating from the user agent's cache resources were
+          linked to from the manifest (for example, icons) after a web
+          application is <a>installed</a> - or by using an entirely different
+          cache than that used for regular web browsing.
+        </p>
+      </section>
+      <section>
+        <h3>
           Authority of the manifest's metadata
         </h3>
         <p>
@@ -1736,6 +1760,27 @@ Content-Type: application/manifest+json
             <samp>https://example.com/start_point.html</samp>.
           </p>
         </div>
+        <section>
+          <h3>
+            Privacy consideration: <code>start_url</code> tracking
+          </h3>
+          <p>
+            It's conceivable that the <code>start_url</code> could be crafted
+            to indicate that the application was launched from outside the
+            browser (e.g., <code>"start_url":
+            "index.html?launcher=homescreen"</code>). This can be useful for
+            analytics and possibly other customizations. However, it is also
+            conceivable that developers could encode strings into the start_url
+            that uniquely identify the user (e.g., a server assigned
+            <abbr>UUID</abbr>). This is fingerprinting/privacy sensitive
+            information that the user might not be aware of.
+          </p>
+          <p>
+            Given the above, it RECOMMENDED that, upon installation, or any
+            time thereafter, a user agent allow the user to inspect and, if
+            necessary, modify the <a>start URL</a> of an application.
+          </p>
+        </section>
       </section>
       <section>
         <h3>
