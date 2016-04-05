@@ -997,11 +997,6 @@ Content-Type: application/manifest+json
           <var>manifest</var>, <var>manifest URL</var>, and "icons" as
           arguments.
           </li>
-          <li>Let <var>splash screens</var> of <var>parsed manifest</var> be
-          the result of running the <a>steps for processing an array of
-          images</a> with <var>manifest</var>, <var>manifest URL</var>, and
-          "splash_screens" as arguments.
-          </li>
           <li>Let <var>scope</var> of <var>parsed manifest</var> be the result
           of running the <a>steps for processing the <code>scope</code>
           member</a> with <var>manifest</var>, <var>manifest URL</var>,
@@ -1443,38 +1438,6 @@ Content-Type: application/manifest+json
           <li>Otherwise, return <var>scope URL</var>.
           </li>
         </ol>
-      </section>
-      <section>
-        <h3>
-          <code title="">splash_screens</code> member
-        </h3>
-        <div class="issue atrisk" data-number="9"></div>
-        <p>
-          The <dfn id="member-splash_screens"><code>splash_screens</code>
-          member</dfn> is an <a>array</a> of <a>image objects</a> that can
-          serve as a loading screen for the web application. A splash screen
-          indicates to the end user that a loading process is occurring (in
-          effect, that the web application is being prepared by the user agent
-          in the background). As the <code>splash_screens</code> member is an
-          array of <a>image objects</a>, developers can use unique image
-          objects definitions to target minimum screen resolutions and pixel
-          densities.
-        </p>
-        <p>
-          This feature is primarily intended for user agents that take a
-          perceptible amount of time to self-initialize (e.g., take longer than
-          200ms to be able to render content) - as such, it is OPTIONAL for a
-          user agent to display a splash screen while the web application is
-          being loaded. On launching a web application, if displaying a splash
-          screen, the user agent MUST <a>queue a post-load task</a> on the
-          <code>Document</code> of the <a>start URL</a> to remove the
-          splashscreen, or, alternatively can follow platform conventions for
-          how long a splash screen is displayed (e.g., a minimum of 1 second).
-        </p>
-        <p class="note">
-          The <code>splash_screens</code> member is processed using the
-          <a>steps for processing an array of images</a>.
-        </p>
       </section>
       <section>
         <h3>
@@ -2039,9 +2002,9 @@ Content-Type: application/manifest+json
         represents an image that is used as part of a web application, suitable
         to use in various contexts depending on the semantics of the member
         that is using the object (e.g., an icon that is part of an application
-        menu, a splashscreen, etc.). For an image object, this specification
-        provides developers with a means of specifying the dimensions, optimal
-        pixel density, and media type of an image (i.e., a "responsive image"
+        menu, etc.). For an image object, this specification provides
+        developers with a means of specifying the dimensions, optimal pixel
+        density, and media type of an image (i.e., a "responsive image"
         solution [[respimg-usecases]]). A user agent can use these values to
         select an image that is best suited to display on the end-user's device
         or most closely matches the end-user's preferences.
