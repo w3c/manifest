@@ -181,6 +181,8 @@
 &lt;meta name="application-name" content="Racer2K"&gt;
 &lt;link rel="icon" sizes="16x16 32x32 48x48" href="lo_def.ico"&gt;
 &lt;link rel="icon" sizes="512x512" href="hi_def.png"&gt;
+&lt;link rel="icon" sizes="any" href="icon.svg"&gt;
+&lt;link rel="icon" href="icon-repace.svg"&gt;
 </pre>
       </section>
     </section>
@@ -1501,6 +1503,9 @@ Content-Type: application/manifest+json
             (hd_hi.ico), which includes a gamut of icons individually tailored
             for small display sizes.
             </li>
+            <li>SVG icon <code>sizes</code> <strong>any</strong> for any icon size, 
+            apply it always until specified icons with different sizes like 72x72, 
+            48x48, etc. The same must behavior also without specifying <code>sizes</code> at all.</li>
           </ul>
           <pre class="">
 {
@@ -1519,6 +1524,9 @@ Content-Type: application/manifest+json
         "src": "icon/hd_hi.svg",
         "sizes": "72x72",
         "density": 2
+      },{
+        "src": "icon/icon.svg",
+        "sizes": "any"
       }]
  }
 </pre>
