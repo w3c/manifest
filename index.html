@@ -189,38 +189,54 @@
         Installable web applications
       </h2>
       <p>
-        A common use of a manifest is for a user agent to <dfn data-lt=
-        "installing|installed|installation">install</dfn> a web application:
+        A common use case of a manifest is for a user agent to <dfn data-lt=
+        "installing|installed|installation">install</dfn> a web application;
         whereby the user agent provides the end-user with a means of
         instantiating a new <a>top-level browsing context</a> that has the
         manifest's members applied to it. That is, the manifest's members, or
         their defaults, are in effect on the <a>top-level browsing context</a>.
         This distinguishes an installed web application from a traditional
         bookmark, as opening a web page from a traditional bookmark will not
-        have a manifest <a>applied</a> to it.
+        have the manifest's properties <a>applied</a> to it.
       </p>
       <p>
-        An example of a user agent that allows installation would be one that
-        provides the end-user with a means to add a shortcut to a web
-        application on their device's homescreen (using the name and one of the
-        icons found in the manifest). Then, when the end-user launches the web
-        application through this explicit means, the manifest is <a>applied</a>
-        by the user agent to the browsing context prior to the <a>start URL</a>
-        being loaded. This gives the user agent time to apply the relevant
-        values of the manifest, possibly changing the display mode and screen
-        orientation of the web application. Alternatively, the user agent could
-        install the application into a list of bookmarks within the user agent
-        itself.
+        For example, on user agents that support installation, a web
+        application could be presented and and launched in a way that, to the
+        end-user, is indistinguishable from native applications: such as
+        appearing as a labeled icon on the home screen, launcher, or start
+        menu. When launched, the manifest is <a>applied</a> by the user agent
+        to the browsing context prior to the <a>start URL</a> being loaded.
+        This gives the user agent time to apply the relevant values of the
+        manifest, possibly changing the <a>display mode</a> and screen
+        orientation of the web application. Alternatively, and again as an
+        example, the user agent could <a>install</a> the web application into a
+        list of bookmarks within the user agent itself.
       </p>
       <p>
         An end-user can <dfn data-lt="manual installation">manually</dfn>
-        trigger an <a>installation process</a> through the browser's
+        trigger the <a>installation process</a> through the browser's
         <abbr>UI</abbr>. Alternatively, the <a>installation process</a> can
         occur through an <dfn>automated install prompt</dfn>: that is, a
         <abbr>UI</abbr> that the user agent presents to the user when, for
         instance, there are sufficient <a>installability signals</a> to warrant
         <a>installation</a> of the web application.
       </p>
+      <section>
+        <h3>
+          Authority of the manifest's metadata
+        </h3>
+        <p>
+          When a <a>manifest</a> is linked from a <code>Document</code>, it
+          indicates to the user agent that the metadata is
+          <dfn>authoritative</dfn>: that is, the user agent SHOULD use the
+          metadata of the manifest instead of the one in the
+          <code>Document</code>. However, in cases where metadata is missing,
+          or in error, a user agent MAY fallback to the <code>Document</code>
+          to find suitable replacements for missing manifest members (e.g.,
+          using <code>application-name</code> in place of
+          <code>short_name</code>).
+        </p>
+      </section>
       <section>
         <h3>
           Installation process
@@ -241,7 +257,7 @@
           placed onto the device's homescreen). If the end-user cancels the
           installation process (even if they <a>manually</a> triggered it, and
           then changed their minds), then the <dfn>installation was
-          cancelled</dfn>. Otherwise, the <dfn>installation failed</dfn>.
+          canceled</dfn>. Otherwise, the <dfn>installation failed</dfn>.
           Reasons for installation failure can include, for example, the OS
           denying permission to the user agent to add an icon to the homescreen
           of the device and the end-user rejecting the installation.
@@ -253,8 +269,7 @@
         </h3>
         <p>
           The <dfn>steps to install the web application</dfn> are given by the
-          following algorithm. It returns a string representing the end-user's
-          <a>installation choice</a>:
+          following algorithm.:
         </p>
         <ol>
           <li>Let <var>window</var> be the <code>Window</code> object of the
@@ -268,16 +283,10 @@
           </li>
           <li>If <a>obtaining the manifest</a> results in an error, a user
           agent can, at this point, fall back to using the top-level browsing
-          contexts' <code>Document</code>'s metadata to create an <a>install
-          process</a>.
+          contexts' <code>Document</code>'s metadata to create an
+          <a>installation process</a>.
           </li>
-          <li>let <var>choice</var> be the result of awaiting for the end-user
-          to make an <a>installation choice</a> (i.e., "accepted", "dismissed",
-          or "rejected").
-          </li>
-          <li>Return <var>choice</var>, and continue asynchronously.
-          </li>
-          <li>If <a>installation succeeds</a>, <a>fire an event</a> named
+          <li>If the <a>installation succeeded</a>, <a>fire an event</a> named
           <code>install</code> at the <var>window</var> object.
           </li>
         </ol>
@@ -293,44 +302,6 @@
         </p>
       </section>
       <section>
-        <h3>
-          Automated installation
-        </h3>
-        <p>
-          In the case that the user agent presents an <a>automated install
-          prompt</a> to the user, the user agent MUST run the <a>before
-          installation prompt steps</a>. Presenting the installation prompt is
-          a <a>default action</a>, which is cancellable through the
-          <code>preventDefault()</code> method of the
-          <code>BeforeInstallPromptEvent</code>.
-        </p>
-        <p>
-          The <dfn>before installation prompt steps</dfn> are given by the
-          following algorithm:
-        </p>
-        <ol>
-          <li>Let <var>event</var> be a new
-          <code>BeforeInstallPromptEvent</code> event named
-          "beforeinstallprompt", which does not bubble, and is cancelable.
-          </li>
-          <li>Fire <var>event</var> at the <code>Window</code> object.
-          </li>
-          <li>When control of scripts is returned to the event loop, if
-          <var>event</var>'s the <a>prevent default flag</a> is set, then:
-            <ol>
-              <li>await <var>event</var>'s <code>prompt()</code> method to be
-              called.
-              </li>
-            </ol>
-          </li>
-          <li>Let <var>choice</var> be the result of awaiting the <a>steps to
-          install the web application</a> to complete.
-          </li>
-          <li>Resolve event's <a>user-choice promise</a> with choice
-          </li>
-        </ol>
-      </section>
-      <section>
         <h3 id="installation-sec">
           Privacy and security considerations
         </h3>
@@ -338,8 +309,8 @@
           During the <a>installation process</a>, it is RECOMMENDED that the
           user agent allow the user to inspect the icon, name, <a>start
           URL</a>, origin, etc. pertaining to a web application. This is to
-          give a user a opportunity to make a conscious decision about
-          approving, and possibly modify, the information pertaining to the web
+          give a user an opportunity to make a conscious decision about to
+          approve, and possibly modify, the information pertaining to the web
           application before installing it. This also gives the user an
           opportunity to see if the user agent is spoofing another web
           application, by, for example, using an unexpected icon or name.
@@ -352,22 +323,6 @@
           linked to from the manifest (for example, icons) after a web
           application is <a>installed</a> - or by using an entirely different
           cache from that used for regular web browsing.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Authority of the manifest's metadata
-        </h3>
-        <p>
-          When a <a>manifest</a> is linked from a <code>Document</code>, it
-          indicates to the user agent that the metadata is
-          <dfn>authoritative</dfn>: that is, the user agent SHOULD use the
-          metadata of the manifest instead of the one in the
-          <code>Document</code>. However, in cases where metadata is missing,
-          or in error, a user agent MAY fallback to the <code>Document</code>
-          to find suitable replacements for missing manifest members (e.g.,
-          using <code>application-name</code> in place of
-          <code>short_name</code>).
         </p>
       </section>
       <section class="informative">
@@ -428,58 +383,27 @@
         <pre class="idl">
           [NoInterfaceObject, exposed=(Window)]
           interface AppInstallEventHandlersMixin {
-            attribute EventHandler onbeforeinstallprompt;
             attribute EventHandler oninstall;
           };
           Window implements AppInstallEventHandlersMixin;
         </pre>
         <div class="example">
           <p>
-            This example shows a typical usage scenario that handles
-            installation prompts and receiving the installation event.
+            This example shows two ways of handling the install event.
           </p>
           <pre class="highlight">
-// criticalTasksToFinish in this example is an array of promises
-// representing task that the user might be undertaking.
-async function handleInstallPrompt(ev){
-  if(!criticalTasksToFinish.length){
-    // User is ok to be prompted. So don't prevent the default.
-    return;
-  }
-  // The user is doing something critical! So don't bother them
-  // with installation prompts: Let's prevent the default!
-  ev.prevenDefault();
-  // Let's instead wait till she, he, or xhe is done.
-  await Promise.all(criticalTasksToFinish);
-  // Ok, browser, show the install prompt!
-  const promptResult = await ev.prompt();
-  switch(promptResult){
-    case "accepted":
-      // Yay! the user accepted. We should wait for install event now...
-      window.oninstall = makeUserFeelLoved;
-      break;
-    case "dismissed":
-      // Hmmm... the user didn't make a choice... maybe it was not a good
-      // time to ask? Should maybe look into this.
-      break;
-    case "rejected":
-      // The user hates us. That's ok tho.
-      break;
-  }
+function handleInstall(ev){
+  const date = new Date(ev.timeStamp / 1000);
+  console.log(`Yay! Our app got installed at ${date.toTimeString()}`)
 }
-window.addEventListener("beforeinstallprompt", handleInstallPrompt);
+
+// Using the event handler IDL attribute
+window.oninstall = handleInstall;
+
+// Using .addEventListener()
+window.addEventListener("install", handleInstall)
             </pre>
         </div>
-        <section>
-          <h4>
-            <code>onbeforeinstallprompt</code> attribute
-          </h4>
-          <p>
-            <code>beforeinstallprompt</code> is an <a>event handler IDL
-            attribute</a> for the "<code>beforeinstallprompt</code>" event
-            type.
-          </p>
-        </section>
         <section>
           <h4>
             <code>oninstall</code> attribute
@@ -488,85 +412,6 @@ window.addEventListener("beforeinstallprompt", handleInstallPrompt);
             <code>oninstall</code> is an <a>event handler IDL attribute</a> for
             the "<a>install</a>" event type.
           </p>
-        </section>
-      </section>
-      <section>
-        <h3>
-          <code>InstallationPromptChoice</code> enum
-        </h3>
-        <pre class="idl">
-          enum InstallationPromptChoice {
-            "accepted",
-            "dismissed",
-            "rejected",
-          };
-        </pre>
-        <p>
-          Which correspond to the following <dfn data-lt=
-          "installation choice">installation choices</dfn>
-        </p>
-        <dl>
-          <dt>
-            <dfn data-lt="accept">accepted</dfn>
-          </dt>
-          <dd>
-            The end-user accepted the installation prompt.
-          </dd>
-          <dt>
-            <dfn data-lt="reject">rejected</dfn>
-          </dt>
-          <dd>
-            The end-user <a>cancelled the installation</a> prompt.
-          </dd>
-          <dt>
-            <dfn data-lt="dimiss">dismissed</dfn>
-          </dt>
-          <dd>
-            The end-user dismissed the installation prompt without making a
-            choice to either <a>cancel</a> or <a>accept</a> the installation.
-          </dd>
-        </dl>
-      </section>
-      <section>
-        <h3>
-          <code>BeforeInstallEvent</code> event
-        </h3>
-        <pre class="idl">
-      interface BeforeInstallPromptEvent : Event {
-        Promise&lt;InstallationPromptChoice&gt; prompt();
-      };
-      </pre>
-        <p>
-          The <code>BeforeInstallEvent</code> has an associated <dfn>user
-          prompt promise</dfn>, which is returned when <code>prompt()</code> is
-          called.
-        </p>
-        <section>
-          <h4>
-            <code>prompt()</code> method
-          </h4>
-          <p>
-            The <dfn>prompt()</dfn> method allows the developer to signal to
-            the user agent that that, at the next turn of the event loop, it is
-            to prompt the user with an <a>automated install prompt</a>.
-            However, the call only serves as a hint and the user agent MAY
-            choose the best time to prompt the end-user.
-          </p>
-          <p>
-            When the <code>prompt()</code> method is called, the user agent
-            MUST run the <dfn>steps to request an install prompt</dfn>:
-          </p>
-          <ol>
-            <li>Let <var>event</var> be the <var>BeforeInstallEvent</var> of
-            the <code>prompt()</code> method.
-            </li>
-            <li>If <code>prompt()</code> is called, but <a>event</a>'s
-            <a>prevent default flag</a> is not set, reject <a>user-choice
-            promise</a> with an "<code>InvalidState</code>" error.
-            </li>
-            <li>Return <var>event</var>'s <a>user-choice promise</a>.
-            </li>
-          </ol>
         </section>
       </section>
     </section>
@@ -2844,6 +2689,15 @@ Content-Security-Policy: img-src icons.example.com
         abstract operations are defined in [[!ECMAS-402]].
       </p>
       <p>
+        The following are defined in [[!WHATWG-DOM]]:
+      </p>
+      <ul>
+        <li>
+          <a href="https://dom.spec.whatwg.org/#concept-event-fire"><dfn>Fire
+          an event</dfn></a>
+        </li>
+      </ul>
+      <p>
         The following are defined in [[!FETCH]]:
       </p>
       <ul>
@@ -3042,6 +2896,11 @@ Content-Security-Policy: img-src icons.example.com
           <a href=
           "https://html.spec.whatwg.org/#queue-a-post-load-task"><dfn>queue a
           post-load task</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-idl-attributes">
+          <dfn>Event handler IDL attribute</dfn></a>
         </li>
       </ul>
     </section>
