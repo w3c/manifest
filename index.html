@@ -138,6 +138,7 @@
   "lang": "en",
   "dir": "ltr",
   "name": "Super Racer 2000",
+  "description": "The ultimate futuristic racing game from the future!",
   "short_name": "Racer2K",
   "icons": [{
     "src": "icon/lowres.webp",
@@ -1117,6 +1118,11 @@ Content-Type: application/manifest+json
           of running the <a>steps for processing the <code>name</code>
           member</a> with <var>manifest</var> as the argument.
           </li>
+          <li>Let <var>description</var> of <var>parsed manifest</var> be the
+          result of running the <a>steps for processing the
+          <code>description</code> member</a> with <var>manifest</var> as the
+          argument.
+          </li>
           <li>Let <var>language</var> of <var>parsed manifest</var> be the
           result of running the <a>steps for processing the <code>lang</code>
           member</a> with <var>manifest</var> as the argument.
@@ -1258,10 +1264,13 @@ Content-Type: application/manifest+json
         </p>
         <ul>
           <li>
+            <a><code>description</code> member</a>.
+          </li>
+          <li>
             <a><code>name</code> member</a>.
           </li>
           <li>
-            <a><code>short_name</code></a> member.
+            <a><code>short_name</code> member</a>.
           </li>
         </ul>
         <p>
@@ -1365,8 +1374,8 @@ Content-Type: application/manifest+json
         <p>
           The <dfn id="member-lang"><code>lang</code> member</dfn> is a
           <a>language tag</a> (string) that specifies the primary language for
-          the values of the manifest's <code>name</code> and
-          <code>short_name</code> members.
+          the values of the manifest's <a>directionality-capable members</a>
+          (as knowing the language can also help with directionality).
         </p>
         <p>
           A <dfn>language tag</dfn> is a string that matches the production of
@@ -1466,7 +1475,7 @@ Content-Type: application/manifest+json
           <code title="">short_name</code> member
         </h3>
         <p>
-          The <dfn id="member-short_name"><code>short_name</code></dfn> member
+          The <dfn id="member-short_name"><code>short_name</code> member</dfn>
           is a <a>string</a> that represents a short version of the name of the
           web application. It is intended to be used where there is
           insufficient space to display the full name of the web application.
@@ -1481,6 +1490,40 @@ Content-Type: application/manifest+json
           <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>short_name</code>".
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              optionally <a>issue a developer warning</a> that the type is not
+              supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">description</code> member
+        </h3>
+        <p>
+          The <dfn id="member-description"><code>description</code>
+          member</dfn> allows the developer to describe the purpose of the web
+          application.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>description</code>
+          member</dfn> is given by the following algorithm. The algorithm takes
+          a <var>manifest</var> as an argument. This algorithm returns a string
+          or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>description</code>".
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
