@@ -189,58 +189,38 @@
         Installable web applications
       </h2>
       <p>
-        This document attempts to address the <cite><a href=
-        "https://w3c-webmob.github.io/installable-webapps/">Use Cases and
-        Requirements for Installable Web Apps</a></cite> .
+        A common use case of a manifest is for a user agent to <dfn data-lt=
+        "installing|installed|installation">install</dfn> a web application;
+        whereby the user agent provides the end-user with a means of
+        instantiating a new <a>top-level browsing context</a> that has the
+        manifest's members applied to it. That is, the manifest's members, or
+        their defaults, are in effect on the <a>top-level browsing context</a>.
+        This distinguishes an installed web application from a traditional
+        bookmark, as opening a web page from a traditional bookmark will not
+        have the manifest's properties <a>applied</a> to it.
       </p>
       <p>
-        A web application is <dfn data-lt="installing">installed</dfn> if the
-        user agent has provided the end-user with a means of instantiating a
-        new <a>top-level browsing context</a> that has the manifest's members
-        applied to it. That is, the manifest's members, or their defaults, are
-        in effect on the <a>top-level browsing context</a> (see <a>application
-        context</a>).
+        For example, on user agents that support installation, a web
+        application could be presented and and launched in a way that, to the
+        end-user, is indistinguishable from native applications: such as
+        appearing as a labeled icon on the home screen, launcher, or start
+        menu. When launched, the manifest is <a>applied</a> by the user agent
+        to the browsing context prior to the <a>start URL</a> being loaded.
+        This gives the user agent time to apply the relevant values of the
+        manifest, possibly changing the <a>display mode</a> and screen
+        orientation of the web application. Alternatively, and again as an
+        example, the user agent could <a>install</a> the web application into a
+        list of bookmarks within the user agent itself.
       </p>
       <p>
-        An example of <a>installing</a> would be a user agent that allows the
-        end-user to add a shortcut to a web application on their device's
-        homescreen (using the name and one of the icons found in the manifest).
-        Then, when the end-user launches a web application through this
-        explicit means, the manifest is applied to the browsing context prior
-        to the <a>start URL</a> being loaded. This gives the user agent time to
-        apply the relevant values of the manifest, possibly changing the
-        display mode and screen orientation of the web application.
+        An end-user can <dfn data-lt="manual installation">manually</dfn>
+        trigger the <a>installation process</a> through the browser's
+        <abbr>UI</abbr>. Alternatively, the <a>installation process</a> can
+        occur through an <dfn>automated install prompt</dfn>: that is, a
+        <abbr>UI</abbr> that the user agent presents to the user when, for
+        instance, there are sufficient <a>installability signals</a> to warrant
+        <a>installation</a> of the web application.
       </p>
-      <p>
-        Alternatively, an application context can be launched through a <a>deep
-        link</a> (a URL that is within scope of the installed web application);
-        in which case, the manifest is applied and the deep link is loaded
-        within the context of web application.
-      </p>
-      <section>
-        <h3>
-          Security considerations
-        </h3>
-        <p>
-          When <a>installing</a> a web application, it is RECOMMENDED that the
-          user agent allow the user to inspect the icon, name, <a>start
-          URL</a>, origin, etc. pertaining to a web application. This is to
-          give the end-user an opportunity to make a conscious decision about
-          approving, and possibly modify, the information pertaining to the web
-          application before installing it. This also gives the end-user an
-          opportunity to know if the user agent is spoofing another web
-          application, by, for example, using an unexpected icon or name.
-        </p>
-        <p>
-          It is RECOMMENDED that user agents prevent other applications from
-          determining which applications are installed on the system (e.g., via
-          a timing attack on the user agent's cache). This could be done by,
-          for example, invalidating from the user agent's cache resources were
-          linked to from the manifest (for example, icons) after a web
-          application is <a>installed</a> - or by using an entirely different
-          cache than that used for regular web browsing.
-        </p>
-      </section>
       <section>
         <h3>
           Authority of the manifest's metadata
@@ -255,6 +235,94 @@
           to find suitable replacements for missing manifest members (e.g.,
           using <code>application-name</code> in place of
           <code>short_name</code>).
+        </p>
+      </section>
+      <section>
+        <h3>
+          Installation process
+        </h3>
+        <p>
+          An <dfn>installation process</dfn> is an attempt by the user agent to
+          <a>install</a> a web application. The details of such a process
+          (i.e., the display of an install <abbr>UI</abbr>, and any resulting
+          <abbr>IO</abbr> operations of the host <abbr>OS</abbr>) are left up
+          to implementers. Implementers need to be aware that there are
+          <a href="#installation-sec">privacy and security considerations</a>
+          that directly relate to the <a>installation process</a>.
+        </p>
+        <p>
+          For the purpose of this specification, the <dfn>installation
+          succeeded</dfn> once the <a>installation process</a> succeeds in
+          <a>installing</a> the web application (e.g., an icon was successfully
+          placed onto the device's homescreen). If the end-user cancels the
+          installation process (even if they <a>manually</a> triggered it, and
+          then changed their minds), then the <dfn>installation was
+          canceled</dfn>. Otherwise, the <dfn>installation failed</dfn>.
+          Reasons for installation failure can include, for example, the OS
+          denying permission to the user agent to add an icon to the homescreen
+          of the device and the end-user rejecting the installation.
+        </p>
+      </section>
+      <section>
+        <h3>
+          Installation
+        </h3>
+        <p>
+          The <dfn>steps to install the web application</dfn> are given by the
+          following algorithm.:
+        </p>
+        <ol>
+          <li>Let <var>window</var> be the <code>Window</code> object of the
+          <a>top-level browsing context</a> for which the user agent will
+          attempt installation.
+          </li>
+          <li>Asynchronously, instantiate an <a>installation process</a>.
+          </li>
+          <li>Let <a>manifest</a> be the result of asynchronously <a>obtaining
+          the manifest</a>.
+          </li>
+          <li>If <a>obtaining the manifest</a> results in an error, a user
+          agent can, at this point, fall back to using the top-level browsing
+          contexts' <code>Document</code>'s metadata to create an
+          <a>installation process</a>.
+          </li>
+          <li>If the <a>installation succeeded</a>, <a>fire an event</a> named
+          <code>install</code> at the <var>window</var> object.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          Manual installation
+        </h3>
+        <p>
+          In the case that the end-user <a>manually</a> triggered the
+          installation process, the user agent MUST run the <a>steps to install
+          the web application</a>.
+        </p>
+      </section>
+      <section>
+        <h3 id="installation-sec">
+          Privacy and security considerations
+        </h3>
+        <p>
+          During the <a>installation process</a>, it is RECOMMENDED that the
+          user agent allow the user to inspect the icon, name, <a>start
+          URL</a>, origin, etc. pertaining to a web application. This is to
+          give a user an opportunity to make a conscious decision about to
+          approve, and possibly modify, the information pertaining to the web
+          application before installing it. This also gives the user an
+          opportunity to see if the user agent is spoofing another web
+          application, by, for example, using an unexpected icon or name.
+        </p>
+        <p>
+          It is RECOMMENDED that user agents prevent other applications from
+          determining which applications are installed on the system (e.g., via
+          a timing attack on the user agent's cache). This could be done by,
+          for example, invalidating from the user agent's cache resources were
+          linked to from the manifest (for example, icons) after a web
+          application is <a>installed</a> - or by using an entirely different
+          cache from that used for regular web browsing.
         </p>
       </section>
       <section class="informative">
@@ -297,6 +365,54 @@
           these <a>installability signals</a> to determine if a web application
           can be <a>installed</a> is left to implementers.
         </p>
+      </section>
+    </section>
+    <section>
+      <h2>
+        Installation Events
+      </h2>
+      <section>
+        <h3>
+          <code>AppInstallEventHandlersMixin</code> mix-in
+        </h3>
+        <p>
+          The <code>AppInstallEventHandlersMixin</code> defines the event
+          handler attributes on which events relating to the installation of a
+          web application are fired.
+        </p>
+        <pre class="idl">
+          [NoInterfaceObject, exposed=(Window)]
+          interface AppInstallEventHandlersMixin {
+            attribute EventHandler oninstall;
+          };
+          Window implements AppInstallEventHandlersMixin;
+        </pre>
+        <div class="example">
+          <p>
+            This example shows two ways of handling the install event.
+          </p>
+          <pre class="highlight">
+function handleInstall(ev){
+  const date = new Date(ev.timeStamp / 1000);
+  console.log(`Yay! Our app got installed at ${date.toTimeString()}`)
+}
+
+// Using the event handler IDL attribute
+window.oninstall = handleInstall;
+
+// Using .addEventListener()
+window.addEventListener("install", handleInstall)
+            </pre>
+        </div>
+        <section>
+          <h4>
+            <code>oninstall</code> attribute
+          </h4>
+          <p>
+            <code>oninstall</code> is an <a>event handler IDL attribute</a> for
+            the "<a>install</a>" event type.
+          </p>
+        </section>
       </section>
     </section>
     <section>
@@ -401,6 +517,12 @@
         <p>
           A <dfn>deep link</dfn> is a URL that is <a>within scope</a> of an
           <a>installed</a> web application.
+        </p>
+        <p>
+          An <a>application context</a> can be instantiated through a <a>deep
+          link</a> (a URL that is within scope of the installed web
+          application); in which case, the manifest is applied and the deep
+          link is loaded within the context of a web application.
         </p>
         <div class="note">
           <p>
@@ -767,12 +889,13 @@ if (standalone.matches) {
           manifest</a>.
         </p>
         <p>
-          To obtain a manifest, the user agent MUST run the <a>steps for
-          obtaining a manifest</a>. The appropriate time to obtain the manifest
-          is left up to implementations. A user agent MAY opt to delay fetching
-          a manifest until after the document and its other resources have been
-          fully loaded (i.e., to not delay the availability of content and
-          scripts required by the <code>document</code>).
+          To obtain a manifest, the user agent MUST run the <a data-lt=
+          "obtaining the manifest">steps for obtaining a manifest</a>. The
+          appropriate time to obtain the manifest is left up to
+          implementations. A user agent MAY opt to delay fetching a manifest
+          until after the document and its other resources have been fully
+          loaded (i.e., to not delay the availability of content and scripts
+          required by the <code>document</code>).
         </p>
         <p>
           A <a>manifest</a> is obtained and applied regardless of the
@@ -796,13 +919,13 @@ if (standalone.matches) {
           Obtaining a manifest
         </h3>
         <p>
-          The <dfn>steps for obtaining a manifest</dfn> are given by the
-          following algorithm. The algorithm, if successful, returns a
-          <a>processed manifest</a> and the <var>manifest URL</var>; otherwise,
-          it terminates prematurely and returns nothing. In the case of nothing
-          being returned, the user agent MUST ignore the manifest declaration.
-          In running these steps, a user agent MUST NOT <a>delay the load
-          event</a>.
+          The <dfn data-lt="obtaining the manifest|obtaining a manifest">steps
+          for obtaining a manifest</dfn> are given by the following algorithm.
+          The algorithm, if successful, returns a <a>processed manifest</a> and
+          the <var>manifest URL</var>; otherwise, it terminates prematurely and
+          returns nothing. In the case of nothing being returned, the user
+          agent MUST ignore the manifest declaration. In running these steps, a
+          user agent MUST NOT <a>delay the load event</a>.
         </p>
         <ol>
           <li>From the <code>Document</code> of the <a>top-level browsing
@@ -2506,6 +2629,15 @@ Content-Security-Policy: img-src icons.example.com
         abstract operations are defined in [[!ECMAS-402]].
       </p>
       <p>
+        The following are defined in [[!WHATWG-DOM]]:
+      </p>
+      <ul>
+        <li>
+          <a href="https://dom.spec.whatwg.org/#concept-event-fire"><dfn>Fire
+          an event</dfn></a>
+        </li>
+      </ul>
+      <p>
         The following are defined in [[!FETCH]]:
       </p>
       <ul>
@@ -2704,6 +2836,11 @@ Content-Security-Policy: img-src icons.example.com
           <a href=
           "https://html.spec.whatwg.org/#queue-a-post-load-task"><dfn>queue a
           post-load task</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-idl-attributes">
+          <dfn>Event handler IDL attribute</dfn></a>
         </li>
       </ul>
     </section>
@@ -3135,6 +3272,16 @@ Content-Security-Policy: img-src icons.example.com
         about an end-user. As such, developers are encouraged to use [[TLS]] to
         reduce the chances of pervasive monitoring of their Web applications
         [[RFC7258]].
+      </p>
+    </section>
+    <section>
+      <h2>
+        Use Cases and Requirements
+      </h2>
+      <p>
+        This document attempts to address the <cite><a href=
+        "https://w3c-webmob.github.io/installable-webapps/">Use Cases and
+        Requirements for Installable Web Apps</a></cite>.
       </p>
     </section>
     <section id="issue-summary"></section>
