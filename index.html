@@ -1340,8 +1340,8 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and let
-          <var>direction</var> be the result.
+          <li>Otherwise, <a>Trim</a>(<var>value</var>), covert to lower-case,
+          and let <var>direction</var> be the result.
           </li>
           <li>If <var>direction</var> not one one the <a>text-direction
           values</a>, then:
@@ -1665,27 +1665,27 @@ Content-Type: application/manifest+json
           <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           passing "<code>display</code>" as the argument.
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string" or
-          <a>Trim</a>(<var>value</var>) is not part of the <a>display modes
-          values</a>:
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
               <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
               a developer warning</a> that the type is unsupported.
-              </li>
-              <li>If <var>value</var> is not part of the <a>display modes
-              values</a>, <a>issue a developer warning</a> that the value is
-              unsupported.
               </li>
               <li>Return the <a>fallback display mode</a>'s value.
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
-          to be the result.
+          <li>Otherwise, <a>Trim</a>(<var>value</var>), covert to lower-case,
+          and set <var>value</var> to be the result.
           </li>
-          <li>If <var>value</var> is not a <a>display mode</a> that the user
-          agent supports, set <var>value</var> to <var>value</var>'s
-          <a>fallback display mode</a> and re-run this step.
+          <li>If <var>value</var> does not match one of the <a>display modes
+          values</a>:
+            <ol>
+              <li>
+                <a>issue a developer warning</a> that the value is unsupported.
+              </li>
+              <li>Return the <a>fallback display mode</a>'s value.
+              </li>
+            </ol>
           </li>
           <li>Return <var>value</var>.
           </li>
@@ -1753,8 +1753,8 @@ Content-Type: application/manifest+json
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and set <var>value</var>
-          to be the result.
+          <li>Otherwise, <a>Trim</a>(<var>value</var>), covert to lower-case,
+          and set <var>value</var> to be the result.
           </li>
           <li>If <var>value</var> is not one of the
           <a><code>OrientationLockType</code></a> enum values, or
