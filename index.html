@@ -912,8 +912,7 @@ if (standalone.matches) {
       <p>
         This section defines algorithms for <a href="#obtaining">obtaining</a>,
         <a href="#processing">processing</a>, and <a>applying</a> a
-        <a>manifest</a>, and gives recommendations to implementers on how to
-        react when the manifest is <a href="#updating">updated</a>.
+        <a>manifest</a>.
       </p>
       <section id="obtaining">
         <h3>
@@ -1207,31 +1206,7 @@ Content-Type: application/manifest+json
         <h3>
           Updating the manifest
         </h3>
-        <div class="issue" data-number="384"></div>
-        <p>
-          By using the <a>manifest URL</a>, a user agent MAY periodically check
-          if the contents of a manifest has been modified (e.g., by honoring
-          HTTP cache directives associated with the manifest or by checking for
-          updates after the web application has been launched). In the event
-          that the members of the manifest have been updated, as determined by
-          running the <a>steps for processing a manifest</a> and seeing if
-          anything has changed, the user agent MAY update the metadata
-          corresponding to the web application (e.g., by replacing the name,
-          icons, <a>navigation scope</a>, or whatever other data has been
-          changed).
-        </p>
-        <p>
-          In addition, even if the manifest has not been modified, the user
-          agents MAY periodically check if resources referenced from a manifest
-          (e.g., the icons) have been modified by honoring HTTP cache
-          directives. If any resources have been modified, the user agent MAY
-          replace any stale resources.
-        </p>
-        <p>
-          To avoid one application masquerading as another, it is RECOMMENDED
-          that users be made aware of any such updates using implementation or
-          platform specific conventions.
-        </p>
+        <div class="issue" data-number="446"></div>
       </section>
     </section>
     <section>
