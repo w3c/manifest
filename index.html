@@ -2165,8 +2165,9 @@ Content-Type: application/manifest+json
         <p>
           To <a>fetch</a> an <a>image object</a>, the user agent MUST run the
           <dfn>steps to fetch an image object</dfn>. The algorithm takes an
-          <a>image object</a> and the <var>manifest's URL</var>. It returns a
-          <a>Response</a>:
+          <a>image object</a>, the <var>manifest URL</var>, and the
+          <var>document</var> (<code>Document</code>) from which the manifest
+          was linked. It returns a <a>Response</a>:
         </p>
         <ol>
           <li>Let <var>request</var> be a new <a>Request</a>.
@@ -2187,6 +2188,9 @@ Content-Type: application/manifest+json
               </li>
               <li>
                 <var>referrer</var> is <var>manifest URL</var>.
+              </li>
+              <li>
+                <var>client</var> is <var>document</var>.
               </li>
             </ol>
           </li>
