@@ -374,19 +374,17 @@
       </h2>
       <section>
         <h3>
-          <code>AppInstallEventHandlers</code> mixin
+          Extensions to the <code>Window</code> object
         </h3>
         <p>
-          The <a><code>AppInstallEventHandlers</code></a> mixin defines the
-          event handler attributes on which events relating to the
+          The following extensions to the <code>Window</code> object specify
+          the event handler attributes on which events relating to the
           <a>installation</a> of a web application are fired.
         </p>
         <pre class="idl">
-          [NoInterfaceObject, exposed=(Window)]
-          interface AppInstallEventHandlers {
+          partial interface Window {
             attribute EventHandler oninstall;
           };
-          Window implements AppInstallEventHandlers;
         </pre>
         <div class="example">
           <p>
@@ -410,8 +408,12 @@ window.addEventListener("install", handleInstall);
             <code>oninstall</code> attribute
           </h4>
           <p>
-            <code>oninstall</code> is an <a>event handler IDL attribute</a> for
-            the "<a>install</a>" event type.
+            The <dfn for="Window">oninstall</dfn> is an <a>event handler IDL
+            attribute</a> for the "<a>install</a>" event type. The interface
+            used for these events is the <a><code>Event</code> interface</a>
+            [[!WHATWG-DOM]]. This event is dispatched as a result of a
+            <a>manual installation</a> or an <a>automated install prompt</a>,
+            which cause the <a>steps to install the web application</a> to run.
           </p>
         </section>
       </section>
@@ -2687,6 +2689,10 @@ Content-Security-Policy: img-src icons.example.com
         The following are defined in [[!WHATWG-DOM]]:
       </p>
       <ul>
+        <li>
+          <a href="https://dom.spec.whatwg.org/#event"><dfn><code>Event</code>
+          interface</dfn></a>
+        </li>
         <li>
           <a href="https://dom.spec.whatwg.org/#concept-event-fire"><dfn>Fire
           an event</dfn></a>
