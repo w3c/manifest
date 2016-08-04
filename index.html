@@ -970,23 +970,8 @@ if (standalone.matches) {
           <li>If <var>manifest link</var> is <code>null</code>, terminate this
           algorithm.
           </li>
-          <li>If <var>manifest link</var>'s <code>href</code> attribute's value
-          is the empty string, then abort these steps.
-          </li>
-          <li>Let <var>manifest URL</var> be the result of <a>parsing</a> the
-          value of the <code>href</code> attribute, relative to <a>the
-          element's base URL</a>. If parsing fails, then abort these steps.
-          </li>
-          <li>Let <var>request</var> be a new [[!FETCH]] <a>request</a>, whose
-          URL is <var>manifest URL</var>, and whose <a>context</a> is
-          "<code>manifest</code>".
-          </li>
-          <li>If the <var>manifest link</var>'s <code>crossOrigin</code>
-          attribute's value is '<code>use-credentials</code>', then set
-          <var>request</var>'s credentials to '<code>include</code>'.
-          </li>
-          <li>Await the result of performing a <a>fetch</a> with
-          <var>request</var>, letting <var>response</var> be the result.
+          <li>With <var>manifest link</var>, <a>obtain a resource</a> and let
+          <var>response</var> be the result.
           </li>
           <li>If <var>response</var> is a <a>network error</a>, terminate this
           algorithm.
@@ -2209,6 +2194,11 @@ Content-Type: application/manifest+json
           <li>Set the following properties of <var>request</var>:
             <ol>
               <li>
+                <var>client</var> is the <var>document</var>'s
+                <code>Window</code> object's <a>environment settings
+                object</a>.
+              </li>
+              <li>
                 <var>url</var> is set to image object's URL.
               </li>
               <li>
@@ -2755,15 +2745,16 @@ Content-Security-Policy: img-src icons.example.com
           "https://fetch.spec.whatwg.org/#concept-network-error"><dfn>Network
           error</dfn></a>.
         </li>
-        <li>
-          <a href=
-          "https://fetch.spec.whatwg.org/#concept-request-context"><dfn>Context</dfn></a>
-        </li>
       </ul>
       <p>
         The following are defined in [[!HTML]]:
       </p>
       <ul>
+        <li>
+          <a href=
+          "https://html.spec.whatwg.org/multipage/webappapis.html#environment-settings-object">
+          environment settings object</a>
+        </li>
         <li>
           <a href=
           "https://html.spec.whatwg.org/multipage/browsers.html#allowed-to-navigate">
