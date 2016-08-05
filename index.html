@@ -134,7 +134,7 @@
         <p>
           The following shows a typical <a>manifest</a>.
         </p>
-        <pre class="example highlight json" title="typical manifest">
+        <pre class="example json" title="typical manifest">
 {
   "lang": "en",
   "dir": "ltr",
@@ -171,7 +171,7 @@
           <code>link</code> and <code>meta</code> elements to give the web
           application a fallback name and set of icons.
         </p>
-        <pre class="example highlight html" title="linking to a manifest">
+        <pre class="example html" title="linking to a manifest">
 &lt;!doctype&gt;
 &lt;html&gt;
 &lt;title&gt;Super Racer 2000&lt;/title&gt;
@@ -422,7 +422,7 @@
           <p>
             This example shows two ways of handling the install event.
           </p>
-          <pre class="highlight">
+          <pre>
 function handleInstall(ev){
   const date = new Date(ev.timeStamp / 1000);
   console.log(`Yay! Our app got installed at ${date.toTimeString()}`);
@@ -433,7 +433,7 @@ window.oninstall = handleInstall;
 
 // Using .addEventListener()
 window.addEventListener("install", handleInstall);
-            </pre>
+          </pre>
         </div>
         <section>
           <h4>
@@ -762,7 +762,7 @@ window.addEventListener("install", handleInstall);
             will not match, but <code>(display-mode: fullscreen)</code> will
             match. This is exemplified in CSS code below.
           </p>
-          <pre class='example highlight'>
+          <pre class='example'>
 /* applies when the window is fullscreen */
 @media all and (display-mode: fullscreen) {
     ...
@@ -806,7 +806,7 @@ window.addEventListener("install", handleInstall);
           <p>
             An example in CSS:
           </p>
-          <pre class='example highlight'>
+          <pre class='example'>
 @media all and (display-mode: minimal-ui) {
   /* ... */
 }
@@ -818,7 +818,7 @@ window.addEventListener("install", handleInstall);
             Accessing the display-mode media feature in ECMAScript through
             <code>matchMedia()</code> of [[cssom-view]]:
           </p>
-          <pre class="example highlight">
+          <pre class="example">
 const standalone = matchMedia( '(display-mode: standalone)' );
 
 standalone.onchange = (e) =&gt; {
@@ -1007,7 +1007,7 @@ if (standalone.matches) {
             would cause a cached manifest to be used 30 days from the time the
             response is sent:
           </p>
-          <pre class="highlight">
+          <pre>
 HTTP/1.1 200 OK
 Cache-Control: max-age=2592000
 Content-Type: application/manifest+json
@@ -2248,7 +2248,7 @@ Content-Type: application/manifest+json
             the <code>Content-Security-Policy</code> HTTP header of the
             manifest's owner <code>Document</code>:
           </p>
-          <pre class="highlight">
+          <pre>
 HTTP/1.1 200 OK
 Content-Type: text/html
 Content-Security-Policy: img-src icons.example.com
@@ -2262,7 +2262,7 @@ Content-Security-Policy: img-src icons.example.com
           <p>
             And given the following <code>manifest.webmanifest</code>:
           </p>
-          <pre class="highlight">
+          <pre>
 {
     "name": "custom manifest",
     "start_url": "https://boo",
@@ -3235,7 +3235,7 @@ Content-Security-Policy: img-src icons.example.com
           <p>
             The following is an example of two hypothetical vendor extensions.
           </p>
-          <pre class="example highlight json" title="vendor extensions">
+          <pre class="example json" title="vendor extensions">
   {
     ...
     "webkit_fancy_feature": "some/url/img",
