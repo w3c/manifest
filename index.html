@@ -309,30 +309,26 @@
           <a>top-level browsing context</a> for which the user agent will
           attempt installation.
           </li>
-          <li>Asynchronously, instantiate an <a>installation process</a>.
-          </li>
-          <li>Let <a>manifest</a> be the result of asynchronously <a>obtaining
-          the manifest</a>.
-          </li>
-          <li>If <a>obtaining the manifest</a> results in an error, a user
-          agent can, at this point, fall back to using the <a>top-level
-          browsing context</a>' <code>Document</code>'s metadata to create an
-          <a>installation process</a>.
-          </li>
-          <li>If the <a>installation succeeded</a>, <a>fire an event</a> named
-          <code>install</code> at the <var>window</var> object.
+          <li>Then, <a>in parallel</a>:
+            <ol>
+              <li>Instantiate an <a>installation process</a>.
+              </li>
+              <li>Let <a>manifest</a> be the result of <a>obtaining the
+              manifest</a>.
+              </li>
+              <li>If <a>obtaining the manifest</a> results in an error, a user
+              agent can, at this point, fall back to using the <a>top-level
+              browsing context</a>' <code>Document</code>'s metadata to
+              populate an <a>installation process</a>' UI.
+              </li>
+              <li>If the <a>installation succeeded</a>, <a>queue a task</a> on
+              the the <dfn>application life-cycle task source</dfn> to <a>fire
+              an event</a> named <code>install</code> at the <var>window</var>
+              object.
+              </li>
+            </ol>
           </li>
         </ol>
-      </section>
-      <section>
-        <h3>
-          Manual installation
-        </h3>
-        <p>
-          In the case that the end-user <a>manually</a> triggered the
-          <a>installation process</a>, the user agent MUST run the <a>steps to
-          install the web application</a>.
-        </p>
       </section>
       <section>
         <h3 id="installation-sec">
@@ -2938,6 +2934,11 @@ Content-Security-Policy: img-src icons.example.com
           <a href=
           "https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-idl-attributes">
           <dfn>Event handler IDL attribute</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">
+          <dfn>in parallel</dfn></a>
         </li>
       </ul>
     </section>
