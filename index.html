@@ -340,12 +340,12 @@
         </h3>
         <p>
           During the <a>installation process</a>, it is RECOMMENDED that the
-          user agent allow the user to inspect the icon, name, <a>start
+          user agent allow the end-user to inspect the icon, name, <a>start
           URL</a>, origin, etc. pertaining to a web application. This is to
-          give a user an opportunity to make a conscious decision about to
+          give a end-user an opportunity to make a conscious decision to
           approve, and possibly modify, the information pertaining to the web
-          application before installing it. This also gives the user an
-          opportunity to see if the user agent is spoofing another web
+          application before installing it. This also gives the end-user an
+          opportunity to discern if the user agent is spoofing another web
           application, by, for example, using an unexpected icon or name.
         </p>
         <p>
@@ -3358,17 +3358,17 @@ Content-Security-Policy: img-src icons.example.com
           Dynamically setting the language:
         </dt>
         <dd>
-          This can include, for instance, asking the user what their preferred
-          language is and dynamically adding or replacing the manifest link
-          relationship to the document based on that language preference (e.g.,
-          using a URL like "manifest.php?lang=fr").
+          This can include, for instance, asking the end-user what their
+          preferred language is and dynamically adding or replacing the
+          manifest link relationship to the document based on that language
+          preference (e.g., using a URL like "manifest.php?lang=fr").
         </dd>
         <dt>
           Using content-negotiation, or geotargeting, etc. on the server:
         </dt>
         <dd>
           The server that hosts the web application could attempt to
-          predetermine the user's language by using <a href=
+          predetermine the end-user's language by using <a href=
           "https://en.wikipedia.org/wiki/Geotargeting">geotargeting</a> or by
           using content negotiation (e.g., using [[RFC7540]]'s
           "<code>Accept-Language</code>" header, or even a custom HTTP header).
@@ -3379,11 +3379,11 @@ Content-Security-Policy: img-src icons.example.com
         end-user's privacy with respect to their preferred language: When the
         end-user has explicitly indicated their language preference to a web
         application (i.e., when not just using the user-agent default language
-        settings), sending the user's preferred language in the clear over the
-        wire is generally not OK. Doing so would reveal personal information
-        about an end-user. As such, developers are encouraged to use [[TLS]] to
-        reduce the chances of pervasive monitoring of their Web applications
-        [[RFC7258]].
+        settings), sending the end-user's preferred language in the clear over
+        the wire is generally not OK. Doing so would reveal personal
+        information about an end-user. As such, developers are encouraged to
+        use [[TLS]] to reduce the chances of pervasive monitoring of their Web
+        applications [[RFC7258]].
       </p>
     </section>
     <section>
