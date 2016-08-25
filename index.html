@@ -2209,6 +2209,14 @@ Content-Type: application/manifest+json
         to display on the end-user's device or most closely matches the
         end-user's preferences.
       </p>
+      <p>
+        User agents may modify an <a>image object</a> to better match the
+        platform’s visual style before displaying it to the user, for example
+        by rounding the corners or painting it in a specific color. It is
+        recommended that developers prepare their image objects for such
+        scenarios to avoid losing important information through, e.g., change
+        of color or clipped corners.
+      </p>
       <section>
         <h3>
           Fetching image objects
@@ -2300,6 +2308,118 @@ Content-Security-Policy: img-src icons.example.com
       </section>
       <section>
         <h3>
+          <code>purpose</code> member
+        </h3>
+        <p>
+          The <dfn><code>purpose member</code></dfn> is an <a>unordered set of
+          unique space-separated tokens</a> that are <a>ASCII
+          case-insensitive</a>. The allowed values are the <a>icon
+          purposes</a>.
+        </p>
+        <p>
+          When an <a>image object</a> is used as an <a>icon</a>, a developer
+          can hint that the image is intended to serve some special
+          <dfn>purpose</dfn> in the context of the host OS (i.e., for better
+          integration).
+        </p>
+        <p>
+          For example, as a <a data-lt="badge purpose">badge</a> or "pinned"
+          icon that is visually distinct, in color or form, from an
+          application's launch icon. The user agent uses the value of the
+          <a><code>purpose</code> member</a> as a hint to determine where and
+          how an <a>image object</a> is displayed. Unless declared otherwise by
+          the developer, a user agent can use an icon for <a>any purpose</a>.
+        </p>
+        <p>
+          The <dfn>icon purposes</dfn> are as follows:
+        </p>
+        <dl>
+          <dt>
+            <dfn data-lt="badge purpose">badge</dfn>:
+          </dt>
+          <dd>
+            A user agent can present this icon where space constraints and/or
+            color requirements differ from those of the application icon.
+          </dd>
+          <dt>
+            <dfn data-lt="any purpose">any</dfn>:
+          </dt>
+          <dd>
+            The user agent is free to display the icon in any context.
+          </dd>
+        </dl>
+        <p>
+          The <dfn>steps for processing a <code>purpose</code> member of an
+          image</dfn> are given by the following algorithm. The algorithm takes
+          an <a>image object</a> <var>image</var>. This algorithm will return a
+          set.
+        </p>
+        <ol>
+          <li>Let <var>purpose</var> be an empty set.
+          </li>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>image</var>
+          passing " <code>purpose</code>" as the argument.
+          </li>
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string", then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
+              a developer warning</a> that the type is unsupported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Let <var>keywords</var> be the result of <a>splitting</a>
+          <var>value</var> on spaces.
+          </li>
+          <li>For each <var>keyword</var> in <var>keywords</var>:
+            <ol>
+              <li>Convert <var>keyword</var> <a>to ASCII lowercase</a>.
+              </li>
+              <li>If <var>keyword</var> is not one of the <a>icon purposes</a>,
+              or is already contained in <var>keywords</var>, <a>issue a
+              developer warning</a> and continue to the next <var>keyword</var>
+              skipping the sub-steps below.
+              </li>
+              <li>Otherwise, add <var>keyword</var> to <var>purpose</var>.
+              </li>
+            </ol>
+          </li>
+          <li>if the size of purpose is 0, then add "any" to
+          <var>purpose</var>.
+          </li>
+          <li>Return <var>purpose</var>.
+          </li>
+        </ol>
+        <div class="example">
+          <p>
+            In the following example, the web application is listing two
+            different related applications, one on Google Play Store and the
+            other one on the iTunes Store:
+          </p>
+          <pre>
+{
+  "name": "News",
+  "icons": [{
+    "platform": "android",
+    "purpose": "badge",
+    "sizes": "16x16",
+    "src": "icons/badges/android.png",
+    "type": "image/png"
+  }, {
+    "purpose": "badge",
+    "src": "icons/badges/safari.svg",
+    "type": "image/svg"
+  }],
+}
+</pre>
+        </div>
+      </section>
+      <section>
+        <h3>
           <code>sizes</code> member
         </h3>
         <p>
@@ -2307,15 +2427,15 @@ Content-Security-Policy: img-src icons.example.com
           <a>string</a> consisting of an <a>unordered set of unique
           space-separated tokens</a> which are <a>ASCII case-insensitive</a>
           that represents the dimensions of an image. Each keyword is either an
-          <a>ASCII case-insensitive</a> match for the string "<a>any</a>", or a
-          value that consists of two <a>valid non-negative integers</a> that do
-          not have a leading U+0030 DIGIT ZERO (0) character and that are
-          separated by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN
-          CAPITAL LETTER X character. The keywords represent icon sizes in raw
-          pixels (as opposed to CSS pixels). When multiple <a>image objects</a>
-          are available, a user agent MAY use the value to decide which icon is
-          most suitable for a display context (and ignore any that are
-          inappropriate).
+          <a>ASCII case-insensitive</a> match for the string "<a data-lt=
+          "any link size">any"</a>, or a value that consists of two <a>valid
+          non-negative integers</a> that do not have a leading U+0030 DIGIT
+          ZERO (0) character and that are separated by a single U+0078 LATIN
+          SMALL LETTER X or U+0058 LATIN CAPITAL LETTER X character. The
+          keywords represent icon sizes in raw pixels (as opposed to CSS
+          pixels). When multiple <a>image objects</a> are available, a user
+          agent MAY use the value to decide which icon is most suitable for a
+          display context (and ignore any that are inappropriate).
         </p>
         <p>
           The <dfn>steps for processing a <code>sizes</code> member of an
@@ -2941,7 +3061,7 @@ Content-Security-Policy: img-src icons.example.com
         <li>
           <a href=
           "https://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes-any">
-          <dfn>any</dfn></a>
+          <dfn>any link size</dfn></a>
         </li>
         <li>
           <a href=
@@ -2993,6 +3113,16 @@ Content-Security-Policy: img-src icons.example.com
           <a href=
           "https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">
           <dfn>in parallel</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "https://html.spec.whatwg.org/#unordered-set-of-unique-space-separated-tokens">
+          <dfn>unordered set of unique space-separated tokens</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "https://html.spec.whatwg.org/#split-a-string-on-spaces"><dfn data-lt="splitting">
+          split a string on spaces</dfn></a>
         </li>
       </ul>
     </section>
