@@ -2525,6 +2525,71 @@ Content-Security-Policy: img-src icons.example.com
     </section>
     <section>
       <h2>
+        Multi-purpose members
+      </h2>
+      <p>
+        This section specifies members that can be used on multiple objects.
+        Each member specifies with object a member can be used with.
+      </p>
+      <section>
+        <h3>
+          <code>platform</code> member
+        </h3>
+        <p>
+          The <dfn data-lt="application-platform"><code>platform</code>
+          member</dfn> represents the <a>platform</a> to which a containing
+          object applies.
+        </p>
+        <p>
+          The following object types can make use of this member:
+        </p>
+        <ul>
+          <li>
+            <a>Application object</a>
+          </li>
+          <li>
+            <a>Image object</a>
+          </li>
+        </ul>
+        <p>
+          A <dfn>platform</dfn> represents a software distribution ecosystem or
+          possibly an operating system.
+        </p>
+        <p class="note">
+          This specification does not define the particular values for a the
+          <a><code>platform</code> member</a>. However, the working group
+          maintains a <a href=
+          "https://github.com/w3c/manifest/wiki/Platforms">list of known
+          platform values</a> in our wiki.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>platform</code> member of an
+          application</dfn> are given by the following algorithm. The algorithm
+          takes an <a>application object</a> <var>application</var>. This
+          algorithm will return a string or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>application</var>
+          passing "<code>platform</code>" as the argument.
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
+              optionally <a>issue a developer warning</a> that the type is not
+              supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          </li>
+        </ol>
+      </section>
+    </section>
+    <section>
+      <h2>
         Application object and its members
       </h2>
       <p>
@@ -2560,40 +2625,6 @@ Content-Security-Policy: img-src icons.example.com
       <p class="issue">
         Where should the <code>platform</code> expected value be listed?
       </p>
-      <section>
-        <h3>
-          <code>platform</code> member
-        </h3>
-        <p>
-          The <dfn data-lt="application-platform">platform</dfn> member of an
-          application object represents the platform on which the application
-          can be found.
-        </p>
-        <p>
-          The <dfn>steps for processing the <code>platform</code> member of an
-          application</dfn> are given by the following algorithm. The algorithm
-          takes an <a>application object</a> <var>application</var>. This
-          algorithm will return a string or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>application</var>
-          passing "<code>platform</code>" as the argument.
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
-          </li>
-        </ol>
-      </section>
       <section>
         <h3>
           <code>url</code> member
