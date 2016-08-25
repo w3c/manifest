@@ -156,7 +156,16 @@
   "display": "fullscreen",
   "orientation": "landscape",
   "theme_color": "aliceblue",
-  "background_color": "red"
+  "background_color": "red",
+  "screenshots": [{
+    "src": "screenshots/in-game-1x.jpg",
+    "sizes": "640x480",
+    "type": "image/jpeg"
+  },{
+    "src": "screenshots/in-game-2x.jpg",
+    "sizes": "1280x920",
+    "type": "image/jpeg"
+  }]
 }
 </pre>
       </section>
@@ -1190,6 +1199,11 @@ Content-Type: application/manifest+json
           <code>background_color</code> member</a> with <var>manifest</var> as
           argument.
           </li>
+          <li>Let <var>screenshots</var> of <var>parsed manifest</var> be the
+          result of running the <a>steps for processing an array of images</a>
+          with <var>manifest</var>, <var>manifest URL</var>, and "screenshots"
+          as arguments.
+          </li>
           <li>Return <var>parsed manifest</var>.
           </li>
         </ol>
@@ -2166,6 +2180,16 @@ Content-Type: application/manifest+json
           <li>Return <var>color</var>.
           </li>
         </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">screenshots</code> member
+        </h3>
+        <p>
+          The <dfn id="member-screenshots"><code>screenshots</code>
+          member</dfn> is an <a>array</a> of <a>image objects</a> represent the
+          web application in common usage scenarios.
+        </p>
       </section>
     </section>
     <section>
