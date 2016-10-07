@@ -331,8 +331,8 @@
               </li>
               <li>If the <a>installation succeeded</a>, <a>queue a task</a> on
               the the <dfn>application life-cycle task source</dfn> to <a>fire
-              an event</a> named <code>install</code> at the <var>window</var>
-              object.
+              an event</a> named <code>appinstalled</code> at the
+              <var>window</var> object.
               </li>
             </ol>
           </li>
@@ -419,37 +419,38 @@
         </p>
         <pre class="idl">
           partial interface Window {
-            attribute EventHandler oninstall;
+            attribute EventHandler onappinstalled;
           };
         </pre>
         <div class="example">
           <p>
-            This example shows two ways of handling the install event.
+            This example shows two ways of handling the "appinstalled" event.
           </p>
           <pre>
-function handleInstall(ev){
+function handleInstalled(ev) {
   const date = new Date(ev.timeStamp / 1000);
   console.log(`Yay! Our app got installed at ${date.toTimeString()}`);
 }
 
 // Using the event handler IDL attribute
-window.oninstall = handleInstall;
+window.onappinstalled = handleInstalled;
 
 // Using .addEventListener()
-window.addEventListener("install", handleInstall);
+window.addEventListener("appinstalled", handleInstalled);
           </pre>
         </div>
         <section>
           <h4>
-            <code>oninstall</code> attribute
+            <code>onappinstalled</code> attribute
           </h4>
           <p>
-            <dfn for="Window">oninstall</dfn> is an <a>event handler IDL
-            attribute</a> for the "<a>install</a>" event type. The interface
-            used for these events is the <a><code>Event</code> interface</a>
-            [[!WHATWG-DOM]]. This event is dispatched as a result of a
-            <a>manual installation</a> or an <a>automated install prompt</a>,
-            which cause the <a>steps to install the web application</a> to run.
+            <dfn for="Window">onappinstalled</dfn> is an <a>event handler IDL
+            attribute</a> for the "<a>appinstalled</a>" event type. The
+            interface used for these events is the <a><code>Event</code>
+            interface</a> [[!WHATWG-DOM]]. This event is dispatched as a result
+            of a <a>manual installation</a> or an <a>automated install
+            prompt</a>, which cause the <a>steps to install the web
+            application</a> to run.
           </p>
         </section>
       </section>
