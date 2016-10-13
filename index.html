@@ -233,6 +233,59 @@
       </p>
       <section>
         <h3>
+          Installing via automated prompting
+        </h3>
+        <p>
+          User agents that support an <a>automated install prompt</a> MUST run
+          the following steps before initiating an install process:
+        </p>
+        <ol>
+          <li>If a <a>manually</a> instantiated <a>installation process</a> for
+          this web application, terminate this algorithm.
+          </li>
+          <li>Let <var>event</var> be a newly constructed
+          <a>BeforeInstallPromptEvent</a> event named "beforeinstallprompt",
+          which does not bubble and is cancellable.
+          </li>
+          <li>Let <var>prompt promise</var> be the promise corresponding to the
+          event's prompt() method.
+          </li>
+          <li>Let <var>user-choice promise</var> be the promise corresponding
+          to the event's <code>prompt()</code> method.
+          </li>
+          <li>Fire <var>event</var> at the <code>Window</code> object.
+          </li>
+          <li>Queue a task on the Realm’s settings object’s responsible event
+          loop:
+            <ol>
+              <li>If <var>event</var>'s <a>cancel flag</a> is set, terminate
+              this algorithm.
+              </li>
+              <li>Otherwise, attempt to present the end-user with a UI that
+              lets them choose if they would like to install the web
+              application.
+              </li>
+              <li>If the previous step succeeds, resolve <var>prompt
+              promise</var>. Otherwise, reject <var>prompt promise</var> with
+              an ""AbortError", or "OperationError", or "NotAllowedError", or
+              "UnknownError" (depending on why the operation failed).
+              </li>
+              <li>In parallel, await the end-user's decision.
+              </li>
+              <li>Let <var>user choice</var> be the result of the previous
+              step, represented by either the string "accepted" or "dismissed".
+              </li>
+              <li>Resolve <var>user-choice promise</var> with <var>user
+              choice</var>.
+              </li>
+              <li>In parallel, instantiate an <a>installation process</a>.
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
           Authority of the manifest's metadata
         </h3>
         <p>
@@ -410,6 +463,94 @@
       </h2>
       <section>
         <h3>
+          <code>BeforeInstallPromptEvent</code>
+        </h3>
+        <pre class="idl">
+enum AppBannerPromptOutcome {
+  "accepted",
+  "dismissed"
+};
+
+[Constructor(DOMString typeArg, optional BeforeInstallPromptEventInit eventInit)]
+interface BeforeInstallPromptEvent : Event {
+    readonly attribute Promise&lt;AppBannerPromptOutcome&gt; userChoice;
+    Promise&lt;void&gt; prompt();
+};
+
+dictionary BeforeInstallPromptEventInit : EventInit {
+  AppBannerPromptOutcome userChoice;
+};
+      </pre>
+        <p>
+          The <dfn><code>BeforeInstallPromptEvent</code></dfn> is dispatched
+          prior to activating an <a>automated install prompt</a>, allowing a
+          developer to prevent the default action for an install prompt.
+        </p>
+        <p>
+          Thus, the default action of the <a>BeforeInstallPromptEvent</a> is to
+          present an automated install prompt to the end user. Cancelling the
+          default action (via <code>.preventDefault()</code>) prevents the user
+          agent from presenting the automated install prompt.
+        </p>
+        <p>
+          To create an instance of the <code>BeforeInstallPromptEvent</code>
+          interface, run the <dfn>steps to construct a BeforeInstallPromptEvent
+          event</dfn>:
+        </p>
+        <ol>
+          <li>Let <var>userChoice</var> be null.
+          </li>
+          <li>Let [[\prompCalled]] be false.
+          </li>
+          <li>Let <var>userChoicePromise</var> be a newly created promise.
+          </li>
+          <li>If <code>eventInit</code> was passed:
+            <ol>
+              <li>If <code>eventInit.userChoice</code> was set, then set <var>
+                userChoice</var> to the value of
+                <code>eventInit.userChoice</code>.
+              </li>
+              <li>Resolve <var>userChoicePromise</var> with
+              <var>userChoice</var>.
+              </li>
+            </ol>
+          </li>
+        </ol>
+        <section>
+          <h4>
+            <code>prompt()</code> method
+          </h4>
+          <p>
+            The <dfn><code>prompt()</code> method</dfn>, when called, runs the
+            following steps:
+          </p>
+          <ol>
+            <li>If the event's cancel flag is not set, return a promise
+            rejected with an "InvalidStateError".
+            </li>
+            <li>If [[\]], return a promise rejected with an
+            "InvalidStateError".
+            </li>
+            <li>Let <var>p</var> be a new promise.
+            </li>
+            <li>Run the following steps in parallel:
+            </li>
+            <li>Return <var>p</var>.
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h4>
+            <code>userChoice</code> attribute
+          </h4>
+          <p>
+            The <dfn><code>userChoice</code> attribute</dfn>, when getting,
+            returns a promise.
+          </p>
+        </section>
+      </section>
+      <section>
+        <h3>
           Extensions to the <code>Window</code> object
         </h3>
         <p>
@@ -420,6 +561,7 @@
         <pre class="idl">
           partial interface Window {
             attribute EventHandler onappinstalled;
+            attribute EventHandler onbeforeinstallprompt;
           };
         </pre>
         <div class="example">
@@ -439,6 +581,17 @@ window.onappinstalled = handleInstalled;
 window.addEventListener("appinstalled", handleInstalled);
           </pre>
         </div>
+        <section>
+          <h4>
+            <code>onbeforeinstallprompt</code> attribute
+          </h4>
+          <p>
+            <dfn for="Window">onbeforeinstallprompt</dfn> is an <a>event
+            handler IDL attribute</a> for the "<a>beforeinstallprompt</a>"
+            event type. The interface used for these events is the
+            <a><code>BeforeInstallPromptEvent</code> interface</a>.
+          </p>
+        </section>
         <section>
           <h4>
             <code>onappinstalled</code> attribute
@@ -3115,11 +3268,6 @@ Content-Security-Policy: img-src icons.example.com
           <a href=
           "https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">
           <dfn>in parallel</dfn></a>
-        </li>
-        <li>
-          <a href=
-          "https://html.spec.whatwg.org/#unordered-set-of-unique-space-separated-tokens">
-          <dfn>unordered set of unique space-separated tokens</dfn></a>
         </li>
         <li>
           <a href=
