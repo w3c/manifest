@@ -1,4 +1,4 @@
-# Web App Manifest Primer
+# Web App Manifest Explainer
 
 This document provides non-normative guidance for developers of web app manifest files.
 
