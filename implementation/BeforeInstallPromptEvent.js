@@ -25,12 +25,11 @@ class BeforeInstallPromptEvent extends Event {
       throw new TypeError(msg);
     }
     // End WebIDL guard.
-
     const internal = {
       didPrompt: false,
     };
 
-    internal.userChoicePromise = new Promise((resolve) => {
+    internal.userChoice = new Promise((resolve) => {
       internal.userChoiceHandlers = {
         resolve,
       };
@@ -59,13 +58,13 @@ class BeforeInstallPromptEvent extends Event {
     }
 
     (async function task() {
-      const userChoice = await showInstallPrompt();
-      internalSlots.get(this).userChoiceHandlers.resolve(userChoice);
+      const promptOutcome = await showInstallPrompt();
+      internalSlots.get(this).userChoiceHandlers.resolve(promptOutcome);
     }.bind(this)())
   }
 
   get userChoice() {
-    return internalSlots.get(this).userChoicePromise;
+    return internalSlots.get(this).userChoice;
   }
 }
 
