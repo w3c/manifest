@@ -204,23 +204,6 @@
     console.assert(err instanceof DOMException, assertion);
     console.assert(err.name == "NotAllowedError", assertion);
   }
-} {
-  const assertion = "prompt() first throws an NotAllowedError, then InvalidStateError";
-  const e = new BeforeInstallPromptEvent("");
-  try {
-    e.prompt();
-    console.assert(false, assertion);
-  } catch (err) {
-    console.assert(err instanceof DOMException, assertion);
-    console.assert(err.name == "NotAllowedError", assertion);
-  }
-  try {
-    e.prompt();
-    console.assert(false, assertion);
-  } catch (err) {
-    console.assert(err instanceof DOMException, assertion);
-    console.assert(err.name == "InvalidStateError", assertion);
-  }
 }
 
 // install events
@@ -228,43 +211,64 @@ window.addEventListener("install", (ev) => {
   console.info("Application installed successfully");
 });
 
-window.addEventListener('beforeinstallprompt', (e) => {
-  debugger;
+window.addEventListener('beforeinstallprompt', function test1(e) {
+  console.info("Running test 1");
+  window.removeEventListener("beforeinstallprompt", test1);
+  const assertion = "Throws when preventDefault not called";
   try {
-    e.prompt();  // Error: preventDefault not called
-  } catch (e) {}
-  e.preventDefault();
-  e.prompt();  // This is fine.
+    e.prompt();
+    console.assert(false, assertion);
+  } catch (err) {
+    console.assert(err.name === "InvalidStateError", assertion);
+  }
+  try {
+    e.preventDefault();
+    e.prompt();
+    window.addEventListener("install", setupTest2);
+  } catch (err) {
+    console.assert(false, "Unexpected exceptions");
+  } {
+    const msg = "Calling prompt() again results in InvalidStateError";
+    try {
+      e.prompt();
+      console.assert(false, assertion);
+    } catch (err) {
+      console.assert(err.name === "InvalidStateError", assertion);
+    }
+  }
 });
 
-// // Trusted events
-// window.addEventListener("beforeinstallprompt", (ev) => {
-//   {
-//     const assertion = "only fires after document is fully loaded";
-//     console.assert(document.readyState === "complete", assertion);
-//   } {
-//     const assertion = "is instance of BeforeInstallPromptEvent";
-//     console.assert(ev instanceof BeforeInstallPromptEvent, assertion);
-//   } {
-//     const assertion = "is trusted";
-//     console.assert(ev.isTrusted, assertion, ev);
-//   } {
-//     const assertion = "calling prompt successfully returns void";
-//     console.assert(typeof ev.prompt() === "undefined", assertion);
-//   } {
-//     const assertion = "Calling prompt() multiple times is a no-op";
-//     try {
-//       ev.prompt();
-//       ev.prompt();
-//       ev.prompt();
-//       console.assert(true, assertion);
-//     } catch (err) {
-//       console.assert(err instanceof DOMException, assertion);
-//       console.assert(err.name == "InvalidStateError", assertion);
-//     }
-//   }
-// });
 
-
-
+// Trusted events
+function setupTest2() {
+  console.log("setting up test 2");
+  window.addEventListener("beforeinstallprompt", function test2(ev) {
+    window.removeEventListener("beforeinstallprompt", test2);
+    // run tests
+    {
+      const assertion = "only fires after document is fully loaded";
+      console.assert(document.readyState === "complete", assertion);
+    } {
+      const assertion = "is instance of BeforeInstallPromptEvent";
+      console.assert(ev instanceof BeforeInstallPromptEvent, assertion);
+    } {
+      const assertion = "is trusted";
+      console.assert(ev.isTrusted, assertion, ev);
+    } {
+      const assertion = "calling prompt successfully returns void";
+      ev.preventDefault();
+      console.assert(typeof ev.prompt() === "undefined", assertion);
+    } {
+      const assertion = "Calling prompt() again will throw InvalidStateError";
+      try {
+        ev.prompt();
+        console.assert(false, assertion);
+      } catch (err) {
+        console.assert(err instanceof DOMException, assertion);
+        console.assert(err.name == "InvalidStateError", assertion);
+      }
+    }
+    console.log("Done test 2");
+  });
+}
 </script>

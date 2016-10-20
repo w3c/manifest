@@ -26,7 +26,7 @@ class BeforeInstallPromptEvent extends Event {
     }
     // End WebIDL guard.
     const internal = {
-      prompState: "idle", // "prompting", "done"
+      didPrompt: false,
     };
 
     internal.userChoice = new Promise((resolve) => {
@@ -44,27 +44,24 @@ class BeforeInstallPromptEvent extends Event {
       const msg = "Untrusted events can't call prompt().";
       throw new DOMException(msg, "NotAllowedError");
     }
-    let msg = "";
-    switch (internalSlots.get(this).promptState) {
-      case "done":
-        msg = ".prompt() has expired.";
-        throw new DOMException(msg, "InvalidStateError");
-      case "prompting":
-        msg = "Already trying to prompt.";
-        throw new DOMException(msg, "InvalidStateError");
-      default:
-        if (this.defaultPrevented === false) {
-          msg = ".prompt() needs to be called after .preventDefault()";
-          throw new DOMException(msg, "InvalidStateError");
-        }
-        internalSlots.get(this).promptState = "prompting";
+
+    if (this.defaultPrevented === false) {
+      const msg = ".prompt() needs to be called after .preventDefault()";
+      throw new DOMException(msg, "InvalidStateError");
     }
 
+    if(internalSlots.get(this).didPrompt){
+      const msg = ".prompt() can only be succesfully called once.";
+      throw new DOMException(msg, "InvalidStateError"); 
+    }
+
+    internalSlots.get(this).didPrompt = true;
+    
     (async function task() {
-      const promptOutcome = await showInstallPrompt();
-      internalSlots.get(this).promptState = "done";
+      const promptOutcome = await showInstallPrompt();      
       internalSlots.get(this).userChoiceHandlers.resolve(promptOutcome);
     }.bind(this)())
+  
   }
 
   get userChoice() {
