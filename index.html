@@ -231,6 +231,11 @@
         instance, there are sufficient <a>installability signals</a> to warrant
         <a>installation</a> of the web application.
       </p>
+      <p>
+        In either case, when a user agent <dfn>presents an install
+        prompt</dfn>, the end-user's choice is represented as either "accepted"
+        or "dismissed".
+      </p>
       <section>
         <h3>
           Installing via automated prompting
@@ -240,47 +245,22 @@
           the following steps before initiating an install process:
         </p>
         <ol>
-          <li>If a <a>manually</a> instantiated <a>installation process</a> for
-          this web application, terminate this algorithm.
+          <li>Wait until the the document of the top-level browsing context to
+          be <a>completely loaded</a>.
+          </li>
+          <li>If there is already an existing install process, terminate this
+          algorithm.
           </li>
           <li>Let <var>event</var> be a newly constructed
-          <a>BeforeInstallPromptEvent</a> event named "beforeinstallprompt",
-          which does not bubble and is cancellable.
+          <a>BeforeInstallPromptEvent</a> named
+          <code>"beforeinstallprompt"</code>, which is cancelable.
           </li>
-          <li>Let <var>prompt promise</var> be the promise corresponding to the
-          event's prompt() method.
+          <li>
+            <a>Queue a task</a> to fire event at the <a>Window</a> object of
+            the <a>top-level browsing context</a>.
           </li>
-          <li>Let <var>user-choice promise</var> be the promise corresponding
-          to the event's <code>prompt()</code> method.
-          </li>
-          <li>Fire <var>event</var> at the <code>Window</code> object.
-          </li>
-          <li>Queue a task on the Realm’s settings object’s responsible event
-          loop:
-            <ol>
-              <li>If <var>event</var>'s <a>cancel flag</a> is set, terminate
-              this algorithm.
-              </li>
-              <li>Otherwise, attempt to present the end-user with a UI that
-              lets them choose if they would like to install the web
-              application.
-              </li>
-              <li>If the previous step succeeds, resolve <var>prompt
-              promise</var>. Otherwise, reject <var>prompt promise</var> with
-              an ""AbortError", or "OperationError", or "NotAllowedError", or
-              "UnknownError" (depending on why the operation failed).
-              </li>
-              <li>In parallel, await the end-user's decision.
-              </li>
-              <li>Let <var>user choice</var> be the result of the previous
-              step, represented by either the string "accepted" or "dismissed".
-              </li>
-              <li>Resolve <var>user-choice promise</var> with <var>user
-              choice</var>.
-              </li>
-              <li>In parallel, instantiate an <a>installation process</a>.
-              </li>
-            </ol>
+          <li>If <var>event</var>'s cancelled flag is not set, present an
+          install prompt and discard the resulting user choice.
           </li>
         </ol>
       </section>
@@ -498,22 +478,12 @@ dictionary BeforeInstallPromptEventInit : EventInit {
           event</dfn>:
         </p>
         <ol>
-          <li>Let <var>userChoice</var> be null.
+          <li>Let [[\didPrompt]] insternal slot intially be set to false.
           </li>
-          <li>Let [[\prompCalled]] be false.
+          <li>Let [[\userChoice]] internal slot be a newly created promise.
           </li>
-          <li>Let <var>userChoicePromise</var> be a newly created promise.
-          </li>
-          <li>If <code>eventInit</code> was passed:
-            <ol>
-              <li>If <code>eventInit.userChoice</code> was set, then set <var>
-                userChoice</var> to the value of
-                <code>eventInit.userChoice</code>.
-              </li>
-              <li>Resolve <var>userChoicePromise</var> with
-              <var>userChoice</var>.
-              </li>
-            </ol>
+          <li>If <code>eventInit.userChoice</code> is valid, resolve
+          [[\userChoice]] with <code>eventInit.userChoice</code>.
           </li>
         </ol>
         <section>
@@ -525,17 +495,28 @@ dictionary BeforeInstallPromptEventInit : EventInit {
             following steps:
           </p>
           <ol>
-            <li>If the event's cancel flag is not set, return a promise
-            rejected with an "InvalidStateError".
+            <li>If [[\didPrompt]] is true, throw an "InvalidStateError"
+            exception optionally warning the develoepr that prompt() can only
+            be called once.
             </li>
-            <li>If [[\]], return a promise rejected with an
-            "InvalidStateError".
+            <li>Set [[\didPrompt]] to true.
             </li>
-            <li>Let <var>p</var> be a new promise.
+            <li>If isTrusted attribute is false, throw a NotAllowedError
+            optionally warning the developer that untrusted events can't call
+            prompt().
             </li>
-            <li>Run the following steps in parallel:
+            <li>If canceled flag is not set, then throw an InvalidStateError
+            optionally warning the developer that .prompt() needs to be called
+            after .preventDefault().
             </li>
-            <li>Return <var>p</var>.
+            <li>In parallel:
+              <ol>
+                <li>Let promptOutcome be the result of await the result showing
+                an install prompt.
+                </li>
+                <li>Resolve [[\userChoice]] with promptOutcome.
+                </li>
+              </ol>
             </li>
           </ol>
         </section>
@@ -545,7 +526,7 @@ dictionary BeforeInstallPromptEventInit : EventInit {
           </h4>
           <p>
             The <dfn><code>userChoice</code> attribute</dfn>, when getting,
-            returns a promise.
+            return the promise held by the [[\userChoice]] internal slot.
           </p>
         </section>
       </section>
