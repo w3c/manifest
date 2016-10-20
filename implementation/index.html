@@ -202,7 +202,7 @@
     console.assert(false, assertion);
   } catch (err) {
     console.assert(err instanceof DOMException, assertion);
-    console.assert(err.type = "NotAllowedError", assertion);
+    console.assert(err.name == "NotAllowedError", assertion);
   }
 } {
   const assertion = "prompt() first throws an NotAllowedError, then InvalidStateError";
@@ -212,14 +212,14 @@
     console.assert(false, assertion);
   } catch (err) {
     console.assert(err instanceof DOMException, assertion);
-    console.assert(err.type = "NotAllowedError", assertion);
+    console.assert(err.name == "NotAllowedError", assertion);
   }
   try {
     e.prompt();
     console.assert(false, assertion);
   } catch (err) {
     console.assert(err instanceof DOMException, assertion);
-    console.assert(err.type = "InvalidStateError", assertion);
+    console.assert(err.name == "InvalidStateError", assertion);
   }
 }
 
@@ -228,29 +228,43 @@ window.addEventListener("install", (ev) => {
   console.info("Application installed successfully");
 });
 
-// Trusted events
-window.addEventListener("beforeinstallprompt", (ev) => {
-  {
-    const assertion = "only fires after document is fully loaded";
-    console.assert(document.readyState === "complete", assertion);
-  } {
-    const assertion = "is instance of BeforeInstallPromptEvent";
-    console.assert(ev instanceof BeforeInstallPromptEvent, assertion);
-  } {
-    const assertion = "is trusted";
-    console.assert(ev.isTrusted, assertion, ev);
-  } {
-    const assertion = "calling prompt successfully returns void";
-    console.assert(typeof ev.prompt() === "undefined", assertion);
-  } {
-    const assertion = "Even with success, prompt() can only be called once";
-    try {
-      ev.prompt();
-      console.assert(false, assertion);
-    } catch (err) {
-      console.assert(err instanceof DOMException, assertion);
-      console.assert(err.type = "InvalidStateError", assertion);
-    }
-  }
+window.addEventListener('beforeinstallprompt', (e) => {
+  debugger;
+  try {
+    e.prompt();  // Error: preventDefault not called
+  } catch (e) {}
+  e.preventDefault();
+  e.prompt();  // This is fine.
 });
+
+// // Trusted events
+// window.addEventListener("beforeinstallprompt", (ev) => {
+//   {
+//     const assertion = "only fires after document is fully loaded";
+//     console.assert(document.readyState === "complete", assertion);
+//   } {
+//     const assertion = "is instance of BeforeInstallPromptEvent";
+//     console.assert(ev instanceof BeforeInstallPromptEvent, assertion);
+//   } {
+//     const assertion = "is trusted";
+//     console.assert(ev.isTrusted, assertion, ev);
+//   } {
+//     const assertion = "calling prompt successfully returns void";
+//     console.assert(typeof ev.prompt() === "undefined", assertion);
+//   } {
+//     const assertion = "Calling prompt() multiple times is a no-op";
+//     try {
+//       ev.prompt();
+//       ev.prompt();
+//       ev.prompt();
+//       console.assert(true, assertion);
+//     } catch (err) {
+//       console.assert(err instanceof DOMException, assertion);
+//       console.assert(err.name == "InvalidStateError", assertion);
+//     }
+//   }
+// });
+
+
+
 </script>

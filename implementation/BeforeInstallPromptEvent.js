@@ -26,13 +26,12 @@ class BeforeInstallPromptEvent extends Event {
     }
     // End WebIDL guard.
     const internal = {
-      didPrompt: false,
+      prompState: "idle", // "prompting", "done"
     };
 
-    internal.userChoice = new Promise((resolve, reject) => {
+    internal.userChoice = new Promise((resolve) => {
       internal.userChoiceHandlers = {
         resolve,
-        reject,
       };
       if (eventInit && "userChoice" in eventInit) {
         resolve(eventInit.userChoice);
@@ -41,26 +40,29 @@ class BeforeInstallPromptEvent extends Event {
     internalSlots.set(this, internal);
   }
   prompt() {
-    let error = null;
-    if (internalSlots.get(this).didPrompt) {
-      const msg = ".prompt() can only be called once.";
-      const err = new DOMException(msg, "InvalidStateError");
-    } else {
-      internalSlots.get(this).didPrompt = true;
-    }
-
     if (this.isTrusted === false) {
       const msg = "Untrusted events can't call prompt().";
-      const err = new DOMException(msg, "NotAllowedError");
+      throw new DOMException(msg, "NotAllowedError");
     }
-
-    if (this.defaultPrevented === false) {
-      const msg = ".prompt() needs to be called after .preventDefault()";
-      const err = new DOMException(msg, "InvalidStateError");
+    let msg = "";
+    switch (internalSlots.get(this).promptState) {
+      case "done":
+        msg = ".prompt() has expired.";
+        throw new DOMException(msg, "InvalidStateError");
+      case "prompting":
+        msg = "Already trying to prompt.";
+        throw new DOMException(msg, "InvalidStateError");
+      default:
+        if (this.defaultPrevented === false) {
+          msg = ".prompt() needs to be called after .preventDefault()";
+          throw new DOMException(msg, "InvalidStateError");
+        }
+        internalSlots.get(this).promptState = "prompting";
     }
 
     (async function task() {
       const promptOutcome = await showInstallPrompt();
+      internalSlots.get(this).promptState = "done";
       internalSlots.get(this).userChoiceHandlers.resolve(promptOutcome);
     }.bind(this)())
   }
@@ -94,18 +96,6 @@ function trackReadyState() {
     });
   });
 }
-
-window.addEventListener("beforeinstallprompt", async function(event) {
-  event.preventDefault();
-  // Emulate blocking tasks
-  await new Promise((res) => setTimeout(res, 1000));
-  try {
-    event.prompt();
-  } catch (err) {
-    console.error(err);
-  }
-  console.info(`user selected: ${await event.userChoice}`);
-});
 
 async function showInstallPrompt(button) {
   if (button) {
