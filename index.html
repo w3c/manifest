@@ -514,26 +514,35 @@ dictionary BeforeInstallPromptEventInit : EventInit {
             following steps:
           </p>
           <ol>
-            <li>If [[\didPrompt]] is true, throw an "InvalidStateError"
-            exception optionally warning the develoepr that prompt() can only
-            be called once.
+            <li>Let <var>error</var> be <code>null</code>.
+            </li>
+            <li>If [[\didPrompt]] is true, then set <var>error</var> to an
+            InvalidStateError whose message optionally warns that prompt() can
+            only be called once.
             </li>
             <li>Set [[\didPrompt]] to true.
             </li>
-            <li>If isTrusted attribute is false, throw a NotAllowedError
-            optionally warning the developer that untrusted events can't call
-            prompt().
+            <li>If isTrusted attribute is <code>false</code>, then set
+            <var>error</var> to a NotAllowedError whose message optionally
+            warns that untrusted events can't call <code>prompt()</code>.
             </li>
-            <li>If canceled flag is not set, then throw an InvalidStateError
-            optionally warning the developer that .prompt() needs to be called
-            after .preventDefault().
+            <li>If canceled flag is not set, then set <var>error</var> to an
+            <a>InvalidStateError</a> whose message optionally warns that
+            <a>.prompt()</a> needs to be called after
+            <code>.preventDefault()</code>.
+            </li>
+            <li>If error is not null:
+              <ol>
+                <li>Reject <a>[[\userChoice]]</a> with <var>error</var>.
+                </li>
+                <li>throw <var>error</var> and terminate this algorithm.
+                </li>
+              </ol>
             </li>
             <li>In parallel:
               <ol>
-                <li>Let promptOutcome be the result of await the result showing
-                an install prompt.
-                </li>
-                <li>Resolve [[\userChoice]] with promptOutcome.
+                <li>Resolve [[\userChoice]] with the result of presenting an
+                install prompt.
                 </li>
               </ol>
             </li>
@@ -564,11 +573,7 @@ dictionary BeforeInstallPromptEventInit : EventInit {
           window.addEventListener("beforeinstallprompt", async function(event) {
             event.preventDefault();
             await Promise.all(tasksThatPreventInstallation);
-            try {
-              event.prompt();
-            } catch (err) {
-              console.error(err);
-            }
+            event.prompt();
             console.info(`user selected: ${await event.userChoice}`);
           });
           </pre>

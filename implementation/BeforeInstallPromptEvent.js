@@ -29,9 +29,10 @@ class BeforeInstallPromptEvent extends Event {
       didPrompt: false,
     };
 
-    internal.userChoice = new Promise((resolve) => {
+    internal.userChoice = new Promise((resolve, reject) => {
       internal.userChoiceHandlers = {
         resolve,
+        reject,
       };
       if (eventInit && "userChoice" in eventInit) {
         resolve(eventInit.userChoice);
@@ -40,21 +41,22 @@ class BeforeInstallPromptEvent extends Event {
     internalSlots.set(this, internal);
   }
   prompt() {
+    let error = null;
     if (internalSlots.get(this).didPrompt) {
       const msg = ".prompt() can only be called once.";
-      throw new DOMException(msg, "InvalidStateError");
+      const err = new DOMException(msg, "InvalidStateError");
     } else {
       internalSlots.get(this).didPrompt = true;
     }
 
     if (this.isTrusted === false) {
       const msg = "Untrusted events can't call prompt().";
-      throw new DOMException(msg, "NotAllowedError");
+      const err = new DOMException(msg, "NotAllowedError");
     }
 
     if (this.defaultPrevented === false) {
       const msg = ".prompt() needs to be called after .preventDefault()";
-      throw new DOMException(msg, "InvalidStateError");
+      const err = new DOMException(msg, "InvalidStateError");
     }
 
     (async function task() {
@@ -125,7 +127,7 @@ async function showInstallPrompt(button) {
     add.addEventListener("click", () => {
       resolve("accepted");
       //emulate installation to home screen
-      setTimeout(()=>{
+      setTimeout(() => {
         window.dispatchEvent(new Event("install"));
       }, 1000);
     });
