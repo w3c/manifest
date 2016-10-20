@@ -520,18 +520,20 @@ dictionary BeforeInstallPromptEventInit : EventInit {
             InvalidStateError whose message optionally warns that prompt() can
             only be called once.
             </li>
-            <li>Set [[\didPrompt]] to true.
+            <li>Else if <code>isTrusted</code> attribute is <code>false</code>,
+            then set <var>error</var> to a NotAllowedError whose message
+            optionally warns that untrusted events can't call
+            <code>prompt()</code>.
             </li>
-            <li>If isTrusted attribute is <code>false</code>, then set
-            <var>error</var> to a NotAllowedError whose message optionally
-            warns that untrusted events can't call <code>prompt()</code>.
+            <li>Else if event's <a>canceled flag</a> is not set, then set <var>
+              error</var> to an <a>InvalidStateError</a> whose message
+              optionally warns that <a>.prompt()</a> needs to be called after
+              <code>.preventDefault()</code>.
             </li>
-            <li>If canceled flag is not set, then set <var>error</var> to an
-            <a>InvalidStateError</a> whose message optionally warns that
-            <a>.prompt()</a> needs to be called after
-            <code>.preventDefault()</code>.
+            <li>If [[\didPrompt]] is <code>false</code>, set [[\didPrompt]] to
+            <code>true</code>.
             </li>
-            <li>If error is not null:
+            <li>If <var>error</var> is not <code>null</code>:
               <ol>
                 <li>Reject <a>[[\userChoice]]</a> with <var>error</var>.
                 </li>
@@ -541,8 +543,8 @@ dictionary BeforeInstallPromptEventInit : EventInit {
             </li>
             <li>In parallel:
               <ol>
-                <li>Resolve [[\userChoice]] with the result of presenting an
-                install prompt.
+                <li>Resolve <a>[[\userChoice]]</a> with the result of
+                <a>presenting an install prompt</a>.
                 </li>
               </ol>
             </li>
