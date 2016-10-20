@@ -604,8 +604,8 @@ window.addEventListener("appinstalled", handleInstalled);
       </p>
       <p>
         A developer specifies the navigation scope via the
-        <a><code>scope</code> member</a>. In the case where the
-        <a><code>scope</code> member</a> is missing or in error, the navigation
+        <a data-lt="member-scope"><code>scope</code> member</a>. In the case where the
+        <a data-lt="member-scope"><code>scope</code> member</a> is missing or in error, the navigation
         scope is treated as <dfn>unbounded</dfn> (represented as the value
         <code>undefined</code>). In such a case, the manifest is applied to all
         URLs the application context is <a>navigated</a> to (see related
@@ -1238,6 +1238,11 @@ Content-Type: application/manifest+json
           result of running the <a>steps for processing the
           <code>start_url</code> member</a> with <var>manifest</var>,
           <var>manifest URL,</var> and <var>document URL</var> as arguments.
+          </li>
+          <li>Let <var>service worker</var> of <var>parsed manifest</var> be
+          the result of running the <a>steps for processing the
+          <code>serviceworker</code> member</a> with <var>manifest</var>,
+          <var>manifest URL</var>, and <var>serviceworker</var> as arguments.
           </li>
           <li>Let <var>display mode</var> of <var>parsed manifest</var> be the
           result of running the <a>steps for processing the
@@ -2033,6 +2038,71 @@ Content-Type: application/manifest+json
           </p>
         </section>
       </section>
+
+      <section>
+        <h3>
+          <code>serviceworker</code> member
+        </h3>
+        <p>
+          The <dfn><code>serviceworker</code> member</dfn> describes a
+          service worker as defined in [[!SERVICE-WORKERS-1]].
+        </p>
+        <p>
+          The <a><code>serviceworker</code> member</a> represents a service worker
+          registration. Other service worker registrations can be done, for instance
+          by a script; if these have different scopes they will be considered separate
+          registrations. If they have the same scope and script URL, they coalesce.
+          If they have different script URLs, last one wins.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>serviceworker</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes a <a>manifest</a> <var>manifest</var> and <a>serviceworker object</a>
+          <var>serviceworker</var> as an argument. This algorithm returns a
+          serviceworker object <var>serviceworker</var>, which can be <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>src</var> be the result of running the <a>steps
+          for processing the <code>src</code> member of a service worker</a>
+          with <var>serviceworker</var> and <var>manifest URL</var>.
+          </li>
+          <li>If <var>src</var> is <code>undefined</code>, or if the result of
+          running <a href="https://w3c.github.io/webappsec/specs/powerfulfeatures/#is-origin-trustworthy">Is origin potentially trustworthy</a>
+          with the origin of <var>src</var> is <code>Not Trusted</code>, return
+          <code>undefined</code>.
+          </li>
+          <li>Otherwise, let <var>serviceworker</var> be an object with
+          properties <code>src</code> and <code>scope</code>. All properties
+          initially set to <code>undefined</code>.
+          </li>
+          <li>Set <var>serviceworker</var>'s <code>src</code> property to be
+          <var>src</var>.
+          </li>
+          <li>Let <var>type</var> be the result of running the <a>steps
+          for processing the <code>scope</code> member of a service worker</a>
+          passing <var>serviceworker</var>.
+          </li>
+          <li>If <var>scope</var> is not <code>undefined</code>,
+          set<var>serviceworker</var>'s <code>scope</code>
+          property to be <var>scope</var>.
+          </li>
+          <li>Return <var>serviceworker</var>.
+          </li>
+        </ol>
+        <div class="example">
+          In the following example, the web application is listing
+          a service worker for the <code>/foo</code> scope:
+<pre class="">
+"serviceworker": {
+  "src": "sw.js",
+  "scope": "/foo"
+}
+</pre>
+        </div>
+      </section>
+
+
+
       <section>
         <h3>
           <code title="">theme_color</code> member
@@ -2810,6 +2880,97 @@ Content-Security-Policy: img-src icons.example.com
             </ol>
           </li>
           <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          </li>
+        </ol>
+      </section>
+    </section>
+    <section>
+      <h2>
+        The serviceworker object and its members
+      </h2>
+      <p>
+        A <dfn>serviceworker object</dfn> represents a service worker
+        registration for the web application.
+      </p>
+      <section>
+        <h3>
+          <code>src</code> member
+        </h3>
+        <p>
+          The <dfn data-lt="serviceworker-src"><code>src</code> member</dfn> of a
+          <a>serviceworker object</a> is a <a>URL</a> representing a
+          service worker.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>src</code> member of a
+          service worker</dfn> are given by the following algorithm. The algorithm takes
+          a <a>serviceworker object</a> <var>serviceworker</var>, and a <a>URL</a> <var>manifest
+          URL</var>, which is the <a>URL</a> from which the
+          <var>manifest</var> was fetched. This algorithm will return a
+          <a>URL</a> or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>serviceworker</var>
+          passing " <code>src</code>" as the argument.
+          </li>
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string", then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is unsupported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>If <a>Trim</a>(value) is the empty string, then return
+          <code>undefined</code>.
+          </li>
+          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
+          URL</var> as the base URL and return the result.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>scope</code> member
+        </h3>
+        <p>
+          The <dfn data-lt="serviceworker-scope"><code>scope</code> member</dfn> of a
+          <a>serviceworker object</a> is the service worker's associated
+          <a href="https://w3c.github.io/ServiceWorker/#dfn-scope-url">scope URL</a>.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>scope</code> member of a
+          service worker</dfn> are given by the following algorithm. The algorithm takes
+          a <a>serviceworker object</a> <var>serviceworker</var>, and a <a>URL</a> <var>manifest
+          URL</var>, which is the <a>URL</a> from which the
+          <var>manifest</var> was fetched. This algorithm will return a
+          <a>URL</a> or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>serviceworker</var>
+          passing " <code>scope</code>" as the argument.
+          </li>
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string", then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is unsupported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>If <a>Trim</a>(value) is the empty string, then return
+          <code>undefined</code>.
+          </li>
+          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
+          URL</var> as the base URL and return the result.
           </li>
         </ol>
       </section>
