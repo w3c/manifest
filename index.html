@@ -478,14 +478,14 @@ dictionary BeforeInstallPromptEventInit : EventInit {
         </p>
         <dl>
           <dt>
-            [[\didPrompt]]
+            <dfn>[[\didPrompt]]</dfn>
           </dt>
           <dd>
             A boolean, initially false. Represents if the prompt() method was
             called.
           </dd>
           <dt>
-            [[\userChoice]]
+            <dfn>[[\userChoice]]</dfn>
           </dt>
           <dd>
             A promise, which resolves to represent the end-user's choice.
@@ -631,9 +631,10 @@ window.addEventListener("appinstalled", handleInstalled);
           </h4>
           <p>
             <dfn for="Window">onbeforeinstallprompt</dfn> is an <a>event
-            handler IDL attribute</a> for the "<a>beforeinstallprompt</a>"
-            event type. The interface used for these events is the
-            <a><code>BeforeInstallPromptEvent</code> interface</a>.
+            handler IDL attribute</a> for the
+            <code>"beforeinstallprompt"</code> event type. The interface used
+            for these events is the <a><code>BeforeInstallPromptEvent</code>
+            interface</a>.
           </p>
         </section>
       </section>
