@@ -473,6 +473,16 @@ dictionary BeforeInstallPromptEventInit : EventInit {
           agent from presenting the automated install prompt.
         </p>
         <p>
+          The BeforeInstallPromptEvent has two internal slots, which are 
+          set when the event is constructed:
+        </p>
+        <dl>
+            <dt>[[\didPrompt]]</dt>
+            <dd>A boolean, initially false. Represents if the prompt() method was called.</dd>
+            <dt>[[\userChoice]]</dt>
+            <dd>A promise, which resolves to represent the end-user's choice.</dd>  
+        </dl>
+        <p>
           To create an instance of the <code>BeforeInstallPromptEvent</code>
           interface, run the <dfn>steps to construct a BeforeInstallPromptEvent
           event</dfn>:
@@ -528,6 +538,28 @@ dictionary BeforeInstallPromptEventInit : EventInit {
             The <dfn><code>userChoice</code> attribute</dfn>, when getting,
             return the promise held by the [[\userChoice]] internal slot.
           </p>
+        </section>
+        <section class="informative">
+          <h4>Usage example</h4>
+          <p>
+          This example shows how one might prevent an automated install prompt
+          from showing until the user has finished a set of tasks. Those tasks 
+          are repreented as an array of promises, which the application "awaits"
+          to finishe before an install prompt is presented to the end-user. 
+          </p>
+          <pre class="example" title="'beforeinstallprompt' in action">
+          const tasksThatPreventInstallation = [];
+          window.addEventListener("beforeinstallprompt", async function(event) {
+            event.preventDefault();
+            await Promise.all(tasksThatPreventInstallation);
+            try {
+              event.prompt();
+            } catch (err) {
+              console.error(err);
+            }
+            console.info(`user selected: ${await event.userChoice}`);
+          });
+          </pre>
         </section>
       </section>
       <section>
