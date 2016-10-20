@@ -98,7 +98,7 @@ window.addEventListener("beforeinstallprompt", async function(event) {
   // Emulate blocking tasks
   await new Promise((res) => setTimeout(res, 1000));
   try {
-    await event.prompt();
+    event.prompt();
   } catch (err) {
     console.error(err);
   }
