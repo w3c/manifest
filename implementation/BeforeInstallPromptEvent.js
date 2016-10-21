@@ -7,9 +7,16 @@ const AppBannerPromptOutcome = new Set([
   "dismissed",
 ]);
 
+async function requestInstallPrompt(event, element) {
+  const internal = internalSlots.get(event);
+  internal.didPrompt = true;
+  const promptOutcome = await showInstallPrompt(element);
+  internal.userChoiceResolver(promptOutcome);
+}
+
 class BeforeInstallPromptEvent extends Event {
   constructor(typeArg, eventInit) {
-    // WebIDL Guard. Wont be in spec in spec as it's all handled by WebIDL.
+    // WebIDL Guard. Not in spec, as it's all handled by WebIDL.
     if (arguments.length === 0) {
       throw new TypeError("Not enough arguments. Expected at least 1.");
     }
@@ -27,41 +34,34 @@ class BeforeInstallPromptEvent extends Event {
     // End WebIDL guard.
     const internal = {
       didPrompt: false,
+      userChoiceResolver: null,
+      userChoice: null,
     };
 
     internal.userChoice = new Promise((resolve) => {
-      internal.userChoiceHandlers = {
-        resolve,
-      };
       if (eventInit && "userChoice" in eventInit) {
-        resolve(eventInit.userChoice);
+        return resolve(eventInit.userChoice);
       }
+      internal.userChoiceResolver = resolve;
     });
     internalSlots.set(this, internal);
   }
   prompt() {
-    if (this.isTrusted === false) {
-      const msg = "Untrusted events can't call prompt().";
-      throw new DOMException(msg, "NotAllowedError");
-    }
+    // if (this.isTrusted === false) {
+    //   const msg = "Untrusted events can't call prompt().";
+    //   throw new DOMException(msg, "NotAllowedError");
+    // }
 
     if (this.defaultPrevented === false) {
       const msg = ".prompt() needs to be called after .preventDefault()";
       throw new DOMException(msg, "InvalidStateError");
     }
 
-    if(internalSlots.get(this).didPrompt){
-      const msg = ".prompt() can only be succesfully called once.";
-      throw new DOMException(msg, "InvalidStateError"); 
+    if (internalSlots.get(this).didPrompt) {
+      const msg = ".prompt() can only be successfully called once.";
+      throw new DOMException(msg, "InvalidStateError");
     }
-
-    internalSlots.get(this).didPrompt = true;
-    
-    (async function task() {
-      const promptOutcome = await showInstallPrompt();      
-      internalSlots.get(this).userChoiceHandlers.resolve(promptOutcome);
-    }.bind(this)())
-  
+    requestInstallPrompt(this);
   }
 
   get userChoice() {
@@ -77,7 +77,7 @@ async function notifyBeforeInstallPrompt(element) {
   const event = new BeforeInstallPromptEvent("beforeinstallprompt");
   window.dispatchEvent(event);
   if (!event.defaultPrevented) {
-    await showInstallPrompt(element);
+    await requestInstallPrompt(event, element);
   }
 }
 
@@ -115,7 +115,7 @@ async function showInstallPrompt(button) {
       resolve("accepted");
       //emulate installation to home screen
       setTimeout(() => {
-        window.dispatchEvent(new Event("install"));
+        window.dispatchEvent(new Event("appinstalled"));
       }, 1000);
     });
     cancel.addEventListener("click", () => resolve("dismissed"));

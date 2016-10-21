@@ -195,7 +195,7 @@
   const e = new BeforeInstallPromptEvent("");
   console.assert(e.prompt.length === 0, assertion);
 } {
-  const assertion = "calling prompt with unstrusted event results in NotAllowedError error";
+  const assertion = "calling prompt() with untrusted event throws NotAllowedError";
   const e = new BeforeInstallPromptEvent("");
   try {
     e.prompt();
@@ -207,7 +207,7 @@
 }
 
 // install events
-window.addEventListener("install", (ev) => {
+window.addEventListener("appinstalled", (ev) => {
   console.info("Application installed successfully");
 });
 
@@ -224,7 +224,7 @@ window.addEventListener('beforeinstallprompt', function test1(e) {
   try {
     e.preventDefault();
     e.prompt();
-    window.addEventListener("install", setupTest2);
+    window.addEventListener("appinstalled", setupTest2);
   } catch (err) {
     console.assert(false, "Unexpected exceptions");
   } {
