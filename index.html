@@ -224,43 +224,76 @@
       </p>
       <p>
         An end-user can <dfn data-lt="manual installation">manually</dfn>
-        trigger the <a>installation process</a> through the browser's
-        <abbr>UI</abbr>. Alternatively, the <a>installation process</a> can
-        occur through an <dfn>automated install prompt</dfn>: that is, a
-        <abbr>UI</abbr> that the user agent presents to the user when, for
-        instance, there are sufficient <a>installability signals</a> to warrant
-        <a>installation</a> of the web application.
+        trigger the <a>installation process</a> through the user agent's
+        <abbr>UI</abbr>.
       </p>
       <p>
-        In either case, when a user agent <dfn>presents an install
-        prompt</dfn>, the end-user's choice is represented as either "accepted"
-        or "dismissed".
+        Alternatively, the <a>installation process</a> can occur through an
+        <dfn>automated install prompt</dfn>: that is, a <abbr>UI</abbr> that
+        the user agent presents to the user when, for instance, there are
+        sufficient <a>installability signals</a> to warrant <a>installation</a>
+        of the web application.
+      </p>
+      <p>
+        In either case, when a user agent <dfn data-lt=
+        "present an install prompt">presents an install prompt</dfn>, the
+        end-user's choice is represented as on of the following values (either
+        "accepted" or "dismissed"). These values are represented in the API of
+        this specification via <a>AppBannerPromptOutcome</a> enum.
+      </p>
+      <dl data-dfn-for="AppBannerPromptOutcome">
+        <dt>
+          <dfn>accepted</dfn>:
+        </dt>
+        <dd>
+          The end-user indicated that the user agent SHOULD attempt to
+          <a>install</a> the web application.
+          <p class="note">
+            This does not necessarily mean that the <a>installation process</a>
+            will <a data-lt="installation succeeded">succeed</a>.
+          </p>
+        </dd>
+        <dt>
+          <dfn>dismissed</dfn>:
+        </dt>
+        <dd>
+          The end-user dismissed the install prompt, thus <a data-lt=
+          "installation was canceled">canceling</a> the <a>installation
+          process</a>.
+        </dd>
+      </dl>
+      <p>
+        However, prior to presenting an <a>automated install prompt</a>, a user
+        agent MUST run <a>steps to notify before an automated install
+        prompt</a>.
       </p>
       <section>
         <h3>
           Installing via automated prompting
         </h3>
         <p>
-          User agents that support an <a>automated install prompt</a> MUST run
-          the following steps before initiating an install process:
+          The <dfn>steps to notify before an automated install prompt</dfn> are
+          given by the following algorithm:
         </p>
         <ol>
-          <li>Wait until the the document of the top-level browsing context to
-          be <a>completely loaded</a>.
+          <li>Wait until the <code>Document</code> of the <a>top-level browsing
+          context</a> to be <a>completely loaded</a>.
           </li>
-          <li>If there is already an existing install process, terminate this
+          <li>If there is already an <a>installation process</a> being
+          <a data-lt="present an install prompt">presented</a>, terminate this
           algorithm.
           </li>
           <li>Let <var>event</var> be a newly constructed
-          <a>BeforeInstallPromptEvent</a> named
-          <code>"beforeinstallprompt"</code>, which is cancelable.
+          <a>BeforeInstallPromptEvent</a> named "<a>beforeinstallprompt</a>",
+          which is cancelable.
           </li>
           <li>
-            <a>Queue a task</a> to fire event at the <a>Window</a> object of
-            the <a>top-level browsing context</a>.
+            <a>Queue a task</a> on the <a>application life-cycle task
+            source</a> to <a>fire</a> <var>event</var> at the <a>Window</a>
+            object of the <a>top-level browsing context</a>.
           </li>
-          <li>If <var>event</var>'s cancelled flag is not set, present an
-          install prompt and discard the resulting user choice.
+          <li>If <var>event</var>'s <a>canceled flag</a> is not set, then
+          <a>request to present an install prompt</a> with <var>event</var>.
           </li>
         </ol>
       </section>
@@ -336,11 +369,6 @@
           denying permission to the user agent to add an icon to the homescreen
           of the device and the end-user rejecting the installation.
         </p>
-      </section>
-      <section>
-        <h3>
-          Installation
-        </h3>
         <p>
           The <dfn>steps to install the web application</dfn> are given by the
           following algorithm:
@@ -363,8 +391,8 @@
               populate an <a>installation process</a>' UI.
               </li>
               <li>If the <a>installation succeeded</a>, <a>queue a task</a> on
-              the the <dfn>application life-cycle task source</dfn> to <a>fire
-              an event</a> named <code>appinstalled</code> at the
+              the <a>application life-cycle task source</a> to <a>fire an
+              event</a> named <code>appinstalled</code> at the
               <var>window</var> object.
               </li>
             </ol>
@@ -439,70 +467,92 @@
     </section>
     <section>
       <h2>
-        Installation Events
+        Installation API and events
       </h2>
-      <section>
+      <p>
+        DOM events <a>fired</a> by this specification use the <dfn>application
+        life-cycle task source</dfn>.
+      </p>
+      <section data-dfn-for="AppBannerPromptOutcome">
         <h3>
-          <code>BeforeInstallPromptEvent</code>
+          <code>AppBannerPromptOutcome</code> enum
         </h3>
         <pre class="idl">
-enum AppBannerPromptOutcome {
-  "accepted",
-  "dismissed"
-};
-
-[Constructor(DOMString typeArg, optional BeforeInstallPromptEventInit eventInit)]
-interface BeforeInstallPromptEvent : Event {
-    readonly attribute Promise&lt;AppBannerPromptOutcome&gt; userChoice;
-    Promise&lt;void&gt; prompt();
-};
-
-dictionary BeforeInstallPromptEventInit : EventInit {
-  AppBannerPromptOutcome userChoice;
-};
+        enum AppBannerPromptOutcome {
+          "accepted",
+          "dismissed"
+        };
       </pre>
         <p>
-          The <dfn><code>BeforeInstallPromptEvent</code></dfn> is dispatched
-          prior to activating an <a>automated install prompt</a>, allowing a
-          developer to prevent the default action for an install prompt.
+          The <dfn>AppBannerPromptOutcome</dfn> represent the possibly outcomes
+          from the end-user being <a data-lt=
+          "presents an install prompt">presented with an with an automated
+          install prompt</a>.
+        </p>
+      </section>
+      <section data-dfn-for="BeforeInstallPromptEvent">
+        <h3>
+          <code>BeforeInstallPromptEvent</code> Interface
+        </h3>
+        <pre class="idl">
+          [Constructor(DOMString typeArg, optional BeforeInstallPromptEventInit eventInit)]
+          interface BeforeInstallPromptEvent : Event {
+              readonly attribute Promise&lt;AppBannerPromptOutcome&gt; userChoice;
+              Promise&lt;void&gt; prompt();
+          };
+
+          dictionary BeforeInstallPromptEventInit : EventInit {
+            AppBannerPromptOutcome userChoice;
+          };
+      </pre>
+        <p>
+          The <dfn>BeforeInstallPromptEvent</dfn> is dispatched prior to
+          activating an <a>automated install prompt</a>, allowing a developer
+          to prevent the default action for an install prompt.
         </p>
         <p>
           Thus, the default action of the <a>BeforeInstallPromptEvent</a> is to
-          present an automated install prompt to the end user. Cancelling the
-          default action (via <code>.preventDefault()</code>) prevents the user
-          agent from presenting the automated install prompt.
+          <a data-lt="presents an install prompt">present an automated install
+          prompt</a> to the end user. Canceling the default action (via
+          <code>.preventDefault()</code>) prevents the user agent from
+          <a data-lt="presents an install prompt">presenting an automated
+          install prompt</a> until a later time (see
+          <a>BeforeInstallPromptEvent.prompt</a>() method).
         </p>
         <p>
-          The BeforeInstallPromptEvent has two internal slots, which are set
-          when the event is constructed:
+          The <a>BeforeInstallPromptEvent</a> has two internal slots, which are
+          set when the event is constructed:
         </p>
         <dl>
           <dt>
             <dfn>[[\didPrompt]]</dfn>
           </dt>
           <dd>
-            A boolean, initially false. Represents if the prompt() method was
-            called.
+            A boolean, initially <code>false</code>. Represents whether the
+            event has been used to <a>present an install prompt</a> (either by
+            the developer or by the user agent).
           </dd>
           <dt>
             <dfn>[[\userChoice]]</dfn>
           </dt>
           <dd>
-            A promise, which resolves to represent the end-user's choice.
+            A promise, which resolves to one of enum values of
+            <a>AppBannerPromptOutcome</a>, which represent the end-user's
+            choice from the UA attempting to <a>present an install prompt</a>.
           </dd>
         </dl>
         <p>
-          To create an instance of the <code>BeforeInstallPromptEvent</code>
-          interface, run the <dfn>steps to construct a BeforeInstallPromptEvent
-          event</dfn>:
+          To create an instance of the <a>BeforeInstallPromptEvent</a>
+          interface, run the <dfn>steps to construct a
+          <code>BeforeInstallPromptEvent</code> event</dfn>:
         </p>
         <ol>
-          <li>Let [[\didPrompt]] insternal slot intially be set to false.
+          <li>Let <a>[[\didPrompt]]</a> be <code>false</code>.
           </li>
-          <li>Let [[\userChoice]] internal slot be a newly created promise.
+          <li>Let <a>[[\userChoice]]</a> be a newly created promise.
           </li>
           <li>If <code>eventInit.userChoice</code> is valid, resolve
-          [[\userChoice]] with <code>eventInit.userChoice</code>.
+          <a>[[\userChoice]]</a> with <code>eventInit.userChoice</code>.
           </li>
         </ol>
         <section>
@@ -510,41 +560,45 @@ dictionary BeforeInstallPromptEventInit : EventInit {
             <code>prompt()</code> method
           </h4>
           <p>
-            The <dfn><code>prompt()</code> method</dfn>, when called, runs the
-            following steps:
+            The <dfn>prompt</dfn> method, when called, runs the following
+            steps:
           </p>
           <ol>
-            <li>Let <var>error</var> be <code>null</code>.
-            </li>
-            <li>If [[\didPrompt]] is true, then set <var>error</var> to an
-            InvalidStateError whose message optionally warns that prompt() can
-            only be called once.
-            </li>
-            <li>Else if <code>isTrusted</code> attribute is <code>false</code>,
-            then set <var>error</var> to a NotAllowedError whose message
-            optionally warns that untrusted events can't call
+            <li>If the event's <code>isTrusted</code> attribute is
+            <code>false</code> throw a <a>NotAllowedError</a>, optionally the
+            message informing the developer that untrusted events can't call
             <code>prompt()</code>.
             </li>
-            <li>Else if event's <a>canceled flag</a> is not set, then set <var>
-              error</var> to an <a>InvalidStateError</a> whose message
-              optionally warns that <a>.prompt()</a> needs to be called after
-              <code>.preventDefault()</code>.
+            <li>If the <a>canceled flag</a> is unset, throw an
+            <a>InvalidStateError</a>, optionally with the message informing the
+            developer that <code>.prompt()</code> needs to be called after
+            <code>.preventDefault()</code>.
             </li>
-            <li>If [[\didPrompt]] is <code>false</code>, set [[\didPrompt]] to
+            <li>If <a>[[\didPrompt]]</a> is <code>true</code>, throw an
+            <a>InvalidStateError</a>, optionally with the message informing the
+            developer that this event has expired.
+            </li>
+            <li>
+              <a>Request to present an install prompt</a> with this event.
+            </li>
+          </ol>
+          <p>
+            To <dfn>request to present an install prompt</dfn> with
+            <a>BeforeInstallPromptEvent</a> <var>event</var>:
+          </p>
+          <ol>
+            <li>Set <a>[[\didPrompt]]</a> of <var>event</var> to
             <code>true</code>.
             </li>
-            <li>If <var>error</var> is not <code>null</code>:
+            <li>
+              <a>In parallel</a>:
               <ol>
-                <li>Reject <a>[[\userChoice]]</a> with <var>error</var>.
+                <li>
+                  <a>Present an install prompt</a> and let
+                  <var>promptOutcome</var> be the result.
                 </li>
-                <li>throw <var>error</var> and terminate this algorithm.
-                </li>
-              </ol>
-            </li>
-            <li>In parallel:
-              <ol>
-                <li>Resolve <a>[[\userChoice]]</a> with the result of
-                <a>presenting an install prompt</a>.
+                <li>Resolve <a>[[\userChoice]]</a> with
+                <var>promptOutcome</var>.
                 </li>
               </ol>
             </li>
@@ -555,8 +609,8 @@ dictionary BeforeInstallPromptEventInit : EventInit {
             <code>userChoice</code> attribute
           </h4>
           <p>
-            The <dfn><code>userChoice</code> attribute</dfn>, when getting,
-            return the promise held by the [[\userChoice]] internal slot.
+            The <dfn>userChoice</dfn> attribute, when getting, return the
+            promise held by the <a>[[\userChoice]]</a> internal slot.
           </p>
         </section>
         <section class="informative">
@@ -566,8 +620,8 @@ dictionary BeforeInstallPromptEventInit : EventInit {
           <p>
             This example shows how one might prevent an automated install
             prompt from showing until the user has finished a set of tasks.
-            Those tasks are repreented as an array of promises, which the
-            application "awaits" to finishe before an install prompt is
+            Those tasks are represented as an array of promises, which the
+            application "awaits" to finish before an install prompt is
             presented to the end-user.
           </p>
           <pre class="example" title="'beforeinstallprompt' in action">
@@ -588,7 +642,7 @@ dictionary BeforeInstallPromptEventInit : EventInit {
         <p>
           The following extensions to the <code>Window</code> object specify
           the <a>event handler attributes</a> on which events relating to the
-          <a>installation</a> of a web application are fired.
+          <a>installation</a> of a web application are <a>fired</a>.
         </p>
         <pre class="idl">
           partial interface Window {
@@ -598,7 +652,8 @@ dictionary BeforeInstallPromptEventInit : EventInit {
         </pre>
         <div class="example">
           <p>
-            This example shows two ways of handling the "appinstalled" event.
+            This example shows two ways of handling the "<a>appinstalled</a>"
+            event.
           </p>
           <pre>
 function handleInstalled(ev) {
@@ -613,30 +668,30 @@ window.onappinstalled = handleInstalled;
 window.addEventListener("appinstalled", handleInstalled);
           </pre>
         </div>
-        <section>
+        <section data-dfn-for="Window">
           <h4>
             <code>onappinstalled</code> attribute
           </h4>
           <p>
-            <dfn for="Window">onappinstalled</dfn> is an <a>event handler IDL
-            attribute</a> for the "<a>appinstalled</a>" event type. The
+            The <dfn>onappinstalled</dfn> is an <a>event handler IDL
+            attribute</a> for the "<dfn>appinstalled</dfn>" event type. The
             interface used for these events is the <a><code>Event</code>
             interface</a> [[!WHATWG-DOM]]. This event is dispatched as a result
-            of a <a>manual installation</a> or an <a>automated install
-            prompt</a>, which cause the <a>steps to install the web
-            application</a> to run.
+            of a <a data-lt="installation succeeded">successful
+            installation</a> (see the <a>steps to install the web
+            application</a>).
           </p>
         </section>
-        <section>
+        <section data-dfn-for="Window">
           <h4>
             <code>onbeforeinstallprompt</code> attribute
           </h4>
           <p>
-            <dfn for="Window">onbeforeinstallprompt</dfn> is an <a>event
-            handler IDL attribute</a> for the
-            <code>"beforeinstallprompt"</code> event type. The interface used
-            for these events is the <a><code>BeforeInstallPromptEvent</code>
-            interface</a>.
+            The <dfn>onbeforeinstallprompt</dfn> is an <a>event handler IDL
+            attribute</a> for the "<dfn>beforeinstallprompt</dfn>" event type.
+            The interface used for these events is the
+            <a>BeforeInstallPromptEvent</a> interface (see the <a>steps to
+            notify before an automated install prompt</a>).
           </p>
         </section>
       </section>
@@ -2505,10 +2560,9 @@ Content-Security-Policy: img-src icons.example.com
           purposes</a>.
         </p>
         <p>
-          When an <a>image object</a> is used as an <a>icon</a>, a developer
-          can hint that the image is intended to serve some special
-          <dfn>purpose</dfn> in the context of the host OS (i.e., for better
-          integration).
+          When an <a>image object</a> is used as an icon, a developer can hint
+          that the image is intended to serve some special <dfn>purpose</dfn>
+          in the context of the host OS (i.e., for better integration).
         </p>
         <p>
           For example, as a <a data-lt="badge purpose">badge</a> or "pinned"
@@ -3079,16 +3133,39 @@ Content-Security-Policy: img-src icons.example.com
         abstract operations are defined in [[!ECMAS-402]].
       </p>
       <p>
+        The following are defined in [[!WebIDL-2]]:
+      </p>
+      <ul>
+        <li>
+          <a href=
+          "https://heycam.github.io/webidl/#dfn-create-exception"><dfn data-lt=
+          "created">create</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "https://heycam.github.io/webidl/#invalidstateerror"><dfn>InvalidStateError</dfn></a>
+        </li>
+        <li>
+          <a href=
+          "https://heycam.github.io/webidl/#notallowederror"><dfn>NotAllowedError</dfn></a>
+        </li>
+      </ul>
+      <p>
         The following are defined in [[!WHATWG-DOM]]:
       </p>
       <ul>
+        <li>
+          <a href="https://dom.spec.whatwg.org/#canceled-flag"><dfn>canceled
+          flag</dfn></a>
+        </li>
         <li>
           <a href="https://dom.spec.whatwg.org/#event"><dfn><code>Event</code>
           interface</dfn></a>
         </li>
         <li>
-          <a href="https://dom.spec.whatwg.org/#concept-event-fire"><dfn>Fire
-          an event</dfn></a>
+          <a href=
+          "https://dom.spec.whatwg.org/#concept-event-fire"><dfn data-lt=
+          "fire|fired">Fire an event</dfn></a>
         </li>
       </ul>
       <p>
