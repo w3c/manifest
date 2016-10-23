@@ -246,7 +246,7 @@
           <dfn>accepted</dfn>:
         </dt>
         <dd>
-          The end-user indicated that the user agent SHOULD attempt to
+          The end-user indicated that the user agent MUST attempt to
           <a>install</a> the web application.
           <p class="note">
             This does not necessarily mean that the <a>installation process</a>
@@ -283,7 +283,8 @@
           <a data-lt="present an install prompt">presented</a>, terminate this
           algorithm.
           </li>
-          <li>Let <var>event</var> be a <a data-lt="construct a BeforeInstallPromptEvent">newly constructed</a>
+          <li>Let <var>event</var> be a <a data-lt=
+          "construct a BeforeInstallPromptEvent">newly constructed</a>
           <a>BeforeInstallPromptEvent</a> named "<a>beforeinstallprompt</a>",
           which is cancelable.
           </li>
@@ -521,7 +522,8 @@
         </p>
         <p>
           The <a>BeforeInstallPromptEvent</a> has two internal slots, which are
-          set when the event is <a data-lt="construct a BeforeInstallPromptEvent">constructed</a>:
+          set when the event is <a data-lt=
+          "construct a BeforeInstallPromptEvent">constructed</a>:
         </p>
         <dl>
           <dt>
@@ -543,7 +545,8 @@
         </dl>
         <p>
           To construct an instance of the <a>BeforeInstallPromptEvent</a>
-          interface, run the <dfn data-lt="construct a BeforeInstallPromptEvent">steps to construct a
+          interface, run the <dfn data-lt=
+          "construct a BeforeInstallPromptEvent">steps to construct a
           <code>BeforeInstallPromptEvent</code> event</dfn>:
         </p>
         <ol>
