@@ -1,6 +1,5 @@
 /*globals DOMException*/
-"use strict";
-{
+"use strict"; {
   const internalSlots = new WeakMap();
   const installProcesses = [];
   const AppBannerPromptOutcome = new Set([
@@ -21,6 +20,16 @@
     internal.userChoiceResolver(promptOutcome);
   }
 
+  function hasValidUserChoice({ userChoice }) {
+    if (typeof userChoice === "undefined") {
+      return true;
+    }
+    if (!AppBannerPromptOutcome.has(String(userChoice))) {
+      return false;
+    }
+    return true;
+  }
+
   /**
    * Implementation of BeforeInstallPromptEvent.
    *
@@ -38,9 +47,9 @@
       }
       super(typeArg, Object.assign({ cancelable: true }, eventInit));
 
-      if (eventInit && typeof eventInit.userChoice !== "undefined" && !AppBannerPromptOutcome.has(String(eventInit.userChoice))) {
+      if (eventInit && !hasValidUserChoice(eventInit)) {
         const msg = `The provided value '${eventInit.userChoice}' is not a valid` +
-          "enum value of type AppBannerPromptOutcome.";
+          " enum value of type AppBannerPromptOutcome.";
         throw new TypeError(msg);
       }
       // End WebIDL guard.
@@ -83,8 +92,8 @@
   }
 
   async function notifyBeforeInstallPrompt(element) {
-    if (document.readyState === "complete") {
-      await trackReadyState();
+    if (document.readyState !== "complete") {
+      await waitUntilReadyStateComplete();
     }
     if (installProcesses.length) {
       return;
@@ -96,8 +105,8 @@
     }
   }
 
-  function trackReadyState() {
-    return new Promise((resolve) => {
+  function waitUntilReadyStateComplete() {
+    return new Promise(resolve => {
       document.addEventListener("readystatechange", () => {
         if (document.readyState === "complete") {
           resolve();
@@ -125,7 +134,7 @@
     const p = new Promise((resolve) => {
       add.addEventListener("click", () => {
         resolve("accepted");
-        //emulate installation to home screen
+        // Emulate installation to home screen
         setTimeout(() => {
           window.dispatchEvent(new Event("appinstalled"));
         }, 1000);
@@ -143,7 +152,7 @@
     return p;
   }
 
-  if(!window.BeforeInstallPromptEvent) {
+  if (!window.BeforeInstallPromptEvent) {
     window.BeforeInstallPromptEvent = BeforeInstallPromptEvent;
   } else {
     console.warn("Using browser's implementation of BeforeInstallPromptEvent.");
