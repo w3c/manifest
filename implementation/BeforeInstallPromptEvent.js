@@ -35,7 +35,6 @@
    *
    */
   class BeforeInstallPromptEvent extends Event {
-
     constructor(typeArg, eventInit) {
       // WebIDL Guard. Not in spec, as it's all handled by WebIDL.
       if (arguments.length === 0) {
@@ -59,7 +58,7 @@
         userChoiceResolver: null, // Implicit in spec
       };
 
-      internal.userChoice = new Promise((resolve) => {
+      internal.userChoice = new Promise(resolve => {
         if (eventInit && "userChoice" in eventInit) {
           return resolve(eventInit.userChoice);
         }
