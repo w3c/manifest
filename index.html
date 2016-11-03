@@ -2370,7 +2370,9 @@ Content-Security-Policy: img-src icons.example.com
               <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
               a developer warning</a> that the type is unsupported.
               </li>
-              <li>Return <code>undefined</code>.
+              <li>Add "any" to <var>purpose</var>.
+              </li>
+              <li>Return <var>purpose</var>.
               </li>
             </ol>
           </li>
@@ -2624,6 +2626,11 @@ Content-Security-Policy: img-src icons.example.com
                   <li>If <var>sizes</var> is not <code>undefined</code>, set
                   <var>image</var>'s <code>sizes</code> property to be
                   <var>sizes</var>.
+                  </li>
+                  <li>Set <var>image</var>'s <code>purpose</code> property to be
+                  the the result of running the <a>steps for processing a
+                  <code>purpose</code> member of an image</a> passing
+                  <var>potential image</var>.
                   </li>
                   <li>Append <var>image</var> to <var>images</var>.
                   </li>
