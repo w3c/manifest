@@ -420,6 +420,7 @@
         <pre class="idl">
           partial interface Window {
             attribute EventHandler onappinstalled;
+            attribute EventHandler onbeforeinstallprompt;
           };
         </pre>
         <div class="example">
@@ -452,6 +453,18 @@ window.addEventListener("appinstalled", handleInstalled);
             of a <a data-lt="installation succeeded">successful
             installation</a> (see the <a>steps to install the web
             application</a>).
+          </p>
+        </section>
+        <section>
+          <h4>
+            <code>onbeforeinstallprompt</code> attribute
+          </h4>
+          <p>
+            The <dfn>onbeforeinstallprompt</dfn> is an <a>event handler IDL
+            attribute</a> for the "<dfn>beforeinstallprompt</dfn>" event type.
+            The interface used for these events is the
+            <a>BeforeInstallPromptEvent</a> interface (see the <a>steps to
+            notify before an automated install prompt</a>).
           </p>
         </section>
       </section>
