@@ -440,18 +440,18 @@ window.onappinstalled = handleInstalled;
 window.addEventListener("appinstalled", handleInstalled);
           </pre>
         </div>
-        <section>
+        <section data-dfn-for="Window">
           <h4>
             <code>onappinstalled</code> attribute
           </h4>
           <p>
-            <dfn for="Window">onappinstalled</dfn> is an <a>event handler IDL
-            attribute</a> for the "<a>appinstalled</a>" event type. The
+            The <dfn>onappinstalled</dfn> is an <a>event handler IDL
+            attribute</a> for the "<dfn>appinstalled</dfn>" event type. The
             interface used for these events is the <a><code>Event</code>
             interface</a> [[!WHATWG-DOM]]. This event is dispatched as a result
-            of a <a>manual installation</a> or an <a>automated install
-            prompt</a>, which cause the <a>steps to install the web
-            application</a> to run.
+            of a <a data-lt="installation succeeded">successful
+            installation</a> (see the <a>steps to install the web
+            application</a>).
           </p>
         </section>
       </section>
