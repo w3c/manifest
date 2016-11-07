@@ -1,0 +1,214 @@
+<!doctype html>
+<meta charset="utf-8">
+<script src="BeforeInstallPromptEvent.js">
+</script>
+<style>
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#installprompt {
+  animation: fadein 2s;
+  width: 10cm;
+  padding: 1cm;
+}
+</style>
+<button onclick="notifyBeforeInstallPrompt(this)">
+  Simulate install BeforeInstallPrompt
+</button>
+<button onclick="showInstallPrompt(this)">
+  Simulate manual "Add to Home Screen"
+</button>
+<script>
+/*globals BeforeInstallPromptEvent, DOMException*/
+"use strict";
+const e = new BeforeInstallPromptEvent("");
+try {
+  new BeforeInstallPromptEvent();
+  console.assert(false, "Must throw when constructed with no arguments");
+} catch (err) {}
+
+try {
+  const typeArgs = [
+    "",
+    "\t\n",
+    "beforeinstallprompt",
+    12,
+    null,
+    undefined,
+  ];
+  for (const testArg of typeArgs) {
+    const {
+      type
+    } = new BeforeInstallPromptEvent(testArg);
+    const expected = String(testArg);
+    const result = type === expected;
+    console.assert(result, `type attribute is '${type}', expected '${expected}'`);
+  }
+} catch (err) {
+  console.assert(false, "Unexpected exception when constructing BeforeInstallPromptEvent", err);
+}
+
+try {
+  new BeforeInstallPromptEvent("");
+  new BeforeInstallPromptEvent("", undefined);
+  new BeforeInstallPromptEvent("", null);
+} catch (err) {
+  console.assert(false, "empty optional eventInit options must not throw", err);
+}
+
+try {
+  new BeforeInstallPromptEvent("", "");
+  console.assert(false, "Must throw when eventInit is the empty string");
+} catch (err) {}
+
+try {
+  new BeforeInstallPromptEvent("", 123);
+  console.assert(false, "Must throw when eventInit is number");
+} catch (err) {}
+
+try {
+  new BeforeInstallPromptEvent("", {
+    userChoice: undefined
+  });
+  new BeforeInstallPromptEvent("", {
+    userChoice: "accepted"
+  });
+  new BeforeInstallPromptEvent("", {
+    userChoice: "dismissed"
+  });
+} catch (err) {
+  console.assert(false, "threw on valid AppBannerPromptOutcome enum values", err);
+}
+
+const b1 = new BeforeInstallPromptEvent("", {
+  userChoice: "accepted"
+});
+const b2 = new BeforeInstallPromptEvent("", {
+  userChoice: "dismissed"
+});
+Promise
+  .all([b1.userChoice, b2.userChoice])
+  .then(([accepted, dismissed]) => {
+    const isAccepted = accepted === "accepted";
+    console.assert(isAccepted, "Expected 'accepted', got '${accepted}'");
+    const isDismissed = dismissed === "dismissed";
+    console.assert(isDismissed, "Expected 'dismissed', got '${dismissed}'");
+  })
+  .catch(err => console.assert(false, "Unexpected promise rejection", err));
+
+const invalidUserChoiceValues = [
+  null,
+  123,
+  "not-a-valid-option"
+];
+for (const invalidValue of invalidUserChoiceValues) {
+  try {
+    new BeforeInstallPromptEvent("", {
+      userChoice: invalidValue
+    });
+    console.assert(false, `Must throw on invalid userChoice value: ${invalidValue}`);
+  } catch (err) {}
+}
+
+console.assert(e.cancelable === true, "cancelable attribute must be true by default");
+const e2 = new BeforeInstallPromptEvent("", {
+  cancelable: true
+});
+console.assert(e2.cancelable === true, "Must reflect cancelable dict. option of true");
+const e3 = new BeforeInstallPromptEvent("", {
+  cancelable: false
+});
+console.assert(e3.cancelable === false, "Must reflect cancelable dict. option of false");
+
+const hasAttr = "userChoice" in e;
+console.assert(hasAttr, "BeforeInstallPromptEvent must have a userChoice attribute");
+
+const isPromise = e.userChoice instanceof Promise;
+console.assert(isPromise, "userChoice must be a Promise");
+
+console.assert("prompt" in e, "BeforeInstallPromptEvent must have a prompt() method");
+console.assert(typeof e.prompt === "function", "prompt() must be a function");
+console.assert(e.prompt.length === 0, "prompt() must take no arguments");
+
+
+try {
+  e.prompt();
+  console.assert(false, "calling prompt() on an untrusted event must throw");
+} catch (err) {
+  console.assert(err instanceof DOMException, "Exception must be a DOMException");
+  const isNotAllowedErr = err.name === "NotAllowedError";
+  console.assert(isNotAllowedErr, `Caught '${err.name}', expected 'NotAllowedError'`);
+}
+
+window.addEventListener("beforeinstallprompt", test1, {
+  once: true
+});
+
+function test1(e) {
+  console.info("Running test 1");
+  try {
+    e.prompt();
+    console.assert(false, "Must throw when preventDefault() not called first");
+  } catch (err) {
+    const isInvalidState = err.name === "InvalidStateError";
+    console.assert(isInvalidState, `Caught '${err.name}', expected 'InvalidStateError'`);
+  }
+  try {
+    e.preventDefault();
+    e.prompt();
+    window.addEventListener("appinstalled", setupTest2, {
+      once: true
+    });
+  } catch (err) {
+    console.assert(false, "Unexpected exceptions");
+  }
+  try {
+    e.prompt();
+    console.assert(false, "Calling prompt() twice must throw");
+  } catch (err) {
+    const isInvalidState = err.name === "InvalidStateError";
+    console.assert(isInvalidState, `Caught '${err.name}', expected 'InvalidStateError'`);
+  }
+}
+
+function test2(ev) {
+  console.log("Running test 2");
+  // run tests  
+  const isComplete = document.readyState === "complete";
+  console.assert(isComplete, "Must only fire after document is fully loaded");
+
+  const isBIP = ev instanceof BeforeInstallPromptEvent;
+  console.assert(isBIP, "Must be instance of BeforeInstallPromptEvent");
+  console.assert(ev.isTrusted, "Must be a trusted event");
+
+  ev.preventDefault();
+  const isUndefined = typeof ev.prompt() === "undefined";
+  console.assert(isUndefined, "Calling prompt() must return undefined");
+  try {
+    ev.prompt();
+    console.assert(false, "calling prompt() more than once must throw");
+  } catch (err) {
+    console.assert(err instanceof DOMException, "expected a DOMException");
+    const isInvalidState = err.name === "InvalidStateError";
+    console.assert(isInvalidState, `Caught '${err.name}', expected 'InvalidStateError'`);
+  }
+}
+
+function setupTest2() {
+  console.log("setting up test 2");
+  window.addEventListener("beforeinstallprompt", test2, {
+    once: true
+  });
+}
+
+// install events
+window.addEventListener("appinstalled", () => {
+  console.info("Application installed successfully");
+});
+</script>
