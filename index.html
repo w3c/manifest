@@ -222,15 +222,122 @@
         an example, the user agent could <a>install</a> the web application
         into a list of bookmarks within the user agent itself.
       </p>
-      <p>
-        An end-user can <dfn data-lt="manual installation">manually</dfn>
-        trigger the <a>installation process</a> through the browser's
-        <abbr>UI</abbr>. Alternatively, the <a>installation process</a> can
-        occur through an <dfn>automated install prompt</dfn>: that is, a
-        <abbr>UI</abbr> that the user agent presents to the user when, for
-        instance, there are sufficient <a>installability signals</a> to warrant
-        <a>installation</a> of the web application.
-      </p>
+      <section>
+        <h3>
+          Installation process
+        </h3>
+        <p>
+          An <dfn>installation process</dfn> is an attempt by the user agent to
+          <a>install</a> a web application. The details of such a process
+          (i.e., the display of an install <abbr>UI</abbr>, and any resulting
+          <abbr>IO</abbr> operations of the host <abbr>OS</abbr>) are left up
+          to implementers. Implementers need to be aware that there are
+          <a href="#installation-sec">privacy and security considerations</a>
+          that directly relate to the <a>installation process</a>.
+        </p>
+        <p>
+          For the purpose of this specification, the <dfn>installation
+          succeeded</dfn> once the <a>installation process</a> succeeds in
+          <a>installing</a> the web application (e.g., an icon was successfully
+          placed onto the device's homescreen). If the end-user cancels the
+          installation process (even if they <a>manually</a> triggered it, and
+          then changed their minds), then the <dfn>installation was
+          canceled</dfn>. Otherwise, the <dfn>installation failed</dfn>.
+          Reasons for installation failure can include, for example, the OS
+          denying permission to the user agent to add an icon to the homescreen
+          of the device and the end-user rejecting the installation.
+        </p>
+        <p>
+          The <dfn>steps to install the web application</dfn> are given by the
+          following algorithm:
+        </p>
+        <ol>
+          <li>Let <var>window</var> be the <code>Window</code> object of the
+          <a>top-level browsing context</a> for which the user agent will
+          attempt installation.
+          </li>
+          <li>Then, <a>in parallel</a>:
+            <ol>
+              <li>Instantiate an <a>installation process</a>.
+              </li>
+              <li>Let <a>manifest</a> be the result of <a>obtaining the
+              manifest</a>.
+              </li>
+              <li>If <a>obtaining the manifest</a> results in an error, a user
+              agent can, at this point, fall back to using the <a>top-level
+              browsing context</a>' <code>Document</code>'s metadata to
+              populate an <a>installation process</a>' UI.
+              </li>
+              <li>If the <a>installation succeeded</a>, <a>queue a task</a> on
+              the <a>application life-cycle task source</a> to <a>fire an
+              event</a> named <code>appinstalled</code> at the
+              <var>window</var> object.
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h2>
+          Install prompts
+        </h2>
+        <p>
+          An end-user can <dfn data-lt="manual installation">manually</dfn>
+          trigger the <a>installation process</a> through the user agent's
+          <abbr>UI</abbr>.
+        </p>
+        <p>
+          Alternatively, the <a>installation process</a> can occur through an
+          <dfn>automated install prompt</dfn>: that is, a <abbr>UI</abbr> that
+          the user agent presents to the user when, for instance, there are
+          sufficient <a>installability signals</a> to warrant
+          <a>installation</a> of the web application.
+        </p>
+        <p>
+          Prior to presenting an <a>automated install prompt</a>, a user agent
+          MUST run the <a>steps to notify before an automated install
+          prompt</a>.
+        </p>
+        <p>
+          In either case, when a user agent <dfn data-lt=
+          "present an install prompt|presenting an install prompt">presents an
+          install prompt</dfn>, the end-user's choice is represented either
+          "accepted" or "dismissed". These values are represented in the API of
+          this specification via the <a>AppBannerPromptOutcome</a> enum.
+        </p>
+        <p>
+          The <dfn>steps to notify before an automated install prompt</dfn> are
+          given by the following algorithm:
+        </p>
+        <ol>
+          <li>Wait until the <code>Document</code> of the <a>top-level browsing
+          context</a> is <a>completely loaded</a>.
+          </li>
+          <li>If there is already an <a>installation process</a> being
+          <a data-lt="present an install prompt">presented</a>, terminate this
+          algorithm.
+          </li>
+          <li>
+            <a>Queue a task</a> on the <a>application life-cycle task
+            source</a> to do the following:
+            <ol>
+              <li>Let <var>event</var> be a <a data-lt=
+              "construct a BeforeInstallPromptEvent">newly constructed</a> <a>
+                BeforeInstallPromptEvent</a> named
+                "<a>beforeinstallprompt</a>", which is cancelable.
+              </li>
+              <li>
+                <a>Fire</a> <var>event</var> at the <a>Window</a> object of the
+                <a>top-level browsing context</a>.
+              </li>
+              <li>If <var>event</var>'s <a>canceled flag</a> is not set, then,
+              <a>in parallel</a>, <a>request to present an install prompt</a>
+              with <var>event</var>.
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </section>
       <section data-dfn-for="AppBannerPromptOutcome">
         <h4>
           <code>AppBannerPromptOutcome</code> enum
