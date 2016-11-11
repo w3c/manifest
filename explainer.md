@@ -4,6 +4,23 @@ This document provides non-normative guidance for developers of web app manifest
 
 ## Additional Examples
 
+Below are examples of web app manifests.
+
+### Example with Name and Icons
+
+```json
+{
+  "name": "Super Racer 3000",
+  "icons": [
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
+```
+
 TODO: Add additional examples
 
 ## Interaction with Web Cralwers
