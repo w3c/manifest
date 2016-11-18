@@ -1272,6 +1272,11 @@ Content-Type: application/manifest+json
           <var>manifest</var>, <var>manifest URL</var>, and "icons" as
           arguments.
           </li>
+          <li>Let <var>splashscreens</var> of <var>parsed manifest</var> be the
+          result of running the <a>steps for processing an array of images</a>
+          with <var>manifest</var>, <var>manifest URL</var>, and
+          "splashscreens" as arguments.
+          </li>
           <li>Let <var>scope</var> of <var>parsed manifest</var> be the result
           of running the <a>steps for processing the <code>scope</code>
           member</a> with <var>manifest</var>, <var>manifest URL</var>,
@@ -1747,16 +1752,6 @@ Content-Type: application/manifest+json
           The <code>icons</code> member is processed using the <a>steps for
           processing an array of images</a>.
         </p>
-        <p>
-          If there are multiple equally appropriate icons in <var>icons</var>,
-          a user agent MUST use the last one declared in order at the time that
-          the user agent collected the list of <var>icons</var>. If the user
-          agent tries to use an icon but that icon is determined, upon closer
-          examination, to in fact be inappropriate (e.g. because its content
-          type is unsupported), then the user agent MUST try the
-          next-most-appropriate icon as determined by examining the <a>image
-          object's</a> members.
-        </p>
         <div class="example">
           <p>
             In the following example, the developer has made the following
@@ -1929,6 +1924,43 @@ Content-Type: application/manifest+json
           <li>Return <var>value</var>.
           </li>
         </ol>
+      </section>
+      <section>
+        <h3>
+          <code>splashscreens</code> member
+        </h3>
+        <p>
+          A <dfn>splash screen</dfn> is a graphical representation (usually an
+          image on a background color) that is presented as the end user before
+          the user agent is able render content. A splash screen is intended to
+          convey to the end-user that the web application is being prepared for
+          them in the background.
+        </p>
+        <p>
+          When showing a <a>splash screen</a>, a user agent MUST announce to
+          assistive technologies that the web application is being loaded in
+          the background.
+        </p>
+        <p>
+          The <dfn id="member-splashscreens"><code>splashscreens</code>
+          member</dfn> is an <a>array</a> of <a>image objects</a> that can
+          serve as the splash screen for a web application.
+        </p>
+        <pre class="example">
+          {
+            "splashscreens": [{
+              "src": "icon/lowres.webp",
+              "sizes": "148x148",
+              "type": "image/webp"
+            }, {
+              "src": "icon/lowres",
+              "sizes": "248x248"
+            }, {
+              "src": "icon/hd_hi.svg",
+              "sizes": "1000x1000"
+            }]
+          }
+        </pre>
       </section>
       <section>
         <h3>
@@ -2315,6 +2347,16 @@ Content-Type: application/manifest+json
         scenarios to avoid losing important information through, e.g., change
         of color or clipped corners.
       </p>
+      <p>
+        Where there are multiple equally appropriate <a>image objects</a> for a
+        particular <a>purpose</a> or manifest member, a user agent MUST use the
+        last one declared in order at the time that the user agent collected
+        the list of image objects. If the user agent tries to use an image
+        object but that image is determined, upon closer examination, to in
+        fact be inappropriate (e.g. because its content type is unsupported),
+        then the user agent MUST try the next-most-appropriate image as
+        determined by examining the <a>image object's</a> members.
+      </p>
       <section>
         <h3>
           Fetching image objects
@@ -2438,6 +2480,13 @@ Content-Security-Policy: img-src icons.example.com
           <dd>
             A user agent can present this icon where space constraints and/or
             color requirements differ from those of the application icon.
+          </dd>
+          <dt>
+            <dfn data-lt="splashscreen purpose">splashscreen</dfn>:
+          </dt>
+          <dd>
+            A user agent can present this icon where it would present a
+            <a>splash screen</a>.
           </dd>
           <dt>
             <dfn data-lt="any purpose">any</dfn>:
