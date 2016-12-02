@@ -207,7 +207,7 @@ More details about [why we chose JSON instead of the html tags](https://www.w3.o
 
 The manifest, and Progressive Web Apps are implemented in Chrome, Opera, and Samsung Internet for Android. There are positive signals from Firefox that they will support this standard too (it has been implemented in Gecko for over 2 years, but not shipping in any products yet).
 
-## Interaction with Web Cralwers
+## Interaction with Web Crawlers
 
 Like other web resources, a web app manifest should be accessible to any web browser or web crawler.
 
