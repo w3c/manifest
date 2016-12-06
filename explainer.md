@@ -24,6 +24,20 @@ The Manifest specification aims to give you a standardised way to do this using 
 
 But what’s in this mysterious manifest file? Glad you asked!
 
+## A very simple manifest
+
+A very simple manifest might just include a name and one or more icons.
+
+```JSON
+{
+  "name": "Super Racer 3000",
+  "icons": [{
+    "src": "icon/lowres.png",
+    "sizes": "64x64"
+  }]
+}
+```
+
 ## A typical manifest
 
 A typical manifest might look something like the following. The names of the members should be fairly self evident, but we describe their usage in detail below.
