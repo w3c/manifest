@@ -120,6 +120,8 @@ If you omit the icons, the browser just falls back to looking for <link rel="ico
 
 TBW.
 
+More information about purpose can be found in the [Web App Manifest spec](http://www.w3.org/TR/appmanifest/#purpose-member).
+
 ## Display modes and orientation
 Apps need to be able to control how they are to be displayed when they starts-up. If it’s a game, it might need to be in full-screen and possibly in landscape mode. In order to do this, the manifest format provides you with two properties.
 
