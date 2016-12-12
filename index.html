@@ -2048,8 +2048,9 @@ Content-Type: application/manifest+json
           service worker as defined in [[!SERVICE-WORKERS-1]].
         </p>
         <p>
-          The <a><code>serviceworker</code> member</a> represents a service worker
-          registration. Other service worker registrations can be done, for instance
+          The <a><code>serviceworker</code> member</a> represents a <a
+          href="https://w3c.github.io/ServiceWorker/#service-worker-registration-concept">
+          service worker registration</a>. Other service worker registrations can be done, for instance
           by a script; if these have different scopes they will be considered separate
           registrations. If they have the same scope and script URL, they coalesce.
           If they have different script URLs, last one wins.
@@ -2057,42 +2058,44 @@ Content-Type: application/manifest+json
         <p>
           The <dfn>steps for processing the <code>serviceworker</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>manifest</a> <var>manifest</var> and <a>serviceworker object</a>
-          <var>serviceworker</var> as an argument. This algorithm returns a
-          serviceworker object <var>serviceworker</var>, which can be <code>undefined</code>.
+          takes a <a>manifest</a> <var>manifest</var>. This algorithm returns a
+          registration object <var>registration</var>, which can be <code>undefined</code>.
         </p>
         <ol>
+          <li>Let <var>unprocessed registration</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>serviceworker</code>".
           <li>Let <var>src</var> be the result of running the <a>steps
           for processing the <code>src</code> member of a service worker</a>
-          with <var>serviceworker</var> and <var>manifest URL</var>.
+          with <var>unprocessed registration</var> and <var>manifest URL</var>.
           </li>
           <li>If <var>src</var> is <code>undefined</code>, or if the result of
-          running <a href="https://w3c.github.io/webappsec/specs/powerfulfeatures/#is-origin-trustworthy">Is origin potentially trustworthy</a>
+          running <a>Is origin potentially trustworthy</a>
           with the origin of <var>src</var> is <code>Not Trusted</code>, return
           <code>undefined</code>.
           </li>
-          <li>Otherwise, let <var>serviceworker</var> be an object with
+          <li>Otherwise, let <var>registration</var> be an object with
           properties <code>src</code> and <code>scope</code>. All properties
           initially set to <code>undefined</code>.
           </li>
-          <li>Set <var>serviceworker</var>'s <code>src</code> property to be
+          <li>Set <var>registration</var>'s <code>src</code> property to be
           <var>src</var>.
           </li>
           <li>Let <var>type</var> be the result of running the <a>steps
           for processing the <code>scope</code> member of a service worker</a>
-          passing <var>serviceworker</var>.
+          passing <var>unprocessed registration</var>.
           </li>
           <li>If <var>scope</var> is not <code>undefined</code>,
-          set<var>serviceworker</var>'s <code>scope</code>
+          set <var>registration</var>'s <code>scope</code>
           property to be <var>scope</var>.
           </li>
-          <li>Return <var>serviceworker</var>.
+          <li>Return <var>registration</var>.
           </li>
         </ol>
         <div class="example">
           In the following example, the web application is listing
           a service worker for the <code>/foo</code> scope:
-<pre class="">
+<pre class="example">
 "serviceworker": {
   "src": "sw.js",
   "scope": "/foo"
@@ -2904,14 +2907,14 @@ Content-Security-Policy: img-src icons.example.com
         <p>
           The <dfn>steps for processing the <code>src</code> member of a
           service worker</dfn> are given by the following algorithm. The algorithm takes
-          a <a>serviceworker object</a> <var>serviceworker</var>, and a <a>URL</a> <var>manifest
+          a <a>serviceworker object</a> <var>registration</var>, and a <a>URL</a> <var>manifest
           URL</var>, which is the <a>URL</a> from which the
           <var>manifest</var> was fetched. This algorithm will return a
           <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>serviceworker</var>
+          <a>[[\GetOwnProperty]]</a> internal method of <var>registration</var>
           passing " <code>src</code>" as the argument.
           </li>
           <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
@@ -2945,14 +2948,14 @@ Content-Security-Policy: img-src icons.example.com
         <p>
           The <dfn>steps for processing the <code>scope</code> member of a
           service worker</dfn> are given by the following algorithm. The algorithm takes
-          a <a>serviceworker object</a> <var>serviceworker</var>, and a <a>URL</a> <var>manifest
+          a <a>serviceworker object</a> <var>registration</var>, and a <a>URL</a> <var>manifest
           URL</var>, which is the <a>URL</a> from which the
           <var>manifest</var> was fetched. This algorithm will return a
           <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>serviceworker</var>
+          <a>[[\GetOwnProperty]]</a> internal method of <var>registration</var>
           passing " <code>scope</code>" as the argument.
           </li>
           <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
@@ -3148,6 +3151,10 @@ Content-Security-Policy: img-src icons.example.com
         "https://w3c.github.io/webappsec/specs/content-security-policy/#default_src">
         <dfn><code>default-src</code></dfn></a> directives are defined in
         [[!CSP3]].
+      </p>
+      <p>
+        The <a href="https://w3c.github.io/webappsec-secure-contexts/#is-origin-trustworthy">
+        <dfn>Is origin potentially trustworthy</dfn></a> is defined in [[!SECURE-CONTEXTS]]
       </p>
       <p>
         The <a href=
