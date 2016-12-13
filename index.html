@@ -352,7 +352,8 @@
               <ul>
                 <li>Invoke <a>Start Register</a> with <var>scope</var> and <var>src</var>
                 members of the <var>service worker registration</var>, a new <var>promise</var>,
-                null, <a>manifest URL</a>, <code>"classic"</code> and <code>False</code>,
+                null, <a>manifest URL</a>, plus the <var>type</var> and <var>use_cache</var>
+                members of the <var>service worker registration</var>,
                 </li>
               </ul>
               in which case the state of the settled <var>promise</var> determine whether the
@@ -2083,17 +2084,18 @@ Content-Type: application/manifest+json
           </li>
           <li>If <var>src</var> is <code>undefined</code>, or if the result of
           running <a>Is origin potentially trustworthy</a>
-          with the origin of <var>src</var> is <code>Not Trusted</code>, return
-          <code>undefined</code>.
+          with the origin of <var>src</var> is <code>Not Trusted</code>, abort
+          these steps and return <code>undefined</code>.
           </li>
           <li>Otherwise, let <var>registration</var> be an object with
-          properties <code>src</code> and <code>scope</code>. All properties
-          initially set to <code>undefined</code>.
+          properties <code>src</code>, <code>scope</code>, <code>type</code> and
+          <code>use_cache</code>. All properties initially set to
+          <code>undefined</code>.
           </li>
           <li>Set <var>registration</var>'s <code>src</code> property to be
           <var>src</var>.
           </li>
-          <li>Let <var>type</var> be the result of running the <a>steps
+          <li>Let <var>scope</var> be the result of running the <a>steps
           for processing the <code>scope</code> member of a service worker</a>
           passing <var>unprocessed registration</var>.
           </li>
@@ -2101,16 +2103,40 @@ Content-Type: application/manifest+json
           set <var>registration</var>'s <code>scope</code>
           property to be <var>scope</var>.
           </li>
+          <li>Let <var>type</var> be the result of running the <a>steps
+          for processing the <code>type</code> member of a service worker</a>
+          passing <var>unprocessed registration</var>.
+          </li>
+          <li>If <var>type</var> is not <code>undefined</code>
+          set <var>registration</var>'s <code>type</code>
+          property to be <var>type</var>.
+          </li>
+          <li>If <var>type</var> is <code>undefined</code> abort these steps and
+          return <code>undefined</code>.
+          </li>
+          <li>Let <var>use cache</var> be the result of running the <a>steps
+          for processing the <code>use_cache</code> member of a service worker</a>
+          passing <var>unprocessed registration</var>.
+          </li>
+          <li>If <var>use cache</var> is not <code>undefined</code>,
+          set <var>registration</var>'s <code>use_cache</code>
+          property to be <var>use cache</var>.
+          </li>
+          <li>If <var>use cache</var> is <code>undefined</code> abort these steps
+          and return <code>undefined</code>.
+          </li>
           <li>Return <var>registration</var>.
           </li>
         </ol>
         <div class="example">
           In the following example, the web application is listing
-          a service worker for the <code>/foo</code> scope:
+          a service worker for the <code>/foo</code> scope, bypassing the user agent cache
+          when fetching the <code>"sw.js"</code> source:
 <pre class="example">
 "serviceworker": {
   "src": "sw.js",
-  "scope": "/foo"
+  "scope": "/foo",
+  "use_cache": false
 }
 </pre>
         </div>
@@ -2986,6 +3012,88 @@ Content-Security-Policy: img-src icons.example.com
           </li>
           <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
           URL</var> as the base URL and return the result.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>type</code> member
+        </h3>
+        <p>
+          The <dfn data-lt="serviceworker-type"><code>type</code> member</dfn> of a
+          <a>serviceworker object</a> is the service worker's
+          <a href="https://html.spec.whatwg.org/multipage/workers.html#workertype">worker type</a>.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>type</code> member of a
+          service worker</dfn> are given by the following algorithm. The algorithm takes
+          a <a>serviceworker object</a> <var>registration</var>, and a <a>URL</a> <var>manifest
+          URL</var>, which is the <a>URL</a> from which the
+          <var>manifest</var> was fetched. This algorithm will return a
+          string.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>registration</var>
+          passing " <code>type</code>" as the argument.
+          </li>
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string", then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is unsupported.
+              </li>
+              <li>Return <code>"classic"</code>.
+              </li>
+            </ol>
+          </li>
+          <li>If <a>Trim</a>(value) is the empty string, then:
+            <ol>
+              <li>Issue a developer warning that the type is unsupported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          <li>Return <var>type</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>use_cache</code> member
+        </h3>
+        <p>
+          The <dfn data-lt="serviceworker-type"><code>use_cache</code> member</dfn> of a
+          <a>serviceworker object</a> determines whether the user agent
+          <a href="https://w3c.github.io/ServiceWorker/#dfn-use-cache">cache</a> should
+          be used when fetching the service worker.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>use_cache</code> member of a
+          service worker</dfn> are given by the following algorithm. The algorithm takes
+          a <a>serviceworker object</a> <var>registration</var>, and a <a>URL</a> <var>manifest
+          URL</var>, which is the <a>URL</a> from which the
+          <var>manifest</var> was fetched. This algorithm will return a
+          boolean.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>registration</var>
+          passing " <code>use_cache</code>" as the argument.
+          </li>
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "boolean", then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is unsupported and
+              return <code>undefined</code>.
+              </li>
+              <li>Otherwise, return False</li>
+            </ol>
+          </li>
+          <li>Return <var>use_cache</var>.
           </li>
         </ol>
       </section>
