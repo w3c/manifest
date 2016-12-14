@@ -2994,16 +2994,17 @@ Content-Security-Policy: img-src icons.example.com
         <ol>
           <li>Let <var>value</var> be the result of calling the
           <a>[[\GetOwnProperty]]</a> internal method of <var>registration</var>
-          passing " <code>scope</code>" as the argument.
+          passing "<code>scope</code>" as the argument.
           </li>
           <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
           <li>If <var>type</var> is not "string", then:
             <ol>
               <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is unsupported.
+              developer warning that the type is unsupported and
+              return <code>undefined</code>.
               </li>
-              <li>Return <code>undefined</code>.
+              <li>Return <code>null</code>.
               </li>
             </ol>
           </li>
@@ -3042,7 +3043,8 @@ Content-Security-Policy: img-src icons.example.com
           <li>If <var>type</var> is not "string", then:
             <ol>
               <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is unsupported.
+              developer warning that the type is unsupported and
+              return <code>undefined</code>.
               </li>
               <li>Return <code>"classic"</code>.
               </li>
