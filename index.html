@@ -349,13 +349,17 @@
               <li>If <a>obtaining the manifest</a> succeeds, and the result of running the
               <a>steps for processing the serviceworker member</a> with <a>manifest</a>
               returns a valid <var>registration</var>, a user agent can at this point
-              <ul>
+              <ol>
+                <li>Let <var>client</var> be the <a>top-level browsing context</a>'
+                <code>Document</code>'s
+                <a href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object">
+                relevant settings object</a>, or <code>null</code> if unavailable.
                 <li>Invoke <a>Start Register</a> with <var>scope</var> and <var>src</var>
                 members of the <var>registration</var>, a new <var>promise</var>,
-                null, <a>manifest URL</a>, plus the <var>type</var> and <var>use_cache</var>
+                <var>client</var>, <a>manifest URL</a>, plus the <var>type</var> and <var>use_cache</var>
                 members of the <var>registration</var>,
                 </li>
-              </ul>
+              </ol>
               in which case the state of the settled <var>promise</var> determine whether the
               <a>installation succeeded</a> or not.
               </li>
