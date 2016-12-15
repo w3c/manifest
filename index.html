@@ -346,14 +346,14 @@
               browsing context</a>' <code>Document</code>'s metadata to
               populate an <a>installation process</a>' UI.
               </li>
-              <li>If <a>obtaining the manifest</a> succeeds, and the
-              <var>service worker registration</var> of <a>manifest</a> is not
-              <code>undefined</code>, a user agent can at this point
+              <li>If <a>obtaining the manifest</a> succeeds, and the result of running the
+              <a>steps for processing the serviceworker member</a> with <a>manifest</a>
+              returns a valid <var>registration</var>, a user agent can at this point
               <ul>
                 <li>Invoke <a>Start Register</a> with <var>scope</var> and <var>src</var>
-                members of the <var>service worker registration</var>, a new <var>promise</var>,
+                members of the <var>registration</var>, a new <var>promise</var>,
                 null, <a>manifest URL</a>, plus the <var>type</var> and <var>use_cache</var>
-                members of the <var>service worker registration</var>,
+                members of the <var>registration</var>,
                 </li>
               </ul>
               in which case the state of the settled <var>promise</var> determine whether the
@@ -2099,31 +2099,31 @@ Content-Type: application/manifest+json
           for processing the <code>scope</code> member of a service worker</a>
           passing <var>unprocessed registration</var>.
           </li>
-          <li>If <var>scope</var> is not <code>undefined</code>,
-          set <var>registration</var>'s <code>scope</code>
+          <li>If <var>scope</var> is <code>undefined</code> abort these steps and
+          return <code>undefined</code>.
+          </li>
+          <li>Otherwise, set <var>registration</var>'s <code>scope</code>
           property to be <var>scope</var>.
           </li>
           <li>Let <var>type</var> be the result of running the <a>steps
           for processing the <code>type</code> member of a service worker</a>
           passing <var>unprocessed registration</var>.
           </li>
-          <li>If <var>type</var> is not <code>undefined</code>
-          set <var>registration</var>'s <code>type</code>
-          property to be <var>type</var>.
-          </li>
           <li>If <var>type</var> is <code>undefined</code> abort these steps and
           return <code>undefined</code>.
+          </li>
+          <li>Otherwise, set <var>registration</var>'s <code>type</code>
+          property to be <var>type</var>.
           </li>
           <li>Let <var>use cache</var> be the result of running the <a>steps
           for processing the <code>use_cache</code> member of a service worker</a>
           passing <var>unprocessed registration</var>.
           </li>
-          <li>If <var>use cache</var> is not <code>undefined</code>,
-          set <var>registration</var>'s <code>use_cache</code>
-          property to be <var>use cache</var>.
-          </li>
           <li>If <var>use cache</var> is <code>undefined</code> abort these steps
           and return <code>undefined</code>.
+          </li>
+          <li>Otherwise, set <var>registration</var>'s <code>use_cache</code>
+          property to be <var>use cache</var>.
           </li>
           <li>Return <var>registration</var>.
           </li>
