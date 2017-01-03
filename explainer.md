@@ -114,7 +114,7 @@ There needs to be an icon associated with a web app, rather than the browser’s
   }]
 }
 ```
-If you omit the icons, the browser just falls back to looking for <link rel="icon">, the favicon.ico or, failing that, may even use a screenshot of your website.
+If you omit the icons, the browser just falls back to looking for `<link rel="icon">`, the favicon.ico or, failing that, may even use a screenshot of your website.
 
 ### Icon purpose
 
@@ -209,7 +209,7 @@ window.addEventListener("appinstalled", handleInstalled);
 
 However, for privacy reasons, you can't directly detect if your application is installed - only if the manifest is being used with your web application.
 
-## What’s wrong with <meta> tags?
+## What’s wrong with `<meta>` tags?
 During the specification discussions, it was hotly debated whether to use `<meta>` tags in HTML rather than make a new format. After all, the Chrome implementation of Add to Homescreen uses `<meta>` tags, and this has been the natural home for proprietary flimflam since the web began.
 
 The reasons for including a separate file are
