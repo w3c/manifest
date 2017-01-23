@@ -338,30 +338,33 @@
             <ol>
               <li>Instantiate an <a>installation process</a>.
               </li>
-              <li>Let <a>manifest</a> and <a>manifest URL</a> be the result of <a>obtaining the
-              manifest</a>.
+              <li>Let <a>manifest</a> and <a>manifest URL</a> be the result of
+              <a>obtaining the manifest</a>.
               </li>
               <li>If <a>obtaining the manifest</a> results in an error, a user
               agent can, at this point, fall back to using the <a>top-level
               browsing context</a>' <code>Document</code>'s metadata to
               populate an <a>installation process</a>' UI.
               </li>
-              <li>If <a>obtaining the manifest</a> succeeds, and the result of running the
-              <a>steps for processing the serviceworker member</a> with <a>manifest</a>
-              returns a valid <var>registration</var>, a user agent can at this point
-              <ol>
-                <li>Let <var>client</var> be the <a>top-level browsing context</a>'
-                <code>Document</code>'s
-                <a href="https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object">
-                relevant settings object</a>, or <code>null</code> if unavailable.
-                <li>Invoke <a>Start Register</a> with <var>scope</var> and <var>src</var>
-                members of the <var>registration</var>, a new <var>promise</var>,
-                <var>client</var>, <a>manifest URL</a>, plus the <var>type</var> and <var>use_cache</var>
-                members of the <var>registration</var>,
-                </li>
-              </ol>
-              in which case the state of the settled <var>promise</var> determines whether the
-              <a>installation succeeded</a> or not.
+              <li>If <a>obtaining the manifest</a> succeeds, and the result of
+              running the <a>steps for processing the serviceworker member</a>
+              with <a>manifest</a> returns a valid <var>registration</var>, a
+              user agent can at this point
+                <ol>
+                  <li>Let <var>client</var> be the <a>top-level browsing
+                  context</a>' <code>Document</code>'s <a href=
+                  "https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object">
+                    relevant settings object</a>, or <code>null</code> if
+                    unavailable.
+                  </li>
+                  <li>Invoke <a>Start Register</a> with <var>scope</var> and
+                  <var>src</var> members of the <var>registration</var>, a new
+                  <var>promise</var>, <var>client</var>, <a>manifest URL</a>,
+                  plus the <var>type</var> and <var>use_cache</var> members of
+                  the <var>registration</var>,
+                  </li>
+                </ol>in which case the state of the settled <var>promise</var>
+                determines whether the <a>installation succeeded</a> or not.
               </li>
               <li>If the <a>installation succeeded</a>, <a>queue a task</a> on
               the <a>application life-cycle task source</a> to <a>fire an
@@ -599,7 +602,7 @@ window.addEventListener("appinstalled", handleInstalled);
         <li>Otherwise, return <code>false</code>.
         </li>
       </ol>
-      <div class="issue" title="🐒 Monkey patch">
+      <div class="issue" title="&#x1f412; Monkey patch">
         <p>
           Enforcing the navigation scope depends on [[!HTML]]'s navigate
           algorithm. As such, the following algorithm monkey patches [[!HTML]].
@@ -620,13 +623,14 @@ window.addEventListener("appinstalled", handleInstalled);
         a <code>SecurityError</code>.
       </p>
       <p>
-        A developer specifies the navigation scope via the
-        <a data-lt="member-scope"><code>scope</code> member</a>. In the case where the
-        <a data-lt="member-scope"><code>scope</code> member</a> is missing or in error, the navigation
-        scope is treated as <dfn>unbounded</dfn> (represented as the value
-        <code>undefined</code>). In such a case, the manifest is applied to all
-        URLs the application context is <a>navigated</a> to (see related
-        <a href="#navigation-scope-security-considerations">security
+        A developer specifies the navigation scope via the <a data-lt=
+        "member-scope"><code>scope</code> member</a>. In the case where the
+        <a data-lt="member-scope"><code>scope</code> member</a> is missing or
+        in error, the navigation scope is treated as <dfn>unbounded</dfn>
+        (represented as the value <code>undefined</code>). In such a case, the
+        manifest is applied to all URLs the application context is
+        <a>navigated</a> to (see related <a href=
+        "#navigation-scope-security-considerations">security
         considerations</a>).
       </p>
       <section>
@@ -1256,9 +1260,9 @@ Content-Type: application/manifest+json
           <code>start_url</code> member</a> with <var>manifest</var>,
           <var>manifest URL,</var> and <var>document URL</var> as arguments.
           </li>
-          <li>Let <var>service worker registration</var> of <var>parsed manifest</var>
-          be the result of running the <a>steps for processing the
-          <code>serviceworker</code> member</a> with <var>manifest</var>,
+          <li>Let <var>service worker registration</var> of <var>parsed
+          manifest</var> be the result of running the <a>steps for processing
+          the <code>serviceworker</code> member</a> with <var>manifest</var>,
           <var>manifest URL</var>, and <var>serviceworker</var> as arguments.
           </li>
           <li>Let <var>display mode</var> of <var>parsed manifest</var> be the
@@ -2055,25 +2059,26 @@ Content-Type: application/manifest+json
           </p>
         </section>
       </section>
-
       <section>
         <h3>
           <code>serviceworker</code> member
         </h3>
         <p>
-          The <dfn><code>serviceworker</code> member</dfn> describes a
-          service worker as defined in [[!SERVICE-WORKERS-1]].
+          The <dfn><code>serviceworker</code> member</dfn> describes a service
+          worker as defined in [[!SERVICE-WORKERS-1]].
         </p>
         <p>
-          The <a><code>serviceworker</code> member</a> represents an intented <a
-          href="https://w3c.github.io/ServiceWorker/#service-worker-registration-concept">
-          service worker registration</a> in form of a <dfn>registration object</dfn>
+          The <a><code>serviceworker</code> member</a> represents an intented
+          <a href=
+          "https://w3c.github.io/ServiceWorker/#service-worker-registration-concept">
+          service worker registration</a> in form of a <dfn>registration
+          object</dfn>
         </p>
         <p class="note">
-          Other service worker registrations can be done, for instance
-          by a script; if these have different scopes they will be considered separate
-          registrations. If they have the same scope and script URL, they coalesce.
-          If they have different script URLs, last one wins.
+          Other service worker registrations can be done, for instance by a
+          script; if these have different scopes they will be considered
+          separate registrations. If they have the same scope and script URL,
+          they coalesce. If they have different script URLs, last one wins.
         </p>
         <p>
           The <dfn>steps for processing the <code>serviceworker</code>
@@ -2083,53 +2088,56 @@ Content-Type: application/manifest+json
           <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>unprocessed registration</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          <li>Let <var>unprocessed registration</var> be the result of calling
+          the <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
           with argument "<code>serviceworker</code>".
-          <li>Let <var>src</var> be the result of running the <a>steps
-          for processing the <code>src</code> member of a service worker</a>
-          with <var>unprocessed registration</var> and <var>manifest URL</var>.
+          </li>
+          <li>Let <var>src</var> be the result of running the <a>steps for
+          processing the <code>src</code> member of a service worker</a> with
+          <var>unprocessed registration</var> and <var>manifest URL</var>.
           </li>
           <li>If <var>src</var> is <code>undefined</code>, or if the result of
-          running <a>is origin potentially trustworthy</a>
-          with the origin of <var>src</var> is <code>Not Trusted</code>,
-          <a>issue a developer warning</a>, abort these steps and return
-          <code>undefined</code>.
+          running <a>is origin potentially trustworthy</a> with the origin of
+          <var>src</var> is <code>Not Trusted</code>, <a>issue a developer
+          warning</a>, abort these steps and return <code>undefined</code>.
           </li>
           <li>Otherwise, let <var>registration</var> be an object with
-          properties <code>src</code>, <code>scope</code>, <code>type</code> and
-          <code>use_cache</code>. All properties initially set to
+          properties <code>src</code>, <code>scope</code>, <code>type</code>
+          and <code>use_cache</code>. All properties initially set to
           <code>undefined</code>.
           </li>
           <li>Set <var>registration</var>'s <code>src</code> property to be
           <var>src</var>.
           </li>
-          <li>Let <var>scope</var> be the result of running the <a>steps
-          for processing the <code>scope</code> member of a service worker</a>
+          <li>Let <var>scope</var> be the result of running the <a>steps for
+          processing the <code>scope</code> member of a service worker</a>
           passing <var>unprocessed registration</var>.
           </li>
-          <li>If <var>scope</var> is <code>undefined</code>, <a>issue a developer
-          warning</a>, abort these steps and return <code>undefined</code>.
+          <li>If <var>scope</var> is <code>undefined</code>, <a>issue a
+          developer warning</a>, abort these steps and return
+          <code>undefined</code>.
           </li>
           <li>Otherwise, set <var>registration</var>'s <code>scope</code>
           property to be <var>scope</var>.
           </li>
-          <li>Let <var>type</var> be the result of running the <a>steps
-          for processing the <code>type</code> member of a service worker</a>
+          <li>Let <var>type</var> be the result of running the <a>steps for
+          processing the <code>type</code> member of a service worker</a>
           passing <var>unprocessed registration</var>.
           </li>
-          <li>If <var>type</var> is <code>undefined</code>, <a>issue a developer
-          warning</a>, abort these steps and return <code>undefined</code>.
+          <li>If <var>type</var> is <code>undefined</code>, <a>issue a
+          developer warning</a>, abort these steps and return
+          <code>undefined</code>.
           </li>
           <li>Otherwise, set <var>registration</var>'s <code>type</code>
           property to be <var>type</var>.
           </li>
           <li>Let <var>use cache</var> be the result of running the <a>steps
-          for processing the <code>use_cache</code> member of a service worker</a>
-          passing <var>unprocessed registration</var>.
+          for processing the <code>use_cache</code> member of a service
+          worker</a> passing <var>unprocessed registration</var>.
           </li>
-          <li>If <var>use cache</var> is <code>undefined</code>, <a>issue a developer
-          warning</a>, abort these steps and return <code>undefined</code>.
+          <li>If <var>use cache</var> is <code>undefined</code>, <a>issue a
+          developer warning</a>, abort these steps and return
+          <code>undefined</code>.
           </li>
           <li>Otherwise, set <var>registration</var>'s <code>use_cache</code>
           property to be <var>use cache</var>.
@@ -2138,9 +2146,9 @@ Content-Type: application/manifest+json
           </li>
         </ol>
         <div class="example">
-          In the following example, the web application is listing
-          a service worker for the <code>/foo</code> scope, bypassing the user agent cache
-          when fetching the <code>"sw.js"</code> source:
+          In the following example, the web application is listing a service
+          worker for the <code>/foo</code> scope, bypassing the user agent
+          cache when fetching the <code>"sw.js"</code> source:
           <pre class="example">
           "serviceworker": {
             "src": "sw.js",
@@ -2150,9 +2158,6 @@ Content-Type: application/manifest+json
           </pre>
         </div>
       </section>
-
-
-
       <section>
         <h3>
           <code title="">theme_color</code> member
@@ -2947,17 +2952,18 @@ Content-Security-Policy: img-src icons.example.com
           <code>src</code> member
         </h3>
         <p>
-          The <dfn data-lt="serviceworker-src"><code>src</code> member</dfn> of a
-          <a>serviceworker object</a> is a <a>URL</a> representing a
-          service worker.
+          The <dfn data-lt="serviceworker-src"><code>src</code> member</dfn> of
+          a <a>serviceworker object</a> is a <a>URL</a> representing a service
+          worker.
         </p>
         <p>
           The <dfn>steps for processing the <code>src</code> member of a
-          service worker</dfn> are given by the following algorithm. The algorithm takes
-          a <a>serviceworker object</a> <var>registration</var>, and a <a>URL</a> <var>manifest
-          URL</var>, which is the <a>URL</a> from which the
-          <var>manifest</var> was fetched. This algorithm will return a
-          <a>URL</a> or <code>undefined</code>.
+          service worker</dfn> are given by the following algorithm. The
+          algorithm takes a <a>serviceworker object</a>
+          <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
+          which is the <a>URL</a> from which the <var>manifest</var> was
+          fetched. This algorithm will return a <a>URL</a> or
+          <code>undefined</code>.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
@@ -2988,17 +2994,18 @@ Content-Security-Policy: img-src icons.example.com
           <code>scope</code> member
         </h3>
         <p>
-          The <dfn data-lt="serviceworker-scope"><code>scope</code> member</dfn> of a
-          <a>serviceworker object</a> is the service worker's associated
-          <a>scope URL</a>.
+          The <dfn data-lt="serviceworker-scope"><code>scope</code>
+          member</dfn> of a <a>serviceworker object</a> is the service worker's
+          associated <a>scope URL</a>.
         </p>
         <p>
           The <dfn>steps for processing the <code>scope</code> member of a
-          service worker</dfn> are given by the following algorithm. The algorithm takes
-          a <a>serviceworker object</a> <var>registration</var>, and a <a>URL</a> <var>manifest
-          URL</var>, which is the <a>URL</a> from which the
-          <var>manifest</var> was fetched. This algorithm will return a
-          <a>URL</a> or <code>undefined</code>.
+          service worker</dfn> are given by the following algorithm. The
+          algorithm takes a <a>serviceworker object</a>
+          <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
+          which is the <a>URL</a> from which the <var>manifest</var> was
+          fetched. This algorithm will return a <a>URL</a> or
+          <code>undefined</code>.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
@@ -3010,8 +3017,8 @@ Content-Security-Policy: img-src icons.example.com
           <li>If <var>type</var> is not "string", then:
             <ol>
               <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is unsupported and
-              return <code>undefined</code>.
+              developer warning that the type is unsupported and return <code>
+                undefined</code>.
               </li>
               <li>Return <code>null</code>.
               </li>
@@ -3030,17 +3037,18 @@ Content-Security-Policy: img-src icons.example.com
           <code>type</code> member
         </h3>
         <p>
-          The <dfn data-lt="serviceworker-type"><code>type</code> member</dfn> of a
-          <a>serviceworker object</a> is the service worker's
-          <a href="https://html.spec.whatwg.org/multipage/workers.html#workertype">worker type</a>.
+          The <dfn data-lt="serviceworker-type"><code>type</code> member</dfn>
+          of a <a>serviceworker object</a> is the service worker's <a href=
+          "https://html.spec.whatwg.org/multipage/workers.html#workertype">worker
+          type</a>.
         </p>
         <p>
           The <dfn>steps for processing the <code>type</code> member of a
-          service worker</dfn> are given by the following algorithm. The algorithm takes
-          a <a>serviceworker object</a> <var>registration</var>, and a <a>URL</a> <var>manifest
-          URL</var>, which is the <a>URL</a> from which the
-          <var>manifest</var> was fetched. This algorithm will return a
-          string.
+          service worker</dfn> are given by the following algorithm. The
+          algorithm takes a <a>serviceworker object</a>
+          <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
+          which is the <a>URL</a> from which the <var>manifest</var> was
+          fetched. This algorithm will return a string.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
@@ -3052,8 +3060,8 @@ Content-Security-Policy: img-src icons.example.com
           <li>If <var>type</var> is not "string", then:
             <ol>
               <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is unsupported and
-              return <code>undefined</code>.
+              developer warning that the type is unsupported and return <code>
+                undefined</code>.
               </li>
               <li>Return <code>"classic"</code>.
               </li>
@@ -3066,6 +3074,7 @@ Content-Security-Policy: img-src icons.example.com
               <li>Return <code>undefined</code>.
               </li>
             </ol>
+          </li>
           <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
           </li>
         </ol>
@@ -3075,18 +3084,19 @@ Content-Security-Policy: img-src icons.example.com
           <code>use_cache</code> member
         </h3>
         <p>
-          The <dfn data-lt="serviceworker-type"><code>use_cache</code> member</dfn> of a
-          <a>serviceworker object</a> determines whether the user agent
-          <a href="https://w3c.github.io/ServiceWorker/#dfn-use-cache">cache</a> should
+          The <dfn data-lt="serviceworker-type"><code>use_cache</code>
+          member</dfn> of a <a>serviceworker object</a> determines whether the
+          user agent <a href=
+          "https://w3c.github.io/ServiceWorker/#dfn-use-cache">cache</a> should
           be used when fetching the service worker.
         </p>
         <p>
           The <dfn>steps for processing the <code>use_cache</code> member of a
-          service worker</dfn> are given by the following algorithm. The algorithm takes
-          a <a>serviceworker object</a> <var>registration</var>, and a <a>URL</a> <var>manifest
-          URL</var>, which is the <a>URL</a> from which the
-          <var>manifest</var> was fetched. This algorithm will return a
-          boolean.
+          service worker</dfn> are given by the following algorithm. The
+          algorithm takes a <a>serviceworker object</a>
+          <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
+          which is the <a>URL</a> from which the <var>manifest</var> was
+          fetched. This algorithm will return a boolean.
         </p>
         <ol>
           <li>Let <var>value</var> be the result of calling the
@@ -3098,10 +3108,11 @@ Content-Security-Policy: img-src icons.example.com
           <li>If <var>type</var> is not "boolean", then:
             <ol>
               <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is unsupported and
-              return <code>undefined</code>.
+              developer warning that the type is unsupported and return <code>
+                undefined</code>.
               </li>
-              <li>Otherwise, return <code>false</code></li>
+              <li>Otherwise, return <code>false</code>
+              </li>
             </ol>
           </li>
           <li>Otherwise, return <var>value</var>.
@@ -3284,16 +3295,20 @@ Content-Security-Policy: img-src icons.example.com
         [[!CSP3]].
       </p>
       <p>
-        The <a href="https://w3c.github.io/webappsec-secure-contexts/#is-origin-trustworthy">
-        <dfn>Is origin potentially trustworthy</dfn></a> is defined in [[!SECURE-CONTEXTS]].
+        The <a href=
+        "https://w3c.github.io/webappsec-secure-contexts/#is-origin-trustworthy">
+        <dfn>Is origin potentially trustworthy</dfn></a> is defined in
+        [[!SECURE-CONTEXTS]].
       </p>
       <p>
-        The <a href="https://w3c.github.io/ServiceWorker/#start-register"><dfn>Start Register</dfn></a>
-        is defined in [[!SERVICE-WORKERS-1]].
+        The <a href=
+        "https://w3c.github.io/ServiceWorker/#start-register"><dfn>Start
+        Register</dfn></a> is defined in [[!SERVICE-WORKERS-1]].
       </p>
       <p>
-        The <a href="https://w3c.github.io/ServiceWorker/#dfn-scope-url"><dfn>scope URL</dfn></a>
-        is defined in [[!SERVICE-WORKERS-1]].
+        The <a href=
+        "https://w3c.github.io/ServiceWorker/#dfn-scope-url"><dfn>scope
+        URL</dfn></a> is defined in [[!SERVICE-WORKERS-1]].
       </p>
       <p>
         The <a href=
