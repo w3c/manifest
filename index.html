@@ -515,9 +515,9 @@
           Extensions to the <code>Window</code> object
         </h3>
         <p>
-          The following extensions to the <code>Window</code> object specify
-          the <a>event handler attributes</a> on which events relating to the
-          <a>installation</a> of a web application are <a>fired</a>.
+          The following extensions to the <dfn><code>Window</code></dfn> object
+          specify the <a>event handler attributes</a> on which events relating
+          to the <a>installation</a> of a web application are <a>fired</a>.
         </p>
         <pre class="idl">
           partial interface Window {
@@ -562,11 +562,11 @@ window.addEventListener("appinstalled", handleInstalled);
             <code>onbeforeinstallprompt</code> attribute
           </h4>
           <p>
-            The <dfn>onbeforeinstallprompt</dfn> is an <a>event handler IDL
-            attribute</a> for the "<dfn>beforeinstallprompt</dfn>" event type.
-            The interface used for these events is the
-            <a>BeforeInstallPromptEvent</a> interface (see the <a>steps to
-            notify before an automated install prompt</a>).
+            The <dfn data-dfn-for="Window">onbeforeinstallprompt</dfn> is an
+            <a>event handler IDL attribute</a> for the
+            "<dfn>beforeinstallprompt</dfn>" event type. The interface used for
+            these events is the <a>BeforeInstallPromptEvent</a> interface (see
+            the <a>steps to notify before an automated install prompt</a>).
           </p>
         </section>
       </section>
@@ -602,7 +602,7 @@ window.addEventListener("appinstalled", handleInstalled);
         <li>Otherwise, return <code>false</code>.
         </li>
       </ol>
-      <div class="issue" title="&#x1f412; Monkey patch">
+      <div class="issue" title="🐒 Monkey patch">
         <p>
           Enforcing the navigation scope depends on [[!HTML]]'s navigate
           algorithm. As such, the following algorithm monkey patches [[!HTML]].
