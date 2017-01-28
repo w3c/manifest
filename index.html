@@ -137,9 +137,11 @@
 {
   "lang": "en",
   "dir": "ltr",
-  "name": "Super Racer 3000",
-  "description": "The ultimate futuristic racing game from the future!",
-  "short_name": "Racer3K",
+  "name": "Resistance",
+  "description": "This app helps you organize against
+    U.S. government-backed xenophobia. You can use it to protect 
+    human rights.",
+  "short_name": "Resist",
   "icons": [{
     "src": "icon/lowres.webp",
     "sizes": "64x64",
@@ -182,7 +184,7 @@
         <pre class="example html" title="linking to a manifest">
 &lt;!doctype&gt;
 &lt;html&gt;
-&lt;title&gt;Super Racer 3000&lt;/title&gt;
+&lt;title&gt;Resist Trump&lt;/title&gt;
 
 &lt;!-- Startup configuration --&gt;
 &lt;link rel="manifest" href="manifest.webmanifest"&gt;
@@ -533,7 +535,7 @@
           <pre>
 function handleInstalled(ev) {
   const date = new Date(ev.timeStamp / 1000);
-  console.log(`Yay! Our app got installed at ${date.toTimeString()}`);
+  console.log(`Yay! Our app got installed at ${date.toTimeString()}. Keep resisting.`);
 }
 
 // Using the event handler IDL attribute
@@ -742,7 +744,7 @@ window.addEventListener("appinstalled", handleInstalled);
       </p>
       <div class="example">
         <p>
-          For example, Awesome Browser only supports the
+          For example, Resistance Browser only supports the
           <code>minimal-ui</code> and <code>browser</code> display modes, but a
           developer declares that she wants <code>fullscreen</code> in the
           manifest. In this case, the user agent will first check if it
@@ -1137,7 +1139,7 @@ Content-Type: application/manifest+json
 
 {
   "lang": "en",
-  "name": "Super Racer 3000",
+  "name": "Resist",
   "start_url": "/start.html",
   "display": "fullscreen",
   "orientation": "landscape"
@@ -1810,17 +1812,17 @@ Content-Type: application/manifest+json
 {
   "icons": [
       {
-        "src": "icon/lowres.webp",
+        "src": "icon/lowres_resist.webp",
         "sizes": "48x48",
         "type": "image/webp"
       },{
-        "src": "icon/lowres",
+        "src": "icon/lowres_resist",
         "sizes": "48x48"
       },{
-        "src": "icon/hd_hi.ico",
+        "src": "icon/hd_hi_resist.ico",
         "sizes": "72x72 96x96 128x128 256x256"
       },{
-        "src": "icon/hd_hi.svg",
+        "src": "icon/hd_hi_resist.svg",
         "sizes": "257x257"
       }]
  }
