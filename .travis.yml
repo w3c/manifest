@@ -2,7 +2,7 @@ language: node_js
 
 branches:
   only:
-    - master
+    - gh-pages
 
 env:
   global:
