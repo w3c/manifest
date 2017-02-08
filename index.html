@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -137,11 +137,9 @@
 {
   "lang": "en",
   "dir": "ltr",
-  "name": "Resistance",
-  "description": "This app helps you organize against
-    government-backed xenophobia. You can use it to protect 
-    human rights.",
-  "short_name": "Resist",
+  "name": "Donate App",
+  "description": "This app helps you donate to worthy causes.",
+  "short_name": "Donate",
   "icons": [{
     "src": "icon/lowres.webp",
     "sizes": "64x64",
@@ -184,7 +182,7 @@
         <pre class="example html" title="linking to a manifest">
 &lt;!doctype&gt;
 &lt;html&gt;
-&lt;title&gt;Resist&lt;/title&gt;
+&lt;title&gt;Racer 3K&lt;/title&gt;
 
 &lt;!-- Startup configuration --&gt;
 &lt;link rel="manifest" href="manifest.webmanifest"&gt;
@@ -535,7 +533,7 @@
           <pre>
 function handleInstalled(ev) {
   const date = new Date(ev.timeStamp / 1000);
-  console.log(`Yay! Our app got installed at ${date.toTimeString()}. Keep resisting.`);
+  console.log(`Yay! Our app got installed at ${date.toTimeString()}.`);
 }
 
 // Using the event handler IDL attribute
@@ -744,10 +742,10 @@ window.addEventListener("appinstalled", handleInstalled);
       </p>
       <div class="example">
         <p>
-          For example, Resistance Browser only supports the
-          <code>minimal-ui</code> and <code>browser</code> display modes, but a
-          developer declares that she wants <code>fullscreen</code> in the
-          manifest. In this case, the user agent will first check if it
+          For example, SuperSecure Browser (a fictitious browser) only supports
+          the <code>minimal-ui</code> and <code>browser</code> display modes,
+          but a developer declares that she wants <code>fullscreen</code> in
+          the manifest. In this case, the user agent will first check if it
           supports <code>fullscreen</code> (it doesn't), so it falls back to
           <code>standalone</code> (which it also doesn't support), and
           ultimately falls back to <code>minimal-ui</code>.
@@ -1812,17 +1810,17 @@ Content-Type: application/manifest+json
 {
   "icons": [
       {
-        "src": "icon/lowres_resist.webp",
+        "src": "icon/lowres.webp",
         "sizes": "48x48",
         "type": "image/webp"
       },{
-        "src": "icon/lowres_resist",
+        "src": "icon/lowres",
         "sizes": "48x48"
       },{
-        "src": "icon/hd_hi_resist.ico",
+        "src": "icon/hd_hi.ico",
         "sizes": "72x72 96x96 128x128 256x256"
       },{
-        "src": "icon/hd_hi_resist.svg",
+        "src": "icon/hd_hi.svg",
         "sizes": "257x257"
       }]
  }
