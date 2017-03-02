@@ -89,7 +89,10 @@ The application needs a real name or set of names (which is usually not the same
 }
 ```
 
-The `short_name` serves as the name for the application when displayed in contexts with constrained space (e.g., under an icon on the homescreen of a phone). The name can then be a bit longer, fully capturing the name of the application. This also provides an alternative way for users to search your app on their phone. So, typing ‘awesome’ or ‘photo’ would find the application on a user’s device.
+The `short_name` serves as the name for the application when displayed in contexts with constrained space (e.g., under an icon on the homescreen of a phone). 
+The `name` can then be a bit longer, fully capturing the name of the application. 
+This also provides an alternative way for users to search your app on their phone. 
+So, typing ‘awesome’ or ‘photo’ would find the application on a user’s device.
 
 If you omit the name, the browser can fall back to using `<meta name="application-name">`, and failing that, the `<title>` element.
 
