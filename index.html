@@ -1498,9 +1498,8 @@ Content-Type: application/manifest+json
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
               </li>
               <li>If <a>Type</a>(<var>value</var>) is "undefined", return
               "auto".
@@ -1514,7 +1513,7 @@ Content-Type: application/manifest+json
           values</a>, then:
             <ol>
               <li>
-                <a>issue a developer warning</a> that the <var>value</var> is
+                <a>Issue a developer warning</a> that the <var>value</var> is
                 invalid.
               </li>
               <li>Return "auto".
@@ -1563,9 +1562,8 @@ Content-Type: application/manifest+json
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
               </li>
               <li>Return <code>undefined</code>.
               </li>
@@ -1578,7 +1576,7 @@ Content-Type: application/manifest+json
           <var>tag</var> as the argument returns <code>false</code>, then:
             <ol>
               <li>
-                <a>issue a developer warning</a> that the <var>value</var> is
+                <a>Issue a developer warning</a> that the <var>value</var> is
                 invalid.
               </li>
               <li>Return <code>undefined</code>.
@@ -1614,9 +1612,8 @@ Content-Type: application/manifest+json
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
               </li>
               <li>Return <code>undefined</code>.
               </li>
@@ -1649,9 +1646,8 @@ Content-Type: application/manifest+json
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
               </li>
               <li>Return <code>undefined</code>.
               </li>
@@ -1683,9 +1679,8 @@ Content-Type: application/manifest+json
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
               </li>
               <li>Return <code>undefined</code>.
               </li>
@@ -1880,7 +1875,7 @@ Content-Type: application/manifest+json
           values</a>:
             <ol>
               <li>
-                <a>issue a developer warning</a> that the value is unsupported.
+                <a>Issue a developer warning</a> that the value is unsupported.
               </li>
               <li>Return the <a>fallback display mode</a>'s value.
               </li>
@@ -2206,9 +2201,8 @@ Content-Type: application/manifest+json
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
               </li>
               <li>Return <code>undefined</code>.
               </li>
@@ -2295,10 +2289,20 @@ Content-Type: application/manifest+json
                   <code>undefined</code>, move onto the next item if any are
                   left.
                   </li>
-                  <li>Otherwise, let <var>application</var> be an object with
-                  properties <code>platform</code>, <code>id</code>,
-                  <code>url</code> respectively set to <var>platform</var>,
-                  <var>id</var> and <var>url</var>.
+                  <li>Let <var>minVersion</var> be the result of running the
+                  <a>steps for processing the <code>min_version</code> member
+                  of an application</a> with <var>potential application</var>.
+                  </li>
+                  <li>Let <var>fingerprints</var> be the result of running the
+                  <a>steps for processing the <code>fingerprints</code> member
+                  of an application</a> with <var>potential application</var>.
+                  </li>
+                  <li>Let <var>application</var> be an object with properties
+                  <code>platform</code>, <code>id</code>, <code>url</code>,
+                  <code>min_version</code>, and <code>fingerprints</code>
+                  respectively set to <var>platform</var>, <var>id</var>, <var>
+                    url</var>, <var>minVersion</var>, and
+                    <var>fingerprints</var>.
                   </li>
                   <li>Append <var>application</var> to <var>applications</var>.
                   </li>
@@ -2348,9 +2352,8 @@ Content-Type: application/manifest+json
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "boolean":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
               </li>
               <li>Return <code>false</code>.
               </li>
@@ -2392,9 +2395,8 @@ Content-Type: application/manifest+json
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
               </li>
               <li>Return <code>undefined</code>.
               </li>
@@ -2942,9 +2944,8 @@ Content-Security-Policy: img-src icons.example.com
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
               </li>
               <li>Return <code>undefined</code>.
               </li>
@@ -3141,11 +3142,45 @@ Content-Security-Policy: img-src icons.example.com
       </h2>
       <p>
         Each <dfn>application object</dfn> represents an application related to
-        the web application. An application object has three properties: a
-        <code>platform</code> which represents the platform it is associated
-        to, a <code>url</code> which represents the URL where the application
-        can be found and an <code>id</code> which can be used as an information
-        additional to the URL or instead of the URL, depending on the platform.
+        the web application. An application object has the following
+        properties:
+      </p>
+      <dl>
+        <dt>
+          <code>platform</code>
+        </dt>
+        <dd>
+          the platform it is associated to
+        </dd>
+        <dt>
+          <code>url</code>
+        </dt>
+        <dd>
+          the URL where the application can be found
+        </dd>
+        <dt>
+          <code>id</code>
+        </dt>
+        <dd>
+          information additional to the URL or instead of the URL, depending on
+          the platform
+        </dd>
+        <dt>
+          <code>min_version</code>
+        </dt>
+        <dd>
+          information about the minimum version of an application related to
+          this web app
+        </dd>
+        <dt>
+          <code>fingerprints</code>
+        </dt>
+        <dd>
+          an array of <a data-lt="fingerprint object">fingerprint objects</a>
+          used for verifying the application
+        </dd>
+      </dl>
+      <p>
         A valid <a>application object</a> MUST have <code>platform</code> and
         either an <code>url</code> or an <code>id</code> (or both).
       </p>
@@ -3153,7 +3188,10 @@ Content-Security-Policy: img-src icons.example.com
         <p>
           In the following example, the web application is listing two
           different related applications, one on Google Play Store and the
-          other one on the iTunes Store:
+          other one on the iTunes Store. The one on the Google Play Store has
+          an Android package name, a minimum version specifier, and
+          cryptographic fingerprints used for verification, in a
+          Play-Store-specific manner.
         </p>
         <pre class="">
 {
@@ -3161,7 +3199,12 @@ Content-Security-Policy: img-src icons.example.com
       {
         "platform": "play",
         "url": "https://play.google.com/store/apps/details?id=com.example.app1",
-        "id": "com.example.app1"
+        "id": "com.example.app1",
+        "min_version": "2",
+        "fingerprints": [{
+          "type": "sha256_cert",
+          "value": "92:5A:39:05:C5:B9:EA:BC:71:48:5F:F2"
+        }]
       }, {
         "platform": "itunes",
         "url": "https://itunes.apple.com/app/example-app1/id123456789",
@@ -3194,9 +3237,8 @@ Content-Security-Policy: img-src icons.example.com
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
               </li>
               <li>Return <code>undefined</code>.
               </li>
@@ -3232,15 +3274,115 @@ Content-Security-Policy: img-src icons.example.com
           </li>
           <li>If <a>Type</a>(<var>value</var>) is not "string":
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined",
-              optionally <a>issue a developer warning</a> that the type is not
-              supported.
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
               </li>
               <li>Return <code>undefined</code>.
               </li>
             </ol>
           </li>
           <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>min_version</code> member
+        </h3>
+        <p>
+          The <dfn data-lt="application-min-version">min_version</dfn> member
+          of an application object represents the minimum version of the
+          application that is considered related to this web app. This version
+          is a string with platform-specific syntax and semantics.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>min_version</code> member of
+          an application</dfn> are given by the following algorithm. The
+          algorithm takes an <a>application object</a> <var>application</var>.
+          This algorithm will return a string or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>application</var>
+          passing "<code>min_version</code>" as the argument.
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code>fingerprints</code> member
+        </h3>
+        <p>
+          The <dfn data-lt="application-fingerprints">fingerprints</dfn> member
+          of an application object represents a set of cryptographic
+          fingerprints used for verifying the application. It is given as an
+          array of <a data-lt="fingerprint object">fingerprint objects</a>.
+        </p>
+        <p>
+          A <dfn>fingerprint object</dfn> has two properties: <code>type</code>
+          and <code>value</code>. Each of these are strings, but their syntax
+          and semantics are platform-defined.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>fingerprints</code> member of
+          an application</dfn> are given by the following algorithm. The
+          algorithm takes an <a>application object</a> <var>application</var>.
+          This algorithm will return a list of <a data-lt=
+          "fingerprint object">fingerprint objects</a>, possibly empty.
+        </p>
+        <ol>
+          <li>Let <var>fingerprints</var> be an empty list.
+          </li>
+          <li>Let <var>unprocessed fingerprints</var> be the result of calling
+          the <a>[[\GetOwnProperty]]</a> internal method of
+          <var>application</var> passing "<code>fingerprints</code>" as the
+          argument.
+          </li>
+          <li>If <var>unprocessed fingerprints</var> is an array, then for each
+          <var>potential fingerprint</var> in <var>unprocessed
+          fingerprints</var>:
+            <ol>
+              <li>Let <var>type</var> be the result of calling the
+              <a>[[\GetOwnProperty]]</a> internal method of <var>potential
+              fingerprint</var> passing "<code>type</code>" as an argument.
+              </li>
+              <li>If Type(<var>type</var>) is not "string", then <a>issue a
+              developer warning</a> that the type is unsupported, and move on
+              to the next item in <var>unprocessed fingerprints</var> (if any
+              are left).
+              </li>
+              <li>Let <var>value</var> be the result of calling the
+              <a>[[\GetOwnProperty]]</a> internal method of <var>potential
+              fingerprint</var> passing "<code>value</code>" as an argument.
+              </li>
+              <li>If Type(<var>value</var>) is not "string", then <a>issue a
+              developer warning</a> that the type is unsupported, and move on
+              to the next item in <var>unprocessed fingerprints</var> (if any
+              are left).
+              </li>
+              <li>Let <var>fingerprint</var> be a <a>fingerprint object</a>,
+              with its <code>type</code> member set to <var>type</var> and its
+              <code>value</code> member set to <var>value</var>.
+              </li>
+              <li>Append <var>fingerprint</var> to <var>fingerprints</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a>issue a developer warning</a> that the type is
+          unsupported.
+          </li>
+          <li>Return <var>fingerprints</var>.
           </li>
         </ol>
       </section>
