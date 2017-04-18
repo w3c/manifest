@@ -2891,6 +2891,40 @@ Content-Security-Policy: img-src icons.example.com
         </ol>
       </section>
     </section>
+      <section>
+        <h3>
+          <code title="">iarc_rating_id</code> member
+        </h3>
+        <p>
+          The <dfn id="member-iarc_rating_id"><code>iarc_rating_id</code> member</dfn>
+          is a <a>string</a> that represents an ID value of the IARC rating of the 
+          web application. It is intended to be used to determine which ages 
+          the web application is appropriate for.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>iarc_rating_id</code>
+          member</dfn> is given by the following algorithm. The algorithm takes
+          a <var>manifest</var> as an argument. This algorithm returns a string
+          or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>iarc_rating_id</code>".
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          </li>
+        </ol>
+      </section>
     <section>
       <h2>
         Multi-purpose members
