@@ -435,13 +435,14 @@
             <a>Queue a task</a> on the <a>application life-cycle task
             source</a> to do the following:
             <ol>
-              <li>Let <var>target</var> be at <a>Window</a> object of the
-              <a>top-level browsing context</a>.
-              </li>
-              <li>Let <var>showPrompt</var> be the result of <a>firing an
-              event</a> (<var>event</var>) named "beforeinstallprompt", using
-              <a>BeforeInstallPromptEvent</a> at <var>target</var> with its
+              <li>Let <var>event</var> be a newly constructed
+              <a>BeforeInstallPromptEvent</a> named
+              <code>beforeinstallprompt</code>, with its
               <code>cancelable</code> attribute initialized to true.
+              </li>
+              <li>Let <var>showPrompt</var> be the result of <a>firing</a>
+              <var>event</var> at the <a>Window</a> object of the <a>top-level
+              browsing context</a>.
               </li>
               <li>If <var>showPrompt</var> is true, then, <a>in parallel</a>,
               <a>request to present an install prompt</a> with
@@ -450,6 +451,16 @@
             </ol>
           </li>
         </ol>
+        <div class="issue">
+          Implementations may wish to show a prompt if, and only if, the site
+          explicitly requests it via
+          <a><code>BeforeInstallPromptEvent.prompt()</code></a>, but not
+          automatically without the site's approval. Is this something we want
+          to leave to the discretion of the user agent? (This would require
+          changing the language here, as "steps to notify before an automated
+          install prompt" would become "steps to notify that an install prompt
+          is available".)
+        </div>
       </section>
       <section>
         <h3 id="installation-sec">
@@ -543,14 +554,23 @@
           activating an <a>automated install prompt</a>, allowing a developer
           to prevent the default action for an install prompt.
         </p>
-        <p>
-          Thus, the default action of the <a>BeforeInstallPromptEvent</a> is to
+        <div class="note">
+          The default action of the <a>BeforeInstallPromptEvent</a> is to
           <a data-lt="presents an install prompt">present an automated install
           prompt</a> to the end-user. Canceling the default action (via
-          <code>.preventDefault()</code>) prevents the user agent from
-          <a data-lt="presents an install prompt">presenting an automated
-          install prompt</a> until a later time (see
-          <a>BeforeInstallPromptEvent.prompt</a>() method).
+          <a data-cite=
+          "DOM#dom-event-preventdefault"><code>preventDefault</code></a>)
+          prevents the user agent from <a data-lt=
+          "presents an install prompt">presenting an automated install
+          prompt</a>. The user agent is free to run <a>steps to notify before
+          an automated install prompt</a> again at a later time.
+        </div>
+        <p>
+          The <dfn>PromptResponseObject</dfn> contains the result of calling
+          <a for="BeforeInstallPromptEvent"><code>prompt()</code></a>. It
+          contains one member, <dfn for=
+          "PromptResponseObject">userChoice</dfn>, which states the user's
+          chosen outcome.
         </p>
         <p>
           An instance of a <a>BeforeInstallPromptEvent</a> has the following
@@ -561,8 +581,8 @@
             <dfn>[[\didPrompt]]</dfn>
           </dt>
           <dd>
-            A boolean, initially <code>false</code>. Represents if this event
-            was used to <a>present an install prompt</a> to the end-user.
+            A boolean, initially <code>false</code>. Represents whether this
+            event was used to <a>present an install prompt</a> to the end-user.
           </dd>
           <dt>
             <dfn>[[\userResponsePromise]]</dfn>
@@ -581,27 +601,24 @@
             steps:
           </p>
           <ol>
-            <li>Let <var>p</var> be a newly created promise.
-            </li>
-            <li>Resolve <var>p</var> with
-            <var>this</var>.<a>[[\userResponsePromise]]</a>.
-            </li>
             <li>If <var>this</var>.<a>[[\userResponsePromise]]</a> is pending:
               <ol>
-                <li>If this event's <code>isTrusted</code> attribute is <code>
-                  false</code>, reject
-                  <var>this</var>.<a>[[\userResponsePromise]]</a> with
-                  <a>NotAllowedError</a>, optionally informing the developer
-                  that untrusted events can't call <code>prompt()</code>.
+                <li>If this event's <a data-cite=
+                "!DOM#dom-event-istrusted"><code>isTrusted</code></a> attribute
+                is <code>false</code>, reject
+                <var>this</var>.<a>[[\userResponsePromise]]</a> with
+                <a>NotAllowedError</a>, optionally informing the developer that
+                untrusted events can't call <code>prompt()</code>.
                 </li>
                 <li>Else if <var>this</var>.<a>[[\didPrompt]]</a> is
-                <code>false</code>, then, <a>in parallel</a>, <a>request to
+                <code>false</code>, set <var>this</var>.<a>[[\didPrompt]]</a>
+                to <code>true</code>, then <a>in parallel</a>, <a>request to
                 present an install prompt</a> with this event. Wait, possibly
                 indefinitely, for the end-user to make a choice.
                 </li>
               </ol>
             </li>
-            <li>Return <var>p</var>.
+            <li>Return <var>this</var>.<a>[[\userResponsePromise]]</a>.
             </li>
           </ol>
           <p>
@@ -613,12 +630,10 @@
               <a>Present an install prompt</a> and let <var>outcome</var> be
               the result.
             </li>
-            <li>Let <var>responseObj</var> be a newly created
-            <a>PromptResponseObject</a> whose <code>userChoice</code> member is
-            the value of <var>outcome</var>.
-            </li>
-            <li>Resolve <var>event</var>.<a>[[\userResponsePromise]]</a> with
-            <var>responseObj</var>.
+            <li>Resolve <var>event</var>.<a>[[\userResponsePromise]]</a> with a
+            newly created <a>PromptResponseObject</a> whose <a for=
+            "PromptResponseObject">userChoice</a> member is the value of <var>
+              outcome</var>.
             </li>
           </ol>
         </section>
@@ -628,18 +643,30 @@
           </h4>
           <p>
             This example shows how one might prevent an automated install
-            prompt from showing until the user has finished a set of tasks.
-            Those tasks are represented as an array of promises, which the
-            application "awaits" to finish before an install prompt is
-            presented to the end-user.
+            prompt from showing until the user clicks a button to install the
+            app. In this way, the site can leave installation at the user's
+            discretion (rather than prompting at an arbitrary time), whilst
+            still providing a prominent UI to do so.
           </p>
-          <pre class="example" title="'beforeinstallprompt' in action">
-            window.addEventListener("beforeinstallprompt", async (event) =&gt; {
+          <pre class="example" title=
+          "Using beforeinstallprompt to present an install button">
+            window.addEventListener("beforeinstallprompt", event =&gt; {
+              // Suppress automatic prompting.
               event.preventDefault();
-              // Wait for e.g., the user to request installation from inside the app.
-              await Promise.all(tasksThatPreventsInstallation);
-              const { userChoice } = await event.prompt();
-              console.info(`user choice was: ${userChoice}`);
+
+              // Show the (disabled-by-default) install button. This button
+              // resolves the installButtonClicked promise when clicked.
+              installButton.disabled = false;
+
+              // Wait for the user to click the button.
+              installButton.addEventListener("click", async e =&gt; {
+                // The prompt() method can only be used once.
+                installButton.disabled = true;
+
+                // Show the prompt.
+                const { userChoice } = await event.prompt();
+                console.info(`user choice was: ${userChoice}`);
+              });
             });
           </pre>
         </section>
@@ -649,9 +676,10 @@
           Extensions to the <code>Window</code> object
         </h3>
         <p>
-          The following extensions to the <dfn><code>Window</code></dfn> object
-          specify the <a>event handler attributes</a> on which events relating
-          to the <a>installation</a> of a web application are <a>fired</a>.
+          The following extensions to the <dfn data-cite=
+          "!HTML#window"><code>Window</code></dfn> object specify the <a>event
+          handler attributes</a> on which events relating to the
+          <a>installation</a> of a web application are <a>fired</a>.
         </p>
         <pre class="idl">
           partial interface Window {
@@ -691,16 +719,16 @@ window.addEventListener("appinstalled", handleInstalled);
             application</a>).
           </p>
         </section>
-        <section>
+        <section data-dfn-for="Window">
           <h4>
             <code>onbeforeinstallprompt</code> attribute
           </h4>
           <p>
-            The <dfn data-dfn-for="Window">onbeforeinstallprompt</dfn> is an
-            <a>event handler IDL attribute</a> for the
-            "<dfn>beforeinstallprompt</dfn>" event type. The interface used for
-            these events is the <a>BeforeInstallPromptEvent</a> interface (see
-            the <a>steps to notify before an automated install prompt</a>).
+            The <dfn>onbeforeinstallprompt</dfn> is an <a>event handler IDL
+            attribute</a> for the "<dfn>beforeinstallprompt</dfn>" event type.
+            The interface used for these events is the
+            <a>BeforeInstallPromptEvent</a> interface (see the <a>steps to
+            notify before an automated install prompt</a>).
           </p>
         </section>
       </section>
@@ -3625,7 +3653,7 @@ Content-Security-Policy: img-src icons.example.com
         <li>
           <a href=
           "https://dom.spec.whatwg.org/#concept-event-fire"><dfn data-lt=
-          "fire|fired|firing an event">Fire an event</dfn></a>
+          "fire|fired|firing">Fire an event</dfn></a>
         </li>
       </ul>
       <p>
