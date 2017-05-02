@@ -1130,11 +1130,14 @@ if (standalone.matches) {
           <li>If <var>response</var> is a <a>network error</a>, terminate this
           algorithm.
           </li>
+          <li>Let <var>text</var> be the result of <a>UTF-8 decoding</a> <var>
+            response</var>'s <a href=
+            "https://fetch.spec.whatwg.org/#concept-request-body">body</a>.
+          </li>
           <li>Let <var>manifest</var> be the result of running the <a>steps for
-          processing a manifest</a> with <var>response</var>'s <a href=
-          "https://fetch.spec.whatwg.org/#concept-request-body">body</a> as the
-          <var>text</var>, <var>manifest URL</var>, and the URL that represents
-          the address of the <a>top-level browsing context</a>.
+          processing a manifest</a> with <var>text</var>, <var>manifest
+          URL</var>, and the URL that represents the address of the
+          <a>top-level browsing context</a>.
           </li>
           <li>Return <var>manifest</var> and <var>manifest URL</var>.
           </li>
@@ -3730,6 +3733,16 @@ Content-Security-Policy: img-src icons.example.com
           <a href=
           "https://html.spec.whatwg.org/#split-a-string-on-spaces"><dfn data-lt="splitting">
           split a string on spaces</dfn></a>
+        </li>
+      </ul>
+      <p>
+        The following are defined in [[!ENCODING]]:
+      </p>
+      <ul>
+        <li>
+          <a href=
+          "https://encoding.spec.whatwg.org/#utf-8-decode"><dfn data-lt="utf-8 decoding">
+          UTF-8 decode</dfn></a>
         </li>
       </ul>
     </section>
