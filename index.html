@@ -533,6 +533,13 @@
         <h3>
           <code>BeforeInstallPromptEvent</code> Interface
         </h3>
+        <div class="note">
+          The <code>beforeinstallprompt</code> event is somewhat misnamed, as
+          it does not necessarily signal that an <a>automated install
+          prompt</a> will follow (depending on the user agent, it may just be
+          giving the site the ability to trigger an install prompt). It is so
+          named for historical reasons.
+        </div>
         <pre class="idl">
           [Constructor]
           interface BeforeInstallPromptEvent : Event {
