@@ -443,13 +443,13 @@
               <code>beforeinstallprompt</code>, with its
               <code>cancelable</code> attribute initialized to true.
               </li>
-              <li>Let <var>showPrompt</var> be the result of <a>firing</a>
+              <li>Let <var>mayShowPrompt</var> be the result of <a>firing</a>
               <var>event</var> at the <a>Window</a> object of the <a>top-level
               browsing context</a>.
               </li>
-              <li>If <var>showPrompt</var> is true, then, <a>in parallel</a>,
-              <a>request to present an install prompt</a> with
-              <var>event</var>.
+              <li>If <var>mayShowPrompt</var> is true, then the user agent MAY,
+              <a>in parallel</a>, <a>request to present an install prompt</a>
+              with <var>event</var>.
               </li>
             </ol>
           </li>
