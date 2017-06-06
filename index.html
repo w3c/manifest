@@ -412,8 +412,8 @@
         </ul>
         <p>
           Prior to presenting an <a>automated install prompt</a>, a user agent
-          MUST run the <a>steps to notify before an automated install
-          prompt</a>.
+          MUST run the <a>steps to notify that an install prompt is
+          available</a>.
         </p>
         <p>
           In either case, when a user agent <dfn data-lt=
@@ -423,8 +423,8 @@
           this specification via the <a>AppBannerPromptOutcome</a> enum.
         </p>
         <p>
-          The <dfn>steps to notify before an automated install prompt</dfn> are
-          given by the following algorithm:
+          The <dfn>steps to notify that an install prompt is available</dfn>
+          are given by the following algorithm:
         </p>
         <ol>
           <li>Wait until the <code>Document</code> of the <a>top-level browsing
@@ -556,8 +556,8 @@
           "DOM#dom-event-preventdefault"><code>preventDefault</code></a>)
           prevents the user agent from <a data-lt=
           "presents an install prompt">presenting an automated install
-          prompt</a>. The user agent is free to run <a>steps to notify before
-          an automated install prompt</a> again at a later time.
+          prompt</a>. The user agent is free to run <a>steps to notify that an
+          install prompt is available</a> again at a later time.
         </div>
         <p>
           The <dfn>PromptResponseObject</dfn> contains the result of calling
@@ -722,7 +722,7 @@ window.addEventListener("appinstalled", handleInstalled);
             attribute</a> for the "<dfn>beforeinstallprompt</dfn>" event type.
             The interface used for these events is the
             <a>BeforeInstallPromptEvent</a> interface (see the <a>steps to
-            notify before an automated install prompt</a>).
+            notify that an install prompt is available</a>).
           </p>
         </section>
       </section>
