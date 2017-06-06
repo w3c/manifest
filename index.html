@@ -548,10 +548,10 @@
           to prevent the default action for an install prompt.
         </p>
         <div class="note">
-          The default action of the <a>BeforeInstallPromptEvent</a> is to
-          <a data-lt="presents an install prompt">present an automated install
-          prompt</a> to the end-user. Canceling the default action (via
-          <a data-cite=
+          If the <a>BeforeInstallPromptEvent</a> is <em>not</em> cancelled, the
+          user agent is allowed to <a data-lt=
+          "presents an install prompt">present an automated install prompt</a>
+          to the end-user. Canceling the default action (via <a data-cite=
           "DOM#dom-event-preventdefault"><code>preventDefault</code></a>)
           prevents the user agent from <a data-lt=
           "presents an install prompt">presenting an automated install
