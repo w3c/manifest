@@ -562,9 +562,12 @@
           };
         </pre>
         <p>
-          The <dfn>BeforeInstallPromptEvent</dfn> is dispatched prior to
-          activating an <a>automated install prompt</a>, allowing a developer
-          to prevent the default action for an install prompt.
+          The <dfn>BeforeInstallPromptEvent</dfn> is dispatched when the site
+          is allowed to present a <a>site-triggered install prompt</a>, or
+          prior to the user agent presenting an <a>automated install
+          prompt</a>. It allows the site to cancel the <a>automated install
+          prompt</a>, as well as manually present the <a>site-triggered install
+          prompt</a>.
         </p>
         <div class="note">
           If the <a>BeforeInstallPromptEvent</a> is <em>not</em> cancelled, the
