@@ -396,7 +396,7 @@
           Install prompts
         </h2>
         <p>
-          There are two ways that the installation process can be triggered:
+          There are three ways that the installation process can be triggered:
         </p>
         <ul>
           <li>An end-user can <dfn data-lt="manual installation">manually</dfn>
@@ -409,11 +409,23 @@
           sufficient <a>installability signals</a> to warrant
           <a>installation</a> of the web application.
           </li>
+          <li>The <a>installation process</a> can occur through a
+          <dfn>site-triggered install prompt</dfn>: the site can
+          programmatically request that the user agent present an install
+          prompt to the user. The availability of this feature may be
+          restricted to when, for instance, there are sufficient
+          <a>installability signals</a> to warrant <a>installation</a> of the
+          web application.
+          </li>
         </ul>
         <p>
           Prior to presenting an <a>automated install prompt</a>, a user agent
           MUST run the <a>steps to notify that an install prompt is
-          available</a>.
+          available</a>, to give the site the opportunity to suppress the
+          install prompt. Alternatively, the user agent may run the <a>steps to
+          notify that an install prompt is available</a> at any time, giving
+          the site the opportunity to show a <a>site-triggered install
+          prompt</a> without automatically showing the prompt.
         </p>
         <p>
           In either case, when a user agent <dfn data-lt=
