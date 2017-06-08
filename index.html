@@ -396,21 +396,38 @@
           Install prompts
         </h2>
         <p>
-          An end-user can <dfn data-lt="manual installation">manually</dfn>
+          There are multiple ways that the installation process can be
+          triggered:
+        </p>
+        <ul>
+          <li>An end-user can <dfn data-lt="manual installation">manually</dfn>
           trigger the <a>installation process</a> through the user agent's
           <abbr>UI</abbr>.
-        </p>
-        <p>
-          Alternatively, the <a>installation process</a> can occur through an
+          </li>
+          <li>The <a>installation process</a> can occur through an
           <dfn>automated install prompt</dfn>: that is, a <abbr>UI</abbr> that
           the user agent presents to the user when, for instance, there are
           sufficient <a>installability signals</a> to warrant
           <a>installation</a> of the web application.
-        </p>
+          </li>
+          <li>The <a>installation process</a> can occur through a
+          <dfn>site-triggered install prompt</dfn>: the site can
+          programmatically request that the user agent present an install
+          prompt to the user. The user agent MAY restrict the availability of
+          this feature to when, for instance, there are sufficient
+          <a>installability signals</a> to warrant <a>installation</a> of the
+          web application.
+          </li>
+        </ul>
         <p>
           Prior to presenting an <a>automated install prompt</a>, a user agent
-          MUST run the <a>steps to notify before an automated install
-          prompt</a>.
+          MUST run the <a>steps to notify that an install prompt is
+          available</a>, to give the site the opportunity to prevent the
+          default action (which is to install the application). Alternatively,
+          the user agent MAY run the <a>steps to notify that an install prompt
+          is available</a> at any time, giving the site the opportunity to show
+          a <a>site-triggered install prompt</a> without automatically showing
+          the prompt.
         </p>
         <p>
           In either case, when a user agent <dfn data-lt=
@@ -420,8 +437,8 @@
           this specification via the <a>AppBannerPromptOutcome</a> enum.
         </p>
         <p>
-          The <dfn>steps to notify before an automated install prompt</dfn> are
-          given by the following algorithm:
+          The <dfn>steps to notify that an install prompt is available</dfn>
+          are given by the following algorithm:
         </p>
         <ol>
           <li>Wait until the <code>Document</code> of the <a>top-level browsing
@@ -440,18 +457,17 @@
               <code>beforeinstallprompt</code>, with its
               <code>cancelable</code> attribute initialized to true.
               </li>
-              <li>Let <var>showPrompt</var> be the result of <a>firing</a>
+              <li>Let <var>mayShowPrompt</var> be the result of <a>firing</a>
               <var>event</var> at the <a>Window</a> object of the <a>top-level
               browsing context</a>.
               </li>
-              <li>If <var>showPrompt</var> is true, then, <a>in parallel</a>,
-              <a>request to present an install prompt</a> with
-              <var>event</var>.
+              <li>If <var>mayShowPrompt</var> is true, then the user agent MAY,
+              <a>in parallel</a>, <a>request to present an install prompt</a>
+              with <var>event</var>.
               </li>
             </ol>
           </li>
         </ol>
-        <div class="issue" data-number="576"></div>
       </section>
       <section>
         <h3 id="installation-sec">
@@ -531,6 +547,13 @@
         <h3>
           <code>BeforeInstallPromptEvent</code> Interface
         </h3>
+        <div class="note">
+          The <code>beforeinstallprompt</code> event is somewhat misnamed, as
+          it does not necessarily signal that an <a>automated install
+          prompt</a> will follow (depending on the user agent, it might just be
+          giving the site the ability to trigger an install prompt). It is so
+          named for historical reasons.
+        </div>
         <pre class="idl">
           [Constructor]
           interface BeforeInstallPromptEvent : Event {
@@ -541,20 +564,23 @@
           };
         </pre>
         <p>
-          The <dfn>BeforeInstallPromptEvent</dfn> is dispatched prior to
-          activating an <a>automated install prompt</a>, allowing a developer
-          to prevent the default action for an install prompt.
+          The <dfn>BeforeInstallPromptEvent</dfn> is dispatched when the site
+          is allowed to present a <a>site-triggered install prompt</a>, or
+          prior to the user agent presenting an <a>automated install
+          prompt</a>. It allows the site to cancel the <a>automated install
+          prompt</a>, as well as manually present the <a>site-triggered install
+          prompt</a>.
         </p>
         <div class="note">
-          The default action of the <a>BeforeInstallPromptEvent</a> is to
-          <a data-lt="presents an install prompt">present an automated install
-          prompt</a> to the end-user. Canceling the default action (via
-          <a data-cite=
+          If the <a>BeforeInstallPromptEvent</a> is <em>not</em> cancelled, the
+          user agent is allowed to <a data-lt=
+          "presents an install prompt">present an automated install prompt</a>
+          to the end-user. Canceling the default action (via <a data-cite=
           "DOM#dom-event-preventdefault"><code>preventDefault</code></a>)
           prevents the user agent from <a data-lt=
           "presents an install prompt">presenting an automated install
-          prompt</a>. The user agent is free to run <a>steps to notify before
-          an automated install prompt</a> again at a later time.
+          prompt</a>. The user agent is free to run <a>steps to notify that an
+          install prompt is available</a> again at a later time.
         </div>
         <p>
           The <dfn>PromptResponseObject</dfn> contains the result of calling
@@ -634,10 +660,11 @@
           </h4>
           <p>
             This example shows how one might prevent an automated install
-            prompt from showing until the user clicks a button to install the
-            app. In this way, the site can leave installation at the user's
-            discretion (rather than prompting at an arbitrary time), whilst
-            still providing a prominent UI to do so.
+            prompt from showing until the user clicks a button to show a
+            <a>site-triggered install prompt</a>. In this way, the site can
+            leave installation at the user's discretion (rather than prompting
+            at an arbitrary time), whilst still providing a prominent UI to do
+            so.
           </p>
           <pre class="example" title=
           "Using beforeinstallprompt to present an install button">
@@ -719,7 +746,7 @@ window.addEventListener("appinstalled", handleInstalled);
             attribute</a> for the "<dfn>beforeinstallprompt</dfn>" event type.
             The interface used for these events is the
             <a>BeforeInstallPromptEvent</a> interface (see the <a>steps to
-            notify before an automated install prompt</a>).
+            notify that an install prompt is available</a>).
           </p>
         </section>
       </section>
@@ -3636,10 +3663,6 @@ Content-Security-Policy: img-src icons.example.com
         The following are defined in [[!WHATWG-DOM]]:
       </p>
       <ul>
-        <li>
-          <a href="https://dom.spec.whatwg.org/#canceled-flag"><dfn>canceled
-          flag</dfn></a>
-        </li>
         <li>
           <a href="https://dom.spec.whatwg.org/#event"><dfn><code>Event</code>
           interface</dfn></a>
