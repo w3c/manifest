@@ -396,7 +396,8 @@
           Install prompts
         </h2>
         <p>
-          There are three ways that the installation process can be triggered:
+          There are multiple ways that the installation process can be
+          triggered:
         </p>
         <ul>
           <li>An end-user can <dfn data-lt="manual installation">manually</dfn>
@@ -412,8 +413,8 @@
           <li>The <a>installation process</a> can occur through a
           <dfn>site-triggered install prompt</dfn>: the site can
           programmatically request that the user agent present an install
-          prompt to the user. The availability of this feature may be
-          restricted to when, for instance, there are sufficient
+          prompt to the user. The user agent MAY restrict the availability of
+          this feature to when, for instance, there are sufficient
           <a>installability signals</a> to warrant <a>installation</a> of the
           web application.
           </li>
@@ -421,11 +422,12 @@
         <p>
           Prior to presenting an <a>automated install prompt</a>, a user agent
           MUST run the <a>steps to notify that an install prompt is
-          available</a>, to give the site the opportunity to suppress the
-          install prompt. Alternatively, the user agent may run the <a>steps to
-          notify that an install prompt is available</a> at any time, giving
-          the site the opportunity to show a <a>site-triggered install
-          prompt</a> without automatically showing the prompt.
+          available</a>, to give the site the opportunity to prevent the
+          default action (which is to install the application). Alternatively,
+          the user agent MAY run the <a>steps to notify that an install prompt
+          is available</a> at any time, giving the site the opportunity to show
+          a <a>site-triggered install prompt</a> without automatically showing
+          the prompt.
         </p>
         <p>
           In either case, when a user agent <dfn data-lt=
@@ -548,7 +550,7 @@
         <div class="note">
           The <code>beforeinstallprompt</code> event is somewhat misnamed, as
           it does not necessarily signal that an <a>automated install
-          prompt</a> will follow (depending on the user agent, it may just be
+          prompt</a> will follow (depending on the user agent, it might just be
           giving the site the ability to trigger an install prompt). It is so
           named for historical reasons.
         </div>
@@ -659,9 +661,10 @@
           <p>
             This example shows how one might prevent an automated install
             prompt from showing until the user clicks a button to show a
-            site-triggered install prompt. In this way, the site can leave
-            installation at the user's discretion (rather than prompting at an
-            arbitrary time), whilst still providing a prominent UI to do so.
+            <a>site-triggered install prompt</a>. In this way, the site can
+            leave installation at the user's discretion (rather than prompting
+            at an arbitrary time), whilst still providing a prominent UI to do
+            so.
           </p>
           <pre class="example" title=
           "Using beforeinstallprompt to present an install button">
