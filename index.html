@@ -790,6 +790,15 @@ window.addEventListener("appinstalled", handleInstalled);
         <li>Otherwise, return <code>false</code>.
         </li>
       </ol>
+      <div class="note" title="Scope is a simple string match">
+        The URL string matching in this algorithm is prefix-based rather than
+        path-structural (e.g. a target URL string
+        <code>/prefix-of/resource.html</code> will match an app with scope
+        <code>/prefix</code>, even though the path segment name is not an exact
+        match). This is intentional for consistency with <a data-cite=
+        "!SERVICE-WORKERS-1#scope-match-algorithm">Service Workers</a>. To
+        avoid unexpected behavior, use a scope ending in a <code>/</code>.
+      </div>
       <div class="issue" title="🐒 patch">
         <p>
           Enforcing the navigation scope depends on [[!HTML]]'s navigate
