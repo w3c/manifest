@@ -95,9 +95,8 @@
         application.
       </p>
       <p>
-        To associate documents of a web application with a manifest, this
-        specification defines the <code>manifest</code> link type as a
-        declarative means for a document to be associated with a manifest.
+        This specification also defines the <code>manifest</code> link type as
+        a declarative means to associate a document with a manifest.
       </p>
     </section>
     <section id="sotd">
@@ -232,11 +231,11 @@
         appearing as a labeled icon on the home screen, launcher, or start
         menu. When launched, the manifest is <a>applied</a> by the user agent
         to the <a>top-level browsing context</a> prior to the <a>start URL</a>
-        being loaded. This gives the user agent time to apply the relevant
-        values of the manifest, possibly changing the <a>display mode</a> and
-        screen orientation of the web application. Alternatively, and again as
-        an example, the user agent could <a>install</a> the web application
-        into a list of bookmarks within the user agent itself.
+        being loaded. This gives the user agent an opportunity to apply the
+        relevant values of the manifest, possibly changing the <a>display
+        mode</a> and screen orientation of the web application. Alternatively,
+        and again as an example, the user agent could <a>install</a> the web
+        application into a list of bookmarks within the user agent itself.
       </p>
       <section data-dfn-for="AppBannerPromptOutcome">
         <h4>
@@ -414,7 +413,7 @@
           <dfn>site-triggered install prompt</dfn>: the site can
           programmatically request that the user agent present an install
           prompt to the user. The user agent MAY restrict the availability of
-          this feature to when, for instance, there are sufficient
+          this feature to cases where, for instance, there are sufficient
           <a>installability signals</a> to warrant <a>installation</a> of the
           web application.
           </li>
@@ -477,7 +476,7 @@
           During the <a>installation process</a>, it is RECOMMENDED that the
           user agent allow the end-user to inspect the icon, name, <a>start
           URL</a>, origin, etc. pertaining to a web application. This is to
-          give a end-user an opportunity to make a conscious decision to
+          give an end-user an opportunity to make a conscious decision to
           approve, and possibly modify, the information pertaining to the web
           application before installing it. This also gives the end-user an
           opportunity to discern if the user agent is spoofing another web
@@ -515,7 +514,7 @@
           </li>
           <li>has a sensible content security policy.
           </li>
-          <li>is able to responsibly adapt to display on a variety of screen
+          <li>is able to responsively adapt to display on a variety of screen
           sizes, catering for both mobile and desktop.
           </li>
           <li>is able to function without a network connection.
