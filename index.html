@@ -2617,65 +2617,6 @@ Content-Type: application/manifest+json
       </section>
       <section>
         <h3>
-          <code title="">background_color</code> member
-        </h3>
-        <p>
-          The <dfn id="member-background_color"><code>background_color</code>
-          member</dfn> describes the expected background color of the web
-          application. It repeats what is already available in the application
-          stylesheet but can be used by the <a>user agent</a> to draw the
-          background color of a web application for which the manifest is known
-          before the files are actually available, whether they are fetched
-          from the network or retrieved from disk.
-        </p>
-        <p>
-          The <code>background_color</code> member is only meant to improve the
-          user experience while a web application is loading and MUST NOT be
-          used by the <a>user agent</a> as the background color when the web
-          application's stylesheet is available.
-        </p>
-        <p>
-          The <dfn>steps for processing the <code>background_color</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes a <var>manifest</var> as an argument. This algorithm returns a
-          string or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>background_color</code>".
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, let <var>potential color</var> be the result of
-          running [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm
-          with <var>value</var> as input. If parsing returns a syntax error,
-          return <code>undefined</code>.
-          </li>
-          <li>Let <var>color</var> be the result of attempting to parse
-          <var>potential color</var> as a CSS color, as per [[!CSS-SYNTAX-3]].
-          If parsing fails:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a>.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>color</var>.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
           <code title="">category</code> member
         </h3>
         <p>
