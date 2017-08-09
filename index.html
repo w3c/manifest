@@ -2612,6 +2612,155 @@ Content-Type: application/manifest+json
       </section>
       <section>
         <h3>
+          <code title="">background_color</code> member
+        </h3>
+        <p>
+          The <dfn id="member-background_color"><code>background_color</code>
+          member</dfn> describes the expected background color of the web
+          application. It repeats what is already available in the application
+          stylesheet but can be used by the <a>user agent</a> to draw the
+          background color of a web application for which the manifest is known
+          before the files are actually available, whether they are fetched
+          from the network or retrieved from disk.
+        </p>
+        <p>
+          The <code>background_color</code> member is only meant to improve the
+          user experience while a web application is loading and MUST NOT be
+          used by the <a>user agent</a> as the background color when the web
+          application's stylesheet is available.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>background_color</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes a <var>manifest</var> as an argument. This algorithm returns a
+          string or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>background_color</code>".
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, let <var>potential color</var> be the result of
+          running [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm
+          with <var>value</var> as input. If parsing returns a syntax error,
+          return <code>undefined</code>.
+          </li>
+          <li>Let <var>color</var> be the result of attempting to parse
+          <var>potential color</var> as a CSS color, as per [[!CSS-SYNTAX-3]].
+          If parsing fails:
+            <ol>
+              <li>
+                <a>Issue a developer warning</a>.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>color</var>.
+          </li>
+        </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">category</code> member
+        </h3>
+        <p>
+          The <dfn id="member-category"><code>category</code>
+          member</dfn> describes the expected application category to which the 
+          web application belongs. This is a hint to catalogs or stores of web 
+          applications under which category (or categories) to list this web 
+          application.
+        </p>
+        <p>
+          The <code>category</code> member is only meant as a hint to catalogs 
+          or stores listing web applications and it is expected that these 
+          will make a best effort to find an appropriate category under which 
+          to list the web application.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>category</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes a <var>manifest</var> as an argument. This algorithm returns a
+          string or <code>undefined</code>. The string MAY include a comma 
+          delimited list of categories.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>category</code>".
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) is not "string":
+            <ol>
+              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
+              a developer warning</a> that the type is not supported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>category</var>.
+          </li>
+        </ol>
+        <p>
+          The category string should be treated as case insensitive. Thus, 
+          <code>sports</code>, <code>Sports</code>, <code>SPORTS</code>, and 
+          <code>SpOrTs</code> are all equivalent.
+        </p>
+        <p>
+          Spaces, underscores, and dashes should be treated as equivalent. 
+          Thus, <code>health & fitness</code>,  
+          <code>health_&_fitness</code>, and <code>health-&-fitness</code> 
+          are all equivalent.
+        </p>
+        <p>
+          If a category string has multiple comma delimited values, a 
+          consuming system SHOULD use the most specific value that is is 
+          familiar with, and ignore values that it is not familiar with.  
+          For example: <code>Books, Fiction, Science Fiction & Fantasty</code>.
+        </p>
+        <p>
+          Manifest authors SHOULD use the below common categories:
+          <ul>
+            <li>books</li>
+            <li>business</li>
+            <li>education</li>
+            <li>entertainment</li>
+            <li>finance</li>
+            <li>food</li>
+            <li>games</li>
+            <li>government & politics</li>
+            <li>health & fitness</li>
+            <li>kids</li>
+            <li>lifestyle</li>
+            <li>magazines</li>
+            <li>medical</li>
+            <li>music</li>
+            <li>navigation</li>
+            <li>news</li>
+            <li>personalization</li>
+            <li>photo</li>
+            <li>productivity</li>
+            <li>security</li>
+            <li>shopping</li>
+            <li>social</li>
+            <li>sports</li>
+            <li>travel</li>
+            <li>utilities</li>
+            <li>weather</li>
+          </ul>
+        </p>
+      </section>
+      <section>
+        <h3>
           <code title="">screenshots</code> member
         </h3>
         <p>
