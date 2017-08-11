@@ -144,45 +144,45 @@
           The following shows a more typical <a>manifest</a>.
         </p>
         <pre class="example json" title="typical manifest">
-{
-  "lang": "en",
-  "dir": "ltr",
-  "name": "Donate App",
-  "description": "This app helps you donate to worthy causes.",
-  "short_name": "Donate",
-  "icons": [{
-    "src": "icon/lowres.webp",
-    "sizes": "64x64",
-    "type": "image/webp"
-  },{
-    "src": "icon/lowres.png",
-    "sizes": "64x64"
-  }, {
-    "src": "icon/hd_hi",
-    "sizes": "128x128"
-  }],
-  "scope": "/racer/",
-  "start_url": "/racer/start.html",
-  "display": "fullscreen",
-  "orientation": "landscape",
-  "theme_color": "aliceblue",
-  "background_color": "red",
-  "serviceworker": {
-    "src": "sw.js",
-    "scope": "/racer/",
-    "use_cache": false
-  },
-  "screenshots": [{
-    "src": "screenshots/in-game-1x.jpg",
-    "sizes": "640x480",
-    "type": "image/jpeg"
-  },{
-    "src": "screenshots/in-game-2x.jpg",
-    "sizes": "1280x920",
-    "type": "image/jpeg"
-  }]
-}
-</pre>
+          {
+            "lang": "en",
+            "dir": "ltr",
+            "name": "Donate App",
+            "description": "This app helps you donate to worthy causes.",
+            "short_name": "Donate",
+            "icons": [{
+              "src": "icon/lowres.webp",
+              "sizes": "64x64",
+              "type": "image/webp"
+            },{
+              "src": "icon/lowres.png",
+              "sizes": "64x64"
+            }, {
+              "src": "icon/hd_hi",
+              "sizes": "128x128"
+            }],
+            "scope": "/racer/",
+            "start_url": "/racer/start.html",
+            "display": "fullscreen",
+            "orientation": "landscape",
+            "theme_color": "aliceblue",
+            "background_color": "red",
+            "serviceworker": {
+              "src": "sw.js",
+              "scope": "/racer/",
+              "use_cache": false
+            },
+            "screenshots": [{
+              "src": "screenshots/in-game-1x.jpg",
+              "sizes": "640x480",
+              "type": "image/jpeg"
+            },{
+              "src": "screenshots/in-game-2x.jpg",
+              "sizes": "1280x920",
+              "type": "image/jpeg"
+            }]
+          }
+      </pre>
       </section>
       <section class="informative">
         <h3>
@@ -195,18 +195,18 @@
           application a fallback name and set of icons.
         </p>
         <pre class="example html" title="linking to a manifest">
-&lt;!doctype&gt;
-&lt;html&gt;
-&lt;title&gt;Racer 3K&lt;/title&gt;
+          &lt;!doctype&gt;
+          &lt;html&gt;
+          &lt;title&gt;Racer 3K&lt;/title&gt;
 
-&lt;!-- Startup configuration --&gt;
-&lt;link rel="manifest" href="manifest.webmanifest"&gt;
+          &lt;!-- Startup configuration --&gt;
+          &lt;link rel="manifest" href="manifest.webmanifest"&gt;
 
-&lt;!-- Fallback application metadata for legacy browsers --&gt;
-&lt;meta name="application-name" content="Racer3K"&gt;
-&lt;link rel="icon" sizes="16x16 32x32 48x48" href="lo_def.ico"&gt;
-&lt;link rel="icon" sizes="512x512" href="hi_def.png"&gt;
-</pre>
+          &lt;!-- Fallback application metadata for legacy browsers --&gt;
+          &lt;meta name="application-name" content="Racer3K"&gt;
+          &lt;link rel="icon" sizes="16x16 32x32 48x48" href="lo_def.ico"&gt;
+          &lt;link rel="icon" sizes="512x512" href="hi_def.png"&gt;
+        </pre>
       </section>
     </section>
     <section>
@@ -709,17 +709,17 @@
             This example shows two ways of handling the "<a>appinstalled</a>"
             event.
           </p>
-          <pre>
-function handleInstalled(ev) {
-  const date = new Date(ev.timeStamp / 1000);
-  console.log(`Yay! Our app got installed at ${date.toTimeString()}.`);
-}
+          <pre class="example js">
+            function handleInstalled(ev) {
+              const date = new Date(ev.timeStamp / 1000);
+              console.log(`Yay! Our app got installed at ${date.toTimeString()}.`);
+            }
 
-// Using the event handler IDL attribute
-window.onappinstalled = handleInstalled;
+            // Using the event handler IDL attribute
+            window.onappinstalled = handleInstalled;
 
-// Using .addEventListener()
-window.addEventListener("appinstalled", handleInstalled);
+            // Using .addEventListener()
+            window.addEventListener("appinstalled", handleInstalled);
           </pre>
         </div>
         <section data-dfn-for="Window">
@@ -1079,16 +1079,16 @@ window.addEventListener("appinstalled", handleInstalled);
             match. This is exemplified in CSS code below.
           </p>
           <pre class='example'>
-/* applies when the window is fullscreen */
-@media all and (display-mode: fullscreen) {
-    ...
-}
+            /* applies when the window is fullscreen */
+            @media all and (display-mode: fullscreen) {
+                ...
+            }
 
-/* applies when an element goes fullscreen */
-#game:fullscreen {
-    ...
-}
-</pre>
+            /* applies when an element goes fullscreen */
+            #game:fullscreen {
+                ...
+            }
+        </pre>
         </div>
         <dl>
           <dt>
@@ -1122,29 +1122,29 @@ window.addEventListener("appinstalled", handleInstalled);
           <p>
             An example in CSS:
           </p>
-          <pre class='example'>
-@media all and (display-mode: minimal-ui) {
-  /* ... */
-}
-@media all and (display-mode: standalone) {
-  /* ... */
-}
-</pre>
+          <pre class="example js">
+            @media all and (display-mode: minimal-ui) {
+              /* ... */
+            }
+            @media all and (display-mode: standalone) {
+              /* ... */
+            }
+          </pre>
           <p>
             Accessing the display-mode media feature in ECMAScript through
-            <code>matchMedia()</code> of [[cssom-view]]:
+            <code>matchMedia()</code> of [[CSSOM-VIEW]]:
           </p>
           <pre class="example">
-const standalone = matchMedia( '(display-mode: standalone)' );
+            const standalone = matchMedia( '(display-mode: standalone)' );
 
-standalone.onchange = (e) =&gt; {
-  /* handle changes to display mode */
-}
+            standalone.onchange = (e) =&gt; {
+              /* handle changes to display mode */
+            }
 
-if (standalone.matches) {
-  /* do standalone things */
-}
-</pre>
+            if (standalone.matches) {
+              /* do standalone things */
+            }
+          </pre>
         </section>
         <section>
           <h3>
@@ -1326,19 +1326,19 @@ if (standalone.matches) {
             would cause a cached manifest to be used 30 days from the time the
             response is sent:
           </p>
-          <pre>
-HTTP/1.1 200 OK
-Cache-Control: max-age=2592000
-Content-Type: application/manifest+json
+          <pre class="example http">
+            HTTP/1.1 200 OK
+            Cache-Control: max-age=2592000
+            Content-Type: application/manifest+json
 
-{
-  "lang": "en",
-  "name": "Resist",
-  "start_url": "/start.html",
-  "display": "fullscreen",
-  "orientation": "landscape"
-}
-</pre>
+            {
+              "lang": "en",
+              "name": "Resist",
+              "start_url": "/start.html",
+              "display": "fullscreen",
+              "orientation": "landscape"
+            }
+          </pre>
         </div>
         <section>
           <h4>
@@ -1409,24 +1409,23 @@ Content-Type: application/manifest+json
           <var>manifest URL</var>, which represents the location of the
           manifest, and a <a>URL</a> <var>document URL</var>. The output from
           inputting an JSON document into this algorithm is a <dfn>processed
-          manifest</dfn> .
+          manifest</dfn>.
         </p>
         <ol>
           <li>Let <var>parsed manifest</var> be an empty object.
           </li>
-          <li>Let <var>manifest</var> be the result of <a href=
-          "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
-            parsing</a> <var>text</var>. If <a href=
-            "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-json.parse">
-            parsing</a> throws an error:
+          <li>Let <var>manifest</var> be the result of <a data-cite=
+          "!ECMASCRIPT#sec-json.parse">parsing</a> <var>text</var>. If
+          <a data-cite="!ECMASCRIPT#sec-json.parse">parsing</a> throws an
+          error:
             <ol>
               <li>
                 <a>Issue a developer warning</a> with any details pertaining to
                 the JSON parsing error.
               </li>
-              <li>Set <var>manifest</var> to be the result of <a href=
-              "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
-                parsing</a> the string <code>"{}"</code>.
+              <li>Set <var>manifest</var> to be the result of <a data-cite=
+              "!ECMASCRIPT#sec-15.12.2">parsing</a> the string
+              <code>"{}"</code>.
               </li>
             </ol>
           </li>
@@ -1436,9 +1435,9 @@ Content-Type: application/manifest+json
                 <a>Issue a developer warning</a> that the manifest needs to be
                 an object.
               </li>
-              <li>Set <var>manifest</var> to be the result of <a href=
-              "https://people.mozilla.com/~jorendorff/es6-draft.html#sec-15.12.2">
-                parsing</a> the string <code>"{}"</code>.
+              <li>Set <var>manifest</var> to be the result of <a data-cite=
+              "!ECMASCRIPT#sec-15.12.2">parsing</a> the string
+              <code>"{}"</code>.
               </li>
             </ol>
           </li>
@@ -2002,25 +2001,25 @@ Content-Type: application/manifest+json
             individually tailored for small display sizes.
             </li>
           </ul>
-          <pre class="">
-{
-  "icons": [
-      {
-        "src": "icon/lowres.webp",
-        "sizes": "48x48",
-        "type": "image/webp"
-      },{
-        "src": "icon/lowres",
-        "sizes": "48x48"
-      },{
-        "src": "icon/hd_hi.ico",
-        "sizes": "72x72 96x96 128x128 256x256"
-      },{
-        "src": "icon/hd_hi.svg",
-        "sizes": "257x257"
-      }]
- }
-</pre>
+          <pre class="example json">
+            {
+              "icons": [
+                {
+                  "src": "icon/lowres.webp",
+                  "sizes": "48x48",
+                  "type": "image/webp"
+                },{
+                  "src": "icon/lowres",
+                  "sizes": "48x48"
+                },{
+                  "src": "icon/hd_hi.ico",
+                  "sizes": "72x72 96x96 128x128 256x256"
+                },{
+                  "src": "icon/hd_hi.svg",
+                  "sizes": "257x257"
+                }]
+            }
+          </pre>
         </div>
       </section>
       <section>
@@ -2345,12 +2344,12 @@ Content-Type: application/manifest+json
           In the following example, the web application is listing a service
           worker for the <code>/foo</code> scope, bypassing the user agent
           cache when fetching the <code>"sw.js"</code> source:
-          <pre class="example">
-          "serviceworker": {
-            "src": "sw.js",
-            "scope": "/foo",
-            "use_cache": false
-          }
+          <pre class="example js">
+            "serviceworker": {
+              "src": "sw.js",
+              "scope": "/foo",
+              "use_cache": false
+            }
           </pre>
         </div>
       </section>
@@ -2656,15 +2655,15 @@ Content-Type: application/manifest+json
             <code>iarc_rating_id</code> member.
           </p>
           <pre class="example json" title="very simple manifest">
-        {
-          "name": "Donate App",
-          "description": "This app helps you donate to worthy causes.",
-          "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
-          "icons": [{
-            "src": "images/icon.png",
-            "sizes": "192x192"
-          }]
-        }
+          {
+            "name": "Donate App",
+            "description": "This app helps you donate to worthy causes.",
+            "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+            "icons": [{
+              "src": "images/icon.png",
+              "sizes": "192x192"
+            }]
+          }
         </pre>
         </div>
         <p>
@@ -2690,7 +2689,7 @@ Content-Type: application/manifest+json
         that is using the object (e.g., an icon that is part of an application
         menu, etc.). For an image object, this specification provides
         developers with a means of specifying the dimensions, and media type of
-        an image (i.e., a "responsive image" solution [[respimg-usecases]]). A
+        an image (i.e., a "responsive image" solution [[RESPIMG-USECASES]]). A
         user agent can use these values to select an image that is best suited
         to display on the end-user's device or most closely matches the
         end-user's preferences.
@@ -2759,32 +2758,32 @@ Content-Type: application/manifest+json
             the <code>Content-Security-Policy</code> HTTP header of the
             manifest's owner <code>Document</code>:
           </p>
-          <pre>
-HTTP/1.1 200 OK
-Content-Type: text/html
-Content-Security-Policy: img-src icons.example.com
+          <pre class="example http">
+            HTTP/1.1 200 OK
+            Content-Type: text/html
+            Content-Security-Policy: img-src icons.example.com
 
-&lt;!doctype&gt;
-&lt;html&gt;
-&lt;link rel="manifest" href="manifest.webmanifest"&gt;
-
-
-</pre>
+            &lt;!doctype&gt;
+            &lt;html&gt;
+            &lt;link rel="manifest" href="manifest.webmanifest"&gt;
+          </pre>
           <p>
             And given the following <code>manifest.webmanifest</code>:
           </p>
-          <pre>
-{
-    "name": "custom manifest",
-    "start_url": "https://boo",
-    "icons": [{
-        "src": "//icons.example.com/lowres"
-      },
-      {
-        "src": "//other.com/hi-res"
-      }]
-}
-</pre>
+          <pre class="example json">
+            {
+              "name": "custom manifest",
+              "start_url": "https://boo",
+              "icons": [
+                {
+                  "src": "//icons.example.com/lowres"
+                },
+                {
+                  "src": "//other.com/hi-res"
+                }
+              ]
+            }
+          </pre>
           <p>
             The fetching of icon resources from
             <code>icons.example.com/lowres</code> would succeed, while fetching
@@ -2888,22 +2887,22 @@ Content-Security-Policy: img-src icons.example.com
             different related applications, one on Google Play Store and the
             other one on the iTunes Store:
           </p>
-          <pre>
-{
-  "name": "News",
-  "icons": [{
-    "platform": "android",
-    "purpose": "badge",
-    "sizes": "16x16",
-    "src": "icons/badges/android.png",
-    "type": "image/png"
-  }, {
-    "purpose": "badge",
-    "src": "icons/badges/safari.svg",
-    "type": "image/svg"
-  }],
-}
-</pre>
+          <pre class="example json">
+            {
+              "name": "News",
+              "icons": [{
+                "platform": "android",
+                "purpose": "badge",
+                "sizes": "16x16",
+                "src": "icons/badges/android.png",
+                "type": "image/png"
+              }, {
+                "purpose": "badge",
+                "src": "icons/badges/safari.svg",
+                "type": "image/svg"
+              }],
+            }
+          </pre>
         </div>
       </section>
       <section>
@@ -3438,24 +3437,28 @@ Content-Security-Policy: img-src icons.example.com
           cryptographic fingerprints used for verification, in a
           Play-Store-specific manner.
         </p>
-        <pre class="">
-{
-  "related_applications": [
-      {
-        "platform": "play",
-        "url": "https://play.google.com/store/apps/details?id=com.example.app1",
-        "id": "com.example.app1",
-        "min_version": "2",
-        "fingerprints": [{
-          "type": "sha256_cert",
-          "value": "92:5A:39:05:C5:B9:EA:BC:71:48:5F:F2"
-        }]
-      }, {
-        "platform": "itunes",
-        "url": "https://itunes.apple.com/app/example-app1/id123456789",
-      }]
- }
-</pre>
+        <pre class="example json">
+          {
+            "related_applications": [
+              {
+                "platform": "play",
+                "url": "https://play.google.com/store/apps/details?id=com.example.app1",
+                "id": "com.example.app1",
+                "min_version": "2",
+                "fingerprints": [
+                  {
+                    "type": "sha256_cert",
+                    "value": "92:5A:39:05:C5:B9:EA:BC:71:48:5F:F2"
+                  }
+                ]
+              },
+              {
+                "platform": "itunes",
+                "url": "https://itunes.apple.com/app/example-app1/id123456789"
+              }
+            ]
+          }
+        </pre>
       </div>
       <p class="issue">
         Where should the <code>platform</code> expected value be listed?
@@ -3637,24 +3640,22 @@ Content-Security-Policy: img-src icons.example.com
         Common conventions and dependencies
       </h2>
       <p>
-        The <a href=
-        "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
+        The <a data-cite=
+        "!ECMASCRIPT#sec-ordinary-object-internal-methods-and-internal-slots-getownproperty-p">
         <dfn>[[\GetOwnProperty]]</dfn></a> operation and the abstract operation
-        <dfn><a href=
-        "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-hasownproperty">
-        hasOwnProperty</a></dfn> , <dfn data-lt="parseFloat"><a href=
-        "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-parsefloat-string">
-        parseFloat(string)</a></dfn> function, and the <a class="external"
-        href="https://people.mozilla.org/~jorendorff/es6-draft.html#sec-ecmascript-data-types-and-values">
-        <dfn>Type</dfn>(<var>x</var>)</a> notation are defined in
-        [[!ECMASCRIPT]].
+        <dfn><a data-cite=
+        "!ECMASCRIPT#sec-hasownproperty">hasOwnProperty</a></dfn> ,
+        <dfn data-lt="parseFloat"><a data-cite=
+        "!ECMASCRIPT#sec-parsefloat-string">parseFloat(string)</a></dfn>
+        function, and the <a class="external" data-cite=
+        "!ECMASCRIPT#sec-ecmascript-data-types-and-values"><dfn>Type</dfn>(<var>x</var>)</a>
+        notation are defined in [[!ECMASCRIPT]].
       </p>
       <p>
         When instructed to <dfn>Trim</dfn>(<var>x</var>), a user agent MUST
-        behave as if [[!ECMASCRIPT]]'s <a href=
-        "https://people.mozilla.org/~jorendorff/es6-draft.html#sec-string.prototype.trim">
-        String.prototype.trim()</a> function had been called on the string
-        <var>x</var>.
+        behave as if [[!ECMASCRIPT]]'s <a data-cite=
+        "!ECMASCRIPT#sec-string.prototype.trim">String.prototype.trim()</a>
+        function had been called on the string <var>x</var>.
       </p>
       <p>
         As the manifest uses the JSON format, this specification relies on the
@@ -3719,7 +3720,7 @@ Content-Security-Policy: img-src icons.example.com
         abstract operations are defined in [[!ECMAS-402]].
       </p>
       <p>
-        The following are defined in [[!WebIDL-2]]:
+        The following are defined in [[!WEBIDL]]:
       </p>
       <ul>
         <li>
@@ -4272,14 +4273,14 @@ Content-Security-Policy: img-src icons.example.com
             The following is an example of two hypothetical vendor extensions.
           </p>
           <pre class="example json" title="vendor extensions">
-  {
-    ...
-    "webkit_fancy_feature": "some/url/img",
-    "moz_awesome_thing": { ... },
-    "vendor_example_site_verification": "KEY_9864D0966935"
-    ...
-  }
-</pre>
+            {
+              ...
+              "webkit_fancy_feature": "some/url/img",
+              "moz_awesome_thing": { ... },
+              "vendor_example_site_verification": "KEY_9864D0966935"
+              ...
+            }
+          </pre>
         </section>
       </section>
     </section>
