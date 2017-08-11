@@ -2658,15 +2658,20 @@ Content-Type: application/manifest+json
           </li>
         </ol>
         <p>
-          The category string should be treated as case insensitive. Thus, 
-          <code>sports</code>, <code>Sports</code>, <code>SPORTS</code>, and 
-          <code>SpOrTs</code> are all equivalent.
+          The category string is case insensitive and converted to lower-case 
+          by following the processing algorithm. Thus, <code>sports</code>, 
+          <code>Sports</code>, <code>SPORTS</code>, and <code>SpOrTs</code> 
+          are all equivalent. Manifest authors SHOULD use lower-case.
         </p>
         <p>
+          The category string is a hint to catalogs and stores were the 
+          Manifest author suggests their web app should be listed. 
+          This is hint or suggestion from the Manifest author. Like 
+          search engine keywords, catalogs and stores are not required 
+          to honor this hint.</p>
+        <p>
           If a category string has multiple comma delimited values, a 
-          consuming system SHOULD use the most specific value that is is 
-          familiar with, and ignore values that it is not familiar with.  
-          For example: <code>Books, Fiction, Science Fiction & Fantasty</code>.
+          consuming system MAY use one or more of these values.  
         </p>
         <p>
           Manifest authors SHOULD use the below common categories:
