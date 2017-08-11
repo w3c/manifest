@@ -359,7 +359,7 @@
               <li>If <a>obtaining the manifest</a> results in an error, a user
               agent can, at this point, fall back to using the <a>top-level
               browsing context</a> <code>Document</code>'s metadata to populate
-              an <a>installation process's</a> UI.
+              an <a>installation process</a>'s UI.
               </li>
               <li>If <a>obtaining the manifest</a> succeeds, and the result of
               running the <a>steps for processing the serviceworker member</a>
@@ -542,16 +542,17 @@
         DOM events <a>fired</a> by this specification use the <dfn>application
         life-cycle task source</dfn>.
       </p>
-      <section data-dfn-for="BeforeInstallPromptEvent">
+      <section data-dfn-for="BeforeInstallPromptEvent" data-link-for=
+      "BeforeInstallPromptEvent">
         <h3>
-          <code>BeforeInstallPromptEvent</code> Interface
+          <dfn>BeforeInstallPromptEvent</dfn> Interface
         </h3>
         <div class="note">
-          The <code>beforeinstallprompt</code> event is somewhat misnamed, as
-          it does not necessarily signal that an <a>automated install
-          prompt</a> will follow (depending on the user agent, it might just be
-          giving the site the ability to trigger an install prompt). It is so
-          named for historical reasons.
+          The <a>beforeinstallprompt</a> event is somewhat misnamed, as it does
+          not necessarily signal that an <a>automated install prompt</a> will
+          follow (depending on the user agent, it might just be giving the site
+          the ability to trigger an install prompt). It is so named for
+          historical reasons.
         </div>
         <pre class="idl">
           [Constructor]
@@ -563,28 +564,27 @@
           };
         </pre>
         <p>
-          The <dfn>BeforeInstallPromptEvent</dfn> is dispatched when the site
-          is allowed to present a <a>site-triggered install prompt</a>, or
-          prior to the user agent presenting an <a>automated install
-          prompt</a>. It allows the site to cancel the <a>automated install
-          prompt</a>, as well as manually present the <a>site-triggered install
-          prompt</a>.
+          The <a>BeforeInstallPromptEvent</a> is dispatched when the site is
+          allowed to present a <a>site-triggered install prompt</a>, or prior
+          to the user agent presenting an <a>automated install prompt</a>. It
+          allows the site to cancel the <a>automated install prompt</a>, as
+          well as manually present the <a>site-triggered install prompt</a>.
         </p>
         <div class="note">
           If the <a>BeforeInstallPromptEvent</a> is <em>not</em> cancelled, the
           user agent is allowed to <a data-lt=
           "presents an install prompt">present an automated install prompt</a>
           to the end-user. Canceling the default action (via <a data-cite=
-          "DOM#dom-event-preventdefault"><code>preventDefault</code></a>)
-          prevents the user agent from <a data-lt=
-          "presents an install prompt">presenting an automated install
-          prompt</a>. The user agent is free to run <a>steps to notify that an
-          install prompt is available</a> again at a later time.
+          "DOM#dom-event-preventdefault">preventDefault</a>) prevents the user
+          agent from <a data-lt="presents an install prompt">presenting an
+          automated install prompt</a>. The user agent is free to run <a>steps
+          to notify that an install prompt is available</a> again at a later
+          time.
         </div>
-        <p>
+        <p data-dfn-for="PromptResponseObject">
           The <dfn>PromptResponseObject</dfn> contains the result of calling
-          <a for="BeforeInstallPromptEvent"><code>prompt()</code></a>. It
-          contains one member, <dfn for=
+          <a data-lt="BeforeInstallPromptEvent.prompt()">prompt()</a>. It
+          contains one member, <dfn data-link-for=
           "PromptResponseObject">userChoice</dfn>, which states the user's
           chosen outcome.
         </p>
@@ -647,7 +647,7 @@
               the result.
             </li>
             <li>Resolve <var>event</var>.<a>[[\userResponsePromise]]</a> with a
-            newly created <a>PromptResponseObject</a> whose <a for=
+            newly created <a>PromptResponseObject</a> whose <a data-link-for=
             "PromptResponseObject">userChoice</a> member is the value of <var>
               outcome</var>.
             </li>
@@ -730,10 +730,9 @@ window.addEventListener("appinstalled", handleInstalled);
             The <dfn>onappinstalled</dfn> is an <a>event handler IDL
             attribute</a> for the "<dfn>appinstalled</dfn>" event type. The
             interface used for these events is the <a><code>Event</code>
-            interface</a> [[!WHATWG-DOM]]. This event is dispatched as a result
-            of a <a data-lt="installation succeeded">successful
-            installation</a> (see the <a>steps to install the web
-            application</a>).
+            interface</a> [[!DOM]]. This event is dispatched as a result of a
+            <a data-lt="installation succeeded">successful installation</a>
+            (see the <a>steps to install the web application</a>).
           </p>
         </section>
         <section data-dfn-for="Window">
@@ -755,10 +754,10 @@ window.addEventListener("appinstalled", handleInstalled);
         Navigation scope
       </h2>
       <p>
-        A <dfn>navigation scope</dfn> is a [[!WHATWG-URL]] that represents the
-        set of URLs to which an <a>application context</a> can be navigated
-        while the manifest is <a>applied</a>. To determine if a URL is within
-        the <a>navigation scope</a>, the user agent MUST run the <a>within
+        A <dfn>navigation scope</dfn> is a [[!URL]] that represents the set of
+        URLs to which an <a>application context</a> can be navigated while the
+        manifest is <a>applied</a>. To determine if a URL is within the
+        <a>navigation scope</a>, the user agent MUST run the <a>within
         scope</a> algorithm.
       </p>
       <p>
@@ -775,12 +774,10 @@ window.addEventListener("appinstalled", handleInstalled);
         input. If <var>target</var> is failure, return <code>false</code>.
         </li>
         <li>Let <var>scopePath</var> be the elements of <var>scopes</var>'s
-        <a data-cite="!WHATWG-URL#concept-url-path">path</a>, separated by
-        U+002F (/).
+        <a data-cite="!URL#concept-url-path">path</a>, separated by U+002F (/).
         </li>
         <li>Let <var>targetPath</var> be the elements of <var>target</var>'s
-        <a data-cite="!WHATWG-URL#concept-url-path">path</a>, separated by
-        U+002F (/).
+        <a data-cite="!URL#concept-url-path">path</a>, separated by U+002F (/).
         </li>
         <li>If <var>target</var> is <a>same origin</a> as <var>scope</var> and
         <var>targetPath</var> starts with <var>scopePath</var>, return
@@ -1312,7 +1309,7 @@ if (standalone.matches) {
           </li>
           <li>Let <var>text</var> be the result of <a>UTF-8 decoding</a> <var>
             response</var>'s <a data-cite=
-            "fetch#concept-request-body">body</a>.
+            "!FETCH#concept-request-body">body</a>.
           </li>
           <li>Let <var>manifest</var> be the result of running the <a>steps for
           processing a manifest</a> with <var>text</var>, <var>manifest
@@ -1593,7 +1590,7 @@ Content-Type: application/manifest+json
       </p>
       <p>
         Every manifest has an associated <dfn>manifest URL</dfn>, which is the
-        [[!WHATWG-URL]] from which the <a>manifest</a> was fetched.
+        [[!URL]] from which the <a>manifest</a> was fetched.
       </p>
       <section>
         <h3>
@@ -3079,42 +3076,42 @@ Content-Security-Policy: img-src icons.example.com
         </ol>
       </section>
     </section>
-      <section>
-        <h3>
-          <code title="">iarc_rating_id</code> member
-        </h3>
+    <section>
+      <h3>
+        <code title="">iarc_rating_id</code> member
+      </h3>
+      <p>
+        The <dfn id="member-iarc_rating_id"><code>iarc_rating_id</code>
+        member</dfn> is a <a>string</a> that represents an ID value of the IARC
+        rating of the web application. It is intended to be used to determine
+        which ages the web application is appropriate for.
+      </p>
+      <p>
+        The <dfn>steps for processing the <code>iarc_rating_id</code>
+        member</dfn> is given by the following algorithm. The algorithm takes a
+        <var>manifest</var> as an argument. This algorithm returns a string or
+        <code>undefined</code>.
+      </p>
+      <ol>
+        <li>Let <var>value</var> be the result of calling the
+        <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var> with
+        argument "<code>iarc_rating_id</code>".
+        </li>
+        <li>If <a>Type</a>(<var>value</var>) is not "string":
+          <ol>
+            <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue a
+            developer warning</a> that the type is not supported.
+            </li>
+            <li>Return <code>undefined</code>.
+            </li>
+          </ol>
+        </li>
+        <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+        </li>
+      </ol>
+      <div class="informative">
         <p>
-          The <dfn id="member-iarc_rating_id"><code>iarc_rating_id</code> member</dfn>
-          is a <a>string</a> that represents an ID value of the IARC rating of the 
-          web application. It is intended to be used to determine which ages 
-          the web application is appropriate for.
-        </p>
-        <p>
-          The <dfn>steps for processing the <code>iarc_rating_id</code>
-          member</dfn> is given by the following algorithm. The algorithm takes
-          a <var>manifest</var> as an argument. This algorithm returns a string
-          or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>iarc_rating_id</code>".
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
-          </li>
-        </ol>
-        <div class="informative">
-        <p>
-          The following shows a very simple <a>manifest</a> with the 
+          The following shows a very simple <a>manifest</a> with the
           <code>iarc_rating_id</code> member.
         </p>
         <pre class="example json" title="very simple manifest">
@@ -3128,17 +3125,16 @@ Content-Security-Policy: img-src icons.example.com
           }]
         }
         </pre>
-        </div>
-
-        <p>
-          More information on the <a href="https://www.globalratings.com/">
-          International Age Rating Coalition (IARC)</a> can be found at: 
-          <a href="https://www.globalratings.com/how-iarc-works.aspx">
-          https://www.globalratings.com/how-iarc-works.aspx<a/> and 
-          <a href="https://www.globalratings.com/for-developers.aspx">
-          https://www.globalratings.com/for-developers.aspx</a>.
-        </p>
-      </section>
+      </div>
+      <p>
+        More information on the <a href=
+        "https://www.globalratings.com/">International Age Rating Coalition
+        (IARC)</a> can be found at: <a href=
+        "https://www.globalratings.com/how-iarc-works.aspx">How IARC Works</a>
+        and <a href="https://www.globalratings.com/for-developers.aspx">How
+        developers can get their games and apps rated with IARC</a>.
+      </p>
+    </section>
     <section>
       <h2>
         Multi-purpose members
@@ -3674,7 +3670,7 @@ Content-Security-Policy: img-src icons.example.com
         "https://url.spec.whatwg.org/#concept-url">URL</a></dfn> concept and
         <dfn data-lt="parse|parsing|URL parsing"><a href=
         "https://url.spec.whatwg.org/#concept-url-parser">URL parser</a></dfn>
-        are defined in [[!WHATWG-URL]].
+        are defined in [[!URL]].
       </p>
       <p>
         The <a href=
@@ -3740,7 +3736,7 @@ Content-Security-Policy: img-src icons.example.com
         </li>
       </ul>
       <p>
-        The following are defined in [[!WHATWG-DOM]]:
+        The following are defined in [[!DOM]]:
       </p>
       <ul>
         <li>
@@ -3758,25 +3754,20 @@ Content-Security-Policy: img-src icons.example.com
       </p>
       <ul>
         <li>
-          <a href=
-          "https://fetch.spec.whatwg.org/#concept-fetch"><dfn>Fetch</dfn></a>.
+          <a data-cite="!fetch#concept-fetch"><dfn>Fetch</dfn></a>.
         </li>
         <li>
-          <a href=
-          "https://fetch.spec.whatwg.org/#concept-response"><dfn>Response</dfn></a>.
+          <a data-cite="!fetch#concept-response"><dfn>Response</dfn></a>.
         </li>
         <li>
-          <a href=
-          "https://fetch.spec.whatwg.org/#concept-request"><dfn>Request</dfn></a>.
+          <a data-cite="!fetch#concept-request"><dfn>Request</dfn></a>.
         </li>
         <li>
-          <a href=
-          "https://fetch.spec.whatwg.org/#concept-network-error"><dfn>Network
+          <a data-cite="!fetch#concept-network-error"><dfn>Network
           error</dfn></a>.
         </li>
         <li>
-          <a href=
-          "https://fetch.spec.whatwg.org/#concept-request-context"><dfn>Context</dfn></a>
+          <a data-cite="!fetch#concept-request-context"><dfn>Context</dfn></a>
         </li>
       </ul>
       <p>
@@ -3980,8 +3971,8 @@ Content-Security-Policy: img-src icons.example.com
       </p>
       <ul>
         <li>
-          <dfn data-cite="encoding#utf-8-decode" data-lt="utf-8 decoding">UTF-8
-          decode</dfn>
+          <dfn data-cite="!ENCODING#utf-8-decode" data-lt=
+          "utf-8 decoding">UTF-8 decode</dfn>
         </li>
       </ul>
     </section>
@@ -4088,8 +4079,8 @@ Content-Security-Policy: img-src icons.example.com
             <p>
               As this specification allows for the declaration of URLs within
               certain members of a manifest, implementors need to consider the
-              security considerations discussed in the [[!WHATWG-URL]]
-              specification. Implementations intending to display <abbr title=
+              security considerations discussed in the [[!URL]] specification.
+              Implementations intending to display <abbr title=
               "Internationalized Resource Identifiers">IRIs</abbr> and
               <abbr title="Internationalized domain name">IDNA</abbr> addresses
               found in the manifest are strongly encouraged to follow the
