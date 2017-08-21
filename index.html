@@ -1522,9 +1522,9 @@ Content-Type: application/manifest+json
           <code>background_color</code> member</a> with <var>manifest</var> as
           argument.
           </li>
-          <li>Let <var>category</var> of <var>parsed manifest</var> be
+          <li>Let <var>categories</var> of <var>parsed manifest</var> be
           the result of running the <a>steps for processing the
-          <code>category</code> member</a> with <var>manifest</var> as
+          <code>categories</code> member</a> with <var>manifest</var> as
           argument.
           </li>
           <li>Let <var>iarc_rating_id</var> of <var>parsed manifest</var> be
@@ -2617,61 +2617,75 @@ Content-Type: application/manifest+json
       </section>
       <section>
         <h3>
-          <code title="">category</code> member
+          <code title="">categories</code> member
         </h3>
         <p>
-          The <dfn id="member-category"><code>category</code>
-          member</dfn> describes the expected application category (or 
-          categories) to which the web application belongs. This is a hint 
-          to catalogs or stores of web applications under which category 
-          (or categories) to list this web application.
+          The <dfn id="member-categories"><code>categories</code>
+          member</dfn> describes the expected application categories (or 
+          single category) to which the web application belongs. This is a hint 
+          to catalogs or stores of web applications under which categories 
+          (or category) to list this web application.
         </p>
         <p>
-          The <code>category</code> member is only meant as a hint to catalogs 
+          The <code>categories</code> member is only meant as a hint to catalogs 
           or stores listing web applications and it is expected that these 
-          will make a best effort to find an appropriate category under which 
-          to list the web application.
+          will make a best effort to find appropriate categories (or category)
+          under which to list the web application.
         </p>
         <p>
-          The <dfn>steps for processing the <code>category</code>
+          The <dfn>steps for processing the <code>categories</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <var>manifest</var> as an argument. This algorithm returns a
-          string or <code>undefined</code>. The string MAY include a comma 
-          delimited list of categories.
+          takes a <var>manifest</var> as an argument. This algorithm returns an
+          array of strings or <code>undefined</code>. The array of strings MAY 
+          include only one value.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>category</code>".
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
+          <li>Let <var>categories</var> be an empty list.</li>
+          <li>Let <var>unprocessed categories</var> be the result of calling
+          the <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>categories</code>".</li>
+          <li>If <var>unprocessed categories</var>is an array, then:</li>
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
+              <li>For each <var>potential category</var> in the array:</li>
+                <ol>
+                  <li>
+                    <a>Trim</a>(<var>value</var>) and convert 
+                    <a>to ASCII lowercase</a>
+                  </li>
+                  <li>
+                    Append <var>potential category</var> to 
+                    <var>categories</var>
+                  </li>
+                </ol>
+            </ol>
+          <li>
+            Otherwise, if <var>unprocessed categories</var> is not 
+            <code>undefined</code>
+          </li>
+            <ol>
+              <li>
+                <a>Issue a developer warning</a> that the type is not 
+                supported.
               </li>
             </ol>
-          </li>
-          <li><a>Trim</a>(<var>value</var>) and convert <a>to ASCII lowercase</a></li>
-          <li>Return <var>category</var>.
-          </li>
+          <li>Return <var>categories</var></li>
         </ol>
         <p>
-          The category string is case insensitive and converted to lower-case 
-          by following the processing algorithm. Thus, <code>sports</code>, 
-          <code>Sports</code>, <code>SPORTS</code>, and <code>SpOrTs</code> 
-          are all equivalent. Manifest authors SHOULD use lower-case.
+          The categories string array is case insensitive and converted 
+          to lower-case by following the processing algorithm. Thus, 
+          <code>sports</code>, <code>Sports</code>, <code>SPORTS</code>, 
+          and <code>SpOrTs</code> are all equivalent. Manifest authors 
+          SHOULD use lower-case.
         </p>
         <p>
-          The category string is a hint to catalogs and stores were the 
-          Manifest author suggests their web app should be listed. 
-          This is hint or suggestion from the Manifest author. Like 
-          search engine keywords, catalogs and stores are not required 
-          to honor this hint.</p>
+          The categories string array is a hint to catalogs and stores 
+          of where the Manifest author suggests their web app should be 
+          listed. This is hint or suggestion from the Manifest author. 
+          Like search engine keywords, catalogs and stores are not 
+          required to honor this hint.</p>
         <p>
-          If a category string has multiple comma delimited values, a 
-          consuming system MAY use one or more of these values.  
+          If a categories string array has multiple values, a consuming 
+          system MAY use one or more of these values.  
         </p>
         <p>
           Manifest authors SHOULD use the below common categories:
@@ -2682,10 +2696,11 @@ Content-Type: application/manifest+json
           <li>education</li>
           <li>entertainment</li>
           <li>finance</li>
+          <li>fitness</li>
           <li>food</li>
           <li>games</li>
-          <li>government & politics</li>
-          <li>health & fitness</li>
+          <li>government</li>
+          <li>health</li>
           <li>kids</li>
           <li>lifestyle</li>
           <li>magazines</li>
@@ -2695,6 +2710,7 @@ Content-Type: application/manifest+json
           <li>news</li>
           <li>personalization</li>
           <li>photo</li>
+          <li>politics</li
           <li>productivity</li>
           <li>security</li>
           <li>shopping</li>
