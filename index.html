@@ -2628,7 +2628,8 @@ Content-Type: application/manifest+json
           The <code>categories</code> member is only meant as a hint to catalogs 
           or stores listing web applications and it is expected that these 
           will make a best effort to find appropriate categories (or category)
-          under which to list the web application.
+          under which to list the web application. Like search engines and 
+          meta keywords, catalogs and stores are not required to honor this hint.
         </p>
         <p>
           The <dfn>steps for processing the <code>categories</code>
@@ -2673,18 +2674,8 @@ Content-Type: application/manifest+json
           The categories string array is case insensitive and converted 
           to lower-case by following the processing algorithm. Thus, 
           <code>sports</code>, <code>Sports</code>, <code>SPORTS</code>, 
-          and <code>SpOrTs</code> are all equivalent. Manifest authors 
-          SHOULD use lower-case.
-        </p>
-        <p>
-          The categories string array is a hint to catalogs and stores 
-          of where the Manifest author suggests their web app should be 
-          listed. This is hint or suggestion from the Manifest author. 
-          Like search engine keywords, catalogs and stores are not 
-          required to honor this hint.</p>
-        <p>
-          If a categories string array has multiple values, a consuming 
-          system MAY use one or more of these values.  
+          and <code>SpOrTs</code> are all equivalent.<br />
+          NOTE: Manifest authors are encouraged to use lower-case.
         </p>
         <p>
           Manifest authors SHOULD use the below common categories:
