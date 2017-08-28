@@ -1518,6 +1518,11 @@
           <code>background_color</code> member</a> with <var>manifest</var> as
           argument.
           </li>
+          <li>Let <var>categories</var> of <var>parsed manifest</var> be
+          the result of running the <a>steps for processing the
+          <code>categories</code> member</a> with <var>manifest</var> as
+          argument.
+          </li>
           <li>Let <var>iarc_rating_id</var> of <var>parsed manifest</var> be
           the result of running the <a>steps for processing the
           <code>iarc_rating_id</code> member</a> with <var>manifest</var> as
@@ -2605,6 +2610,78 @@
           <li>Return <var>color</var>.
           </li>
         </ol>
+      </section>
+      <section>
+        <h3>
+          <code title="">categories</code> member
+        </h3>
+        <p>
+          The <dfn id="member-categories"><code>categories</code>
+          member</dfn> describes the expected application categories to 
+          which the web application belongs. 
+        </p>
+        <p>
+          The <code>categories</code> member is only meant as a hint to catalogs 
+          or stores listing web applications and it is expected that these 
+          will make a best effort to find appropriate categories (or category)
+          under which to list the web application. Like search engines and 
+          meta keywords, catalogs and stores are not required to honor this hint.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>categories</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes a <var>manifest</var> as an argument. This algorithm returns an
+          array of strings or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>categories</var> be an empty list.</li>
+          <li>Let <var>unprocessed categories</var> be the result of calling
+          the <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
+          with argument "<code>categories</code>".</li>
+          <li>If <var>unprocessed categories</var>is an array, then:
+            <ol>
+              <li>For each <var>potential category</var> in the array:
+                <ol>
+                  <li>
+                    <a>Trim</a>(<var>value</var>) and convert 
+                    <a>to ASCII lowercase</a>
+                  </li>
+                  <li>
+                    Append <var>potential category</var> to 
+                    <var>categories</var>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>
+            Otherwise, if <var>unprocessed categories</var> is not 
+            <code>undefined</code>
+            <ol>
+              <li>
+                <a>Issue a developer warning</a> that the type is not 
+                supported.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>categories</var></li>
+        </ol>
+        <p>
+          The categories string array is case insensitive and converted 
+          to lower-case by following the processing algorithm. Thus, 
+          <code>sports</code>, <code>Sports</code>, <code>SPORTS</code>, 
+          and <code>SpOrTs</code> are all equivalent.
+        </p>
+        <p class="note">
+          Manifest authors are encouraged to use lower-case.
+        </p>
+        <p class="note">
+          This specification does not define the particular values for a the
+          <a><code>categories</code> member</a>. However, the working group
+          maintains a <a href=
+          "https://github.com/w3c/manifest/wiki/Categories">list of known
+          category values</a> in our wiki.
+        </p>
       </section>
       <section>
         <h3>
