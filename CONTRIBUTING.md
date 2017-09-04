@@ -6,12 +6,11 @@ Any simple editorial contribution can simply be done with a GitHub Pull Request.
 You can even do an inline edit of the file on GitHub.
 
 For more substantial contributions that, please first start a thread in the
-[webapps mailing list](http://lists.w3.org/Archives/Public/public-webapps/)  at
-the W3C.
+[webapps mailing list](https://lists.w3.org/Archives/Public/public-webapps/) at the W3C.
 
 Note: Contributions to this repository are intended to become part of Recommendation-track documents governed by the
-[W3C Patent Policy](http://www.w3.org/Consortium/Patent-Policy-20040205/) and
-[Software and Document License](http://www.w3.org/Consortium/Legal/copyright-software). To make substantive contributions to specifications, you must either participate
+[W3C Patent Policy](https://www.w3.org/Consortium/Patent-Policy-20040205/) and
+[Software and Document License](https://www.w3.org/Consortium/Legal/copyright-software). To make substantive contributions to specifications, you must either participate
 in the relevant W3C Working Group or make a non-member patent licensing commitment.
 
 If you are not the sole contributor to a contribution (pull request), please identify all 
@@ -37,15 +36,15 @@ feature, you can remove yourself with the above syntax.
 
 - the spec uses [ReSpec](https://www.w3.org/respec/) 
 - the spec is tidied using [HTML5 Tidy](https://github.com/w3c/tidy-html5). For
-instructions on running HTML5 tidy, see below.  
+instructions on running HTML5 tidy, see below.
 - put comments in front of sections, for better readability with
-  syntax coloring   editors
+  syntax coloring editors.
 
 
 # Running HTML5 Tidy
 
 Please make sure you have HTML5 tidy installed, instead of
-the the one that  ships with *nix systems. You can comfirm this by running:
+the the one that ships with *nix systems. You can comfirm this by running:
 
 ```bash 
 tidy --version  #HTML Tidy for HTML5 (experimental) for ...
