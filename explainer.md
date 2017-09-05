@@ -123,7 +123,7 @@ If you omit the icons, the browser just falls back to looking for `<link rel="ic
 
 TBW.
 
-More information about purpose can be found in the [Web App Manifest spec](http://www.w3.org/TR/appmanifest/#purpose-member).
+More information about purpose can be found in the [Web App Manifest spec](https://www.w3.org/TR/appmanifest/#purpose-member).
 
 ## Display modes and orientation
 Apps need to be able to control how they are to be displayed when they starts-up. If it’s a game, it might need to be in full-screen and possibly in landscape mode. In order to do this, the manifest format provides you with two properties.
@@ -235,4 +235,4 @@ This is further described in the [robots.txt](http://www.robotstxt.org/) protoco
 A web app developer could also use the `X-Robots-Tag` HTTP header.
 
 ## Attribution
-The bulk of this explainer originally appeared in [HTML5 Doctor](http://html5doctor.com/) as "[The W3C App Manifest specification](http://html5doctor.com/web-manifest-specification/)", and was written by [Marcos Cáceres](https://github.com/marcoscaceres) and [Bruce Lawson](http://www.brucelawson.co.uk). This derivative work is allowed by the [Creative Commons Attribution-Non-Commercial 2.0](http://creativecommons.org/licenses/by-nc/2.0/uk/) license of the original document. Thus, feel free to change, reuse, modify, and extend this explainer. Some authors will retain their copyright on certain articles.
+The bulk of this explainer originally appeared in [HTML5 Doctor](http://html5doctor.com/) as "[The W3C App Manifest specification](http://html5doctor.com/web-manifest-specification/)", and was written by [Marcos Cáceres](https://github.com/marcoscaceres) and [Bruce Lawson](https://www.brucelawson.co.uk/). This derivative work is allowed by the [Creative Commons Attribution-Non-Commercial 2.0](https://creativecommons.org/licenses/by-nc/2.0/uk/) license of the original document. Thus, feel free to change, reuse, modify, and extend this explainer. Some authors will retain their copyright on certain articles.
