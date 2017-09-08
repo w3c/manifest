@@ -226,9 +226,9 @@
       </h2>
       <p>
         A common use case of a manifest is for a user agent to <dfn data-lt=
-        "installing|installed|installation">install</dfn> a web application;
-        whereby the user agent provides the end-user with a means of
-        instantiating a new <a>top-level browsing context</a> that has the
+        "installing|installed|installation" data-export="">install</dfn> a web
+        application; whereby the user agent provides the end-user with a means
+        of instantiating a new <a>top-level browsing context</a> that has the
         manifest's members <a>applied</a> to it. That is, the manifest's
         members, or their defaults, are in effect on the <a>top-level browsing
         context</a>. This distinguishes an installed web application from a
@@ -566,7 +566,7 @@
           historical reasons.
         </div>
         <pre class="idl">
-          [Constructor]
+          [Constructor, Exposed=Window]
           interface BeforeInstallPromptEvent : Event {
               Promise&lt;PromptResponseObject&gt; prompt();
           };
