@@ -1380,7 +1380,7 @@
           </div>
         </section>
       </section>
-      <section id="processing">
+      <section id="processing" data-link-for="WebAppManifest">
         <h3>
           Processing the manifest
         </h3>
@@ -1416,10 +1416,13 @@
           inputting an JSON document into this algorithm is a <dfn>processed
           manifest</dfn>.
         </p>
+        <p class="issue">
+          We need to catch throws associated with enumerations in IDL
+          conversion as the spec might gain new values over time not supported
+          by all exising browsers.
+        </p>
         <ol>
-          <li>Let <var>parsed manifest</var> be an empty object.
-          </li>
-          <li>Let <var>manifest</var> be the result of <a data-cite=
+          <li>Let <var>json</var> be the result of <a data-cite=
           "!ECMASCRIPT#sec-json.parse">parsing</a> <var>text</var>. If
           <a data-cite="!ECMASCRIPT#sec-json.parse">parsing</a> throws an
           error:
@@ -1428,19 +1431,19 @@
                 <a>Issue a developer warning</a> with any details pertaining to
                 the JSON parsing error.
               </li>
-              <li>Set <var>manifest</var> to be the result of <a data-cite=
+              <li>Set <var>json</var> to be the result of <a data-cite=
               "!ECMASCRIPT#sec-15.12.2">parsing</a> the string
               <code>"{}"</code>.
               </li>
             </ol>
           </li>
-          <li>If <a>Type</a>(<var>manifest</var>) is not "object":
+          <li>If <a>Type</a>(<var>json</var>) is not <code>Object</code>:
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the manifest needs to be
                 an object.
               </li>
-              <li>Set <var>manifest</var> to be the result of <a data-cite=
+              <li>Set <var>json</var> to be the result of <a data-cite=
               "!ECMASCRIPT#sec-15.12.2">parsing</a> the string
               <code>"{}"</code>.
               </li>
@@ -1450,95 +1453,60 @@
             <a>Extension point</a>: process any proprietary and/or other
             supported members at this point in the algorithm.
           </li>
-          <li>Let the <var>default direction</var> of <var>parsed
-          manifest</var> be the result of running the <a>steps for processing
-          the <code>dir</code> member</a> with <var>manifest</var> as the
-          argument.
+          <li>Let <a>WebAppManifest</a> <var>manifest</var> be the result of
+          converting <var>json</var> <a>to IDL dictionary value</a>.
           </li>
-          <li>Let <var>start URL</var> of <var>parsed manifest</var> be the
-          result of running the <a>steps for processing the
-          <code>start_url</code> member</a> with <var>manifest</var>,
-          <var>manifest URL,</var> and <var>document URL</var> as arguments.
+          <li>Let <var>manifest["<a>start_url</a>"]</var> be the result of
+          running the <a>steps for post-processing the <code>start_url</code>
+          member</a> with <var>manifest</var>, <var>manifest URL,</var> and
+          <var>document URL</var> as arguments.
           </li>
-          <li>Let <var>service worker registration</var> of <var>parsed
-          manifest</var> be the result of running the <a>steps for processing
-          the <code>serviceworker</code> member</a> with <var>manifest</var>,
-          <var>manifest URL</var>, and <var>serviceworker</var> as arguments.
-          </li>
-          <li>Let <var>display mode</var> of <var>parsed manifest</var> be the
-          result of running the <a>steps for processing the
-          <code>display</code> member</a> with <var>manifest</var> as the
-          argument.
-          </li>
-          <li>Let <var>orientation</var> of <var>parsed manifest</var> be the
-          result of running the <a>steps for processing the
-          <code>orientation</code> member</a> with <var>manifest</var> and
-          <var>display mode</var> as arguments.
-          </li>
-          <li>Let <var>name</var> of <var>parsed manifest</var> be the result
-          of running the <a>steps for processing the <code>name</code>
+          <li>Let <var>manifest["<a>display</a>"]</var> be the result of
+          running the <a>steps for post-processing the <code>display</code>
           member</a> with <var>manifest</var> as the argument.
           </li>
-          <li>Let <var>description</var> of <var>parsed manifest</var> be the
-          result of running the <a>steps for processing the
-          <code>description</code> member</a> with <var>manifest</var> as the
-          argument.
+          <li>Let <var>manifest["<a>lang</a>"]</var> be the result of running
+          the <a>steps for post-processing the <code>lang</code> member</a>
+          with <var>manifest</var> as the argument.
           </li>
-          <li>Let <var>language</var> of <var>parsed manifest</var> be the
-          result of running the <a>steps for processing the <code>lang</code>
-          member</a> with <var>manifest</var> as the argument.
+          <li>Let <var>manifest["<a>scope</a>"]</var> be the result of running
+          the <a>steps for post-processing the <code>scope</code> member</a>
+          with <var>manifest</var>, <var>manifest URL</var>, <var>document
+          URL</var>, <var>start URL</var> as arguments.
           </li>
-          <li>Let <var>short name</var> of <var>parsed manifest</var> be the
-          result of running the <a>steps for processing the
-          <code>short_name</code> member</a> with <var>manifest</var> as the
-          argument.
+          <li>Let <var>manifest["<a>theme_color</a>"]</var> be the result of
+          running the <a>steps for post-processing the <code>theme_color</code>
+          member</a> with <var>manifest</var> as argument.
           </li>
-          <li>Let <var>icons</var> of <var>parsed manifest</var> be the result
-          of running the <a>steps for processing an array of image
-          resources</a> with <var>manifest</var>, <var>manifest URL</var>, and
-          "icons" as arguments.
-          </li>
-          <li>Let <var>scope</var> of <var>parsed manifest</var> be the result
-          of running the <a>steps for processing the <code>scope</code>
-          member</a> with <var>manifest</var>, <var>manifest URL</var>,
-          <var>document URL</var>, <var>start URL</var> as arguments.
-          </li>
-          <li>Let <var>related applications</var> of <var>parsed manifest</var>
-          be the result of running the <a>steps for processing the
-          <code>related_applications</code> member</a> with <var>manifest</var>
-          as argument.
-          </li>
-          <li>Let <var>prefer related applications</var> of <var>parsed
-          manifest</var> be the result of running the <a>steps for processing
-          the <code>prefer_related_applications</code> member</a> with
-          <var>manifest</var> as argument.
-          </li>
-          <li>Let <var>theme color</var> of <var>parsed manifest</var> be the
-          result of running the <a>steps for processing the
-          <code>theme_color</code> member</a> with <var>manifest</var> as
-          argument.
-          </li>
-          <li>Let <var>background_color</var> of <var>parsed manifest</var> be
-          the result of running the <a>steps for processing the
+          <li>Let <var>manifest["<a>background_color</a>"]</var> be the result
+          of running the <a>steps for post-processing the
           <code>background_color</code> member</a> with <var>manifest</var> as
           argument.
           </li>
-          <li>Let <var>categories</var> of <var>parsed manifest</var> be the
+          <li>Let <var>manifest["<a>categories</a>"]</var> be the result of
+          running the <a>steps for post-processing the <code>categories</code>
+          member</a> with <var>manifest</var> as argument.
+          </li>
+          <li>Let <var>manifest["<a>icons</a>"]</var> be the result of running
+          the <a>steps for post-processing ImageResource members</a> with <var>
+            manifest</var>, <var>manifest URL</var>, and "icons" as arguments.
+          </li>
+          <li>Let <var>manifest["<a>screenshots</a>"]</var> be the result of
+          running the <a>steps for post-processing ImageResource members</a>
+          with <var>manifest</var>, <var>manifest URL</var>, and "screenshots"
+          as arguments.
+          </li>
+          <li>Let <var>manifest["<a>related_applications</a>"]</var> be the
           result of running the <a>steps for processing the
-          <code>categories</code> member</a> with <var>manifest</var> as
-          argument.
+          <code>related_applications</code> member</a> with <var>manifest</var>
+          as argument.
           </li>
-          <li>Let <var>iarc_rating_id</var> of <var>parsed manifest</var> be
-          the result of running the <a>steps for processing the
-          <code>iarc_rating_id</code> member</a> with <var>manifest</var> as
-          argument.
+          <li>Let <var>manifest["<a>serviceworker</a>"]</var> be the result of
+          running the <a>steps for processing the <code>serviceworker</code>
+          member</a> with <var>manifest</var>, <var>manifest URL</var>, and
+          <var>serviceworker</var> as arguments.
           </li>
-          <li>Let <var>screenshots</var> of <var>parsed manifest</var> be the
-          result of running the <a>steps for processing an array of image
-          resources</a> with <var>manifest</var>, <var>manifest URL</var>, and
-          "screenshots" as arguments.
-          </li>
-          <li>Return <var>parsed manifest</var>.
+          <li>Return <var>manifest</var>.
           </li>
         </ol>
       </section>
@@ -1599,7 +1567,7 @@
              USVString? description;
              sequence&lt;ImageResource&gt;? icons;
              sequence&lt;ImageResource&gt;? screenshots;
-             sequence&lt;CategoryType&gt;? categories;
+             sequence&lt;USVString&gt;? categories;
              DOMString? iarc_rating_id;
              USVString? start_url;
              DisplayModeType? display;
@@ -1698,47 +1666,9 @@
           [[!BIDI]].
           </li>
           <li>If such a character is found and it is of bidirectional character
-          type AL or R, return "rtl".
+          type AL or R, return <code>"rtl"</code>.
           </li>
-          <li>Otherwise, return "ltr".
-          </li>
-        </ol>
-        <p>
-          The <dfn>steps for processing the <code>dir</code> member</dfn> is
-          given by the following algorithm. The algorithm takes a
-          <var>manifest</var> as an argument. This algorithm returns one of the
-          <a>text-direction values</a>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>dir</code>".
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>If <a>Type</a>(<var>value</var>) is "undefined", return
-              "auto".
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>), convert to lower-case,
-          and let <var>direction</var> be the result.
-          </li>
-          <li>If <var>direction</var> not one one the <a>text-direction
-          values</a>, then:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a> that the <var>value</var> is
-                invalid.
-              </li>
-              <li>Return "auto".
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>direction</var>.
+          <li>Otherwise, return <code>"ltr"</code>.
           </li>
         </ol>
       </section>
@@ -1768,42 +1698,34 @@
           structurally valid.
         </p>
         <p>
-          The <dfn>steps for processing the <code>lang</code> member</dfn> is
-          given by the following algorithm. The algorithm takes a
-          <var>manifest</var> as an argument. This algorithm returns a string
-          or <code>undefined</code>.
+          The <dfn>steps for post-processing the <code>lang</code> member</dfn>
+          is given by the following algorithm. The algorithm takes a
+          <a>WebAppManifest</a> <var>manifest</var> as an argument. This
+          algorithm returns a <code>DOMString?</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>lang</code>".
+          <li>Let <var>V</var> be <var>manifest.lang</var>.
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
+          <li>If <a>Type</a>(<var>V</var>) is <code>String</code>:
             <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
+              <li>If calling <a>IsStructurallyValidLanguageTag</a> with
+              <var>V</var> as the argument returns <code>false</code>, then:
+                <ol>
+                  <li>
+                    <a>Issue a developer warning</a> that the <var>V</var> is
+                    invalid.
+                  </li>
+                  <li>Return <code>null</code>.
+                  </li>
+                </ol>
               </li>
-              <li>Return <code>undefined</code>.
+              <li>Otherwise, return the result of calling the
+              <a>CanonicalizeLanguageTag</a> abstract operation, passing <var>
+                V</var> as the argument.
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and let <var>tag</var>
-          be the result.
-          </li>
-          <li>If calling <a>IsStructurallyValidLanguageTag</a> with
-          <var>tag</var> as the argument returns <code>false</code>, then:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a> that the <var>value</var> is
-                invalid.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, return the result of calling the
-          <a>CanonicalizeLanguageTag</a> abstract operation, passing
-          <var>tag</var> as the argument.
+          <li>Return <code>null</code>
           </li>
         </ol>
       </section>
@@ -1817,29 +1739,6 @@
           (e.g., amongst a list of other applications, or as a label for an
           icon).
         </p>
-        <p>
-          The <dfn>steps for processing the <code>name</code> member</dfn> is
-          given by the following algorithm. The algorithm takes a
-          <var>manifest</var> as an argument. This algorithm returns a string
-          or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>name</code>".
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
-          </li>
-        </ol>
       </section>
       <section>
         <h3>
@@ -1851,29 +1750,6 @@
           be used where there is insufficient space to display the full name of
           the web application.
         </p>
-        <p>
-          The <dfn>steps for processing the <code>short_name</code>
-          member</dfn> is given by the following algorithm. The algorithm takes
-          a <var>manifest</var> as an argument. This algorithm returns a string
-          or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>short_name</code>".
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
-          </li>
-        </ol>
       </section>
       <section>
         <h3>
@@ -1883,29 +1759,6 @@
           The <dfn>description</dfn> member allows the developer to describe
           the purpose of the web application.
         </p>
-        <p>
-          The <dfn>steps for processing the <code>description</code>
-          member</dfn> is given by the following algorithm. The algorithm takes
-          a <var>manifest</var> as an argument. This algorithm returns a string
-          or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>description</code>".
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
-          </li>
-        </ol>
       </section>
       <section>
         <h3>
@@ -1918,40 +1771,31 @@
           context</a>.
         </p>
         <p>
-          The <dfn>steps for processing the <code>scope</code> member</dfn> is
-          given by the following algorithm. The algorithm takes a
-          <a>manifest</a> <var>manifest</var>, a <a>URL</a> <var>manifest
-          URL</var>, a <a>URL</a> <var>document URL</var>, and a URL <var>start
-          URL</var> . This algorithm returns a <a>URL</a> or
-          <code>undefined</code>.
+          The <dfn>steps for post-processing the <code>scope</code>
+          member</dfn> is given by the following algorithm. The algorithm takes
+          a <a>WebAppManifest</a> <var>manifest</var>, a <a>URL</a>
+          <var>manifest URL</var>, a <a>URL</a> <var>document URL</var>, and a
+          URL <var>start URL</var> . This algorithm returns a <a>URL</a> or
+          <code>null</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of the <var>manifest</var>
-          with argument "<code>scope</code>".
+          <li>Let <var>V</var> be <var>manifest.scope</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>Let <var>type</var> be <a>Type</a>(<var>V</var>).
           </li>
-          <li>If <var>type</var> is not "string" or <var>value</var> is the
-          empty string, then:
-            <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
-              a developer warning</a> that the type is unsupported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
+          <li>If <var>type</var> is not <code>String</code> or <var>V</var> is
+          the empty string, then return <code>null</code>.
           </li>
-          <li>Let <var>scope URL</var> be a new <a>URL</a> using
-          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
-          the <var>base</var> URL.
+          <li>Let <var>scope URL</var> be a new <a>URL</a> using <var>V</var>
+          as <var>input</var> and <var>manifest URL</var> as the
+          <var>base</var> URL.
           </li>
           <li>If <var>scope URL</var> is failure:
             <ul>
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return <code>undefined</code>.
+              <li>Return <code>null</code>.
               </li>
             </ul>
           </li>
@@ -1966,7 +1810,7 @@
                 same-origin</a> as <code>Document</code> of the <a>application
                 context</a>.
               </li>
-              <li>Return <code>undefined</code>.
+              <li>Return <code>null</code>.
               </li>
             </ol>
           </li>
@@ -1976,7 +1820,7 @@
                 <a>Issue a developer warning</a> that the start URL is not
                 <a>within scope</a> of the navigation scope.
               </li>
-              <li>Return <code>undefined</code>.
+              <li>Return <code>null</code>.
               </li>
             </ol>
           </li>
@@ -1996,10 +1840,6 @@
           or to integrate the web application with an <abbr title=
           "operating system">OS</abbr>'s task switcher and/or system
           preferences.
-        </p>
-        <p class="note">
-          The <a>icons</a> member is processed using the <a>steps for
-          processing an array of image resources</a>.
         </p>
         <p>
           If there are multiple equally appropriate icons in <var>icons</var>,
@@ -2075,38 +1915,18 @@
           <a>fallback display mode</a>.
         </p>
         <p>
-          The <dfn>steps for processing the <code>display</code> member</dfn>
-          are given by the following algorithm. The algorithm takes a manifest
-          <var>manifest</var> as an argument, and returns a string.
+          The <dfn>steps for post-processing the <code>display</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes a <a>WebAppManifest</a> <var>manifest</var> as an argument, and
+          returns a <a>DisplayModeType</a>.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          passing "<code>display</code>" as the argument.
+          <li>Let <var>V</var> be <var>manifest["display"]</var>.
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is unsupported.
-              </li>
-              <li>Return the <a>fallback display mode</a>'s value.
-              </li>
-            </ol>
+          <li>If <a>Type</a>(<var>V</var>) is <code>null</code> return the <a>
+            fallback display mode</a>'s value.
           </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>), convert to lower-case,
-          and set <var>value</var> to be the result.
-          </li>
-          <li>If <var>value</var> does not match one of the <a>display modes
-          values</a>:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a> that the value is unsupported.
-              </li>
-              <li>Return the <a>fallback display mode</a>'s value.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>value</var>.
+          <li>Return <var>V</var>.
           </li>
         </ol>
       </section>
@@ -2150,44 +1970,6 @@
           orientation of a <a>top-level browsing context</a> (such as via
           [[!SCREEN-ORIENTATION]] API).
         </p>
-        <p>
-          The <dfn>steps for processing the <code>orientation</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>manifest</a> <var>manifest</var> and <a>display mode</a>
-          <var>display mode</var> as an argument, and returns a string.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>orientation</code>".
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>), convert to lower-case,
-          and set <var>value</var> to be the result.
-          </li>
-          <li>If <var>value</var> is not one of the <a>OrientationLockType</a>
-          enum values, or <var>value</var> is unsupported by the user agent, or
-          the <var>value</var> <a>cannot be used together</a> with <var>display
-          mode:</var>
-            <ol>
-              <li>
-                <a>Issue a developer warning</a>.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>value</var>.
-          </li>
-        </ol>
       </section>
       <section>
         <h3>
@@ -2208,31 +1990,22 @@
           created or any time thereafter.
         </p>
         <p>
-          The <dfn>steps for processing the <code>start_url</code> member</dfn>
-          are given by the following algorithm. The algorithm takes a
-          <a>manifest</a> <var>manifest</var>, a <a>URL</a> <var>manifest
-          URL</var> , and a <a>URL</a> <var>document URL</var>. This algorithm
-          returns a <a>URL</a>.
+          The <dfn>steps for post-processing the <code>start_url</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes a <a>WebAppManifest</a> <var>manifest</var>, a <a>URL</a>
+          <var>manifest URL</var>, and a <a>URL</a> <var>document URL</var>.
+          This algorithm returns a <a>URL</a>.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of the <var>manifest</var>
-          with argument "<code>start_url</code>".
+          <li>Let <var>V</var> be <var>manifest["start_url"]</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>Let <var>type</var> be <a>Type</a>(<var>V</var>).
           </li>
-          <li>If <var>type</var> is not "string" or <var>value</var> is the
-          empty string:
-            <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
-              a developer warning</a> that the type is unsupported.
-              </li>
-              <li>Return a new <a>URL</a> whose <var>input</var> is
-              <var>document URL</var>.
-              </li>
-            </ol>
+          <li>If <var>type</var> is not <code>String</code> or <var>V</var> is
+          the empty string, return a new <a>URL</a> whose <var>input</var> is
+          <var>document URL</var>.
           </li>
-          <li>Let <var>url</var> be a new <a>URL</a> using <var>value</var> as
+          <li>Let <var>url</var> be a new <a>URL</a> using <var>V</var> as
           <var>input</var> and <var>manifest URL</var> as the <var>base</var>
           URL.
           </li>
@@ -2314,66 +2087,42 @@
         <p>
           The <dfn>steps for processing the <code>serviceworker</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>manifest</a> <var>manifest</var>. This algorithm returns a
-          <a>registration object</a> <var>registration</var>, which can be
-          <code>undefined</code>.
+          takes a <a>WebAppManifest</a> <var>manifest</var>. This algorithm
+          returns a <a>registration object</a> <var>registration'</var>, which
+          can be <code>null</code>.
         </p>
         <ol>
-          <li>Let <var>unprocessed registration</var> be the result of calling
-          the <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>serviceworker</code>".
+          <li>Let <var>registration</var> be
+          <var>manifest["serviceworker"]</var>.
+          </li>
+          <li>If <var>registration</var> is <code>null</code>, return
+          <code>null</code>.
           </li>
           <li>Let <var>src</var> be the result of running the <a>steps for
           processing the <code>src</code> member of a service worker</a> with
-          <var>unprocessed registration</var> and <var>manifest URL</var>.
+          <var>registration</var> and <var>manifest URL</var>.
           </li>
-          <li>If <var>src</var> is <code>undefined</code>, or if the result of
-          running <a>is origin potentially trustworthy</a> with the origin of
-          <var>src</var> is <code>Not Trusted</code>, <a>issue a developer
-          warning</a>, abort these steps and return <code>undefined</code>.
-          </li>
-          <li>Otherwise, let <var>registration</var> be an object with
-          properties <code>src</code>, <code>scope</code>, <code>type</code>
-          and <code>use_cache</code>. All properties initially set to
-          <code>undefined</code>.
-          </li>
-          <li>Set <var>registration</var>'s <code>src</code> property to be
-          <var>src</var>.
+          <li>If the result of running <a>is origin potentially trustworthy</a>
+          with the origin of <var>src</var> is <code>Not Trusted</code>,
+          <a>issue a developer warning</a>, abort these steps and return <code>
+            null</code>.
           </li>
           <li>Let <var>scope</var> be the result of running the <a>steps for
           processing the <code>scope</code> member of a service worker</a>
-          passing <var>unprocessed registration</var>.
-          </li>
-          <li>If <var>scope</var> is <code>undefined</code>, <a>issue a
-          developer warning</a>, abort these steps and return
-          <code>undefined</code>.
-          </li>
-          <li>Otherwise, set <var>registration</var>'s <code>scope</code>
-          property to be <var>scope</var>.
+          passing <var>registration</var>.
           </li>
           <li>Let <var>type</var> be the result of running the <a>steps for
           processing the <code>type</code> member of a service worker</a>
-          passing <var>unprocessed registration</var>.
+          passing <var>registration</var>.
           </li>
-          <li>If <var>type</var> is <code>undefined</code>, <a>issue a
-          developer warning</a>, abort these steps and return
-          <code>undefined</code>.
-          </li>
-          <li>Otherwise, set <var>registration</var>'s <code>type</code>
-          property to be <var>type</var>.
-          </li>
-          <li>Let <var>use cache</var> be the result of running the <a>steps
+          <li>Let <var>use_cache</var> be the result of running the <a>steps
           for processing the <code>use_cache</code> member of a service
-          worker</a> passing <var>unprocessed registration</var>.
+          worker</a> passing <var>registration</var>.
           </li>
-          <li>If <var>use cache</var> is <code>undefined</code>, <a>issue a
-          developer warning</a>, abort these steps and return
-          <code>undefined</code>.
+          <li>Let <var>registration'</var> be a new object created as if by the
+          expression ({ src, scope, type, use_cache }).
           </li>
-          <li>Otherwise, set <var>registration</var>'s <code>use_cache</code>
-          property to be <var>use cache</var>.
-          </li>
-          <li>Return <var>registration</var>.
+          <li>Return <var>registration'</var>.
           </li>
         </ol>
         <div class="example">
@@ -2408,29 +2157,21 @@
           "theme-color".
         </p>
         <p>
-          The <dfn>steps for processing the <code>theme_color</code>
+          The <dfn>steps for post-processing the <code>theme_color</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <var>manifest</var> as an argument. This algorithm returns a
-          string or <code>undefined</code>.
+          takes a <a>WebAppManifest</a> <var>manifest</var> as an argument.
+          This algorithm returns a <code>USVString?</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>theme_color</code>".
+          <li>Let <var>V</var> be <var>manifest["theme_color"]</var>.
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
+          <li>If <a>Type</a>(<var>V</var>) is not <code>String</code> return
+          <code>null</code>.
           </li>
           <li>Otherwise, let <var>potential color</var> be the result of
           running [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm
-          with <var>value</var> as input. If parsing returns a syntax error,
-          return <code>undefined</code>.
+          with <var>V</var> as input. If parsing returns a syntax error, return
+          <code>undefined</code>.
           </li>
           <li>Let <var>color</var> be the result of attempting to parse
           <var>potential color</var> as a CSS color, as per [[!CSS-SYNTAX-3]].
@@ -2439,7 +2180,7 @@
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return <code>undefined</code>.
+              <li>Return <code>null</code>.
               </li>
             </ol>
           </li>
@@ -2475,71 +2216,48 @@
         <p>
           The <dfn>steps for processing the <code>related_applications</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a manifest as an argument. This algorithm returns a list of
-          <a>ExternalApplicationResource</a>s <var>applications</var>, which
-          can be empty.
+          takes a <a>WebAppManifest</a> <var>manifest</var> as an argument.
+          This algorithm returns an
+          Array&lt;<a>ExternalApplicationResource</a>&gt;.
         </p>
         <ol>
-          <li>Let <var>applications</var> be an empty list.
+          <li>Let <var>A</var> be <var>manifest["related_applications"]</var>.
           </li>
-          <li>Let <var>unprocessed applications</var> be the result of calling
-          the <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>related_applications</code>".
+          <li>Let <var>A'</var> be a new Array object created as if by the
+          expression [].
           </li>
-          <li>If <var>unprocessed applications</var> is an <a>array</a>, then:
+          <li>For <var>V</var> in <var>A</var>:
             <ol>
-              <li>For each <var>potential application</var> in the array:
+              <li>if neither <var>V["src"]</var> nor <var>V["url"]</var> are
+              <code>null</code>:
                 <ol>
-                  <li>Let <var>platform</var> be the result of running the <a>
-                    steps for processing the <code>platform</code> member of an
-                    application</a> with <var>potential application</var>.
+                  <li>Let <var>V'</var> be a new object created as if by the
+                  expression ({}).
                   </li>
-                  <li>If <var>platform</var> is <code>undefined</code>, move
-                  onto the next item if any are left.
+                  <li>Set <var>V'["platform"]</var> to be
+                  <var>V["platform"]</var>.
                   </li>
-                  <li>Let <var>id</var> be the result of running the <a>steps
-                  for processing the <code>id</code> member of an
-                  application</a> with <var>potential application</var>.
+                  <li>Set <var>V'["id"]</var> to be <var>V["id"]</var>.
                   </li>
-                  <li>Let <var>url</var> be the result of running the <a>steps
-                  for processing the <code>url</code> member of an
-                  application</a> with <var>potential application</var>.
+                  <li>Set <var>V'["min_version"]</var> to be
+                  <var>V["min_version"]</var>.
                   </li>
-                  <li>If both <var>id</var> and <var>url</var> are
-                  <code>undefined</code>, move onto the next item if any are
-                  left.
+                  <li>Set <var>V'["url"]</var> be the result of running the <a>
+                    steps for processing the <code>url</code> member of an
+                    application</a> with <var>V</var>.
                   </li>
-                  <li>Let <var>minVersion</var> be the result of running the
-                  <a>steps for processing the <code>min_version</code> member
-                  of an application</a> with <var>potential application</var>.
+                  <li>Set <var>V'["fingerprints"]</var> be the result of
+                  running the <a>steps for processing the
+                  <code>fingerprints</code> member of an application</a> with
+                  <var>V</var>.
                   </li>
-                  <li>Let <var>fingerprints</var> be the result of running the
-                  <a>steps for processing the <code>fingerprints</code> member
-                  of an application</a> with <var>potential application</var>.
-                  </li>
-                  <li>Let <var>application</var> be an object with properties
-                  <code>platform</code>, <code>id</code>, <code>url</code>,
-                  <code>min_version</code>, and <code>fingerprints</code>
-                  respectively set to <var>platform</var>, <var>id</var>, <var>
-                    url</var>, <var>minVersion</var>, and
-                    <var>fingerprints</var>.
-                  </li>
-                  <li>Append <var>application</var> to <var>applications</var>.
+                  <li>Append <var>V'</var> to <var>A'</var>
                   </li>
                 </ol>
               </li>
             </ol>
           </li>
-          <li>Otherwise, if <var>unprocessed applications</var> is not
-          <code>undefined</code>:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a> that the type is not
-                supported.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>applications</var>.
+          <li>Return <var>A'</var>.
           </li>
         </ol>
       </section>
@@ -2559,29 +2277,6 @@
           the user agent might want to suggest installing one of the <a>related
           applications</a> instead.
         </p>
-        <p>
-          The <dfn>steps for processing the
-          <code>prefer_related_applications</code> member</dfn> are given by
-          the following algorithm. The algorithm takes a manifest as an
-          argument. This algorithm returns a boolean.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>prefer_related_applications</code>".
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "boolean":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>false</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>value</var>.
-          </li>
-        </ol>
       </section>
       <section>
         <h3>
@@ -2603,29 +2298,21 @@
           application's stylesheet is available.
         </p>
         <p>
-          The <dfn>steps for processing the <a>background_color</a>
+          The <dfn>steps for post-processing the <a>background_color</a>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <var>manifest</var> as an argument. This algorithm returns a
-          string or <code>undefined</code>.
+          takes a <a>WebAppManifest</a> <var>manifest</var> as an argument.
+          This algorithm returns a <code>USVString?</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>background_color</code>".
+          <li>Let <var>V</var> be <var>manifest["background_color"]</var>.
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
+          <li>If <a>Type</a>(<var>V</var>) is not <code>String</code> return
+          <code>null</code>.
           </li>
           <li>Otherwise, let <var>potential color</var> be the result of
           running [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm
-          with <var>value</var> as input. If parsing returns a syntax error,
-          return <code>undefined</code>.
+          with <var>V</var> as input. If parsing returns a syntax error, return
+          <code>null</code>.
           </li>
           <li>Let <var>color</var> be the result of attempting to parse
           <var>potential color</var> as a CSS color, as per [[!CSS-SYNTAX-3]].
@@ -2634,7 +2321,7 @@
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return <code>undefined</code>.
+              <li>Return <code>null</code>.
               </li>
             </ol>
           </li>
@@ -2658,43 +2345,32 @@
           keywords, catalogs and stores are not required to honor this hint.
         </p>
         <p>
-          The <dfn>steps for processing the <code>categories</code>
+          The <dfn>steps for post-processing the <code>categories</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <var>manifest</var> as an argument. This algorithm returns an
-          array of strings or <code>undefined</code>.
+          takes a <a>WebAppManifest</a> <var>manifest</var> as an argument.
+          This algorithm returns an <code>Array&lt;USVString&gt;</code>.
         </p>
         <ol>
-          <li>Let <var>categories</var> be an empty list.
+          <li>Let <var>A</var> be <var>manifest["categories"]</var>.
           </li>
-          <li>Let <var>unprocessed categories</var> be the result of calling
-          the <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>categories</code>".
+          <li>Let <var>n</var> be the length of A.
           </li>
-          <li>If <var>unprocessed categories</var>is an array, then:
+          <li>Initialize <var>i</var> to be 0.
+          </li>
+          <li>While <var>i</var> &lt; <var>n</var>:
             <ol>
-              <li>For each <var>potential category</var> in the array:
-                <ol>
-                  <li>
-                    <a>Trim</a>(<var>value</var>) and convert <a>to ASCII
-                    lowercase</a>
-                  </li>
-                  <li>Append <var>potential category</var> to
-                  <var>categories</var>
-                  </li>
-                </ol>
+              <li>Let <var>V</var> be the value in <var>A</var> at index <var>
+                i</var>.
               </li>
-            </ol>
-          </li>
-          <li>Otherwise, if <var>unprocessed categories</var> is not
-          <code>undefined</code>
-            <ol>
               <li>
-                <a>Issue a developer warning</a> that the type is not
-                supported.
+                <a>Trim</a>(<var>V</var>) and convert <a>to ASCII lowercase</a>
+                in place.
+              </li>
+              <li>Set <var>i</var> to <var>i</var> + 1.
               </li>
             </ol>
           </li>
-          <li>Return <var>categories</var>
+          <li>Return <var>A</var>.
           </li>
         </ol>
         <p>
@@ -2707,8 +2383,8 @@
           Manifest authors are encouraged to use lower-case.
         </p>
         <p class="note">
-          This specification does not define the particular
-          <dfn>CategoryType</dfn>s for a the <a>categories</a> member. However,
+          This specification does not define the particular values for
+          <dfn>USVString</dfn>s for a the <a>categories</a> member. However,
           the working group maintains a <a href=
           "https://github.com/w3c/manifest/wiki/Categories">list of known
           values</a> in our wiki.
@@ -2734,29 +2410,6 @@
           is intended to be used to determine which ages the web application is
           appropriate for.
         </p>
-        <p>
-          The <dfn>steps for processing the <a>iarc_rating_id</a> member</dfn>
-          is given by the following algorithm. The algorithm takes a
-          <var>manifest</var> as an argument. This algorithm returns a string
-          or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with argument "<code>iarc_rating_id</code>".
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
-          </li>
-        </ol>
         <div class="informative">
           <p>
             The following shows a very simple <a>manifest</a> with the
@@ -2950,51 +2603,40 @@
           </dd>
         </dl>
         <p>
-          The <dfn>steps for processing a <code>purpose</code> member of an
+          The <dfn>steps for processing the <code>purpose</code> member of an
           image</dfn> are given by the following algorithm. The algorithm takes
           an <a>ImageResource</a> <var>image</var>. This algorithm will return
           a set.
         </p>
         <ol>
-          <li>Let <var>purpose</var> be an empty set.
+          <li>Let <var>S</var> be an empty set.
           </li>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>image</var>
-          passing "<code>purpose</code>" as the argument.
+          <li>Let <var>V</var> be <var>image["purpose"]</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
-          </li>
-          <li>If <var>type</var> is not "string", then:
+          <li>If <a>Type</a>(<var>V</var>) is String:
             <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
-              a developer warning</a> that the type is unsupported.
+              <li>Let <var>keywords</var> be the result of <a>splitting</a>
+              <var>V</var> on spaces.
               </li>
-              <li>Add "any" to <var>purpose</var>.
-              </li>
-              <li>Return <var>purpose</var>.
+              <li>For each <var>keyword</var> in <var>keywords</var>:
+                <ol>
+                  <li>Convert <var>keyword</var> <a>to ASCII lowercase</a>.
+                  </li>
+                  <li>If <var>keyword</var> is not one of the <a>icon
+                  purposes</a>, or is already contained in <var>keywords</var>,
+                  <a>issue a developer warning</a> and continue to the next
+                  <var>keyword</var> skipping the sub-steps below.
+                  </li>
+                  <li>Otherwise, add <var>keyword</var> to <var>S</var>.
+                  </li>
+                </ol>
               </li>
             </ol>
           </li>
-          <li>Let <var>keywords</var> be the result of <a>splitting</a>
-          <var>value</var> on spaces.
+          <li>if the size of <var>S</var> is 0, then add <code>"any"</code> to
+          <var>S</var>.
           </li>
-          <li>For each <var>keyword</var> in <var>keywords</var>:
-            <ol>
-              <li>Convert <var>keyword</var> <a>to ASCII lowercase</a>.
-              </li>
-              <li>If <var>keyword</var> is not one of the <a>icon purposes</a>,
-              or is already contained in <var>keywords</var>, <a>issue a
-              developer warning</a> and continue to the next <var>keyword</var>
-              skipping the sub-steps below.
-              </li>
-              <li>Otherwise, add <var>keyword</var> to <var>purpose</var>.
-              </li>
-            </ol>
-          </li>
-          <li>if the size of purpose is 0, then add "any" to
-          <var>purpose</var>.
-          </li>
-          <li>Return <var>purpose</var>.
+          <li>Return <var>S</var>.
           </li>
         </ol>
         <div class="example">
@@ -3041,41 +2683,31 @@
           display context (and ignore any that are inappropriate).
         </p>
         <p>
-          The <dfn>steps for processing a <code>sizes</code> member of an
+          The <dfn>steps for processing the <code>sizes</code> member of an
           image</dfn> are given by the following algorithm. The algorithm takes
           an <a>ImageResource</a> <var>image</var>. This algorithm will return
           a set.
         </p>
         <ol>
-          <li>Let <var>sizes</var> be an empty set.
+          <li>Let <var>S</var> be an empty set.
           </li>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>image</var>
-          passing "<code>sizes</code>" as the argument.
+          <li>Let <var>V</var> be <var>image.sizes</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>If <a>Type</a>(<var>V</var>) it not <code>String</code>, return
+          <code>null</code>.
           </li>
-          <li>If <var>type</var> is not "string", then:
-            <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", <a>issue
-              a developer warning</a> that the type is unsupported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, parse <var>value</var> as if it was a [[!HTML]] <code>
-            <a>sizes</a></code> attribute and let <var>keywords</var> be the
+          <li>Otherwise, parse <var>V</var> as if it was a [[!HTML]] <code><a>
+            sizes</a></code> attribute and let <var>keywords</var> be the
             result.
           </li>
           <li>For each <var>keyword</var> in <var>keywords</var>:
             <ol>
               <li>Convert <var>keyword</var> <a>to ASCII lowercase</a> and add
-              the resulting string to <var>sizes</var>.
+              the resulting string to <var>S</var>.
               </li>
             </ol>
           </li>
-          <li>Return <var>sizes</var>.
+          <li>Return <var>S</var>.
           </li>
         </ol>
       </section>
@@ -3096,23 +2728,10 @@
           <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>image</var>
-          passing "<code>src</code>" as the argument.
+          <li>Let <var>V</var> be <var>image.src</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
-          </li>
-          <li>If <var>type</var> is not "string", then:
-            <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is unsupported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>If <a>Trim</a>(value) is the empty string, then return
-          <code>undefined</code>.
+          <li>If <a>Type</a>(<var>V</var>) it not <code>String</code>, return
+          <code>null</code>.
           </li>
           <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
           URL</var> as the base URL and return the result.
@@ -3140,23 +2759,10 @@
           string or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>potential
-          image</var> passing "<code>type</code>" as the argument.
+          <li>Let <var>V</var> be <var>image["type"]</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
-          </li>
-          <li>If <var>type</var> is not "string", then:
-            <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is unsupported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Trim(<var>value</var>) and set <var>value</var> to be resulting
-          string.
+          <li>If <a>Type</a>(<var>V</var>) it not <code>String</code>, return
+          <code>null</code>.
           </li>
           <li>If <var>value</var> is not a <a>valid MIME type</a> or the value
           of <var>type</var> is not a supported media format, issue a developer
@@ -3168,84 +2774,57 @@
       </section>
       <section>
         <h3>
-          Processing an array of image resources
+          Post-processing an array of image resources
         </h3>
         <p>
-          The <dfn>steps for processing an array of image resources</dfn> are
-          given by the following algorithm. The algorithm takes a manifest, a
-          <a>URL</a> <var>manifest URL</var>, which is the URL from which the
+          The <dfn>steps for post-processing <a>ImageResource</a> members</dfn>
+          are given by the following algorithm. The algorithm takes a manifest,
+          a <a>URL</a> <var>manifest URL</var>, which is the URL from which the
           <var>manifest</var> was fetched, and a string that represents the
           <var>member name</var> of the member which contains the array of
           <a>ImageResource</a>s. This algorithm returns a sequence of
           <a>ImageResource</a>s, which can be empty.
         </p>
         <ol>
-          <li>Let <var>images</var> be an empty sequence.
-          </li>
-          <li>Let <var>unprocessed images</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>manifest</var>
-          with <var>member name</var> as the argument.
-          </li>
-          <li>If <var>unprocessed images</var> is an <a>array</a>, then:
-            <ol>
-              <li>From unprocessed images, filter out any <var>item</var> where
-              <a>HasOwnProperty</a>(item, "src") returns <code>false</code>.
-              </li>
-              <li>For each <var>potential image</var> in the array:
-                <ol>
-                  <li>Let <var>src</var> be the result of running the <a>steps
-                  for processing the <code>src</code> member of an image</a>
-                  with <var>potential image</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>If <var>src</var> is <code>undefined</code>, move onto
-                  the next item in <var>images</var> (if any are left).
-                  </li>
-                  <li>Otherwise, let <var>image</var> be an object with
-                  properties <code>src</code>, <code>type</code>, and
-                  <code>sizes</code>. All properties initially set to
-                  <code>undefined</code>.
-                  </li>
-                  <li>Set <var>image</var>'s <code>src</code> property to be
-                  <var>src</var>.
-                  </li>
-                  <li>Let <var>type</var> be the result of running the <a>steps
-                  for processing the <code>type</code> member of an image</a>
-                  passing <var>potential image</var>.
-                  </li>
-                  <li>If <var>type</var> is not <code>undefined</code>, set
-                  <var>image</var>'s <code>type</code> property to be
-                  <var>type</var>.
-                  </li>
-                  <li>Let <var>sizes</var> be the list that result from running
-                  the <a>steps for processing a <code>sizes</code> member of an
-                  image</a> passing <var>potential image</var>.
-                  </li>
-                  <li>If <var>sizes</var> is not <code>undefined</code>, set
-                  <var>image</var>'s <code>sizes</code> property to be
-                  <var>sizes</var>.
-                  </li>
-                  <li>Set <var>image</var>'s <code>purpose</code> property to
-                  be the result of running the <a>steps for processing a <code>
-                    purpose</code> member of an image</a> passing
-                    <var>potential image</var>.
-                  </li>
-                  <li>Append <var>image</var> to <var>images</var>.
-                  </li>
-                </ol>
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, if <var>unprocessed images</var> is not
-          <code>undefined</code>:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a> that the type is not
-                supported.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>images</var>.
-          </li>
+          <ol>
+            <li>Let <var>A</var> be <var>manifest</var>[<var>member
+            name</var>].
+            </li>
+            <li>Remove from <var>A</var> all entries <var>V</var> where
+            <var>V["src"]</var> returns <code>false</code>
+            </li>
+            <li>Let <var>n</var> be the length of <var>A</var>.
+            </li>
+            <li>Initialize <var>i</var> to be 0.
+            </li>
+            <li>While <var>i</var> &lt; <var>n</var>:
+              <ol>
+                <li>Let <var>V</var> be the value in <var>A</var> at index
+                <var>i</var>.
+                </li>
+                <li>Let <var>V["src"]</var> be the result of running the
+                <a>steps for processing the <code>src</code> member of an
+                image</a> with <var>V</var> and <var>manifest URL</var>.
+                </li>
+                <li>Let <var>V["type"]</var> be the result of running the
+                <a>steps for processing the <code>type</code> member of an
+                image</a> with <var>V</var> and <var>manifest URL</var>.
+                </li>
+                <li>Let <var>V["sizes"]</var> be the result of running the <a>
+                  steps for processing the <code>sizes</code> member of an
+                  image</a> with <var>V</var> and <var>manifest URL</var>.
+                </li>
+                <li>Let <var>V["purpose"]</var> be the result of running the
+                <a>steps for processing the <code>purpose</code> member of an
+                image</a> with <var>V</var> and <var>manifest URL</var>.
+                </li>
+                <li>Set <var>i</var> to <var>i</var> + 1.
+                </li>
+              </ol>
+            </li>
+            <li>Return <var>A</var>.
+            </li>
+          </ol>
         </ol>
       </section>
     </section>
@@ -3288,29 +2867,6 @@
           <a href="https://github.com/w3c/manifest/wiki/Platforms">list of
           known platform values</a> in our wiki.
         </p>
-        <p>
-          The <dfn>steps for processing the <code>platform</code> member of an
-          application</dfn> are given by the following algorithm. The algorithm
-          takes an <a>ExternalApplicationResource</a> <var>application</var>.
-          This algorithm will return a string or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>application</var>
-          passing "<code>platform</code>" as the argument.
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
-          </li>
-        </ol>
       </section>
     </section>
     <section>
@@ -3347,25 +2903,12 @@
           <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>registration</var>
-          passing "<code>src</code>" as the argument.
+          <li>Let <var>V</var> be <var>registration["src"]</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>If <a>Type</a>(<var>V</var>) is not <code>String</code> or <var>
+            V</var> is the empty string, then return <code>null</code>.
           </li>
-          <li>If <var>type</var> is not "string", then:
-            <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is unsupported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>If <a>Trim</a>(value) is the empty string, then return
-          <code>undefined</code>.
-          </li>
-          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
+          <li>Otherwise, <a>parse</a> <var>V</var> using <var>manifest
           URL</var> as the base URL and return the result.
           </li>
         </ol>
@@ -3388,26 +2931,11 @@
           <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>registration</var>
-          passing "<code>scope</code>" as the argument.
+          <li>Let <var>V</var> be <var>registration["scope"]</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>If <var>V</var> is <code>null</code>, return <code>null</code>.
           </li>
-          <li>If <var>type</var> is not "string", then:
-            <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is unsupported and return <code>
-                undefined</code>.
-              </li>
-              <li>Return <code>null</code>.
-              </li>
-            </ol>
-          </li>
-          <li>If <a>Trim</a>(value) is the empty string, then return
-          <code>undefined</code>.
-          </li>
-          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
+          <li>Otherwise, <a>parse</a> <var>V</var> using <var>manifest
           URL</var> as the base URL and return the result.
           </li>
         </ol>
@@ -3431,31 +2959,12 @@
           fetched. This algorithm will return a string.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>registration</var>
-          passing "<code>type</code>" as the argument.
+          <li>Let <var>V</var> be <var>registration["type"]</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>If <var>V</var> is <code>null</code>, return
+          <code>"classic"</code>.
           </li>
-          <li>If <var>type</var> is not "string", then:
-            <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is unsupported and return <code>
-                undefined</code>.
-              </li>
-              <li>Return <code>"classic"</code>.
-              </li>
-            </ol>
-          </li>
-          <li>If <a>Trim</a>(value) is the empty string, then:
-            <ol>
-              <li>Issue a developer warning that the type is unsupported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          <li>Otherwise, return <var>V</var>.
           </li>
         </ol>
       </section>
@@ -3479,23 +2988,11 @@
           fetched. This algorithm will return a boolean.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>registration</var>
-          passing "<code>use_cache</code>" as the argument.
+          <li>Let <var>V</var> be <var>registration["use_cache"]</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>If <var>V</var> is <code>null</code>, return <code>false</code>.
           </li>
-          <li>If <var>type</var> is not "boolean", then:
-            <ol>
-              <li>If <var>type</var> is not "<code>undefined</code>", issue a
-              developer warning that the type is unsupported and return <code>
-                undefined</code>.
-              </li>
-              <li>Otherwise, return <code>false</code>
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, return <var>value</var>.
+          <li>Otherwise, return <var>V</var>.
           </li>
         </ol>
       </section>
@@ -3610,24 +3107,12 @@
           This algorithm will return an <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>application</var>
-          passing "<code>url</code>" as the argument.
+          <li>Let <var>V</var> be <var>application["url"]</var>.
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
+          <li>If <var>V</var> is <code>null</code>, return <code>null</code>.
           </li>
-          <li>Trim(<var>value</var>) and set <var>value</var> to be resulting
-          string.
-          </li>
-          <li>Otherwise, <a>parse</a> <var>value</var> and if the result is not
-          failure, return the result, otherwise return <code>undefined</code>.
+          <li>Otherwise, <a>parse</a> <var>V</var> and if the result is not
+          failure, return the result, otherwise return <code>null</code>.
           </li>
         </ol>
       </section>
@@ -3640,29 +3125,6 @@
           dictionary represents the id which is used to represent the
           application on the platform.
         </p>
-        <p>
-          The <dfn>steps for processing the <code>id</code> member of an
-          application</dfn> are given by the following algorithm. The algorithm
-          takes an <a>ExternalApplicationResource</a> <var>application</var>.
-          This algorithm will return a string or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>application</var>
-          passing "<code>id</code>" as the argument.
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
-          </li>
-        </ol>
       </section>
       <section data-dfn-for="ExternalApplicationResource">
         <h3>
@@ -3675,30 +3137,6 @@
           app. This version is a string with platform-specific syntax and
           semantics.
         </p>
-        <p>
-          The <dfn>steps for processing the <code>min_version</code> member of
-          an application</dfn> are given by the following algorithm. The
-          algorithm takes an <a>ExternalApplicationResource</a>
-          <var>application</var>. This algorithm will return a string or
-          <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be the result of calling the
-          <a>[[\GetOwnProperty]]</a> internal method of <var>application</var>
-          passing "<code>min_version</code>" as the argument.
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not "string":
-            <ol>
-              <li>If <a>Type</a>(<var>value</var>) is not "undefined", <a>issue
-              a developer warning</a> that the type is not supported.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
-          </li>
-        </ol>
       </section>
       <section data-dfn-for="ExternalApplicationResource">
         <h3>
@@ -3720,52 +3158,36 @@
           The <dfn>steps for processing the <code>fingerprints</code> member of
           an application</dfn> are given by the following algorithm. The
           algorithm takes an <a>ExternalApplicationResource</a>
-          <var>application</var>. This algorithm will return a list of
+          <var>application</var>. This algorithm will return an array of
           <a data-lt="fingerprint object">fingerprint objects</a>, possibly
           empty.
         </p>
         <ol>
-          <li>Let <var>fingerprints</var> be an empty list.
+          <li>Let <var>A</var> be an empty array.
           </li>
-          <li>Let <var>unprocessed fingerprints</var> be the result of calling
-          the <a>[[\GetOwnProperty]]</a> internal method of
-          <var>application</var> passing "<code>fingerprints</code>" as the
-          argument.
-          </li>
-          <li>If <var>unprocessed fingerprints</var> is an array, then for each
-          <var>potential fingerprint</var> in <var>unprocessed
-          fingerprints</var>:
+          <li>For each <var>V</var> in <var>application["fingerprints"]</var>:
             <ol>
-              <li>Let <var>type</var> be the result of calling the
-              <a>[[\GetOwnProperty]]</a> internal method of <var>potential
-              fingerprint</var> passing "<code>type</code>" as an argument.
+              <li>Let <var>type</var> be <var>V["type"]</var>.
               </li>
-              <li>If Type(<var>type</var>) is not "string", then <a>issue a
+              <li>If Type(<var>type</var>) is not String, then <a>issue a
               developer warning</a> that the type is unsupported, and move on
-              to the next item in <var>unprocessed fingerprints</var> (if any
-              are left).
+              to the next item (if any are left).
               </li>
-              <li>Let <var>value</var> be the result of calling the
-              <a>[[\GetOwnProperty]]</a> internal method of <var>potential
-              fingerprint</var> passing "<code>value</code>" as an argument.
+              <li>Let <var>value</var> be <var>V["value"]</var>.
               </li>
-              <li>If Type(<var>value</var>) is not "string", then <a>issue a
-              developer warning</a> that the type is unsupported, and move on
-              to the next item in <var>unprocessed fingerprints</var> (if any
-              are left).
+              <li>If Type(<var>value</var>) is not <code>String</code>, then
+              <a>issue a developer warning</a> that the type is unsupported,
+              and move on to the next item (if any are left).
               </li>
               <li>Let <var>fingerprint</var> be a <a>fingerprint object</a>,
               with its <code>type</code> member set to <var>type</var> and its
               <code>value</code> member set to <var>value</var>.
               </li>
-              <li>Append <var>fingerprint</var> to <var>fingerprints</var>.
+              <li>Append <var>fingerprint</var> to <var>A</var>.
               </li>
             </ol>
           </li>
-          <li>Otherwise, <a>issue a developer warning</a> that the type is
-          unsupported.
-          </li>
-          <li>Return <var>fingerprints</var>.
+          <li>Return <var>A</var>.
           </li>
         </ol>
       </section>
@@ -3821,6 +3243,11 @@
         The algorithm to <a href=
         "https://dev.w3.org/csswg/css-syntax/#parse-component-value"><dfn>parse
         a component value</dfn></a> is defined in [[!CSS-SYNTAX-3]].
+      </p>
+      <p>
+        The algorithm to convert a ECMAScript <a>object</a> <a href=
+        "https://www.w3.org/TR/WebIDL-1/#es-dictionary"><dfn>to IDL dictionary
+        value</dfn></a> is defined in [[!WEBIDL]].
       </p>
       <p>
         The <a href=
