@@ -370,9 +370,9 @@
               an <a>installation process</a>'s UI.
               </li>
               <li>If <a>obtaining the manifest</a> succeeds, and the result of
-              running the <a>steps for processing the serviceworker member</a>
-              with <a>manifest</a> returns a valid <var>registration</var>, a
-              user agent can at this point
+              running the <a>steps for post-processing the serviceworker
+              member</a> with <a>manifest</a> returns a valid
+              <var>registration</var>, a user agent can at this point
                 <ol>
                   <li>Let <var>client</var> be the <a>top-level browsing
                   context</a> <code>Document</code>'s <a href=
@@ -923,11 +923,12 @@
         of switching to another <a>display mode</a>.
       </p>
       <p>
-        When the <code>display</code> member is missing, or if there is no
-        valid <code>display</code> member, the user agent uses the
-        <code>browser</code> <a>display mode</a> as the <a>default display
-        mode</a>. As such, the user agent is REQUIRED to support the
-        <code>browser</code> <a>display mode</a>.
+        When the <a data-link-for="WebAppManifest">display</a> member is
+        missing, or if there is no valid <a data-link-for=
+        "WebAppManifest">display</a> member, the user agent uses the
+        <a>browser</a> <a>display mode</a> as the <a>default display mode</a>.
+        As such, the user agent is REQUIRED to support the <a>browser</a>
+        <a>display mode</a>.
       </p>
       <p>
         Each <a>display mode</a>, except <code>browser</code>, has a
@@ -1453,17 +1454,14 @@
             <a>Extension point</a>: process any proprietary and/or other
             supported members at this point in the algorithm.
           </li>
-          <li>Let <a>WebAppManifest</a> <var>manifest</var> be the result of
-          converting <var>json</var> <a>to IDL dictionary value</a>.
+          <li>Let <var>manifest</var> be the result of <a data-lt=
+          "to idl dictionary value">converting</a> <var>json</var> to a
+          <a>WebAppManifest</a>.
           </li>
           <li>Let <var>manifest["<a>start_url</a>"]</var> be the result of
           running the <a>steps for post-processing the <code>start_url</code>
           member</a> with <var>manifest</var>, <var>manifest URL,</var> and
           <var>document URL</var> as arguments.
-          </li>
-          <li>Let <var>manifest["<a>display</a>"]</var> be the result of
-          running the <a>steps for post-processing the <code>display</code>
-          member</a> with <var>manifest</var> as the argument.
           </li>
           <li>Let <var>manifest["<a>lang</a>"]</var> be the result of running
           the <a>steps for post-processing the <code>lang</code> member</a>
@@ -1472,7 +1470,7 @@
           <li>Let <var>manifest["<a>scope</a>"]</var> be the result of running
           the <a>steps for post-processing the <code>scope</code> member</a>
           with <var>manifest</var>, <var>manifest URL</var>, <var>document
-          URL</var>, <var>start URL</var> as arguments.
+          URL</var>, <var>manifest["<a>start_url</a>"]</var> as arguments.
           </li>
           <li>Let <var>manifest["<a>theme_color</a>"]</var> be the result of
           running the <a>steps for post-processing the <code>theme_color</code>
@@ -1497,14 +1495,14 @@
           as arguments.
           </li>
           <li>Let <var>manifest["<a>related_applications</a>"]</var> be the
-          result of running the <a>steps for processing the
+          result of running the <a>steps for post-processing the
           <code>related_applications</code> member</a> with <var>manifest</var>
           as argument.
           </li>
           <li>Let <var>manifest["<a>serviceworker</a>"]</var> be the result of
-          running the <a>steps for processing the <code>serviceworker</code>
-          member</a> with <var>manifest</var>, <var>manifest URL</var>, and
-          <var>serviceworker</var> as arguments.
+          running the <a>steps for post-processing the
+          <code>serviceworker</code> member</a> with <var>manifest</var>, <var>
+            manifest URL</var>, and <var>serviceworker</var> as arguments.
           </li>
           <li>Return <var>manifest</var>.
           </li>
@@ -1560,24 +1558,24 @@
       </h2>
       <pre class="idl">
           dictionary WebAppManifest {
-             TextDirectionType? dir;
-             DOMString? lang;
-             USVString? name;
-             USVString? short_name;
-             USVString? description;
-             sequence&lt;ImageResource&gt;? icons;
-             sequence&lt;ImageResource&gt;? screenshots;
-             sequence&lt;USVString&gt;? categories;
-             DOMString? iarc_rating_id;
-             USVString? start_url;
-             DisplayModeType? display;
-             OrientationLockType? orientation;
-             USVString? theme_color;
-             USVString? background_color;
-             USVString? scope;
-             ServiceWorkerRegistration? serviceworker;
-             sequence&lt;ExternalApplicationResource&gt;? related_applications;
-             boolean? prefer_related_applications;
+             TextDirectionType dir;
+             DOMString lang;
+             USVString name;
+             USVString short_name;
+             USVString description;
+             sequence&lt;ImageResource&gt; icons;
+             sequence&lt;ImageResource&gt; screenshots;
+             sequence&lt;USVString&gt; categories;
+             DOMString iarc_rating_id;
+             USVString start_url;
+             DisplayModeType display = "browser";
+             OrientationLockType orientation;
+             USVString theme_color;
+             USVString background_color;
+             USVString scope;
+             ServiceWorkerRegistration serviceworker;
+             sequence&lt;ExternalApplicationResource&gt; related_applications;
+             boolean prefer_related_applications;
           };
       </pre>
       <p>
@@ -1704,18 +1702,19 @@
           algorithm returns a <code>DOMString?</code>.
         </p>
         <ol>
-          <li>Let <var>V</var> be <var>manifest.lang</var>.
+          <li>Let <var>value</var> be <var>manifest.lang</var>.
           </li>
-          <li>If <a>Type</a>(<var>V</var>) is <code>String</code>:
+          <li>If <a>Type</a>(<var>value</var>) is <code>String</code>:
             <ol>
               <li>If calling <a>IsStructurallyValidLanguageTag</a> with
-              <var>V</var> as the argument returns <code>false</code>, then:
+              <var>value</var> as the argument returns <code>false</code>,
+              then:
                 <ol>
                   <li>
-                    <a>Issue a developer warning</a> that the <var>V</var> is
-                    invalid.
+                    <a>Issue a developer warning</a> that the <var>value</var>
+                    is invalid.
                   </li>
-                  <li>Return <code>null</code>.
+                  <li>Return <code>undefined</code>.
                   </li>
                 </ol>
               </li>
@@ -1725,7 +1724,7 @@
               </li>
             </ol>
           </li>
-          <li>Return <code>null</code>
+          <li>Return <code>undefined</code>
           </li>
         </ol>
       </section>
@@ -1776,26 +1775,26 @@
           a <a>WebAppManifest</a> <var>manifest</var>, a <a>URL</a>
           <var>manifest URL</var>, a <a>URL</a> <var>document URL</var>, and a
           URL <var>start URL</var> . This algorithm returns a <a>URL</a> or
-          <code>null</code>.
+          <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>V</var> be <var>manifest.scope</var>.
+          <li>Let <var>value</var> be <var>manifest.scope</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>V</var>).
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
-          <li>If <var>type</var> is not <code>String</code> or <var>V</var> is
-          the empty string, then return <code>null</code>.
+          <li>If <var>type</var> is not <code>String</code> or <var>value</var>
+          is the empty string, then return <code>undefined</code>.
           </li>
-          <li>Let <var>scope URL</var> be a new <a>URL</a> using <var>V</var>
-          as <var>input</var> and <var>manifest URL</var> as the
-          <var>base</var> URL.
+          <li>Let <var>scope URL</var> be a new <a>URL</a> using
+          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
+          the <var>base</var> URL.
           </li>
           <li>If <var>scope URL</var> is failure:
             <ul>
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return <code>null</code>.
+              <li>Return <code>undefined</code>.
               </li>
             </ul>
           </li>
@@ -1810,7 +1809,7 @@
                 same-origin</a> as <code>Document</code> of the <a>application
                 context</a>.
               </li>
-              <li>Return <code>null</code>.
+              <li>Return <code>undefined</code>.
               </li>
             </ol>
           </li>
@@ -1820,7 +1819,7 @@
                 <a>Issue a developer warning</a> that the start URL is not
                 <a>within scope</a> of the navigation scope.
               </li>
-              <li>Return <code>null</code>.
+              <li>Return <code>undefined</code>.
               </li>
             </ol>
           </li>
@@ -1911,24 +1910,7 @@
           The <dfn>display</dfn> member is a <a>DisplayModeType</a>, whose
           value is one of <a>display modes values</a>. The item represents the
           developer's preferred <a>display mode</a> for the web application.
-          When the member is missing or erroneous, the user agent MUST use the
-          <a>fallback display mode</a>.
         </p>
-        <p>
-          The <dfn>steps for post-processing the <code>display</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>WebAppManifest</a> <var>manifest</var> as an argument, and
-          returns a <a>DisplayModeType</a>.
-        </p>
-        <ol>
-          <li>Let <var>V</var> be <var>manifest["display"]</var>.
-          </li>
-          <li>If <a>Type</a>(<var>V</var>) is <code>null</code> return the <a>
-            fallback display mode</a>'s value.
-          </li>
-          <li>Return <var>V</var>.
-          </li>
-        </ol>
       </section>
       <section>
         <h3>
@@ -1997,15 +1979,15 @@
           This algorithm returns a <a>URL</a>.
         </p>
         <ol>
-          <li>Let <var>V</var> be <var>manifest["start_url"]</var>.
+          <li>Let <var>value</var> be <var>manifest["start_url"]</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>V</var>).
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
           </li>
-          <li>If <var>type</var> is not <code>String</code> or <var>V</var> is
-          the empty string, return a new <a>URL</a> whose <var>input</var> is
-          <var>document URL</var>.
+          <li>If <var>type</var> is not <code>String</code> or <var>value</var>
+          is the empty string, return a new <a>URL</a> whose <var>input</var>
+          is <var>document URL</var>.
           </li>
-          <li>Let <var>url</var> be a new <a>URL</a> using <var>V</var> as
+          <li>Let <var>url</var> be a new <a>URL</a> using <var>value</var> as
           <var>input</var> and <var>manifest URL</var> as the <var>base</var>
           URL.
           </li>
@@ -2085,44 +2067,43 @@
           they coalesce. If they have different script URLs, last one wins.
         </p>
         <p>
-          The <dfn>steps for processing the <code>serviceworker</code>
+          The <dfn>steps for post-processing the <code>serviceworker</code>
           member</dfn> are given by the following algorithm. The algorithm
           takes a <a>WebAppManifest</a> <var>manifest</var>. This algorithm
-          returns a <a>registration object</a> <var>registration'</var>, which
-          can be <code>null</code>.
+          returns a <a>registration object</a> <var>registration</var>, which
+          can be <code>undefined</code>.
         </p>
         <ol>
           <li>Let <var>registration</var> be
           <var>manifest["serviceworker"]</var>.
           </li>
-          <li>If <var>registration</var> is <code>null</code>, return
-          <code>null</code>.
+          <li>If <var>registration</var> is <code>undefined</code>, return
+          <code>undefined</code>.
           </li>
           <li>Let <var>src</var> be the result of running the <a>steps for
-          processing the <code>src</code> member of a service worker</a> with
-          <var>registration</var> and <var>manifest URL</var>.
+          post-processing the <code>src</code> member of a service worker</a>
+          with <var>registration</var> and <var>manifest URL</var>.
           </li>
           <li>If the result of running <a>is origin potentially trustworthy</a>
           with the origin of <var>src</var> is <code>Not Trusted</code>,
           <a>issue a developer warning</a>, abort these steps and return <code>
-            null</code>.
+            undefined</code>.
           </li>
           <li>Let <var>scope</var> be the result of running the <a>steps for
-          processing the <code>scope</code> member of a service worker</a>
+          post-processing the <code>scope</code> member of a service worker</a>
           passing <var>registration</var>.
           </li>
           <li>Let <var>type</var> be the result of running the <a>steps for
-          processing the <code>type</code> member of a service worker</a>
+          post-processing the <code>type</code> member of a service worker</a>
           passing <var>registration</var>.
           </li>
           <li>Let <var>use_cache</var> be the result of running the <a>steps
-          for processing the <code>use_cache</code> member of a service
+          for post-processing the <code>use_cache</code> member of a service
           worker</a> passing <var>registration</var>.
           </li>
-          <li>Let <var>registration'</var> be a new object created as if by the
-          expression ({ src, scope, type, use_cache }).
-          </li>
-          <li>Return <var>registration'</var>.
+          <li>Return a new object created as if by the expression ({
+          <var>src</var>, <var>scope</var>, <var>type</var>,
+          <var>use_cache</var> }).
           </li>
         </ol>
         <div class="example">
@@ -2163,15 +2144,15 @@
           This algorithm returns a <code>USVString?</code>.
         </p>
         <ol>
-          <li>Let <var>V</var> be <var>manifest["theme_color"]</var>.
+          <li>Let <var>value</var> be <var>manifest["theme_color"]</var>.
           </li>
-          <li>If <a>Type</a>(<var>V</var>) is not <code>String</code> return
-          <code>null</code>.
+          <li>If <a>Type</a>(<var>value</var>) is not <code>String</code>
+          return <code>undefined</code>.
           </li>
           <li>Otherwise, let <var>potential color</var> be the result of
           running [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm
-          with <var>V</var> as input. If parsing returns a syntax error, return
-          <code>undefined</code>.
+          with <var>value</var> as input. If parsing returns a syntax error,
+          return <code>undefined</code>.
           </li>
           <li>Let <var>color</var> be the result of attempting to parse
           <var>potential color</var> as a CSS color, as per [[!CSS-SYNTAX-3]].
@@ -2180,7 +2161,7 @@
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return <code>null</code>.
+              <li>Return <code>undefined</code>.
               </li>
             </ol>
           </li>
@@ -2214,50 +2195,38 @@
           application.
         </p>
         <p>
-          The <dfn>steps for processing the <code>related_applications</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>WebAppManifest</a> <var>manifest</var> as an argument.
-          This algorithm returns an
+          The <dfn>steps for post-processing the
+          <code>related_applications</code> member</dfn> are given by the
+          following algorithm. The algorithm takes a <a>WebAppManifest</a>
+          <var>manifest</var> as an argument. This algorithm returns an
           Array&lt;<a>ExternalApplicationResource</a>&gt;.
         </p>
         <ol>
-          <li>Let <var>A</var> be <var>manifest["related_applications"]</var>.
+          <li>Let <var>relatedApplications</var> be a new Array object created
+          as if by the expression [].
           </li>
-          <li>Let <var>A'</var> be a new Array object created as if by the
-          expression [].
-          </li>
-          <li>For <var>V</var> in <var>A</var>:
+          <li>For each <var>app</var> in
+          <var>manifest["related_applications"]</var>:
             <ol>
-              <li>if neither <var>V["src"]</var> nor <var>V["url"]</var> are
-              <code>null</code>:
+              <li>if neither <var>app["src"]</var> nor <var>app["url"]</var>
+              are <code>undefined</code>:
                 <ol>
-                  <li>Let <var>V'</var> be a new object created as if by the
-                  expression ({}).
+                  <li>Set <var>app["url"]</var> be the result of running the
+                  <a>steps for post-processing the <code>url</code> member of
+                  an application</a> with <var>app</var>.
                   </li>
-                  <li>Set <var>V'["platform"]</var> to be
-                  <var>V["platform"]</var>.
-                  </li>
-                  <li>Set <var>V'["id"]</var> to be <var>V["id"]</var>.
-                  </li>
-                  <li>Set <var>V'["min_version"]</var> to be
-                  <var>V["min_version"]</var>.
-                  </li>
-                  <li>Set <var>V'["url"]</var> be the result of running the <a>
-                    steps for processing the <code>url</code> member of an
-                    application</a> with <var>V</var>.
-                  </li>
-                  <li>Set <var>V'["fingerprints"]</var> be the result of
-                  running the <a>steps for processing the
+                  <li>Set <var>app["fingerprints"]</var> be the result of
+                  running the <a>steps for post-processing the
                   <code>fingerprints</code> member of an application</a> with
-                  <var>V</var>.
+                  <var>app</var>.
                   </li>
-                  <li>Append <var>V'</var> to <var>A'</var>
+                  <li>Append <var>app</var> to <var>relatedApplications</var>
                   </li>
                 </ol>
               </li>
             </ol>
           </li>
-          <li>Return <var>A'</var>.
+          <li>Return <var>relatedApplications</var>.
           </li>
         </ol>
       </section>
@@ -2304,15 +2273,15 @@
           This algorithm returns a <code>USVString?</code>.
         </p>
         <ol>
-          <li>Let <var>V</var> be <var>manifest["background_color"]</var>.
+          <li>Let <var>value</var> be <var>manifest["background_color"]</var>.
           </li>
-          <li>If <a>Type</a>(<var>V</var>) is not <code>String</code> return
-          <code>null</code>.
+          <li>If <a>Type</a>(<var>value</var>) is not <code>String</code>
+          return <code>undefined</code>.
           </li>
           <li>Otherwise, let <var>potential color</var> be the result of
           running [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm
-          with <var>V</var> as input. If parsing returns a syntax error, return
-          <code>null</code>.
+          with <var>value</var> as input. If parsing returns a syntax error,
+          return <code>undefined</code>.
           </li>
           <li>Let <var>color</var> be the result of attempting to parse
           <var>potential color</var> as a CSS color, as per [[!CSS-SYNTAX-3]].
@@ -2321,7 +2290,7 @@
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return <code>null</code>.
+              <li>Return <code>undefined</code>.
               </li>
             </ol>
           </li>
@@ -2351,26 +2320,15 @@
           This algorithm returns an <code>Array&lt;USVString&gt;</code>.
         </p>
         <ol>
-          <li>Let <var>A</var> be <var>manifest["categories"]</var>.
-          </li>
-          <li>Let <var>n</var> be the length of A.
-          </li>
-          <li>Initialize <var>i</var> to be 0.
-          </li>
-          <li>While <var>i</var> &lt; <var>n</var>:
+          <li>For each <var>category</var> in
+          <var>manifest["categories"]</var>:
             <ol>
-              <li>Let <var>V</var> be the value in <var>A</var> at index <var>
-                i</var>.
-              </li>
-              <li>
-                <a>Trim</a>(<var>V</var>) and convert <a>to ASCII lowercase</a>
-                in place.
-              </li>
-              <li>Set <var>i</var> to <var>i</var> + 1.
+              <li>Convert <var>category</var> <a>to ASCII lowercase</a> in
+              place.
               </li>
             </ol>
           </li>
-          <li>Return <var>A</var>.
+          <li>Return <var>categories</var>.
           </li>
         </ol>
         <p>
@@ -2384,8 +2342,8 @@
         </p>
         <p class="note">
           This specification does not define the particular values for
-          <dfn>USVString</dfn>s for a the <a>categories</a> member. However,
-          the working group maintains a <a href=
+          <dfn>USVString</dfn>s for the <a>categories</a> member. However, the
+          working group maintains a <a href=
           "https://github.com/w3c/manifest/wiki/Categories">list of known
           values</a> in our wiki.
         </p>
@@ -2603,20 +2561,20 @@
           </dd>
         </dl>
         <p>
-          The <dfn>steps for processing the <code>purpose</code> member of an
-          image</dfn> are given by the following algorithm. The algorithm takes
-          an <a>ImageResource</a> <var>image</var>. This algorithm will return
-          a set.
+          The <dfn>steps for post-processing the <code>purpose</code> member of
+          an image</dfn> are given by the following algorithm. The algorithm
+          takes an <a>ImageResource</a> <var>image</var>. This algorithm will
+          return a set.
         </p>
         <ol>
-          <li>Let <var>S</var> be an empty set.
+          <li>Let <var>set</var> be an empty set.
           </li>
-          <li>Let <var>V</var> be <var>image["purpose"]</var>.
+          <li>Let <var>value</var> be <var>image["purpose"]</var>.
           </li>
-          <li>If <a>Type</a>(<var>V</var>) is String:
+          <li>If <a>Type</a>(<var>value</var>) is String:
             <ol>
               <li>Let <var>keywords</var> be the result of <a>splitting</a>
-              <var>V</var> on spaces.
+              <var>value</var> on spaces.
               </li>
               <li>For each <var>keyword</var> in <var>keywords</var>:
                 <ol>
@@ -2627,16 +2585,16 @@
                   <a>issue a developer warning</a> and continue to the next
                   <var>keyword</var> skipping the sub-steps below.
                   </li>
-                  <li>Otherwise, add <var>keyword</var> to <var>S</var>.
+                  <li>Otherwise, add <var>keyword</var> to <var>set</var>.
                   </li>
                 </ol>
               </li>
             </ol>
           </li>
-          <li>if the size of <var>S</var> is 0, then add <code>"any"</code> to
-          <var>S</var>.
+          <li>if the size of <var>set</var> is 0, then add <code>"any"</code>
+          to <var>set</var>.
           </li>
-          <li>Return <var>S</var>.
+          <li>Return <var>set</var>.
           </li>
         </ol>
         <div class="example">
@@ -2683,31 +2641,31 @@
           display context (and ignore any that are inappropriate).
         </p>
         <p>
-          The <dfn>steps for processing the <code>sizes</code> member of an
-          image</dfn> are given by the following algorithm. The algorithm takes
-          an <a>ImageResource</a> <var>image</var>. This algorithm will return
-          a set.
+          The <dfn>steps for post-processing the <code>sizes</code> member of
+          an image</dfn> are given by the following algorithm. The algorithm
+          takes an <a>ImageResource</a> <var>image</var>. This algorithm will
+          return a set.
         </p>
         <ol>
-          <li>Let <var>S</var> be an empty set.
+          <li>Let <var>set</var> be an empty set.
           </li>
-          <li>Let <var>V</var> be <var>image.sizes</var>.
+          <li>Let <var>value</var> be <var>image.sizes</var>.
           </li>
-          <li>If <a>Type</a>(<var>V</var>) it not <code>String</code>, return
-          <code>null</code>.
+          <li>If <a>Type</a>(<var>value</var>) it not <code>String</code>,
+          return <code>undefined</code>.
           </li>
-          <li>Otherwise, parse <var>V</var> as if it was a [[!HTML]] <code><a>
-            sizes</a></code> attribute and let <var>keywords</var> be the
+          <li>Otherwise, parse <var>value</var> as if it was a [[!HTML]] <code>
+            <a>sizes</a></code> attribute and let <var>keywords</var> be the
             result.
           </li>
           <li>For each <var>keyword</var> in <var>keywords</var>:
             <ol>
               <li>Convert <var>keyword</var> <a>to ASCII lowercase</a> and add
-              the resulting string to <var>S</var>.
+              the resulting string to <var>set</var>.
               </li>
             </ol>
           </li>
-          <li>Return <var>S</var>.
+          <li>Return <var>set</var>.
           </li>
         </ol>
       </section>
@@ -2720,7 +2678,7 @@
           from which a user agent can fetch the image's data.
         </p>
         <p>
-          The <dfn>steps for processing the <code>src</code> member of an
+          The <dfn>steps for post-processing the <code>src</code> member of an
           image</dfn> are given by the following algorithm. The algorithm takes
           a <a>ImageResource</a> <var>icon</var>, and a <a>URL</a>
           <var>manifest URL</var> , which is the <a>URL</a> from which the
@@ -2728,10 +2686,10 @@
           <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>V</var> be <var>image.src</var>.
+          <li>Let <var>value</var> be <var>image.src</var>.
           </li>
-          <li>If <a>Type</a>(<var>V</var>) it not <code>String</code>, return
-          <code>null</code>.
+          <li>If <a>Type</a>(<var>value</var>) it not <code>String</code>,
+          return <code>undefined</code>.
           </li>
           <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
           URL</var> as the base URL and return the result.
@@ -2753,16 +2711,16 @@
           must expect the resource to be an image.
         </p>
         <p>
-          The <dfn>steps for processing the <code>type</code> member of an
+          The <dfn>steps for post-processing the <code>type</code> member of an
           image</dfn> are given by the following algorithm. The algorithm takes
           an <var>image</var> object as an argument, and returns either a
           string or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>V</var> be <var>image["type"]</var>.
+          <li>Let <var>value</var> be <var>image["type"]</var>.
           </li>
-          <li>If <a>Type</a>(<var>V</var>) it not <code>String</code>, return
-          <code>null</code>.
+          <li>If <a>Type</a>(<var>value</var>) it not <code>String</code>,
+          return <code>undefined</code>.
           </li>
           <li>If <var>value</var> is not a <a>valid MIME type</a> or the value
           of <var>type</var> is not a supported media format, issue a developer
@@ -2782,47 +2740,49 @@
           a <a>URL</a> <var>manifest URL</var>, which is the URL from which the
           <var>manifest</var> was fetched, and a string that represents the
           <var>member name</var> of the member which contains the array of
-          <a>ImageResource</a>s. This algorithm returns a sequence of
-          <a>ImageResource</a>s, which can be empty.
+          <a>ImageResource</a>s. This algorithm returns an
+          Array&lt;<a>ImageResource</a>&gt;
         </p>
         <ol>
           <ol>
-            <li>Let <var>A</var> be <var>manifest</var>[<var>member
-            name</var>].
+            <li>Let <var>imageResources</var> be a new Array object created as
+            if by the expression [].
             </li>
-            <li>Remove from <var>A</var> all entries <var>V</var> where
-            <var>V["src"]</var> returns <code>false</code>
-            </li>
-            <li>Let <var>n</var> be the length of <var>A</var>.
-            </li>
-            <li>Initialize <var>i</var> to be 0.
-            </li>
-            <li>While <var>i</var> &lt; <var>n</var>:
+            <li>For each <var>entry</var> in <var>manifest</var>[<var>member
+            name</var>]:
               <ol>
-                <li>Let <var>V</var> be the value in <var>A</var> at index
-                <var>i</var>.
-                </li>
-                <li>Let <var>V["src"]</var> be the result of running the
-                <a>steps for processing the <code>src</code> member of an
-                image</a> with <var>V</var> and <var>manifest URL</var>.
-                </li>
-                <li>Let <var>V["type"]</var> be the result of running the
-                <a>steps for processing the <code>type</code> member of an
-                image</a> with <var>V</var> and <var>manifest URL</var>.
-                </li>
-                <li>Let <var>V["sizes"]</var> be the result of running the <a>
-                  steps for processing the <code>sizes</code> member of an
-                  image</a> with <var>V</var> and <var>manifest URL</var>.
-                </li>
-                <li>Let <var>V["purpose"]</var> be the result of running the
-                <a>steps for processing the <code>purpose</code> member of an
-                image</a> with <var>V</var> and <var>manifest URL</var>.
-                </li>
-                <li>Set <var>i</var> to <var>i</var> + 1.
+                <li>if <var>entry["src"]</var> is not <code>undefined</code>:
+                  <ol>
+                    <li>Let <var>image</var> be a new object created as if by
+                    the expression ({}).
+                    </li>
+                    <li>Let <var>image["src"]</var> be the result of running
+                    the <a>steps for post-processing the <code>src</code>
+                    member of an image</a> with <var>entry</var> and
+                    <var>manifest URL</var>.
+                    </li>
+                    <li>Let <var>image["type"]</var> be the result of running
+                    the <a>steps for post-processing the <code>type</code>
+                    member of an image</a> with <var>entry</var> and
+                    <var>manifest URL</var>.
+                    </li>
+                    <li>Let <var>image["sizes"]</var> be the result of running
+                    the <a>steps for post-processing the <code>sizes</code>
+                    member of an image</a> with <var>entry</var> and
+                    <var>manifest URL</var>.
+                    </li>
+                    <li>Let <var>image["purpose"]</var> be the result of
+                    running the <a>steps for post-processing the
+                    <code>purpose</code> member of an image</a> with
+                    <var>entry</var> and <var>manifest URL</var>.
+                    </li>
+                    <li>Append <var>image</var> to <var>imageResources</var>
+                    </li>
+                  </ol>
                 </li>
               </ol>
             </li>
-            <li>Return <var>A</var>.
+            <li>Return <var>imageResources</var>.
             </li>
           </ol>
         </ol>
@@ -2894,7 +2854,7 @@
           dictionary is a <a>URL</a> representing a service worker.
         </p>
         <p>
-          The <dfn>steps for processing the <code>src</code> member of a
+          The <dfn>steps for post-processing the <code>src</code> member of a
           service worker</dfn> are given by the following algorithm. The
           algorithm takes a <a>ServiceWorkerRegistration</a>
           <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
@@ -2903,12 +2863,12 @@
           <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>V</var> be <var>registration["src"]</var>.
+          <li>Let <var>value</var> be <var>registration["src"]</var>.
           </li>
-          <li>If <a>Type</a>(<var>V</var>) is not <code>String</code> or <var>
-            V</var> is the empty string, then return <code>null</code>.
+          <li>If <a>Type</a>(<var>value</var>) is not <code>String</code> or
+          <var>V</var> is the empty string, then return <code>undefined</code>.
           </li>
-          <li>Otherwise, <a>parse</a> <var>V</var> using <var>manifest
+          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
           URL</var> as the base URL and return the result.
           </li>
         </ol>
@@ -2922,7 +2882,7 @@
           dictionary is the service worker's associated <a>scope URL</a>.
         </p>
         <p>
-          The <dfn>steps for processing the <code>scope</code> member of a
+          The <dfn>steps for post-processing the <code>scope</code> member of a
           service worker</dfn> are given by the following algorithm. The
           algorithm takes a <a>ServiceWorkerRegistration</a>
           <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
@@ -2931,11 +2891,12 @@
           <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>V</var> be <var>registration["scope"]</var>.
+          <li>Let <var>value</var> be <var>registration["scope"]</var>.
           </li>
-          <li>If <var>V</var> is <code>null</code>, return <code>null</code>.
+          <li>If <var>value</var> is <code>undefined</code>, return
+          <code>undefined</code>.
           </li>
-          <li>Otherwise, <a>parse</a> <var>V</var> using <var>manifest
+          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
           URL</var> as the base URL and return the result.
           </li>
         </ol>
@@ -2951,7 +2912,7 @@
           type</a>.
         </p>
         <p>
-          The <dfn>steps for processing the <code>type</code> member of a
+          The <dfn>steps for post-processing the <code>type</code> member of a
           service worker</dfn> are given by the following algorithm. The
           algorithm takes a <a>ServiceWorkerRegistration</a>
           <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
@@ -2959,12 +2920,12 @@
           fetched. This algorithm will return a string.
         </p>
         <ol>
-          <li>Let <var>V</var> be <var>registration["type"]</var>.
+          <li>Let <var>value</var> be <var>registration["type"]</var>.
           </li>
-          <li>If <var>V</var> is <code>null</code>, return
+          <li>If <var>value</var> is <code>undefined</code>, return
           <code>"classic"</code>.
           </li>
-          <li>Otherwise, return <var>V</var>.
+          <li>Otherwise, return <var>value</var>.
           </li>
         </ol>
       </section>
@@ -2980,19 +2941,20 @@
           be used when fetching the service worker.
         </p>
         <p>
-          The <dfn>steps for processing the <code>use_cache</code> member of a
-          service worker</dfn> are given by the following algorithm. The
+          The <dfn>steps for post-processing the <code>use_cache</code> member
+          of a service worker</dfn> are given by the following algorithm. The
           algorithm takes a <a>serviceworkerregistration</a>
           <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
           which is the <a>URL</a> from which the <var>manifest</var> was
           fetched. This algorithm will return a boolean.
         </p>
         <ol>
-          <li>Let <var>V</var> be <var>registration["use_cache"]</var>.
+          <li>Let <var>value</var> be <var>registration["use_cache"]</var>.
           </li>
-          <li>If <var>V</var> is <code>null</code>, return <code>false</code>.
+          <li>If <var>value</var> is <code>undefined</code>, return
+          <code>false</code>.
           </li>
-          <li>Otherwise, return <var>V</var>.
+          <li>Otherwise, return <var>value</var>.
           </li>
         </ol>
       </section>
@@ -3101,18 +3063,19 @@
           found.
         </p>
         <p>
-          The <dfn>steps for processing the <a>url</a> member of an
+          The <dfn>steps for post-processing the <a>url</a> member of an
           application</dfn> are given by the following algorithm. The algorithm
           takes an <a>ExternalApplicationResource</a> <var>application</var>.
           This algorithm will return an <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>V</var> be <var>application["url"]</var>.
+          <li>Let <var>value</var> be <var>application["url"]</var>.
           </li>
-          <li>If <var>V</var> is <code>null</code>, return <code>null</code>.
+          <li>If <var>value</var> is <code>undefined</code>, return
+          <code>undefined</code>.
           </li>
-          <li>Otherwise, <a>parse</a> <var>V</var> and if the result is not
-          failure, return the result, otherwise return <code>null</code>.
+          <li>Otherwise, <a>parse</a> <var>value</var> and if the result is not
+          failure, return the result, otherwise return <code>undefined</code>.
           </li>
         </ol>
       </section>
@@ -3155,25 +3118,26 @@
           and semantics are platform-defined.
         </p>
         <p>
-          The <dfn>steps for processing the <code>fingerprints</code> member of
-          an application</dfn> are given by the following algorithm. The
-          algorithm takes an <a>ExternalApplicationResource</a>
+          The <dfn>steps for post-processing the <code>fingerprints</code>
+          member of an application</dfn> are given by the following algorithm.
+          The algorithm takes an <a>ExternalApplicationResource</a>
           <var>application</var>. This algorithm will return an array of
           <a data-lt="fingerprint object">fingerprint objects</a>, possibly
           empty.
         </p>
         <ol>
-          <li>Let <var>A</var> be an empty array.
+          <li>Let <var>fingerprints</var> be an empty array.
           </li>
-          <li>For each <var>V</var> in <var>application["fingerprints"]</var>:
+          <li>For each <var>entry</var> in
+          <var>application["fingerprints"]</var>:
             <ol>
-              <li>Let <var>type</var> be <var>V["type"]</var>.
+              <li>Let <var>type</var> be <var>entry["type"]</var>.
               </li>
               <li>If Type(<var>type</var>) is not String, then <a>issue a
               developer warning</a> that the type is unsupported, and move on
               to the next item (if any are left).
               </li>
-              <li>Let <var>value</var> be <var>V["value"]</var>.
+              <li>Let <var>value</var> be <var>entry["value"]</var>.
               </li>
               <li>If Type(<var>value</var>) is not <code>String</code>, then
               <a>issue a developer warning</a> that the type is unsupported,
@@ -3183,11 +3147,11 @@
               with its <code>type</code> member set to <var>type</var> and its
               <code>value</code> member set to <var>value</var>.
               </li>
-              <li>Append <var>fingerprint</var> to <var>A</var>.
+              <li>Append <var>fingerprint</var> to <var>fingerprints</var>.
               </li>
             </ol>
           </li>
-          <li>Return <var>A</var>.
+          <li>Return <var>fingerprints</var>.
           </li>
         </ol>
       </section>
@@ -3218,9 +3182,9 @@
         As the manifest uses the JSON format, this specification relies on the
         types defined in [[!ECMA-404]] specification: namely <dfn>object</dfn>,
         <dfn>array</dfn>, <dfn>number</dfn>, <dfn>string</dfn>,
-        <code>true</code>, <code>false</code>, and <code>null</code>. Strict
-        type checking is not enforced by this specification. Instead, each
-        member's definition specifies the steps required to process a
+        <code>true</code>, <code>false</code>, and <code>undefined</code>.
+        Strict type checking is not enforced by this specification. Instead,
+        each member's definition specifies the steps required to process a
         particular member and what to do when a type does not match what is
         expected.
       </p>
@@ -3786,9 +3750,9 @@
           doing so, please follow the conventions used in this specification.
           In particular, use the <a>extension point</a> to hook into the
           <a>steps for processing a manifest</a>. Also, be sure to specify the
-          steps for processing your particular member in the manner set forth
-          in this specification. This will help keep this part of the platform
-          consistent.
+          steps for post-processing your particular member in the manner set
+          forth in this specification. This will help keep this part of the
+          platform consistent.
         </p>
         <p>
           To allow the community can easily find extensions, please add your
