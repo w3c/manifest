@@ -1558,7 +1558,7 @@
       </h2>
       <pre class="idl">
           dictionary WebAppManifest {
-             TextDirectionType dir;
+             TextDirectionType dir = "auto";
              DOMString lang;
              USVString name;
              USVString short_name;
@@ -1575,7 +1575,7 @@
              USVString scope;
              ServiceWorkerRegistration serviceworker;
              sequence&lt;ExternalApplicationResource&gt; related_applications;
-             boolean prefer_related_applications;
+             boolean prefer_related_applications = "false";
           };
       </pre>
       <p>
@@ -2080,30 +2080,24 @@
           <li>If <var>registration</var> is <code>undefined</code>, return
           <code>undefined</code>.
           </li>
-          <li>Let <var>src</var> be the result of running the <a>steps for
-          post-processing the <code>src</code> member of a service worker</a>
-          with <var>registration</var> and <var>manifest URL</var>.
+          <li>Let <var>registration["src"]</var> be the result of running the
+          <a>steps for post-processing the <code>src</code> member of a service
+          worker</a> with <var>registration</var> and <var>manifest URL</var>.
           </li>
           <li>If the result of running <a>is origin potentially trustworthy</a>
-          with the origin of <var>src</var> is <code>Not Trusted</code>,
-          <a>issue a developer warning</a>, abort these steps and return <code>
-            undefined</code>.
+          with the origin of <var>registration["src"]</var> is <code>Not
+          Trusted</code>, <a>issue a developer warning</a>, abort these steps
+          and return <code>undefined</code>.
           </li>
-          <li>Let <var>scope</var> be the result of running the <a>steps for
-          post-processing the <code>scope</code> member of a service worker</a>
-          passing <var>registration</var>.
+          <li>Let <var>registration["scope"]</var> be the result of running the
+          <a>steps for post-processing the <code>scope</code> member of a
+          service worker</a> passing <var>registration</var>.
           </li>
-          <li>Let <var>type</var> be the result of running the <a>steps for
-          post-processing the <code>type</code> member of a service worker</a>
-          passing <var>registration</var>.
+          <li>Let <var>registration["type"]</var> be the result of running the
+          <a>steps for post-processing the <code>type</code> member of a
+          service worker</a> passing <var>registration</var>.
           </li>
-          <li>Let <var>use_cache</var> be the result of running the <a>steps
-          for post-processing the <code>use_cache</code> member of a service
-          worker</a> passing <var>registration</var>.
-          </li>
-          <li>Return a new object created as if by the expression ({
-          <var>src</var>, <var>scope</var>, <var>type</var>,
-          <var>use_cache</var> }).
+          <li>Return <var>registration</var>.
           </li>
         </ol>
         <div class="example">
@@ -2238,9 +2232,7 @@
         <p>
           The <dfn>prefer_related_applications</dfn> member is a boolean value
           that is used as a hint for the user agent to say that <a>related
-          applications</a> should be preferred over the web application. The
-          user agent MUST consider the missing value as equivalent to have it
-          set to <code>false</code>. If the
+          applications</a> should be preferred over the web application. If the
           <code>prefer_related_applications</code> is set to <code>true</code>,
           and the user agent wants to suggest to install the web application,
           the user agent might want to suggest installing one of the <a>related
@@ -2842,7 +2834,7 @@
           required USVString src;
           USVString scope;
           USVString type;
-          boolean use_cache;
+          boolean use_cache = "false";
         };
       </pre>
       <section data-dfn-for="serviceworkerregistration">
@@ -2940,23 +2932,6 @@
           "https://w3c.github.io/ServiceWorker/#dfn-use-cache">cache</a> should
           be used when fetching the service worker.
         </p>
-        <p>
-          The <dfn>steps for post-processing the <code>use_cache</code> member
-          of a service worker</dfn> are given by the following algorithm. The
-          algorithm takes a <a>serviceworkerregistration</a>
-          <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
-          which is the <a>URL</a> from which the <var>manifest</var> was
-          fetched. This algorithm will return a boolean.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be <var>registration["use_cache"]</var>.
-          </li>
-          <li>If <var>value</var> is <code>undefined</code>, return
-          <code>false</code>.
-          </li>
-          <li>Otherwise, return <var>value</var>.
-          </li>
-        </ol>
       </section>
     </section>
     <section data-dfn-for="ExternalApplicationResource" data-link-for=
