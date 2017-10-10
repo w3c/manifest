@@ -2082,7 +2082,8 @@
           </li>
           <li>Let <var>registration["src"]</var> be the result of running the
           <a>steps for post-processing the <code>src</code> member of a service
-          worker</a> with <var>registration</var> and <var>manifest URL</var>.
+          worker</a> with <var>registration["src"]</var> and <var>manifest
+          URL</var>.
           </li>
           <li>If the result of running <a>is origin potentially trustworthy</a>
           with the origin of <var>registration["src"]</var> is <code>Not
@@ -2091,11 +2092,7 @@
           </li>
           <li>Let <var>registration["scope"]</var> be the result of running the
           <a>steps for post-processing the <code>scope</code> member of a
-          service worker</a> passing <var>registration</var>.
-          </li>
-          <li>Let <var>registration["type"]</var> be the result of running the
-          <a>steps for post-processing the <code>type</code> member of a
-          service worker</a> passing <var>registration</var>.
+          service worker</a> passing <var>registration["scope"]</var>.
           </li>
           <li>Return <var>registration</var>.
           </li>
@@ -2207,12 +2204,7 @@
                 <ol>
                   <li>Set <var>app["url"]</var> be the result of running the
                   <a>steps for post-processing the <code>url</code> member of
-                  an application</a> with <var>app</var>.
-                  </li>
-                  <li>Set <var>app["fingerprints"]</var> be the result of
-                  running the <a>steps for post-processing the
-                  <code>fingerprints</code> member of an application</a> with
-                  <var>app</var>.
+                  an application</a> with <var>app["url"]</var>.
                   </li>
                   <li>Append <var>app</var> to <var>relatedApplications</var>
                   </li>
@@ -2833,7 +2825,7 @@
         dictionary ServiceWorkerRegistration {
           required USVString src;
           USVString scope;
-          USVString type;
+          USVString type = "classic";
           boolean use_cache = "false";
         };
       </pre>
@@ -2848,19 +2840,17 @@
         <p>
           The <dfn>steps for post-processing the <code>src</code> member of a
           service worker</dfn> are given by the following algorithm. The
-          algorithm takes a <a>ServiceWorkerRegistration</a>
-          <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
-          which is the <a>URL</a> from which the <var>manifest</var> was
-          fetched. This algorithm will return a <a>URL</a> or
-          <code>undefined</code>.
+          algorithm takes a <a>USVString</a> <var>source URL</var>, and a
+          <a>URL</a> <var>manifest URL</var>, which is the <a>URL</a> from
+          which the <var>manifest</var> was fetched. This algorithm will return
+          a <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be <var>registration["src"]</var>.
+          <li>If <a>Type</a>(<var>source URL</var>) is not <code>String</code>
+          or <var>source URL</var> is the empty string, then return
+          <code>undefined</code>.
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is not <code>String</code> or
-          <var>V</var> is the empty string, then return <code>undefined</code>.
-          </li>
-          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
+          <li>Otherwise, <a>parse</a> <var>source URL</var> using <var>manifest
           URL</var> as the base URL and return the result.
           </li>
         </ol>
@@ -2876,19 +2866,16 @@
         <p>
           The <dfn>steps for post-processing the <code>scope</code> member of a
           service worker</dfn> are given by the following algorithm. The
-          algorithm takes a <a>ServiceWorkerRegistration</a>
-          <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
-          which is the <a>URL</a> from which the <var>manifest</var> was
-          fetched. This algorithm will return a <a>URL</a> or
-          <code>undefined</code>.
+          algorithm takes a <a>USVString</a> <var>scope URL</var>, and a
+          <a>URL</a> <var>manifest URL</var>, which is the <a>URL</a> from
+          which the <var>manifest</var> was fetched. This algorithm will return
+          a <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be <var>registration["scope"]</var>.
+          <li>If <var>scope URL</var> is <code>undefined</code>, return <code>
+            undefined</code>
           </li>
-          <li>If <var>value</var> is <code>undefined</code>, return
-          <code>undefined</code>.
-          </li>
-          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
+          <li>Otherwise, <a>parse</a> <var>scope URL</var> using <var>manifest
           URL</var> as the base URL and return the result.
           </li>
         </ol>
@@ -2903,23 +2890,6 @@
           "https://html.spec.whatwg.org/multipage/workers.html#workertype">worker
           type</a>.
         </p>
-        <p>
-          The <dfn>steps for post-processing the <code>type</code> member of a
-          service worker</dfn> are given by the following algorithm. The
-          algorithm takes a <a>ServiceWorkerRegistration</a>
-          <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
-          which is the <a>URL</a> from which the <var>manifest</var> was
-          fetched. This algorithm will return a string.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be <var>registration["type"]</var>.
-          </li>
-          <li>If <var>value</var> is <code>undefined</code>, return
-          <code>"classic"</code>.
-          </li>
-          <li>Otherwise, return <var>value</var>.
-          </li>
-        </ol>
       </section>
       <section data-dfn-for="ServiceWorkerRegistration" data-link-for=
       "ServiceWorkerRegistration">
@@ -2945,7 +2915,7 @@
           USVString url;
           DOMString id;
           USVString min_version;
-          USVString fingerprints;
+          sequence&lt;Fingerprint&gt; fingerprints;
         };
       </pre>
       <p>
@@ -2984,8 +2954,8 @@
           <code>fingerprints</code>
         </dt>
         <dd>
-          an array of <a data-lt="fingerprint object">fingerprint objects</a>
-          used for verifying the application
+          an array of <a>Fingerprint</a> objects used for verifying the
+          application
         </dd>
       </dl>
       <p>
@@ -3040,17 +3010,16 @@
         <p>
           The <dfn>steps for post-processing the <a>url</a> member of an
           application</dfn> are given by the following algorithm. The algorithm
-          takes an <a>ExternalApplicationResource</a> <var>application</var>.
-          This algorithm will return an <a>URL</a> or <code>undefined</code>.
+          takes a <a>USVString</a> <var>application URL</var>. This algorithm
+          will return an <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be <var>application["url"]</var>.
-          </li>
-          <li>If <var>value</var> is <code>undefined</code>, return
+          <li>If <var>application URL</var> is <code>undefined</code>, return
           <code>undefined</code>.
           </li>
-          <li>Otherwise, <a>parse</a> <var>value</var> and if the result is not
-          failure, return the result, otherwise return <code>undefined</code>.
+          <li>Otherwise, <a>parse</a> <var>application URL</var> and if the
+          result is not failure, return the result, otherwise return
+          <code>undefined</code>.
           </li>
         </ol>
       </section>
@@ -3076,59 +3045,29 @@
           semantics.
         </p>
       </section>
-      <section data-dfn-for="ExternalApplicationResource">
+      <section data-dfn-for="Fingerprint">
         <h3>
           <code>fingerprints</code> member
         </h3>
+        <pre class="idl">
+            dictionary Fingerprint {
+              USVString type;
+              USVString value;
+            };
+        </pre>
         <p>
-          The <dfn>fingerprints</dfn> member of an
-          <a>ExternalApplicationResource</a> dictionary represents a set of
-          cryptographic fingerprints used for verifying the application. It is
-          given as an array of <a data-lt="fingerprint object">fingerprint
-          objects</a>.
+          The <dfn data-dfn-for=
+          "ExternalApplicationResource">fingerprints</dfn> member of an
+          <a>ExternalApplicationResource</a> dictionary represents an array of
+          <a>Fingerprint</a>s.
         </p>
         <p>
-          A <dfn>fingerprint object</dfn> has two properties: <code>type</code>
-          and <code>value</code>. Each of these are strings, but their syntax
-          and semantics are platform-defined.
+          Each <dfn>Fingerprint</dfn>s represents a set of cryptographic
+          fingerprints used for verifying the application. A fingerprint has
+          the following two properties: <dfn>type</dfn> and <dfn>value</dfn>.
+          Each of these are strings, but their syntax and semantics are
+          platform-defined.
         </p>
-        <p>
-          The <dfn>steps for post-processing the <code>fingerprints</code>
-          member of an application</dfn> are given by the following algorithm.
-          The algorithm takes an <a>ExternalApplicationResource</a>
-          <var>application</var>. This algorithm will return an array of
-          <a data-lt="fingerprint object">fingerprint objects</a>, possibly
-          empty.
-        </p>
-        <ol>
-          <li>Let <var>fingerprints</var> be an empty array.
-          </li>
-          <li>For each <var>entry</var> in
-          <var>application["fingerprints"]</var>:
-            <ol>
-              <li>Let <var>type</var> be <var>entry["type"]</var>.
-              </li>
-              <li>If Type(<var>type</var>) is not String, then <a>issue a
-              developer warning</a> that the type is unsupported, and move on
-              to the next item (if any are left).
-              </li>
-              <li>Let <var>value</var> be <var>entry["value"]</var>.
-              </li>
-              <li>If Type(<var>value</var>) is not <code>String</code>, then
-              <a>issue a developer warning</a> that the type is unsupported,
-              and move on to the next item (if any are left).
-              </li>
-              <li>Let <var>fingerprint</var> be a <a>fingerprint object</a>,
-              with its <code>type</code> member set to <var>type</var> and its
-              <code>value</code> member set to <var>value</var>.
-              </li>
-              <li>Append <var>fingerprint</var> to <var>fingerprints</var>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>fingerprints</var>.
-          </li>
-        </ol>
       </section>
     </section>
     <section>
