@@ -370,9 +370,9 @@
               an <a>installation process</a>'s UI.
               </li>
               <li>If <a>obtaining the manifest</a> succeeds, and the result of
-              running the <a>steps for post-processing the serviceworker
-              member</a> with <a>manifest</a> returns a valid
-              <var>registration</var>, a user agent can at this point
+              running <a>post-processing the serviceworker member</a> with <a>
+                manifest</a> returns a valid <var>registration</var>, a user
+                agent can at this point
                 <ol>
                   <li>Let <var>client</var> be the <a>top-level browsing
                   context</a> <code>Document</code>'s <a href=
@@ -1243,12 +1243,12 @@
           the user agent uses the first <a><code>link</code> element</a> in
           tree order and ignores all subsequent <a><code>link</code>
           element</a> with a <code>manifest</code> link type (even if the first
-          element was erroneous). See the <a>steps for obtaining a
+          element was erroneous). See the steps for <a>obtaining a
           manifest</a>.
         </p>
         <p>
-          To obtain a manifest, the user agent MUST run the <a data-lt=
-          "obtaining the manifest">steps for obtaining a manifest</a>. The
+          To obtain a manifest, the user agent MUST run the steps for
+          <a data-lt="obtaining the manifest">obtaining a manifest</a>. The
           appropriate time to obtain the manifest is left up to
           implementations. A user agent MAY opt to delay fetching a manifest
           until after the document and its other resources have been fully
@@ -1318,10 +1318,10 @@
             response</var>'s <a data-cite=
             "!FETCH#concept-request-body">body</a>.
           </li>
-          <li>Let <var>manifest</var> be the result of running the <a>steps for
-          processing a manifest</a> with <var>text</var>, <var>manifest
-          URL</var>, and the URL that represents the address of the
-          <a>top-level browsing context</a>.
+          <li>Let <var>manifest</var> be the result of running <a>processing a
+          manifest</a> given <var>text</var>, <var>manifest URL</var>, and the
+          URL that represents the address of the <a>top-level browsing
+          context</a>.
           </li>
           <li>Return <var>manifest</var> and <var>manifest URL</var>.
           </li>
@@ -1409,7 +1409,7 @@
           </p>
         </div>
         <p>
-          The <dfn>steps for processing a manifest</dfn> are given by the
+          The steps for <dfn>processing a manifest</dfn> are given by the
           following algorithm. The algorithm takes a <var>text</var> string as
           an argument, which represents a <a>manifest</a>, and a <a>URL</a>
           <var>manifest URL</var>, which represents the location of the
@@ -1456,53 +1456,53 @@
           </li>
           <li>Let <var>manifest</var> be the result of <a data-lt=
           "to idl dictionary value">converting</a> <var>json</var> to a
-          <a>WebAppManifest</a>.
+          <a>WebAppManifest</a> dictionary.
           </li>
           <li>Let <var>manifest["<a>start_url</a>"]</var> be the result of
-          running the <a>steps for post-processing the <code>start_url</code>
-          member</a> with <var>manifest</var>, <var>manifest URL,</var> and
-          <var>document URL</var> as arguments.
+          running <a>post-processing the <code>start_url</code> member</a>
+          given <var>manifest["<a>start_url</a>"]</var>, <var>manifest
+          URL</var>, and <var>document URL</var>.
           </li>
           <li>Let <var>manifest["<a>lang</a>"]</var> be the result of running
-          the <a>steps for post-processing the <code>lang</code> member</a>
-          with <var>manifest</var> as the argument.
+          <a>post-processing the <code>lang</code> member</a> given
+          <var>manifest["<a>lang</a>"]</var>.
           </li>
           <li>Let <var>manifest["<a>scope</a>"]</var> be the result of running
-          the <a>steps for post-processing the <code>scope</code> member</a>
-          with <var>manifest</var>, <var>manifest URL</var>, <var>document
-          URL</var>, <var>manifest["<a>start_url</a>"]</var> as arguments.
+          <a>post-processing the <code>scope</code> member</a> given
+          <var>manifest["<a>scope</a>"]</var>, <var>manifest URL</var>,
+          <var>document URL</var>, and <var>manifest["<a>start_url</a>"]</var>.
           </li>
           <li>Let <var>manifest["<a>theme_color</a>"]</var> be the result of
-          running the <a>steps for post-processing the <code>theme_color</code>
-          member</a> with <var>manifest</var> as argument.
+          running <a>post-processing the <code>theme_color</code> member</a>
+          given <var>manifest["<a>theme_color</a>"]</var>.
           </li>
           <li>Let <var>manifest["<a>background_color</a>"]</var> be the result
-          of running the <a>steps for post-processing the
-          <code>background_color</code> member</a> with <var>manifest</var> as
-          argument.
+          of running <a>post-processing the <code>background_color</code>
+          member</a> given <var>manifest["<a>background_color</a>"]</var>.
           </li>
           <li>Let <var>manifest["<a>categories</a>"]</var> be the result of
-          running the <a>steps for post-processing the <code>categories</code>
-          member</a> with <var>manifest</var> as argument.
+          running <a>post-processing the <code>categories</code> member</a>
+          given <var>manifest["<a>categories</a>"]</var>.
           </li>
           <li>Let <var>manifest["<a>icons</a>"]</var> be the result of running
-          the <a>steps for post-processing ImageResource members</a> with <var>
-            manifest</var>, <var>manifest URL</var>, and "icons" as arguments.
+          <a>post-processing ImageResource members</a> given
+          <var>manifest["<a>icons</a>"]</var>, <var>manifest URL</var>, and
+          <code>"icons"</code>.
           </li>
           <li>Let <var>manifest["<a>screenshots</a>"]</var> be the result of
-          running the <a>steps for post-processing ImageResource members</a>
-          with <var>manifest</var>, <var>manifest URL</var>, and "screenshots"
-          as arguments.
+          running <a>post-processing ImageResource members</a> given
+          <var>manifest["<a>screenshots</a>"]</var>, <var>manifest URL</var>,
+          and <code>"screenshots"</code>.
           </li>
           <li>Let <var>manifest["<a>related_applications</a>"]</var> be the
-          result of running the <a>steps for post-processing the
-          <code>related_applications</code> member</a> with <var>manifest</var>
-          as argument.
+          result of running <a>post-processing the
+          <code>related_applications</code> member</a> given
+          <var>manifest["<a>related_applications</a>"]</var>.
           </li>
           <li>Let <var>manifest["<a>serviceworker</a>"]</var> be the result of
-          running the <a>steps for post-processing the
-          <code>serviceworker</code> member</a> with <var>manifest</var>, <var>
-            manifest URL</var>, and <var>serviceworker</var> as arguments.
+          running <a>post-processing the <code>serviceworker</code> member</a>
+          given <var>manifest["<a>serviceworker</a>"]</var>, <var>manifest
+          URL</var>, and <var>serviceworker</var>.
           </li>
           <li>Return <var>manifest</var>.
           </li>
@@ -1696,7 +1696,7 @@
           structurally valid.
         </p>
         <p>
-          The <dfn>steps for post-processing the <code>lang</code> member</dfn>
+          The steps for <dfn>post-processing the <code>lang</code> member</dfn>
           is given by the following algorithm. The algorithm takes a
           <a>WebAppManifest</a> <var>manifest</var> as an argument. This
           algorithm returns a <code>DOMString?</code>.
@@ -1770,24 +1770,20 @@
           context</a>.
         </p>
         <p>
-          The <dfn>steps for post-processing the <code>scope</code>
+          The steps for <dfn>post-processing the <code>scope</code>
           member</dfn> is given by the following algorithm. The algorithm takes
-          a <a>WebAppManifest</a> <var>manifest</var>, a <a>URL</a>
-          <var>manifest URL</var>, a <a>URL</a> <var>document URL</var>, and a
-          URL <var>start URL</var> . This algorithm returns a <a>URL</a> or
+          an <a>USVString</a> <var>scope URL</var>, a <a>URL</a> <var>manifest
+          URL</var>, a <a>URL</a> <var>document URL</var>, and a URL <var>start
+          URL</var>. This algorithm returns a <a>URL</a> or
           <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be <var>manifest.scope</var>.
+          <li>If <var>scope URL</var> is the empty string, then return
+          <code>undefined</code>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
-          </li>
-          <li>If <var>type</var> is not <code>String</code> or <var>value</var>
-          is the empty string, then return <code>undefined</code>.
-          </li>
-          <li>Let <var>scope URL</var> be a new <a>URL</a> using
-          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
-          the <var>base</var> URL.
+          <li>Let <var>scope URL</var> be a new <a>URL</a> using <var>scope
+          URL</var> as <var>input</var> and <var>manifest URL</var> as the
+          <var>base</var> URL.
           </li>
           <li>If <var>scope URL</var> is failure:
             <ul>
@@ -1972,26 +1968,21 @@
           created or any time thereafter.
         </p>
         <p>
-          The <dfn>steps for post-processing the <code>start_url</code>
+          The steps for <dfn>post-processing the <code>start_url</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>WebAppManifest</a> <var>manifest</var>, a <a>URL</a>
+          takes a <a>USVString</a> <var>start URL</var>, a <a>URL</a>
           <var>manifest URL</var>, and a <a>URL</a> <var>document URL</var>.
           This algorithm returns a <a>URL</a>.
         </p>
         <ol>
-          <li>Let <var>value</var> be <var>manifest["start_url"]</var>.
+          <li>If <var>start URL</var> is the empty string, return a new
+          <a>URL</a> whose <var>input</var> is <var>document URL</var>.
           </li>
-          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          <li>Let <var>start URL</var> be a new <a>URL</a> using
+          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
+          the <var>base</var> URL.
           </li>
-          <li>If <var>type</var> is not <code>String</code> or <var>value</var>
-          is the empty string, return a new <a>URL</a> whose <var>input</var>
-          is <var>document URL</var>.
-          </li>
-          <li>Let <var>url</var> be a new <a>URL</a> using <var>value</var> as
-          <var>input</var> and <var>manifest URL</var> as the <var>base</var>
-          URL.
-          </li>
-          <li>If <var>url</var> is failure:
+          <li>If <var>start URL</var> is failure:
             <ul>
               <li>
                 <a>Issue a developer warning</a>.
@@ -2001,7 +1992,8 @@
               </li>
             </ul>
           </li>
-          <li>If url is not <a>same origin</a> as <var>document URL</var>:
+          <li>If <var>start URL</var> is not <a>same origin</a> as
+          <var>document URL</var>:
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the <a>start_url</a>
@@ -2013,7 +2005,7 @@
               </li>
             </ol>
           </li>
-          <li>Otherwise, return <var>url</var>.
+          <li>Otherwise, return <var>start URL</var>.
           </li>
         </ol>
         <div class="example">
@@ -2067,22 +2059,19 @@
           they coalesce. If they have different script URLs, last one wins.
         </p>
         <p>
-          The <dfn>steps for post-processing the <code>serviceworker</code>
+          The steps for <dfn>post-processing the <code>serviceworker</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>WebAppManifest</a> <var>manifest</var>. This algorithm
-          returns a <a>registration object</a> <var>registration</var>, which
-          can be <code>undefined</code>.
+          takes a <a>ServiceWorkerRegistration</a> <var>registration</var>.
+          This algorithm returns a <a>ServiceWorkerRegistration</a>
+          <var>registration</var>, which can be <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>registration</var> be
-          <var>manifest["serviceworker"]</var>.
-          </li>
           <li>If <var>registration</var> is <code>undefined</code>, return
           <code>undefined</code>.
           </li>
-          <li>Let <var>registration["src"]</var> be the result of running the
-          <a>steps for post-processing the <code>src</code> member of a service
-          worker</a> with <var>registration["src"]</var> and <var>manifest
+          <li>Let <var>registration["src"]</var> be the result of running
+          <a>post-processing the <code>src</code> member of a service
+          worker</a> given <var>registration["src"]</var> and <var>manifest
           URL</var>.
           </li>
           <li>If the result of running <a>is origin potentially trustworthy</a>
@@ -2090,9 +2079,9 @@
           Trusted</code>, <a>issue a developer warning</a>, abort these steps
           and return <code>undefined</code>.
           </li>
-          <li>Let <var>registration["scope"]</var> be the result of running the
-          <a>steps for post-processing the <code>scope</code> member of a
-          service worker</a> passing <var>registration["scope"]</var>.
+          <li>Let <var>registration["scope"]</var> be the result of running <a>
+            post-processing the <code>scope</code> member of a service
+            worker</a> given <var>registration["scope"]</var>.
           </li>
           <li>Return <var>registration</var>.
           </li>
@@ -2129,20 +2118,15 @@
           "theme-color".
         </p>
         <p>
-          The <dfn>steps for post-processing the <code>theme_color</code>
+          The steps for <dfn>post-processing the <code>theme_color</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>WebAppManifest</a> <var>manifest</var> as an argument.
-          This algorithm returns a <code>USVString?</code>.
+          takes a <a>USVString</a> <var>theme color</var> as an argument. This
+          algorithm returns a <code>USVString?</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be <var>manifest["theme_color"]</var>.
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not <code>String</code>
-          return <code>undefined</code>.
-          </li>
-          <li>Otherwise, let <var>potential color</var> be the result of
-          running [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm
-          with <var>value</var> as input. If parsing returns a syntax error,
+          <li>Let <var>potential color</var> be the result of running
+          [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm with
+          <var>theme color</var> as input. If parsing returns a syntax error,
           return <code>undefined</code>.
           </li>
           <li>Let <var>color</var> be the result of attempting to parse
@@ -2186,25 +2170,25 @@
           application.
         </p>
         <p>
-          The <dfn>steps for post-processing the
+          The steps for <dfn>post-processing the
           <code>related_applications</code> member</dfn> are given by the
-          following algorithm. The algorithm takes a <a>WebAppManifest</a>
-          <var>manifest</var> as an argument. This algorithm returns an
+          following algorithm. The algorithm takes a
+          sequence&lt;<a>ExternalApplicationResource</a>&gt; <var>related
+          applications</var> as an argument. This algorithm returns an
           Array&lt;<a>ExternalApplicationResource</a>&gt;.
         </p>
         <ol>
           <li>Let <var>relatedApplications</var> be a new Array object created
           as if by the expression [].
           </li>
-          <li>For each <var>app</var> in
-          <var>manifest["related_applications"]</var>:
+          <li>For each <var>app</var> in <var>related applications</var>:
             <ol>
               <li>if neither <var>app["src"]</var> nor <var>app["url"]</var>
               are <code>undefined</code>:
                 <ol>
-                  <li>Set <var>app["url"]</var> be the result of running the
-                  <a>steps for post-processing the <code>url</code> member of
-                  an application</a> with <var>app["url"]</var>.
+                  <li>Set <var>app["url"]</var> be the result of running
+                  <a>post-processing the <code>url</code> member of an
+                  application</a> given <var>app["url"]</var>.
                   </li>
                   <li>Append <var>app</var> to <var>relatedApplications</var>
                   </li>
@@ -2251,21 +2235,16 @@
           application's stylesheet is available.
         </p>
         <p>
-          The <dfn>steps for post-processing the <a>background_color</a>
+          The steps for <dfn>post-processing the <a>background_color</a>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>WebAppManifest</a> <var>manifest</var> as an argument.
+          takes a <a>USVString</a> <var>background color</var> as an argument.
           This algorithm returns a <code>USVString?</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be <var>manifest["background_color"]</var>.
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not <code>String</code>
-          return <code>undefined</code>.
-          </li>
-          <li>Otherwise, let <var>potential color</var> be the result of
-          running [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm
-          with <var>value</var> as input. If parsing returns a syntax error,
-          return <code>undefined</code>.
+          <li>Let <var>potential color</var> be the result of running
+          [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm with
+          <var>background color</var> as input. If parsing returns a syntax
+          error, return <code>undefined</code>.
           </li>
           <li>Let <var>color</var> be the result of attempting to parse
           <var>potential color</var> as a CSS color, as per [[!CSS-SYNTAX-3]].
@@ -2298,14 +2277,14 @@
           keywords, catalogs and stores are not required to honor this hint.
         </p>
         <p>
-          The <dfn>steps for post-processing the <code>categories</code>
+          The steps for <dfn>post-processing the <code>categories</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>WebAppManifest</a> <var>manifest</var> as an argument.
-          This algorithm returns an <code>Array&lt;USVString&gt;</code>.
+          takes a sequence&lt;<a>USVString</a>&gt; <var>categories</var> as an
+          argument. This algorithm returns an
+          <code>Array&lt;USVString&gt;</code>.
         </p>
         <ol>
-          <li>For each <var>category</var> in
-          <var>manifest["categories"]</var>:
+          <li>For each <var>category</var> in <var>categories</var>:
             <ol>
               <li>Convert <var>category</var> <a>to ASCII lowercase</a> in
               place.
@@ -2545,7 +2524,7 @@
           </dd>
         </dl>
         <p>
-          The <dfn>steps for post-processing the <code>purpose</code> member of
+          The steps for <dfn>post-processing the <code>purpose</code> member of
           an image</dfn> are given by the following algorithm. The algorithm
           takes an <a>ImageResource</a> <var>image</var>. This algorithm will
           return a set.
@@ -2625,7 +2604,7 @@
           display context (and ignore any that are inappropriate).
         </p>
         <p>
-          The <dfn>steps for post-processing the <code>sizes</code> member of
+          The steps for <dfn>post-processing the <code>sizes</code> member of
           an image</dfn> are given by the following algorithm. The algorithm
           takes an <a>ImageResource</a> <var>image</var>. This algorithm will
           return a set.
@@ -2662,7 +2641,7 @@
           from which a user agent can fetch the image's data.
         </p>
         <p>
-          The <dfn>steps for post-processing the <code>src</code> member of an
+          The steps for <dfn>post-processing the <code>src</code> member of an
           image</dfn> are given by the following algorithm. The algorithm takes
           a <a>ImageResource</a> <var>icon</var>, and a <a>URL</a>
           <var>manifest URL</var> , which is the <a>URL</a> from which the
@@ -2695,7 +2674,7 @@
           must expect the resource to be an image.
         </p>
         <p>
-          The <dfn>steps for post-processing the <code>type</code> member of an
+          The steps for <dfn>post-processing the <code>type</code> member of an
           image</dfn> are given by the following algorithm. The algorithm takes
           an <var>image</var> object as an argument, and returns either a
           string or <code>undefined</code>.
@@ -2719,7 +2698,7 @@
           Post-processing an array of image resources
         </h3>
         <p>
-          The <dfn>steps for post-processing <a>ImageResource</a> members</dfn>
+          The steps for <dfn>post-processing <a>ImageResource</a> members</dfn>
           are given by the following algorithm. The algorithm takes a manifest,
           a <a>URL</a> <var>manifest URL</var>, which is the URL from which the
           <var>manifest</var> was fetched, and a string that represents the
@@ -2741,24 +2720,24 @@
                     the expression ({}).
                     </li>
                     <li>Let <var>image["src"]</var> be the result of running
-                    the <a>steps for post-processing the <code>src</code>
-                    member of an image</a> with <var>entry</var> and
-                    <var>manifest URL</var>.
+                    <a>post-processing the <code>src</code> member of an
+                    image</a> given <var>entry</var> and <var>manifest
+                    URL</var>.
                     </li>
                     <li>Let <var>image["type"]</var> be the result of running
-                    the <a>steps for post-processing the <code>type</code>
-                    member of an image</a> with <var>entry</var> and
-                    <var>manifest URL</var>.
+                    <a>post-processing the <code>type</code> member of an
+                    image</a> given <var>entry</var> and <var>manifest
+                    URL</var>.
                     </li>
                     <li>Let <var>image["sizes"]</var> be the result of running
-                    the <a>steps for post-processing the <code>sizes</code>
-                    member of an image</a> with <var>entry</var> and
-                    <var>manifest URL</var>.
+                    <a>post-processing the <code>sizes</code> member of an
+                    image</a> given <var>entry</var> and <var>manifest
+                    URL</var>.
                     </li>
                     <li>Let <var>image["purpose"]</var> be the result of
-                    running the <a>steps for post-processing the
-                    <code>purpose</code> member of an image</a> with
-                    <var>entry</var> and <var>manifest URL</var>.
+                    running <a>post-processing the <code>purpose</code> member
+                    of an image</a> given <var>entry</var> and <var>manifest
+                    URL</var>.
                     </li>
                     <li>Append <var>image</var> to <var>imageResources</var>
                     </li>
@@ -2838,7 +2817,7 @@
           dictionary is a <a>URL</a> representing a service worker.
         </p>
         <p>
-          The <dfn>steps for post-processing the <code>src</code> member of a
+          The steps for <dfn>post-processing the <code>src</code> member of a
           service worker</dfn> are given by the following algorithm. The
           algorithm takes a <a>USVString</a> <var>source URL</var>, and a
           <a>URL</a> <var>manifest URL</var>, which is the <a>URL</a> from
@@ -2864,7 +2843,7 @@
           dictionary is the service worker's associated <a>scope URL</a>.
         </p>
         <p>
-          The <dfn>steps for post-processing the <code>scope</code> member of a
+          The steps for <dfn>post-processing the <code>scope</code> member of a
           service worker</dfn> are given by the following algorithm. The
           algorithm takes a <a>USVString</a> <var>scope URL</var>, and a
           <a>URL</a> <var>manifest URL</var>, which is the <a>URL</a> from
@@ -3008,7 +2987,7 @@
           found.
         </p>
         <p>
-          The <dfn>steps for post-processing the <a>url</a> member of an
+          The steps for <dfn>post-processing the <a>url</a> member of an
           application</dfn> are given by the following algorithm. The algorithm
           takes a <a>USVString</a> <var>application URL</var>. This algorithm
           will return an <a>URL</a> or <code>undefined</code>.
@@ -3636,7 +3615,7 @@
             Notes:
           </dt>
           <dd>
-            Please refer to the <a>steps for obtaining a manifest</a> for
+            Please refer to the steps for <a>obtaining a manifest</a> for
             details about how to fetch and <a>apply</a> a <a>manifest</a>.
           </dd>
         </dl>
@@ -3662,11 +3641,11 @@
           This specification is designed to be extensible. Other specifications
           are encouraged to define new members for the manifest. However, in
           doing so, please follow the conventions used in this specification.
-          In particular, use the <a>extension point</a> to hook into the
-          <a>steps for processing a manifest</a>. Also, be sure to specify the
-          steps for post-processing your particular member in the manner set
-          forth in this specification. This will help keep this part of the
-          platform consistent.
+          In particular, use the <a>extension point</a> to hook into the steps
+          for <a>processing a manifest</a>. Also, be sure to specify the steps
+          for post-processing your particular member in the manner set forth in
+          this specification. This will help keep this part of the platform
+          consistent.
         </p>
         <p>
           To allow the community can easily find extensions, please add your
