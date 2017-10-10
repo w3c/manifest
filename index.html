@@ -1458,50 +1458,50 @@
           "to idl dictionary value">converting</a> <var>json</var> to a
           <a>WebAppManifest</a> dictionary.
           </li>
-          <li>Let <var>manifest["<a>start_url</a>"]</var> be the result of
+          <li>Set <var>manifest</var>["<a>start_url</a>"] to the result of
           running <a>post-processing the <code>start_url</code> member</a>
-          given <var>manifest["<a>start_url</a>"]</var>, <var>manifest
+          given <var>manifest</var>["<a>start_url</a>"], <var>manifest
           URL</var>, and <var>document URL</var>.
           </li>
-          <li>Let <var>manifest["<a>lang</a>"]</var> be the result of running
+          <li>Set <var>manifest</var>["<a>lang</a>"] to the result of running
           <a>post-processing the <code>lang</code> member</a> given
-          <var>manifest["<a>lang</a>"]</var>.
+          <var>manifest</var>["<a>lang</a>"].
           </li>
-          <li>Let <var>manifest["<a>scope</a>"]</var> be the result of running
+          <li>Set <var>manifest</var>["<a>scope</a>"] to the result of running
           <a>post-processing the <code>scope</code> member</a> given
-          <var>manifest["<a>scope</a>"]</var>, <var>manifest URL</var>,
-          <var>document URL</var>, and <var>manifest["<a>start_url</a>"]</var>.
+          <var>manifest</var>["<a>scope</a>"], <var>manifest URL</var>,
+          <var>document URL</var>, and <var>manifest</var>["<a>start_url</a>"].
           </li>
-          <li>Let <var>manifest["<a>theme_color</a>"]</var> be the result of
+          <li>Set <var>manifest</var>["<a>theme_color</a>"] to the result of
           running <a>post-processing the <code>theme_color</code> member</a>
-          given <var>manifest["<a>theme_color</a>"]</var>.
+          given <var>manifest</var>["<a>theme_color</a>"].
           </li>
-          <li>Let <var>manifest["<a>background_color</a>"]</var> be the result
+          <li>Set <var>manifest</var>["<a>background_color</a>"] to the result
           of running <a>post-processing the <code>background_color</code>
-          member</a> given <var>manifest["<a>background_color</a>"]</var>.
+          member</a> given <var>manifest</var>["<a>background_color</a>"].
           </li>
-          <li>Let <var>manifest["<a>categories</a>"]</var> be the result of
+          <li>Set <var>manifest</var>["<a>categories</a>"] to the result of
           running <a>post-processing the <code>categories</code> member</a>
-          given <var>manifest["<a>categories</a>"]</var>.
+          given <var>manifest</var>["<a>categories</a>"].
           </li>
-          <li>Let <var>manifest["<a>icons</a>"]</var> be the result of running
+          <li>Set <var>manifest</var>["<a>icons</a>"] to the result of running
           <a>post-processing ImageResource members</a> given
-          <var>manifest["<a>icons</a>"]</var>, <var>manifest URL</var>, and
+          <var>manifest</var>["<a>icons</a>"], <var>manifest URL</var>, and
           <code>"icons"</code>.
           </li>
-          <li>Let <var>manifest["<a>screenshots</a>"]</var> be the result of
+          <li>Set <var>manifest</var>["<a>screenshots</a>"] to the result of
           running <a>post-processing ImageResource members</a> given
-          <var>manifest["<a>screenshots</a>"]</var>, <var>manifest URL</var>,
+          <var>manifest</var>["<a>screenshots</a>"], <var>manifest URL</var>,
           and <code>"screenshots"</code>.
           </li>
-          <li>Let <var>manifest["<a>related_applications</a>"]</var> be the
+          <li>Set <var>manifest</var>["<a>related_applications</a>"] to the
           result of running <a>post-processing the
           <code>related_applications</code> member</a> given
-          <var>manifest["<a>related_applications</a>"]</var>.
+          <var>manifest</var>["<a>related_applications</a>"].
           </li>
-          <li>Let <var>manifest["<a>serviceworker</a>"]</var> be the result of
+          <li>Set <var>manifest</var>["<a>serviceworker</a>"] to the result of
           running <a>post-processing the <code>serviceworker</code> member</a>
-          given <var>manifest["<a>serviceworker</a>"]</var>, <var>manifest
+          given <var>manifest</var>["<a>serviceworker</a>"], <var>manifest
           URL</var>, and <var>serviceworker</var>.
           </li>
           <li>Return <var>manifest</var>.
@@ -1702,7 +1702,7 @@
           algorithm returns a <code>DOMString?</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be <var>manifest.lang</var>.
+          <li>Let <var>value</var> be <var>manifest</var>["lang"].
           </li>
           <li>If <a>Type</a>(<var>value</var>) is <code>String</code>:
             <ol>
@@ -2069,19 +2069,19 @@
           <li>If <var>registration</var> is <code>undefined</code>, return
           <code>undefined</code>.
           </li>
-          <li>Let <var>registration["src"]</var> be the result of running
+          <li>Set <var>registration</var>["src"] to the result of running
           <a>post-processing the <code>src</code> member of a service
-          worker</a> given <var>registration["src"]</var> and <var>manifest
+          worker</a> given <var>registration</var>["src"] and <var>manifest
           URL</var>.
           </li>
           <li>If the result of running <a>is origin potentially trustworthy</a>
-          with the origin of <var>registration["src"]</var> is <code>Not
+          with the origin of <var>registration</var>["src"] is <code>Not
           Trusted</code>, <a>issue a developer warning</a>, abort these steps
           and return <code>undefined</code>.
           </li>
-          <li>Let <var>registration["scope"]</var> be the result of running <a>
+          <li>Set <var>registration</var>["scope"] to the result of running <a>
             post-processing the <code>scope</code> member of a service
-            worker</a> given <var>registration["scope"]</var>.
+            worker</a> given <var>registration</var>["scope"].
           </li>
           <li>Return <var>registration</var>.
           </li>
@@ -2183,12 +2183,12 @@
           </li>
           <li>For each <var>app</var> in <var>related applications</var>:
             <ol>
-              <li>if neither <var>app["src"]</var> nor <var>app["url"]</var>
+              <li>if neither <var>app</var>["src"] nor <var>app</var>["url"]
               are <code>undefined</code>:
                 <ol>
-                  <li>Set <var>app["url"]</var> be the result of running
+                  <li>Set <var>app</var>["url"] to the result of running
                   <a>post-processing the <code>url</code> member of an
-                  application</a> given <var>app["url"]</var>.
+                  application</a> given <var>app</var>["url"].
                   </li>
                   <li>Append <var>app</var> to <var>relatedApplications</var>
                   </li>
@@ -2532,7 +2532,7 @@
         <ol>
           <li>Let <var>set</var> be an empty set.
           </li>
-          <li>Let <var>value</var> be <var>image["purpose"]</var>.
+          <li>Let <var>value</var> be <var>image</var>["purpose"].
           </li>
           <li>If <a>Type</a>(<var>value</var>) is String:
             <ol>
@@ -2649,7 +2649,7 @@
           <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be <var>image.src</var>.
+          <li>Let <var>value</var> be <var>image</var>["src"].
           </li>
           <li>If <a>Type</a>(<var>value</var>) it not <code>String</code>,
           return <code>undefined</code>.
@@ -2680,7 +2680,7 @@
           string or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be <var>image["type"]</var>.
+          <li>Let <var>value</var> be <var>image</var>["type"].
           </li>
           <li>If <a>Type</a>(<var>value</var>) it not <code>String</code>,
           return <code>undefined</code>.
@@ -2714,27 +2714,27 @@
             <li>For each <var>entry</var> in <var>manifest</var>[<var>member
             name</var>]:
               <ol>
-                <li>if <var>entry["src"]</var> is not <code>undefined</code>:
+                <li>If <var>entry</var>["src"] is not <code>undefined</code>:
                   <ol>
                     <li>Let <var>image</var> be a new object created as if by
                     the expression ({}).
                     </li>
-                    <li>Let <var>image["src"]</var> be the result of running
+                    <li>Set <var>image</var>["src"] to the result of running
                     <a>post-processing the <code>src</code> member of an
                     image</a> given <var>entry</var> and <var>manifest
                     URL</var>.
                     </li>
-                    <li>Let <var>image["type"]</var> be the result of running
+                    <li>Set <var>image</var>["type"] to the result of running
                     <a>post-processing the <code>type</code> member of an
                     image</a> given <var>entry</var> and <var>manifest
                     URL</var>.
                     </li>
-                    <li>Let <var>image["sizes"]</var> be the result of running
+                    <li>Set <var>image</var>["sizes"] to the result of running
                     <a>post-processing the <code>sizes</code> member of an
                     image</a> given <var>entry</var> and <var>manifest
                     URL</var>.
                     </li>
-                    <li>Let <var>image["purpose"]</var> be the result of
+                    <li>Set <var>image</var>["purpose"] to the result of
                     running <a>post-processing the <code>purpose</code> member
                     of an image</a> given <var>entry</var> and <var>manifest
                     URL</var>.
