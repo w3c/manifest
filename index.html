@@ -2707,12 +2707,13 @@
           Array&lt;<a>ImageResource</a>&gt;
         </p>
         <ol>
-          <ol>
-            <li>Let <var>imageResources</var> be a new Array object created as
-            if by the expression [].
-            </li>
-            <li>For each <var>entry</var> in <var>manifest</var>[<var>member
-            name</var>]:
+          <li>Let <var>imageResources</var> be a new Array object created as
+          if by the expression [].
+          </li>
+          <li>For each <var>entry</var> in <var>manifest</var>[<var>member
+          name</var>]:
+          </li>
+            <li>
               <ol>
                 <li>If <var>entry</var>["src"] is not <code>undefined</code>:
                   <ol>
@@ -2748,7 +2749,6 @@
             <li>Return <var>imageResources</var>.
             </li>
           </ol>
-        </ol>
       </section>
     </section>
     <section>
