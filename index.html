@@ -1197,7 +1197,8 @@
           <a><code>link</code> element</a>. This keyword creates an <a>external
           resource link</a>.
         </p>
-        <table border="1">
+        <table class="complex data">
+        <thead>
           <tr>
             <th rowspan="2">
               Link type
@@ -1217,6 +1218,8 @@
               <code><a>a</a></code> and <code><a>area</a></code>
             </th>
           </tr>
+        </thead>
+        <tbody>
           <tr>
             <td>
               <code>manifest</code>
@@ -1231,6 +1234,7 @@
               Imports or links to a <a>manifest</a>.
             </td>
           </tr>
+        </tbody>
         </table>
         <p>
           The <a>media type for a manifest</a> serves as the default media type
@@ -2707,12 +2711,13 @@
           Array&lt;<a>ImageResource</a>&gt;
         </p>
         <ol>
-          <ol>
-            <li>Let <var>imageResources</var> be a new Array object created as
-            if by the expression [].
-            </li>
-            <li>For each <var>entry</var> in <var>manifest</var>[<var>member
-            name</var>]:
+          <li>Let <var>imageResources</var> be a new Array object created as
+          if by the expression [].
+          </li>
+          <li>For each <var>entry</var> in <var>manifest</var>[<var>member
+          name</var>]:
+          </li>
+            <li>
               <ol>
                 <li>If <var>entry</var>["src"] is not <code>undefined</code>:
                   <ol>
@@ -2748,7 +2753,6 @@
             <li>Return <var>imageResources</var>.
             </li>
           </ol>
-        </ol>
       </section>
     </section>
     <section>
