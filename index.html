@@ -9,7 +9,6 @@
     "remove"></script>
     <script class='remove'>
     var respecConfig = {
-      doRDFa: false,
       previousPublishDate: "2013-12-17",
       specStatus: 'WD',
       shortName: 'appmanifest',
@@ -44,26 +43,9 @@
       },],
       wg: 'Web Platform Working Group',
       wgURI: 'https://www.w3.org/WebPlatform/WG/',
-      license: 'w3c-software-doc',
       wgPublicList: 'public-webapps',
       wgPatentURI: 'https://www.w3.org/2004/01/pp-impl/83482/status',
-      noLegacyStyle: true,
       otherLinks: [{
-        key: 'Repository',
-        data: [{
-          value: 'We are on Github.',
-          href: 'https://github.com/w3c/manifest'
-        }, {
-          value: 'File a bug.',
-          href: 'https://github.com/w3c/manifest/issues'
-        }, {
-          value: 'Commit history.',
-          href: 'https://github.com/w3c/manifest/commits/gh-pages'
-        }, {
-          value: 'Mailing list.',
-          href: 'https://lists.w3.org/Archives/Public/public-webapps/'
-        }]
-      }, {
         key: "Implementation status",
         data: [{
           value: "Blink",
@@ -79,9 +61,7 @@
           href: "https://webkit.org/b/158205"
         }]
       }],
-      issueBase: "https://www.github.com/w3c/manifest/issues/",
-      githubAPI: "https://api.github.com/repos/w3c/manifest",
-      license: "w3c-software-doc",
+      github: "https://github.com/w3c/manifest/",
     };
     </script>
   </head>
@@ -1198,43 +1178,43 @@
           resource link</a>.
         </p>
         <table class="complex data">
-        <thead>
-          <tr>
-            <th rowspan="2">
-              Link type
-            </th>
-            <th colspan="2">
-              Effect on...
-            </th>
-            <th rowspan="2">
-              Brief description
-            </th>
-          </tr>
-          <tr>
-            <th>
-              <code><a>link</a></code>
-            </th>
-            <th>
-              <code><a>a</a></code> and <code><a>area</a></code>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <code>manifest</code>
-            </td>
-            <td>
-              <a>External Resource</a>
-            </td>
-            <td>
-              not allowed
-            </td>
-            <td>
-              Imports or links to a <a>manifest</a>.
-            </td>
-          </tr>
-        </tbody>
+          <thead>
+            <tr>
+              <th rowspan="2">
+                Link type
+              </th>
+              <th colspan="2">
+                Effect on...
+              </th>
+              <th rowspan="2">
+                Brief description
+              </th>
+            </tr>
+            <tr>
+              <th>
+                <code><a>link</a></code>
+              </th>
+              <th>
+                <code><a>a</a></code> and <code><a>area</a></code>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <code>manifest</code>
+              </td>
+              <td>
+                <a>External Resource</a>
+              </td>
+              <td>
+                not allowed
+              </td>
+              <td>
+                Imports or links to a <a>manifest</a>.
+              </td>
+            </tr>
+          </tbody>
         </table>
         <p>
           The <a>media type for a manifest</a> serves as the default media type
@@ -2179,7 +2159,8 @@
           following algorithm. The algorithm takes a
           sequence&lt;<a>ExternalApplicationResource</a>&gt; <var>related
           applications</var> as an argument. This algorithm returns an
-          Array&lt;<a>ExternalApplicationResource</a>&gt;.
+          <a data-cite=
+          "WEBIDL#sequence">sequence</a>&lt;<a>ExternalApplicationResource</a>&gt;.
         </p>
         <ol>
           <li>Let <var>relatedApplications</var> be a new Array object created
@@ -2365,9 +2346,8 @@
     </section>
     <section>
       <h2>
-        ImageResource and its members
+        <dfn>ImageResource</dfn> and its members
       </h2>
-      <div class="issue" data-number="361"></div>
       <pre class="idl">
         dictionary ImageResource {
           required USVString src;
@@ -2378,10 +2358,10 @@
         };
       </pre>
       <p>
-        Each <dfn>ImageResource</dfn> represents an image that is used as part
-        of a web application, suitable to use in various contexts depending on
-        the semantics of the member that is using the object (e.g., an icon
-        that is part of an application menu, etc.). For an image resource, this
+        Each <a>ImageResource</a> represents an image that is used as part of a
+        web application, suitable to use in various contexts depending on the
+        semantics of the member that is using the object (e.g., an icon that is
+        part of an application menu, etc.). For an image resource, this
         specification provides developers with a means of specifying the
         dimensions, and media type of an image (i.e., a "responsive image"
         solution [[RESPIMG-USECASES]]). A user agent can use these values to
@@ -2489,10 +2469,10 @@
       </section>
       <section data-dfn-for="ImageResource" data-link-for="ImageResource">
         <h3>
-          <code>purpose</code> member
+          <dfn>purpose</dfn> member
         </h3>
         <p>
-          The <dfn>purpose</dfn> member is an <a>unordered set of unique
+          The <a>purpose</a> member is an <a>unordered set of unique
           space-separated tokens</a> that are <a>ASCII case-insensitive</a>.
           The allowed values are the <a>icon purposes</a>.
         </p>
@@ -2590,14 +2570,14 @@
       </section>
       <section data-dfn-for="imageresource">
         <h3>
-          <code>sizes</code> member
+          <dfn>sizes</dfn> member
         </h3>
         <p>
-          The <dfn>sizes</dfn> member of an <a>ImageResource</a> is a
-          <a>string</a> consisting of an <a>unordered set of unique
-          space-separated tokens</a> which are <a>ASCII case-insensitive</a>
-          that represents the dimensions of an image. Each keyword is either an
-          <a>ASCII case-insensitive</a> match for the string "<a data-lt=
+          The <a>sizes</a> member of an <a>ImageResource</a> is a <a>string</a>
+          consisting of an <a>unordered set of unique space-separated
+          tokens</a> which are <a>ASCII case-insensitive</a> that represents
+          the dimensions of an image. Each keyword is either an <a>ASCII
+          case-insensitive</a> match for the string "<a data-lt=
           "any link size">any"</a>, or a value that consists of two <a>valid
           non-negative integers</a> that do not have a leading U+0030 DIGIT
           ZERO (0) character and that are separated by a single U+0078 LATIN
@@ -2638,11 +2618,11 @@
       </section>
       <section data-dfn-for="ImageResource" data-link-for="ImageResource">
         <h3>
-          <code>src</code> member
+          <dfn>src</dfn> member
         </h3>
         <p>
-          The <dfn>src</dfn> member of an <a>ImageResource</a> is a <a>URL</a>
-          from which a user agent can fetch the image's data.
+          The <a>src</a> member of an <a>ImageResource</a> is a <a>URL</a> from
+          which a user agent can fetch the image's data.
         </p>
         <p>
           The steps for <dfn>post-processing the <code>src</code> member of an
@@ -2665,11 +2645,11 @@
       </section>
       <section data-dfn-for="ImageResource">
         <h3>
-          <code>type</code> member
+          <dfn>type</dfn> member
         </h3>
         <p>
-          The <dfn>type</dfn> member of an <a>ImageResource</a> is a hint as to
-          the media type of the image. The purpose of this member is to allow a
+          The <a>type</a> member of an <a>ImageResource</a> is a hint as to the
+          media type of the image. The purpose of this member is to allow a
           user agent to ignore images of media types it does not support.
         </p>
         <p>
@@ -2684,7 +2664,7 @@
           string or <code>undefined</code>.
         </p>
         <ol>
-          <li>Let <var>value</var> be <var>image</var>["type"].
+          <li>Let <var>value</var> be <var>image</var>["<a>type</a>"].
           </li>
           <li>If <a>Type</a>(<var>value</var>) it not <code>String</code>,
           return <code>undefined</code>.
@@ -2696,6 +2676,15 @@
           <li>Return <var>value</var>.
           </li>
         </ol>
+      </section>
+      <section data-dfn-for="ImageResource" data-link-for="ImageResource">
+        <h3>
+          <dfn>platform</dfn> member
+        </h3>
+        <p>
+          The <a>platform</a> member represents the <a>platform</a> to which a
+          containing object applies.
+        </p>
       </section>
       <section>
         <h3>
@@ -2711,48 +2700,45 @@
           Array&lt;<a>ImageResource</a>&gt;
         </p>
         <ol>
-          <li>Let <var>imageResources</var> be a new Array object created as
-          if by the expression [].
+          <li>Let <var>imageResources</var> be a new Array object created as if
+          by the expression [].
           </li>
           <li>For each <var>entry</var> in <var>manifest</var>[<var>member
           name</var>]:
           </li>
-            <li>
-              <ol>
-                <li>If <var>entry</var>["src"] is not <code>undefined</code>:
-                  <ol>
-                    <li>Let <var>image</var> be a new object created as if by
-                    the expression ({}).
-                    </li>
-                    <li>Set <var>image</var>["src"] to the result of running
-                    <a>post-processing the <code>src</code> member of an
+          <li>
+            <ol>
+              <li>If <var>entry</var>["src"] is not <code>undefined</code>:
+                <ol>
+                  <li>Let <var>image</var> be a new object created as if by the
+                  expression ({}).
+                  </li>
+                  <li>Set <var>image</var>["src"] to the result of running <a>
+                    post-processing the <code>src</code> member of an image</a>
+                    given <var>entry</var> and <var>manifest URL</var>.
+                  </li>
+                  <li>Set <var>image</var>["type"] to the result of running <a>
+                    post-processing the <code>type</code> member of an
                     image</a> given <var>entry</var> and <var>manifest
                     URL</var>.
-                    </li>
-                    <li>Set <var>image</var>["type"] to the result of running
-                    <a>post-processing the <code>type</code> member of an
-                    image</a> given <var>entry</var> and <var>manifest
-                    URL</var>.
-                    </li>
-                    <li>Set <var>image</var>["sizes"] to the result of running
-                    <a>post-processing the <code>sizes</code> member of an
-                    image</a> given <var>entry</var> and <var>manifest
-                    URL</var>.
-                    </li>
-                    <li>Set <var>image</var>["purpose"] to the result of
-                    running <a>post-processing the <code>purpose</code> member
-                    of an image</a> given <var>entry</var> and <var>manifest
-                    URL</var>.
-                    </li>
-                    <li>Append <var>image</var> to <var>imageResources</var>
-                    </li>
-                  </ol>
-                </li>
-              </ol>
-            </li>
-            <li>Return <var>imageResources</var>.
-            </li>
-          </ol>
+                  </li>
+                  <li>Set <var>image</var>["sizes"] to the result of running
+                  <a>post-processing the <code>sizes</code> member of an
+                  image</a> given <var>entry</var> and <var>manifest URL</var>.
+                  </li>
+                  <li>Set <var>image</var>["purpose"] to the result of running
+                  <a>post-processing the <code>purpose</code> member of an
+                  image</a> given <var>entry</var> and <var>manifest URL</var>.
+                  </li>
+                  <li>Append <var>image</var> to <var>imageResources</var>
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>imageResources</var>.
+          </li>
+        </ol>
       </section>
     </section>
     <section>
@@ -2767,11 +2753,11 @@
       <section data-dfn-for="ExternalApplicationResource" data-link-for=
       "ExternalApplicationResource">
         <h3>
-          <code>platform</code> member
+          <dfn>platform</dfn> member
         </h3>
         <p>
-          The <dfn>platform</dfn> member represents the <a>platform</a> to
-          which a containing object applies.
+          The <a>platform</a> member represents the <a>platform</a> to which a
+          containing object applies.
         </p>
         <p>
           The following object types can make use of this member:
@@ -2840,10 +2826,10 @@
       </section>
       <section data-dfn-for="serviceworkerregistration">
         <h3>
-          <code>scope</code> member
+          <dfn>scope</dfn> member
         </h3>
         <p>
-          The <dfn>scope</dfn> member of a <a>ServiceWorkerRegistration</a>
+          The <a>scope</a> member of a <a>ServiceWorkerRegistration</a>
           dictionary is the service worker's associated <a>scope URL</a>.
         </p>
         <p>
@@ -2911,34 +2897,34 @@
           <code>platform</code>
         </dt>
         <dd>
-          the platform it is associated to
+          the platform it is associated to.
         </dd>
         <dt>
           <code>url</code>
         </dt>
         <dd>
-          the URL where the application can be found
+          the URL where the application can be found.
         </dd>
         <dt>
           <code>id</code>
         </dt>
         <dd>
           information additional to the URL or instead of the URL, depending on
-          the platform
+          the platform.
         </dd>
         <dt>
           <code>min_version</code>
         </dt>
         <dd>
           information about the minimum version of an application related to
-          this web app
+          this web app.
         </dd>
         <dt>
           <code>fingerprints</code>
         </dt>
         <dd>
           an array of <a>Fingerprint</a> objects used for verifying the
-          application
+          application.
         </dd>
       </dl>
       <p>
@@ -3177,22 +3163,21 @@
       <p>
         The following are defined in [[!FETCH]]:
       </p>
-      <ul>
+      <ul data-sort="">
         <li>
-          <a data-cite="!fetch#concept-fetch"><dfn>Fetch</dfn></a>.
+          <dfn data-cite="!FETCH#concept-fetch">Fetch</dfn>.
         </li>
         <li>
-          <a data-cite="!fetch#concept-response"><dfn>Response</dfn></a>.
+          <dfn data-cite="!FETCH#concept-response">Response</dfn>.
         </li>
         <li>
-          <a data-cite="!fetch#concept-request"><dfn>Request</dfn></a>.
+          <dfn data-cite="!FETCH#concept-request">Request</dfn>.
         </li>
         <li>
-          <a data-cite="!fetch#concept-network-error"><dfn>Network
-          error</dfn></a>.
+          <dfn data-cite="!FETCH#concept-network-error">Network error</dfn>.
         </li>
         <li>
-          <a data-cite="!fetch#concept-request-context"><dfn>Context</dfn></a>
+          <dfn data-cite="!FETCH#concept-request-context">Context</dfn>
         </li>
       </ul>
       <p>
