@@ -303,6 +303,31 @@
           might be better suited for the space available underneath an icon).
         </p>
       </section>
+      <section data-link-for="WebAppManifest">
+        <h3>
+          Application's icon
+        </h3>
+        <p>
+          The application icon is derived from the <a>icons</a> member
+          array, depending on the size of the image resources and other meta data
+          such as the <a data-link-for="ImageResource">purpose</a> member.
+        </p>
+        <p>
+          <dfn>Adaptive icons</dfn> are icons which are prepared to support masks and
+          animations. Each icon consists of two equally sized square images.
+          A foreground image, which can be considered the main icon, and a
+          background image, which may and may not be used given the platform.
+        </p>
+        <p>
+          The inner 2/3 of the images appears within the mask. Thus, that part
+          is what makes up the final image, i.e. by default there will be a margin
+          of 1/6 of the size.
+        </p>
+        <p>
+          For special animations, each layer may move up to 1/3 of the icon size
+          in each of the directions.
+        </p>
+      </section>
       <section>
         <h3>
           Installation process
@@ -1829,6 +1854,14 @@
           next-most-appropriate icon as determined by examining the
           <a>ImageResource</a>'s members.
         </p>
+        <p class="note" data-link-for="ImageResource">
+          In order to use <a>adaptive icons</a>, you define the <a>foreground</a>
+          and <a>background</a> properties of a given <a>ImageResource</a>. These
+          are special properties only intented for icons only, and are thus ignored for
+          the <a data-link-for="WebAppManifest">screenshots</a> member.
+          A <a>src</a> can be added in order as a fallback for vendors which
+          do not support adaptive icons.
+        </p>
         <div class="example">
           <p>
             In the following example, the developer has made the following
@@ -1869,6 +1902,55 @@
                   "src": "icon/hd_hi.svg",
                   "sizes": "257x257"
                 }]
+            }
+          </pre>
+        </div>
+        <div class="example">
+          <p>
+            In the following example, the developer is defining <a>adaptive icons</a>
+            with a fallback for UA not supporting that.
+          </p>
+          <pre class="example json">
+            {
+              "icons": [
+                {
+                  "foreground": "icon/fg.png",
+                  "background": "icon/bg.png",
+                  "src": "icon/fallback.png",
+                  "sizes": "432x432",
+                  "type": "image/png"
+                }
+              ]
+            }
+          </pre>
+          <p>
+            Below the developer uses one common SVG image as background image for the
+            <a>adaptive icons</a>.
+          </p>
+          <pre class="example json">
+            {
+              "icons": [
+                {
+                  "foreground": "icon/fg@4.png",
+                  "sizes": "432x432",
+                  "type": "image/png"
+                },
+                {
+                  "foreground": "icon/fg@2.png",
+                  "sizes": "216x216",
+                  "type": "image/png"
+                },
+                {
+                  "foreground": "icon/fg.png",
+                  "sizes": "108x108",
+                  "type": "image/png"
+                },
+                {
+                  "background": "icon/shared-bg.svg",
+                  "sizes": "any",
+                  "type": "image/svg"
+                }
+              ]
             }
           </pre>
         </div>
@@ -2347,7 +2429,9 @@
       </h2>
       <pre class="idl">
         dictionary ImageResource {
-          required USVString src;
+          USVString foreground;
+          USVString background;
+          USVString src;          
           DOMString sizes;
           USVString type;
           USVString purpose;
@@ -2621,6 +2705,10 @@
           The <a>src</a> member of an <a>ImageResource</a> is a <a>URL</a> from
           which a user agent can fetch the image's data.
         </p>
+        <p class="note">
+          In the case <a>foreground</a> and <a>background</a> members are both present,
+          <a>src</a> serves as a fallback for UAs not supporting <a>adaptive icons</a>.
+        </p>
         <p>
           The steps for <dfn>processing the <code>src</code> member of an
           image</dfn> are given by the following algorithm. The algorithm takes
@@ -2640,6 +2728,54 @@
           </li>
         </ol>
       </section>
+
+      <section data-dfn-for="ImageResource" data-link-for="ImageResource">
+        <h3>
+          <dfn>foreground</dfn> and <dfn>background</dfn> member
+        </h3>
+        <p>
+          The <a>foreground</a> member and the <a>background</a> member of
+          an <a>ImageResource</a> is a <a>URL</a> from which a user agent
+          can fetch the data requires for <a>adaptive icons</a>.
+        </p>
+        <p>
+          The steps for <dfn>processing the <code>foreground</code> member of an
+          image</dfn> are given by the following algorithm. The algorithm takes
+          a <a>ImageResource</a> <var>icon</var>, and a <a>URL</a>
+          <var>manifest URL</var> , which is the <a>URL</a> from which the
+          <var>manifest</var> was fetched. This algorithm will return a
+          <a>URL</a> or <code>undefined</code>.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be <var>image</var>["foreground"].
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) it not <code>String</code>,
+          return <code>undefined</code>.
+          </li>
+          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
+          URL</var> as the base URL and return the result.
+          </li>
+        </ol>
+        <p>
+            The steps for <dfn>processing the <code>background</code> member of an
+            image</dfn> are given by the following algorithm. The algorithm takes
+            a <a>ImageResource</a> <var>icon</var>, and a <a>URL</a>
+            <var>manifest URL</var> , which is the <a>URL</a> from which the
+            <var>manifest</var> was fetched. This algorithm will return a
+            <a>URL</a> or <code>undefined</code>.
+          </p>
+          <ol>
+            <li>Let <var>value</var> be <var>image</var>["background"].
+            </li>
+            <li>If <a>Type</a>(<var>value</var>) it not <code>String</code>,
+            return <code>undefined</code>.
+            </li>
+            <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
+            URL</var> as the base URL and return the result.
+            </li>
+          </ol>
+      </section>
+
       <section data-dfn-for="ImageResource">
         <h3>
           <dfn>type</dfn> member
@@ -2703,37 +2839,82 @@
           <li>For each <var>entry</var> in <var>manifest</var>[<var>member
           name</var>]:
           </li>
-          <li>
+          <li>If <var>entry</var>["src"] is not <code>undefined</code>:
             <ol>
-              <li>If <var>entry</var>["src"] is not <code>undefined</code>:
-                <ol>
-                  <li>Let <var>image</var> be a new object created as if by the
-                  expression ({}).
-                  </li>
-                  <li>Set <var>image</var>["src"] to the result of running <a>
-                    processing the <code>src</code> member of an image</a>
-                    given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>Set <var>image</var>["type"] to the result of running <a>
-                    processing the <code>type</code> member of an image</a>
-                    given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>Set <var>image</var>["sizes"] to the result of running
-                  <a>processing the <code>sizes</code> member of an image</a>
-                  given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>Set <var>image</var>["purpose"] to the result of running
-                  <a>processing the <code>purpose</code> member of an image</a>
-                  given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>Append <var>image</var> to <var>imageResources</var>
-                  </li>
-                </ol>
+              <li>Let <var>image</var> be a new object created as if by the
+              expression ({}).
+              </li>
+              <li>Set <var>image</var>["src"] to the result of running <a>
+                processing the <code>src</code> member of an image</a>
+                given <var>entry</var> and <var>manifest URL</var>.
+              </li>
+              <li>Set <var>image</var>["foreground"] to the result of running <a>
+                processing the <code>foreground</code> member of an image</a>
+                given <var>entry</var> and <var>manifest URL</var>.
+              </li>
+              <li>Set <var>image</var>["background"] to the result of running <a>
+                processing the <code>background</code> member of an image</a>
+                given <var>entry</var> and <var>manifest URL</var>.
+              </li>               
+              <li>Set <var>image</var>["type"] to the result of running <a>
+                processing the <code>type</code> member of an image</a>
+                given <var>entry</var> and <var>manifest URL</var>.
+              </li>
+              <li>Set <var>image</var>["sizes"] to the result of running
+              <a>processing the <code>sizes</code> member of an image</a>
+              given <var>entry</var> and <var>manifest URL</var>.
+              </li>
+              <li>Set <var>image</var>["purpose"] to the result of running
+              <a>processing the <code>purpose</code> member of an image</a>
+              given <var>entry</var> and <var>manifest URL</var>.
+              </li>
+              <li>Append <var>image</var> to <var>imageResources</var>
               </li>
             </ol>
           </li>
-          <li>Return <var>imageResources</var>.
+          <li>Return result of running <a>steps for inferring
+            <var>background</var></a> with <var>imageResources</var>
           </li>
+        </ol>
+        <br>
+        <p>
+          The <dfn>steps for inferring <var>background</var></dfn> are given by
+          the following algorithm. The algorithm takes an
+          Array&lt;<a>ImageResource</a>&gt; <var>imageResources</var>.
+        </p>
+        <p>
+          This algorithm returns a modified Array&lt;<a>ImageResource</a>&gt;.
+        </p>
+        <ol>
+          <li>Let <var>scalableBackground</var> be <code>undefined</code>
+          <li>For each <var>image</var> in <var>imageResources</var>:
+            <ol>
+              <li>If <var>image</var>["background"] is <code>undefined</code>,
+                then continue.
+              </li>
+              <li>If <var>image</var>["sizes"] is not equal to <code>"any"</code>,
+                then continue.
+              </li>
+              <li>Set <var>scalableBackground</var> to <var>image</var>["background"].
+              </li>
+            </ol>
+          </li>
+          <li>If <var>scalableBackground</var> is <code>undefined</code>,
+            abort and return <var>imageResources</var>.
+          </li>
+          <li>For each <var>image</var> in <var>imageResources</var>:
+            <ol>
+              <li>If <var>image</var>["foreground"] is <code>undefined</code>,
+                then continue.
+              </li>
+              <li>If <var>image</var>["background"] is not <code>undefined</code>,
+                then continue.
+              </li>
+              <li>Set <var>image</var>["background"] to <var>scalableBackground</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>imageResources</var></li>
         </ol>
       </section>
     </section>
@@ -2820,7 +3001,7 @@
           </li>
         </ol>
       </section>
-      <section data-dfn-for="serviceworkerregistration">
+      <section data-dfn-for="ServiceWorkerRegistration" data-link-for="ServiceWorkerRegistration">
         <h3>
           <dfn>scope</dfn> member
         </h3>
