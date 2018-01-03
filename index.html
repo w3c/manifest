@@ -1551,6 +1551,7 @@
              sequence&lt;USVString&gt; categories;
              DOMString iarc_rating_id;
              USVString start_url;
+             USVString payment_handler_install_url;
              DisplayModeType display = "browser";
              OrientationLockType orientation;
              USVString theme_color;
@@ -2020,6 +2021,28 @@
             necessary, modify the <a>start URL</a> of an application.
           </p>
         </section>
+      </section>
+      <section>
+        <h3>
+          <code>payment_handler_install_url</code> member
+        </h3>
+        <p>
+          The <dfn>payment_handler_install_url</dfn> member is a <a>string</a>
+          that represents the <dfn>installation URL for a payment
+          handler</dfn>, which is the <a>URL</a> that the developer would
+          prefer the user agent to load in order to install the
+          [[!payment-handler]] of this web application.
+        </p>
+        <p>
+          The <code>payment_handler_install_url</code> is purely advisory. The
+          user agent MAY <a>ignore</a> it or provide the end-user the choice
+          not to make use of it.
+        </p>
+        <p>
+          The steps for <dfn>processing the
+          <code>payment_handler_install_url</code> member</dfn> are identical
+          to the steps for <a>processing the <code>start_url</code> member</a>.
+        </p>
       </section>
       <section>
         <h3>
