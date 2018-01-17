@@ -1270,9 +1270,13 @@
         </p>
         <ol>
           <li>From the <code>Document</code> of the <a>top-level browsing
-          context</a>, let <var>manifest link</var> be the first
+          context</a>, let <var>origin</var> be the <code>Document</code>'s
+          origin, and <var>manifest link</var> be the first 
           <a><code>link</code> element</a> in <a>tree order</a> whose <a><code>
             rel</code> attribute</a> contains the token <code>manifest</code>.
+          </li>
+          <li>If <var>origin</var> is an [[!HTML]] <a>opaque origin</a>,
+          terminate this algorithm.
           </li>
           <li>If <var>manifest link</var> is <code>null</code>, terminate this
           algorithm.
@@ -3200,6 +3204,11 @@
           "https://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
           <dfn data-lt="top-level browsing contexts">top-level browsing
           context</dfn></a>
+        </li>
+        <li>
+          <a href="
+          https://html.spec.whatwg.org/multipage/origin.html#concept-origin-opaque">
+            <dfn data-lt="opaque origin">opaque origin</dfn></a>
         </li>
         <li>
           <a href=
