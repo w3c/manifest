@@ -1762,12 +1762,14 @@
           given by the following algorithm. The algorithm takes a
           <a>USVString</a> <var>value</var>, a <a>URL</a> <var>manifest
           URL</var>, a <a>URL</a> <var>document URL</var>, and a URL <var>start
-          URL</var>. This algorithm returns a <a>URL</a> or
-          <code>undefined</code>.
+          URL</var>. This algorithm returns a <a>URL</a>.
         </p>
         <ol>
+          <li>Let <var>default</var> be a new <a>URL</a> using "." as
+          <var>input</var> and <var>start URL</var> as the <var>base</var> URL.
+          </li>
           <li>If <var>value</var> is the empty string, then return
-          <code>undefined</code>.
+          <var>default</var>.
           </li>
           <li>Let <var>scope URL</var> be a new <a>URL</a> using
           <var>value</var> as <var>input</var> and <var>manifest URL</var> as
@@ -1778,7 +1780,7 @@
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return <code>undefined</code>.
+              <li>Return <var>default</var>.
               </li>
             </ul>
           </li>
@@ -1793,7 +1795,7 @@
                 same-origin</a> as <code>Document</code> of the <a>application
                 context</a>.
               </li>
-              <li>Return <code>undefined</code>.
+              <li>Return <var>default</var>.
               </li>
             </ol>
           </li>
@@ -1803,13 +1805,18 @@
                 <a>Issue a developer warning</a> that the start URL is not
                 <a>within scope</a> of the scope URL.
               </li>
-              <li>Return <code>undefined</code>.
+              <li>Return <var>default</var>.
               </li>
             </ol>
           </li>
           <li>Otherwise, return <var>scope URL</var>.
           </li>
         </ol>
+        <div class="note">
+          The default scope (if <code>scope</code> is omitted or an error) is
+          the <var>start URL</var>, with its filename, query, and fragment
+          removed.
+        </div>
       </section>
       <section>
         <h3>
