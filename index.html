@@ -741,12 +741,13 @@
       <h2>
         Navigation scope
       </h2>
-      <p>
+      <p data-link-for="WebAppManifest">
         A <dfn>navigation scope</dfn> is a [[!URL]] that represents the set of
         URLs to which an <a>application context</a> can be navigated while the
-        manifest is <a>applied</a>. To determine if a URL is within the
-        <a>navigation scope</a>, the user agent MUST run the <a>within
-        scope</a> algorithm.
+        manifest is <a>applied</a>. The <a>navigation scope</a> of a manifest
+        <var>manifest</var> is <var>manifest</var>["<a>scope</a>"]. If this is
+        <code>undefined</code> (because of an error or it was not declared in
+        the manifest), the navigation scope is <dfn>unbounded</dfn>.
       </p>
       <p>
         A string <var>targetURL</var> is said to be <dfn>within scope</dfn> of
@@ -755,8 +756,7 @@
       </p>
       <ol>
         <li>If <var>scopeURL</var> is <code>undefined</code> (i.e., it is
-        <a>unbounded</a> because of an error or it was not declared in the
-        manifest), return <code>true</code>.
+        <a>unbounded</a>), return <code>true</code>.
         </li>
         <li>Let <var>target</var> be a new URL using <var>targetURL</var> as
         input. If <var>target</var> is failure, return <code>false</code>.
@@ -795,18 +795,20 @@
         The user agent MUST navigate the application context as per [[!HTML]]'s
         <a>navigate algorithm</a> with exceptions enabled. If the URL of the
         resource being loaded in the navigation is not <a>within scope</a> of
-        the navigation scope, then the user agent MUST behave as if the
-        application context is not <a>allowed to navigate</a> (this provides
-        the ability for the user agent to perform the navigation in a different
-        browsing context, or in a different user agent entirely). If during the
-        handle redirects step of HTML's <a>navigate algorithm</a> the redirect
-        URL is not <a>within scope</a>, abort HTML's navigation algorithm with
-        a <code>SecurityError</code>.
+        the navigation scope of the application context's manifest, then the
+        user agent MUST behave as if the application context is not <a>allowed
+        to navigate</a> (this provides the ability for the user agent to
+        perform the navigation in a different browsing context, or in a
+        different user agent entirely). If during the handle redirects step of
+        HTML's <a>navigate algorithm</a> the redirect URL is not <a>within
+        scope</a> of the navigation scope of the application context's
+        manifest, abort HTML's navigation algorithm with a
+        <code>SecurityError</code>.
       </p>
-      <p data-link-for="WebAppManifest">
+      <p class="note" data-link-for="WebAppManifest">
         A developer specifies the navigation scope via the <a>scope</a> member.
         In the case where the <a>scope</a> member is missing or in error, the
-        navigation scope is treated as <dfn>unbounded</dfn> (represented as the
+        navigation scope is treated as <a>unbounded</a> (represented as the
         value <code>undefined</code>). In such a case, the manifest is applied
         to all URLs the application context is <a>navigated</a> to (see related
         <a href="#navigation-scope-security-considerations">security
@@ -851,13 +853,12 @@
         </h3>
         <div class="issue" data-number="363"></div>
         <p>
-          A <dfn>deep link</dfn> is a URL that is <a>within scope</a> of an
-          <a>installed</a> web application.
+          A <dfn>deep link</dfn> is a URL that is <a>within scope</a> of the
+          navigation scope of an <a>installed</a> web application's manifest.
         </p>
         <p>
           An <a>application context</a> can be instantiated through a <a>deep
-          link</a> (a URL that is within scope of the installed web
-          application); in which case, the manifest is applied and the <a>deep
+          link</a>, in which case, the manifest is applied and the <a>deep
           link</a> is loaded within the context of a web application.
         </p>
         <div class="note">
@@ -1800,7 +1801,7 @@
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the start URL is not
-                <a>within scope</a> of the navigation scope.
+                <a>within scope</a> of the scope URL.
               </li>
               <li>Return <code>undefined</code>.
               </li>
