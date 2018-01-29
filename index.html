@@ -745,9 +745,7 @@
         A <dfn>navigation scope</dfn> is a [[!URL]] that represents the set of
         URLs to which an <a>application context</a> can be navigated while the
         manifest is <a>applied</a>. The <a>navigation scope</a> of a manifest
-        <var>manifest</var> is <var>manifest</var>["<a>scope</a>"]. If this is
-        <code>undefined</code> (due to an error, or because it was not declared
-        in the manifest), the navigation scope is <dfn>unbounded</dfn>.
+        <var>manifest</var> is <var>manifest</var>["<a>scope</a>"].
       </p>
       <p>
         A string <var>targetURL</var> is said to be <dfn>within scope</dfn> of
@@ -755,9 +753,6 @@
         returns <code>true</code>:
       </p>
       <ol>
-        <li>If <var>scopeURL</var> is <code>undefined</code> (i.e., it is
-        <a>unbounded</a>), return <code>true</code>.
-        </li>
         <li>Let <var>target</var> be a new URL using <var>targetURL</var> as
         input. If <var>target</var> is failure, return <code>false</code>.
         </li>
@@ -806,45 +801,20 @@
         <code>SecurityError</code>.
       </p>
       <p class="note" data-link-for="WebAppManifest">
-        A developer specifies the navigation scope via the <a>scope</a> member.
-        In the case where the <a>scope</a> member is missing or in error, the
-        navigation scope is treated as <a>unbounded</a> (represented as the
-        value <code>undefined</code>). In such a case, the manifest is applied
-        to all URLs the application context is <a>navigated</a> to (see related
-        <a href="#navigation-scope-security-considerations">security
-        considerations</a>).
+        A developer specifies the navigation scope via the <a>scope</a> member
+        (defaulting to the parent path of the <a>start_url</a> member).
       </p>
       <section data-link-for="DisplayModeType">
         <h3 id="navigation-scope-security-considerations">
           Security considerations
         </h3>
         <p>
-          When the navigation scope is <a>unbounded</a> and a <a>display
-          mode</a> other than <code>browser</code> is being applied, it is
-          RECOMMENDED that user agents signal to the end-user when security
-          and/or privacy sensitive navigations occur. The manner of signaling
-          is left up to implementers, but can include things like showing the
-          URL of the application context, dropping out of fullscreen to the
-          <a>browser</a> <a>display mode</a>. Examples of security and/or
-          privacy sensitive navigations include, but are not limited to:
-        </p>
-        <ul>
-          <li>the application context being <a>navigated</a> from a secure
-          connection to an insecure connection (or vice versa).
-          </li>
-          <li>the application context being <a>navigated</a> to a different
-          origin.
-          </li>
-        </ul>
-        <p>
-          This specification distinguishes between behavior in first-party and
-          third-party contexts. In particular, if a <code>scope</code> member
-          is declared in the manifest, it is not possible to navigate the
-          <a>top-level browsing context</a> to somewhere outside the scope
-          while the <a>manifest</a> is <a>applied</a> to the <a>top-level
-          browsing context</a>. That's not to say that the web application
-          cannot be navigated: just that the set of URLs to which the manifest
-          applies is restricted by the <a>navigation scope</a>.
+          It should not be possible to navigate the <a>top-level browsing
+          context</a> to somewhere outside the scope while the <a>manifest</a>
+          is <a>applied</a> to the <a>top-level browsing context</a>. That's
+          not to say that the web application cannot be navigated: just that
+          the set of URLs to which the manifest applies is restricted by the
+          <a>navigation scope</a>.
         </p>
       </section>
       <section>
@@ -1147,15 +1117,6 @@
             application. An attacker could, in such a case, exploit the fact
             that an application is being displayed in fullscreen to mimic the
             user interface of another application.
-          </p>
-          <p>
-            Furthermore, by neglecting to define a scope member in the
-            manifest, it's possible to put a web application into a <a>display
-            mode</a> that persists cross-origin (for legacy reasons, this is
-            the default behavior). In case where the navigation scope is
-            unbounded, it is left to the user agent to either stop applying the
-            manifest when a cross-origin navigation occurs or to show some sort
-            of security warning to the user.
           </p>
         </section>
       </section>
