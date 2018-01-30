@@ -1758,19 +1758,19 @@
         </p>
         <p>
           The steps for <dfn>processing the <code>scope</code> member</dfn> is
-          given by the following algorithm. The algorithm takes an
-          <a>USVString</a> <var>scope URL</var>, a <a>URL</a> <var>manifest
+          given by the following algorithm. The algorithm takes a
+          <a>USVString</a> <var>value</var>, a <a>URL</a> <var>manifest
           URL</var>, a <a>URL</a> <var>document URL</var>, and a URL <var>start
           URL</var>. This algorithm returns a <a>URL</a> or
           <code>undefined</code>.
         </p>
         <ol>
-          <li>If <var>scope URL</var> is the empty string, then return
+          <li>If <var>value</var> is the empty string, then return
           <code>undefined</code>.
           </li>
-          <li>Let <var>scope URL</var> be a new <a>URL</a> using <var>scope
-          URL</var> as <var>input</var> and <var>manifest URL</var> as the
-          <var>base</var> URL.
+          <li>Let <var>scope URL</var> be a new <a>URL</a> using
+          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
+          the <var>base</var> URL.
           </li>
           <li>If <var>scope URL</var> is failure:
             <ul>
@@ -1957,13 +1957,13 @@
         <p>
           The steps for <dfn>processing the <code>start_url</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
-          <a>USVString</a> <var>start URL</var>, a <a>URL</a> <var>manifest
+          <a>USVString</a> <var>value</var>, a <a>URL</a> <var>manifest
           URL</var>, and a <a>URL</a> <var>document URL</var>. This algorithm
           returns a <a>URL</a>.
         </p>
         <ol>
-          <li>If <var>start URL</var> is the empty string, return a new
-          <a>URL</a> whose <var>input</var> is <var>document URL</var>.
+          <li>If <var>value</var> is the empty string, return a new <a>URL</a>
+          whose <var>input</var> is <var>document URL</var>.
           </li>
           <li>Let <var>start URL</var> be a new <a>URL</a> using
           <var>value</var> as <var>input</var> and <var>manifest URL</var> as
@@ -1997,7 +1997,7 @@
         </ol>
         <div class="example">
           <p>
-            For example, if the <var>value</var> of <a>start_url</a> is
+            For example, if the value of <a>start_url</a> is
             <samp>../start_point.html</samp>, and the manifest's URL is
             <samp>https://example.com/resources/manifest.webmanifest</samp>,
             then the result of <a>URL parsing</a> would be
