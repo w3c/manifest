@@ -746,8 +746,8 @@
         URLs to which an <a>application context</a> can be navigated while the
         manifest is <a>applied</a>. The <a>navigation scope</a> of a manifest
         <var>manifest</var> is <var>manifest</var>["<a>scope</a>"]. If this is
-        <code>undefined</code> (because of an error or it was not declared in
-        the manifest), the navigation scope is <dfn>unbounded</dfn>.
+        <code>undefined</code> (due to an error, or because it was not declared
+        in the manifest), the navigation scope is <dfn>unbounded</dfn>.
       </p>
       <p>
         A string <var>targetURL</var> is said to be <dfn>within scope</dfn> of
@@ -797,9 +797,9 @@
         resource being loaded in the navigation is not <a>within scope</a> of
         the navigation scope of the application context's manifest, then the
         user agent MUST behave as if the application context is not <a>allowed
-        to navigate</a> (this provides the ability for the user agent to
+        to navigate</a>. This provides the ability for the user agent to
         perform the navigation in a different browsing context, or in a
-        different user agent entirely). If during the handle redirects step of
+        different user agent entirely. If during the handle redirects step of
         HTML's <a>navigate algorithm</a> the redirect URL is not <a>within
         scope</a> of the navigation scope of the application context's
         manifest, abort HTML's navigation algorithm with a
