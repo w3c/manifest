@@ -747,6 +747,23 @@
         manifest is <a>applied</a>. The <a>navigation scope</a> of a manifest
         <var>manifest</var> is <var>manifest</var>["<a>scope</a>"].
       </p>
+      <div class="note" data-link-for="WebAppManifest">
+        <p>
+          If the <a>scope</a> member is not present in the manifest, it
+          defaults to the directory containing the <a>start_url</a> member. For
+          example, if <a>start_url</a> is <code>/pages/welcome.html</code>, and
+          <a>scope</a> is missing, the navigation scope will be
+          <code>/pages/</code> on the same origin. If <a>start_url</a> is
+          <code>/pages/</code> (the trailing slash is important!), the
+          navigation scope will be <code>/pages/</code>.
+        </p>
+        <p>
+          Developers should take care, if they rely on the default behaviour,
+          that all of the application's pages are in the same directory (or a
+          subdirectory) as the start URL. To be safe, explicitly specify
+          <a>scope</a>.
+        </p>
+      </div>
       <p>
         A string <var>targetURL</var> is said to be <dfn>within scope</dfn> of
         <a>navigation scope</a> <var>scopeURL</var> if the following algorithm
@@ -799,10 +816,6 @@
         scope</a> of the navigation scope of the application context's
         manifest, abort HTML's navigation algorithm with a
         <code>SecurityError</code>.
-      </p>
-      <p class="note" data-link-for="WebAppManifest">
-        A developer specifies the navigation scope via the <a>scope</a> member
-        (defaulting to the parent path of the <a>start_url</a> member).
       </p>
       <section data-link-for="DisplayModeType">
         <h3 id="navigation-scope-security-considerations">
