@@ -750,7 +750,7 @@
       <div class="note" data-link-for="WebAppManifest">
         <p>
           If the <a>scope</a> member is not present in the manifest, it
-          defaults to the directory containing the <a>start_url</a> member. For
+          defaults to the parent path of the <a>start_url</a> member. For
           example, if <a>start_url</a> is <code>/pages/welcome.html</code>, and
           <a>scope</a> is missing, the navigation scope will be
           <code>/pages/</code> on the same origin. If <a>start_url</a> is
@@ -759,9 +759,8 @@
         </p>
         <p>
           Developers should take care, if they rely on the default behaviour,
-          that all of the application's pages are in the same directory (or a
-          subdirectory) as the start URL. To be safe, explicitly specify
-          <a>scope</a>.
+          that all of the application's page URLs begin with the parent path of
+          the start URL. To be safe, explicitly specify <a>scope</a>.
         </p>
       </div>
       <p>
