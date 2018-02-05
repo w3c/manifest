@@ -1940,8 +1940,8 @@
           returns a <a>URL</a>.
         </p>
         <ol>
-          <li>If <var>value</var> is the empty string, return a new <a>URL</a>
-          whose <var>input</var> is <var>document URL</var>.
+          <li>If <var>value</var> is the empty string, return <var>document
+          URL</var>.
           </li>
           <li>Let <var>start URL</var> be a new <a>URL</a> using
           <var>value</var> as <var>input</var> and <var>manifest URL</var> as
@@ -1952,8 +1952,7 @@
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return a new <a>URL</a> whose <var>input</var> is
-              <var>document URL</var>.
+              <li>Return <var>document URL</var>.
               </li>
             </ul>
           </li>
@@ -1965,8 +1964,7 @@
                 needs to be <a>same-origin</a> as <code>Document</code> of the
                 <a>top-level browsing context</a>.
               </li>
-              <li>Return a new <a>URL</a> whose <var>input</var> is
-              <var>document URL</var>.
+              <li>Return <var>document URL</var>.
               </li>
             </ol>
           </li>
