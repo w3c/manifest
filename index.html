@@ -1735,15 +1735,15 @@
           URL</var>. This algorithm returns a <a>URL</a>.
         </p>
         <ol>
-          <li>Let <var>default</var> be a new <a>URL</a> using "." as
-          <var>input</var> and <var>start URL</var> as the <var>base</var> URL.
+          <li>Let <var>default</var> be the result of <a>parsing</a> ".", using
+          <var>start URL</var> as the <var>base</var> URL.
           </li>
           <li>If <var>value</var> is the empty string, then return
           <var>default</var>.
           </li>
-          <li>Let <var>scope URL</var> be a new <a>URL</a> using
-          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
-          the <var>base</var> URL.
+          <li>Let <var>scope URL</var> be the result of <a>parsing</a>
+          <var>value</var>, using <var>manifest URL</var> as the
+          <var>base</var> URL.
           </li>
           <li>If <var>scope URL</var> is failure:
             <ul>
@@ -1943,9 +1943,9 @@
           <li>If <var>value</var> is the empty string, return <var>document
           URL</var>.
           </li>
-          <li>Let <var>start URL</var> be a new <a>URL</a> using
-          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
-          the <var>base</var> URL.
+          <li>Let <var>start URL</var> be the result of <a>parsing</a>
+          <var>value</var>, using <var>manifest URL</var> as the
+          <var>base</var> URL.
           </li>
           <li>If <var>start URL</var> is failure:
             <ul>
