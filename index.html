@@ -764,14 +764,11 @@
         </p>
       </div>
       <p>
-        A string <var>targetURL</var> is said to be <dfn>within scope</dfn> of
-        <a>navigation scope</a> <var>scopeURL</var> if the following algorithm
+        A <a>URL</a> <var>target</var> is said to be <dfn>within scope</dfn> of
+        <a>navigation scope</a> <var>scope</var> if the following algorithm
         returns <code>true</code>:
       </p>
       <ol>
-        <li>Let <var>target</var> be a new URL using <var>targetURL</var> as
-        input. If <var>target</var> is failure, return <code>false</code>.
-        </li>
         <li>Let <var>scopePath</var> be the elements of <var>scopes</var>'s
         <a data-cite="!URL#concept-url-path">path</a>, separated by U+002F (/).
         </li>
