@@ -742,10 +742,10 @@
         Navigation scope
       </h2>
       <p data-link-for="WebAppManifest">
-        A <dfn>navigation scope</dfn> is a [[!URL]] that represents the set of
-        URLs to which an <a>application context</a> can be navigated while the
-        manifest is <a>applied</a>. The <a>navigation scope</a> of a manifest
-        <var>manifest</var> is <var>manifest</var>["<a>scope</a>"].
+        A <dfn>navigation scope</dfn> is a <a>URL</a> that represents the set
+        of URLs to which an <a>application context</a> can be navigated while
+        the manifest is <a>applied</a>. The <a>navigation scope</a> of a
+        manifest <var>manifest</var> is <var>manifest</var>["<a>scope</a>"].
       </p>
       <div class="note" data-link-for="WebAppManifest">
         <p>
@@ -764,14 +764,11 @@
         </p>
       </div>
       <p>
-        A string <var>targetURL</var> is said to be <dfn>within scope</dfn> of
-        <a>navigation scope</a> <var>scopeURL</var> if the following algorithm
+        A <a>URL</a> <var>target</var> is said to be <dfn>within scope</dfn> of
+        <a>navigation scope</a> <var>scope</var> if the following algorithm
         returns <code>true</code>:
       </p>
       <ol>
-        <li>Let <var>target</var> be a new URL using <var>targetURL</var> as
-        input. If <var>target</var> is failure, return <code>false</code>.
-        </li>
         <li>Let <var>scopePath</var> be the elements of <var>scopes</var>'s
         <a data-cite="!URL#concept-url-path">path</a>, separated by U+002F (/).
         </li>
@@ -1738,15 +1735,15 @@
           URL</var>. This algorithm returns a <a>URL</a>.
         </p>
         <ol>
-          <li>Let <var>default</var> be a new <a>URL</a> using "." as
-          <var>input</var> and <var>start URL</var> as the <var>base</var> URL.
+          <li>Let <var>default</var> be the result of <a>parsing</a> ".", using
+          <var>start URL</var> as the <var>base</var> URL.
           </li>
           <li>If <var>value</var> is the empty string, then return
           <var>default</var>.
           </li>
-          <li>Let <var>scope URL</var> be a new <a>URL</a> using
-          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
-          the <var>base</var> URL.
+          <li>Let <var>scope URL</var> be the result of <a>parsing</a>
+          <var>value</var>, using <var>manifest URL</var> as the
+          <var>base</var> URL.
           </li>
           <li>If <var>scope URL</var> is failure:
             <ul>
@@ -1943,20 +1940,19 @@
           returns a <a>URL</a>.
         </p>
         <ol>
-          <li>If <var>value</var> is the empty string, return a new <a>URL</a>
-          whose <var>input</var> is <var>document URL</var>.
+          <li>If <var>value</var> is the empty string, return <var>document
+          URL</var>.
           </li>
-          <li>Let <var>start URL</var> be a new <a>URL</a> using
-          <var>value</var> as <var>input</var> and <var>manifest URL</var> as
-          the <var>base</var> URL.
+          <li>Let <var>start URL</var> be the result of <a>parsing</a>
+          <var>value</var>, using <var>manifest URL</var> as the
+          <var>base</var> URL.
           </li>
           <li>If <var>start URL</var> is failure:
             <ul>
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return a new <a>URL</a> whose <var>input</var> is
-              <var>document URL</var>.
+              <li>Return <var>document URL</var>.
               </li>
             </ul>
           </li>
@@ -1968,8 +1964,7 @@
                 needs to be <a>same-origin</a> as <code>Document</code> of the
                 <a>top-level browsing context</a>.
               </li>
-              <li>Return a new <a>URL</a> whose <var>input</var> is
-              <var>document URL</var>.
+              <li>Return <var>document URL</var>.
               </li>
             </ol>
           </li>
