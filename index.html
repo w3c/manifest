@@ -1363,7 +1363,8 @@
           The following algorithm provides an <dfn>extension point</dfn>: other
           specifications that add new members to the manifest are encouraged to
           hook themselves into this specification at this point in the
-          algorithm.
+          algorithm. They SHOULD NOT modify the existing values already in the
+          <var>manifest</var> object.
         </p>
         <div class="note">
           <p>
