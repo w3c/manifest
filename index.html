@@ -1363,7 +1363,8 @@
           The following algorithm provides an <dfn>extension point</dfn>: other
           specifications that add new members to the manifest are encouraged to
           hook themselves into this specification at this point in the
-          algorithm.
+          algorithm. They SHOULD NOT modify the existing values already in the
+          <var>manifest</var> object.
         </p>
         <div class="note">
           <p>
@@ -1414,10 +1415,6 @@
               </li>
             </ol>
           </li>
-          <li>
-            <a>Extension point</a>: process any proprietary and/or other
-            supported members at this point in the algorithm.
-          </li>
           <li>Let <var>manifest</var> be the result of <a data-lt=
           "to idl dictionary value">converting</a> <var>json</var> to a
           <a>WebAppManifest</a> dictionary.
@@ -1466,6 +1463,10 @@
           running <a>processing the <code>serviceworker</code> member</a> given
           <var>manifest</var>["<a>serviceworker</a>"], <var>manifest URL</var>,
           and <var>serviceworker</var>.
+          </li>
+          <li>
+            <a>Extension point</a>: process any proprietary and/or other
+            supported members at this point in the algorithm.
           </li>
           <li>Return <var>manifest</var>.
           </li>
