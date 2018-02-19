@@ -166,7 +166,7 @@
             "serviceworker": {
               "src": "sw.js",
               "scope": "/racer/",
-              "use_cache": false
+              "update_via_cache": "none"
             },
             "screenshots": [{
               "src": "screenshots/in-game-1x.jpg",
@@ -368,7 +368,7 @@
                   <li>Invoke <a>Start Register</a> with <var>scope</var> and
                   <var>src</var> members of the <var>registration</var>, a new
                   <var>promise</var>, <var>client</var>, <a>manifest URL</a>,
-                  plus the <var>type</var> and <var>use_cache</var> members of
+                  plus the <var>type</var> and <var>update_via_cache</var> members of
                   the <var>registration</var>,
                   </li>
                 </ol>in which case the state of the settled <var>promise</var>
@@ -1537,7 +1537,7 @@
              USVString theme_color;
              USVString background_color;
              USVString scope;
-             ServiceWorkerRegistration serviceworker;
+             ServiceWorkerRegistrationObject serviceworker;
              sequence&lt;ExternalApplicationResource&gt; related_applications;
              boolean prefer_related_applications = "false";
           };
@@ -2030,8 +2030,8 @@
         <p>
           The steps for <dfn>processing the <code>serviceworker</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>ServiceWorkerRegistration</a> <var>registration</var>.
-          This algorithm returns a <a>ServiceWorkerRegistration</a>
+          takes a <a>ServiceWorkerRegistrationObject</a> <var>registration</var>.
+          This algorithm returns a <a>ServiceWorkerRegistrationObject</a>
           <var>registration</var>, which can be <code>undefined</code>.
         </p>
         <ol>
@@ -2062,7 +2062,7 @@
             "serviceworker": {
               "src": "sw.js",
               "scope": "/foo",
-              "use_cache": false
+              "update_via_cache": "none"
             }
           </pre>
         </div>
@@ -2766,26 +2766,26 @@
     </section>
     <section>
       <h2>
-        The ServiceWorkerRegistration dictionary and its members
+        The ServiceWorkerRegistrationObject dictionary and its members
       </h2>
       <p>
-        A <dfn>ServiceWorkerRegistration</dfn> dictionary represents a service
+        A <dfn>ServiceWorkerRegistrationObject</dfn> dictionary represents a service
         worker registration for the web application.
       </p>
       <pre class="idl">
-        dictionary ServiceWorkerRegistration {
+        dictionary ServiceWorkerRegistrationObject {
           required USVString src;
           USVString scope;
-          USVString type = "classic";
-          boolean use_cache = "false";
+          WorkerType type = "classic";
+          ServiceWorkerUpdateViaCache update_via_cache = "imports";
         };
       </pre>
-      <section data-dfn-for="serviceworkerregistration">
+      <section data-dfn-for="ServiceWorkerRegistrationObject">
         <h3>
           <code>src</code> member
         </h3>
         <p>
-          The <dfn>src</dfn> member of a <a>ServiceWorkerRegistration</a>
+          The <dfn>src</dfn> member of a <a>ServiceWorkerRegistrationObject</a>
           dictionary is a <a>URL</a> representing a service worker.
         </p>
         <p>
@@ -2806,13 +2806,13 @@
           </li>
         </ol>
       </section>
-      <section data-dfn-for="serviceworkerregistration" data-link-for=
-      "serviceworkerregistration">
+      <section data-dfn-for="ServiceWorkerRegistrationObject" data-link-for=
+      "ServiceWorkerRegistrationObject">
         <h3>
           <dfn>scope</dfn> member
         </h3>
         <p>
-          The <a>scope</a> member of a <a>ServiceWorkerRegistration</a>
+          The <a>scope</a> member of a <a>ServiceWorkerRegistrationObject</a>
           dictionary is the service worker's associated <a>scope URL</a>.
         </p>
         <p>
@@ -2832,27 +2832,29 @@
           </li>
         </ol>
       </section>
-      <section data-dfn-for="serviceworkerregistration">
+      <section data-dfn-for="ServiceWorkerRegistrationObject">
         <h3>
           <code>type</code> member
         </h3>
         <p>
-          The <dfn>type</dfn> member of a <a>ServiceWorkerRegistration</a>
+          The <dfn>type</dfn> member of a <a>ServiceWorkerRegistrationObject</a>
           dictionary is the service worker's <a href=
           "https://html.spec.whatwg.org/multipage/workers.html#workertype">worker
-          type</a>.
+          type</a>. The possible values are those of
+          the <a>WorkerType</a> enum defined in [[!HTML]].
         </p>
       </section>
-      <section data-dfn-for="ServiceWorkerRegistration" data-link-for=
-      "ServiceWorkerRegistration">
+      <section data-dfn-for="ServiceWorkerRegistrationObject" data-link-for=
+      "ServiceWorkerRegistrationObject">
         <h3>
-          <code>use_cache</code> member
+          <code>update_via_cache</code> member
         </h3>
         <p>
-          The <dfn>use_cache</dfn> member of a <a>ServiceWorkerRegistration</a>
-          dictionary determines whether the user agent <a href=
-          "https://w3c.github.io/ServiceWorker/#dfn-use-cache">cache</a> should
-          be used when fetching the service worker.
+          The <dfn>update_via_cache</dfn> member of a <a>ServiceWorkerRegistrationObject</a>
+          dictionary determines the <a href=
+          "https://w3c.github.io/ServiceWorker/#dfn-update-via-cache">update via cache mode</a>
+          for the service worker. The possible values are those of
+          the <a>ServiceWorkerUpdateViaCache</a> enum defined in [[!SERVICE-WORKERS-1]].
         </p>
       </section>
     </section>
@@ -3103,6 +3105,12 @@
         The <a href=
         "https://w3c.github.io/ServiceWorker/#dfn-scope-url"><dfn>scope
         URL</dfn></a> is defined in [[!SERVICE-WORKERS-1]].
+      </p>
+      <p>
+        The <a href=
+        "https://w3c.github.io/ServiceWorker/#dfn-update-via-cache">
+        <dfn>ServiceWorkerUpdateViaCache</dfn></a> enum, is defined in
+        [[!SERVICE-WORKERS-1]].
       </p>
       <p>
         The <a href=
@@ -3361,6 +3369,11 @@
           <a href=
           "https://html.spec.whatwg.org/#split-a-string-on-spaces"><dfn data-lt="splitting">
           split a string on spaces</dfn></a>
+        </li>
+        <li>
+          The <a href=
+          "https://html.spec.whatwg.org/multipage/workers.html#workertype">
+          <dfn>WorkerType</dfn></a> enum
         </li>
       </ul>
       <p>
