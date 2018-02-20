@@ -1258,7 +1258,7 @@
           algorithm.
           </li>
           <li>If <var>manifest link</var>'s <code>href</code> attribute's value
-          is the empty string, then abort these steps.
+          is the empty <a>string</a>, then abort these steps.
           </li>
           <li>Let <var>manifest URL</var> be the result of <a>parsing</a> the
           value of the <code>href</code> attribute, relative to <a>the
@@ -1375,8 +1375,8 @@
         </div>
         <p>
           The steps for <dfn>processing a manifest</dfn> are given by the
-          following algorithm. The algorithm takes a <var>text</var> string as
-          an argument, which represents a <a>manifest</a>, and a <a>URL</a>
+          following algorithm. The algorithm takes a <a>string</a> <var>text</var>
+          as an argument, which represents a <a>manifest</a>, and a <a>URL</a>
           <var>manifest URL</var>, which represents the location of the
           manifest, and a <a>URL</a> <var>document URL</var>. The output from
           inputting an JSON document into this algorithm is a <dfn>processed
@@ -1398,7 +1398,7 @@
                 the JSON parsing error.
               </li>
               <li>Set <var>json</var> to be the result of <a data-cite=
-              "!ECMASCRIPT#sec-15.12.2">parsing</a> the string
+              "!ECMASCRIPT#sec-15.12.2">parsing</a> the <a>string</a>
               <code>"{}"</code>.
               </li>
             </ol>
@@ -1410,7 +1410,7 @@
                 an object.
               </li>
               <li>Set <var>json</var> to be the result of <a data-cite=
-              "!ECMASCRIPT#sec-15.12.2">parsing</a> the string
+              "!ECMASCRIPT#sec-15.12.2">parsing</a> the <a>string</a>
               <code>"{}"</code>.
               </li>
             </ol>
@@ -1639,13 +1639,13 @@
           <code>lang</code> member
         </h3>
         <p>
-          The <dfn>lang</dfn> member is a <a>language tag</a> (string) that
+          The <dfn>lang</dfn> member is a <a>language tag</a> (<a>string</a>) that
           specifies the primary language for the values of the manifest's
           <a>directionality-capable members</a> (as knowing the language can
           also help with directionality).
         </p>
         <p>
-          A <dfn>language tag</dfn> is a string that matches the production of
+          A <dfn>language tag</dfn> is a <a>string</a> that matches the production of
           a <code>Language-Tag</code> defined in the [[!BCP47]] specifications
           (see the <a href=
           "https://www.iana.org/assignments/language-subtag-registry">IANA
@@ -1729,7 +1729,7 @@
         </h3>
         <div class="issue" data-number="380"></div>
         <p>
-          The <dfn>scope</dfn> member is a string that represents the
+          The <dfn>scope</dfn> member is a <a>string</a> that represents the
           navigation scope of this web application's <a>application
           context</a>.
         </p>
@@ -1744,7 +1744,7 @@
           <li>Let <var>default</var> be the result of <a>parsing</a> ".", using
           <var>start URL</var> as the <var>base</var> URL.
           </li>
-          <li>If <var>value</var> is the empty string, then return
+          <li>If <var>value</var> is the empty <a>string</a>, then return
           <var>default</var>.
           </li>
           <li>Let <var>scope URL</var> be the result of <a>parsing</a>
@@ -1946,7 +1946,7 @@
           returns a <a>URL</a>.
         </p>
         <ol>
-          <li>If <var>value</var> is the empty string, return <var>document
+          <li>If <var>value</var> is the empty <a>string</a>, return <var>document
           URL</var>.
           </li>
           <li>Let <var>start URL</var> be the result of <a>parsing</a>
@@ -2149,7 +2149,7 @@
           <li>Let <var>relatedApplications</var> be a new Array object created
           as if by the expression [].
           </li>
-          <li>For each <var>app</var> in <var>related applications</var>:
+          <li><a>For each</a> <var>app</var> of <var>related applications</var>:
             <ol>
               <li>if neither <var>app</var>["src"] nor <var>app</var>["url"]
               are <code>undefined</code>:
@@ -2158,7 +2158,7 @@
                   <a>processing the <code>url</code> member of an
                   application</a> given <var>app</var>["url"].
                   </li>
-                  <li>Append <var>app</var> to <var>relatedApplications</var>
+                  <li><a data-lt="list-append">Append</a> <var>app</var> to <var>relatedApplications</var>
                   </li>
                 </ol>
               </li>
@@ -2252,10 +2252,10 @@
           <code>Array&lt;USVString&gt;</code>.
         </p>
         <ol>
-          <li>For each <var>category</var> in <var>categories</var>:
+          <li><a>For each</a> <var>category</var> of <var>categories</var>:
             <ol>
-              <li>Convert <var>category</var> <a>to ASCII lowercase</a> in
-              place.
+              <li><a data-lt="set-replace">Replace</a> <var>category</var> within <var>categories</var>
+                with <var>category</var>, <a>lowercased</a>.
               </li>
             </ol>
           </li>
@@ -2263,7 +2263,7 @@
           </li>
         </ol>
         <p>
-          The categories string array is case insensitive and converted to
+          The categories <a>string</a> array is case insensitive and converted to
           lower-case by following the processing algorithm. Thus,
           <code>sports</code>, <code>Sports</code>, <code>SPORTS</code>, and
           <code>SpOrTs</code> are all equivalent.
@@ -2494,34 +2494,33 @@
           The steps for <dfn>processing the <code>purpose</code> member of an
           image</dfn> are given by the following algorithm. The algorithm takes
           an <a>ImageResource</a> <var>image</var>. This algorithm will return
-          a set.
+          a <a>set</a>.
         </p>
         <ol>
-          <li>Let <var>set</var> be an empty set.
+          <li>Let <var>set</var> be an empty <a>set</a>.
           </li>
           <li>Let <var>value</var> be <var>image</var>["purpose"].
           </li>
           <li>If <a>Type</a>(<var>value</var>) is String:
             <ol>
-              <li>Let <var>keywords</var> be the result of <a>splitting</a>
+              <li>Let <a>list</a> <var>keywords</var> be the result of <a>splitting</a>
               <var>value</var> on spaces.
               </li>
-              <li>For each <var>keyword</var> in <var>keywords</var>:
+              <li><a>For each</a> <var>keyword</var> of <var>keywords</var>:
                 <ol>
-                  <li>Convert <var>keyword</var> <a>to ASCII lowercase</a>.
+                  <li>Set <var>keyword</var> to <var>keyword</var>, <a>lowercased</a>.
                   </li>
                   <li>If <var>keyword</var> is not one of the <a>icon
-                  purposes</a>, or is already contained in <var>keywords</var>,
-                  <a>issue a developer warning</a> and continue to the next
-                  <var>keyword</var> skipping the sub-steps below.
+                  purposes</a>, or <var>set</var> <a>contains</a> <var>keyword</var>, then
+                  <a>issue a developer warning</a> and <a>continue</a>.
                   </li>
-                  <li>Otherwise, add <var>keyword</var> to <var>set</var>.
+                  <li>Otherwise, <a data-lt="set-append">append</a> <var>keyword</var> to <var>set</var>.
                   </li>
                 </ol>
               </li>
             </ol>
           </li>
-          <li>if the size of <var>set</var> is 0, then add <code>"any"</code>
+          <li>If <var>set</var> <a>is empty</a>, then <a data-lt="set-append">append</a> <code>"any"</code>
           to <var>set</var>.
           </li>
           <li>Return <var>set</var>.
@@ -2560,7 +2559,7 @@
           consisting of an <a>unordered set of unique space-separated
           tokens</a> which are <a>ASCII case-insensitive</a> that represents
           the dimensions of an image. Each keyword is either an <a>ASCII
-          case-insensitive</a> match for the string "<a data-lt=
+          case-insensitive</a> match for the <a>string</a> "<a data-lt=
           "any link size">any"</a>, or a value that consists of two <a>valid
           non-negative integers</a> that do not have a leading U+0030 DIGIT
           ZERO (0) character and that are separated by a single U+0078 LATIN
@@ -2577,7 +2576,7 @@
           a set.
         </p>
         <ol>
-          <li>Let <var>set</var> be an empty set.
+          <li>Let <var>set</var> be an empty <a>set</a>.
           </li>
           <li>Let <var>value</var> be <var>image.sizes</var>.
           </li>
@@ -2585,13 +2584,14 @@
           return <code>undefined</code>.
           </li>
           <li>Otherwise, parse <var>value</var> as if it was a [[!HTML]] <code>
-            <a>sizes</a></code> attribute and let <var>keywords</var> be the
-            result.
+            <a>sizes</a></code> attribute and let <a>list</a> <var>keywords</var>
+            be the result.
           </li>
-          <li>For each <var>keyword</var> in <var>keywords</var>:
+          <li><a>For each</a> <var>keyword</var> of <var>keywords</var>:
             <ol>
-              <li>Convert <var>keyword</var> <a>to ASCII lowercase</a> and add
-              the resulting string to <var>set</var>.
+              <li>
+                <a data-lt="set-append">Append</a> <var>keyword</var>,
+                <a>lowercased</a>, to <var>set</var>.
               </li>
             </ol>
           </li>
@@ -2644,7 +2644,7 @@
           The steps for <dfn>processing the <code>type</code> member of an
           image</dfn> are given by the following algorithm. The algorithm takes
           an <var>image</var> object as an argument, and returns either a
-          string or <code>undefined</code>.
+          <a>string</a> or <code>undefined</code>.
         </p>
         <ol>
           <li>Let <var>value</var> be <var>image</var>["<a>type</a>"].
@@ -2677,7 +2677,7 @@
           The steps for <dfn>processing <a>ImageResource</a> members</dfn> are
           given by the following algorithm. The algorithm takes a manifest, a
           <a>URL</a> <var>manifest URL</var>, which is the URL from which the
-          <var>manifest</var> was fetched, and a string that represents the
+          <var>manifest</var> was fetched, and a <a>string</a> that represents the
           <var>member name</var> of the member which contains the array of
           <a>ImageResource</a>s. This algorithm returns an
           Array&lt;<a>ImageResource</a>&gt;
@@ -2686,7 +2686,7 @@
           <li>Let <var>imageResources</var> be a new Array object created as if
           by the expression [].
           </li>
-          <li>For each <var>entry</var> in <var>manifest</var>[<var>member
+          <li><a>For each</a> <var>entry</var> of <var>manifest</var>[<var>member
           name</var>]:
           </li>
           <li>
@@ -2712,7 +2712,7 @@
                   <a>processing the <code>purpose</code> member of an image</a>
                   given <var>entry</var> and <var>manifest URL</var>.
                   </li>
-                  <li>Append <var>image</var> to <var>imageResources</var>
+                  <li><a data-lt="list-append">Append</a> <var>image</var> to <var>imageResources</var>
                   </li>
                 </ol>
               </li>
@@ -2798,7 +2798,7 @@
         </p>
         <ol>
           <li>If <a>Type</a>(<var>source URL</var>) is not <code>String</code>
-          or <var>source URL</var> is the empty string, then return
+          or <var>source URL</var> is the empty <a>string</a>, then return
           <code>undefined</code>.
           </li>
           <li>Otherwise, <a>parse</a> <var>source URL</var> using <var>manifest
@@ -2995,7 +2995,7 @@
           The <dfn>min_version</dfn> member of an
           <a>ExternalApplicationResource</a> dictionary represents the minimum
           version of the application that is considered related to this web
-          app. This version is a string with platform-specific syntax and
+          app. This version is a <a>string</a> with platform-specific syntax and
           semantics.
         </p>
       </section>
@@ -3019,7 +3019,7 @@
           Each <dfn>Fingerprint</dfn>s represents a set of cryptographic
           fingerprints used for verifying the application. A fingerprint has
           the following two properties: <dfn>type</dfn> and <dfn>value</dfn>.
-          Each of these are strings, but their syntax and semantics are
+          Each of these are <a>string</a>s, but their syntax and semantics are
           platform-defined.
         </p>
       </section>
@@ -3057,37 +3057,31 @@
         expected.
       </p>
       <p>
-        The <dfn><a href=
-        "https://url.spec.whatwg.org/#concept-url">URL</a></dfn> concept and
-        <dfn data-lt="parse|parsing|URL parsing"><a href=
-        "https://url.spec.whatwg.org/#concept-url-parser">URL parser</a></dfn>
+        The <dfn><a data-cite="!URL#concept-url">URL</a></dfn> concept and
+        <dfn data-lt="parse|parsing|URL parsing"><a data-cite=
+          "!URL#concept-url-parser">URL parser</a></dfn>
         are defined in [[!URL]].
       </p>
       <p>
-        The <a href=
-        "https://w3c.github.io/screen-orientation/#dfn-default-orientation"><dfn>
-        default orientation</dfn></a> concept and the <a href=
-        "https://w3c.github.io/screen-orientation/#idl-def-OrientationLockType">
+        The <a data-cite="!SCREEN-ORIENTATION#dfn-default-orientation"><dfn>
+        default orientation</dfn></a> concept and the <a data-cite=
+        "!SCREEN-ORIENTATION#idl-def-OrientationLockType">
         <dfn>OrientationLockType</dfn></a> enum, are defined in
         [[!SCREEN-ORIENTATION]].
       </p>
       <p>
-        The algorithm to <a href=
-        "https://dev.w3.org/csswg/css-syntax/#parse-component-value"><dfn>parse
-        a component value</dfn></a> is defined in [[!CSS-SYNTAX-3]].
+        The algorithm to <a data-cite="CSS-SYNTAX-3#parse-component-value">
+        <dfn>parse a component value</dfn></a> is defined in [[!CSS-SYNTAX-3]].
       </p>
       <p>
-        The algorithm to convert a ECMAScript <a>object</a> <a href=
-        "https://www.w3.org/TR/WebIDL-1/#es-dictionary"><dfn>to IDL dictionary
+        The algorithm to convert a ECMAScript <a>object</a>
+        <a data-cite="!WEBIDL#es-dictionary"><dfn>to IDL dictionary
         value</dfn></a> is defined in [[!WEBIDL]].
       </p>
       <p>
-        The <a href=
-        "https://w3c.github.io/webappsec-csp/#manifest_src"><dfn>manifest-src</dfn></a>,
-        <a href=
-        "https://w3c.github.io/webappsec-csp/#img_src"><dfn>img-src</dfn></a>,
-        and <a href=
-        "https://w3c.github.io/webappsec-csp/#default_src"><dfn>default-src</dfn></a>
+        The <a data-cite="!CSP3#directive-manifest-src"><dfn>manifest-src</dfn></a>,
+        <a data-cite="!CSP3#directive-img-src"><dfn>img-src</dfn></a>,
+        and <a data-cite="!CSP3#directive-default-src"><dfn>default-src</dfn></a>
         directives are defined in [[!CSP3]].
       </p>
       <p>
@@ -3098,7 +3092,7 @@
       </p>
       <p>
         The <a href=
-        "https://w3c.github.io/ServiceWorker/#start-register"><dfn>Start
+        "https://w3c.github.io/ServiceWorker/#start-register-algorithm"><dfn>Start
         Register</dfn></a> is defined in [[!SERVICE-WORKERS-1]].
       </p>
       <p>
@@ -3124,17 +3118,14 @@
       </p>
       <ul>
         <li>
-          <a href=
-          "https://heycam.github.io/webidl/#dfn-create-exception"><dfn data-lt=
+          <a data-cite="!WEBIDL#dfn-create-exception"><dfn data-lt=
           "created">create</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://heycam.github.io/webidl/#invalidstateerror"><dfn>InvalidStateError</dfn></a>
+          <a data-cite="!WEBIDL#invalidstateerror"><dfn>InvalidStateError</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://heycam.github.io/webidl/#notallowederror"><dfn>NotAllowedError</dfn></a>
+          <a data-cite="!WEBIDL#notallowederror"><dfn>NotAllowedError</dfn></a>
         </li>
       </ul>
       <p>
@@ -3142,12 +3133,11 @@
       </p>
       <ul>
         <li>
-          <a href="https://dom.spec.whatwg.org/#event"><dfn><code>Event</code>
+          <a data-cite="!DOM#event"><dfn><code>Event</code>
           interface</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://dom.spec.whatwg.org/#concept-event-fire"><dfn data-lt=
+          <a data-cite="!DOM#concept-event-fire"><dfn data-lt=
           "fire|fired|firing">Fire an event</dfn></a>
         </li>
       </ul>
@@ -3176,206 +3166,200 @@
       </p>
       <ul>
         <li>
-          <a href=
-          "https://html.spec.whatwg.org/multipage/syntax.html#completely-loaded">
+          <a data-cite="!HTML#completely-loaded">
           <dfn>completely loaded</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://html.spec.whatwg.org/multipage/browsers.html#allowed-to-navigate">
+          <a data-cite="!HTML#allowed-to-navigate">
           <dfn>allowed to navigate</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#external-resource-link">
+          <a data-cite="!HTML#external-resource-link">
           <dfn data-lt="External Resource">external Resource link</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#top-level-browsing-context">
+          <a data-cite="!HTML#top-level-browsing-context">
           <dfn data-lt="top-level browsing contexts">top-level browsing
           context</dfn></a>
         </li>
         <li>
-          <dfn data-cite="!HTML/origin.html#concept-origin-opaque">opaque
+          <dfn data-cite="!HTML#concept-origin-opaque">opaque
           origin</dfn>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#same-origin"><dfn>
+          <a data-cite="!HTML#same-origin"><dfn>
           same-origin</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#unordered-set-of-unique-space-separated-tokens">
+          <a data-cite="!HTML#unordered-set-of-unique-space-separated-tokens">
           <dfn>unordered set of unique space-separated tokens</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#navigate"><dfn data-lt="navigated|navigate|navigation">
+          <a data-cite="!HTML#navigate"><dfn data-lt="navigated|navigate|navigation">
           navigate algorithm</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://html.spec.whatwg.org/multipage/browsers.html#replacement-enabled">
+          <a data-cite="!HTML#replacement-enabled">
           <dfn>replacement enabled</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#the-link-element">
+          <a data-cite="!HTML#the-link-element">
           <dfn data-lt="link"><code>link</code> element</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#linkTypes"><dfn>link
+          <a data-cite="!HTML#linkTypes"><dfn>link
           type</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#attr-link-media">
+          <a data-cite="!HTML#attr-link-media">
           <dfn>media</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#delay-the-load-event">
+          <a data-cite="!HTML#delay-the-load-event">
           <dfn>delay the load event</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#tree-order"><dfn>
+          <a data-cite="!HTML#tree-order"><dfn>
           tree order</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#attr-link-rel"><dfn>
+          <a data-cite="!HTML#attr-link-rel"><dfn>
           <code>rel</code> attribute</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#concept-link-obtain">
+          <a data-cite="!HTML#concept-link-obtain">
           <dfn>obtain a resource</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/multipage/webappapis.html#networking-task-source">
+          <a data-cite="!HTML#networking-task-source">
           <dfn>networking task source</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#queue-a-task"><dfn>
+          <a data-cite="!HTML#queue-a-task"><dfn>
           queue a task</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#origin"><dfn>origin</dfn></a>
+          <a data-cite="!HTML#origin"><dfn>origin</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#the-a-element"><dfn data-lt="a">
+          <a data-cite="!HTML#the-a-element"><dfn data-lt="a">
           <code>a</code> element</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#the-meta-element">
+          <a data-cite="!HTML#the-meta-element">
           <dfn data-lt="meta"><code>meta</code> element</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#the-area-element">
+          <a data-cite="!HTML#the-area-element">
           <dfn data-lt="area"><code>area</code> element</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#attr-meta-name"><dfn>
+          <a data-cite="!HTML#attr-meta-name"><dfn>
           <code>name</code> attribute</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#meta-application-name">
+          <a data-cite="!HTML#meta-application-name">
           <dfn>application-name</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#the-title-element">
+          <a data-cite="!HTML#the-title-element">
           <dfn><code>title</code> element</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#rel-icon"><dfn>icon
+          <a data-cite="!HTML#rel-icon"><dfn>icon
           link type</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#ascii-case-insensitive">
+          <a data-cite="!HTML#ascii-case-insensitive">
           <dfn>ASCII case-insensitive</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes-any">
+          <a data-cite="!HTML#attr-link-sizes-any">
           <dfn>any link size</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#valid-non-negative-integer">
+          <a data-cite="!HTML#valid-non-negative-integer">
           <dfn data-lt="valid non-negative integers">valid non-negative
           integer</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#attr-link-sizes">
+          <a data-cite="!HTML#attr-link-sizes">
           <dfn>sizes</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#converted-to-ascii-lowercase">
-          <dfn>to ASCII lowercase</dfn></a>
-        </li>
-        <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#concept-link-type-sniffing">
+          <a data-cite="!HTML#concept-link-type-sniffing">
           <dfn>determining the type of the resource</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#valid-mime-type">
+          <a data-cite="!HTML#valid-mime-type">
           <dfn>valid MIME type</dfn></a>
         </li>
         <li>
-          <a href="https://html.spec.whatwg.org/#same-origin"><dfn>same
+          <a data-cite="!HTML#same-origin"><dfn>same
           origin</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://html.spec.whatwg.org/#the-element's-base-url"><dfn>the
+          <a data-cite="!HTML#the-element's-base-url"><dfn>the
           element's base URL</dfn></a>.
         </li>
         <li>
-          <a href=
-          "https://html.spec.whatwg.org/#queue-a-post-load-task"><dfn>queue a
+          <a data-cite="!HTML#queue-a-post-load-task"><dfn>queue a
           post-load task</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://html.spec.whatwg.org/multipage/webappapis.html#event-handler-idl-attributes">
+          <a data-cite="!HTML#event-handler-idl-attributes">
           <dfn data-lt="event handler attributes">Event handler IDL
           attribute</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">
+          <a data-cite="!HTML#in-parallel">
           <dfn>in parallel</dfn></a>
         </li>
         <li>
-          <a href=
-          "https://html.spec.whatwg.org/#split-a-string-on-spaces"><dfn data-lt="splitting">
-          split a string on spaces</dfn></a>
-        </li>
-        <li>
-          The <a href=
-          "https://html.spec.whatwg.org/multipage/workers.html#workertype">
+          The <a data-cite="!HTML#workertype">
           <dfn>WorkerType</dfn></a> enum
         </li>
       </ul>
+      <p>
+        The following are defined in [[!INFRA]]:
+      </p>
+      <ul>
+        <li>
+          <dfn data-cite="!INFRA#ascii-lowercase" data-lt="lowercased">ASCII lowercase</dfn>
+        </li>
+        <li>
+          <dfn data-cite="!INFRA#list">list</dfn>
+        </li>
+        <li>
+          <dfn data-cite="!INFRA#ordered-set">set</dfn>
+        </li>
+        <li>
+          <dfn data-cite="!INFRA#set-replace">Replace</dfn>
+        </li>
+        <li>
+          <dfn data-cite="!INFRA#list-iterate">For each</dfn> (for list)
+        </li>
+        <li>
+          <dfn data-cite="!INFRA#iteration-continue">continue</dfn>
+        </li>
+        <li>
+          <dfn data-cite="!INFRA#list-contain">contains</dfn>
+        </li>
+        <li>
+          <dfn data-cite="!INFRA#list-is-empty">is empty</dfn>
+        </li>
+        <li>
+          <dfn data-cite="!INFRA#list-append" data-lt="list-append">Append (for list)</dfn>
+        </li>
+        <li>
+          <dfn data-cite="!INFRA#set-append" data-lt="set-append">Append (for set)</dfn>
+        </li>
+        <li>
+          <dfn data-cite="!INFRA/#split-on-ascii-whitespace" data-lt="splitting">
+            split a string input on ASCII whitespace</dfn>
+          </li>
+      </ul>
+
       <p>
         The following are defined in [[!ENCODING]]:
       </p>
