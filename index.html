@@ -1980,8 +1980,11 @@
           returns a <a>URL</a>.
         </p>
         <ol>
+          <li>Let <var>default</var> be the result of <a>parsing</a> ".", using
+          <var>manifest URL</var> as the <var>base</var> URL.
+          </li>
           <li>If <var>value</var> is the empty <a>string</a>, return
-          <var>document URL</var>.
+          <var>default</var>.
           </li>
           <li>Let <var>start URL</var> be the result of <a>parsing</a>
           <var>value</var>, using <var>manifest URL</var> as the
@@ -1992,7 +1995,7 @@
               <li>
                 <a>Issue a developer warning</a>.
               </li>
-              <li>Return <var>document URL</var>.
+              <li>Return <var>default</var>.
               </li>
             </ul>
           </li>
@@ -2004,7 +2007,7 @@
                 needs to be <a>same-origin</a> as <code>Document</code> of the
                 <a>top-level browsing context</a>.
               </li>
-              <li>Return <var>document URL</var>.
+              <li>Return <var>default</var>.
               </li>
             </ol>
           </li>
