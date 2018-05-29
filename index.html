@@ -67,6 +67,7 @@
         }]
       }],
       github: "https://github.com/w3c/manifest/",
+      pluralize: true,
     };
     </script>
   </head>
@@ -492,9 +493,8 @@
         <p>
           By design, this specification does not provide developers with an
           explicit API to "install" a web application. Instead, a
-          <a>manifest</a> can serve as an <dfn data-lt=
-          "installability signals">installability signal</dfn> to a user agent
-          that a web application can be <a>installed</a>.
+          <a>manifest</a> can serve as an <dfn>installability signal</dfn> to
+          a user agent that a web application can be <a>installed</a>.
         </p>
         <p>
           Examples of <a>installability signals</a> for a web application:
@@ -911,13 +911,12 @@
         <a>display mode</a>.
       </p>
       <p>
-        Each <a>display mode</a>, except <code>browser</code>, has a
-        <dfn data-lt="fallback display modes">fallback display mode</dfn>,
-        which is the <a>display mode</a> that the user agent can try to use if
-        it doesn't support a particular <a>display mode</a>. If the user agent
-        does support a <a>fallback display mode</a>, then it checks to see if
-        it can use that <a>display mode</a>'s <a>fallback display mode</a>.
-        This creates a fallback chain, with the <a>default display mode</a>
+        Each <a>display mode</a>, except <code>browser</code>, has a <dfn>fallback
+        display mode</dfn>, which is the <a>display mode</a> that the user agent
+        can try to use if it doesn't support a particular <a>display mode</a>.
+        If the user agent does support a <a>fallback display mode</a>, then it
+        checks to see if it can use that <a>display mode</a>'s <a>fallback display
+        mode</a>. This creates a fallback chain, with the <a>default display mode</a>
         (<code>browser</code>) being the last item in the chain.
       </p>
       <div class="example">
@@ -2133,10 +2132,9 @@
           <code title="">related_applications</code> member
         </h3>
         <p>
-          A <dfn data-lt="related applications">related application</dfn> is an
-          application accessible to the underlying application platform that
-          has a relationship with the web application <a>associated with a
-          manifest</a>.
+          A <dfn>related application</dfn> is an application accessible to the
+          underlying application platform that has a relationship with the
+          web application <a>associated with a manifest</a>.
         </p>
         <p>
           The <dfn>related_applications</dfn> member lists <a>related
@@ -3693,9 +3691,8 @@
               "External Resource">external Resource link</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#top-level-browsing-context"><dfn data-lt=
-              "top-level browsing contexts">top-level browsing
-              context</dfn></a>
+              <a data-cite="!HTML#top-level-browsing-context">
+                <dfn>top-level browsing context</dfn></a>
             </li>
             <li>
               <dfn data-cite="!HTML#concept-origin-opaque">opaque origin</dfn>
@@ -3787,9 +3784,8 @@
               size</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#valid-non-negative-integer"><dfn data-lt=
-              "valid non-negative integers">valid non-negative
-              integer</dfn></a>
+              <a data-cite="!HTML#valid-non-negative-integer">
+                <dfn>valid non-negative integer</dfn></a>
             </li>
             <li>
               <a data-cite="!HTML#attr-link-sizes"><dfn>sizes</dfn></a>
