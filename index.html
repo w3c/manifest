@@ -805,7 +805,9 @@
           <a>scope</a> is missing, the navigation scope will be
           <code>/pages/</code> on the same origin. If <a>start_url</a> is
           <code>/pages/</code> (the trailing slash is important!), the
-          navigation scope will be <code>/pages/</code>.
+          navigation scope will be <code>/pages/</code>. If both
+          <a>start_url</a> and <a>scope</a> are missing, they will both default
+          to the parent path of the manifest URL.
         </p>
         <p>
           Developers should take care, if they rely on the default behaviour,
@@ -2015,9 +2017,18 @@
           </li>
         </ol>
         <div class="note">
-          The default start URL (if <code>start_url</code> is omitted or an
-          error) is the <var>manifest URL</var>, with its filename, query, and
-          fragment removed.
+          <p>
+            The default start URL (if <code>start_url</code> is omitted or an
+            error) is the <var>manifest URL</var>, with its filename, query,
+            and fragment removed.
+          </p>
+          <p>
+            This default was changed in June 2018. Manifest authors might wish
+            to avoid relying on the default behaviour (and explicitly specify
+            this member), as user agents might still respect the previous
+            default (the document URL), or ignore the manifest entirely if
+            <a>start_url</a> is missing.
+          </p>
         </div>
         <div class="example">
           <p>
