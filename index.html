@@ -443,16 +443,58 @@
         </ul>
         <p>
           Prior to presenting an <a>automated install prompt</a>, a user agent
-          MUST run the <a>steps to notify that an install prompt is
+          MAY run the <a>steps to notify that an install prompt is
           available</a>, to give the site the opportunity to prevent the
           default action (which is to install the application). Alternatively,
           the user agent MAY run the <a>steps to notify that an install prompt
           is available</a> at any time, giving the site the opportunity to show
           a <a>site-triggered install prompt</a> without automatically showing
-          the prompt.
+          the prompt. And, the user agent MAY <a>present an install prompt</a>
+          at any time, without giving the site an opportunity to prevent it (in
+          this case, it is RECOMMENDED that the automated prompt be minimally
+          intrusive, since the site will have no control over when it shows).
         </p>
+        <div class="note">
+          <p>
+            The above gives user agents a number of alternatives for
+            controlling the prompting behaviour:
+          </p>
+          <ol>
+            <li>Don't ever show an automated prompt; dispatch the
+            <a>BeforeInstallPromptEvent</a>, requiring the site to opt in to
+            showing a prompt.
+            </li>
+            <li>Show an automated prompt, and do not implement
+            <a>BeforeInstallPromptEvent</a>. The prompt is considered part of
+            the user agent's user interface, not under the control of the
+            developer (no different to any other affordance offered by a user
+            agent).
+            </li>
+            <li>Show an automated prompt, and independently, dispatch the
+            <a>BeforeInstallPromptEvent</a> (perhaps at different times or
+            under different circumstances). This is just a combination of the
+            previous two options. The automated prompt might look quite
+            different to the site-triggered prompt (e.g., being smaller or more
+            subtle). In this approach, using <a data-cite=
+            "DOM#dom-event-preventdefault"><code>preventDefault</code></a> on
+            the <a>BeforeInstallPromptEvent</a> would have no effect, since it
+            is independent of the automated install prompt.
+            </li>
+            <li>Dispatch the <a>BeforeInstallPromptEvent</a>, and if it is not
+            cancelled, show an automated prompt. In this approach, using
+            <a data-cite=
+            "DOM#dom-event-preventdefault"><code>preventDefault</code></a>
+            would stop the automatic prompt from appearing. User agents that
+            adopt this approach would need to show a second prompt if the
+            event's <a data-lt=
+            "BeforeInstallPromptEvent.prompt()"><code>prompt()</code></a>
+            method is called (otherwise, the site might show an "Install"
+            button that does nothing when clicked).
+            </li>
+          </ol>
+        </div>
         <p>
-          In either case, when a user agent <dfn data-lt=
+          When a user agent <dfn data-lt=
           "present an install prompt|presenting an install prompt">presents an
           install prompt</dfn>, the end-user's choice is represented either
           "accepted" or "dismissed". These values are represented in the API of
@@ -484,8 +526,7 @@
               browsing context</a>.
               </li>
               <li>If <var>mayShowPrompt</var> is true, then the user agent MAY,
-              <a>in parallel</a>, <a>request to present an install prompt</a>
-              with <var>event</var>.
+              <a>in parallel</a>, <a>present an install prompt</a>.
               </li>
             </ol>
           </li>
