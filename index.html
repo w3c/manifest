@@ -1434,6 +1434,14 @@
           algorithm is a <dfn>processed manifest</dfn>.
         </p>
         <p class="issue">
+          There is currently no way to invoke this algorithm without a
+          <var>document URL</var>. However, several user agents do just that
+          (when they install a web application directly from a manifest URL,
+          without a document). The algorithms that invoke this one should
+          similarly be written to not require a <var>document URL</var>. See
+          <a href="https://github.com/w3c/manifest/issues/668">#668</a>.
+        </p>
+        <p class="issue">
           We need to catch throws associated with enumerations in IDL
           conversion as the spec might gain new values over time not supported
           by all exising browsers. This is especially important as we rely on
