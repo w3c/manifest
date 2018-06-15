@@ -807,7 +807,8 @@
           <code>/pages/</code> (the trailing slash is important!), the
           navigation scope will be <code>/pages/</code>. If both
           <a>start_url</a> and <a>scope</a> are missing, they will both default
-          to the parent path of the manifest URL.
+          to the parent path of the manifest URL (assuming it is
+          <a>same-origin</a> as the document that referenced it).
         </p>
         <p>
           Developers should take care, if they rely on the default behaviour,
@@ -1982,8 +1983,11 @@
           returns a <a>URL</a>.
         </p>
         <ol>
-          <li>Let <var>default</var> be the result of <a>parsing</a> ".", using
-          <var>manifest URL</var> as the <var>base</var> URL.
+          <li>If <var>manifest URL</var> is <a>same origin</a> as <var>document
+          URL</var>, let <var>default</var> be the result of <a>parsing</a>
+          ".", using <var>manifest URL</var> as the <var>base</var> URL.
+          </li>
+          <li>Otherwise, let <var>default</var> be <var>document URL</var>.
           </li>
           <li>If <var>value</var> is the empty <a>string</a>, return
           <var>default</var>.
@@ -2028,6 +2032,10 @@
             this member), as user agents might still respect the previous
             default (the document URL), or ignore the manifest entirely if
             <a>start_url</a> is missing.
+          </p>
+          <p>
+            This doesn't apply if the manifest is not <a>same-origin</a> as the
+            document that referenced it.
           </p>
         </div>
         <div class="example">
