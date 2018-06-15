@@ -1446,8 +1446,8 @@
           </li>
           <li>Set <var>manifest</var>["<a>scope</a>"] to the result of running
           <a>processing the <code>scope</code> member</a> given
-          <var>manifest</var>["<a>scope</a>"], <var>manifest URL</var>,
-          <var>document URL</var>, and <var>manifest</var>["<a>start_url</a>"].
+          <var>manifest</var>["<a>scope</a>"], <var>manifest URL</var>, and
+          <var>manifest</var>["<a>start_url</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>theme_color</a>"] to the result of
           running <a>processing the <code>theme_color</code> member</a> given
@@ -1753,8 +1753,8 @@
           The steps for <dfn>processing the <code>scope</code> member</dfn> is
           given by the following algorithm. The algorithm takes a
           <a>USVString</a> <var>value</var>, a <a>URL</a> <var>manifest
-          URL</var>, a <a>URL</a> <var>document URL</var>, and a URL <var>start
-          URL</var>. This algorithm returns a <a>URL</a>.
+          URL</var>, and a URL <var>start URL</var>. This algorithm returns a
+          <a>URL</a>.
         </p>
         <ol>
           <li>Let <var>default</var> be the result of <a>parsing</a> ".", using
@@ -1775,21 +1775,6 @@
               <li>Return <var>default</var>.
               </li>
             </ul>
-          </li>
-          <li>If <var>scope URL</var> is not <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#same-origin">same
-          origin</a> as <var>document URL</var>:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a> that the <code>scope</code>
-                needs to be <a href=
-                "https://www.whatwg.org/specs/web-apps/current-work/#same-origin">
-                same-origin</a> as <code>Document</code> of the <a>application
-                context</a>.
-              </li>
-              <li>Return <var>default</var>.
-              </li>
-            </ol>
           </li>
           <li>If <var>start URL</var> is not <a>within scope</a> of scope URL:
             <ol>
