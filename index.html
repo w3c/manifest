@@ -1429,9 +1429,9 @@
           following algorithm. The algorithm takes a <a>string</a>
           <var>text</var> as an argument, which represents a <a>manifest</a>,
           and a <a>URL</a> <var>manifest URL</var>, which represents the
-          location of the manifest, and a <a>URL</a> <var>document URL</var>.
-          The output from inputting an JSON document into this algorithm is a
-          <dfn>processed manifest</dfn>.
+          location of the manifest, and an optional <a>URL</a> <var>document
+          URL</var>. The output from inputting an JSON document into this
+          algorithm is a <dfn>processed manifest</dfn>.
         </p>
         <p class="issue">
           We need to catch throws associated with enumerations in IDL
@@ -1979,15 +1979,16 @@
           The steps for <dfn>processing the <code>start_url</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
           <a>USVString</a> <var>value</var>, a <a>URL</a> <var>manifest
-          URL</var>, and a <a>URL</a> <var>document URL</var>. This algorithm
-          returns a <a>URL</a>.
+          URL</var>, and an optional <a>URL</a> <var>document URL</var>. This
+          algorithm returns a <a>URL</a>.
         </p>
         <ol>
-          <li>If <var>manifest URL</var> is <a>same origin</a> as <var>document
-          URL</var>, let <var>default</var> be the result of <a>parsing</a>
-          ".", using <var>manifest URL</var> as the <var>base</var> URL.
+          <li>If <var>document URL</var> is given, and <var>manifest URL</var>
+          is not <a>same origin</a> as <var>document URL</var>, let
+          <var>default</var> be <var>document URL</var>.
           </li>
-          <li>Otherwise, let <var>default</var> be <var>document URL</var>.
+          <li>Otherwise, let <var>default</var> be the result of <a>parsing</a>
+          ".", using <var>manifest URL</var> as the <var>base</var> URL.
           </li>
           <li>If <var>value</var> is the empty <a>string</a>, return
           <var>default</var>.
@@ -2005,8 +2006,8 @@
               </li>
             </ol>
           </li>
-          <li>If <var>start URL</var> is not <a>same origin</a> as
-          <var>document URL</var>:
+          <li>If <var>document URL</var> is given, and <var>start URL</var> is
+          not <a>same origin</a> as <var>document URL</var>:
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the <a>start_url</a>
