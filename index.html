@@ -1341,6 +1341,15 @@
           <li>Return <var>manifest</var> and <var>manifest URL</var>.
           </li>
         </ol>
+        <p class="issue">
+          There is currently no specified way to obtain a manifest without an
+          associated <a>top-level browsing context</a>. However, several user
+          agents do just that (when they install a web application directly
+          from a manifest URL, without a document). This algorithm, and the
+          <a>steps to install the web application</a>, should similarly be
+          written to not require a document. See <a href=
+          "https://github.com/w3c/manifest/issues/668">#668</a>.
+        </p>
         <div class="note">
           <p>
             Authors are encouraged to use the HTTP cache directives to
@@ -1432,14 +1441,6 @@
           location of the manifest, and an optional <a>URL</a> <var>document
           URL</var>. The output from inputting an JSON document into this
           algorithm is a <dfn>processed manifest</dfn>.
-        </p>
-        <p class="issue">
-          There is currently no way to invoke this algorithm without a
-          <var>document URL</var>. However, several user agents do just that
-          (when they install a web application directly from a manifest URL,
-          without a document). The algorithms that invoke this one should
-          similarly be written to not require a <var>document URL</var>. See
-          <a href="https://github.com/w3c/manifest/issues/668">#668</a>.
         </p>
         <p class="issue">
           We need to catch throws associated with enumerations in IDL
