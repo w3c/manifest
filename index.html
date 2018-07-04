@@ -564,7 +564,8 @@
           historical reasons.
         </div>
         <pre class="idl">
-          [Constructor, Exposed=Window]
+          [Constructor(DOMString type, optional EventInit eventInitDict),
+           Exposed=Window]
           interface BeforeInstallPromptEvent : Event {
               Promise&lt;PromptResponseObject&gt; prompt();
           };
