@@ -813,50 +813,44 @@
         "!SERVICE-WORKERS-1#scope-match-algorithm">Service Workers</a>. To
         avoid unexpected behavior, use a scope ending in a <code>/</code>.
       </div>
-      <div class="issue" title="🐒 patch">
+      <p>
+        If the <a>application context</a>'s <a data-cite=
+        "!HTML#active-document">active document</a>'s <a data-cite=
+        "!DOM#concept-document-url">URL</a> is not <a>within scope</a> of the
+        navigation scope of the <a>application context</a>'s manifest, the user
+        agent SHOULD show prominent UI indicating the <a data-cite=
+        "!DOM#concept-document-url">document URL</a>, or at least its
+        <a>origin</a>, including whether it is served over a secure connection.
+        This UI SHOULD differ from any UI used when the <a data-cite=
+        "!DOM#concept-document-url">document URL</a> is <a>within scope</a>, in
+        order to alert the user of the off-scope navigation.
+      </p>
+      <div class="note">
         <p>
-          Enforcing the navigation scope depends on [[!HTML]]'s navigate
-          algorithm. As such, the following monkey patches [[!HTML]]. <a href=
-          "https://www.w3.org/Bugs/Public/show_bug.cgi?id=27653">Bug 27653</a>
-          has been filed to address this.
+          Nothing prevents an <a>application context</a> from navigating to a
+          <a>URL</a> that is outside of the application's <a>navigation
+          scope</a>, while still having the <a>manifest</a> <a>applied</a> to
+          it.
+        </p>
+        <p>
+          Unlike previous versions of this specification, user agents are no
+          longer required or allowed to block off-scope navigations, or open
+          them in a new <a>top-level browsing context</a>. This practice broke
+          a lot of sites that navigate to a URL on another origin (e.g., to
+          perform third-party authentication), which would then navigate back
+          to the originating site. See <a href=
+          "https://github.com/w3c/manifest/issues/646">Issue 646</a>.
         </p>
       </div>
-      <p>
-        The [[!HTML]] <a>navigate algorithm</a> is monkey-patched as follows:
-      </p>
-      <ul>
-        <li>After the clause "If the <a data-cite=
-        "!HTML#source-browsing-context">source browsing context</a> is not <a>
-          allowed to navigate</a> <var>browsingContext</var>…", add: "or
-          <var>browsingContext</var> is an <a>application context</a>, and
-          <var>resource</var> is not <a>within scope</a> of the navigation
-          scope of <var>browsingContext</var>'s manifest."
-        </li>
-        <li>If, at any time, an <a>application context</a> is navigated to a
-        <a>URL</a> <var>url</var> that is not <a>within scope</a> of the
-        navigation scope of the context's manifest, abort the navigation, and
-        optionally, <a data-cite="!HTML#creating-a-new-browsing-context">create
-        a new browsing context</a> and <a>navigate</a> it to <var>url</var>.
-        </li>
-      </ul>
-      <p class="note">
-        This prohibits the <a>application context</a> from ever displaying a
-        <a>URL</a> that is outside of the application's <a>navigation
-        scope</a>. However, it provides the ability for the user agent to
-        perform the navigation in a different browsing context, or in a
-        different user agent entirely.
-      </p>
       <section data-link-for="DisplayModeType">
         <h3 id="navigation-scope-security-considerations">
           Security considerations
         </h3>
         <p>
-          It should not be possible to navigate the <a>top-level browsing
-          context</a> to somewhere outside the scope while the <a>manifest</a>
-          is <a>applied</a> to the <a>top-level browsing context</a>. That's
-          not to say that the web application cannot be navigated: just that
-          the set of URLs to which the manifest applies is restricted by the
-          <a>navigation scope</a>.
+          The above recommendation to show UI when the <a>application
+          context</a> is navigated to a <a>URL</a> that is not <a>within
+          scope</a> of the manifest is for security. It ensures that users are
+          always aware of which <a>origin</a> they are interacting with.
         </p>
       </section>
       <section>
