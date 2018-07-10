@@ -818,12 +818,12 @@
         "!HTML#active-document">active document</a>'s <a data-cite=
         "!DOM#concept-document-url">URL</a> is not <a>within scope</a> of the
         navigation scope of the <a>application context</a>'s manifest, the user
-        agent SHOULD show prominent UI indicating the <a data-cite=
+        agent SHOULD show a prominent UI element indicating the <a data-cite=
         "!DOM#concept-document-url">document URL</a>, or at least its
         <a>origin</a>, including whether it is served over a secure connection.
         This UI SHOULD differ from any UI used when the <a data-cite=
         "!DOM#concept-document-url">document URL</a> is <a>within scope</a>, in
-        order to alert the user of the off-scope navigation.
+        order to make it obvious that the user is navigating off scope.
       </p>
       <div class="note">
         <p>
@@ -846,10 +846,10 @@
           Security considerations
         </h3>
         <p>
-          The above recommendation to show UI when the <a>application
-          context</a> is navigated to a <a>URL</a> that is not <a>within
-          scope</a> of the manifest is for security. It ensures that users are
-          always aware of which <a>origin</a> they are interacting with.
+          The above recommendation (to show some UI when the <a>application
+          context</a> is navigated to an out-of-scope <a>URL</a>) is for
+          security reasons. It ensures that users are always aware of which
+          <a>origin</a> they are interacting with.
         </p>
       </section>
       <section>
