@@ -1802,66 +1802,16 @@
         </h3>
         <p>
           The <dfn>icons</dfn> member is an <a>array</a> of
-          <a>ImageResource</a>s that can serve as iconic representations of the
-          web application in various contexts. For example, they can be used to
-          represent the web application amongst a list of other applications,
-          or to integrate the web application with an <abbr title=
-          "operating system">OS</abbr>'s task switcher and/or system
-          preferences.
-        </p>
+          <a>ImageResource</a>s.
         <p>
-          If there are multiple equally appropriate icons in <var>icons</var>,
-          a user agent MUST use the last one declared in order at the time that
-          the user agent collected the list of <var>icons</var>. If the user
-          agent tries to use an icon but that icon is determined, upon closer
-          examination, to in fact be inappropriate (e.g. because its content
-          type is unsupported), then the user agent MUST try the
-          next-most-appropriate icon as determined by examining the
-          <a>ImageResource</a>'s members.
+        <p>
+          The user agent MAY <a>select an icon</a> from this array to serve as
+          iconic representations of the web application in various contexts. For
+          example, they can be used to represent the web application amongst a
+          list of other applications, or to integrate the web application with
+          an <abbr title= "operating system">OS</abbr>'s task switcher and/or
+          system preferences.
         </p>
-        <div class="example">
-          <p>
-            In the following example, the developer has made the following
-            choices about the icons associated with the web application:
-          </p>
-          <ul>
-            <li>The developer has included two icons at the same size, but in
-            two different formats. One is explicitly marked as WebP through the
-            <code>type</code> member. If the user agent doesn't support WebP,
-            it falls back to the second icon of the same size. The media type
-            of this icon can then be either determined via a HTTP header, or
-            can be sniffed by the user agent once the first few bytes of the
-            icon are received.
-            </li>
-            <li>The developer wants to use an SVG for greater than or equal to
-            257x257px. She has found that the SVG file looks too blurry at
-            small sizes, even on high-density screens. To deal with this
-            problem, she's included an SVG icon that is only used when the
-            dimensions are at least 257px. Otherwise, the user agent uses the
-            ICO file (hd_hi.ico), which includes a gamut of raster icons
-            individually tailored for small display sizes.
-            </li>
-          </ul>
-          <pre class="example json">
-            {
-              "icons": [
-                {
-                  "src": "icon/lowres.webp",
-                  "sizes": "48x48",
-                  "type": "image/webp"
-                },{
-                  "src": "icon/lowres",
-                  "sizes": "48x48"
-                },{
-                  "src": "icon/hd_hi.ico",
-                  "sizes": "72x72 96x96 128x128 256x256"
-                },{
-                  "src": "icon/hd_hi.svg",
-                  "sizes": "257x257"
-                }]
-            }
-          </pre>
-        </div>
       </section>
       <section>
         <h3>
@@ -2737,6 +2687,69 @@
           <li>Return <var>imageResources</var>.
           </li>
         </ol>
+      </section>
+      <section>
+        <h3>
+          Selecting an icon
+        </h3>
+        <p>
+          To <dfn data-export="">select an icon</dfn> from <var>icons</var> (an
+          array of <a>ImageResource</a>s), a user agent MUST pick the most
+          appropriate icon.
+        </p>
+        <p>
+          If there are multiple equally appropriate icons in <var>icons</var>, a
+          user agent MUST use the last one declared in order at the time that
+          the user agent collected the list of <var>icons</var>. If the user
+          agent tries to use an icon but that icon is determined, upon closer
+          examination, to in fact be inappropriate (e.g. because its content
+          type is unsupported), then the user agent MUST try the
+          next-most-appropriate icon as determined by examining the
+          <a>ImageResource</a>'s members.
+        </p>
+        <div class="example">
+          <p>
+            In the following example, the developer has made the following
+            choices about the icons associated with the web application:
+          </p>
+          <ul>
+            <li>The developer has included two icons at the same size, but in
+            two different formats. One is explicitly marked as WebP through the
+            <code>type</code> member. If the user agent doesn't support WebP,
+            it falls back to the second icon of the same size. The media type
+            of this icon can then be either determined via a HTTP header, or
+            can be sniffed by the user agent once the first few bytes of the
+            icon are received.
+            </li>
+            <li>The developer wants to use an SVG for greater than or equal to
+            257x257px. She has found that the SVG file looks too blurry at
+            small sizes, even on high-density screens. To deal with this
+            problem, she's included an SVG icon that is only used when the
+            dimensions are at least 257px. Otherwise, the user agent uses the
+            ICO file (hd_hi.ico), which includes a gamut of raster icons
+            individually tailored for small display sizes.
+            </li>
+          </ul>
+          <pre class="example json">
+            {
+              "icons": [
+                {
+                  "src": "icon/lowres.webp",
+                  "sizes": "48x48",
+                  "type": "image/webp"
+                },{
+                  "src": "icon/lowres",
+                  "sizes": "48x48"
+                },{
+                  "src": "icon/hd_hi.ico",
+                  "sizes": "72x72 96x96 128x128 256x256"
+                },{
+                  "src": "icon/hd_hi.svg",
+                  "sizes": "257x257"
+                }]
+            }
+          </pre>
+        </div>
       </section>
     </section>
     <section>
