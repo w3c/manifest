@@ -2303,9 +2303,18 @@
         </h3>
         <p>
           The <dfn>iarc_rating_id</dfn> member is a <a>string</a> that
-          represents an ID value of the IARC rating of the web application. It
-          is intended to be used to determine which ages the web application is
-          appropriate for.
+          represents the <a href="https://www.globalratings.com/">International
+          Age Rating Coalition (IARC)</a> certification code of the web
+          application. It is intended to be used to determine which ages the
+          web application is appropriate for.
+        </p>
+        <p class="note">
+          Manifest authors can obtain IARC certificates via participating
+          storefronts over which the web application should be distributed.
+          The <dfn>iarc_rating_id</dfn> member only takes a single
+          certification code. The same code can be shared across storefronts,
+          as long as the distributed product remains the same and the other
+          storefronts support it.
         </p>
         <div class="informative">
           <p>
@@ -2325,9 +2334,7 @@
         </pre>
         </div>
         <p>
-          More information on the <a href=
-          "https://www.globalratings.com/">International Age Rating Coalition
-          (IARC)</a> can be found at: <a href=
+          More information on the IARC can be found at: <a href=
           "https://www.globalratings.com/how-iarc-works.aspx">How IARC
           Works</a> and <a href=
           "https://www.globalratings.com/for-developers.aspx">How developers
