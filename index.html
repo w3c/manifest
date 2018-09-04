@@ -2528,9 +2528,10 @@
             <dfn data-lt="badge maskable">maskable</dfn>:
           </dt>
           <dd>
-            The image is designed with <a href="#icon-masks">maskable</a> in mind,
-            such that any part of the image that is outside the <a>safe zone</a> can
-            safely be ignored and masked away by the user agent.
+            The image is designed with <a href="#icon-masks">icon masks and safe
+            safe zone</a> in mind, such that any part of the image that is
+            outside the <a>safe zone</a> can safely be ignored and masked
+            away by the user agent.
           </dd>
           <dt>
             <dfn data-lt="any purpose">any</dfn>:
@@ -2610,7 +2611,7 @@
         <p>
           Some platforms have their own preferred icon shape, but as web
           applications should work across multiple platforms, it is possible to
-          indicate that an icon may have a user-agent-specified mask applied by
+          indicate that an icon can have a user-agent-specified mask applied by
           adding the <a>maskable</a> purpose. This allows the platform to ensure
           that the icon looks well integrated with the platform, and even apply
           different masks and background colors in different places throughout
@@ -2634,7 +2635,7 @@
         </figure>
         <p>
           All pixels in this zone are guaranteed to be seen in all masks.
-          Pixels outside the safe zone are not guaranteed (but may) be visible
+          Pixels outside the safe zone are not guaranteed (but can) be visible
           depending on the applies mask.
         </p>
         <p>
