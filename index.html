@@ -68,6 +68,10 @@
       }],
       github: "https://github.com/w3c/manifest/",
       pluralize: true,
+      caniuse: {
+          feature: "web-app-manifest",
+          browsers: ["chrome", "firefox", "safari", "edge", "and_chr", "and_ff", "ios_saf"],
+      },
     };
     </script>
   </head>
@@ -563,7 +567,8 @@
           historical reasons.
         </div>
         <pre class="idl">
-          [Constructor, Exposed=Window]
+          [Constructor(DOMString type, optional EventInit eventInitDict),
+           Exposed=Window]
           interface BeforeInstallPromptEvent : Event {
               Promise&lt;PromptResponseObject&gt; prompt();
           };
@@ -1208,8 +1213,8 @@
         </table>
         <p>
           The <a>media type for a manifest</a> serves as the default media type
-          for resources associated with the <code><a href=
-          "#rel-manifest">manifest</a></code> <a>link type</a>.
+          for resources associated with the "<code>manifest</code>" <a>link
+          type</a>.
         </p>
         <p class="note">
           In cases where more than one <a><code>link</code> element</a> with a
@@ -1445,8 +1450,8 @@
           </li>
           <li>Set <var>manifest</var>["<a>scope</a>"] to the result of running
           <a>processing the <code>scope</code> member</a> given
-          <var>manifest</var>["<a>scope</a>"], <var>manifest URL</var>,
-          <var>document URL</var>, and <var>manifest</var>["<a>start_url</a>"].
+          <var>manifest</var>["<a>scope</a>"], <var>manifest URL</var>, and
+          <var>manifest</var>["<a>start_url</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>theme_color</a>"] to the result of
           running <a>processing the <code>theme_color</code> member</a> given
@@ -1510,12 +1515,12 @@
           <a>navigate</a> to the <a>start URL</a> with <a>replacement
           enabled</a>.
         </p>
-        <div>
+        <div class="note">
           <p>
-            Please note that the <a>start URL</a> is not necessarily the value
-            of the <a data-link-for="WebAppManifest"><code>start_url</code></a>
+            The <a>start URL</a> is not necessarily the value of the
+            <a data-link-for="WebAppManifest"><code>start_url</code></a>
             member: the user or user agent could have changed it when the
-            application was added to home-screen or otherwise bookmarked.
+            application was <a>installed</a>.
           </p>
         </div>
         <p>
@@ -1752,8 +1757,8 @@
           The steps for <dfn>processing the <code>scope</code> member</dfn> is
           given by the following algorithm. The algorithm takes a
           <a>USVString</a> <var>value</var>, a <a>URL</a> <var>manifest
-          URL</var>, a <a>URL</a> <var>document URL</var>, and a URL <var>start
-          URL</var>. This algorithm returns a <a>URL</a>.
+          URL</var>, and a URL <var>start URL</var>. This algorithm returns a
+          <a>URL</a>.
         </p>
         <ol>
           <li>Let <var>default</var> be the result of <a>parsing</a> ".", using
@@ -1774,21 +1779,6 @@
               <li>Return <var>default</var>.
               </li>
             </ul>
-          </li>
-          <li>If <var>scope URL</var> is not <a href=
-          "https://www.whatwg.org/specs/web-apps/current-work/#same-origin">same
-          origin</a> as <var>document URL</var>:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a> that the <code>scope</code>
-                needs to be <a href=
-                "https://www.whatwg.org/specs/web-apps/current-work/#same-origin">
-                same-origin</a> as <code>Document</code> of the <a>application
-                context</a>.
-              </li>
-              <li>Return <var>default</var>.
-              </li>
-            </ol>
           </li>
           <li>If <var>start URL</var> is not <a>within scope</a> of scope URL:
             <ol>
@@ -2315,9 +2305,19 @@
         </h3>
         <p>
           The <dfn>iarc_rating_id</dfn> member is a <a>string</a> that
-          represents an ID value of the IARC rating of the web application. It
-          is intended to be used to determine which ages the web application is
-          appropriate for.
+          represents the <a href="https://www.globalratings.com/">International
+          Age Rating Coalition (IARC)</a> certification code of the web
+          application. It is intended to be used to determine which ages the
+          web application is appropriate for.
+        </p>
+        <p class="note">
+          An IARC certificate can be obtained via participating storefronts,
+          intended to be used for distributing the web app. The
+          <a>iarc_rating_id</a> member only takes a single certification code.
+          The same code can be shared across participating storefronts, as long
+          as the distributed product remains the same (i.e., doesn’t serve
+          totally different code paths depending on user agent sniffing and the
+          like) and the other storefronts support it.
         </p>
         <div class="informative">
           <p>
@@ -2337,9 +2337,7 @@
         </pre>
         </div>
         <p>
-          More information on the <a href=
-          "https://www.globalratings.com/">International Age Rating Coalition
-          (IARC)</a> can be found at: <a href=
+          More information on the IARC can be found at: <a href=
           "https://www.globalratings.com/how-iarc-works.aspx">How IARC
           Works</a> and <a href=
           "https://www.globalratings.com/for-developers.aspx">How developers
@@ -2552,9 +2550,9 @@
         </ol>
         <div class="example">
           <p>
-            In the following example, the web application is listing two
-            different related applications, one on Google Play Store and the
-            other one on the iTunes Store:
+            In the following example, the web application is listing two icons
+            to be used as a badge, one of which is specifically designed for
+            the Android platform.
           </p>
           <pre class="example json">
             {
@@ -3359,7 +3357,8 @@
             standardization.
           </p>
           <p>
-            The following is an example of two hypothetical vendor extensions.
+            The following is an example of three hypothetical vendor
+            extensions.
           </p>
           <pre class="example json" title="vendor extensions">
             {
