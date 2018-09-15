@@ -819,24 +819,35 @@
       <div class="issue" title="🐒 patch">
         <p>
           Enforcing the navigation scope depends on [[!HTML]]'s navigate
-          algorithm. As such, the following algorithm monkey patches [[!HTML]].
-          <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=27653">Bug
-          27653</a> has been filed to address this.
+          algorithm. As such, the following monkey patches [[!HTML]]. <a href=
+          "https://www.w3.org/Bugs/Public/show_bug.cgi?id=27653">Bug 27653</a>
+          has been filed to address this.
         </p>
       </div>
       <p>
-        The user agent MUST navigate the application context as per [[!HTML]]'s
-        <a>navigate algorithm</a> with exceptions enabled. If the URL of the
-        resource being loaded in the navigation is not <a>within scope</a> of
-        the navigation scope of the application context's manifest, then the
-        user agent MUST behave as if the application context is not <a>allowed
-        to navigate</a>. This provides the ability for the user agent to
+        The [[!HTML]] <a>navigate algorithm</a> is monkey-patched as follows:
+      </p>
+      <ul>
+        <li>After the clause "If the <a data-cite=
+        "!HTML#source-browsing-context">source browsing context</a> is not <a>
+          allowed to navigate</a> <var>browsingContext</var>…", add: "or
+          <var>browsingContext</var> is an <a>application context</a>, and
+          <var>resource</var> is not <a>within scope</a> of the navigation
+          scope of <var>browsingContext</var>'s manifest."
+        </li>
+        <li>If, at any time, an <a>application context</a> is navigated to a
+        <a>URL</a> <var>url</var> that is not <a>within scope</a> of the
+        navigation scope of the context's manifest, abort the navigation, and
+        optionally, <a data-cite="!HTML#creating-a-new-browsing-context">create
+        a new browsing context</a> and <a>navigate</a> it to <var>url</var>.
+        </li>
+      </ul>
+      <p class="note">
+        This prohibits the <a>application context</a> from ever displaying a
+        <a>URL</a> that is outside of the application's <a>navigation
+        scope</a>. However, it provides the ability for the user agent to
         perform the navigation in a different browsing context, or in a
-        different user agent entirely. If during the handle redirects step of
-        HTML's <a>navigate algorithm</a> the redirect URL is not <a>within
-        scope</a> of the navigation scope of the application context's
-        manifest, abort HTML's navigation algorithm with a
-        <code>SecurityError</code>.
+        different user agent entirely.
       </p>
       <section data-link-for="DisplayModeType">
         <h3 id="navigation-scope-security-considerations">
