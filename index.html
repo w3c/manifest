@@ -2618,12 +2618,16 @@
           the platform.
         </p>
         <p>
-          Any icon indicating that it can be supercomposed with a mask, must
-          make sure that all important parts are within the <dfn>safe
-          zone</dfn>, which is defined as a circle with center point in the
-          center of the icon and with a radius of 2/5 (40%) of the icon size,
-          which means the smaller of the icon width and height, in case the
-          icon is not rectangular.
+          The <dfn>safe zone</dfn> is the area within a <a>maskable</a> icon
+          which is guaranteed to always be visible, regardless of user agent
+          preferences. It is defined as a circle with center point in the center
+          of the icon and with a radius of 2/5 (40%) of the icon size, which means
+          the smaller of the icon width and height, in case the icon is not
+          rectangular.
+        </p>
+        <p class="note">
+          Designers of <a>maskable</a> icons will want to make sure that all
+          important parts are within the <a>safe zone</a>.
         </p>
         <figure>
           <img src="images/safe-zone.svg" width="340" height="340" alt=
@@ -2635,8 +2639,8 @@
         </figure>
         <p>
           All pixels in this zone are guaranteed to be seen in all masks.
-          Pixels outside the safe zone are not guaranteed (but can) be visible
-          depending on the applies mask.
+          Pixels outside the safe zone are not guaranteed to (but can) be visible
+          depending on the applied mask.
         </p>
         <p>
           The user agent MAY apply a mask of any size, making any pixels that
@@ -2652,8 +2656,12 @@
           The user agent MAY enlarge the icon by adding additional padding.
         </p>
         <p>
-          The user agent MUST paste any image containing transparent pixels
-          onto a solid color (eg. white) of the user agent's choice.
+          If the icon contains transparent pixels, the user agent MUST composite
+          the icon onto a solid color (eg. white) of the user agent's choice.
+        </p>
+        <p class="note">
+          It is suggested that designers avoid using transparent pixels in maskable
+          icons.
         </p>
         <section>
           <h3>
@@ -2663,7 +2671,7 @@
             By staying inside the <a>safe zone</a>, most icons will have around
             10% padding on the top, bottom, right and left with no content or
             non-essential content, such as an icon background.
-            It is recommended that developers check their icon when all but the
+            It is suggested that developers check their icon when all but the
             safe zone is masked out.
           </p>
           <h2 class="icon-title">
