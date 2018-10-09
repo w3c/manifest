@@ -832,6 +832,12 @@
         <li>Otherwise, return <code>false</code>.
         </li>
       </ol>
+      <p>
+        A <a>URL</a> <var>target</var> is said to be <dfn data-lt=
+        "within-scope-manifest">within scope of a manifest</dfn>
+        <var>manifest</var> if <var>target</var> is <a>within scope</a> of the
+        navigation scope of <var>manifest</var>.
+      </p>
       <div class="note" title="Scope is a simple string match">
         The URL string matching in this algorithm is prefix-based rather than
         path-structural (e.g. a target URL string
@@ -844,9 +850,10 @@
       <p>
         If the <a>application context</a>'s <a data-cite=
         "!HTML#active-document">active document</a>'s <a data-cite=
-        "!DOM#concept-document-url">URL</a> is not <a>within scope</a> of the
-        navigation scope of the <a>application context</a>'s manifest, the user
-        agent SHOULD show a prominent UI element indicating the <a data-cite=
+        "!DOM#concept-document-url">URL</a> is not <a data-lt=
+        "within-scope-manifest">within scope</a> of the <a>application
+        context</a>'s manifest, the user agent SHOULD show a prominent UI
+        element indicating the <a data-cite=
         "!DOM#concept-document-url">document URL</a>, or at least its
         <a>origin</a>, including whether it is served over a secure connection.
         This UI SHOULD differ from any UI used when the <a data-cite=
@@ -886,8 +893,9 @@
         </h3>
         <div class="issue" data-number="363"></div>
         <p>
-          A <dfn>deep link</dfn> is a URL that is <a>within scope</a> of the
-          navigation scope of an <a>installed</a> web application's manifest.
+          A <dfn>deep link</dfn> is a URL that is <a data-lt=
+          "within-scope-manifest">within scope</a> of an <a>installed</a> web
+          application's manifest.
         </p>
         <p>
           An <a>application context</a> can be instantiated through a <a>deep
