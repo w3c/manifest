@@ -2536,8 +2536,8 @@
           <dd>
             The image is designed with <a href="#icon-masks">icon masks and
             safe zone</a> in mind, such that any part of the image that is
-            outside the <a>safe zone</a> can safely be ignored and masked
-            away by the user agent.
+            outside the <a>safe zone</a> can safely be ignored and masked away
+            by the user agent.
           </dd>
           <dt>
             <dfn data-lt="any purpose">any</dfn>:
@@ -2611,25 +2611,25 @@
         </div>
       </section>
       <section>
-        <h2><a id="icon-masks"></a>
-          Icon masks and safe zone
+        <h2>
+          <a id="icon-masks"></a> Icon masks and safe zone
         </h2>
         <p>
           Some platforms have their own preferred icon shape, but as web
           applications should work across multiple platforms, it is possible to
           indicate that an icon can have a user-agent-specified mask applied by
-          adding the <a>maskable</a> purpose. This allows the platform to ensure
-          that the icon looks well integrated with the platform, and even apply
-          different masks and background colors in different places throughout
-          the platform.
+          adding the <a>maskable</a> purpose. This allows the platform to
+          ensure that the icon looks well integrated with the platform, and
+          even apply different masks and background colors in different places
+          throughout the platform.
         </p>
         <p>
           The <dfn>safe zone</dfn> is the area within a <a>maskable</a> icon
           which is guaranteed to always be visible, regardless of user agent
-          preferences. It is defined as a circle with center point in the center
-          of the icon and with a radius of 2/5 (40%) of the icon size, which means
-          the smaller of the icon width and height, in case the icon is not
-          square.
+          preferences. It is defined as a circle with center point in the
+          center of the icon and with a radius of 2/5 (40%) of the icon size,
+          which means the smaller of the icon width and height, in case the
+          icon is not square.
         </p>
         <p class="note">
           Designers of <a>maskable</a> icons will want to make sure that all
@@ -2645,8 +2645,8 @@
         </figure>
         <p>
           All pixels in this zone are guaranteed to be seen in all masks.
-          Pixels outside the safe zone are not guaranteed to (but can) be visible
-          depending on the applied mask.
+          Pixels outside the safe zone are not guaranteed to (but can) be
+          visible depending on the applied mask.
         </p>
         <p>
           The user agent MAY apply a mask of any size, making any pixels that
@@ -2662,12 +2662,13 @@
           The user agent MAY enlarge the icon by adding additional padding.
         </p>
         <p>
-          If the icon contains transparent pixels, the user agent MUST composite
-          the icon onto a solid color (eg. white) of the user agent's choice.
+          If the icon contains transparent pixels, the user agent MUST
+          composite the icon onto a solid color (eg. white) of the user agent's
+          choice.
         </p>
         <p class="note">
-          It is suggested that designers avoid using transparent pixels in maskable
-          icons.
+          It is suggested that designers avoid using transparent pixels in
+          maskable icons.
         </p>
         <section>
           <h3>
@@ -2676,9 +2677,9 @@
           <p class="note">
             By staying inside the <a>safe zone</a>, most icons will have around
             10% padding on the top, bottom, right and left with no content or
-            non-essential content, such as an icon background.
-            It is suggested that developers check their icon when all but the
-            safe zone is masked out.
+            non-essential content, such as an icon background. It is suggested
+            that developers check their icon when all but the safe zone is
+            masked out.
           </p>
           <h2 class="icon-title">
             Icons with "maskable" purpose
