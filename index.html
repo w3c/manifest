@@ -216,7 +216,7 @@
         </h3>
         <p>
           Example of using a <code>link</code> element to associate a website
-          with a <a>manifest</a>. The example also shows how to use [[!HTML]]'s
+          with a <a>manifest</a>. The example also shows how to use [[HTML]]'s
           <code>link</code> and <code>meta</code> elements to give the web
           application a fallback name and set of icons.
         </p>
@@ -1083,12 +1083,11 @@
             not directly related to the CSS <code>:fullscreen</code>
             pseudo-class specified in the [[WHATWG-FULLSCREEN]] API. The
             <code>:fullscreen</code> pseudo-class matches exclusively when a
-            [[!HTML]] element is put into the fullscreen element stack.
-            However, a side effect of calling the
-            <code>requestFullscreen()</code> method on an element using the
-            [[WHATWG-FULLSCREEN]] API is that the browser window can enter a
-            fullscreen mode at the OS-level. In such a case, both
-            <code>:fullscreen</code> and <code>(display-mode:
+            [[HTML]] element is put into the fullscreen element stack. However,
+            a side effect of calling the <code>requestFullscreen()</code>
+            method on an element using the [[WHATWG-FULLSCREEN]] API is that
+            the browser window can enter a fullscreen mode at the OS-level. In
+            such a case, both <code>:fullscreen</code> and <code>(display-mode:
             fullscreen)</code> will match.
           </p>
           <p>
@@ -1372,7 +1371,7 @@
               the origins from which a <a>user agent</a> can fetch a manifest.
               As with other directives, by default the <a>manifest-src</a>
               directive is <code>*</code>, meaning that a user agent can,
-              [[!FETCH]]'s <abbr>CORS</abbr> permitting, fetch the manifest
+              [[FETCH]]'s <abbr>CORS</abbr> permitting, fetch the manifest
               cross-domain. Remote origins (e.g., a <abbr title=
               "content delivery network">CDN</abbr>) wanting to host manifests
               for various web applications will need to include the appropriate
@@ -1383,8 +1382,8 @@
               <img src="images/manifest-src-directive.svg" width="704" height=
               "342" alt="manifest-src directive example illustrated">
               <figcaption>
-                For a [[!HTML]] document, [[!CSP3]]'s <a>manifest-src</a>
-                directive controls the sources from which a [[!HTML]] document
+                For a [[HTML]] document, [[CSP3]]'s <a>manifest-src</a>
+                directive controls the sources from which a [[HTML]] document
                 can load a manifest from. The same CSP policy's
                 <code>img-src</code> directive controls where the icon's images
                 can be fetched from.
@@ -1951,7 +1950,7 @@
         <p class="note">
           Once the web application is running, other means can change the
           orientation of a <a>top-level browsing context</a> (such as via
-          [[!SCREEN-ORIENTATION]] API).
+          [[SCREEN-ORIENTATION]] API).
         </p>
       </section>
       <section>
@@ -3466,8 +3465,8 @@
         Acknowledgements
       </h2>
       <p>
-        This document reuses text from the [[!HTML]] specification, as
-        permitted by the license of that specification.
+        This document reuses text from the [[HTML]] specification, as permitted
+        by the license of that specification.
       </p>
       <p>
         Dave Raggett and Dominique Hazael-Massieux contributed to this
