@@ -841,39 +841,43 @@
         "!SERVICE-WORKERS-1#scope-match-algorithm">Service Workers</a>. To
         avoid unexpected behavior, use a scope ending in a <code>/</code>.
       </div>
-      <div class="issue" title="🐒 patch">
+      <p>
+        If the <a>application context</a>'s <a data-cite=
+        "!HTML#active-document">active document</a>'s <a data-cite=
+        "!DOM#concept-document-url">URL</a> is not <a>within scope</a> of the
+        navigation scope of the <a>application context</a>'s manifest, the user
+        agent SHOULD show a prominent UI element indicating the <a data-cite=
+        "!DOM#concept-document-url">document URL</a>, or at least its
+        <a>origin</a>, including whether it is served over a secure connection.
+        This UI SHOULD differ from any UI used when the <a data-cite=
+        "!DOM#concept-document-url">document URL</a> is <a>within scope</a>, in
+        order to make it obvious that the user is navigating off scope.
+      </p>
+      <div class="note">
         <p>
-          Enforcing the navigation scope depends on [[!HTML]]'s navigate
-          algorithm. As such, the following algorithm monkey patches [[!HTML]].
-          <a href="https://www.w3.org/Bugs/Public/show_bug.cgi?id=27653">Bug
-          27653</a> has been filed to address this.
+          Nothing prevents an <a>application context</a> from navigating to a
+          <a>URL</a> that is outside of the application's <a>navigation
+          scope</a>, while still having the <a>manifest</a> <a>applied</a> to
+          it.
+        </p>
+        <p>
+          Unlike previous versions of this specification, user agents are no
+          longer required or allowed to block off-scope navigations, or open
+          them in a new <a>top-level browsing context</a>. This practice broke
+          some sites that navigate to an off-scope URL (e.g., to perform
+          third-party authentication). See <a href=
+          "https://github.com/w3c/manifest/issues/646">Issue 646</a>.
         </p>
       </div>
-      <p>
-        The user agent MUST navigate the application context as per [[!HTML]]'s
-        <a>navigate algorithm</a> with exceptions enabled. If the URL of the
-        resource being loaded in the navigation is not <a>within scope</a> of
-        the navigation scope of the application context's manifest, then the
-        user agent MUST behave as if the application context is not <a>allowed
-        to navigate</a>. This provides the ability for the user agent to
-        perform the navigation in a different browsing context, or in a
-        different user agent entirely. If during the handle redirects step of
-        HTML's <a>navigate algorithm</a> the redirect URL is not <a>within
-        scope</a> of the navigation scope of the application context's
-        manifest, abort HTML's navigation algorithm with a
-        <code>SecurityError</code>.
-      </p>
       <section data-link-for="DisplayModeType">
         <h3 id="navigation-scope-security-considerations">
           Security considerations
         </h3>
         <p>
-          It should not be possible to navigate the <a>top-level browsing
-          context</a> to somewhere outside the scope while the <a>manifest</a>
-          is <a>applied</a> to the <a>top-level browsing context</a>. That's
-          not to say that the web application cannot be navigated: just that
-          the set of URLs to which the manifest applies is restricted by the
-          <a>navigation scope</a>.
+          The above recommendation (to show some UI when the <a>application
+          context</a> is navigated to an out-of-scope <a>URL</a>) is for
+          security reasons. It ensures that users are always aware of which
+          <a>origin</a> they are interacting with.
         </p>
       </section>
       <section>
