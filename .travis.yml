@@ -14,5 +14,6 @@ script:
   - echo "ok"
 
 after_success:
+  - CC="mcaceres@mozilla.com,mgiuca@google.com"
   - echo "If it fails, check https://lists.w3.org/Archives/Public/public-tr-notifications/"
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && curl "https://labs.w3.org/echidna/api/request" --data "url=$URL" --data "decision=$DECISION" --data "token=$TOKEN"'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && curl "https://labs.w3.org/echidna/api/request" --data "cc=$CC" --data "url=$URL" --data "decision=$DECISION" --data "token=$TOKEN"'
