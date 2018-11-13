@@ -1,4 +1,6 @@
 language: node_js
+node_js:
+  - lts/*
 
 branches:
   only:
@@ -11,7 +13,8 @@ env:
     - secure: "vuLLjmy5cSalvR4ut2Q28YJgVUoSmLQYlhNRyF7zVskO5VFX7RHpfWokrk1SXEQ5hI8bpWOYJOVrcYr05BP0cFvsESlDejaur4rw/gT2nfMkuyWbVhbxH9mFYKeVFWpoC+iezrao9VjMRYySjEJAM4B9mXflN3MQ6ddRaQlBMaI="
 
 script:
-  - echo "ok"
+  - npm install respec serve
+  - node ./tools/validate.js
 
 after_success:
   - CC="mcaceres@mozilla.com,mgiuca@google.com"
