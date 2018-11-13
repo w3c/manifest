@@ -9,24 +9,25 @@ const http = require("http");
  *
  * @param {string} cmd A string representing a shell command.
  */
-function toExecutable(cmd) {
-  return {
-    get cmd() {
-      return cmd;
-    },
-    run() {
-      return new Promise((resolve, reject) => {
-        const childProcess = exec(cmd, (err, data) => {
-          if (err) {
-            return reject(err);
-          }
-          resolve(data);
-        });
-        childProcess.stdout.pipe(process.stdout);
-        childProcess.stderr.pipe(process.stderr);
+class ShellCommand {
+  constructor(cmd) {
+    this._cmd = cmd;
+  }
+  get cmd() {
+    return this._cmd;
+  }
+  run() {
+    return new Promise((resolve, reject) => {
+      const childProcess = exec(this.cmd, (err, data) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve(data);
       });
-    },
-  };
+      childProcess.stdout.pipe(process.stdout);
+      childProcess.stderr.pipe(process.stderr);
+    });
+  }
 }
 
 /**
@@ -46,9 +47,8 @@ async function validate() {
   }`;
   // -e is stop on errors, -w is stop on warnings
   const cmd = `npx respec2html -e -w --timeout 30 --src ${url} --out /dev/null`;
-  const exe = toExecutable(cmd);
   try {
-    await exe.run();
+    await new ShellCommand(cmd).run();
   } catch (err) {
     process.exit(1);
   }
