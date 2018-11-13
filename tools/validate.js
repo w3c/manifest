@@ -31,7 +31,7 @@ async function validate() {
     handler(request, response)
   );
   server.listen(5000, () => {});
-  const url = "http://localhost:5000/index.html";
+  const url = `http://localhost:5000/index.html?githubToken=${process.env.AUTHENTICATE}`;
   const cmd = `npx respec2html --timeout 30 --src ${url} --out /dev/null`;
   const exe = toExecutable(cmd);
   try {
