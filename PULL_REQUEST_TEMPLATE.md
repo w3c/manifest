@@ -8,10 +8,6 @@ This change (choose one):
   changes normative sections without changing behavior)
 * [ ] Is a "chore" (metadata, formatting, fixing warnings, etc).
 
-The following tasks have been completed:
-
-* [ ] Confirmed there are no new ReSpec errors/warnings.
-
 Implementation commitment (delete if not making normative changes):
 
 * [ ] Safari (link to issue)
