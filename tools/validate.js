@@ -5,6 +5,10 @@ const { exec } = require("child_process");
 const handler = require("serve-handler");
 const http = require("http");
 
+/**
+ *
+ * @param {string} cmd A string representing a shell command.
+ */
 function toExecutable(cmd) {
   return {
     get cmd() {
@@ -25,13 +29,22 @@ function toExecutable(cmd) {
   };
 }
 
+/**
+ * Spins up a local HTTP server and checks the spec.
+ * If there are any errors or warnings, the app exits with 1.
+ */
 async function validate() {
-  const conf = { "public": "../" }
   const server = http.createServer((request, response) =>
     handler(request, response)
   );
   server.listen(5000, () => {});
-  const url = `http://localhost:5000/index.html?githubToken=${process.env.AUTHENTICATE}`;
+  const url = `http://localhost:5000/index.html?githubToken=${
+    // This "AUTHENTICATE" is a GitHub token https://github.com/settings/tokens
+    // It needs to be set set on TravisCI itself, via the in the settings
+    // or using Travis' encrypt.
+    process.env.AUTHENTICATE
+  }`;
+  // -e is stop on errors, -w is stop on warnings
   const cmd = `npx respec2html -e -w --timeout 30 --src ${url} --out /dev/null`;
   const exe = toExecutable(cmd);
   try {
