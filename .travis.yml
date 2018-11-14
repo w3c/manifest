@@ -1,3 +1,4 @@
+dist: trusty
 language: node_js
 node_js:
   - lts/*
@@ -12,9 +13,15 @@ env:
     - DECISION="https://lists.w3.org/Archives/Public/public-webapps/2014JulSep/0627.html"
     - secure: "vuLLjmy5cSalvR4ut2Q28YJgVUoSmLQYlhNRyF7zVskO5VFX7RHpfWokrk1SXEQ5hI8bpWOYJOVrcYr05BP0cFvsESlDejaur4rw/gT2nfMkuyWbVhbxH9mFYKeVFWpoC+iezrao9VjMRYySjEJAM4B9mXflN3MQ6ddRaQlBMaI="
 
+install:
+  - npm install respec-validator
+
 script:
-  - npm install respec serve
-  - node ./tools/validate.js
+  - npx respec-validator --no-links --gh-token=$GH_TOKEN index.html
+
+cache:
+  directories:
+    - node_modules
 
 after_success:
   - CC="mcaceres@mozilla.com,mgiuca@google.com"
