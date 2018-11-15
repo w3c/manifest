@@ -2559,7 +2559,11 @@
         <p class="note">
           If an icon contains multiple purposes, it can be used for any of
           those purposes. If all of the stated purposes are not recognized, the
-          icon is totally ignored.
+          icon is totally ignored. For example, if an icon has purpose
+          <code>"badge fizzbuzz"</code>, then it may be used as a badge, but if
+          an icon has purpose <code>"fizzbuzz"</code>, then it must be ignored.
+          This allows new purposes to be added to the standard in the future
+          without them being interpreted as normal icons by older user agents.
         </p>
         <p>
           The steps for <dfn>processing the <code>purpose</code> member of an
