@@ -2522,7 +2522,7 @@
           <a>purpose</a>.
         </p>
         <p class="note">
-          For example, an icon with purpose "<a>badge</a>" may be used as a
+          For example, an icon with purpose "<a>badge</a>" could be used as a
           badge or pinned icon that is visually distinct, in color or form,
           from an application's launch icon. The user agent uses the value of
           the <a>purpose</a> member as a hint to determine where and how an
@@ -2557,13 +2557,12 @@
           </dd>
         </dl>
         <p class="note">
-          If an icon contains multiple purposes, it can be used for any of
-          those purposes. If all of the stated purposes are not recognized, the
+          If an icon contains multiple purposes, it could be used for any of
+          those purposes. If none of the stated purposes are recognized, the
           icon is totally ignored. For example, if an icon has purpose
-          <code>"badge fizzbuzz"</code>, then it may be used as a badge, but if
-          an icon has purpose <code>"fizzbuzz"</code>, then it must be ignored.
-          This allows new purposes to be added to the standard in the future
-          without them being interpreted as normal icons by older user agents.
+          <code>"badge fizzbuzz"</code>, then it could be used as a badge, but
+          if an icon has just the purpose <code>"fizzbuzz"</code>, then it will
+          be ignored.
         </p>
         <p>
           The steps for <dfn>processing the <code>purpose</code> member of an
