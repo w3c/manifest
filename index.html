@@ -1645,48 +1645,36 @@
             <dfn>ltr</dfn>
           </dt>
           <dd>
-            left-to-right text.
+            Left-to-right text.
           </dd>
           <dt>
             <dfn>rtl</dfn>
           </dt>
           <dd>
-            right-to-left text.
+            Right-to-left text.
           </dd>
           <dt>
             <dfn>auto</dfn>
           </dt>
           <dd>
-            <a data-lt=
-            "steps to programmatically determine the directionality of a member">
-            programmatically determined</a> from the value of the member.
+            No explicit directionality.
           </dd>
         </dl>
-        <p>
+        <p data-link-for="TextDirectionType">
           When displaying the <a>directionality-capable members</a> to an
-          end-user, the user agent MUST use the <a>base direction</a> to
-          compute directional runs and layout or position text correctly in
-          text containing mixed-direction sequences [[!BIDI]]. When the <a>base
-          direction</a> is "<a data-link-for="TextDirectionType">auto</a>" the
-          user agent MUST run the <a>steps to programmatically determine the
-          directionality of a member</a> - and use the resulting
-          <a>text-direction value</a> to assist in displaying the value of the
-          member.
-        </p>
-        <p>
-          The <dfn>steps to programmatically determine the directionality of a
-          member</dfn> are as follows. The algorithm takes the <var>value</var>
-          of a member.
+          end-user, if the <a>base direction</a> is <a>ltr</a> or <a>rtl</a>:
         </p>
         <ol>
-          <li>Find the first character (in logical order) of the
-          <var>value</var> that is of bidirectional character type L, AL, or R
-          [[!BIDI]].
+          <li data-link-for="TextDirectionType">If the member is being
+          displayed in a paragraph by itself, the user agent MUST override Rule
+          P3 of [[!BIDI]], setting the paragraph embedding level to 0 if the
+          <a>base direction</a> is <a>ltr</a>, or 1 if the <a>base
+          direction</a> is <a>rtl</a>.
           </li>
-          <li>If such a character is found and it is of bidirectional character
-          type AL or R, return <code>"rtl"</code>.
-          </li>
-          <li>Otherwise, return <code>"ltr"</code>.
+          <li data-link-for="TextDirectionType">Otherwise, the user agent MUST
+          behave as if the member is in a left-to-right embedding [[!BIDI]] if
+          the <a>base direction</a> is <a>ltr</a>, or a right-to-left embedding
+          if the <a>base direction</a> is <a>rtl</a>.
           </li>
         </ol>
       </section>
