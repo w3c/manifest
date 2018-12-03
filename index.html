@@ -819,11 +819,13 @@
         returns <code>true</code>:
       </p>
       <ol>
-        <li>Let <var>scopePath</var> be the elements of <var>scopes</var>'s
-        <a data-cite="!URL#concept-url-path">path</a>, separated by U+002F (/).
+        <li>Let <var>scopePath</var> be the <a>concatenation</a> of
+        <var>scopes</var>'s <a data-cite="!URL#concept-url-path">path</a>,
+        using U+002F (/).
         </li>
-        <li>Let <var>targetPath</var> be the elements of <var>target</var>'s
-        <a data-cite="!URL#concept-url-path">path</a>, separated by U+002F (/).
+        <li>Let <var>targetPath</var> be the <a>concatenation</a> of
+        <var>target</var>'s <a data-cite="!URL#concept-url-path">path</a>,
+        using U+002F (/).
         </li>
         <li>If <var>target</var> is <a>same origin</a> as <var>scope</var> and
         <var>targetPath</var> starts with <var>scopePath</var>, return
@@ -4055,6 +4057,10 @@
             <li>
               <dfn data-cite="!INFRA#set-append" data-lt="set-append">append
               (for set)</dfn>
+            </li>
+            <li>
+              <dfn data-cite="!INFRA#string-concatenate" data-lt=
+              "concatenation">concatenate</dfn>
             </li>
           </ul>
         </li>
