@@ -3,7 +3,8 @@ Closes #???
 This change (choose one):
 
 * [ ] Breaks existing normative behavior (please add label "breaking")
-* [ ] Adds new normative behavior
+* [ ] Adds new normative requirements
+* [ ] Adds new normative recommendations or optional items
 * [ ] Makes only editorial changes (only changes informative sections, or
   changes normative sections without changing behavior)
 * [ ] Is a "chore" (metadata, formatting, fixing warnings, etc).
