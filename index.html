@@ -1580,24 +1580,25 @@
       </h2>
       <pre class="idl">
           dictionary WebAppManifest {
-             TextDirectionType dir = "auto";
-             DOMString lang;
-             USVString name;
-             USVString short_name;
-             USVString description;
-             sequence&lt;ImageResource&gt; icons;
-             sequence&lt;ImageResource&gt; screenshots;
-             sequence&lt;USVString&gt; categories;
-             DOMString iarc_rating_id;
-             USVString start_url;
-             DisplayModeType display = "browser";
-             OrientationLockType orientation;
-             USVString theme_color;
-             USVString background_color;
-             USVString scope;
-             ServiceWorkerRegistrationObject serviceworker;
-             sequence&lt;ExternalApplicationResource&gt; related_applications;
-             boolean prefer_related_applications = "false";
+             [CatchTypeError] TextDirectionType dir = "auto";
+             [CatchTypeError] DOMString lang;
+             [CatchTypeError] USVString name;
+             [CatchTypeError] USVString short_name;
+             [CatchTypeError] USVString description;
+             [CatchTypeError] sequence&lt;[CatchTypeError] ImageResource&gt; icons;
+             [CatchTypeError] sequence&lt;[CatchTypeError] ImageResource&gt; screenshots;
+             [CatchTypeError] sequence&lt;[CatchTypeError] USVString&gt; categories;
+             [CatchTypeError] DOMString iarc_rating_id;
+             [CatchTypeError] USVString start_url;
+             [CatchTypeError] DisplayModeType display = "browser";
+             [CatchTypeError] OrientationLockType orientation;
+             [CatchTypeError] USVString theme_color;
+             [CatchTypeError] USVString background_color;
+             [CatchTypeError] USVString scope;
+             [CatchTypeError] ServiceWorkerRegistrationObject serviceworker;
+             [CatchTypeError]
+             sequence&lt;[CatchTypeError] ExternalApplicationResource&gt; related_applications;
+             [CatchTypeError] boolean prefer_related_applications = "false";
           };
       </pre>
       <p>
