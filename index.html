@@ -2508,12 +2508,14 @@
           When an <a>ImageResource</a> is used as an <dfn>icon</dfn>, a
           developer can hint that the image is intended to serve some special
           purpose in the context of the host OS (i.e., for better integration).
+          User agents SHOULD NOT use an icon other than for its stated
+          <a>purpose</a>.
         </p>
-        <p>
-          For example, as a <a data-lt="badge purpose">badge</a> or "pinned"
-          icon that is visually distinct, in color or form, from an
-          application's launch icon. The user agent uses the value of the
-          <a>purpose</a> member as a hint to determine where and how an
+        <p class="note">
+          For example, an icon with purpose "<a>badge</a>" could be used as a
+          badge or pinned icon that is visually distinct, in color or form,
+          from an application's launch icon. The user agent uses the value of
+          the <a>purpose</a> member as a hint to determine where and how an
           <a>ImageResource</a> is displayed. Unless declared otherwise by the
           developer, a user agent can use an icon for <a>any purpose</a>.
         </p>
@@ -2544,42 +2546,51 @@
             The user agent is free to display the icon in any context.
           </dd>
         </dl>
+        <p class="note">
+          If an icon contains multiple purposes, it could be used for any of
+          those purposes. If none of the stated purposes are recognized, the
+          icon is totally ignored. For example, if an icon has purpose
+          <code>"badge fizzbuzz"</code>, then it could be used as a badge, but
+          if an icon has just the purpose <code>"fizzbuzz"</code>, then it will
+          be ignored.
+        </p>
         <p>
           The steps for <dfn>processing the <code>purpose</code> member of an
           image</dfn> are given by the following algorithm. The algorithm takes
           an <a>ImageResource</a> <var>image</var>. This algorithm will return
-          a <a>set</a>.
+          a <a>set</a> or failure.
         </p>
         <ol>
           <li>Let <var>set</var> be an empty <a>set</a>.
           </li>
+          <li>If <var>image</var> has no <code>"purpose"</code> member, then
+          <a data-lt="set-append">append</a> <code>"any"</code> to
+          <var>set</var>, and return <var>set</var>.
+          </li>
           <li>Let <var>value</var> be <var>image</var>["purpose"].
           </li>
-          <li>If <a>Type</a>(<var>value</var>) is String:
+          <li>Let <a>list</a> <var>keywords</var> be the result of
+          <a>splitting</a> <var>value</var> on spaces.
+          </li>
+          <li>If <var>keywords</var> is empty, then <a data-lt=
+          "set-append">append</a> <code>"any"</code> to <var>set</var>.
+          </li>
+          <li>Otherwise, <a>for each</a> <var>keyword</var> of
+          <var>keywords</var>:
             <ol>
-              <li>Let <a>list</a> <var>keywords</var> be the result of
-              <a>splitting</a> <var>value</var> on spaces.
+              <li>Set <var>keyword</var> to <var>keyword</var>,
+              <a>lowercased</a>.
               </li>
-              <li>
-                <a>For each</a> <var>keyword</var> of <var>keywords</var>:
-                <ol>
-                  <li>Set <var>keyword</var> to <var>keyword</var>,
-                  <a>lowercased</a>.
-                  </li>
-                  <li>If <var>keyword</var> is not one of the <a>icon
-                  purposes</a>, or <var>set</var> <a>contains</a>
-                  <var>keyword</var>, then <a>issue a developer warning</a> and
-                  <a>continue</a>.
-                  </li>
-                  <li>Otherwise, <a data-lt="set-append">append</a>
-                  <var>keyword</var> to <var>set</var>.
-                  </li>
-                </ol>
+              <li>If <var>keyword</var> is not one of the <a>icon purposes</a>,
+              or <var>set</var> <a>contains</a> <var>keyword</var>, then
+              <a>issue a developer warning</a> and <a>continue</a>.
+              </li>
+              <li>Otherwise, <a data-lt="set-append">append</a>
+              <var>keyword</var> to <var>set</var>.
               </li>
             </ol>
           </li>
-          <li>If <var>set</var> <a>is empty</a>, then <a data-lt="set-append">
-            append</a> <code>"any"</code> to <var>set</var>.
+          <li>If <var>set</var> <a>is empty</a>, then return failure.
           </li>
           <li>Return <var>set</var>.
           </li>
@@ -2921,9 +2932,14 @@
                   <a>processing the <code>sizes</code> member of an image</a>
                   given <var>entry</var> and <var>manifest URL</var>.
                   </li>
-                  <li>Set <var>image</var>["purpose"] to the result of running
+                  <li>Let <var>purpose</var> be the result of running
                   <a>processing the <code>purpose</code> member of an image</a>
                   given <var>entry</var> and <var>manifest URL</var>.
+                  </li>
+                  <li>If <var>purpose</var> is failure, <a data-lt=
+                  "iteration-continue">continue</a>.
+                  </li>
+                  <li>Set <var>image</var>["purpose"] to <var>purpose</var>.
                   </li>
                   <li>
                     <a data-lt="list-append">Append</a> <var>image</var> to
