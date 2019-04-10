@@ -17,7 +17,7 @@ install:
   - npm install respec-validator
 
 script:
-  - npx respec-validator --no-links --gh-token=$GH_TOKEN index.html
+  - npx respec-validator --no-links --GH_USER=$GH_USER --gh-token=$GH_TOKEN index.html
 
 cache:
   directories:
