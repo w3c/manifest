@@ -94,7 +94,7 @@
           "ios_saf",
         ],
       },
-      xref: ""
+      xref: "web-platform"
     };
     </script>
     <style>
@@ -413,10 +413,8 @@
               agent can at this point
                 <ol>
                   <li>Let <var>client</var> be the <a>top-level browsing
-                  context</a> <code>Document</code>'s <a href=
-                  "https://html.spec.whatwg.org/multipage/webappapis.html#relevant-settings-object">
-                    relevant settings object</a>, or <code>null</code> if
-                    unavailable.
+                  context</a> <code>Document</code>'s <a>relevant settings
+                  object</a>, or <code>null</code> if unavailable.
                   </li>
                   <li>Invoke <a>Start Register</a> with <var>scope</var> and
                   <var>src</var> members of the <var>registration</var>, a new
@@ -791,7 +789,7 @@
             The <dfn>onappinstalled</dfn> is an <a>event handler IDL
             attribute</a> for the "<dfn>appinstalled</dfn>" event type. The
             interface used for these events is the <a><code>Event</code>
-            interface</a> [[!DOM]]. This event is dispatched as a result of a
+            interface</a> [[DOM]]. This event is dispatched as a result of a
             <a data-lt="installation succeeded">successful installation</a>
             (see the <a>steps to install the web application</a>).
           </p>
@@ -1061,10 +1059,10 @@
       </dl>
       <p class="note">
         The <a>fullscreen</a> <a>display mode</a> is orthogonal to, and works
-        independently of, the [[WHATWG-FULLSCREEN]] API. The <a>fullscreen</a>
+        independently of, the [[[FULLSCREEN]]]. The <a>fullscreen</a>
         <a>display mode</a> affects the fullscreen state of the browser window,
-        while the [[WHATWG-FULLSCREEN]] API operates on an element contained
-        within the viewport. As such, a web application can have its <a>display
+        while the [[FULLSCREEN]] API operates on an element contained within
+        the viewport. As such, a web application can have its <a>display
         mode</a> set to <a>fullscreen</a>, while
         <code>document.fullScreenElement</code> returns <code>null</code>, and
         <code>fullscreenEnabled</code> returns <code>false</code>.
@@ -1097,7 +1095,7 @@
         </h3>
         <p>
           The <code><dfn>display-mode</dfn></code> media feature represents,
-          via a CSS media query [[!MEDIAQ]], the <a>display mode</a> of the web
+          via a CSS media query [[MEDIAQ]], the <a>display mode</a> of the web
           application. This media feature applies to the top-level browsing
           context and any child browsing contexts. Child browsing contexts
           reflect the <a>display mode</a> of the <a>top-level browsing
@@ -1114,21 +1112,21 @@
           <p>
             Please note that the <code>fullscreen</code> <a>display mode</a> is
             not directly related to the CSS <code>:fullscreen</code>
-            pseudo-class specified in the [[WHATWG-FULLSCREEN]] API. The
+            pseudo-class specified in the [[[FULLSCREEN]]]. The
             <code>:fullscreen</code> pseudo-class matches exclusively when a
             [[HTML]] element is put into the fullscreen element stack. However,
             a side effect of calling the <code>requestFullscreen()</code>
-            method on an element using the [[WHATWG-FULLSCREEN]] API is that
-            the browser window can enter a fullscreen mode at the OS-level. In
-            such a case, both <code>:fullscreen</code> and <code>(display-mode:
+            method on an element using the [[FULLSCREEN]] API is that the
+            browser window can enter a fullscreen mode at the OS-level. In such
+            a case, both <code>:fullscreen</code> and <code>(display-mode:
             fullscreen)</code> will match.
           </p>
           <p>
             On some platforms, it is possible for a user to put a browser
-            window into fullscreen without the aid of the [[WHATWG-FULLSCREEN]]
-            API. When this happens, the <code>:fullscreen</code> pseudo class
-            will not match, but <code>(display-mode: fullscreen)</code> will
-            match. This is exemplified in CSS code below.
+            window into fullscreen without the aid of the [[[FULLSCREEN]]].
+            When this happens, the <code>:fullscreen</code> pseudo class will
+            not match, but <code>(display-mode: fullscreen)</code> will match.
+            This is exemplified in CSS code below.
           </p>
           <pre class='example'>
             /* applies when the window is fullscreen */
@@ -1165,7 +1163,7 @@
         </dl>
         <p>
           A user agent MUST reflect the applied <a>display mode</a> of the web
-          application via a CSS media query [[!MEDIAQ]].
+          application via a CSS media query [[MEDIAQ]].
         </p>
         <section>
           <h4>
@@ -1229,7 +1227,7 @@
           Linking to a manifest
         </h3>
         <p>
-          The <code>manifest</code> keyword can be used with a [[!HTML]]
+          The <code>manifest</code> keyword can be used with a [[HTML]]
           <a><code>link</code> element</a>. This keyword creates an <a>external
           resource link</a>.
         </p>
@@ -1331,7 +1329,7 @@
           <a><code>link</code> element</a> in <a>tree order</a> whose <a><code>
             rel</code> attribute</a> contains the token <code>manifest</code>.
           </li>
-          <li>If <var>origin</var> is an [[!HTML]] <a>opaque origin</a>,
+          <li>If <var>origin</var> is an [[HTML]] <a>opaque origin</a>,
           terminate this algorithm.
           </li>
           <li>If <var>manifest link</var> is <code>null</code>, terminate this
@@ -1344,7 +1342,7 @@
           value of the <code>href</code> attribute, relative to <a>the
           element's base URL</a>. If parsing fails, then abort these steps.
           </li>
-          <li>Let <var>request</var> be a new [[!FETCH]] <a>request</a>, whose
+          <li>Let <var>request</var> be a new [[FETCH]] <a>request</a>, whose
           URL is <var>manifest URL</var>, and whose <a>context</a> is
           "<code>manifest</code>".
           </li>
@@ -1396,7 +1394,7 @@
             Content security policy
           </h4>
           <p>
-            A user agent MUST support [[!CSP3]].
+            A user agent MUST support [[CSP3]].
           </p>
           <div class="example">
             <p>
@@ -1630,7 +1628,7 @@
       </p>
       <p>
         Every manifest has an associated <dfn>manifest URL</dfn>, which is the
-        [[!URL]] from which the <a>manifest</a> was fetched.
+        [[URL]] from which the <a>manifest</a> was fetched.
       </p>
       <section>
         <h3>
@@ -1692,12 +1690,12 @@
         <ol>
           <li data-link-for="TextDirectionType">If the member is being
           displayed in a paragraph by itself, the user agent MUST override Rule
-          P3 of [[!BIDI]], setting the paragraph embedding level to 0 if the
-          <a>base direction</a> is <a>ltr</a>, or 1 if the <a>base
-          direction</a> is <a>rtl</a>.
+          P3 of [[BIDI]], setting the paragraph embedding level to 0 if the <a>
+            base direction</a> is <a>ltr</a>, or 1 if the <a>base direction</a>
+            is <a>rtl</a>.
           </li>
           <li data-link-for="TextDirectionType">Otherwise, the user agent MUST
-          behave as if the member is in a left-to-right embedding [[!BIDI]] if
+          behave as if the member is in a left-to-right embedding [[BIDI]] if
           the <a>base direction</a> is <a>ltr</a>, or a right-to-left embedding
           if the <a>base direction</a> is <a>rtl</a>.
           </li>
@@ -1715,7 +1713,7 @@
         </p>
         <p>
           A <dfn>language tag</dfn> is a <a>string</a> that matches the
-          production of a <code>Language-Tag</code> defined in the [[!BCP47]]
+          production of a <code>Language-Tag</code> defined in the [[BCP47]]
           specifications (see the <a href=
           "https://www.iana.org/assignments/language-subtag-registry">IANA
           Language Subtag Registry</a> for an authoritative list of possible
@@ -1724,7 +1722,7 @@
           For example, the '<code>en-AU</code>' language range represents
           English as spoken in Australia, and '<code>fr-CA</code>' represents
           French as spoken in Canada. Language tags that meet the validity
-          criteria of [[!RFC5646]] section 2.2.9 that can be verified without
+          criteria of [[RFC5646]] section 2.2.9 that can be verified without
           reference to the IANA Language Subtag Registry are considered
           structurally valid.
         </p>
@@ -1942,7 +1940,7 @@
           the <a>default orientation</a> for all <a>top-level browsing
           contexts</a> of the web application. The possible values are those of
           the <a>OrientationLockType</a> enum defined in
-          [[!SCREEN-ORIENTATION]].
+          [[SCREEN-ORIENTATION]].
         </p>
         <p>
           If the user agent honors the value of the <a>orientation</a> member
@@ -1950,14 +1948,14 @@
           orientation</a> for the life of the web application (unless
           overridden by some other means at runtime). This means that the user
           agent MUST return the orientation to the <a>default orientation</a>
-          any time the orientation is unlocked [[!SCREEN-ORIENTATION]] or the
+          any time the orientation is unlocked [[SCREEN-ORIENTATION]] or the
           <a>top-level browsing context</a> is <a>navigated</a>.
         </p>
         <p>
-          Although the specification relies on the [[!SCREEN-ORIENTATION]]'s
+          Although the specification relies on the [[SCREEN-ORIENTATION]]'s
           <a>OrientationLockType</a>, it is OPTIONAL for a user agent to
-          implement the [[!SCREEN-ORIENTATION]] API. Supporting the
-          [[!SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
+          implement the [[SCREEN-ORIENTATION]] API. Supporting the
+          [[SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
         </p>
         <p>
           Certain UI/UX concerns and/or platform conventions will mean that
@@ -2067,13 +2065,12 @@
         </h3>
         <p>
           The <dfn>serviceworker</dfn> member describes a service worker as
-          defined in [[!SERVICE-WORKERS-1]].
+          defined in [[SERVICE-WORKERS-1]].
         </p>
         <p>
-          The <a>serviceworker</a> member represents an intented <a href=
-          "https://w3c.github.io/ServiceWorker/#service-worker-registration-concept">
-          service worker registration</a> in form of a <dfn>registration
-          object</dfn>
+          The <a>serviceworker</a> member represents an intented <a data-cite=
+          "service-workers-1#service-worker-registration-concept">service
+          worker registration</a> in form of a <dfn>registration object</dfn>
         </p>
         <p class="note">
           Other service worker registrations can be done, for instance by a
@@ -2129,14 +2126,14 @@
         <p>
           The <dfn>theme_color</dfn> member serves as the <dfn>default theme
           color</dfn> for an application context. What constitutes a <dfn>theme
-          color</dfn> is defined in [[!HTML]].
+          color</dfn> is defined in [[HTML]].
         </p>
         <p>
           If the user agent honors the value of the <code>theme_color</code>
           member as the <a>default theme color</a>, then that color serves as
           the <a>theme color</a> for all browsing contexts to which the
           manifest is <a>applied</a>. However, a document may override the
-          <a>default theme color</a> through the inclusion of a valid [[!HTML]]
+          <a>default theme color</a> through the inclusion of a valid [[HTML]]
           <code>meta</code> element whose <code>name</code> attribute is
           "theme-color".
         </p>
@@ -2148,12 +2145,12 @@
         </p>
         <ol>
           <li>Let <var>potential color</var> be the result of running
-          [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm with
+          [[CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm with
           <var>theme color</var> as input. If parsing returns a syntax error,
           return <code>undefined</code>.
           </li>
           <li>Let <var>color</var> be the result of attempting to parse
-          <var>potential color</var> as a CSS color, as per [[!CSS-SYNTAX-3]].
+          <var>potential color</var> as a CSS color, as per [[CSS-SYNTAX-3]].
           If parsing fails:
             <ol>
               <li>
@@ -2267,12 +2264,12 @@
         </p>
         <ol>
           <li>Let <var>potential color</var> be the result of running
-          [[!CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm with
+          [[CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm with
           <var>background color</var> as input. If parsing returns a syntax
           error, return <code>undefined</code>.
           </li>
           <li>Let <var>color</var> be the result of attempting to parse
-          <var>potential color</var> as a CSS color, as per [[!CSS-SYNTAX-3]].
+          <var>potential color</var> as a CSS color, as per [[CSS-SYNTAX-3]].
           If parsing fails:
             <ol>
               <li>
@@ -2477,7 +2474,7 @@
         <p>
           The security policy that governs whether a <a>user agent</a> can
           fetch an icon image is governed by the <code>img-src</code> directive
-          [[!CSP3]] associated with the manifest's owner <code>Document</code>.
+          [[CSP3]] associated with the manifest's owner <code>Document</code>.
         </p>
         <div class="example">
           <p>
@@ -2828,7 +2825,7 @@
           <li>If <a>Type</a>(<var>value</var>) it not String, return
           <code>undefined</code>.
           </li>
-          <li>Otherwise, parse <var>value</var> as if it was a [[!HTML]] <code>
+          <li>Otherwise, parse <var>value</var> as if it was a [[HTML]] <code>
             <a>sizes</a></code> attribute and let <a>list</a>
             <var>keywords</var> be the result.
           </li>
@@ -3093,10 +3090,8 @@
         <p>
           The <dfn>type</dfn> member of a
           <a>ServiceWorkerRegistrationObject</a> dictionary is the service
-          worker's <a href=
-          "https://html.spec.whatwg.org/multipage/workers.html#workertype">worker
-          type</a>. The possible values are those of the <a>WorkerType</a> enum
-          defined in [[!HTML]].
+          worker's {{WorkerType}}. The possible values are those of the
+          <a>WorkerType</a> enum defined in [[HTML]].
         </p>
       </section>
       <section data-dfn-for="ServiceWorkerRegistrationObject" data-link-for=
@@ -3107,11 +3102,10 @@
         <p>
           The <dfn>update_via_cache</dfn> member of a
           <a>ServiceWorkerRegistrationObject</a> dictionary determines the
-          <a href=
-          "https://w3c.github.io/ServiceWorker/#dfn-update-via-cache">update
-          via cache mode</a> for the service worker. The possible values are
-          those of the <a>ServiceWorkerUpdateViaCache</a> enum defined in
-          [[!SERVICE-WORKERS-1]].
+          <a data-cite="service-workers-1#dfn-update-via-cache">update via
+          cache mode</a> for the service worker. The possible values are those
+          of the <a>ServiceWorkerUpdateViaCache</a> enum defined in
+          [[SERVICE-WORKERS-1]].
         </p>
       </section>
     </section>
@@ -3305,7 +3299,7 @@
         </p>
         <p>
           If the protocol over which the manifest is transferred supports the
-          [[!MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
+          [[MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
           manifest be labeled with the <a>media type for a manifest</a>.
         </p>
         <dl>
@@ -3351,9 +3345,9 @@
             </p>
             <p>
               As the manifest format is JSON and will commonly be encoded using
-              [[!UNICODE]], the security considerations described in
-              [[!ECMA-404]] and [[!UNICODE-SECURITY]] apply. In addition,
-              because there is no way to prevent developers from including
+              [[UNICODE]], the security considerations described in
+              [[ECMA-404]] and [[UNICODE-SECURITY]] apply. In addition, because
+              there is no way to prevent developers from including
               custom/unrestrained data in a <a>manifest</a>, implementors need
               to impose their own implementation-specific limits on the values
               of otherwise unconstrained member types, e.g. to prevent denial
@@ -3366,8 +3360,8 @@
               environment. As such, implementors need to be aware of the
               security implications for the types they support. Specifically,
               implementors need to consider the security implications outlined
-              in at least the following specifications: [[!CSS-MIME]],
-              [[!ECMAScript-MIME]], [[!HTML]].
+              in at least the following specifications: [[CSS-MIME]],
+              [[ECMAScript-MIME]], [[HTML]].
             </p>
             <p>
               As web applications can contain content that is able to
@@ -3383,16 +3377,16 @@
             <p>
               As this specification allows for the declaration of URLs within
               certain members of a manifest, implementors need to consider the
-              security considerations discussed in the [[!URL]] specification.
+              security considerations discussed in the [[URL]] specification.
               Implementations intending to display <abbr title=
               "Internationalized Resource Identifiers">IRIs</abbr> and
               <abbr title="Internationalized domain name">IDNA</abbr> addresses
               found in the manifest are strongly encouraged to follow the
-              security advice given in [[!UNICODE-SECURITY]].
+              security advice given in [[UNICODE-SECURITY]].
             </p>
             <p>
               Developers need to be aware of the security considerations
-              discussed throughout the [[!CSP3]] specification, particularly in
+              discussed throughout the [[CSP3]] specification, particularly in
               relation to making <code>data:</code> a valid source for the
               purpose of <q>inlining</q> a manifest. Doing so can enable XSS
               attacks by allowing a manifest to be included directly in the
@@ -3621,7 +3615,7 @@
         The document format defined in this specification provides a unified
         means of encapsulating metadata about a Web application in a way that
         we hope will avoid existing pitfalls with both proprietary and
-        [[!HTML]]'s <code>meta</code>/<code>link</code> tags. Those pitfalls
+        [[HTML]]'s <code>meta</code>/<code>link</code> tags. Those pitfalls
         include:
       </p>
       <ul>
@@ -3666,10 +3660,10 @@
         In addition, standardizing the functionality currently provided by the
         various <code>meta</code> tag-based solutions within the manifest
         solves the problem of having to declare large number of proprietary and
-        standard [[!HTML]] tags that all achieve the same thing. Of course,
-        this hinges on the standard actually getting implemented by browsers
-        and those browsers getting widely deployed to users: if this happens,
-        the Web community might be able to retire many of the proprietary
+        standard [[HTML]] tags that all achieve the same thing. Of course, this
+        hinges on the standard actually getting implemented by browsers and
+        those browsers getting widely deployed to users: if this happens, the
+        Web community might be able to retire many of the proprietary
         <code>meta</code> tags plaguing the Web at the time of writing. More
         information about the proprietary tags can be found in the
         <cite><a href="https://w3c-webmob.github.io/installable-webapps/">Use
@@ -3677,11 +3671,11 @@
       </p>
       <p>
         Lastly, this specification does not make the standardized solutions
-        found in [[!HTML]] redundant. When members like the <code>name</code>
-        or <code>icons</code> is missing from the manifest, user agents can
-        search in a manifest's owner [[!HTML]] document for things like icons
-        and the application name (or a user agent might even fallback to
-        proprietary tags/metadata, if they are present in a document).
+        found in [[HTML]] redundant. When members like the <code>name</code> or
+        <code>icons</code> is missing from the manifest, user agents can search
+        in a manifest's owner [[HTML]] document for things like icons and the
+        application name (or a user agent might even fallback to proprietary
+        tags/metadata, if they are present in a document).
       </p>
     </section>
     <section class="appendix">
@@ -3763,7 +3757,7 @@
       </h3>
       <p>
         As the manifest uses the JSON format, this specification relies on the
-        types defined in [[!ECMA-404]] specification: namely <dfn>object</dfn>,
+        types defined in [[ECMA-404]] specification: namely <dfn>object</dfn>,
         <dfn>array</dfn>, <dfn>number</dfn>, <dfn>string</dfn>,
         <code>true</code>, <code>false</code>, and <code>undefined</code>.
         Strict type checking is not enforced by this specification. Instead,
@@ -3772,7 +3766,7 @@
         expected.
       </p>
       <ul class="index" data-sort="">
-        <li>[[!URL]] defines the following terms:
+        <li>[[URL]] defines the following terms:
           <ul>
             <li>
               <dfn><a data-cite="!URL#concept-url">URL</a></dfn>
@@ -3783,7 +3777,7 @@
             </li>
           </ul>
         </li>
-        <li>[[!SCREEN-ORIENTATION]] defines the following terms:
+        <li>[[SCREEN-ORIENTATION]] defines the following terms:
           <ul>
             <li>
               <dfn data-cite=
@@ -3796,7 +3790,7 @@
             </li>
           </ul>
         </li>
-        <li>[[!CSS-SYNTAX-3]] defines the following terms:
+        <li>[[CSS-SYNTAX-3]] defines the following terms:
           <ul>
             <li>
               <a data-cite="CSS-SYNTAX-3#parse-component-value"><dfn>parse a
@@ -3804,7 +3798,7 @@
             </li>
           </ul>
         </li>
-        <li>[[!CSP3]] defines the following terms:
+        <li>[[CSP3]] defines the following terms:
           <ul>
             <li>
               <a data-cite=
@@ -3821,7 +3815,7 @@
             </li>
           </ul>
         </li>
-        <li>[[!SECURE-CONTEXTS]] defines the following terms:
+        <li>[[SECURE-CONTEXTS]] defines the following terms:
           <ul>
             <li>
               <a data-cite="!SECURE-CONTEXTS#is-origin-trustworthy"><dfn>Is
@@ -3829,25 +3823,24 @@
             </li>
           </ul>
         </li>
-        <li>[[!SERVICE-WORKERS-1]] defines the following terms:
+        <li>[[SERVICE-WORKERS-1]] defines the following terms:
           <ul>
             <li>
-              <a href=
-              "https://w3c.github.io/ServiceWorker/#start-register-algorithm"><dfn>
-              Start Register</dfn></a>
+              <a data-cite=
+              "service-workers-1#start-register-algorithm"><dfn>Start
+              Register</dfn></a>
             </li>
             <li>
-              <a href=
-              "https://w3c.github.io/ServiceWorker/#dfn-scope-url"><dfn>scope
+              <a data-cite="service-workers-1#dfn-scope-url"><dfn>scope
               URL</dfn></a>
             </li>
             <li>
-              <a href=
-              "https://w3c.github.io/ServiceWorker/#dfn-update-via-cache"><dfn>ServiceWorkerUpdateViaCache</dfn></a>
+              <a data-cite=
+              "service-workers-1#dfn-update-via-cache"><dfn>ServiceWorkerUpdateViaCache</dfn></a>
             </li>
           </ul>
         </li>
-        <li>[[!ECMA-402]] defines the following terms:
+        <li>[[ECMA-402]] defines the following terms:
           <ul>
             <li>
               <a data-cite=
@@ -3859,7 +3852,7 @@
             </li>
           </ul>
         </li>
-        <li>[[!WEBIDL]] defines the following terms:
+        <li>[[WEBIDL]] defines the following terms:
           <ul>
             <li>
               <a data-cite=
@@ -3876,7 +3869,7 @@
             </li>
           </ul>
         </li>
-        <li>[[!DOM]] defines the following terms:
+        <li>[[DOM]] defines the following terms:
           <ul>
             <li>
               <a data-cite="!DOM#event"><dfn><code>Event</code>
@@ -3888,7 +3881,7 @@
             </li>
           </ul>
         </li>
-        <li>[[!FETCH]] defines the following terms:
+        <li>[[FETCH]] defines the following terms:
           <ul data-sort="">
             <li>
               <dfn data-cite="!FETCH#concept-fetch">Fetch</dfn>
@@ -3907,7 +3900,7 @@
             </li>
           </ul>
         </li>
-        <li>[[!HTML]] defines the following terms:
+        <li>[[HTML]] defines the following terms:
           <ul>
             <li>
               <a data-cite=
@@ -4053,7 +4046,7 @@
             </li>
           </ul>
         </li>
-        <li>[[!INFRA]] defines the following terms:
+        <li>[[INFRA]] defines the following terms:
           <ul>
             <li>
               <dfn data-cite="!INFRA#ascii-lowercase" data-lt=
@@ -4103,7 +4096,7 @@
             </li>
           </ul>
         </li>
-        <li>[[!ENCODING]] defines the following terms:
+        <li>[[ENCODING]] defines the following terms:
           <ul>
             <li>
               <dfn data-cite="!ENCODING#utf-8-decode" data-lt=
@@ -4111,7 +4104,7 @@
             </li>
           </ul>
         </li>
-        <li>[[!ECMASCRIPT]] defines the following terms:
+        <li>[[ECMASCRIPT]] defines the following terms:
           <ul>
             <li>
               <a data-cite=
