@@ -322,12 +322,11 @@
           Authority of the manifest's metadata
         </h3>
         <p>
-          When a <a>manifest</a> is linked from a <code>Document</code>, it
-          indicates to the user agent that the metadata is
-          <dfn>authoritative</dfn>: that is, the user agent SHOULD use the
-          metadata of the manifest instead of the one in the
-          <code>Document</code>. However, in cases where metadata is missing,
-          or in error, a user agent MAY fallback to the <code>Document</code>
+          When a <a>manifest</a> is linked from a {{Document}}, it indicates to
+          the user agent that the metadata is <dfn>authoritative</dfn>: that
+          is, the user agent SHOULD use the metadata of the manifest instead of
+          the one in the {{Document}}. However, in cases where metadata is
+          missing, or in error, a user agent MAY fallback to the {{Document}}
           to find suitable replacements for missing manifest members (e.g.,
           using <code>application-name</code> in place of
           <code>short_name</code>).
@@ -391,7 +390,7 @@
           following algorithm:
         </p>
         <ol>
-          <li>Let <var>window</var> be the <code>Window</code> object of the
+          <li>Let <var>window</var> be the {{Window}} object of the
           <a>top-level browsing context</a> for which the user agent will
           attempt installation.
           </li>
@@ -404,8 +403,8 @@
               </li>
               <li>If <a>obtaining the manifest</a> results in an error, a user
               agent can, at this point, fall back to using the <a>top-level
-              browsing context</a> <code>Document</code>'s metadata to populate
-              an <a>installation process</a>'s UI.
+              browsing context</a> {{Document}}'s metadata to populate an
+              <a>installation process</a>'s UI.
               </li>
               <li>If <a>obtaining the manifest</a> succeeds, and the result of
               running <a>processing the serviceworker member</a> with
@@ -413,8 +412,8 @@
               agent can at this point
                 <ol>
                   <li>Let <var>client</var> be the <a>top-level browsing
-                  context</a> <code>Document</code>'s <a>relevant settings
-                  object</a>, or <code>null</code> if unavailable.
+                  context</a> {{Document}}'s <a>relevant settings object</a>,
+                  or <code>null</code> if unavailable.
                   </li>
                   <li>Invoke <a>Start Register</a> with <var>scope</var> and
                   <var>src</var> members of the <var>registration</var>, a new
@@ -484,7 +483,7 @@
           are given by the following algorithm:
         </p>
         <ol>
-          <li>Wait until the <code>Document</code> of the <a>top-level browsing
+          <li>Wait until the {{Document}} of the <a>top-level browsing
           context</a> is <a>completely loaded</a>.
           </li>
           <li>If there is already an <a>installation process</a> being
@@ -501,7 +500,7 @@
               <code>cancelable</code> attribute initialized to true.
               </li>
               <li>Let <var>mayShowPrompt</var> be the result of <a>firing</a>
-              <var>event</var> at the <a>Window</a> object of the <a>top-level
+              <var>event</var> at the {{Window}} object of the <a>top-level
               browsing context</a>.
               </li>
               <li>If <var>mayShowPrompt</var> is true, then the user agent MAY,
@@ -763,24 +762,19 @@
             attribute EventHandler onbeforeinstallprompt;
           };
         </pre>
-        <div class="example">
-          <p>
-            This example shows two ways of handling the "<a>appinstalled</a>"
-            event.
-          </p>
-          <pre class="example js">
-            function handleInstalled(ev) {
-              const date = new Date(ev.timeStamp / 1000);
-              console.log(`Yay! Our app got installed at ${date.toTimeString()}.`);
-            }
+        <pre class="example js" title=
+        "Two ways of handling the 'appinstalled' event">
+          function handleInstalled(ev) {
+            const date = new Date(ev.timeStamp / 1000);
+            console.log(`Yay! Our app got installed at ${date.toTimeString()}.`);
+          }
 
-            // Using the event handler IDL attribute
-            window.onappinstalled = handleInstalled;
+          // Using the event handler IDL attribute
+          window.onappinstalled = handleInstalled;
 
-            // Using .addEventListener()
-            window.addEventListener("appinstalled", handleInstalled);
-          </pre>
-        </div>
+          // Using .addEventListener()
+          window.addEventListener("appinstalled", handleInstalled);
+        </pre>
         <section data-dfn-for="Window">
           <h4>
             <code>onappinstalled</code> attribute
@@ -1138,7 +1132,7 @@
             #game:fullscreen {
                 ...
             }
-        </pre>
+          </pre>
         </div>
         <dl>
           <dt>
@@ -1277,12 +1271,11 @@
         </p>
         <p class="note">
           In cases where more than one <a><code>link</code> element</a> with a
-          <code>manifest</code> link type appears in a <code>Document</code>,
-          the user agent uses the first <a><code>link</code> element</a> in
-          tree order and ignores all subsequent <a><code>link</code>
-          element</a> with a <code>manifest</code> link type (even if the first
-          element was erroneous). See the steps for <a>obtaining a
-          manifest</a>.
+          <code>manifest</code> link type appears in a {{Document}}, the user
+          agent uses the first <a><code>link</code> element</a> in tree order
+          and ignores all subsequent <a><code>link</code> element</a> with a
+          <code>manifest</code> link type (even if the first element was
+          erroneous). See the steps for <a>obtaining a manifest</a>.
         </p>
         <p>
           To obtain a manifest, the user agent MUST run the steps for
@@ -1291,7 +1284,7 @@
           implementations. A user agent MAY opt to delay fetching a manifest
           until after the document and its other resources have been fully
           loaded (i.e., to not delay the availability of content and scripts
-          required by the <code>document</code>).
+          required by the <a>document</a>).
         </p>
         <p>
           A <a>manifest</a> is obtained and applied regardless of the
@@ -1323,11 +1316,11 @@
           user agent MUST NOT <a>delay the load event</a>.
         </p>
         <ol>
-          <li>From the <code>Document</code> of the <a>top-level browsing
-          context</a>, let <var>origin</var> be the <code>Document</code>'s
-          origin, and <var>manifest link</var> be the first
-          <a><code>link</code> element</a> in <a>tree order</a> whose <a><code>
-            rel</code> attribute</a> contains the token <code>manifest</code>.
+          <li>From the {{Document}} of the <a>top-level browsing context</a>,
+          let <var>origin</var> be the {{Document}}'s origin, and <var>manifest
+          link</var> be the first <a><code>link</code> element</a> in <a>tree
+          order</a> whose <a><code>rel</code> attribute</a> contains the token
+          <code>manifest</code>.
           </li>
           <li>If <var>origin</var> is an [[HTML]] <a>opaque origin</a>,
           terminate this algorithm.
@@ -2019,7 +2012,7 @@
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the <a>start_url</a>
-                needs to be <a>same-origin</a> as <code>Document</code> of the
+                needs to be <a>same-origin</a> as {{Document}} of the
                 <a>top-level browsing context</a>.
               </li>
               <li>Return <var>document URL</var>.
@@ -2434,8 +2427,8 @@
           the user agent MUST run the <dfn>steps to fetch an image
           resource</dfn>. The algorithm takes an <var>image URL</var>
           (<a>ImageResource.src</a>), the <var>manifest URL</var>, and the
-          <var>document</var> (<code>Document</code>) from which the manifest
-          was linked. It returns a <a>Response</a>:
+          <var>document</var> ({{code}}ode&gt;) from which the manifest was
+          linked. It returns a <a>Response</a>:
         </p>
         <ol>
           <li>Let <var>request</var> be a new <a>Request</a>.
@@ -2474,13 +2467,13 @@
         <p>
           The security policy that governs whether a <a>user agent</a> can
           fetch an icon image is governed by the <code>img-src</code> directive
-          [[CSP3]] associated with the manifest's owner <code>Document</code>.
+          [[CSP3]] associated with the manifest's owner {{Document}}.
         </p>
         <div class="example">
           <p>
             For example, given the following <code>img-src</code> directive in
             the <code>Content-Security-Policy</code> HTTP header of the
-            manifest's owner <code>Document</code>:
+            manifest's owner {{Document}}:
           </p>
           <pre class="example http">
             HTTP/1.1 200 OK
