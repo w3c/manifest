@@ -286,37 +286,6 @@
         and again as an example, the user agent could <a>install</a> the web
         application into a list of bookmarks within the user agent itself.
       </p>
-      <section data-dfn-for="AppBannerPromptOutcome">
-        <h4>
-          <code>AppBannerPromptOutcome</code> enum
-        </h4>
-        <pre class="idl">
-          enum AppBannerPromptOutcome {
-            "accepted",
-            "dismissed"
-          };
-        </pre>
-        <p>
-          The <dfn>AppBannerPromptOutcome</dfn> enum's values represent the
-          outcomes from <a data-lt="presents an install prompt">presenting the
-          end-user with an install prompt</a>.
-        </p>
-        <dl data-dfn-for="AppBannerPromptOutcome">
-          <dt>
-            <dfn>accepted</dfn>:
-          </dt>
-          <dd>
-            The end-user indicated that they would like the user agent to
-            <a>install</a> the web application.
-          </dd>
-          <dt>
-            <dfn>dismissed</dfn>:
-          </dt>
-          <dd>
-            The end-user dismissed the install prompt.
-          </dd>
-        </dl>
-      </section>
       <section>
         <h3>
           Authority of the manifest's metadata
@@ -620,8 +589,14 @@
           interface BeforeInstallPromptEvent : Event {
               Promise&lt;PromptResponseObject&gt; prompt();
           };
+
           dictionary PromptResponseObject {
             AppBannerPromptOutcome userChoice;
+          };
+
+          enum AppBannerPromptOutcome {
+            "accepted",
+            "dismissed"
           };
         </pre>
         <p>
@@ -747,6 +722,31 @@
               });
             });
           </pre>
+        </section>
+        <section data-dfn-for="AppBannerPromptOutcome">
+          <h4>
+            <code>AppBannerPromptOutcome</code> enum
+          </h4>
+          <p>
+            The <dfn>AppBannerPromptOutcome</dfn> enum's values represent the
+            outcomes from <a data-lt="presents an install prompt">presenting
+            the end-user with an install prompt</a>.
+          </p>
+          <dl data-dfn-for="AppBannerPromptOutcome">
+            <dt>
+              <dfn>accepted</dfn>:
+            </dt>
+            <dd>
+              The end-user indicated that they would like the user agent to
+              <a>install</a> the web application.
+            </dd>
+            <dt>
+              <dfn>dismissed</dfn>:
+            </dt>
+            <dd>
+              The end-user dismissed the install prompt.
+            </dd>
+          </dl>
         </section>
       </section>
       <section>
