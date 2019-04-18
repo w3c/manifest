@@ -123,7 +123,7 @@
       }
     </style>
   </head>
-  <body>
+  <body data-cite="ENCODING">
     <section id='abstract'>
       <p>
         This specification defines a JSON-based manifest file that provides
@@ -144,8 +144,8 @@
         application.
       </p>
       <p>
-        This specification also defines the <code>manifest</code> link type as
-        a declarative means to associate a document with a manifest.
+        This specification also defines the `manifest` link type as a
+        declarative means to associate a document with a manifest.
       </p>
     </section>
     <section id="sotd">
@@ -235,13 +235,14 @@
       </section>
       <section class="informative">
         <h3>
-          Using a <code>link</code> element to link to a manifest
+          Using a `link` element to link to a manifest
         </h3>
         <p>
-          Example of using a <code>link</code> element to associate a website
-          with a <a>manifest</a>. The example also shows how to use [[HTML]]'s
-          <code>link</code> and <code>meta</code> elements to give the web
-          application a fallback name and set of icons.
+          Example of using a [=`link` element=] to associate a website with a
+          <a>manifest</a>. The example also shows how to use [[HTML]]'s
+          <a data-tl="link element">`link`</a> and <a data-tl=
+          "meta element">`meta`</a> elements to give the web application a
+          fallback name and set of icons.
         </p>
         <pre class="example html" title="linking to a manifest">
           &lt;!doctype&gt;
@@ -328,8 +329,7 @@
           the one in the {{Document}}. However, in cases where metadata is
           missing, or in error, a user agent MAY fallback to the {{Document}}
           to find suitable replacements for missing manifest members (e.g.,
-          using <code>application-name</code> in place of
-          <code>short_name</code>).
+          using `application-name` in place of `short_name`).
         </p>
       </section>
       <section data-link-for="WebAppManifest">
@@ -678,7 +678,7 @@
             <li>If <var>this</var>.<a>[[\userResponsePromise]]</a> is pending:
               <ol>
                 <li>If this event's <a data-cite=
-                "!DOM#dom-event-istrusted"><code>isTrusted</code></a> attribute
+                "DOM#dom-event-istrusted"><code>isTrusted</code></a> attribute
                 is <code>false</code>, reject
                 <var>this</var>.<a>[[\userResponsePromise]]</a> with
                 <a>NotAllowedError</a>, optionally informing the developer that
@@ -835,12 +835,12 @@
       </p>
       <ol>
         <li>Let <var>scopePath</var> be the <a>concatenation</a> of
-        <var>scopes</var>'s <a data-cite="!URL#concept-url-path">path</a>,
-        using U+002F (/).
+        <var>scopes</var>'s <a data-cite="URL#concept-url-path">path</a>, using
+        U+002F (/).
         </li>
         <li>Let <var>targetPath</var> be the <a>concatenation</a> of
-        <var>target</var>'s <a data-cite="!URL#concept-url-path">path</a>,
-        using U+002F (/).
+        <var>target</var>'s <a data-cite="URL#concept-url-path">path</a>, using
+        U+002F (/).
         </li>
         <li>If <var>target</var> is <a>same origin</a> as <var>scope</var> and
         <var>targetPath</var> starts with <var>scopePath</var>, return
@@ -861,21 +861,21 @@
         <code>/prefix-of/resource.html</code> will match an app with scope
         <code>/prefix</code>, even though the path segment name is not an exact
         match). This is intentional for consistency with <a data-cite=
-        "!SERVICE-WORKERS-1#scope-match-algorithm">Service Workers</a>. To
-        avoid unexpected behavior, use a scope ending in a <code>/</code>.
+        "SERVICE-WORKERS-1#scope-match-algorithm">Service Workers</a>. To avoid
+        unexpected behavior, use a scope ending in a <code>/</code>.
       </div>
       <p>
         If the <a>application context</a>'s <a data-cite=
-        "!HTML#active-document">active document</a>'s <a data-cite=
-        "!DOM#concept-document-url">URL</a> is not <a data-lt=
+        "HTML#active-document">active document</a>'s <a data-cite=
+        "DOM#concept-document-url">URL</a> is not <a data-lt=
         "within-scope-manifest">within scope</a> of the <a>application
         context</a>'s manifest, the user agent SHOULD show a prominent UI
-        element indicating the <a data-cite=
-        "!DOM#concept-document-url">document URL</a>, or at least its
-        <a>origin</a>, including whether it is served over a secure connection.
-        This UI SHOULD differ from any UI used when the <a data-cite=
-        "!DOM#concept-document-url">document URL</a> is <a>within scope</a>, in
-        order to make it obvious that the user is navigating off scope.
+        element indicating the <a data-cite="DOM#concept-document-url">document
+        URL</a>, or at least its <a>origin</a>, including whether it is served
+        over a secure connection. This UI SHOULD differ from any UI used when
+        the <a data-cite="DOM#concept-document-url">document URL</a> is
+        <a>within scope</a>, in order to make it obvious that the user is
+        navigating off scope.
       </p>
       <div class="note">
         <p>
@@ -966,8 +966,8 @@
         missing, or if there is no valid <a data-link-for=
         "WebAppManifest">display</a> member, the user agent uses the
         <a>browser</a> <a>display mode</a> as the <a>default display mode</a>.
-        As such, the user agent is REQUIRED to support the <a>browser</a>
-        <a>display mode</a>.
+        As such, the user agent MUST support the <a>browser</a> <a>display
+        mode</a>.
       </p>
       <p>
         Each <a>display mode</a>, except <code>browser</code>, has a
@@ -1349,9 +1349,8 @@
           <li>If <var>response</var> is a <a>network error</a>, terminate this
           algorithm.
           </li>
-          <li>Let <var>text</var> be the result of <a>UTF-8 decoding</a> <var>
-            response</var>'s <a data-cite=
-            "!FETCH#concept-request-body">body</a>.
+          <li>Let <var>text</var> be <a>UTF-8 decode</a> <var>response</var>'s
+          <a data-cite="FETCH#concept-request-body">body</a>.
           </li>
           <li>Let <var>manifest</var> be the result of running <a>processing a
           manifest</a> given <var>text</var>, <var>manifest URL</var>, and the
@@ -1461,16 +1460,15 @@
         </p>
         <ol>
           <li>Let <var>json</var> be the result of <a data-cite=
-          "!ECMASCRIPT#sec-json.parse">parsing</a> <var>text</var>. If
-          <a data-cite="!ECMASCRIPT#sec-json.parse">parsing</a> throws an
-          error:
+          "ECMASCRIPT#sec-json.parse">parsing</a> <var>text</var>. If
+          <a data-cite="ECMASCRIPT#sec-json.parse">parsing</a> throws an error:
             <ol>
               <li>
                 <a>Issue a developer warning</a> with any details pertaining to
                 the JSON parsing error.
               </li>
               <li>Set <var>json</var> to be the result of <a data-cite=
-              "!ECMASCRIPT#sec-15.12.2">parsing</a> the <a>string</a>
+              "ECMASCRIPT#sec-15.12.2">parsing</a> the <a>string</a>
               <code>"{}"</code>.
               </li>
             </ol>
@@ -1482,7 +1480,7 @@
                 an object.
               </li>
               <li>Set <var>json</var> to be the result of <a data-cite=
-              "!ECMASCRIPT#sec-15.12.2">parsing</a> the <a>string</a>
+              "ECMASCRIPT#sec-15.12.2">parsing</a> the <a>string</a>
               <code>"{}"</code>.
               </li>
             </ol>
@@ -2582,8 +2580,8 @@
           </li>
           <li>Let <var>value</var> be <var>image</var>["purpose"].
           </li>
-          <li>Let <a>list</a> <var>keywords</var> be the result of
-          <a>splitting</a> <var>value</var> on spaces.
+          <li>Let <a>list</a> <var>keywords</var> be the result of <a>split on
+          ASCII whitespace</a> <var>value</var>.
           </li>
           <li>If <var>keywords</var> is empty, then <a data-lt=
           "set-append">append</a> <code>"any"</code> to <var>set</var>.
@@ -3762,11 +3760,11 @@
         <li>[[URL]] defines the following terms:
           <ul>
             <li>
-              <dfn><a data-cite="!URL#concept-url">URL</a></dfn>
+              <dfn data-cite="URL#concept-url">URL</dfn>
             </li>
             <li>
-              <dfn data-lt="parse|parsing|URL parsing"><a data-cite=
-              "!URL#concept-url-parser">URL parser</a></dfn>
+              <dfn data-cite="URL#concept-url-parser" data-lt=
+              "parse|parsing|URL parsing">URL parser</dfn>
             </li>
           </ul>
         </li>
@@ -3774,12 +3772,12 @@
           <ul>
             <li>
               <dfn data-cite=
-              "!SCREEN-ORIENTATION#dfn-default-orientation">default
+              "SCREEN-ORIENTATION#dfn-default-orientation">default
               orientation</dfn>
             </li>
             <li>
               <dfn data-cite=
-              "!SCREEN-ORIENTATION#dom-orientationlocktype">OrientationLockType</dfn>
+              "SCREEN-ORIENTATION#dom-orientationlocktype">OrientationLockType</dfn>
             </li>
           </ul>
         </li>
@@ -3795,15 +3793,15 @@
           <ul>
             <li>
               <a data-cite=
-              "!CSP3#directive-manifest-src"><dfn>manifest-src</dfn>
+              "CSP3#directive-manifest-src"><dfn>manifest-src</dfn>
               directive</a>
             </li>
             <li>
-              <a data-cite="!CSP3#directive-img-src"><dfn>img-src</dfn>
+              <a data-cite="CSP3#directive-img-src"><dfn>img-src</dfn>
               directive</a>
             </li>
             <li>
-              <a data-cite="!CSP3#directive-default-src"><dfn>default-src</dfn>
+              <a data-cite="CSP3#directive-default-src"><dfn>default-src</dfn>
               directive</a>
             </li>
           </ul>
@@ -3811,7 +3809,7 @@
         <li>[[SECURE-CONTEXTS]] defines the following terms:
           <ul>
             <li>
-              <a data-cite="!SECURE-CONTEXTS#is-origin-trustworthy"><dfn>Is
+              <a data-cite="SECURE-CONTEXTS#is-origin-trustworthy"><dfn>Is
               origin potentially trustworthy</dfn></a>
             </li>
           </ul>
@@ -3837,11 +3835,11 @@
           <ul>
             <li>
               <a data-cite=
-              "!ECMA-402#sec-isstructurallyvalidlanguagetag"><dfn>IsStructurallyValidLanguageTag</dfn></a>
+              "ECMA-402#sec-isstructurallyvalidlanguagetag"><dfn>IsStructurallyValidLanguageTag</dfn></a>
             </li>
             <li>
               <a data-cite=
-              "!ECMA-402#sec-canonicalizelanguagetag"><dfn>CanonicalizeLanguageTag</dfn></a>
+              "ECMA-402#sec-canonicalizelanguagetag"><dfn>CanonicalizeLanguageTag</dfn></a>
             </li>
           </ul>
         </li>
@@ -3849,14 +3847,14 @@
           <ul>
             <li>
               <a data-cite=
-              "!WEBIDL#invalidstateerror"><dfn>InvalidStateError</dfn></a>
+              "WEBIDL#invalidstateerror"><dfn>InvalidStateError</dfn></a>
             </li>
             <li>
               <a data-cite=
-              "!WEBIDL#notallowederror"><dfn>NotAllowedError</dfn></a>
+              "WEBIDL#notallowederror"><dfn>NotAllowedError</dfn></a>
             </li>
             <li>
-              <a data-cite="!WEBIDL#es-dictionary"><dfn data-lt=
+              <a data-cite="WEBIDL#es-dictionary"><dfn data-lt=
               "to idl dictionary value">converted to IDL dictionary
               value</dfn></a>
             </li>
@@ -3865,11 +3863,11 @@
         <li>[[DOM]] defines the following terms:
           <ul>
             <li>
-              <a data-cite="!DOM#event"><dfn><code>Event</code>
+              <a data-cite="DOM#event"><dfn><code>Event</code>
               interface</dfn></a>
             </li>
             <li>
-              <a data-cite="!DOM#concept-event-fire"><dfn data-lt=
+              <a data-cite="DOM#concept-event-fire"><dfn data-lt=
               "fire|fired|firing">Fire an event</dfn></a>
             </li>
           </ul>
@@ -3877,214 +3875,204 @@
         <li>[[FETCH]] defines the following terms:
           <ul data-sort="">
             <li>
-              <dfn data-cite="!FETCH#concept-fetch">Fetch</dfn>
+              <dfn data-cite="FETCH#concept-fetch">Fetch</dfn>
             </li>
             <li>
-              <dfn data-cite="!FETCH#concept-response">Response</dfn>
+              <dfn data-cite="FETCH#concept-response">Response</dfn>
             </li>
             <li>
-              <dfn data-cite="!FETCH#concept-request">Request</dfn>
+              <dfn data-cite="FETCH#concept-request">Request</dfn>
             </li>
             <li>
-              <dfn data-cite="!FETCH#concept-network-error">Network error</dfn>
+              <dfn data-cite="FETCH#concept-network-error">Network error</dfn>
             </li>
             <li>
-              <dfn data-cite="!FETCH#concept-request-context">Context</dfn>
+              <dfn data-cite="FETCH#concept-request-context">Context</dfn>
             </li>
           </ul>
         </li>
         <li>[[HTML]] defines the following terms:
           <ul>
             <li>
-              <a data-cite=
-              "HTML/parsing.html#completely-loaded"><dfn>completely
-              loaded</dfn></a>
+              <dfn data-cite="HTML/parsing.html#completely-loaded">completely
+              loaded</dfn>
             </li>
             <li>
-              <a data-cite="!HTML#allowed-to-navigate"><dfn>allowed to
+              <a data-cite="HTML#allowed-to-navigate"><dfn>allowed to
               navigate</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#external-resource-link"><dfn data-lt=
+              <a data-cite="HTML#external-resource-link"><dfn data-lt=
               "External Resource">external Resource link</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#top-level-browsing-context"><dfn>top-level
+              <a data-cite="HTML#top-level-browsing-context"><dfn>top-level
               browsing context</dfn></a>
             </li>
             <li>
-              <dfn data-cite="!HTML#concept-origin-opaque">opaque origin</dfn>
+              <dfn data-cite="HTML#concept-origin-opaque">opaque origin</dfn>
             </li>
             <li>
-              <a data-cite="!HTML#same-origin"><dfn>same-origin</dfn></a>
+              <a data-cite="HTML#same-origin"><dfn>same-origin</dfn></a>
             </li>
             <li>
               <a data-cite=
-              "!HTML#unordered-set-of-unique-space-separated-tokens"><dfn>unordered
+              "HTML#unordered-set-of-unique-space-separated-tokens"><dfn>unordered
               set of unique space-separated tokens</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#navigate"><dfn data-lt=
+              <a data-cite="HTML#navigate"><dfn data-lt=
               "navigated|navigate|navigation">navigate algorithm</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#replacement-enabled"><dfn>replacement
+              <a data-cite="HTML#replacement-enabled"><dfn>replacement
               enabled</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#the-link-element"><dfn data-lt=
+              <a data-cite="HTML#the-link-element"><dfn data-lt=
               "link"><code>link</code> element</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#linkTypes"><dfn>link type</dfn></a>
+              <a data-cite="HTML#linkTypes"><dfn>link type</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#attr-link-media"><dfn>media</dfn></a>
+              <a data-cite="HTML#attr-link-media"><dfn>media</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#delay-the-load-event"><dfn>delay the load
+              <a data-cite="HTML#delay-the-load-event"><dfn>delay the load
               event</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#tree-order"><dfn>tree order</dfn></a>
+              <a data-cite="HTML#tree-order"><dfn>tree order</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#attr-link-rel"><dfn><code>rel</code>
+              <a data-cite="HTML#attr-link-rel"><dfn><code>rel</code>
               attribute</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#concept-link-obtain"><dfn>obtain a
+              <a data-cite="HTML#concept-link-obtain"><dfn>obtain a
               resource</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#networking-task-source"><dfn>networking task
+              <a data-cite="HTML#networking-task-source"><dfn>networking task
               source</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#queue-a-task"><dfn>queue a task</dfn></a>
+              <a data-cite="HTML#queue-a-task"><dfn>queue a task</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#origin"><dfn>origin</dfn></a>
+              <a data-cite="HTML#origin"><dfn>origin</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#the-a-element"><dfn data-lt=
-              "a"><code>a</code> element</dfn></a>
+              <a data-cite="HTML#the-a-element"><dfn data-lt="a"><code>a</code>
+              element</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#the-meta-element"><dfn data-lt=
+              <a data-cite="HTML#the-meta-element"><dfn data-lt=
               "meta"><code>meta</code> element</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#the-area-element"><dfn data-lt=
+              <a data-cite="HTML#the-area-element"><dfn data-lt=
               "area"><code>area</code> element</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#attr-meta-name"><dfn><code>name</code>
+              <a data-cite="HTML#attr-meta-name"><dfn><code>name</code>
               attribute</dfn></a>
             </li>
             <li>
               <a data-cite=
-              "!HTML#meta-application-name"><dfn>application-name</dfn></a>
+              "HTML#meta-application-name"><dfn>application-name</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#the-title-element"><dfn><code>title</code>
+              <a data-cite="HTML#the-title-element"><dfn><code>title</code>
               element</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#rel-icon"><dfn>icon link type</dfn></a>
+              <a data-cite="HTML#rel-icon"><dfn>icon link type</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#ascii-case-insensitive"><dfn>ASCII
+              <a data-cite="HTML#ascii-case-insensitive"><dfn>ASCII
               case-insensitive</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#attr-link-sizes-any"><dfn>any link
+              <a data-cite="HTML#attr-link-sizes-any"><dfn>any link
               size</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#valid-non-negative-integer"><dfn>valid
+              <a data-cite="HTML#valid-non-negative-integer"><dfn>valid
               non-negative integer</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#attr-link-sizes"><dfn>sizes</dfn></a>
+              <a data-cite="HTML#attr-link-sizes"><dfn>sizes</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#concept-link-type-sniffing"><dfn>determining
+              <a data-cite="HTML#concept-link-type-sniffing"><dfn>determining
               the type of the resource</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#valid-mime-type"><dfn>valid MIME
+              <a data-cite="HTML#valid-mime-type"><dfn>valid MIME
               type</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#same-origin"><dfn>same origin</dfn></a>
+              <a data-cite="HTML#same-origin"><dfn>same origin</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#the-element's-base-url"><dfn>the element's
+              <a data-cite="HTML#the-element's-base-url"><dfn>the element's
               base URL</dfn></a>.
             </li>
             <li>
-              <a data-cite="!HTML#queue-a-post-load-task"><dfn>queue a
-              post-load task</dfn></a>
+              <a data-cite="HTML#queue-a-post-load-task"><dfn>queue a post-load
+              task</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#event-handler-idl-attributes"><dfn data-lt=
+              <a data-cite="HTML#event-handler-idl-attributes"><dfn data-lt=
               "event handler attributes">Event handler IDL attribute</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#in-parallel"><dfn>in parallel</dfn></a>
+              <a data-cite="HTML#in-parallel"><dfn>in parallel</dfn></a>
             </li>
             <li>
-              <a data-cite="!HTML#workertype"><dfn>WorkerType</dfn></a>
+              <a data-cite="HTML#workertype"><dfn>WorkerType</dfn></a>
             </li>
           </ul>
         </li>
         <li>[[INFRA]] defines the following terms:
           <ul>
             <li>
-              <dfn data-cite="!INFRA#ascii-lowercase" data-lt=
-              "lowercased">ASCII lowercase</dfn>
+              <dfn data-cite="INFRA#ascii-lowercase" data-lt="lowercased">ASCII
+              lowercase</dfn>
             </li>
             <li>
-              <dfn data-cite=
-              "!INFRA#strip-leading-and-trailing-ascii-whitespace" data-lt=
-              "trim">strip leading and trailing ASCII whitespace</dfn>
+              <dfn data-cite="INFRA#list">list</dfn>
             </li>
             <li>
-              <dfn data-cite="!INFRA/#split-on-ascii-whitespace" data-lt=
-              "splitting">split a string input on ASCII whitespace</dfn>
+              <dfn data-cite="INFRA#ordered-set">set</dfn>
             </li>
             <li>
-              <dfn data-cite="!INFRA#list">list</dfn>
+              <dfn data-cite="INFRA#set-replace">replace</dfn>
             </li>
             <li>
-              <dfn data-cite="!INFRA#ordered-set">set</dfn>
+              <dfn data-cite="INFRA#list-iterate">for each</dfn> (for list)
             </li>
             <li>
-              <dfn data-cite="!INFRA#set-replace">replace</dfn>
+              <dfn data-cite="INFRA#iteration-continue">continue</dfn>
             </li>
             <li>
-              <dfn data-cite="!INFRA#list-iterate">for each</dfn> (for list)
+              <dfn data-cite="INFRA#list-contain">contains</dfn>
             </li>
             <li>
-              <dfn data-cite="!INFRA#iteration-continue">continue</dfn>
+              <dfn data-cite="INFRA#list-is-empty">is empty</dfn>
             </li>
             <li>
-              <dfn data-cite="!INFRA#list-contain">contains</dfn>
-            </li>
-            <li>
-              <dfn data-cite="!INFRA#list-is-empty">is empty</dfn>
-            </li>
-            <li>
-              <dfn data-cite="!INFRA#list-append" data-lt="list-append">append
+              <dfn data-cite="INFRA#list-append" data-lt="list-append">append
               (for list)</dfn>
             </li>
             <li>
-              <dfn data-cite="!INFRA#set-append" data-lt="set-append">append
+              <dfn data-cite="INFRA#set-append" data-lt="set-append">append
               (for set)</dfn>
             </li>
             <li>
-              <dfn data-cite="!INFRA#string-concatenate" data-lt=
+              <dfn data-cite="INFRA#string-concatenate" data-lt=
               "concatenation">concatenate</dfn>
             </li>
           </ul>
@@ -4092,7 +4080,7 @@
         <li>[[ENCODING]] defines the following terms:
           <ul>
             <li>
-              <dfn data-cite="!ENCODING#utf-8-decode" data-lt=
+              <dfn data-cite="ENCODING#utf-8-decode" data-lt=
               "utf-8 decoding">UTF-8 decode</dfn>
             </li>
           </ul>
@@ -4101,11 +4089,11 @@
           <ul>
             <li>
               <a data-cite=
-              "!ECMASCRIPT#sec-ecmascript-data-types-and-values"><dfn>Type</dfn>(<var>x</var>)</a>
+              "ECMASCRIPT#sec-ecmascript-data-types-and-values"><dfn>Type</dfn>(<var>x</var>)</a>
             </li>
           </ul>
         </li>
       </ul>
-    </section><!-- All references will appear here -->
+    </section>
   </body>
 </html>
