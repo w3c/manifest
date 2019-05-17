@@ -1063,6 +1063,62 @@
       </p>
       <section>
         <h3>
+          Navigation UI
+        </h3>
+        <p>
+          A <dfn>navigation UI mode</dfn> represents whether the web application
+          would like the user agent to display a navigation UI, reducing the
+          screen space used by the content. The <a>navigation UI mode</a> MUST
+          be ignored when the <a>display mode</a> is <a>browser</a>. The user
+          agent MAY ignore the <a>navigation UI mode</a> for other <a>display
+          mode</a>.
+        </p>
+        <p>
+          When the <a data-link-for="WebAppManifest">navigation_ui</a> member is
+          missing, or if there is no valid <a data-link-for=
+          "WebAppManifest">navigation_ui</a> member, the user agent uses the
+          <a data-link-for="NavigationUIModeType">auto</a> <a>navigation ui
+          mode</a> as the <a>navigation ui mode</a>.
+        </p>
+        <p>
+          The <a data-link-for="NavigationUIModeType">auto</a> <a>navigation ui
+          mode</a> allows the user agent to use either <a
+          data-link-for="NavigationUIModeType">show</a> or <a
+          data-link-for="NavigationUIModeType">hide</a>. The user agent can pick
+          a different default value depending on the web application <a>display
+          mode</a>.
+        </p>
+        <p>
+          The <dfn>navigation UI modes values</dfn> defined by
+          <dfn>NavigationUIModeType</dfn> are as follows:
+        </p>
+        <dl>
+            <dt>
+              <dfn data-dfn-for="NavigationUIModeType">show</dfn>
+            </dt>
+            <dd>
+              Opens the web application with a navigation UI if available on the
+              system. This mode should favor navigation simplicity over screen
+              space usage.
+            </dd>
+            <dt>
+              <dfn data-dfn-for="NavigationUIModeType">hide</dfn>
+            </dt>
+            <dd>
+              Opens the web application without a navigation UI. This mode
+              should save screen space usage over navigation simplicity.
+            </dd>
+            <dt>
+              <dfn data-dfn-for="NavigationUIModeType">auto</dfn>
+            </dt>
+            <dd>
+              Open the web application in any of the two modes above, leaving
+              the choice to the user agent.
+            </dd>
+          </dl>
+      </section>
+      <section>
+        <h3>
           Privacy and security considerations
         </h3>
         <p>
@@ -1582,6 +1638,7 @@
              DOMString iarc_rating_id;
              USVString start_url;
              DisplayModeType display = "browser";
+             NavigationUIModeType navigation_ui = "auto";
              OrientationLockType orientation;
              USVString theme_color;
              USVString background_color;
@@ -1899,6 +1956,24 @@
           The <dfn>display</dfn> member is a <a>DisplayModeType</a>, whose
           value is one of <a>display modes values</a>. The item represents the
           developer's preferred <a>display mode</a> for the web application.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <code>navigation_ui</code> member
+        </h3>
+        <pre class="idl">
+          enum NavigationUIModeType {
+            "show",
+            "hide",
+            "auto"
+          };
+        </pre>
+        <p>
+          The <dfn>navigation_ui</dfn> member is a <a>NavigationUIModeType</a>,
+          whose value is one of <a>navigation UI modes values</a>. The item
+          represents the developer's preferred <a>navigation UI mode</a> state
+          for the web application.
         </p>
       </section>
       <section>
