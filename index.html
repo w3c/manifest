@@ -3094,7 +3094,7 @@
           <code>url</code> member
         </h3>
         <p>
-          The <dfn>url</dfn> member of a <a>ShortcutItem</a> is a URL to
+          The <dfn>url</dfn> member of a <a>ShortcutItem</a> is a <a>URL</a> to
           which a user agent should navigate when the associated shortcut is
           activated.
         </p>
@@ -3102,14 +3102,14 @@
           The steps for <dfn>processing the <code>url</code> member of a
           shortcut</dfn> are given by the following algorithm. The algorithm
           takes a <a>ShortcutItem</a> <var>url</var>, and a <var>manifest
-          URL</var>, which is the URL from which the <var>manifest</var>
-          was fetched. This algorithm will return a URL or
+          URL</var>, which is the <a>URL</a> from which the <var>manifest</var>
+          was fetched. This algorithm will return a <a>URL</a> or
           <code>undefined</code>.
         </p>
         <ol>
           <li>Let <var>value</var> be <var>url</var>
           </li>
-          <li>If <a>Type</a>(<var>value</var>) it not String, return
+          <li>If <a>Type</a>(<var>value</var>) it not <a>String</a>, return
           <code>undefined</code>.
           </li>
           <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
@@ -3124,7 +3124,7 @@
         <p>
           The <a>params</a> member of an <a>ShortcutItem</a> is a 
           <a>RequestParams</a> object defining the keys and values that should be added to the
-          <var>url</var> of a shortcut before navigation occurs.
+          <var>url</var> of a shortcut before navigation occurs. See also: <a>launching a shortcut</a>.
         </p>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
@@ -3139,7 +3139,7 @@
       </section>
       <section>
         <h3>
-          Launching a shortcut
+          <dfn>Launching a shortcut</dfn>
         </h3>
         <p>
           When <a>ShortcutItem</a> <var>shortcut</var> having
@@ -3164,12 +3164,10 @@
             Append "Content-Type"/"application/x-www-form-urlencoded" to
             <var>header list</var>.
           </li>
-        </ol>
-        <ul>
           <li>Let <var>body</var> be null.
           </li>
           <li>Let <var>browsing context</var> be the result of creating a
-          <a data-cite="!HTML/#top-level-browsing-context">new top-level browsing context</a>.
+          new <a>top-level browsing context</a>.
           </li>
           <li>
             <a>Navigate</a> <var>browsing context</var> to a new <a>request</a>
