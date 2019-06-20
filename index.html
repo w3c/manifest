@@ -1513,9 +1513,9 @@
           <var>manifest</var>["<a>serviceworker</a>"], <var>manifest URL</var>,
           and <var>serviceworker</var>.
           </li>
-          <li>Set <var>manifest</var>["<a>shortcuts</a>"] to the result of running
-          <a>processing the <code>shortcuts</code> member</a> given <var>manifest URL</var>, and
-          <code>"shortcuts"</code>.
+          <li>Set <var>manifest</var>["<a>shortcuts</a>"] to the result of
+          running <a>processing the <code>shortcuts</code> member</a> given
+          <var>manifest URL</var>, and <code>"shortcuts"</code>.
           </li>
           <li>
             <a>Extension point</a>: process any proprietary and/or other
@@ -2374,36 +2374,36 @@
         <p>
           The <dfn>shortcuts</dfn> member is an <a>array</a> of
           <a>ShortcutItem</a>s that provide access to key tasks within a web
-          application. For example, they can be used to link directly to a user’s
-          timeline within a social media application or their recent orders in an
-          ecommerce context.
+          application. For example, they can be used to link directly to a
+          user’s timeline within a social media application or their recent
+          orders in an ecommerce context.
         </p>
         <p>
           A developer may provide as many shortcuts as they like, but the user
           agent and operating system will decide how many are presented to the
           user. For this reason, it is recommended that developers order their
-          shortcuts by priority, with the most critical shortcuts appearing first
-          in the array.
+          shortcuts by priority, with the most critical shortcuts appearing
+          first in the array.
         </p>
         <p>
-          The steps for <dfn>processing the <code>shortcuts</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes a <a data-cite=
+          The steps for <dfn>processing the <code>shortcuts</code> member</dfn>
+          are given by the following algorithm. The algorithm takes a
+          <a data-cite=
           "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;
-          <var>shortcuts</var> as an argument. This algorithm
-          returns an <a data-cite=
+          <var>shortcuts</var> as an argument. This algorithm returns an
+          <a data-cite=
           "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;.
         </p>
         <p>
-          A user agent MUST expose shortcuts via interactions that are consistent
-          with exposure of an application icon’s context menu in the host
-          operating system (e.g., right click, long press). A user agent MUST
-          render the shortcuts in the same order as they are provided in the
-          manifest. A user agent SHOULD represent the shortcuts in a manner
+          A user agent MUST expose shortcuts via interactions that are
           consistent with exposure of an application icon’s context menu in the
-          host operating system. A user agent MAY truncate the list of shortcuts
-          presented in order to remain consistent with conventions of the host
-          operating system.
+          host operating system (e.g., right click, long press). A user agent
+          MUST render the shortcuts in the same order as they are provided in
+          the manifest. A user agent SHOULD represent the shortcuts in a manner
+          consistent with exposure of an application icon’s context menu in the
+          host operating system. A user agent MAY truncate the list of
+          shortcuts presented in order to remain consistent with conventions of
+          the host operating system.
         </p>
         <div class="example">
           <p>
@@ -2412,11 +2412,12 @@
             <samp>https://example.com/manifest.webmanifest</samp>:
           </p>
           <ul>
-            <li>The first shortcut would be displayed with the text "Play Later".
-            If the operating system supports icons for context menu items and it
-            also supports SVG images for that purpose, the user agent would
-            present <samp>https://example.com/icons/play-later.svg</samp> next to
-            the text. When launched, the user agent would instantiate a new
+            <li>The first shortcut would be displayed with the text "Play
+            Later". If the operating system supports icons for context menu
+            items and it also supports SVG images for that purpose, the user
+            agent would present
+            <samp>https://example.com/icons/play-later.svg</samp> next to the
+            text. When launched, the user agent would instantiate a new
             <a>top-level browsing context</a> and navigate to
             <samp>https://example.com/play-later</samp>.
             </li>
@@ -2495,9 +2496,9 @@
         <p>
           To <a>fetch</a> the image associated with an <a>ImageResource</a>,
           the user agent MUST run the <dfn>steps to fetch an image
-          resource</dfn>. The algorithm takes an <var>image URL</var>
-          (<a href="#dom-imageresource-src">src</a>), the <var>manifest URL</var>, and the
-          <var>document</var> ({{code}}) from which the manifest was
+          resource</dfn>. The algorithm takes an <var>image URL</var> (<a href=
+          "#dom-imageresource-src">src</a>), the <var>manifest URL</var>, and
+          the <var>document</var> ({{code}}) from which the manifest was
           linked. It returns a <a>Response</a>:
         </p>
         <ol>
@@ -3122,9 +3123,10 @@
           <dfn>params</dfn> member
         </h3>
         <p>
-          The <a>params</a> member of an <a>ShortcutItem</a> is a 
-          <a>RequestParams</a> object defining the keys and values that should be added to the
-          <var>url</var> of a shortcut before navigation occurs. See also: <a>launching a shortcut</a>.
+          The <a>params</a> member of an <a>ShortcutItem</a> is a
+          <a>RequestParams</a> object defining the keys and values that should
+          be added to the <var>url</var> of a shortcut before navigation
+          occurs. See also: <a>launching a shortcut</a>.
         </p>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
@@ -3149,7 +3151,8 @@
         <ol>
           <li>Let <var>url</var> be a copy of <var>shortcut.url</var>.
           </li>
-          <li>Let <var>header list</var> be a new empty <a data-xref-for="request">header list</a>.
+          <li>Let <var>header list</var> be a new empty <a data-xref-for=
+          "request">header list</a>.
           </li>
           <li>If <var>shortcut.params</var>:
             <ol>
@@ -3157,24 +3160,24 @@
               <a>application/x-www-form-urlencoded</a> serializer with
               <var>shortcut.params</var>
               </li>
-              <li>Set <var>url</var>'s query component to <var>query</var>.</li>
+              <li>Set <var>url</var>'s query component to <var>query</var>.
+              </li>
             </ol>
           </li>
-          <li>
-            Append "Content-Type"/"application/x-www-form-urlencoded" to
-            <var>header list</var>.
+          <li>Append "Content-Type"/"application/x-www-form-urlencoded" to
+          <var>header list</var>.
           </li>
           <li>Let <var>body</var> be null.
           </li>
-          <li>Let <var>browsing context</var> be the result of creating a
-          new <a>top-level browsing context</a>.
+          <li>Let <var>browsing context</var> be the result of creating a new
+          <a>top-level browsing context</a>.
           </li>
           <li>
             <a>Navigate</a> <var>browsing context</var> to a new <a>request</a>
             whose url is <var>url</var>, header list is <var>header list</var>,
             and body is <var>body</var>.
           </li>
-        </ul>
+        </ol>
       </section>
     </section>
     <section>
