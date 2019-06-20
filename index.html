@@ -3047,9 +3047,9 @@
           USVString short_name;
           USVString description;
           required USVString url;
-          dictionary&lt;RequestParams&gt; params;
+          RequestParams params;
           sequence&lt;ImageResource&gt; icons;
-        }
+        };
       </pre>
       <p>
         Each <a>ShortcutItem</a> represents a link to a key task or page within
@@ -3091,10 +3091,10 @@
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
         <h3>
-          <dfn>url</dfn> member
+          <code>url</code> member
         </h3>
         <p>
-          The <a data-cite="!URL">url</a> member of a <a>ShortcutItem</a> is a <a>URL</a> to
+          The <dfn>url</dfn> member of a <a>ShortcutItem</a> is a URL to
           which a user agent should navigate when the associated shortcut is
           activated.
         </p>
@@ -3102,8 +3102,8 @@
           The steps for <dfn>processing the <code>url</code> member of a
           shortcut</dfn> are given by the following algorithm. The algorithm
           takes a <a>ShortcutItem</a> <var>url</var>, and a <var>manifest
-          URL</var>, which is the <a>URL</a> from which the <var>manifest</var>
-          was fetched. This algorithm will return a <a>URL</a> or
+          URL</var>, which is the URL from which the <var>manifest</var>
+          was fetched. This algorithm will return a URL or
           <code>undefined</code>.
         </p>
         <ol>
@@ -3183,6 +3183,10 @@
       <h2>
         <dfn>RequestParams</dfn>
       </h2>
+      <pre class="idl">
+        dictionary RequestParams {
+        };
+      </pre>
       <p>
         Each <a>RequestParams</a> dictionary represents data to be passed along
         with a request.
