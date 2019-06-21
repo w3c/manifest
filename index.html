@@ -1495,12 +1495,12 @@
           <var>manifest</var>["<a>categories</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>icons</a>"] to the result of running
-          <a>processing <code>ImageResource</code> members</a> given
+          <a>processing `ImageResource` members</a> given
           <var>manifest</var>["<a>icons</a>"], <var>manifest URL</var>, and
           <code>"icons"</code>.
           </li>
           <li>Set <var>manifest</var>["<a>screenshots</a>"] to the result of
-          running <a>processing <code>ImageResource</code> members</a> given
+          running <a>processing `ImageResource` members</a> given
           <var>manifest</var>["<a>screenshots</a>"], <var>manifest URL</var>,
           and <code>"screenshots"</code>.
           </li>
@@ -2392,7 +2392,11 @@
           "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;
           <var>shortcuts</var> as an argument. This algorithm returns an
           <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;.
+          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;. For
+          each <var>shortcut</var> (<a>ShortcutItem</a>) in the sequence, set
+          <var>shortcut.icons</var> to the result of running <a>processing
+          `ImageResource` members</a> given <var>shortcut.icons</var> and
+          <var>manifest URL</var>.
         </p>
         <p>
           A user agent MUST expose shortcuts via interactions that are
@@ -3154,8 +3158,8 @@
           <li>Let <var>header list</var> be a new empty <a data-xref-for=
           "request">header list</a>.
           </li>
-          <li>If <var>shortcut.params</var> <a data-cite=
-          "infra/#list-contain">exists</a>:
+          <li>If <var>shortcut.params</var> <a data-cite="infra/#list-contain">
+            exists</a>:
             <ol>
               <li>Let <var>query</var> be the result of running the
               <a>application/x-www-form-urlencoded</a> serializer with
