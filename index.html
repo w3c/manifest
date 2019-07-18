@@ -2553,38 +2553,40 @@
           a <a>set</a> or failure.
         </p>
         <ol>
-          <li>Let <var>set</var> be an empty <a>set</a>.
+          <li>Let <var>purposes</var> be an empty <a>set</a>.
           </li>
-          <li>If <var>image</var> has no <code>"purpose"</code> member, then
-          <a data-lt="set-append">append</a> <code>"any"</code> to
-          <var>set</var>, and return <var>set</var>.
+          <li>If <var>image</var> has no `"purpose"` member, then
+          [=set/append=] `"any"` to <var>purposes</var>, and return
+          <var>purposes</var>.
           </li>
           <li>Let <var>value</var> be <var>image</var>["purpose"].
+          </li>
+          <li>If <a>Type</a>(<var>value</var>) it not String, return failure.
           </li>
           <li>Let <a>list</a> <var>keywords</var> be the result of <a>split on
           ASCII whitespace</a> <var>value</var>.
           </li>
-          <li>If <var>keywords</var> is empty, then <a data-lt=
-          "set-append">append</a> <code>"any"</code> to <var>set</var>.
+          <li>If <var>keywords</var> is empty, then [=set/append=] `"any"` to
+          <var>purposes</var>.
           </li>
-          <li>Otherwise, <a>for each</a> <var>keyword</var> of
+          <li>Otherwise, [=set/for each=] <var>keyword</var> of
           <var>keywords</var>:
             <ol>
               <li>Set <var>keyword</var> to <var>keyword</var>,
               <a>lowercased</a>.
               </li>
               <li>If <var>keyword</var> is not one of the <a>icon purposes</a>,
-              or <var>set</var> <a>contains</a> <var>keyword</var>, then
+              or <var>purposes</var> <a>contains</a> <var>keyword</var>, then
               <a>issue a developer warning</a> and <a>continue</a>.
               </li>
               <li>Otherwise, <a data-lt="set-append">append</a>
-              <var>keyword</var> to <var>set</var>.
+              <var>keyword</var> to <var>purposes</var>.
               </li>
             </ol>
           </li>
-          <li>If <var>set</var> <a>is empty</a>, then return failure.
+          <li>If <var>purposes</var> <a>is empty</a>, then return failure.
           </li>
-          <li>Return <var>set</var>.
+          <li>Return <var>purposes</var>.
           </li>
         </ol>
         <div class="example">
