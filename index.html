@@ -2547,42 +2547,38 @@
           be ignored.
         </p>
         <p>
-          The steps for <dfn>processing the <code>purpose</code> member of an
-          image</dfn> are given by the following algorithm. The algorithm takes
-          an <a>ImageResource</a> <var>image</var>. This algorithm will return
-          a <a>set</a> or failure.
+          The steps for <dfn>processing the `purpose` member of an image</dfn>
+          are given by the following algorithm. The algorithm takes an
+          <a>ImageResource</a> |image:ImageResource|. This algorithm returns a
+          [=set=] or failure.
         </p>
         <ol>
-          <li>If <a>Type</a>(<var>image</var>["purpose"]) it not String, or
-          <var>image</var>["purpose"] consists solely of <a>ascii
-          whitespace</a>, then return the <a>set</a> « "any" ».
+          <li>If [=Type=](|image|["purpose"]) it not String, or
+          |image|["purpose"] consists solely of [=ascii whitespace=], then
+          return the [=set=] « "any" ».
           </li>
-          <li>Let <a>list</a> <var>keywords</var> be the result of <a>split on
-          ASCII whitespace</a> <var>image</var>["purpose"].
+          <li>Let |keywords:list&lt;string&gt;| be the result of [=split on
+          ASCII whitespace=] |image|["purpose"].
           </li>
-          <li>If <var>keywords</var> is empty, then return the <a>set</a> «
-          "any" ».
+          <li>If |keywords| is empty, then return the [=set=] « "any" ».
           </li>
-          <li>Let <var>purposes</var> be the empty <a>set</a>.
+          <li>Let |purposes:set| be the empty [=set=].
           </li>
-          <li>[=set/For each=] <var>keyword</var> of <var>keywords</var>:
+          <li>[=set/For each=] |keyword:string| of |keywords|:
             <ol>
-              <li>Set <var>canonicalKeyword</var> to <a>lowercased</a>
-              <var>keyword</var>.
+              <li>Set |canonicalKeyword| to [=lowercased=] |keyword|.
               </li>
-              <li>If <var>canonicalKeyword</var> is not one of the <a>icon
-              purposes</a>, or <var>purposes</var> <a>contains</a>
-              <var>keyword</var>, then <a>issue a developer warning</a> and <a>
-                continue</a>.
+              <li>If |canonicalKeyword| is not one of the [=icon purposes=], or
+              |purposes| [=contains=] |keyword|, then [=issue a developer
+              warning=] and [=continue=].
               </li>
-              <li>Otherwise, [=set/append=] <var>canonicalKeyword</var> to
-              <var>purposes</var>.
+              <li>Otherwise, [=set/append=] |canonicalKeyword| to |purposes|.
               </li>
             </ol>
           </li>
-          <li>If <var>purposes</var> <a>is empty</a>, then return failure.
+          <li>If |purposes| [=is empty=], then return failure.
           </li>
-          <li>Return <var>purposes</var>.
+          <li>Return |purposes|.
           </li>
         </ol>
         <div class="example">
