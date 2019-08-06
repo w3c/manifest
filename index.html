@@ -2553,34 +2553,29 @@
           a <a>set</a> or failure.
         </p>
         <ol>
-          <li>Let <var>purposes</var> be an empty <a>set</a>.
-          </li>
-          <li>If <var>image</var> has no `"purpose"` member, then
-          [=set/append=] `"any"` to <var>purposes</var>, and return
-          <var>purposes</var>.
-          </li>
-          <li>Let <var>value</var> be <var>image</var>["purpose"].
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) it not String, return failure.
+          <li>If <a>Type</a>(<var>image</var>["purpose"]) it not String, then
+          return the <a>set</a> « "any" ».
           </li>
           <li>Let <a>list</a> <var>keywords</var> be the result of <a>split on
-          ASCII whitespace</a> <var>value</var>.
+          ASCII whitespace</a> <var>image</var>["purpose"].
           </li>
-          <li>If <var>keywords</var> is empty, then [=set/append=] `"any"` to
-          <var>purposes</var>.
+          <li>If <var>keywords</var> is empty, then return the <a>set</a> «
+          "any" ».
           </li>
-          <li>Otherwise, [=set/for each=] <var>keyword</var> of
-          <var>keywords</var>:
+          <li>Let <var>purposes</var> be the empty <a>set</a>.
+          </li>
+          <li>[=set/For each=] <var>keyword</var> of <var>keywords</var>:
             <ol>
-              <li>Set <var>keyword</var> to <var>keyword</var>,
-              <a>lowercased</a>.
+              <li>Set <var>canonicalKeyword</var> to <a>lowercased</a>
+              <var>keyword</var>.
               </li>
-              <li>If <var>keyword</var> is not one of the <a>icon purposes</a>,
-              or <var>purposes</var> <a>contains</a> <var>keyword</var>, then
-              <a>issue a developer warning</a> and <a>continue</a>.
+              <li>If <var>canonicalKeyword</var> is not one of the <a>icon
+              purposes</a>, or <var>purposes</var> <a>contains</a>
+              <var>keyword</var>, then <a>issue a developer warning</a> and <a>
+                continue</a>.
               </li>
-              <li>Otherwise, <a data-lt="set-append">append</a>
-              <var>keyword</var> to <var>purposes</var>.
+              <li>Otherwise, [=set/append=] <var>canonicalKeyword</var> to
+              <var>purposes</var>.
               </li>
             </ol>
           </li>
