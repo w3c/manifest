@@ -2553,8 +2553,9 @@
           a <a>set</a> or failure.
         </p>
         <ol>
-          <li>If <a>Type</a>(<var>image</var>["purpose"]) it not String, then
-          return the <a>set</a> « "any" ».
+          <li>If <a>Type</a>(<var>image</var>["purpose"]) it not String, or
+          <var>image</var>["purpose"] consists solely of <a>ascii
+          whitespace</a>, then return the <a>set</a> « "any" ».
           </li>
           <li>Let <a>list</a> <var>keywords</var> be the result of <a>split on
           ASCII whitespace</a> <var>image</var>["purpose"].
