@@ -1336,13 +1336,18 @@
           value of the <code>href</code> attribute, relative to <a>the
           element's base URL</a>. If parsing fails, then abort these steps.
           </li>
-          <li>Let <var>request</var> be a new [[FETCH]] <a>request</a>, whose
-          URL is <var>manifest URL</var>, and whose <a>context</a> is
-          "<code>manifest</code>".
+          <li>Let |request:Request| be a new <a>Request</a>.
           </li>
-          <li>If the <var>manifest link</var>'s <code>crossOrigin</code>
-          attribute's value is '<code>use-credentials</code>', then set
-          <var>request</var>'s credentials to '<code>include</code>'.
+          <li>Set |request|'s [=request/URL=] to |manifest URL|.
+          </li>
+          <li>Set |request|'s [=request/initiator=] to "`manifest`".
+          </li>
+          <li>If the |manifest link|'s {{HTMLLinkElement/crossOrigin}}
+          attribute's value is "`use-credentials`", then set |request|'s
+          [=request/credentials mode=] to "`include`". Otherwise, set
+          |request|'s [=request/credentials mode=] to "`omit`".
+          </li>
+          <li>Set |request|'s [=request/mode=] is "`cors`".
           </li>
           <li>Await the result of performing a <a>fetch</a> with
           <var>request</var>, letting <var>response</var> be the result.
