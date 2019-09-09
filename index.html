@@ -9,6 +9,7 @@
     "remove"></script>
     <script class='remove'>
     var respecConfig = {
+      mdn: true,
       previousPublishDate: "2013-12-17",
       specStatus: "LD",
       shortName: "appmanifest",
@@ -582,10 +583,10 @@
           historical reasons.
         </div>
         <pre class="idl" data-cite="DOM">
-          [Constructor(DOMString type, optional EventInit eventInitDict),
-           Exposed=Window]
+          [Exposed=Window]
           interface BeforeInstallPromptEvent : Event {
-              Promise&lt;PromptResponseObject&gt; prompt();
+            constructor(DOMString type, optional EventInit eventInitDict = {});
+            Promise&lt;PromptResponseObject&gt; prompt();
           };
 
           dictionary PromptResponseObject {
@@ -1335,13 +1336,18 @@
           value of the <code>href</code> attribute, relative to <a>the
           element's base URL</a>. If parsing fails, then abort these steps.
           </li>
-          <li>Let <var>request</var> be a new [[FETCH]] <a>request</a>, whose
-          URL is <var>manifest URL</var>, and whose <a>context</a> is
-          "<code>manifest</code>".
+          <li>Let |request:Request| be a new <a>Request</a>.
           </li>
-          <li>If the <var>manifest link</var>'s <code>crossOrigin</code>
-          attribute's value is '<code>use-credentials</code>', then set
-          <var>request</var>'s credentials to '<code>include</code>'.
+          <li>Set |request|'s [=request/URL=] to |manifest URL|.
+          </li>
+          <li>Set |request|'s [=request/initiator=] to "`manifest`".
+          </li>
+          <li>If the |manifest link|'s {{HTMLLinkElement/crossOrigin}}
+          attribute's value is "`use-credentials`", then set |request|'s
+          [=request/credentials mode=] to "`include`". Otherwise, set
+          |request|'s [=request/credentials mode=] to "`omit`".
+          </li>
+          <li>Set |request|'s [=request/mode=] is "`cors`".
           </li>
           <li>Await the result of performing a <a>fetch</a> with
           <var>request</var>, letting <var>response</var> be the result.
@@ -2500,10 +2506,10 @@
         <p>
           To <a>fetch</a> the image associated with an <a>ImageResource</a>,
           the user agent MUST run the <dfn>steps to fetch an image
-          resource</dfn>. The algorithm takes an <var>image URL</var> (<a href=
-          "#dom-imageresource-src">src</a>), the <var>manifest URL</var>, and
-          the <var>document</var> ({{code}}) from which the manifest was
-          linked. It returns a <a>Response</a>:
+          resource</dfn>. The algorithm takes an <var>image URL</var>
+          (<a>ImageResource.src</a>), the <var>manifest URL</var>, and the
+          {{Document}} <var>document</var> from which the manifest was linked.
+          It returns a <a>Response</a>:
         </p>
         <ol>
           <li>Let <var>request</var> be a new <a>Request</a>.
@@ -2643,44 +2649,38 @@
           be ignored.
         </p>
         <p>
-          The steps for <dfn>processing the <code>purpose</code> member of an
-          image</dfn> are given by the following algorithm. The algorithm takes
-          an <a>ImageResource</a> <var>image</var>. This algorithm will return
-          a <a>set</a> or failure.
+          The steps for <dfn>processing the `purpose` member of an image</dfn>
+          are given by the following algorithm. The algorithm takes an
+          <a>ImageResource</a> |image:ImageResource|. This algorithm returns a
+          [=set=] or failure.
         </p>
         <ol>
-          <li>Let <var>set</var> be an empty <a>set</a>.
+          <li>If [=Type=](|image|["purpose"]) it not String, or
+          |image|["purpose"] consists solely of [=ascii whitespace=], then
+          return the [=set=] « "any" ».
           </li>
-          <li>If <var>image</var> has no <code>"purpose"</code> member, then
-          <a data-lt="set-append">append</a> <code>"any"</code> to
-          <var>set</var>, and return <var>set</var>.
+          <li>Let |keywords:list&lt;string&gt;| be the result of [=split on
+          ASCII whitespace=] |image|["purpose"].
           </li>
-          <li>Let <var>value</var> be <var>image</var>["purpose"].
+          <li>If |keywords| is empty, then return the [=set=] « "any" ».
           </li>
-          <li>Let <a>list</a> <var>keywords</var> be the result of <a>split on
-          ASCII whitespace</a> <var>value</var>.
+          <li>Let |purposes:set| be the empty [=set=].
           </li>
-          <li>If <var>keywords</var> is empty, then <a data-lt=
-          "set-append">append</a> <code>"any"</code> to <var>set</var>.
-          </li>
-          <li>Otherwise, <a>for each</a> <var>keyword</var> of
-          <var>keywords</var>:
+          <li>[=set/For each=] |keyword:string| of |keywords|:
             <ol>
-              <li>Set <var>keyword</var> to <var>keyword</var>,
-              <a>lowercased</a>.
+              <li>Set |canonicalKeyword| to [=lowercased=] |keyword|.
               </li>
-              <li>If <var>keyword</var> is not one of the <a>icon purposes</a>,
-              or <var>set</var> <a>contains</a> <var>keyword</var>, then
-              <a>issue a developer warning</a> and <a>continue</a>.
+              <li>If |canonicalKeyword| is not one of the [=icon purposes=], or
+              |purposes| [=contains=] |keyword|, then [=issue a developer
+              warning=] and [=continue=].
               </li>
-              <li>Otherwise, <a data-lt="set-append">append</a>
-              <var>keyword</var> to <var>set</var>.
+              <li>Otherwise, [=set/append=] |canonicalKeyword| to |purposes|.
               </li>
             </ol>
           </li>
-          <li>If <var>set</var> <a>is empty</a>, then return failure.
+          <li>If |purposes| [=is empty=], then return failure.
           </li>
-          <li>Return <var>set</var>.
+          <li>Return |purposes|.
           </li>
         </ol>
         <div class="example">
@@ -2893,9 +2893,9 @@
           <li>If <a>Type</a>(<var>value</var>) it not String, return
           <code>undefined</code>.
           </li>
-          <li>Otherwise, parse <var>value</var> as if it was a [[HTML]] <code>
-            <a>sizes</a></code> attribute and let <a>list</a>
-            <var>keywords</var> be the result.
+          <li>Otherwise, parse <var>value</var> as if it was a [[HTML]]
+          {{HTMLLinkElement/sizes}} attribute and let <a>list</a>
+          <var>keywords</var> be the result.
           </li>
           <li>
             <a>For each</a> <var>keyword</var> of <var>keywords</var>:
@@ -4237,9 +4237,6 @@
             <li>
               <a data-cite="HTML#valid-non-negative-integer"><dfn>valid
               non-negative integer</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#attr-link-sizes"><dfn>sizes</dfn></a>
             </li>
             <li>
               <a data-cite="HTML#concept-link-type-sniffing"><dfn>determining
