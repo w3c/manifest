@@ -269,7 +269,7 @@
       </section>
     </section>
     <section>
-      <h2>
+      <h2 id="installable-web-applications">
         Installable web applications
       </h2>
       <p>
@@ -331,13 +331,25 @@
           Authority of the manifest's metadata
         </h3>
         <p>
-          When a <a>manifest</a> is linked from a {{Document}}, it indicates to
-          the user agent that the metadata is <dfn>authoritative</dfn>: that
-          is, the user agent SHOULD use the metadata of the manifest instead of
-          the one in the {{Document}}. However, in cases where metadata is
-          missing, or in error, a user agent MAY fallback to the {{Document}}
-          to find suitable replacements for missing manifest members (e.g.,
-          using `application-name` in place of `short_name`).
+          When a <a>manifest</a> is linked from a {{Document}}, and the
+          {{Document}} is <a data-lt="within-scope-manifest">within scope</a>
+          of the manifest, it indicates to the user agent that the metadata is
+          <dfn>authoritative</dfn>: that is, the user agent SHOULD use the
+          metadata of the manifest instead of the one in the {{Document}}.
+          However, in cases where metadata is missing, or in error, a user
+          agent MAY fallback to the {{Document}} to find suitable replacements
+          for missing manifest members (e.g., using `application-name` in place
+          of `short_name`). The user agent MUST NOT apply the metadata of a
+          manifest to a {{Document}} that is not <a data-lt=
+          "within-scope-manifest">within scope</a> of that manifest.
+        </p>
+        <p class="note">
+          A {{Document}} that is not <a data-lt="within-scope-manifest">within
+          scope</a> of a linked manifest can still be used to install the web
+          application associated with the manifest, it just can't have the
+          manifest's metadata applied directly to the document. See the note in
+          <a href="#installable-web-applications">Installable web
+          applications</a>.
         </p>
       </section>
       <section data-link-for="WebAppManifest">
