@@ -2408,7 +2408,7 @@
           A user agent SHOULD expose shortcuts via interactions that are
           consistent with exposure of an application icon’s context menu in the
           host operating system (e.g., right click, long press). A user agent
-          MUST render the shortcuts in the same order as they are provided in
+          SHOULD render the shortcuts in the same order as they are provided in
           the manifest. A user agent SHOULD represent the shortcuts in a manner
           consistent with exposure of an application icon’s context menu in the
           host operating system. A user agent MAY truncate the list of
@@ -3153,7 +3153,7 @@
           following steps:
         </p>
         <ol>
-          <li>Let <var>url</var> be a copy of <var>shortcut.url</var>.
+          <li>Let <var>url</var> be <var>shortcut.url</var>.
           </li>
           <li>Let <var>header list</var> be a new empty <a data-xref-for=
           "request">header list</a>.
