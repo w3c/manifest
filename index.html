@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -193,6 +193,7 @@
           The following shows a more typical <a>manifest</a>.
         </p>
         <pre class="example json" title="typical manifest">
+<<<<<<< HEAD
           {
             "lang": "en",
             "dir": "ltr",
@@ -232,6 +233,44 @@
             }]
           }
       </pre>
+=======
+{
+  "lang": "en",
+  "dir": "ltr",
+  "name": "Resistance",
+  "description": "This app helps you organize against
+    U.S. government-backed xenophobia. You can use it to protect 
+    human rights.",
+  "short_name": "Resist",
+  "icons": [{
+    "src": "icon/lowres.webp",
+    "sizes": "64x64",
+    "type": "image/webp"
+  },{
+    "src": "icon/lowres.png",
+    "sizes": "64x64"
+  }, {
+    "src": "icon/hd_hi",
+    "sizes": "128x128"
+  }],
+  "scope": "/racer/",
+  "start_url": "/racer/start.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "theme_color": "aliceblue",
+  "background_color": "red",
+  "screenshots": [{
+    "src": "screenshots/in-game-1x.jpg",
+    "sizes": "640x480",
+    "type": "image/jpeg"
+  },{
+    "src": "screenshots/in-game-2x.jpg",
+    "sizes": "1280x920",
+    "type": "image/jpeg"
+  }]
+}
+</pre>
+>>>>>>> source/master
       </section>
       <section class="informative">
         <h3>
@@ -245,9 +284,15 @@
           fallback name and set of icons.
         </p>
         <pre class="example html" title="linking to a manifest">
+<<<<<<< HEAD
           &lt;!doctype&gt;
           &lt;html&gt;
           &lt;title&gt;Racer 3K&lt;/title&gt;
+=======
+&lt;!doctype&gt;
+&lt;html&gt;
+&lt;title&gt;Resist Trump&lt;/title&gt;
+>>>>>>> source/master
 
           &lt;!-- Startup configuration --&gt;
           &lt;link rel="manifest" href="manifest.webmanifest"&gt;
@@ -764,12 +809,25 @@
             attribute EventHandler onbeforeinstallprompt;
           };
         </pre>
+<<<<<<< HEAD
         <pre class="example js" title=
         "Two ways of handling the 'appinstalled' event">
           function handleInstalled(ev) {
             const date = new Date(ev.timeStamp / 1000);
             console.log(`Yay! Our app got installed at ${date.toTimeString()}.`);
           }
+=======
+        <div class="example">
+          <p>
+            This example shows two ways of handling the "<a>appinstalled</a>"
+            event.
+          </p>
+          <pre>
+function handleInstalled(ev) {
+  const date = new Date(ev.timeStamp / 1000);
+  console.log(`Yay! Our app got installed at ${date.toTimeString()}. Keep resisting.`);
+}
+>>>>>>> source/master
 
           // Using the event handler IDL attribute
           window.onappinstalled = handleInstalled;
@@ -982,10 +1040,17 @@
       </p>
       <div class="example">
         <p>
+<<<<<<< HEAD
           For example, SuperSecure Browser (a fictitious browser) only supports
           the <code>minimal-ui</code> and <code>browser</code> display modes,
           but a developer declares that she wants <code>fullscreen</code> in
           the manifest. In this case, the user agent will first check if it
+=======
+          For example, Resistance Browser only supports the
+          <code>minimal-ui</code> and <code>browser</code> display modes, but a
+          developer declares that she wants <code>fullscreen</code> in the
+          manifest. In this case, the user agent will first check if it
+>>>>>>> source/master
           supports <code>fullscreen</code> (it doesn't), so it falls back to
           <code>standalone</code> (which it also doesn't support), and
           ultimately falls back to <code>minimal-ui</code>.
@@ -1366,6 +1431,30 @@
           <li>Return <var>manifest</var> and <var>manifest URL</var>.
           </li>
         </ol>
+<<<<<<< HEAD
+=======
+        <div class="note">
+          <p>
+            Authors are encouraged to use the HTTP cache directives to
+            explicitly cache the manifest. For example, the following response
+            would cause a cached manifest to be used 30 days from the time the
+            response is sent:
+          </p>
+          <pre>
+HTTP/1.1 200 OK
+Cache-Control: max-age=2592000
+Content-Type: application/manifest+json
+
+{
+  "lang": "en",
+  "name": "Resist",
+  "start_url": "/start.html",
+  "display": "fullscreen",
+  "orientation": "landscape"
+}
+</pre>
+        </div>
+>>>>>>> source/master
         <section>
           <h4>
             Content security policy
@@ -1873,6 +1962,7 @@
             individually tailored for small display sizes.
             </li>
           </ul>
+<<<<<<< HEAD
           <pre class="example json">
             {
               "icons": [
@@ -1892,6 +1982,27 @@
                 }]
             }
           </pre>
+=======
+          <pre class="">
+{
+  "icons": [
+      {
+        "src": "icon/lowres_resist.webp",
+        "sizes": "48x48",
+        "type": "image/webp"
+      },{
+        "src": "icon/lowres_resist",
+        "sizes": "48x48"
+      },{
+        "src": "icon/hd_hi_resist.ico",
+        "sizes": "72x72 96x96 128x128 256x256"
+      },{
+        "src": "icon/hd_hi_resist.svg",
+        "sizes": "257x257"
+      }]
+ }
+</pre>
+>>>>>>> source/master
         </div>
       </section>
       <section>
@@ -2659,8 +2770,14 @@
           |image|["purpose"] consists solely of [=ascii whitespace=], then
           return the [=set=] « "any" ».
           </li>
+<<<<<<< HEAD
           <li>Let |keywords:list&lt;string&gt;| be the result of [=split on
           ASCII whitespace=] |image|["purpose"].
+=======
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>image</var>
+          passing "<code>purpose</code>" as the argument.
+>>>>>>> source/master
           </li>
           <li>If |keywords| is empty, then return the [=set=] « "any" ».
           </li>
@@ -2886,7 +3003,15 @@
           a set.
         </p>
         <ol>
+<<<<<<< HEAD
           <li>Let <var>set</var> be an empty <a>set</a>.
+=======
+          <li>Let <var>sizes</var> be an empty set.
+          </li>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>image</var>
+          passing "<code>sizes</code>" as the argument.
+>>>>>>> source/master
           </li>
           <li>Let <var>value</var> be <var>image.sizes</var>.
           </li>
@@ -2927,7 +3052,15 @@
           <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
+<<<<<<< HEAD
           <li>Let <var>value</var> be <var>image</var>["src"].
+=======
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>image</var>
+          passing "<code>src</code>" as the argument.
+          </li>
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+>>>>>>> source/master
           </li>
           <li>If <a>Type</a>(<var>value</var>) it not String, return
           <code>undefined</code>.
@@ -3266,8 +3399,14 @@
           <code>src</code> member
         </h3>
         <p>
+<<<<<<< HEAD
           The <dfn>src</dfn> member of a <a>ServiceWorkerRegistrationObject</a>
           dictionary is a <a>URL</a> representing a service worker.
+=======
+          The <dfn data-lt="serviceworker-src">service worker <code>src</code>
+          member</dfn> of a <a>serviceworker object</a> is a <a>URL</a>
+          representing a service worker.
+>>>>>>> source/master
         </p>
         <p>
           The steps for <dfn>processing the <code>src</code> member of a
@@ -3278,9 +3417,17 @@
           a <a>URL</a> or <code>undefined</code>.
         </p>
         <ol>
+<<<<<<< HEAD
           <li>If <a>Type</a>(<var>source URL</var>) is not String or
           <var>source URL</var> is the empty <a>string</a>, then return <code>
             undefined</code>.
+=======
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>registration</var>
+          passing "<code>src</code>" as the argument.
+          </li>
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+>>>>>>> source/master
           </li>
           <li>Otherwise, <a>parse</a> <var>source URL</var> using <var>manifest
           URL</var> as the base URL and return the result.
@@ -3293,8 +3440,14 @@
           <dfn>scope</dfn> member
         </h3>
         <p>
+<<<<<<< HEAD
           The <a>scope</a> member of a <a>ServiceWorkerRegistrationObject</a>
           dictionary is the service worker's associated <a>scope URL</a>.
+=======
+          The <dfn data-lt="serviceworker-scope">service worker
+          <code>scope</code> member</dfn> of a <a>serviceworker object</a> is
+          the service worker's associated <a>scope URL</a>.
+>>>>>>> source/master
         </p>
         <p>
           The steps for <dfn>processing the <code>scope</code> member of a
@@ -3318,11 +3471,55 @@
           <code>type</code> member
         </h3>
         <p>
+<<<<<<< HEAD
           The <dfn>type</dfn> member of a
           <a>ServiceWorkerRegistrationObject</a> dictionary is the service
           worker's {{WorkerType}}. The possible values are those of the
           <a>WorkerType</a> enum defined in [[HTML]].
         </p>
+=======
+          The <dfn>service worker <code>type</code> member</dfn> of a
+          <a>serviceworker object</a> is the service worker's <a href=
+          "https://html.spec.whatwg.org/multipage/workers.html#workertype">worker
+          type</a>.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>type</code> member of a
+          service worker</dfn> are given by the following algorithm. The
+          algorithm takes a <a>serviceworker object</a>
+          <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
+          which is the <a>URL</a> from which the <var>manifest</var> was
+          fetched. This algorithm will return a string.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>registration</var>
+          passing "<code>type</code>" as the argument.
+          </li>
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "string", then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is unsupported and return <code>
+                undefined</code>.
+              </li>
+              <li>Return <code>"classic"</code>.
+              </li>
+            </ol>
+          </li>
+          <li>If <a>Trim</a>(value) is the empty string, then:
+            <ol>
+              <li>Issue a developer warning that the type is unsupported.
+              </li>
+              <li>Return <code>undefined</code>.
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, <a>Trim</a>(<var>value</var>) and return the result.
+          </li>
+        </ol>
+>>>>>>> source/master
       </section>
       <section data-dfn-for="ServiceWorkerRegistrationObject" data-link-for=
       "ServiceWorkerRegistrationObject">
@@ -3330,6 +3527,7 @@
           <code>update_via_cache</code> member
         </h3>
         <p>
+<<<<<<< HEAD
           The <dfn>update_via_cache</dfn> member of a
           <a>ServiceWorkerRegistrationObject</a> dictionary determines the
           <a data-cite="service-workers-1#dfn-update-via-cache">update via
@@ -3337,6 +3535,41 @@
           of the <a>ServiceWorkerUpdateViaCache</a> enum defined in
           [[SERVICE-WORKERS-1]].
         </p>
+=======
+          The <dfn>service worker <code>use_cache</code> member</dfn> of a
+          <a>serviceworker object</a> determines whether the user agent
+          <a href="https://w3c.github.io/ServiceWorker/#dfn-use-cache">cache</a>
+          should be used when fetching the service worker.
+        </p>
+        <p>
+          The <dfn>steps for processing the <code>use_cache</code> member of a
+          service worker</dfn> are given by the following algorithm. The
+          algorithm takes a <a>serviceworker object</a>
+          <var>registration</var>, and a <a>URL</a> <var>manifest URL</var>,
+          which is the <a>URL</a> from which the <var>manifest</var> was
+          fetched. This algorithm will return a boolean.
+        </p>
+        <ol>
+          <li>Let <var>value</var> be the result of calling the
+          <a>[[\GetOwnProperty]]</a> internal method of <var>registration</var>
+          passing "<code>use_cache</code>" as the argument.
+          </li>
+          <li>Let <var>type</var> be <a>Type</a>(<var>value</var>).
+          </li>
+          <li>If <var>type</var> is not "boolean", then:
+            <ol>
+              <li>If <var>type</var> is not "<code>undefined</code>", issue a
+              developer warning that the type is unsupported and return <code>
+                undefined</code>.
+              </li>
+              <li>Otherwise, return <code>false</code>
+              </li>
+            </ol>
+          </li>
+          <li>Otherwise, return <var>value</var>.
+          </li>
+        </ol>
+>>>>>>> source/master
       </section>
     </section>
     <section data-dfn-for="ExternalApplicationResource" data-link-for=
