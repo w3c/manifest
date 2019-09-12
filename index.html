@@ -326,6 +326,25 @@
         (at the user agent's discretion; see [[[#installability-signals]]]).
         </li>
       </ol>
+      <div class="note" data-link-for="WebAppManifest">
+        <p>
+          The {{Document}} might not be <a data-lt=
+          "within-scope-manifest">within scope</a> of the linked manifest, by
+          design. For example, a page at <code>https://example.com</code> might
+          link a manifest with <a>scope</a> <code>"/installable/"</code>,
+          allowing the top-level page of the site (which itself is not part of
+          the installable web application) to show installation UI.
+        </p>
+        <p>
+          Implementors should be aware of this possibility. One consequence is
+          that if, post install, the user agent opens the document URL in an
+          <a>application context</a>, it would immediately start showing the
+          "out of scope" warning UI (that is recommended in <a href=
+          "#navigation-scope">Navigation scope</a>). Hence, implementors might
+          wish to avoid doing this if the {{Document}} is <a data-lt=
+          "within-scope-manifest">out of scope</a>.
+        </p>
+      </div>
       <section>
         <h3>
           Authority of the manifest's metadata
@@ -851,7 +870,7 @@
       </section>
     </section>
     <section>
-      <h2>
+      <h2 id="navigation-scope">
         Navigation scope
       </h2>
       <p data-link-for="WebAppManifest">
