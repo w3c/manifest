@@ -381,8 +381,7 @@
               <li>Let <var>client</var> be the <a>top-level browsing
               context</a> {{Document}}'s <a>relevant settings object</a>, or
               <code>null</code> if unavailable.
-              </li><!-- Start Register no longer exists in the Service Worker
-                       spec. -->
+              </li>
               <li>Invoke <a>Start Register</a> with <var>scope</var> and <var>
                 src</var> members of the <var>registration</var>, a new
                 <var>promise</var>, <var>client</var>, <var>manifest URL</var>,
@@ -407,6 +406,7 @@
             context</a> for which the installation took place.
           </li>
         </ol>
+        <div class="issue" data-number="789"></div>
       </section>
       <section>
         <!-- TODO(mgiuca): Move this section up above Installation process. (In
