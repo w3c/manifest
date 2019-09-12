@@ -454,8 +454,9 @@
           showing the prompt.
         </p>
         <p>
-          To <dfn data-lt="presenting an install prompt">present an install
-          prompt</dfn>:
+          To <dfn data-lt=
+          "presenting an install prompt|presentation of the install prompt">present
+          an install prompt</dfn>:
         </p>
         <ol>
           <li>Show some user-agent-specific UI, asking the user whether to
@@ -512,15 +513,15 @@
           Privacy and security considerations
         </h3>
         <p>
-          During the <a data-lt="present an install prompt">presentation of the
-          install prompt</a>, it is RECOMMENDED that the user agent allow the
-          end-user to inspect the icon, name, <a>start URL</a>, origin, etc.
-          pertaining to a web application. This is to give an end-user an
-          opportunity to make a conscious decision to approve, and possibly
-          modify, the information pertaining to the web application before
-          installing it. This also gives the end-user an opportunity to discern
-          if the web application is spoofing another web application, by, for
-          example, using an unexpected icon or name.
+          During the <a>presentation of the install prompt</a>, it is
+          RECOMMENDED that the user agent allow the end-user to inspect the
+          icon, name, <a>start URL</a>, origin, etc. pertaining to a web
+          application. This is to give an end-user an opportunity to make a
+          conscious decision to approve, and possibly modify, the information
+          pertaining to the web application before installing it. This also
+          gives the end-user an opportunity to discern if the web application
+          is spoofing another web application, by, for example, using an
+          unexpected icon or name.
         </p>
         <p>
           It is RECOMMENDED that user agents prevent other applications from
@@ -633,14 +634,13 @@
         </p>
         <div class="note">
           If the <a>BeforeInstallPromptEvent</a> is <em>not</em> cancelled, the
-          user agent is allowed to <a data-lt=
-          "present an install prompt">present an automated install prompt</a>
-          to the end-user. Canceling the default action (via <a data-cite=
+          user agent is allowed to <a>present an install prompt</a>
+          (specifically, an <a>automated install prompt</a>) to the end-user.
+          Canceling the default action (via <a data-cite=
           "DOM#dom-event-preventdefault">preventDefault</a>) prevents the user
-          agent from <a data-lt="present an install prompt">presenting an
-          automated install prompt</a>. The user agent is free to run <a>steps
-          to notify that an install prompt is available</a> again at a later
-          time.
+          agent from <a>presenting an install prompt</a>. The user agent is
+          free to run <a>steps to notify that an install prompt is
+          available</a> again at a later time.
         </div>
         <p data-dfn-for="PromptResponseObject">
           The <dfn>PromptResponseObject</dfn> contains the result of calling
@@ -754,8 +754,7 @@
           </h4>
           <p>
             The <dfn>AppBannerPromptOutcome</dfn> enum's values represent the
-            outcomes from <a data-lt="present an install prompt">presenting the
-            end-user with an install prompt</a>.
+            outcomes from <a>presenting an install prompt</a>.
           </p>
           <dl data-dfn-for="AppBannerPromptOutcome">
             <dt>
