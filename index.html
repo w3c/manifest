@@ -378,26 +378,14 @@
           following algorithm:
         </p>
         <ol>
-          <li>Let <var>manifest</var> and <var>manifest URL</var> be the values
-          that were created during <a>steps to determine installability of the
-          document</a>.
+          <li>Let <var>manifest</var> be the manifest value created during <a>
+            steps to determine installability of the document</a>.
           </li>
-          <li>If <var>manifest URL</var> exists, and the result of running <a>
-            processing the `serviceworker` member</a> with <var>manifest</var>
-            returns a valid <var>registration</var>, the user agent MAY:
-            <ol>
-              <li>Let <var>client</var> be the <a>top-level browsing
-              context</a> {{Document}}'s <a>relevant settings object</a>, or
-              <code>null</code> if unavailable.
-              </li>
-              <li>Invoke <a>Start Register</a> with <var>scope</var> and <var>
-                src</var> members of the <var>registration</var>, a new
-                <var>promise</var>, <var>client</var>, <var>manifest URL</var>,
-                plus the <var>type</var> and <var>update_via_cache</var>
-                members of the <var>registration</var>. If the settled
-                <var>promise</var> is rejected, abort these steps.
-              </li>
-            </ol>
+          <li>If |manifest|.{{WebAppManifest/serviceworker}} is not
+          <code>undefined</code>, the user agent MAY run the <a>steps for
+          registering a manifest's service worker</a> with
+          |manifest|.{{WebAppManifest/serviceworker}}. If those steps return
+          failure, abort these steps.
           </li>
           <li>Perform an unspecified sequence of actions to attempt to register
           the web application in the user's operating system (e.g., create
@@ -414,7 +402,6 @@
             context</a> for which the installation took place.
           </li>
         </ol>
-        <div class="issue" data-number="789"></div>
       </section>
       <section>
         <!-- TODO(mgiuca): Move this section up above Installation process. (In
@@ -2128,6 +2115,55 @@
             }
           </pre>
         </div>
+        <p>
+          The <dfn>steps for registering a manifest's service worker</dfn> are
+          given by the following algorithm, which takes a
+          {{ServiceWorkerRegistrationObject}} <var>registration</var> and
+          returns success or failure.
+        </p>
+        <ol>
+          <li>Let <var>serviceWorker</var> be the {{ServiceWorkerContainer}}
+          associated with the <a>top-level browsing context</a>. If there is
+          none, return failure.
+          </li>
+          <li>Let <var>options</var> be the result of running the <a>steps for
+          converting a service worker registration to an options dictionary</a>
+          on <var>registration</var>.
+          </li>
+          <li>Let <var>promise</var> be the result of invoking
+          |serviceWorker|.{{ServiceWorkerContainer/register()}} with arguments
+          |registration|.{{ServiceWorkerRegistrationObject/src}} and
+          <var>options</var>.
+          </li>
+          <li>Wait until <var>promise</var> settles. If the settled
+          <var>promise</var> is rejected, return failure.
+          </li>
+          <li>Return success.
+          </li>
+        </ol>
+        <p>
+          The <dfn>steps for converting a service worker registration to an
+          options dictionary</dfn> are given by the following algorithm. The
+          algorithm takes a {{ServiceWorkerRegistrationObject}}
+          <var>registration</var>, and returns a {{RegistrationOptions}}
+          dictionary which is suitable to pass to
+          {{ServiceWorkerContainer}}.{{ServiceWorkerContainer/register}}.
+        </p>
+        <ol>
+          <li>Create a new {{RegistrationOptions}} <var>options</var>.
+          </li>
+          <li>Set |options|.{{RegistrationOptions/scope}} to
+          |registration|.{{ServiceWorkerRegistrationObject/scope}}.
+          </li>
+          <li>Set |options|.{{RegistrationOptions/type}} to
+          |registration|.{{ServiceWorkerRegistrationObject/type}}.
+          </li>
+          <li>Set |options|.{{RegistrationOptions/updateViaCache}} to
+          |registration|.{{ServiceWorkerRegistrationObject/update_via_cache}}.
+          </li>
+          <li>Return <var>options</var>.
+          </li>
+        </ol>
       </section>
       <section>
         <h3>
@@ -3831,13 +3867,40 @@
         <li>[[SERVICE-WORKERS-1]] defines the following terms:
           <ul>
             <li>
-              <a data-cite=
-              "service-workers-1#start-register-algorithm"><dfn>Start
-              Register</dfn></a>
-            </li>
-            <li>
               <a data-cite="service-workers-1#dfn-scope-url"><dfn>scope
               URL</dfn></a>
+            </li>
+            <li>
+              <a data-cite=
+              "service-workers-1#dictdef-registrationoptions"><dfn>RegistrationOptions</dfn></a>
+              <ul>
+                <li>
+                  <a data-cite=
+                  "service-workers-1#dom-registrationoptions-scope"><dfn for=
+                  "RegistrationOptions">scope</dfn></a>
+                </li>
+                <li>
+                  <a data-cite=
+                  "service-workers-1#dom-registrationoptions-type"><dfn for=
+                  "RegistrationOptions">type</dfn></a>
+                </li>
+                <li>
+                  <a data-cite=
+                  "service-workers-1#dom-registrationoptions-updateviacache"><dfn for="RegistrationOptions">
+                  updateViaCache</dfn></a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a data-cite=
+              "service-workers-1#serviceworkercontainer"><dfn>ServiceWorkerContainer</dfn></a>
+              <ul>
+                <li>
+                  <a data-cite=
+                  "service-workers-1#dom-serviceworkercontainer-register"><dfn for="ServiceWorkerContainer">
+                  register</dfn></a>
+                </li>
+              </ul>
             </li>
             <li>
               <a data-cite=
