@@ -2455,10 +2455,7 @@
                 {
                   "name": "Subscriptions",
                   "description": "View the list of podcasts you listen to",
-                  "url": "/subscriptions",
-                  "params": {
-                      "sort": "desc"
-                  }
+                  "url": "/subscriptions"
                 }
               ]
             }
@@ -3052,7 +3049,6 @@
           USVString short_name;
           USVString description;
           required USVString url;
-          RequestParams params;
           sequence&lt;ImageResource&gt; icons;
         };
       </pre>
@@ -3124,17 +3120,6 @@
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
         <h3>
-          <dfn>params</dfn> member
-        </h3>
-        <p>
-          The <a>params</a> member of an <a>ShortcutItem</a> is a
-          <a>RequestParams</a> object defining the keys and values that should
-          be added to the <var>url</var> of a shortcut before navigation
-          occurs. See also: <a>launching a shortcut</a>.
-        </p>
-      </section>
-      <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
-        <h3>
           <dfn>icons</dfn> member
         </h3>
         <p>
@@ -3155,25 +3140,6 @@
         <ol>
           <li>Let <var>url</var> be <var>shortcut.url</var>.
           </li>
-          <li>Let <var>header list</var> be a new empty <a data-xref-for=
-          "request">header list</a>.
-          </li>
-          <li>If <var>shortcut.params</var> <a data-cite="infra/#list-contain">
-            exists</a>:
-            <ol>
-              <li>Let <var>query</var> be the result of running the
-              <a>application/x-www-form-urlencoded</a> serializer with
-              <var>shortcut.params</var>
-              </li>
-              <li>Set <var>url</var>'s query component to <var>query</var>.
-              </li>
-            </ol>
-          </li>
-          <li>Append "Content-Type"/"application/x-www-form-urlencoded" to
-          <var>header list</var>.
-          </li>
-          <li>Let <var>body</var> be null.
-          </li>
           <li>Let <var>browsing context</var> be the result of creating a new
           <a>top-level browsing context</a>.
           </li>
@@ -3184,25 +3150,6 @@
           </li>
         </ol>
       </section>
-    </section>
-    <section>
-      <h2>
-        <dfn>RequestParams</dfn>
-      </h2>
-      <pre class="idl">
-        dictionary RequestParams {
-        };
-      </pre>
-      <p>
-        Each <a>RequestParams</a> dictionary represents data to be passed along
-        with a request.
-      </p>
-      <p>
-        The <a>RequestParams</a> dictionary contains a series of
-        <var>keys</var> and <var>values</var>. Each <var>key</var> must be a
-        valid USVString. Each <var>value</var> must be a valid <a>boolean</a>,
-        <a>dictionary</a>, <a>sequence</a>, or <a>USVString</a>.
-      </p>
     </section>
     <section>
       <h2>
