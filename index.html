@@ -465,11 +465,13 @@
           "AppBannerPromptOutcome">accepted</a> or <a data-link-for=
           "AppBannerPromptOutcome">dismissed</a>.
           </li>
-          <li>If <var>result</var> is <a data-link-for=
-          "AppBannerPromptOutcome">accepted</a>, then in parallel, run the <a>
-            steps to install the web application</a>.
-          </li>
-          <li>Return <var>result</var>.
+          <li>Return <var>result</var>, and <a>in parallel</a>:
+            <ol>
+              <li>If <var>result</var> is <a data-link-for=
+              "AppBannerPromptOutcome">accepted</a>, run the <a>steps to
+              install the web application</a>.
+              </li>
+            </ol>
           </li>
         </ol>
         <p>
