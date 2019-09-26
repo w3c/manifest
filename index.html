@@ -296,6 +296,36 @@
         and again as an example, the user agent could <a>install</a> the web
         application into a list of bookmarks within the user agent itself.
       </p>
+      <p>
+        A {{Document}} may either be <dfn>installable</dfn> or not. The initial
+        state of a document is not <a>installable</a>.
+      </p>
+      <p>
+        At any time, the user agent MAY perform the <dfn>steps to determine
+        installability of the document</dfn>:
+      </p>
+      <ol>
+        <li>Let <var>manifest</var> and <var>manifest URL</var> be the result
+        of <a>obtaining the manifest</a>.
+        </li>
+        <li>If <a>obtaining the manifest</a> results in an error, the user
+        agent MAY either:
+          <ol>
+            <li>Fall back to using the <a>top-level browsing context</a>
+            {{Document}}'s metadata to to populate <var>manifest</var> in a
+            user-agent-specific way (e.g., setting
+            |manifest|.{{WebAppManifest/name}} to the document <a data-cite=
+            "HTML#the-title-element">`title`</a>) and considering the document
+            <a>installable</a>.
+            </li>
+            <li>Or, consider the document not <a>installable</a>.
+            </li>
+          </ol>
+        </li>
+        <li>Otherwise, the {{Document}} MAY be considered <a>installable</a>
+        (at the user agent's discretion; see [[[#installability-signals]]]).
+        </li>
+      </ol>
       <section>
         <h3>
           Authority of the manifest's metadata
@@ -344,76 +374,51 @@
           Installation process
         </h3>
         <p>
-          An <dfn>installation process</dfn> is an attempt by the user agent to
-          <a>install</a> a web application. The details of such a process
-          (i.e., the display of an install <abbr>UI</abbr>, and any resulting
-          <abbr>IO</abbr> operations of the host <abbr>OS</abbr>) are left up
-          to implementers. Implementers need to be aware that there are
-          <a href="#installation-sec">privacy and security considerations</a>
-          that directly relate to the <a>installation process</a>.
-        </p>
-        <p>
-          For the purpose of this specification, the <dfn>installation
-          succeeded</dfn> once the <a>installation process</a> succeeds in
-          <a>installing</a> the web application (e.g., an icon was successfully
-          placed onto the device's homescreen). If the end-user cancels the
-          installation process (even if they <a>manually</a> triggered it, and
-          then changed their minds), then the <dfn>installation was
-          canceled</dfn>. Otherwise, the <dfn>installation failed</dfn>.
-          Reasons for installation failure can include, for example, the OS
-          denying permission to the user agent to add an icon to the homescreen
-          of the device and the end-user rejecting the installation.
-        </p>
-        <p>
           The <dfn>steps to install the web application</dfn> are given by the
           following algorithm:
         </p>
         <ol>
-          <li>Let <var>window</var> be the {{Window}} object of the
-          <a>top-level browsing context</a> for which the user agent will
-          attempt installation.
+          <li>Let <var>manifest</var> and <var>manifest URL</var> be the values
+          that were created during <a>steps to determine installability of the
+          document</a>.
           </li>
-          <li>Then, <a>in parallel</a>:
+          <li>If <var>manifest URL</var> exists, and the result of running <a>
+            processing the `serviceworker` member</a> with <var>manifest</var>
+            returns a valid <var>registration</var>, the user agent MAY:
             <ol>
-              <li>Instantiate an <a>installation process</a>.
+              <li>Let <var>client</var> be the <a>top-level browsing
+              context</a> {{Document}}'s <a>relevant settings object</a>, or
+              <code>null</code> if unavailable.
               </li>
-              <li>Let <a>manifest</a> and <a>manifest URL</a> be the result of
-              <a>obtaining the manifest</a>.
-              </li>
-              <li>If <a>obtaining the manifest</a> results in an error, a user
-              agent can, at this point, fall back to using the <a>top-level
-              browsing context</a> {{Document}}'s metadata to populate an
-              <a>installation process</a>'s UI.
-              </li>
-              <li>If <a>obtaining the manifest</a> succeeds, and the result of
-              running <a>processing the `serviceworker` member</a> with
-              <a>manifest</a> returns a valid <var>registration</var>, a user
-              agent can at this point:
-                <ol>
-                  <li>Let <var>client</var> be the <a>top-level browsing
-                  context</a> {{Document}}'s <a>relevant settings object</a>,
-                  or <code>null</code> if unavailable.
-                  </li>
-                  <li>Invoke <a>Start Register</a> with <var>scope</var> and
-                  <var>src</var> members of the <var>registration</var>, a new
-                  <var>promise</var>, <var>client</var>, <a>manifest URL</a>,
-                  plus the <var>type</var> and <var>update_via_cache</var>
-                  members of the <var>registration</var>, in which case the
-                  state of the settled <var>promise</var> determines whether
-                  the <a>installation succeeded</a> or not.
-                  </li>
-                </ol>
-              </li>
-              <li>If the <a>installation succeeded</a>, <a>queue a task</a> on
-              the <a>application life-cycle task source</a> to <a>fire an
-              event</a> named <code>appinstalled</code> at the
-              <var>window</var> object.
+              <li>Invoke <a>Start Register</a> with <var>scope</var> and <var>
+                src</var> members of the <var>registration</var>, a new
+                <var>promise</var>, <var>client</var>, <var>manifest URL</var>,
+                plus the <var>type</var> and <var>update_via_cache</var>
+                members of the <var>registration</var>. If the settled
+                <var>promise</var> is rejected, abort these steps.
               </li>
             </ol>
           </li>
+          <li>Perform an unspecified sequence of actions to attempt to register
+          the web application in the user's operating system (e.g., create
+          shortcuts that launch the web application, register the application
+          in the system uninstall menu, etc.). If the installation fails (which
+          can be for any reason, for example, the OS denying permission to the
+          user agent to add an icon to the home screen of the device), abort
+          these steps.
+          </li>
+          <li>
+            <a>Queue a task</a> on the <a>application life-cycle task
+            source</a> to <a>fire an event</a> named <code>appinstalled</code>
+            at the the {{Window}} object of the <a>top-level browsing
+            context</a> for which the installation took place.
+          </li>
         </ol>
+        <div class="issue" data-number="789"></div>
       </section>
       <section>
+        <!-- TODO(mgiuca): Move this section up above Installation process. (In
+             a separate PR; otherwise it would be too hard to review.) -->
         <h2>
           Install prompts
         </h2>
@@ -423,41 +428,61 @@
         </p>
         <ul>
           <li>An end-user can <dfn data-lt="manual installation">manually</dfn>
-          trigger the <a>installation process</a> through the user agent's
-          <abbr>UI</abbr>.
+          trigger the installation process through the user agent's
+            <abbr title="User Interface">UI</abbr>, directly invoking the steps
+            to <a>present an install prompt</a>.
           </li>
-          <li>The <a>installation process</a> can occur through an
-          <dfn>automated install prompt</dfn>: that is, a <abbr>UI</abbr> that
-          the user agent presents to the user when, for instance, there are
-          sufficient <a>installability signals</a> to warrant
-          <a>installation</a> of the web application.
+          <li>The installation process can occur through an <dfn>automated
+          install prompt</dfn>: that is, a UI that the user agent presents to
+          the user when, for instance, there are sufficient <a>installability
+          signals</a> to warrant <a>installation</a> of the web application.
           </li>
-          <li>The <a>installation process</a> can occur through a
-          <dfn>site-triggered install prompt</dfn>: the site can
-          programmatically request that the user agent present an install
-          prompt to the user. The user agent MAY restrict the availability of
-          this feature to cases where, for instance, there are sufficient
-          <a>installability signals</a> to warrant <a>installation</a> of the
-          web application.
+          <li>The installation process can occur through a <dfn>site-triggered
+          install prompt</dfn>: the site can programmatically request that the
+          user agent present an install prompt to the user. The user agent MAY
+          restrict the availability of this feature to cases where, for
+          instance, there are sufficient <a>installability signals</a> to
+          warrant <a>installation</a> of the web application.
           </li>
         </ul>
+        <p>
+          In any case, the user agent MUST NOT <a>present an install prompt</a>
+          if the document is not <a>installable</a>.
+        </p>
         <p>
           Prior to presenting an <a>automated install prompt</a>, a user agent
           MUST run the <a>steps to notify that an install prompt is
           available</a>, to give the site the opportunity to prevent the
           default action (which is to install the application). Alternatively,
-          the user agent MAY run the <a>steps to notify that an install prompt
-          is available</a> at any time, giving the site the opportunity to show
-          a <a>site-triggered install prompt</a> without automatically showing
-          the prompt.
+          the user agent MAY, at any time (only if the document is
+          <a>installable</a>), run the <a>steps to notify that an install
+          prompt is available</a> at any time, giving the site the opportunity
+          to show a <a>site-triggered install prompt</a> without automatically
+          showing the prompt.
         </p>
         <p>
-          In either case, when a user agent <dfn data-lt=
-          "present an install prompt|presenting an install prompt">presents an
-          install prompt</dfn>, the end-user's choice is represented either
-          "accepted" or "dismissed". These values are represented in the API of
-          this specification via the <a>AppBannerPromptOutcome</a> enum.
+          To <dfn data-lt=
+          "presenting an install prompt|presentation of the install prompt">present
+          an install prompt</dfn>:
         </p>
+        <ol>
+          <li>Show some user-agent-specific UI, asking the user whether to
+          proceed with installing the app. See <a href=
+          "#installation-sec">privacy and security considerations</a> for
+          recommendations relating to this UI. The <var>result</var> of this
+          choice is either <a data-link-for=
+          "AppBannerPromptOutcome">accepted</a> or <a data-link-for=
+          "AppBannerPromptOutcome">dismissed</a>.
+          </li>
+          <li>Return <var>result</var>, and <a>in parallel</a>:
+            <ol>
+              <li>If <var>result</var> is <a data-link-for=
+              "AppBannerPromptOutcome">accepted</a>, run the <a>steps to
+              install the web application</a>.
+              </li>
+            </ol>
+          </li>
+        </ol>
         <p>
           The <dfn>steps to notify that an install prompt is available</dfn>
           are given by the following algorithm:
@@ -466,9 +491,10 @@
           <li>Wait until the {{Document}} of the <a>top-level browsing
           context</a> is <a>completely loaded</a>.
           </li>
-          <li>If there is already an <a>installation process</a> being
-          <a data-lt="present an install prompt">presented</a>, terminate this
-          algorithm.
+          <li>If there is already an <a data-lt=
+          "present an install prompt">install prompt being presented</a> or if
+          the <a>steps to install the web application</a> are currently being
+          executed, terminate this algorithm.
           </li>
           <li>
             <a>Queue a task</a> on the <a>application life-cycle task
@@ -496,14 +522,15 @@
           Privacy and security considerations
         </h3>
         <p>
-          During the <a>installation process</a>, it is RECOMMENDED that the
-          user agent allow the end-user to inspect the icon, name, <a>start
-          URL</a>, origin, etc. pertaining to a web application. This is to
-          give an end-user an opportunity to make a conscious decision to
-          approve, and possibly modify, the information pertaining to the web
-          application before installing it. This also gives the end-user an
-          opportunity to discern if the web application is spoofing another web
-          application, by, for example, using an unexpected icon or name.
+          During the <a>presentation of the install prompt</a>, it is
+          RECOMMENDED that the user agent allow the end-user to inspect the
+          icon, name, <a>start URL</a>, origin, etc. pertaining to a web
+          application. This is to give an end-user an opportunity to make a
+          conscious decision to approve, and possibly modify, the information
+          pertaining to the web application before installing it. This also
+          gives the end-user an opportunity to discern if the web application
+          is spoofing another web application, by, for example, using an
+          unexpected icon or name.
         </p>
         <p>
           It is RECOMMENDED that user agents prevent other applications from
@@ -516,7 +543,7 @@
         </p>
       </section>
       <section class="informative">
-        <h3>
+        <h3 id="installability-signals">
           Installability signals
         </h3>
         <p>
@@ -616,14 +643,13 @@
         </p>
         <div class="note">
           If the <a>BeforeInstallPromptEvent</a> is <em>not</em> cancelled, the
-          user agent is allowed to <a data-lt=
-          "presents an install prompt">present an automated install prompt</a>
-          to the end-user. Canceling the default action (via <a data-cite=
+          user agent is allowed to <a>present an install prompt</a>
+          (specifically, an <a>automated install prompt</a>) to the end-user.
+          Canceling the default action (via <a data-cite=
           "DOM#dom-event-preventdefault">preventDefault</a>) prevents the user
-          agent from <a data-lt="presents an install prompt">presenting an
-          automated install prompt</a>. The user agent is free to run <a>steps
-          to notify that an install prompt is available</a> again at a later
-          time.
+          agent from <a>presenting an install prompt</a>. The user agent is
+          free to run <a>steps to notify that an install prompt is
+          available</a> again at a later time.
         </div>
         <p data-dfn-for="PromptResponseObject">
           The <dfn>PromptResponseObject</dfn> contains the result of calling
@@ -737,8 +763,7 @@
           </h4>
           <p>
             The <dfn>AppBannerPromptOutcome</dfn> enum's values represent the
-            outcomes from <a data-lt="presents an install prompt">presenting
-            the end-user with an install prompt</a>.
+            outcomes from <a>presenting an install prompt</a>.
           </p>
           <dl data-dfn-for="AppBannerPromptOutcome">
             <dt>
@@ -795,8 +820,8 @@
             attribute</a> for the "<dfn>appinstalled</dfn>" event type. The
             interface used for these events is the <a><code>Event</code>
             interface</a> [[DOM]]. This event is dispatched as a result of a
-            <a data-lt="installation succeeded">successful installation</a>
-            (see the <a>steps to install the web application</a>).
+            successful installation (see the <a>steps to install the web
+            application</a>).
           </p>
         </section>
         <section data-dfn-for="Window">
