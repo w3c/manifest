@@ -1351,7 +1351,7 @@
           The <dfn data-lt="obtaining the manifest|obtaining a manifest">steps
           for obtaining a manifest</dfn> are given by the following algorithm.
           The algorithm, if successful, returns a <a>processed manifest</a> and
-          the <var>manifest URL</var>; otherwise, it terminates prematurely and
+          the <var>manifest URL</var>; otherwise, it aborts prematurely and
           returns nothing. In the case of nothing being returned, the user
           agent MUST ignore the manifest declaration. In running these steps, a
           user agent MUST NOT <a>delay the load event</a>.
@@ -1363,11 +1363,11 @@
           order</a> whose <a><code>rel</code> attribute</a> contains the token
           <code>manifest</code>.
           </li>
-          <li>If <var>origin</var> is an <a>opaque origin</a>, terminate this
-          algorithm.
+          <li>If <var>origin</var> is an <a>opaque origin</a>, then abort these
+          steps.
           </li>
-          <li>If <var>manifest link</var> is <code>null</code>, terminate this
-          algorithm.
+          <li>If <var>manifest link</var> is <code>null</code>, then abort
+          these steps.
           </li>
           <li>If <var>manifest link</var>'s <code>href</code> attribute's value
           is the empty <a>string</a>, then abort these steps.
@@ -1392,8 +1392,8 @@
           <li>Await the result of performing a <a>fetch</a> with
           <var>request</var>, letting <var>response</var> be the result.
           </li>
-          <li>If <var>response</var> is a <a>network error</a>, terminate this
-          algorithm.
+          <li>If <var>response</var> is a <a>network error</a>, then abort
+          these steps.
           </li>
           <li>Let <var>text</var> be <a>UTF-8 decode</a> <var>response</var>'s
           <a data-cite="FETCH#concept-request-body">body</a>.
