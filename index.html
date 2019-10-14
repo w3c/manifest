@@ -1542,13 +1542,12 @@
           </li>
           <li>Set <var>manifest</var>["<a>icons</a>"] to the result of running
           <a>processing ImageResource members</a> given
-          <var>manifest</var>["<a>icons</a>"], <var>manifest URL</var>, and
-          <code>"icons"</code>.
+          <var>manifest</var>["<a>icons</a>"] and <var>manifest URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>screenshots</a>"] to the result of
           running <a>processing ImageResource members</a> given
-          <var>manifest</var>["<a>screenshots</a>"], <var>manifest URL</var>,
-          and <code>"screenshots"</code>.
+          <var>manifest</var>["<a>screenshots</a>"] and <var>manifest
+          URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>related_applications</a>"] to the
           result of running <a>processing the <code>related_applications</code>
@@ -2803,7 +2802,7 @@
           </div>
         </section>
       </section>
-      <section data-dfn-for="imageresource">
+      <section data-dfn-for="ImageResource" data-link-for="ImageResource">
         <h3>
           <dfn>sizes</dfn> member
         </h3>
@@ -2861,24 +2860,6 @@
           The <a>src</a> member of an <a>ImageResource</a> is a <a>URL</a> from
           which a user agent can fetch the image's data.
         </p>
-        <p>
-          The steps for <dfn>processing the <code>src</code> member of an
-          image</dfn> are given by the following algorithm. The algorithm takes
-          a <a>ImageResource</a> <var>icon</var>, and a <a>URL</a>
-          <var>manifest URL</var> , which is the <a>URL</a> from which the
-          <var>manifest</var> was fetched. This algorithm will return a
-          <a>URL</a> or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be <var>image</var>["src"].
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) it not String, return
-          <code>undefined</code>.
-          </li>
-          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
-          URL</var> as the base URL and return the result.
-          </li>
-        </ol>
       </section>
       <section data-dfn-for="ImageResource">
         <h3>
@@ -2929,54 +2910,50 @@
         </h3>
         <p>
           The steps for <dfn>processing <a>ImageResource</a> members</dfn> are
-          given by the following algorithm. The algorithm takes a manifest, a
-          <a>URL</a> <var>manifest URL</var>, which is the URL from which the
-          <var>manifest</var> was fetched, and a <a>string</a> that represents
-          the <var>member name</var> of the member which contains the array of
-          <a>ImageResource</a>s. This algorithm returns an
-          Array&lt;<a>ImageResource</a>&gt;
+          given by the following algorithm. The algorithm takes a
+          Array&lt;<a>ImageResource</a>&gt; <var>entries</var> and a <a>URL</a>
+          <var>manifest URL</var>. This algorithm returns an
+          Array&lt;<a>ImageResource</a>&gt;.
         </p>
         <ol>
           <li>Let <var>imageResources</var> be a new Array object created as if
           by the expression [].
           </li>
           <li>
-            <a>For each</a> <var>entry</var> of <var>manifest</var>[<var>member
-            name</var>]:
+            <a>For each</a> <var>entry</var> of <var>entries</var>:
           </li>
-          <li>
+          <li>If <var>entry</var>["src"] is not <code>undefined</code>:
             <ol>
-              <li>If <var>entry</var>["src"] is not <code>undefined</code>:
-                <ol>
-                  <li>Let <var>image</var> be a new object created as if by the
-                  expression ({}).
-                  </li>
-                  <li>Set <var>image</var>["src"] to the result of running <a>
-                    processing the <code>src</code> member of an image</a>
-                    given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>Set <var>image</var>["type"] to the result of running <a>
-                    processing the <code>type</code> member of an image</a>
-                    given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>Set <var>image</var>["sizes"] to the result of running
-                  <a>processing the <code>sizes</code> member of an image</a>
-                  given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>Let <var>purpose</var> be the result of running
-                  <a>processing the <code>purpose</code> member of an image</a>
-                  given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>If <var>purpose</var> is failure, <a data-lt=
-                  "iteration-continue">continue</a>.
-                  </li>
-                  <li>Set <var>image</var>["purpose"] to <var>purpose</var>.
-                  </li>
-                  <li>
-                    <a data-lt="list-append">Append</a> <var>image</var> to
-                    <var>imageResources</var>
-                  </li>
-                </ol>
+              <li>Let <var>image</var> be a new object created as if by the
+              expression ({}).
+              </li>
+              <li>Set <var>image</var>["src"] to the result of <a>parsing</a>
+              <var>entry</var>["src"] using <var>manifest URL</var> as the base
+              URL.
+              </li>
+              <li>Set <var>image</var>["type"] to the result of running
+              <a>processing the <code>type</code> member of an image</a> given
+              <var>entry</var> and <var>manifest URL</var>.
+              </li>
+              <li>Set <var>image</var>["sizes"] to the result of running
+              <a>processing the <code>sizes</code> member of an image</a> given
+              <var>entry</var> and <var>manifest URL</var>.
+              </li>
+              <li>Let <var>purpose</var> be the result of running <a>processing
+              the <code>purpose</code> member of an image</a> given
+              <var>entry</var> and <var>manifest URL</var>.
+              </li>
+              <li>If <var>purpose</var> is failure, <a data-lt=
+              "iteration-continue">continue</a>.
+              </li>
+              <li>Set <var>image</var>["purpose"] to <var>purpose</var>.
+              </li>
+              <li>Set <var>image</var>["platform"] to
+              <var>entry</var>["platform"].
+              </li>
+              <li>
+                <a data-lt="list-append">Append</a> <var>image</var> to
+                <var>imageResources</var>
               </li>
             </ol>
           </li>
