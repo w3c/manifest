@@ -1358,7 +1358,7 @@
           <li>From the {{Document}} of the <a>top-level browsing context</a>,
           let <var>origin</var> be the {{Document}}'s origin, and <var>manifest
           link</var> be the first <a><code>link</code> element</a> in <a>tree
-          order</a> whose <a><code>rel</code> attribute</a> contains the token
+          order</a> whose {{HTMLLinkElement/rel}} contains the token
           <code>manifest</code>.
           </li>
           <li>If <var>origin</var> is an <a>opaque origin</a>, then abort these
@@ -3940,10 +3940,6 @@
             <li>
               <a data-cite="HTML#delay-the-load-event"><dfn>delay the load
               event</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#attr-link-rel"><dfn><code>rel</code>
-              attribute</dfn></a>
             </li>
             <li>
               <a data-cite=
