@@ -19,7 +19,7 @@
         {
           name: "Rob Dolin",
           company: "Microsoft Corporation",
-          companyURL: "https://microsoft.com/",
+          companyURL: "https://www.microsoft.com/en-us/",
         },
       ],
       editors: [
@@ -38,7 +38,7 @@
         {
           name: "Mounir Lamouri",
           company: "Google Inc.",
-          companyURL: "https://google.com/",
+          companyURL: "https://www.google.com/",
           w3cid: 45389,
         },
         {
@@ -50,7 +50,7 @@
         {
           name: "Matt Giuca",
           company: "Google Inc.",
-          companyURL: "https://google.com/",
+          companyURL: "https://www.google.com/",
           w3cid: 91260,
         },
         {
@@ -78,11 +78,11 @@
             },
             {
               value: "Gecko",
-              href: "https://bugzil.la/997779",
+              href: "https://bugzilla.mozilla.org/show_bug.cgi?id=997779",
             },
             {
               value: "WebKit",
-              href: "https://webkit.org/b/158205",
+              href: "https://bugs.webkit.org/show_bug.cgi?id=158205",
             },
           ],
         },
@@ -795,8 +795,8 @@
         <p>
           The following extensions to the <code><dfn data-cite=
           "HTML/window-object.html#window">Window</dfn></code> object specify
-          the <a>event handler attributes</a> on which events relating to the
-          <a>installation</a> of a web application are <a>fired</a>.
+          the <a>event handler idl attribute</a> on which events relating to
+          the <a>installation</a> of a web application are <a>fired</a>.
         </p>
         <pre class="idl" data-cite="HTML">
           partial interface Window {
@@ -907,17 +907,14 @@
         unexpected behavior, use a scope ending in a <code>/</code>.
       </div>
       <p>
-        If the <a>application context</a>'s <a data-cite=
-        "HTML#active-document">active document</a>'s <a data-cite=
-        "DOM#concept-document-url">URL</a> is not <a data-lt=
-        "within-scope-manifest">within scope</a> of the <a>application
-        context</a>'s manifest, the user agent SHOULD show a prominent UI
-        element indicating the <a data-cite="DOM#concept-document-url">document
-        URL</a>, or at least its <a>origin</a>, including whether it is served
-        over a secure connection. This UI SHOULD differ from any UI used when
-        the <a data-cite="DOM#concept-document-url">document URL</a> is
-        <a>within scope</a>, in order to make it obvious that the user is
-        navigating off scope.
+        If the <a>application context</a>'s <a>active document</a>'s
+        [=Document/URL=] is not <a data-lt="within-scope-manifest">within
+        scope</a> of the <a>application context</a>'s manifest, the user agent
+        SHOULD show a prominent UI element indicating the [=Document/URL=] or
+        at least its <a>origin</a>, including whether it is served over a
+        secure connection. This UI SHOULD differ from any UI used when the
+        [=Document/URL=] is <a>within scope</a>, in order to make it obvious
+        that the user is navigating off scope.
       </p>
       <div class="note">
         <p>
@@ -1263,8 +1260,8 @@
         </h3>
         <p>
           The <code>manifest</code> keyword can be used with a [[HTML]]
-          <a><code>link</code> element</a>. This keyword creates an <a>external
-          resource link</a>.
+          [^link^] element. This keyword creates an <a>external resource
+          link</a>.
         </p>
         <table class="complex data">
           <thead>
@@ -1294,7 +1291,7 @@
                 <code>manifest</code>
               </td>
               <td>
-                <a>External Resource</a>
+                <a>External Resource Link</a>
               </td>
               <td>
                 not allowed
@@ -1329,8 +1326,8 @@
         </p>
         <p>
           A <a>manifest</a> is obtained and applied regardless of the
-          <a>media</a> attribute of the <a><code>link</code> element</a>
-          matches the environment or not.
+          {{HTMLLinkElement/media}} attribute of the <a><code>link</code>
+          element</a> matches the environment or not.
         </p>
       </section>
     </section>
@@ -1360,7 +1357,7 @@
           <li>From the {{Document}} of the <a>top-level browsing context</a>,
           let <var>origin</var> be the {{Document}}'s origin, and <var>manifest
           link</var> be the first <a><code>link</code> element</a> in <a>tree
-          order</a> whose <a><code>rel</code> attribute</a> contains the token
+          order</a> whose {{HTMLLinkElement/rel}} attribute contains the token
           <code>manifest</code>.
           </li>
           <li>If <var>origin</var> is an <a>opaque origin</a>, then abort these
@@ -2887,9 +2884,10 @@
           <li>If <a>Type</a>(<var>value</var>) it not String, return
           <code>undefined</code>.
           </li>
-          <li>If <var>value</var> is not a <a>valid MIME type</a> or the value
-          of <var>type</var> is not a supported media format, issue a developer
-          warning and return <code>undefined</code>.
+          <li>If <var>value</var> is not a <a data-cite="mimesniff">valid mime
+          type string</a> or the value of <var>type</var> is not a supported
+          media format, issue a developer warning and return
+          <code>undefined</code>.
           </li>
           <li>Return <var>value</var>.
           </li>
@@ -3079,7 +3077,7 @@
           The <dfn>type</dfn> member of a
           <a>ServiceWorkerRegistrationObject</a> dictionary is the service
           worker's {{WorkerType}}. The possible values are those of the
-          <a>WorkerType</a> enum defined in [[HTML]].
+          {{WorkerType}} enum defined in [[HTML]].
         </p>
       </section>
       <section data-dfn-for="ServiceWorkerRegistrationObject" data-link-for=
@@ -3674,8 +3672,8 @@
         Developers interested in validating <a>manifest</a> documents can find
         an unofficial <a href="http://json.schemastore.org/web-manifest">JSON
         schema for the manifest format</a> at <a href=
-        "http://schemastore.org/">schemastore.org</a>. It is licensed under
-        <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache
+        "http://schemastore.org/json/">schemastore.org</a>. It is licensed
+        under <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache
         2.0</a>. It is kindly maintained by <a href=
         "https://github.com/madskristensen">Mads Kristensen</a>. If you find
         any issues with the JSON schema, please <a href=
@@ -3895,18 +3893,6 @@
               loaded</dfn>
             </li>
             <li>
-              <a data-cite="HTML#allowed-to-navigate"><dfn>allowed to
-              navigate</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#external-resource-link"><dfn data-lt=
-              "External Resource">external Resource link</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#top-level-browsing-context"><dfn>top-level
-              browsing context</dfn></a>
-            </li>
-            <li>
               <a data-cite="HTML#same-origin"><dfn>same-origin</dfn></a>
             </li>
             <li>
@@ -3919,10 +3905,6 @@
               "navigated|navigate|navigation">navigate algorithm</dfn></a>
             </li>
             <li>
-              <a data-cite="HTML#replacement-enabled"><dfn>replacement
-              enabled</dfn></a>
-            </li>
-            <li>
               <a data-cite="HTML#the-link-element"><dfn data-lt=
               "link"><code>link</code> element</dfn></a>
             </li>
@@ -3930,63 +3912,8 @@
               <a data-cite="HTML#linkTypes"><dfn>link type</dfn></a>
             </li>
             <li>
-              <a data-cite="HTML#attr-link-media"><dfn>media</dfn></a>
-            </li>
-            <li>
               <a data-cite="HTML#delay-the-load-event"><dfn>delay the load
               event</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#tree-order"><dfn>tree order</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#attr-link-rel"><dfn><code>rel</code>
-              attribute</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#concept-link-obtain"><dfn>obtain a
-              resource</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#networking-task-source"><dfn>networking task
-              source</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#queue-a-task"><dfn>queue a task</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#origin"><dfn>origin</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-a-element"><dfn data-lt="a"><code>a</code>
-              element</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-meta-element"><dfn data-lt=
-              "meta"><code>meta</code> element</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-area-element"><dfn data-lt=
-              "area"><code>area</code> element</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#attr-meta-name"><dfn><code>name</code>
-              attribute</dfn></a>
-            </li>
-            <li>
-              <a data-cite=
-              "HTML#meta-application-name"><dfn>application-name</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-title-element"><dfn><code>title</code>
-              element</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#rel-icon"><dfn>icon link type</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#ascii-case-insensitive"><dfn>ASCII
-              case-insensitive</dfn></a>
             </li>
             <li>
               <a data-cite="HTML#attr-link-sizes-any"><dfn>any link
@@ -4010,16 +3937,6 @@
             <li>
               <a data-cite="HTML#queue-a-post-load-task"><dfn>queue a post-load
               task</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#event-handler-idl-attributes"><dfn data-lt=
-              "event handler attributes">Event handler IDL attribute</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#in-parallel"><dfn>in parallel</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#workertype"><dfn>WorkerType</dfn></a>
             </li>
           </ul>
         </li>
@@ -4069,14 +3986,6 @@
             <li>
               <a data-cite=
               "ECMASCRIPT#sec-ecmascript-data-types-and-values"><dfn>Type</dfn>(<var>x</var>)</a>
-            </li>
-          </ul>
-        </li>
-        <li>[[MIMESNIFF]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite="MIMESNIFF#valid-mime-type"><dfn>valid MIME
-              type</dfn></a>
             </li>
           </ul>
         </li>
