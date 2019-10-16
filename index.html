@@ -795,8 +795,8 @@
         <p>
           The following extensions to the <code><dfn data-cite=
           "HTML/window-object.html#window">Window</dfn></code> object specify
-          the <a>event handler idl attribute</a> on which events relating to the
-          <a>installation</a> of a web application are <a>fired</a>.
+          the <a>event handler idl attribute</a> on which events relating to
+          the <a>installation</a> of a web application are <a>fired</a>.
         </p>
         <pre class="idl" data-cite="HTML">
           partial interface Window {
@@ -908,14 +908,13 @@
       </div>
       <p>
         If the <a>application context</a>'s <a>active document</a>'s
-        [=Document/URL=] is not <a data-lt=
-        "within-scope-manifest">within scope</a> of the <a>application
-        context</a>'s manifest, the user agent SHOULD show a prominent UI
-        element indicating the [=Document/URL=] or at least its <a>origin</a>, including whether it is served
-        over a secure connection. This UI SHOULD differ from any UI used when
-        the [=Document/URL=] is
-        <a>within scope</a>, in order to make it obvious that the user is
-        navigating off scope.
+        [=Document/URL=] is not <a data-lt="within-scope-manifest">within
+        scope</a> of the <a>application context</a>'s manifest, the user agent
+        SHOULD show a prominent UI element indicating the [=Document/URL=] or
+        at least its <a>origin</a>, including whether it is served over a
+        secure connection. This UI SHOULD differ from any UI used when the
+        [=Document/URL=] is <a>within scope</a>, in order to make it obvious
+        that the user is navigating off scope.
       </p>
       <div class="note">
         <p>
@@ -1261,7 +1260,8 @@
         </h3>
         <p>
           The <code>manifest</code> keyword can be used with a [[HTML]]
-          [^link^] element. This keyword creates an <a>external resource link</a>.
+          [^link^] element. This keyword creates an <a>external resource
+          link</a>.
         </p>
         <table class="complex data">
           <thead>
@@ -1326,8 +1326,8 @@
         </p>
         <p>
           A <a>manifest</a> is obtained and applied regardless of the
-          {{HTMLLinkElement/media}} attribute of the <a><code>link</code> element</a>
-          matches the environment or not.
+          {{HTMLLinkElement/media}} attribute of the <a><code>link</code>
+          element</a> matches the environment or not.
         </p>
       </section>
     </section>
@@ -2884,9 +2884,10 @@
           <li>If <a>Type</a>(<var>value</var>) it not String, return
           <code>undefined</code>.
           </li>
-          <li>If <var>value</var> is not a <a data-cite="mimesniff">valid mime type string</a> or the value
-          of <var>type</var> is not a supported media format, issue a developer
-          warning and return <code>undefined</code>.
+          <li>If <var>value</var> is not a <a data-cite="mimesniff">valid mime
+          type string</a> or the value of <var>type</var> is not a supported
+          media format, issue a developer warning and return
+          <code>undefined</code>.
           </li>
           <li>Return <var>value</var>.
           </li>
@@ -3671,8 +3672,8 @@
         Developers interested in validating <a>manifest</a> documents can find
         an unofficial <a href="http://json.schemastore.org/web-manifest">JSON
         schema for the manifest format</a> at <a href=
-        "http://schemastore.org/json/">schemastore.org</a>. It is licensed under
-        <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache
+        "http://schemastore.org/json/">schemastore.org</a>. It is licensed
+        under <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache
         2.0</a>. It is kindly maintained by <a href=
         "https://github.com/madskristensen">Mads Kristensen</a>. If you find
         any issues with the JSON schema, please <a href=
