@@ -244,9 +244,9 @@
           Using a `link` element to link to a manifest
         </h3>
         <p>
-          Example of using a [=`link` element=] to associate a website with a
+          Example of using a [^link^] element to associate a website with a
           <a>manifest</a>. The example also shows how to use [[HTML]]'s
-          <a data-tl="link element">`link`</a> and <a data-tl=
+          [^link^] and <a data-tl=
           "meta element">`meta`</a> elements to give the web application a
           fallback name and set of icons.
         </p>
@@ -1308,10 +1308,10 @@
           type</a>.
         </p>
         <p class="note">
-          In cases where more than one <a><code>link</code> element</a> with a
+          In cases where more than one [^link^] element with a
           <code>manifest</code> link type appears in a {{Document}}, the user
-          agent uses the first <a><code>link</code> element</a> in tree order
-          and ignores all subsequent <a><code>link</code> element</a> with a
+          agent uses the first [^link^] element in tree order
+          and ignores all subsequent [^link^] elements with a
           <code>manifest</code> link type (even if the first element was
           erroneous). See the steps for <a>obtaining a manifest</a>.
         </p>
@@ -1326,8 +1326,7 @@
         </p>
         <p>
           A <a>manifest</a> is obtained and applied regardless of the
-          {{HTMLLinkElement/media}} attribute of the <a><code>link</code>
-          element</a> matches the environment or not.
+          {{HTMLLinkElement/media}} attribute of the [^link^] element matches the environment or not.
         </p>
       </section>
     </section>
@@ -1356,7 +1355,7 @@
         <ol>
           <li>From the {{Document}} of the <a>top-level browsing context</a>,
           let <var>origin</var> be the {{Document}}'s origin, and <var>manifest
-          link</var> be the first <a><code>link</code> element</a> in <a>tree
+          link</var> be the first [^link^] element</a> in <a>tree
           order</a> whose {{HTMLLinkElement/rel}} attribute contains the token
           <code>manifest</code>.
           </li>
@@ -3900,10 +3899,6 @@
             <li>
               <a data-cite="HTML#navigate"><dfn data-lt=
               "navigated|navigate|navigation">navigate algorithm</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-link-element"><dfn data-lt=
-              "link"><code>link</code> element</dfn></a>
             </li>
             <li>
               <a data-cite="HTML#linkTypes"><dfn>link type</dfn></a>
