@@ -699,7 +699,7 @@
                 "DOM#dom-event-istrusted"><code>isTrusted</code></a> attribute
                 is <code>false</code>, reject
                 <var>this</var>.<a>[[\userResponsePromise]]</a> with
-                <a>NotAllowedError</a>, optionally informing the developer that
+                {{"NotAllowedError"}}, optionally informing the developer that
                 untrusted events can't call <code>prompt()</code>.
                 </li>
                 <li>Else if <var>this</var>.<a>[[\didPrompt]]</a> is
@@ -3835,10 +3835,6 @@
         </li>
         <li>[[WEBIDL]] defines the following terms:
           <ul>
-            <li>
-              <a data-cite=
-              "WEBIDL#notallowederror"><dfn>NotAllowedError</dfn></a>
-            </li>
             <li>
               <a data-cite="WEBIDL#es-dictionary"><dfn data-lt=
               "to idl dictionary value">converted to IDL dictionary
