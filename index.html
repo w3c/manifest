@@ -2610,7 +2610,7 @@
               </li>
               <li>If |canonicalKeyword| is not one of the [=icon purposes=], or
               |purposes| [=contains=] |keyword|, then [=issue a developer
-              warning=] and [=continue=].
+              warning=] and [=iteration/continue=].
               </li>
               <li>Otherwise, [=set/append=] |canonicalKeyword| to |purposes|.
               </li>
@@ -2940,8 +2940,7 @@
               the <code>purpose</code> member of an image</a> given
               <var>entry</var> and <var>manifest URL</var>.
               </li>
-              <li>If <var>purpose</var> is failure, <a data-lt=
-              "iteration-continue">continue</a>.
+              <li>If <var>purpose</var> is failure, [=iteration/continue=].
               </li>
               <li>Set <var>image</var>["purpose"] to <var>purpose</var>.
               </li>
@@ -3931,9 +3930,6 @@
         </li>
         <li>[[INFRA]] defines the following terms:
           <ul>
-            <li>
-              <dfn data-cite="INFRA#iteration-continue">continue</dfn>
-            </li>
             <li>
               <dfn data-cite="INFRA#list-contain">contains</dfn>
             </li>
