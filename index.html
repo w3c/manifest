@@ -246,9 +246,8 @@
         <p>
           Example of using a [^link^] element to associate a website with a
           <a>manifest</a>. The example also shows how to use [[HTML]]'s
-          [^link^] and <a data-tl=
-          "meta element">`meta`</a> elements to give the web application a
-          fallback name and set of icons.
+          [^link^] and <a data-tl="meta element">`meta`</a> elements to give
+          the web application a fallback name and set of icons.
         </p>
         <pre class="example html" title="linking to a manifest">
           &lt;!doctype&gt;
@@ -880,9 +879,9 @@
         <var>scopes</var>'s <a data-cite="URL#concept-url-path">path</a>, using
         U+002F (/).
         </li>
-        <li>Let <var>targetPath</var> be the [=string/concatenation=] of
-        <var>target</var>'s <a data-cite="URL#concept-url-path">path</a>, using
-        U+002F (/).
+        <li>Let <var>targetPath</var> be the [=string/concatenation=] of <var>
+          target</var>'s <a data-cite="URL#concept-url-path">path</a>, using
+          U+002F (/).
         </li>
         <li>If <var>target</var> is <a>same origin</a> as <var>scope</var> and
         <var>targetPath</var> starts with <var>scopePath</var>, return
@@ -1310,10 +1309,10 @@
         <p class="note">
           In cases where more than one [^link^] element with a
           <code>manifest</code> link type appears in a {{Document}}, the user
-          agent uses the first [^link^] element in tree order
-          and ignores all subsequent [^link^] elements with a
-          <code>manifest</code> link type (even if the first element was
-          erroneous). See the steps for <a>obtaining a manifest</a>.
+          agent uses the first [^link^] element in tree order and ignores all
+          subsequent [^link^] elements with a <code>manifest</code> link type
+          (even if the first element was erroneous). See the steps for
+          <a>obtaining a manifest</a>.
         </p>
         <p>
           To obtain a manifest, the user agent MUST run the steps for
@@ -1326,7 +1325,8 @@
         </p>
         <p>
           A <a>manifest</a> is obtained and applied regardless of the
-          {{HTMLLinkElement/media}} attribute of the [^link^] element matches the environment or not.
+          {{HTMLLinkElement/media}} attribute of the [^link^] element matches
+          the environment or not.
         </p>
       </section>
     </section>
@@ -1355,8 +1355,8 @@
         <ol>
           <li>From the {{Document}} of the <a>top-level browsing context</a>,
           let <var>origin</var> be the {{Document}}'s origin, and <var>manifest
-          link</var> be the first [^link^] element</a> in <a>tree
-          order</a> whose {{HTMLLinkElement/rel}} attribute contains the token
+          link</var> be the first [^link^] element in <a>tree order</a> whose
+          {{HTMLLinkElement/rel}} attribute contains the token
           <code>manifest</code>.
           </li>
           <li>If <var>origin</var> is an <a>opaque origin</a>, then abort these
@@ -1950,8 +1950,7 @@
           The <dfn>orientation</dfn> member is a <a>string</a> that serves as
           the <a>default orientation</a> for all <a>top-level browsing
           contexts</a> of the web application. The possible values are those of
-          the {{orientationlocktype}} enum defined in
-          [[SCREEN-ORIENTATION]].
+          the {{orientationlocktype}} enum defined in [[SCREEN-ORIENTATION]].
         </p>
         <p>
           If the user agent honors the value of the <a>orientation</a> member
@@ -1964,9 +1963,9 @@
         </p>
         <p>
           Although the specification relies on the [[SCREEN-ORIENTATION]]'s
-          {{orientationlocktype}}, it is OPTIONAL for a user agent to
-          implement the [[SCREEN-ORIENTATION]] API. Supporting the
-          [[SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
+          {{orientationlocktype}}, it is OPTIONAL for a user agent to implement
+          the [[SCREEN-ORIENTATION]] API. Supporting the [[SCREEN-ORIENTATION]]
+          API is, of course, RECOMMENDED.
         </p>
         <p>
           Certain UI/UX concerns and/or platform conventions will mean that
@@ -2213,8 +2212,8 @@
           <li>Let <var>relatedApplications</var> be a new Array object created
           as if by the expression [].
           </li>
-          <li>
-            [=list/For each=] <var>app</var> of <var>related applications</var>:
+          <li>[=list/For each=] <var>app</var> of <var>related
+          applications</var>:
             <ol>
               <li>if neither <var>app</var>["src"] nor <var>app</var>["url"]
               are <code>undefined</code>:
@@ -2223,9 +2222,8 @@
                   <a>processing the <code>url</code> member of an
                   application</a> given <var>app</var>["url"].
                   </li>
-                  <li>
-                    [=list/append=] <var>app</var> to
-                    <var>relatedApplications</var>
+                  <li>[=list/append=] <var>app</var> to
+                  <var>relatedApplications</var>
                   </li>
                 </ol>
               </li>
@@ -2318,13 +2316,11 @@
           <code>Array&lt;USVString&gt;</code>.
         </p>
         <ol>
-          <li>
-            [=list/For each=] <var>category</var> of <var>categories</var>:
+          <li>[=list/For each=] <var>category</var> of <var>categories</var>:
             <ol>
-              <li>
-                [=set/Replace=] <var>category</var> within
-                <var>categories</var> with <var>category</var>,
-                <a>ascii lowercased</a>.
+              <li>[=set/Replace=] <var>category</var> within
+              <var>categories</var> with <var>category</var>, <a>ascii
+              lowercased</a>.
               </li>
             </ol>
           </li>
@@ -2835,12 +2831,10 @@
           {{HTMLLinkElement/sizes}} attribute and let <a>list</a>
           <var>keywords</var> be the result.
           </li>
-          <li>
-            [=list/For each=]> <var>keyword</var> of <var>keywords</var>:
+          <li>[=list/For each=]&gt; <var>keyword</var> of <var>keywords</var>:
             <ol>
-              <li>
-                [=set/append=] <var>keyword</var>,
-                <a>ascii lowercased</a>, to <var>set</var>.
+              <li>[=set/append=] <var>keyword</var>, <a>ascii lowercased</a>,
+              to <var>set</var>.
               </li>
             </ol>
           </li>
@@ -2916,8 +2910,7 @@
           <li>Let <var>imageResources</var> be a new Array object created as if
           by the expression [].
           </li>
-          <li>
-              [=list/For each=] <var>entry</var> of <var>entries</var>:
+          <li>[=list/For each=] <var>entry</var> of <var>entries</var>:
           </li>
           <li>If <var>entry</var>["src"] is not <code>undefined</code>:
             <ol>
@@ -2947,9 +2940,7 @@
               <li>Set <var>image</var>["platform"] to
               <var>entry</var>["platform"].
               </li>
-              <li>
-                [=list/append=] <var>image</var> to
-                <var>imageResources</var>
+              <li>[=list/append=] <var>image</var> to <var>imageResources</var>
               </li>
             </ol>
           </li>
