@@ -2324,7 +2324,7 @@
               <li>
                 <a data-lt="set-replace">Replace</a> <var>category</var> within
                 <var>categories</var> with <var>category</var>,
-                <a>lowercased</a>.
+                <a>ascii lowercased</a>.
               </li>
             </ol>
           </li>
@@ -2606,7 +2606,7 @@
           </li>
           <li>[=set/For each=] |keyword:string| of |keywords|:
             <ol>
-              <li>Set |canonicalKeyword| to [=lowercased=] |keyword|.
+              <li>Set |canonicalKeyword| to <a>ascii lowercased</a> |keyword|.
               </li>
               <li>If |canonicalKeyword| is not one of the [=icon purposes=], or
               |purposes| [=contains=] |keyword|, then [=issue a developer
@@ -2840,7 +2840,7 @@
             <ol>
               <li>
                 <a data-lt="set-append">Append</a> <var>keyword</var>,
-                <a>lowercased</a>, to <var>set</var>.
+                <a>ascii lowercased</a>, to <var>set</var>.
               </li>
             </ol>
           </li>
@@ -3931,10 +3931,6 @@
         </li>
         <li>[[INFRA]] defines the following terms:
           <ul>
-            <li>
-              <dfn data-cite="INFRA#ascii-lowercase" data-lt="lowercased">ASCII
-              lowercase</dfn>
-            </li>
             <li>
               <dfn data-cite="INFRA#list">list</dfn>
             </li>
