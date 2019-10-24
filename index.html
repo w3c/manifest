@@ -244,11 +244,10 @@
           Using a `link` element to link to a manifest
         </h3>
         <p>
-          Example of using a [=`link` element=] to associate a website with a
+          Example of using a [^link^] element to associate a website with a
           <a>manifest</a>. The example also shows how to use [[HTML]]'s
-          <a data-tl="link element">`link`</a> and <a data-tl=
-          "meta element">`meta`</a> elements to give the web application a
-          fallback name and set of icons.
+          [^link^] and <a data-tl="meta element">`meta`</a> elements to give
+          the web application a fallback name and set of icons.
         </p>
         <pre class="example html" title="linking to a manifest">
           &lt;!doctype&gt;
@@ -699,7 +698,7 @@
                 "DOM#dom-event-istrusted"><code>isTrusted</code></a> attribute
                 is <code>false</code>, reject
                 <var>this</var>.<a>[[\userResponsePromise]]</a> with
-                <a>NotAllowedError</a>, optionally informing the developer that
+                {{"NotAllowedError"}}, optionally informing the developer that
                 untrusted events can't call <code>prompt()</code>.
                 </li>
                 <li>Else if <var>this</var>.<a>[[\didPrompt]]</a> is
@@ -876,13 +875,13 @@
         returns <code>true</code>:
       </p>
       <ol>
-        <li>Let <var>scopePath</var> be the <a>concatenation</a> of
+        <li>Let <var>scopePath</var> be the [=string/concatenation=] of
         <var>scopes</var>'s <a data-cite="URL#concept-url-path">path</a>, using
         U+002F (/).
         </li>
-        <li>Let <var>targetPath</var> be the <a>concatenation</a> of
-        <var>target</var>'s <a data-cite="URL#concept-url-path">path</a>, using
-        U+002F (/).
+        <li>Let <var>targetPath</var> be the [=string/concatenation=] of <var>
+          target</var>'s <a data-cite="URL#concept-url-path">path</a>, using
+          U+002F (/).
         </li>
         <li>If <var>target</var> is <a>same origin</a> as <var>scope</var> and
         <var>targetPath</var> starts with <var>scopePath</var>, return
@@ -1308,12 +1307,12 @@
           type</a>.
         </p>
         <p class="note">
-          In cases where more than one <a><code>link</code> element</a> with a
+          In cases where more than one [^link^] element with a
           <code>manifest</code> link type appears in a {{Document}}, the user
-          agent uses the first <a><code>link</code> element</a> in tree order
-          and ignores all subsequent <a><code>link</code> element</a> with a
-          <code>manifest</code> link type (even if the first element was
-          erroneous). See the steps for <a>obtaining a manifest</a>.
+          agent uses the first [^link^] element in tree order and ignores all
+          subsequent [^link^] elements with a <code>manifest</code> link type
+          (even if the first element was erroneous). See the steps for
+          <a>obtaining a manifest</a>.
         </p>
         <p>
           To obtain a manifest, the user agent MUST run the steps for
@@ -1326,8 +1325,8 @@
         </p>
         <p>
           A <a>manifest</a> is obtained and applied regardless of the
-          {{HTMLLinkElement/media}} attribute of the <a><code>link</code>
-          element</a> matches the environment or not.
+          {{HTMLLinkElement/media}} attribute of the [^link^] element matches
+          the environment or not.
         </p>
       </section>
     </section>
@@ -1356,8 +1355,8 @@
         <ol>
           <li>From the {{Document}} of the <a>top-level browsing context</a>,
           let <var>origin</var> be the {{Document}}'s origin, and <var>manifest
-          link</var> be the first <a><code>link</code> element</a> in <a>tree
-          order</a> whose {{HTMLLinkElement/rel}} attribute contains the token
+          link</var> be the first [^link^] element in <a>tree order</a> whose
+          {{HTMLLinkElement/rel}} attribute contains the token
           <code>manifest</code>.
           </li>
           <li>If <var>origin</var> is an <a>opaque origin</a>, then abort these
@@ -1951,8 +1950,7 @@
           The <dfn>orientation</dfn> member is a <a>string</a> that serves as
           the <a>default orientation</a> for all <a>top-level browsing
           contexts</a> of the web application. The possible values are those of
-          the <a>OrientationLockType</a> enum defined in
-          [[SCREEN-ORIENTATION]].
+          the {{OrientationLockType}} enum defined in [[SCREEN-ORIENTATION]].
         </p>
         <p>
           If the user agent honors the value of the <a>orientation</a> member
@@ -1965,9 +1963,9 @@
         </p>
         <p>
           Although the specification relies on the [[SCREEN-ORIENTATION]]'s
-          <a>OrientationLockType</a>, it is OPTIONAL for a user agent to
-          implement the [[SCREEN-ORIENTATION]] API. Supporting the
-          [[SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
+          {{OrientationLockType}}, it is OPTIONAL for a user agent to implement
+          the [[SCREEN-ORIENTATION]] API. Supporting the [[SCREEN-ORIENTATION]]
+          API is, of course, RECOMMENDED.
         </p>
         <p>
           Certain UI/UX concerns and/or platform conventions will mean that
@@ -2031,7 +2029,7 @@
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the <a>start_url</a>
-                needs to be <a>same-origin</a> as the <code>Document</code> of
+                needs to be <a>same origin</a> as the <code>Document</code> of
                 the <a>top-level browsing context</a>.
               </li>
               <li>Return <var>document URL</var>.
@@ -2214,8 +2212,8 @@
           <li>Let <var>relatedApplications</var> be a new Array object created
           as if by the expression [].
           </li>
-          <li>
-            <a>For each</a> <var>app</var> of <var>related applications</var>:
+          <li>[=list/For each=] <var>app</var> of <var>related
+          applications</var>:
             <ol>
               <li>if neither <var>app</var>["src"] nor <var>app</var>["url"]
               are <code>undefined</code>:
@@ -2224,9 +2222,8 @@
                   <a>processing the <code>url</code> member of an
                   application</a> given <var>app</var>["url"].
                   </li>
-                  <li>
-                    <a data-lt="list-append">Append</a> <var>app</var> to
-                    <var>relatedApplications</var>
+                  <li>[=list/append=] <var>app</var> to
+                  <var>relatedApplications</var>
                   </li>
                 </ol>
               </li>
@@ -2319,13 +2316,11 @@
           <code>Array&lt;USVString&gt;</code>.
         </p>
         <ol>
-          <li>
-            <a>For each</a> <var>category</var> of <var>categories</var>:
+          <li>[=list/For each=] <var>category</var> of <var>categories</var>:
             <ol>
-              <li>
-                <a data-lt="set-replace">Replace</a> <var>category</var> within
-                <var>categories</var> with <var>category</var>,
-                <a>lowercased</a>.
+              <li>[=set/Replace=] <var>category</var> within
+              <var>categories</var> with <var>category</var>, <a>ascii
+              lowercased</a>.
               </li>
             </ol>
           </li>
@@ -2607,17 +2602,17 @@
           </li>
           <li>[=set/For each=] |keyword:string| of |keywords|:
             <ol>
-              <li>Set |canonicalKeyword| to [=lowercased=] |keyword|.
+              <li>Set |canonicalKeyword| to <a>ascii lowercased</a> |keyword|.
               </li>
               <li>If |canonicalKeyword| is not one of the [=icon purposes=], or
               |purposes| [=contains=] |keyword|, then [=issue a developer
-              warning=] and [=continue=].
+              warning=] and [=iteration/continue=].
               </li>
               <li>Otherwise, [=set/append=] |canonicalKeyword| to |purposes|.
               </li>
             </ol>
           </li>
-          <li>If |purposes| [=is empty=], then return failure.
+          <li>If |purposes| [=list/is empty=], then return failure.
           </li>
           <li>Return |purposes|.
           </li>
@@ -2836,12 +2831,10 @@
           {{HTMLLinkElement/sizes}} attribute and let <a>list</a>
           <var>keywords</var> be the result.
           </li>
-          <li>
-            <a>For each</a> <var>keyword</var> of <var>keywords</var>:
+          <li>[=list/For each=] <var>keyword</var> of <var>keywords</var>:
             <ol>
-              <li>
-                <a data-lt="set-append">Append</a> <var>keyword</var>,
-                <a>lowercased</a>, to <var>set</var>.
+              <li>[=set/append=] <var>keyword</var>, <a>ascii lowercased</a>,
+              to <var>set</var>.
               </li>
             </ol>
           </li>
@@ -2917,8 +2910,7 @@
           <li>Let <var>imageResources</var> be a new Array object created as if
           by the expression [].
           </li>
-          <li>
-            <a>For each</a> <var>entry</var> of <var>entries</var>:
+          <li>[=list/For each=] <var>entry</var> of <var>entries</var>:
           </li>
           <li>If <var>entry</var>["src"] is not <code>undefined</code>:
             <ol>
@@ -2941,17 +2933,14 @@
               the <code>purpose</code> member of an image</a> given
               <var>entry</var> and <var>manifest URL</var>.
               </li>
-              <li>If <var>purpose</var> is failure, <a data-lt=
-              "iteration-continue">continue</a>.
+              <li>If <var>purpose</var> is failure, [=iteration/continue=].
               </li>
               <li>Set <var>image</var>["purpose"] to <var>purpose</var>.
               </li>
               <li>Set <var>image</var>["platform"] to
               <var>entry</var>["platform"].
               </li>
-              <li>
-                <a data-lt="list-append">Append</a> <var>image</var> to
-                <var>imageResources</var>
+              <li>[=list/append=] <var>image</var> to <var>imageResources</var>
               </li>
             </ol>
           </li>
@@ -3755,9 +3744,6 @@
         <li>[[URL]] defines the following terms:
           <ul>
             <li>
-              <dfn data-cite="URL#concept-url">URL</dfn>
-            </li>
-            <li>
               <dfn data-cite="URL#concept-url-parser" data-lt=
               "parse|parsing|URL parsing">URL parser</dfn>
             </li>
@@ -3789,10 +3775,6 @@
             <li>
               <a data-cite=
               "CSP3#directive-manifest-src"><dfn>manifest-src</dfn>
-              directive</a>
-            </li>
-            <li>
-              <a data-cite="CSP3#directive-img-src"><dfn>img-src</dfn>
               directive</a>
             </li>
             <li>
@@ -3841,14 +3823,6 @@
         <li>[[WEBIDL]] defines the following terms:
           <ul>
             <li>
-              <a data-cite=
-              "WEBIDL#invalidstateerror"><dfn>InvalidStateError</dfn></a>
-            </li>
-            <li>
-              <a data-cite=
-              "WEBIDL#notallowederror"><dfn>NotAllowedError</dfn></a>
-            </li>
-            <li>
               <a data-cite="WEBIDL#es-dictionary"><dfn data-lt=
               "to idl dictionary value">converted to IDL dictionary
               value</dfn></a>
@@ -3867,33 +3841,11 @@
             </li>
           </ul>
         </li>
-        <li>[[FETCH]] defines the following terms:
-          <ul data-sort="">
-            <li>
-              <dfn data-cite="FETCH#concept-fetch">Fetch</dfn>
-            </li>
-            <li>
-              <dfn data-cite="FETCH#concept-response">Response</dfn>
-            </li>
-            <li>
-              <dfn data-cite="FETCH#concept-request">Request</dfn>
-            </li>
-            <li>
-              <dfn data-cite="FETCH#concept-network-error">Network error</dfn>
-            </li>
-            <li>
-              <dfn data-cite="FETCH#concept-request-context">Context</dfn>
-            </li>
-          </ul>
-        </li>
         <li>[[HTML]] defines the following terms:
           <ul>
             <li>
               <dfn data-cite="HTML/parsing.html#completely-loaded">completely
               loaded</dfn>
-            </li>
-            <li>
-              <a data-cite="HTML#same-origin"><dfn>same-origin</dfn></a>
             </li>
             <li>
               <a data-cite=
@@ -3903,10 +3855,6 @@
             <li>
               <a data-cite="HTML#navigate"><dfn data-lt=
               "navigated|navigate|navigation">navigate algorithm</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-link-element"><dfn data-lt=
-              "link"><code>link</code> element</dfn></a>
             </li>
             <li>
               <a data-cite="HTML#linkTypes"><dfn>link type</dfn></a>
@@ -3928,9 +3876,6 @@
               the type of the resource</dfn></a>
             </li>
             <li>
-              <a data-cite="HTML#same-origin"><dfn>same origin</dfn></a>
-            </li>
-            <li>
               <a data-cite="HTML#the-element's-base-url"><dfn>the element's
               base URL</dfn></a>.
             </li>
@@ -3943,41 +3888,7 @@
         <li>[[INFRA]] defines the following terms:
           <ul>
             <li>
-              <dfn data-cite="INFRA#ascii-lowercase" data-lt="lowercased">ASCII
-              lowercase</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#list">list</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#ordered-set">set</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#set-replace">replace</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#list-iterate">for each</dfn> (for list)
-            </li>
-            <li>
-              <dfn data-cite="INFRA#iteration-continue">continue</dfn>
-            </li>
-            <li>
               <dfn data-cite="INFRA#list-contain">contains</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#list-is-empty">is empty</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#list-append" data-lt="list-append">append
-              (for list)</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#set-append" data-lt="set-append">append
-              (for set)</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#string-concatenate" data-lt=
-              "concatenation">concatenate</dfn>
             </li>
           </ul>
         </li>
