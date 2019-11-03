@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -2402,15 +2402,18 @@
           each <var>shortcut</var> (<a>ShortcutItem</a>) in the sequence, set
           <var>shortcut.icons</var> to the result of running <a>processing
           `ImageResource` members</a> given <var>shortcut.icons</var> and
-          <var>manifest URL</var>.
+          <var>manifest URL</var>. For each <var>shortcut</var>
+          (<a>ShortcutItem</a>) in the sequence, parse
+          <var>shortcut</var>["<a>url</a>"] using <var>manifest URL</var> as
+          the base URL.
         </p>
         <p>
           A user agent SHOULD expose shortcuts via interactions that are
-          consistent with exposure of an application icon’s context menu in the
+          consistent with exposure of an application icon's context menu in the
           host operating system (e.g., right click, long press). A user agent
           SHOULD render the shortcuts in the same order as they are provided in
           the manifest. A user agent SHOULD represent the shortcuts in a manner
-          consistent with exposure of an application icon’s context menu in the
+          consistent with exposure of an application icon's context menu in the
           host operating system. A user agent MAY truncate the list of
           shortcuts presented in order to remain consistent with conventions of
           the host operating system.
@@ -2455,7 +2458,7 @@
                 {
                   "name": "Subscriptions",
                   "description": "View the list of podcasts you listen to",
-                  "url": "/subscriptions"
+                  "url": "/subscriptions?sort=desc"
                 }
               ]
             }
@@ -3056,7 +3059,7 @@
         Each <a>ShortcutItem</a> represents a link to a key task or page within
         a web app. A user agent can use these values to assemble a context menu
         to be displayed by the operating system when a user engages with the
-        web app’s icon.
+        web app's icon.
       </p>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
         <h3>
@@ -3099,24 +3102,6 @@
           which a user agent should navigate when the associated shortcut is
           activated.
         </p>
-        <p>
-          The steps for <dfn>processing the <code>url</code> member of a
-          shortcut</dfn> are given by the following algorithm. The algorithm
-          takes a <a>ShortcutItem</a> <var>url</var>, and a <var>manifest
-          URL</var>, which is the <a>URL</a> from which the <var>manifest</var>
-          was fetched. This algorithm will return a <a>URL</a> or
-          <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be <var>url</var>
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) it not <a>String</a>, return
-          <code>undefined</code>.
-          </li>
-          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
-          URL</var> as the base URL and return the result.
-          </li>
-        </ol>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
         <h3>
@@ -3144,9 +3129,7 @@
           <a>top-level browsing context</a>.
           </li>
           <li>
-            <a>Navigate</a> <var>browsing context</var> to a new <a>request</a>
-            whose url is <var>url</var>, header list is <var>header list</var>,
-            and body is <var>body</var>.
+            <a>Navigate</a> <var>browsing context</var> to <var>url</var>.
           </li>
         </ol>
       </section>
