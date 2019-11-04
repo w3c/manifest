@@ -2380,16 +2380,20 @@
         <p>
           The <dfn>shortcuts</dfn> member is an <a>array</a> of
           <a>ShortcutItem</a>s that provide access to key tasks within a web
-          application. For example, they can be used to link directly to a
-          user's timeline within a social media application or their recent
-          orders in an e-commerce context.
+          application.
+        </p>
+        <p class="note">
+          Shortcuts could, for instance, be used to link directly to a user's
+          timeline within a social media application or to their recent orders
+          in an e-commerce context.
         </p>
         <p>
-          A developer may provide as many shortcuts as they like, but the user
-          agent and operating system will decide how many are presented to the
-          user. For this reason, it is recommended that developers order their
-          shortcuts by priority, with the most critical shortcuts appearing
-          first in the array.
+          How shortcuts are presented, and how many of them are shown to the
+          user, is at the discretion of the user agent and/or operating system.
+        </p>
+        <p class="note">
+          Developers are encouraged to order their shortcuts by priority, with
+          the most critical shortcuts appearing first in the array.
         </p>
         <p>
           The steps for <dfn>processing the <code>shortcuts</code> member</dfn>
@@ -2415,8 +2419,8 @@
           the manifest. A user agent SHOULD represent the shortcuts in a manner
           consistent with exposure of an application icon's context menu in the
           host operating system. A user agent MAY truncate the list of
-          shortcuts presented in order to remain consistent with conventions of
-          the host operating system.
+          shortcuts presented in order to remain consistent with the
+          conventions or limitations of the host operating system.
         </p>
         <div class="example">
           <p>
@@ -3059,7 +3063,8 @@
         Each <a>ShortcutItem</a> represents a link to a key task or page within
         a web app. A user agent can use these values to assemble a context menu
         to be displayed by the operating system when a user engages with the
-        web app's icon.
+        web app's icon. When the user invokes a shortcut from the operating
+        system menu, the user agent SHOULD run <a>Launching a shortcut</a>.
       </p>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
         <h3>
@@ -3068,7 +3073,7 @@
         <p>
           The <dfn>name</dfn> member of a <a>ShortcutItem</a> is a
           <a>string</a> that represents the name of the shortcut as it is
-          usually displayed to the user in a context menu
+          usually displayed to the user in a context menu.
         </p>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
@@ -3089,8 +3094,8 @@
         <p>
           The <dfn>description</dfn> member of a <a>ShortcutItem</a> is a
           <a>string</a> that allows the developer to describe the purpose of
-          the shortcut. User agents may choose to expose this information to
-          assistive technology.
+          the shortcut. User agents MAY expose this information to assistive
+          technology.
         </p>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
@@ -3098,9 +3103,8 @@
           <code>url</code> member
         </h3>
         <p>
-          The <dfn>url</dfn> member of a <a>ShortcutItem</a> is a <a>URL</a> to
-          which a user agent should navigate when the associated shortcut is
-          activated.
+          The <dfn>url</dfn> member of a <a>ShortcutItem</a> is the <a>URL</a>
+          that opens when the associated shortcut is activated.
         </p>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
