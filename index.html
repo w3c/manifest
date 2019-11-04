@@ -1558,6 +1558,10 @@
           <var>manifest</var>["<a>serviceworker</a>"], <var>manifest URL</var>,
           and <var>serviceworker</var>.
           </li>
+          <li>Set <var>manifest</var>["<a>shortcuts</a>"] to the result of
+          running <a>processing the <code>shortcuts</code> member</a> given
+          <var>manifest URL</var>, and <code>"shortcuts"</code>.
+          </li>
           <li>
             <a>Extension point</a>: process any proprietary and/or other
             supported members at this point in the algorithm.
@@ -1634,6 +1638,7 @@
              ServiceWorkerRegistrationObject serviceworker;
              sequence&lt;ExternalApplicationResource&gt; related_applications;
              boolean prefer_related_applications = "false";
+             sequence&lt;ShortcutItem&gt; shortcuts;
           };
       </pre>
       <p>
@@ -2403,6 +2408,102 @@
           can get their games and apps rated with IARC</a>.
         </p>
       </section>
+      <section>
+        <h3>
+          <code>shortcuts</code> member
+        </h3>
+        <p>
+          The <dfn>shortcuts</dfn> member is an <a>array</a> of
+          <a>ShortcutItem</a>s that provide access to key tasks within a web
+          application.
+        </p>
+        <p class="note">
+          Shortcuts could, for instance, be used to link directly to a user's
+          timeline within a social media application or to their recent orders
+          in an e-commerce context.
+        </p>
+        <p>
+          How shortcuts are presented, and how many of them are shown to the
+          user, is at the discretion of the user agent and/or operating system.
+        </p>
+        <p class="note">
+          Developers are encouraged to order their shortcuts by priority, with
+          the most critical shortcuts appearing first in the array.
+        </p>
+        <p>
+          The steps for <dfn>processing the <code>shortcuts</code> member</dfn>
+          are given by the following algorithm. The algorithm takes a
+          <a data-cite=
+          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;
+          <var>shortcuts</var> as an argument. This algorithm returns an
+          <a data-cite=
+          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;. For
+          each <var>shortcut</var> (<a>ShortcutItem</a>) in the sequence, set
+          <var>shortcut.icons</var> to the result of running <a>processing
+          `ImageResource` members</a> given <var>shortcut.icons</var> and
+          <var>manifest URL</var>. For each <var>shortcut</var>
+          (<a>ShortcutItem</a>) in the sequence, parse
+          <var>shortcut</var>["<a>url</a>"] using <var>manifest URL</var> as
+          the base URL.
+        </p>
+        <p>
+          A user agent SHOULD expose shortcuts via interactions that are
+          consistent with exposure of an application icon's context menu in the
+          host operating system (e.g., right click, long press). A user agent
+          SHOULD render the shortcuts in the same order as they are provided in
+          the manifest. A user agent SHOULD represent the shortcuts in a manner
+          consistent with exposure of an application icon's context menu in the
+          host operating system. A user agent MAY truncate the list of
+          shortcuts presented in order to remain consistent with the
+          conventions or limitations of the host operating system.
+        </p>
+        <div class="example">
+          <p>
+            In the following example, the developer has included two shortcuts.
+            Assuming the the manifest's URL is
+            <samp>https://example.com/manifest.webmanifest</samp>:
+          </p>
+          <ul>
+            <li>The first shortcut would be displayed with the text "Play
+            Later". If the operating system supports icons for context menu
+            items and it also supports SVG images for that purpose, the user
+            agent would present
+            <samp>https://example.com/icons/play-later.svg</samp> next to the
+            text. When launched, the user agent would instantiate a new
+            <a>top-level browsing context</a> and navigate to
+            <samp>https://example.com/play-later</samp>.
+            </li>
+            <li>The first shortcut would be displayed with the text
+            "Subscriptions". When launched, the user agent would instantiate a
+            new <a>top-level browsing context</a> and navigate to
+            <samp>https://example.com/subscriptions?sort=desc</samp>.
+            </li>
+          </ul>
+          <pre class="example json">
+            {
+              "shortcuts": [
+                {
+                  "name": "Play Later",
+                  "description": "View the list of podcasts you saved for later",
+                  "url": "/play-later",
+                  "icons": [
+                    {
+                      "src": "/icons/play-later.svg",
+                      "type": "image/svg+xml",
+                      "purpose": "any"
+                    }
+                  ]
+                },
+                {
+                  "name": "Subscriptions",
+                  "description": "View the list of podcasts you listen to",
+                  "url": "/subscriptions?sort=desc"
+                }
+              ]
+            }
+          </pre>
+        </div>
+      </section>
     </section>
     <section>
       <h2>
@@ -2949,6 +3050,98 @@
             </ol>
           </li>
           <li>Return <var>imageResources</var>.
+          </li>
+        </ol>
+      </section>
+    </section>
+    <section>
+      <h2>
+        <dfn>ShortcutItem</dfn> and its members
+      </h2>
+      <pre class="idl">
+        dictionary ShortcutItem {
+          required USVString name;
+          USVString short_name;
+          USVString description;
+          required USVString url;
+          sequence&lt;ImageResource&gt; icons;
+        };
+      </pre>
+      <p>
+        Each <a>ShortcutItem</a> represents a link to a key task or page within
+        a web app. A user agent can use these values to assemble a context menu
+        to be displayed by the operating system when a user engages with the
+        web app's icon. When the user invokes a shortcut from the operating
+        system menu, the user agent SHOULD run <a>Launching a shortcut</a>.
+      </p>
+      <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
+        <h3>
+          <code>name</code> member
+        </h3>
+        <p>
+          The <dfn>name</dfn> member of a <a>ShortcutItem</a> is a
+          <a>string</a> that represents the name of the shortcut as it is
+          usually displayed to the user in a context menu.
+        </p>
+      </section>
+      <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
+        <h3>
+          <code>short_name</code> member
+        </h3>
+        <p>
+          The <dfn>short_name</dfn> member of a <a>ShortcutItem</a> is a
+          <a>string</a> that represents a short version of the name of the
+          shortcut. It is intended to be used where there is insufficient space
+          to display the full name of the shortcut.
+        </p>
+      </section>
+      <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
+        <h3>
+          <code>description</code> member
+        </h3>
+        <p>
+          The <dfn>description</dfn> member of a <a>ShortcutItem</a> is a
+          <a>string</a> that allows the developer to describe the purpose of
+          the shortcut. User agents MAY expose this information to assistive
+          technology.
+        </p>
+      </section>
+      <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
+        <h3>
+          <code>url</code> member
+        </h3>
+        <p>
+          The <dfn>url</dfn> member of a <a>ShortcutItem</a> is the <a>URL</a>
+          that opens when the associated shortcut is activated.
+        </p>
+      </section>
+      <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
+        <h3>
+          <dfn>icons</dfn> member
+        </h3>
+        <p>
+          The <a>icons</a> member of an <a>ShortcutItem</a> member is an
+          <a>array</a> of <a>ImageResource</a>s that can serve as iconic
+          representations of the shortcut in various contexts.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <dfn>Launching a shortcut</dfn>
+        </h3>
+        <p>
+          When <a>ShortcutItem</a> <var>shortcut</var> having
+          <a>WebAppManifest</a> <var>manifest</var> is invoked, run the
+          following steps:
+        </p>
+        <ol>
+          <li>Let <var>url</var> be <var>shortcut.url</var>.
+          </li>
+          <li>Let <var>browsing context</var> be the result of creating a new
+          <a>top-level browsing context</a>.
+          </li>
+          <li>
+            <a>Navigate</a> <var>browsing context</var> to <var>url</var>.
           </li>
         </ol>
       </section>
