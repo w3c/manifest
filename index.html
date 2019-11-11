@@ -265,11 +265,11 @@
         <div class="note" title="manifest.webmanifest or manifest.json?">
           The official file extension for the manifest is `.webmanifest`. Some
           web servers recognize this extension and transfer the file using the
-          standardized <a>media type for a manifest</a>
+          standardized <a>MIME type for a manifest</a>
           (`application/manifest+json`). Developers can also choose a different
           extension (e.g. `.json`) or none at all (e.g. `/api/GetManifest`),
           but are strongly encouraged to transfer the manifest using the
-          `application/manifest+json` media type.
+          `application/manifest+json` <a data-cite="mimesniff">MIME type</a>.
         </div>
       </section>
     </section>
@@ -1306,9 +1306,9 @@
           </tbody>
         </table>
         <p>
-          The <a>media type for a manifest</a> serves as the default media type
-          for resources associated with the "<code>manifest</code>" <a>link
-          type</a>.
+          The <a>MIME type for a manifest</a> serves as the default
+          <a data-cite="mimesniff">MIME type</a> for resources associated with
+          the "<code>manifest</code>" <a>link type</a>.
         </p>
         <p class="note">
           In cases where more than one [^link^] element with a
@@ -1898,10 +1898,11 @@
             <li>The developer has included two icons at the same size, but in
             two different formats. One is explicitly marked as WebP through the
             <code>type</code> member. If the user agent doesn't support WebP,
-            it falls back to the second icon of the same size. The media type
-            of this icon can then be either determined via a HTTP header, or
-            can be sniffed by the user agent once the first few bytes of the
-            icon are received.
+            it falls back to the second icon of the same size. The
+              <a data-cite="mimesniff">MIME type</a> of this icon can then be
+              either determined via a HTTP header, or can be <a data-cite=
+              "mimesniff" data-lt="computed mime type">sniffed</a> by the user
+              agent once the first few bytes of the icon are received.
             </li>
             <li>The developer wants to use an SVG for greater than or equal to
             257x257px. She has found that the SVG file looks too blurry at
@@ -2524,10 +2525,11 @@
         semantics of the member that is using the object (e.g., an icon that is
         part of an application menu, etc.). For an image resource, this
         specification provides developers with a means of specifying the
-        dimensions, and media type of an image (i.e., a "responsive image"
-        solution [[RESPIMG-USECASES]]). A user agent can use these values to
-        select an image that is best suited to display on the end-user's device
-        or most closely matches the end-user's preferences.
+        dimensions, and <a data-cite="mimesniff">MIME type</a> of an image
+        (i.e., a "responsive image" solution [[RESPIMG-USECASES]]). A user
+        agent can use these values to select an image that is best suited to
+        display on the end-user's device or most closely matches the end-user's
+        preferences.
       </p>
       <p>
         User agents may modify the images associated with an
@@ -2962,8 +2964,9 @@
         </h3>
         <p>
           The <a>type</a> member of an <a>ImageResource</a> is a hint as to the
-          media type of the image. The purpose of this member is to allow a
-          user agent to ignore images of media types it does not support.
+          <a data-cite="mimesniff">MIME type</a> of the image. The purpose of
+          this member is to allow a user agent to ignore images of MIME types
+          it does not support.
         </p>
         <p>
           There is no default MIME type for image resources. However, for the
@@ -2984,7 +2987,7 @@
           </li>
           <li>If <var>value</var> is not a <a data-cite="mimesniff">valid mime
           type string</a> or the value of <var>type</var> is not a supported
-          media format, issue a developer warning and return
+          MIME type, issue a developer warning and return
           <code>undefined</code>.
           </li>
           <li>Return <var>value</var>.
@@ -3466,13 +3469,13 @@
           registration with <a href="https://www.iana.org/">IANA</a>.
         </p>
         <p>
-          The <dfn>media type for a manifest</dfn> is
+          The <dfn>MIME type for a manifest</dfn> is
           <code>application/manifest+json</code>.
         </p>
         <p>
           If the protocol over which the manifest is transferred supports the
           [[MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
-          manifest be labeled with the <a>media type for a manifest</a>.
+          manifest be labeled with the <a>MIME type for a manifest</a>.
         </p>
         <dl>
           <dt>
@@ -3566,7 +3569,7 @@
             </p>
           </dd>
           <dt>
-            Applications that use this media type:
+            Applications that use this MIME type:
           </dt>
           <dd>
             Web browsers
