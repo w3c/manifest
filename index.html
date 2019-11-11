@@ -274,14 +274,16 @@
       </h2>
       <p>
         A common use case of a manifest is for a user agent to <dfn data-lt=
-        "installing|installed|installation" data-export="">install</dfn> a web
-        application; whereby the user agent provides the end-user with a means
-        of instantiating a new <a>top-level browsing context</a> that has the
-        manifest's members <a>applied</a> to it. That is, the manifest's
-        members, or their defaults, are in effect on the <a>top-level browsing
-        context</a>. This distinguishes an installed web application from a
-        traditional bookmark, as opening a web page from a traditional bookmark
-        will not have the manifest's properties <a>applied</a> to it.
+        "installing|installed|installation">install</dfn> a web application;
+        whereby the user agent provides the end-user with a means of
+        instantiating a new <a>top-level browsing context</a> that has the
+        manifest's members <a>applied</a> to it. A web application that is
+        installed is known as a <dfn data-export="">installed web
+        application</dfn>. That is, the manifest's members, or their defaults,
+        are in effect on the <a>top-level browsing context</a>. This
+        distinguishes an installed web application from a traditional bookmark,
+        as opening a web page from a traditional bookmark will not have the
+        manifest's properties <a>applied</a> to it.
       </p>
       <p>
         For example, on user agents that support installation, a web
@@ -828,10 +830,11 @@
         Navigation scope
       </h2>
       <p data-link-for="WebAppManifest">
-        A <dfn>navigation scope</dfn> is a <a>URL</a> that represents the set
-        of URLs to which an <a>application context</a> can be navigated while
-        the manifest is <a>applied</a>. The <a>navigation scope</a> of a
-        manifest <var>manifest</var> is <var>manifest</var>["<a>scope</a>"].
+        A <dfn data-export="">navigation scope</dfn> is a <a>URL</a> that
+        represents the set of URLs to which an <a>application context</a> can
+        be navigated while the manifest is <a>applied</a>. The <a>navigation
+        scope</a> of a manifest <var>manifest</var> is
+        <var>manifest</var>["<a>scope</a>"].
       </p>
       <div class="note" data-link-for="WebAppManifest">
         <p>
