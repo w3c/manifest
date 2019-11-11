@@ -1866,7 +1866,7 @@
           removed.
         </div>
       </section>
-      <section>
+      <section data-cite="mimesniff">
         <h3>
           <code title="">icons</code> member
         </h3>
@@ -1898,11 +1898,10 @@
             <li>The developer has included two icons at the same size, but in
             two different formats. One is explicitly marked as WebP through the
             <code>type</code> member. If the user agent doesn't support WebP,
-            it falls back to the second icon of the same size. The
-              <a data-cite="mimesniff">MIME type</a> of this icon can then be
-              either determined via a HTTP header, or can be <a data-cite=
-              "mimesniff" data-lt="computed mime type">sniffed</a> by the user
-              agent once the first few bytes of the icon are received.
+            it falls back to the second icon of the same size. The <a>MIME
+            type</a> of this icon can then be either determined via a HTTP
+            header, or can be <a data-lt="computed mime type">sniffed</a> by
+            the user agent once the first few bytes of the icon are received.
             </li>
             <li>The developer wants to use an SVG for greater than or equal to
             257x257px. She has found that the SVG file looks too blurry at
@@ -2958,15 +2957,14 @@
           which a user agent can fetch the image's data.
         </p>
       </section>
-      <section data-dfn-for="ImageResource">
+      <section data-dfn-for="ImageResource" data-cite="mimesniff">
         <h3>
           <dfn>type</dfn> member
         </h3>
         <p>
           The <a>type</a> member of an <a>ImageResource</a> is a hint as to the
-          <a data-cite="mimesniff">MIME type</a> of the image. The purpose of
-          this member is to allow a user agent to ignore images of MIME types
-          it does not support.
+          <a>MIME type</a> of the image. The purpose of this member is to allow
+          a user agent to ignore images of MIME types it does not support.
         </p>
         <p>
           There is no default MIME type for image resources. However, for the
@@ -2985,10 +2983,9 @@
           <li>If <a>Type</a>(<var>value</var>) it not String, return
           <code>undefined</code>.
           </li>
-          <li>If <var>value</var> is not a <a data-cite="mimesniff">valid mime
-          type string</a> or the value of <var>type</var> is not a supported
-          MIME type, issue a developer warning and return
-          <code>undefined</code>.
+          <li>If <var>value</var> is not a <a>valid MIME type string</a> or the
+          value of <var>type</var> is not a supported MIME type, issue a
+          developer warning and return <code>undefined</code>.
           </li>
           <li>Return <var>value</var>.
           </li>
