@@ -129,7 +129,7 @@
       }
     </style>
   </head>
-  <body data-cite="ENCODING SERVICE-WORKERS">
+  <body data-cite="ENCODING">
     <section id='abstract'>
       <p>
         This specification defines a JSON-based manifest file that provides
@@ -222,11 +222,6 @@
             "orientation": "landscape",
             "theme_color": "aliceblue",
             "background_color": "red",
-            "serviceworker":
-              "src": "sw.js",
-              "scope": "/racer/",
-              "update_via_cache": "none"
-            },
             "screenshots": [{
               "src": "screenshots/in-game-1x.jpg",
               "sizes": "640x480",
@@ -385,12 +380,6 @@
         <ol>
           <li>Let <var>manifest</var> be the manifest value created during <a>
             steps to determine installability of the document</a>.
-          </li>
-          <li>If |manifest|.{{WebAppManifest/serviceworker}} is not
-          <code>undefined</code>, the user agent MAY run the <a>steps for
-          registering a manifest's service worker</a> with
-          |manifest|.{{WebAppManifest/serviceworker}}. If those steps return
-          failure, abort these steps.
           </li>
           <li>Perform an unspecified sequence of actions to attempt to register
           the web application in the user's operating system (e.g., create
@@ -1540,11 +1529,6 @@
           result of running <a>processing the <code>related_applications</code>
           member</a> given <var>manifest</var>["<a>related_applications</a>"].
           </li>
-          <li>Set <var>manifest</var>["<a>serviceworker</a>"] to the result of
-          running <a>processing the <code>serviceworker</code> member</a> given
-          <var>manifest</var>["<a>serviceworker</a>"], <var>manifest URL</var>,
-          and <var>serviceworker</var>.
-          </li>
           <li>Set <var>manifest</var>["<a>shortcuts</a>"] to the result of
           running <a>processing the <code>shortcuts</code> member</a> given
           <var>manifest URL</var>, and <code>"shortcuts"</code>.
@@ -1622,7 +1606,6 @@
              USVString theme_color;
              USVString background_color;
              USVString scope;
-             ServiceWorkerRegistrationObject serviceworker;
              sequence&lt;ExternalApplicationResource&gt; related_applications;
              boolean prefer_related_applications = "false";
              sequence&lt;ShortcutItem&gt; shortcuts;
@@ -2064,115 +2047,6 @@
             necessary, modify the <a>start URL</a> of an application.
           </p>
         </section>
-      </section>
-      <section>
-        <h3>
-          <code>serviceworker</code> member
-        </h3>
-        <p>
-          The <dfn>serviceworker</dfn> member describes a service worker as
-          defined in [[SERVICE-WORKERS-1]].
-        </p>
-        <p>
-          The <a>serviceworker</a> member represents an intented <a data-cite=
-          "service-workers-1#service-worker-registration-concept">service
-          worker registration</a> in form of a <dfn>registration object</dfn>
-        </p>
-        <p class="note">
-          Other service worker registrations can be done, for instance by a
-          script; if these have different scopes they will be considered
-          separate registrations. If they have the same scope and script URL,
-          they coalesce. If they have different script URLs, last one wins.
-        </p>
-        <p>
-          The steps for <dfn>processing the <code>serviceworker</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>ServiceWorkerRegistrationObject</a>
-          <var>registration</var>. This algorithm returns a
-          <a>ServiceWorkerRegistrationObject</a> <var>registration</var>, which
-          can be <code>undefined</code>.
-        </p>
-        <ol>
-          <li>If <var>registration</var> is <code>undefined</code>, return
-          <code>undefined</code>.
-          </li>
-          <li>Set <var>registration</var>["src"] to the result of running
-          <a>processing the <code>src</code> member of a service worker</a>
-          given <var>registration</var>["src"] and <var>manifest URL</var>.
-          </li>
-          <li>If the result of running <a>is origin potentially trustworthy</a>
-          with the origin of <var>registration</var>["src"] is <code>Not
-          Trusted</code>, <a>issue a developer warning</a>, abort these steps
-          and return <code>undefined</code>.
-          </li>
-          <li>Set <var>registration</var>["scope"] to the result of running <a>
-            processing the <code>scope</code> member of a service worker</a>
-            given <var>registration</var>["scope"].
-          </li>
-          <li>Return <var>registration</var>.
-          </li>
-        </ol>
-        <div class="example">
-          In the following example, the web application is listing a service
-          worker for the <code>/foo</code> scope, bypassing the user agent
-          cache when fetching the <code>"sw.js"</code> source:
-          <pre class="example js">
-            "serviceworker": {
-              "src": "sw.js",
-              "scope": "/foo",
-              "update_via_cache": "none"
-            }
-          </pre>
-        </div>
-        <p>
-          The <dfn>steps for registering a manifest's service worker</dfn> are
-          given by the following algorithm, which takes a
-          {{ServiceWorkerRegistrationObject}} <var>registration</var> and
-          returns success or failure.
-        </p>
-        <ol>
-          <li>Let <var>serviceWorker</var> be the {{ServiceWorkerContainer}}
-          associated with the <a>top-level browsing context</a>. If there is
-          none, return failure.
-          </li>
-          <li>Let <var>options</var> be the result of running the <a>steps for
-          converting a service worker registration to an options dictionary</a>
-          on <var>registration</var>.
-          </li>
-          <li>Let <var>promise</var> be the result of invoking
-          |serviceWorker|.{{ServiceWorkerContainer/register()}} with arguments
-          |registration|.{{ServiceWorkerRegistrationObject/src}} and
-          <var>options</var>.
-          </li>
-          <li>Wait until <var>promise</var> settles. If the settled
-          <var>promise</var> is rejected, return failure.
-          </li>
-          <li>Return success.
-          </li>
-        </ol>
-        <p>
-          The <dfn>steps for converting a service worker registration to an
-          options dictionary</dfn> are given by the following algorithm. The
-          algorithm takes a {{ServiceWorkerRegistrationObject}}
-          <var>registration</var>, and returns a {{RegistrationOptions}}
-          dictionary which is suitable to pass to
-          {{ServiceWorkerContainer}}.{{ServiceWorkerContainer/register()}}.
-        </p>
-        <ol>
-          <li>Create a new {{RegistrationOptions}} <var>options</var>.
-          </li>
-          <li>Set |options|.{{RegistrationOptions/scope}} to
-          |registration|.{{ServiceWorkerRegistrationObject/scope}}.
-          </li>
-          <li>Set |options|.{{RegistrationOptions/type}} to
-          |registration|.{{ServiceWorkerRegistrationObject/type}}.
-          </li>
-          <li>Set |options|.{{RegistrationOptions/updateViaCache}} to
-          |registration|.{{ServiceWorkerRegistrationObject/update_via_cache}}.
-          </li>
-          <li>Return <var>options</var>.
-          </li>
-        </ol>
       </section>
       <section>
         <h3>
@@ -3220,101 +3094,6 @@
           <a>platform</a> member. However, the working group maintains a
           <a href="https://github.com/w3c/manifest/wiki/Platforms">list of
           known platform values</a> in our wiki.
-        </p>
-      </section>
-    </section>
-    <section>
-      <h2>
-        The ServiceWorkerRegistrationObject dictionary and its members
-      </h2>
-      <p>
-        A <dfn>ServiceWorkerRegistrationObject</dfn> dictionary represents a
-        service worker registration for the web application.
-      </p>
-      <pre class="idl">
-        dictionary ServiceWorkerRegistrationObject {
-          required USVString src;
-          USVString scope;
-          WorkerType type = "classic";
-          ServiceWorkerUpdateViaCache update_via_cache = "imports";
-        };
-      </pre>
-      <section data-dfn-for="ServiceWorkerRegistrationObject">
-        <h3>
-          <code>src</code> member
-        </h3>
-        <p>
-          The <dfn>src</dfn> member of a <a>ServiceWorkerRegistrationObject</a>
-          dictionary is a <a>URL</a> representing a service worker.
-        </p>
-        <p>
-          The steps for <dfn>processing the <code>src</code> member of a
-          service worker</dfn> are given by the following algorithm. The
-          algorithm takes a <a>USVString</a> <var>source URL</var>, and a
-          <a>URL</a> <var>manifest URL</var>, which is the <a>URL</a> from
-          which the <var>manifest</var> was fetched. This algorithm will return
-          a <a>URL</a> or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>If <a>Type</a>(<var>source URL</var>) is not String or
-          <var>source URL</var> is the empty <a>string</a>, then return <code>
-            undefined</code>.
-          </li>
-          <li>Otherwise, <a>parse</a> <var>source URL</var> using <var>manifest
-          URL</var> as the base URL and return the result.
-          </li>
-        </ol>
-      </section>
-      <section data-dfn-for="ServiceWorkerRegistrationObject" data-link-for=
-      "ServiceWorkerRegistrationObject">
-        <h3>
-          <dfn>scope</dfn> member
-        </h3>
-        <p>
-          The <a>scope</a> member of a <a>ServiceWorkerRegistrationObject</a>
-          dictionary is the service worker's associated <a data-cite=
-          "service-workers-1#dfn-scope-url">scope URL</a>.
-        </p>
-        <p>
-          The steps for <dfn>processing the <code>scope</code> member of a
-          service worker</dfn> are given by the following algorithm. The
-          algorithm takes a <a>USVString</a> <var>scope URL</var>, and a
-          <a>URL</a> <var>manifest URL</var>, which is the <a>URL</a> from
-          which the <var>manifest</var> was fetched. This algorithm will return
-          a <a>URL</a> or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>If <var>scope URL</var> is <code>undefined</code>, return <code>
-            undefined</code>
-          </li>
-          <li>Otherwise, <a>parse</a> <var>scope URL</var> using <var>manifest
-          URL</var> as the base URL and return the result.
-          </li>
-        </ol>
-      </section>
-      <section data-dfn-for="ServiceWorkerRegistrationObject">
-        <h3>
-          <code>type</code> member
-        </h3>
-        <p>
-          The <dfn>type</dfn> member of a
-          <a>ServiceWorkerRegistrationObject</a> dictionary is the service
-          worker's {{WorkerType}}. The possible values are those of the
-          {{WorkerType}} enum defined in [[HTML]].
-        </p>
-      </section>
-      <section data-dfn-for="ServiceWorkerRegistrationObject" data-link-for=
-      "ServiceWorkerRegistrationObject">
-        <h3>
-          <code>update_via_cache</code> member
-        </h3>
-        <p>
-          The <dfn>update_via_cache</dfn> member of a
-          <a>ServiceWorkerRegistrationObject</a> dictionary determines the
-          <a data-cite="service-workers-1#dfn-update-via-cache">update via
-          cache mode</a> for the service worker. The possible values are those
-          of the {{ServiceWorkerUpdateViaCache}} enum defined in
-          [[SERVICE-WORKERS-1]].
         </p>
       </section>
     </section>
