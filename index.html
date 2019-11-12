@@ -129,7 +129,7 @@
       }
     </style>
   </head>
-  <body data-cite="ENCODING">
+  <body data-cite="ENCODING SERVICE-WORKERS">
     <section id='abstract'>
       <p>
         This specification defines a JSON-based manifest file that provides
@@ -222,7 +222,7 @@
             "orientation": "landscape",
             "theme_color": "aliceblue",
             "background_color": "red",
-            "serviceworker": {
+            "serviceworker":
               "src": "sw.js",
               "scope": "/racer/",
               "update_via_cache": "none"
@@ -2156,7 +2156,7 @@
           algorithm takes a {{ServiceWorkerRegistrationObject}}
           <var>registration</var>, and returns a {{RegistrationOptions}}
           dictionary which is suitable to pass to
-          {{ServiceWorkerContainer}}.{{ServiceWorkerContainer/register}}.
+          {{ServiceWorkerContainer}}.{{ServiceWorkerContainer/register()}}.
         </p>
         <ol>
           <li>Create a new {{RegistrationOptions}} <var>options</var>.
@@ -3272,7 +3272,8 @@
         </h3>
         <p>
           The <a>scope</a> member of a <a>ServiceWorkerRegistrationObject</a>
-          dictionary is the service worker's associated <a>scope URL</a>.
+          dictionary is the service worker's associated <a data-cite=
+          "service-workers-1#dfn-scope-url">scope URL</a>.
         </p>
         <p>
           The steps for <dfn>processing the <code>scope</code> member of a
@@ -3312,7 +3313,7 @@
           <a>ServiceWorkerRegistrationObject</a> dictionary determines the
           <a data-cite="service-workers-1#dfn-update-via-cache">update via
           cache mode</a> for the service worker. The possible values are those
-          of the <a>ServiceWorkerUpdateViaCache</a> enum defined in
+          of the {{ServiceWorkerUpdateViaCache}} enum defined in
           [[SERVICE-WORKERS-1]].
         </p>
       </section>
@@ -4024,45 +4025,6 @@
             </li>
           </ul>
         </li>
-        <li>[[SERVICE-WORKERS-1]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite="service-workers-1#dfn-scope-url"><dfn>scope
-              URL</dfn></a>
-            </li>
-            <li>
-              <a data-cite=
-              "service-workers-1#dictdef-registrationoptions"><dfn>RegistrationOptions</dfn></a>
-              <ul>
-                <li>
-                  <a data-cite=
-                  "service-workers-1#dom-registrationoptions-scope"><dfn for=
-                  "RegistrationOptions">scope</dfn></a>
-                </li>
-                <li>
-                  <a data-cite=
-                  "service-workers-1#dom-registrationoptions-updateviacache"><dfn for="RegistrationOptions">
-                  updateViaCache</dfn></a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a data-cite=
-              "service-workers-1#serviceworkercontainer"><dfn>ServiceWorkerContainer</dfn></a>
-              <ul>
-                <li>
-                  <a data-cite=
-                  "service-workers-1#dom-serviceworkercontainer-register"><dfn for="ServiceWorkerContainer">
-                  register</dfn></a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a data-cite=
-              "service-workers-1#dfn-update-via-cache"><dfn>ServiceWorkerUpdateViaCache</dfn></a>
-            </li>
-          </ul>
-        </li>
         <li>[[ECMA-402]] defines the following terms:
           <ul>
             <li>
@@ -4151,7 +4113,8 @@
           <ul>
             <li>
               <a data-cite=
-              "ECMASCRIPT#sec-ecmascript-data-types-and-values"><dfn>Type</dfn>(<var>x</var>)</a>
+              "ECMASCRIPT#sec-ecmascript-data-types-and-values"><dfn data-dfn-for="">
+              Type</dfn>(<var>x</var>)</a>
             </li>
           </ul>
         </li>
