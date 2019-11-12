@@ -194,6 +194,62 @@ TBW: using description and screenshots.
 ## Theme color and background color
 TBW...
 
+## Adding shortcuts
+Numerous operating systems grant native applications the ability to add menu items to the app icon itself. These often provide quick access to key tasks for an app. Typically, these are exposed via a right click, long tap, or a similar context menu-triggering action. For web applications, you can define a set of shortcuts to be exposed when the app is installed. Each shortcut item must have a name and a target URL. You may also include additional information, such as a shorter name, a description for the action, and one or more icons.
+
+```JSON
+"shortcuts": [
+  {
+    "name": "Play Later",
+    "description": "View the list of podcasts you saved for later",
+    "url": "/play-later",
+    "icons": [
+      {
+        "src": "/icons/play-later.svg",
+        "type": "image/svg+xml",
+        "purpose": "any"
+      }
+    ]
+  },
+  {
+    "name": "Subscriptions",
+    "description": "View the list of podcasts you listen to",
+    "url": "/subscriptions",
+    "icons": [
+      {
+        "src": "/icons/subscriptions.svg",
+        "type": "image/svg+xml",
+        "purpose": "any"
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "description": "Search for new podcasts to listen to",
+    "url": "/search",
+    "icons": [
+      {
+        "src": "/icons/search.svg",
+        "type": "image/svg+xml",
+        "purpose": "any"
+      }
+    ]
+  },
+  {
+    "name": "Discover",
+    "description": "Browse for new podcasts to listen to",
+    "url": "/discover",
+    "icons": [
+      {
+        "src": "/icons/discover.svg",
+        "type": "image/svg+xml",
+        "purpose": "any"
+      }
+    ]
+  }  
+]
+```
+
 ## How can I detect if the user "installed" my app?
 The spec provides a way for you to detect when the user installs your apps by registering for "appinstalled" events.
 

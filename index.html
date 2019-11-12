@@ -19,7 +19,7 @@
         {
           name: "Rob Dolin",
           company: "Microsoft Corporation",
-          companyURL: "https://microsoft.com/",
+          companyURL: "https://www.microsoft.com/en-us/",
         },
       ],
       editors: [
@@ -38,7 +38,7 @@
         {
           name: "Mounir Lamouri",
           company: "Google Inc.",
-          companyURL: "https://google.com/",
+          companyURL: "https://www.google.com/",
           w3cid: 45389,
         },
         {
@@ -50,8 +50,14 @@
         {
           name: "Matt Giuca",
           company: "Google Inc.",
-          companyURL: "https://google.com/",
+          companyURL: "https://www.google.com/",
           w3cid: 91260,
+        },
+        {
+          name: "Aaron Gustafson",
+          company: "Microsoft Corporation",
+          companyURL: "https://microsoft.com/",
+          w3cid: 43672,
         },
       ],
       wg: "Web Applications Working Group",
@@ -72,11 +78,11 @@
             },
             {
               value: "Gecko",
-              href: "https://bugzil.la/997779",
+              href: "https://bugzilla.mozilla.org/show_bug.cgi?id=997779",
             },
             {
               value: "WebKit",
-              href: "https://webkit.org/b/158205",
+              href: "https://bugs.webkit.org/show_bug.cgi?id=158205",
             },
           ],
         },
@@ -238,11 +244,10 @@
           Using a `link` element to link to a manifest
         </h3>
         <p>
-          Example of using a [=`link` element=] to associate a website with a
+          Example of using a [^link^] element to associate a website with a
           <a>manifest</a>. The example also shows how to use [[HTML]]'s
-          <a data-tl="link element">`link`</a> and <a data-tl=
-          "meta element">`meta`</a> elements to give the web application a
-          fallback name and set of icons.
+          [^link^] and <a data-tl="meta element">`meta`</a> elements to give
+          the web application a fallback name and set of icons.
         </p>
         <pre class="example html" title="linking to a manifest">
           &lt;!doctype&gt;
@@ -260,11 +265,11 @@
         <div class="note" title="manifest.webmanifest or manifest.json?">
           The official file extension for the manifest is `.webmanifest`. Some
           web servers recognize this extension and transfer the file using the
-          standardized <a>media type for a manifest</a>
+          standardized <a>MIME type for a manifest</a>
           (`application/manifest+json`). Developers can also choose a different
           extension (e.g. `.json`) or none at all (e.g. `/api/GetManifest`),
           but are strongly encouraged to transfer the manifest using the
-          `application/manifest+json` media type.
+          `application/manifest+json` <a data-cite="mimesniff">MIME type</a>.
         </div>
       </section>
     </section>
@@ -481,7 +486,7 @@
           <li>If there is already an <a data-lt=
           "present an install prompt">install prompt being presented</a> or if
           the <a>steps to install the web application</a> are currently being
-          executed, terminate this algorithm.
+          executed, then abort this step.
           </li>
           <li>
             <a>Queue a task</a> on the <a>application life-cycle task
@@ -585,10 +590,14 @@
         </p>
       </section>
     </section>
-    <section>
+    <section class="atrisk">
       <h2>
         Installation Events
       </h2>
+      <p>
+        Installation events and supporting the {{BeforeInstallPrompt}} is
+        OPTIONAL.
+      </p>
       <p>
         DOM events <a>fired</a> by this specification use the <dfn>application
         life-cycle task source</dfn>.
@@ -680,7 +689,7 @@
                 "DOM#dom-event-istrusted"><code>isTrusted</code></a> attribute
                 is <code>false</code>, reject
                 <var>this</var>.<a>[[\userResponsePromise]]</a> with
-                <a>NotAllowedError</a>, optionally informing the developer that
+                {{"NotAllowedError"}}, optionally informing the developer that
                 untrusted events can't call <code>prompt()</code>.
                 </li>
                 <li>Else if <var>this</var>.<a>[[\didPrompt]]</a> is
@@ -776,8 +785,8 @@
         <p>
           The following extensions to the <code><dfn data-cite=
           "HTML/window-object.html#window">Window</dfn></code> object specify
-          the <a>event handler attributes</a> on which events relating to the
-          <a>installation</a> of a web application are <a>fired</a>.
+          the <a>event handler idl attribute</a> on which events relating to
+          the <a>installation</a> of a web application are <a>fired</a>.
         </p>
         <pre class="idl" data-cite="HTML">
           partial interface Window {
@@ -857,13 +866,13 @@
         returns <code>true</code>:
       </p>
       <ol>
-        <li>Let <var>scopePath</var> be the <a>concatenation</a> of
+        <li>Let <var>scopePath</var> be the [=string/concatenation=] of
         <var>scopes</var>'s <a data-cite="URL#concept-url-path">path</a>, using
         U+002F (/).
         </li>
-        <li>Let <var>targetPath</var> be the <a>concatenation</a> of
-        <var>target</var>'s <a data-cite="URL#concept-url-path">path</a>, using
-        U+002F (/).
+        <li>Let <var>targetPath</var> be the [=string/concatenation=] of <var>
+          target</var>'s <a data-cite="URL#concept-url-path">path</a>, using
+          U+002F (/).
         </li>
         <li>If <var>target</var> is <a>same origin</a> as <var>scope</var> and
         <var>targetPath</var> starts with <var>scopePath</var>, return
@@ -888,17 +897,14 @@
         unexpected behavior, use a scope ending in a <code>/</code>.
       </div>
       <p>
-        If the <a>application context</a>'s <a data-cite=
-        "HTML#active-document">active document</a>'s <a data-cite=
-        "DOM#concept-document-url">URL</a> is not <a data-lt=
-        "within-scope-manifest">within scope</a> of the <a>application
-        context</a>'s manifest, the user agent SHOULD show a prominent UI
-        element indicating the <a data-cite="DOM#concept-document-url">document
-        URL</a>, or at least its <a>origin</a>, including whether it is served
-        over a secure connection. This UI SHOULD differ from any UI used when
-        the <a data-cite="DOM#concept-document-url">document URL</a> is
-        <a>within scope</a>, in order to make it obvious that the user is
-        navigating off scope.
+        If the <a>application context</a>'s <a>active document</a>'s
+        [=Document/URL=] is not <a data-lt="within-scope-manifest">within
+        scope</a> of the <a>application context</a>'s manifest, the user agent
+        SHOULD show a prominent UI element indicating the [=Document/URL=] or
+        at least its <a>origin</a>, including whether it is served over a
+        secure connection. This UI SHOULD differ from any UI used when the
+        [=Document/URL=] is <a>within scope</a>, in order to make it obvious
+        that the user is navigating off scope.
       </p>
       <div class="note">
         <p>
@@ -1244,8 +1250,8 @@
         </h3>
         <p>
           The <code>manifest</code> keyword can be used with a [[HTML]]
-          <a><code>link</code> element</a>. This keyword creates an <a>external
-          resource link</a>.
+          [^link^] element. This keyword creates an <a>external resource
+          link</a>.
         </p>
         <table class="complex data">
           <thead>
@@ -1275,7 +1281,7 @@
                 <code>manifest</code>
               </td>
               <td>
-                <a>External Resource</a>
+                <a>External Resource Link</a>
               </td>
               <td>
                 not allowed
@@ -1287,17 +1293,17 @@
           </tbody>
         </table>
         <p>
-          The <a>media type for a manifest</a> serves as the default media type
-          for resources associated with the "<code>manifest</code>" <a>link
-          type</a>.
+          The <a>MIME type for a manifest</a> serves as the default
+          <a data-cite="mimesniff">MIME type</a> for resources associated with
+          the "<code>manifest</code>" <a>link type</a>.
         </p>
         <p class="note">
-          In cases where more than one <a><code>link</code> element</a> with a
+          In cases where more than one [^link^] element with a
           <code>manifest</code> link type appears in a {{Document}}, the user
-          agent uses the first <a><code>link</code> element</a> in tree order
-          and ignores all subsequent <a><code>link</code> element</a> with a
-          <code>manifest</code> link type (even if the first element was
-          erroneous). See the steps for <a>obtaining a manifest</a>.
+          agent uses the first [^link^] element in tree order and ignores all
+          subsequent [^link^] elements with a <code>manifest</code> link type
+          (even if the first element was erroneous). See the steps for
+          <a>obtaining a manifest</a>.
         </p>
         <p>
           To obtain a manifest, the user agent MUST run the steps for
@@ -1310,8 +1316,8 @@
         </p>
         <p>
           A <a>manifest</a> is obtained and applied regardless of the
-          <a>media</a> attribute of the <a><code>link</code> element</a>
-          matches the environment or not.
+          {{HTMLLinkElement/media}} attribute of the [^link^] element matches
+          the environment or not.
         </p>
       </section>
     </section>
@@ -1332,7 +1338,7 @@
           The <dfn data-lt="obtaining the manifest|obtaining a manifest">steps
           for obtaining a manifest</dfn> are given by the following algorithm.
           The algorithm, if successful, returns a <a>processed manifest</a> and
-          the <var>manifest URL</var>; otherwise, it terminates prematurely and
+          the <var>manifest URL</var>; otherwise, it aborts prematurely and
           returns nothing. In the case of nothing being returned, the user
           agent MUST ignore the manifest declaration. In running these steps, a
           user agent MUST NOT <a>delay the load event</a>.
@@ -1340,15 +1346,15 @@
         <ol>
           <li>From the {{Document}} of the <a>top-level browsing context</a>,
           let <var>origin</var> be the {{Document}}'s origin, and <var>manifest
-          link</var> be the first <a><code>link</code> element</a> in <a>tree
-          order</a> whose <a><code>rel</code> attribute</a> contains the token
+          link</var> be the first [^link^] element in <a>tree order</a> whose
+          {{HTMLLinkElement/rel}} attribute contains the token
           <code>manifest</code>.
           </li>
-          <li>If <var>origin</var> is an <a>opaque origin</a>, terminate this
-          algorithm.
+          <li>If <var>origin</var> is an <a>opaque origin</a>, then abort these
+          steps.
           </li>
-          <li>If <var>manifest link</var> is <code>null</code>, terminate this
-          algorithm.
+          <li>If <var>manifest link</var> is <code>null</code>, then abort
+          these steps.
           </li>
           <li>If <var>manifest link</var>'s <code>href</code> attribute's value
           is the empty <a>string</a>, then abort these steps.
@@ -1368,13 +1374,13 @@
           [=request/credentials mode=] to "`include`". Otherwise, set
           |request|'s [=request/credentials mode=] to "`omit`".
           </li>
-          <li>Set |request|'s [=request/mode=] is "`cors`".
+          <li>Set |request|'s [=request/mode=] to "`cors`".
           </li>
           <li>Await the result of performing a <a>fetch</a> with
           <var>request</var>, letting <var>response</var> be the result.
           </li>
-          <li>If <var>response</var> is a <a>network error</a>, terminate this
-          algorithm.
+          <li>If <var>response</var> is a <a>network error</a>, then abort
+          these steps.
           </li>
           <li>Let <var>text</var> be <a>UTF-8 decode</a> <var>response</var>'s
           <a data-cite="FETCH#concept-request-body">body</a>.
@@ -1523,13 +1529,12 @@
           </li>
           <li>Set <var>manifest</var>["<a>icons</a>"] to the result of running
           <a>processing ImageResource members</a> given
-          <var>manifest</var>["<a>icons</a>"], <var>manifest URL</var>, and
-          <code>"icons"</code>.
+          <var>manifest</var>["<a>icons</a>"] and <var>manifest URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>screenshots</a>"] to the result of
           running <a>processing ImageResource members</a> given
-          <var>manifest</var>["<a>screenshots</a>"], <var>manifest URL</var>,
-          and <code>"screenshots"</code>.
+          <var>manifest</var>["<a>screenshots</a>"] and <var>manifest
+          URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>related_applications</a>"] to the
           result of running <a>processing the <code>related_applications</code>
@@ -1539,6 +1544,10 @@
           running <a>processing the <code>serviceworker</code> member</a> given
           <var>manifest</var>["<a>serviceworker</a>"], <var>manifest URL</var>,
           and <var>serviceworker</var>.
+          </li>
+          <li>Set <var>manifest</var>["<a>shortcuts</a>"] to the result of
+          running <a>processing the <code>shortcuts</code> member</a> given
+          <var>manifest URL</var>, and <code>"shortcuts"</code>.
           </li>
           <li>
             <a>Extension point</a>: process any proprietary and/or other
@@ -1594,7 +1603,7 @@
     </section>
     <section data-dfn-for="WebAppManifest" data-link-for="WebAppManifest">
       <h2>
-        <dfn>WebAppManifest</dfn> dictionary
+        <dfn data-dfn-for="">WebAppManifest</dfn> dictionary
       </h2>
       <pre class="idl">
           dictionary WebAppManifest {
@@ -1616,6 +1625,7 @@
              ServiceWorkerRegistrationObject serviceworker;
              sequence&lt;ExternalApplicationResource&gt; related_applications;
              boolean prefer_related_applications = "false";
+             sequence&lt;ShortcutItem&gt; shortcuts;
           };
       </pre>
       <p>
@@ -1843,7 +1853,7 @@
           removed.
         </div>
       </section>
-      <section>
+      <section data-cite="mimesniff">
         <h3>
           <code title="">icons</code> member
         </h3>
@@ -1875,10 +1885,10 @@
             <li>The developer has included two icons at the same size, but in
             two different formats. One is explicitly marked as WebP through the
             <code>type</code> member. If the user agent doesn't support WebP,
-            it falls back to the second icon of the same size. The media type
-            of this icon can then be either determined via a HTTP header, or
-            can be sniffed by the user agent once the first few bytes of the
-            icon are received.
+            it falls back to the second icon of the same size. The <a>MIME
+            type</a> of this icon can then be either determined via a HTTP
+            header, or can be <a data-lt="computed mime type">sniffed</a> by
+            the user agent once the first few bytes of the icon are received.
             </li>
             <li>The developer wants to use an SVG for greater than or equal to
             257x257px. She has found that the SVG file looks too blurry at
@@ -1936,8 +1946,7 @@
           The <dfn>orientation</dfn> member is a <a>string</a> that serves as
           the <a>default orientation</a> for all <a>top-level browsing
           contexts</a> of the web application. The possible values are those of
-          the <a>OrientationLockType</a> enum defined in
-          [[SCREEN-ORIENTATION]].
+          the {{OrientationLockType}} enum defined in [[SCREEN-ORIENTATION]].
         </p>
         <p>
           If the user agent honors the value of the <a>orientation</a> member
@@ -1950,9 +1959,9 @@
         </p>
         <p>
           Although the specification relies on the [[SCREEN-ORIENTATION]]'s
-          <a>OrientationLockType</a>, it is OPTIONAL for a user agent to
-          implement the [[SCREEN-ORIENTATION]] API. Supporting the
-          [[SCREEN-ORIENTATION]] API is, of course, RECOMMENDED.
+          {{OrientationLockType}}, it is OPTIONAL for a user agent to implement
+          the [[SCREEN-ORIENTATION]] API. Supporting the [[SCREEN-ORIENTATION]]
+          API is, of course, RECOMMENDED.
         </p>
         <p>
           Certain UI/UX concerns and/or platform conventions will mean that
@@ -2016,7 +2025,7 @@
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the <a>start_url</a>
-                needs to be <a>same-origin</a> as the <code>Document</code> of
+                needs to be <a>same origin</a> as the <code>Document</code> of
                 the <a>top-level browsing context</a>.
               </li>
               <li>Return <var>document URL</var>.
@@ -2248,8 +2257,8 @@
           <li>Let <var>relatedApplications</var> be a new Array object created
           as if by the expression [].
           </li>
-          <li>
-            <a>For each</a> <var>app</var> of <var>related applications</var>:
+          <li>[=list/For each=] <var>app</var> of <var>related
+          applications</var>:
             <ol>
               <li>if neither <var>app</var>["src"] nor <var>app</var>["url"]
               are <code>undefined</code>:
@@ -2258,9 +2267,8 @@
                   <a>processing the <code>url</code> member of an
                   application</a> given <var>app</var>["url"].
                   </li>
-                  <li>
-                    <a data-lt="list-append">Append</a> <var>app</var> to
-                    <var>relatedApplications</var>
+                  <li>[=list/append=] <var>app</var> to
+                  <var>relatedApplications</var>
                   </li>
                 </ol>
               </li>
@@ -2353,13 +2361,11 @@
           <code>Array&lt;USVString&gt;</code>.
         </p>
         <ol>
-          <li>
-            <a>For each</a> <var>category</var> of <var>categories</var>:
+          <li>[=list/For each=] <var>category</var> of <var>categories</var>:
             <ol>
-              <li>
-                <a data-lt="set-replace">Replace</a> <var>category</var> within
-                <var>categories</var> with <var>category</var>,
-                <a>lowercased</a>.
+              <li>[=set/Replace=] <var>category</var> within
+              <var>categories</var> with <var>category</var>, <a>ascii
+              lowercased</a>.
               </li>
             </ol>
           </li>
@@ -2438,6 +2444,102 @@
           can get their games and apps rated with IARC</a>.
         </p>
       </section>
+      <section>
+        <h3>
+          <code>shortcuts</code> member
+        </h3>
+        <p>
+          The <dfn>shortcuts</dfn> member is an <a>array</a> of
+          <a>ShortcutItem</a>s that provide access to key tasks within a web
+          application.
+        </p>
+        <p class="note">
+          Shortcuts could, for instance, be used to link directly to a user's
+          timeline within a social media application or to their recent orders
+          in an e-commerce context.
+        </p>
+        <p>
+          How shortcuts are presented, and how many of them are shown to the
+          user, is at the discretion of the user agent and/or operating system.
+        </p>
+        <p class="note">
+          Developers are encouraged to order their shortcuts by priority, with
+          the most critical shortcuts appearing first in the array.
+        </p>
+        <p>
+          The steps for <dfn>processing the <code>shortcuts</code> member</dfn>
+          are given by the following algorithm. The algorithm takes a
+          <a data-cite=
+          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;
+          <var>shortcuts</var> as an argument. This algorithm returns an
+          <a data-cite=
+          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;. For
+          each <var>shortcut</var> (<a>ShortcutItem</a>) in the sequence, set
+          <var>shortcut.icons</var> to the result of running <a>processing
+          `ImageResource` members</a> given <var>shortcut.icons</var> and
+          <var>manifest URL</var>. For each <var>shortcut</var>
+          (<a>ShortcutItem</a>) in the sequence, parse
+          <var>shortcut</var>["<a>url</a>"] using <var>manifest URL</var> as
+          the base URL.
+        </p>
+        <p>
+          A user agent SHOULD expose shortcuts via interactions that are
+          consistent with exposure of an application icon's context menu in the
+          host operating system (e.g., right click, long press). A user agent
+          SHOULD render the shortcuts in the same order as they are provided in
+          the manifest. A user agent SHOULD represent the shortcuts in a manner
+          consistent with exposure of an application icon's context menu in the
+          host operating system. A user agent MAY truncate the list of
+          shortcuts presented in order to remain consistent with the
+          conventions or limitations of the host operating system.
+        </p>
+        <div class="example">
+          <p>
+            In the following example, the developer has included two shortcuts.
+            Assuming the the manifest's URL is
+            <samp>https://example.com/manifest.webmanifest</samp>:
+          </p>
+          <ul>
+            <li>The first shortcut would be displayed with the text "Play
+            Later". If the operating system supports icons for context menu
+            items and it also supports SVG images for that purpose, the user
+            agent would present
+            <samp>https://example.com/icons/play-later.svg</samp> next to the
+            text. When launched, the user agent would instantiate a new
+            <a>top-level browsing context</a> and navigate to
+            <samp>https://example.com/play-later</samp>.
+            </li>
+            <li>The second shortcut would be displayed with the text
+            "Subscriptions". When launched, the user agent would instantiate a
+            new <a>top-level browsing context</a> and navigate to
+            <samp>https://example.com/subscriptions?sort=desc</samp>.
+            </li>
+          </ul>
+          <pre class="example json">
+            {
+              "shortcuts": [
+                {
+                  "name": "Play Later",
+                  "description": "View the list of podcasts you saved for later",
+                  "url": "/play-later",
+                  "icons": [
+                    {
+                      "src": "/icons/play-later.svg",
+                      "type": "image/svg+xml",
+                      "purpose": "any"
+                    }
+                  ]
+                },
+                {
+                  "name": "Subscriptions",
+                  "description": "View the list of podcasts you listen to",
+                  "url": "/subscriptions?sort=desc"
+                }
+              ]
+            }
+          </pre>
+        </div>
+      </section>
     </section>
     <section>
       <h2>
@@ -2458,10 +2560,11 @@
         semantics of the member that is using the object (e.g., an icon that is
         part of an application menu, etc.). For an image resource, this
         specification provides developers with a means of specifying the
-        dimensions, and media type of an image (i.e., a "responsive image"
-        solution [[RESPIMG-USECASES]]). A user agent can use these values to
-        select an image that is best suited to display on the end-user's device
-        or most closely matches the end-user's preferences.
+        dimensions, and <a data-cite="mimesniff">MIME type</a> of an image
+        (i.e., a "responsive image" solution [[RESPIMG-USECASES]]). A user
+        agent can use these values to select an image that is best suited to
+        display on the end-user's device or most closely matches the end-user's
+        preferences.
       </p>
       <p>
         User agents may modify the images associated with an
@@ -2641,17 +2744,17 @@
           </li>
           <li>[=set/For each=] |keyword:string| of |keywords|:
             <ol>
-              <li>Set |canonicalKeyword| to [=lowercased=] |keyword|.
+              <li>Set |canonicalKeyword| to <a>ascii lowercased</a> |keyword|.
               </li>
               <li>If |canonicalKeyword| is not one of the [=icon purposes=], or
               |purposes| [=contains=] |keyword|, then [=issue a developer
-              warning=] and [=continue=].
+              warning=] and [=iteration/continue=].
               </li>
               <li>Otherwise, [=set/append=] |canonicalKeyword| to |purposes|.
               </li>
             </ol>
           </li>
-          <li>If |purposes| [=is empty=], then return failure.
+          <li>If |purposes| [=list/is empty=], then return failure.
           </li>
           <li>Return |purposes|.
           </li>
@@ -2833,7 +2936,7 @@
           </div>
         </section>
       </section>
-      <section data-dfn-for="imageresource">
+      <section data-dfn-for="ImageResource" data-link-for="ImageResource">
         <h3>
           <dfn>sizes</dfn> member
         </h3>
@@ -2870,12 +2973,10 @@
           {{HTMLLinkElement/sizes}} attribute and let <a>list</a>
           <var>keywords</var> be the result.
           </li>
-          <li>
-            <a>For each</a> <var>keyword</var> of <var>keywords</var>:
+          <li>[=list/For each=] <var>keyword</var> of <var>keywords</var>:
             <ol>
-              <li>
-                <a data-lt="set-append">Append</a> <var>keyword</var>,
-                <a>lowercased</a>, to <var>set</var>.
+              <li>[=set/append=] <var>keyword</var>, <a>ascii lowercased</a>,
+              to <var>set</var>.
               </li>
             </ol>
           </li>
@@ -2891,33 +2992,15 @@
           The <a>src</a> member of an <a>ImageResource</a> is a <a>URL</a> from
           which a user agent can fetch the image's data.
         </p>
-        <p>
-          The steps for <dfn>processing the <code>src</code> member of an
-          image</dfn> are given by the following algorithm. The algorithm takes
-          a <a>ImageResource</a> <var>icon</var>, and a <a>URL</a>
-          <var>manifest URL</var> , which is the <a>URL</a> from which the
-          <var>manifest</var> was fetched. This algorithm will return a
-          <a>URL</a> or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be <var>image</var>["src"].
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) it not String, return
-          <code>undefined</code>.
-          </li>
-          <li>Otherwise, <a>parse</a> <var>value</var> using <var>manifest
-          URL</var> as the base URL and return the result.
-          </li>
-        </ol>
       </section>
-      <section data-dfn-for="ImageResource">
+      <section data-dfn-for="ImageResource" data-cite="mimesniff">
         <h3>
           <dfn>type</dfn> member
         </h3>
         <p>
           The <a>type</a> member of an <a>ImageResource</a> is a hint as to the
-          media type of the image. The purpose of this member is to allow a
-          user agent to ignore images of media types it does not support.
+          <a>MIME type</a> of the image. The purpose of this member is to allow
+          a user agent to ignore images of MIME types it does not support.
         </p>
         <p>
           There is no default MIME type for image resources. However, for the
@@ -2936,9 +3019,9 @@
           <li>If <a>Type</a>(<var>value</var>) it not String, return
           <code>undefined</code>.
           </li>
-          <li>If <var>value</var> is not a <a>valid MIME type</a> or the value
-          of <var>type</var> is not a supported media format, issue a developer
-          warning and return <code>undefined</code>.
+          <li>If <var>value</var> is not a <a>valid MIME type string</a> or the
+          value of <var>type</var> is not a supported MIME type, issue a
+          developer warning and return <code>undefined</code>.
           </li>
           <li>Return <var>value</var>.
           </li>
@@ -2959,58 +3042,142 @@
         </h3>
         <p>
           The steps for <dfn>processing <a>ImageResource</a> members</dfn> are
-          given by the following algorithm. The algorithm takes a manifest, a
-          <a>URL</a> <var>manifest URL</var>, which is the URL from which the
-          <var>manifest</var> was fetched, and a <a>string</a> that represents
-          the <var>member name</var> of the member which contains the array of
-          <a>ImageResource</a>s. This algorithm returns an
-          Array&lt;<a>ImageResource</a>&gt;
+          given by the following algorithm. The algorithm takes a
+          Array&lt;<a>ImageResource</a>&gt; <var>entries</var> and a <a>URL</a>
+          <var>manifest URL</var>. This algorithm returns an
+          Array&lt;<a>ImageResource</a>&gt;.
         </p>
         <ol>
           <li>Let <var>imageResources</var> be a new Array object created as if
           by the expression [].
           </li>
-          <li>
-            <a>For each</a> <var>entry</var> of <var>manifest</var>[<var>member
-            name</var>]:
+          <li>[=list/For each=] <var>entry</var> of <var>entries</var>:
           </li>
-          <li>
+          <li>If <var>entry</var>["src"] is not <code>undefined</code>:
             <ol>
-              <li>If <var>entry</var>["src"] is not <code>undefined</code>:
-                <ol>
-                  <li>Let <var>image</var> be a new object created as if by the
-                  expression ({}).
-                  </li>
-                  <li>Set <var>image</var>["src"] to the result of running <a>
-                    processing the <code>src</code> member of an image</a>
-                    given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>Set <var>image</var>["type"] to the result of running <a>
-                    processing the <code>type</code> member of an image</a>
-                    given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>Set <var>image</var>["sizes"] to the result of running
-                  <a>processing the <code>sizes</code> member of an image</a>
-                  given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>Let <var>purpose</var> be the result of running
-                  <a>processing the <code>purpose</code> member of an image</a>
-                  given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>If <var>purpose</var> is failure, <a data-lt=
-                  "iteration-continue">continue</a>.
-                  </li>
-                  <li>Set <var>image</var>["purpose"] to <var>purpose</var>.
-                  </li>
-                  <li>
-                    <a data-lt="list-append">Append</a> <var>image</var> to
-                    <var>imageResources</var>
-                  </li>
-                </ol>
+              <li>Let <var>image</var> be a new object created as if by the
+              expression ({}).
+              </li>
+              <li>Set <var>image</var>["src"] to the result of <a>parsing</a>
+              <var>entry</var>["src"] using <var>manifest URL</var> as the base
+              URL.
+              </li>
+              <li>Set <var>image</var>["type"] to the result of running
+              <a>processing the <code>type</code> member of an image</a> given
+              <var>entry</var> and <var>manifest URL</var>.
+              </li>
+              <li>Set <var>image</var>["sizes"] to the result of running
+              <a>processing the <code>sizes</code> member of an image</a> given
+              <var>entry</var> and <var>manifest URL</var>.
+              </li>
+              <li>Let <var>purpose</var> be the result of running <a>processing
+              the <code>purpose</code> member of an image</a> given
+              <var>entry</var> and <var>manifest URL</var>.
+              </li>
+              <li>If <var>purpose</var> is failure, [=iteration/continue=].
+              </li>
+              <li>Set <var>image</var>["purpose"] to <var>purpose</var>.
+              </li>
+              <li>Set <var>image</var>["platform"] to
+              <var>entry</var>["platform"].
+              </li>
+              <li>[=list/append=] <var>image</var> to <var>imageResources</var>
               </li>
             </ol>
           </li>
           <li>Return <var>imageResources</var>.
+          </li>
+        </ol>
+      </section>
+    </section>
+    <section>
+      <h2>
+        <dfn>ShortcutItem</dfn> and its members
+      </h2>
+      <pre class="idl">
+        dictionary ShortcutItem {
+          required USVString name;
+          USVString short_name;
+          USVString description;
+          required USVString url;
+          sequence&lt;ImageResource&gt; icons;
+        };
+      </pre>
+      <p>
+        Each <a>ShortcutItem</a> represents a link to a key task or page within
+        a web app. A user agent can use these values to assemble a context menu
+        to be displayed by the operating system when a user engages with the
+        web app's icon. When the user invokes a shortcut from the operating
+        system menu, the user agent SHOULD run <a>Launching a shortcut</a>.
+      </p>
+      <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
+        <h3>
+          <code>name</code> member
+        </h3>
+        <p>
+          The <dfn>name</dfn> member of a <a>ShortcutItem</a> is a
+          <a>string</a> that represents the name of the shortcut as it is
+          usually displayed to the user in a context menu.
+        </p>
+      </section>
+      <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
+        <h3>
+          <code>short_name</code> member
+        </h3>
+        <p>
+          The <dfn>short_name</dfn> member of a <a>ShortcutItem</a> is a
+          <a>string</a> that represents a short version of the name of the
+          shortcut. It is intended to be used where there is insufficient space
+          to display the full name of the shortcut.
+        </p>
+      </section>
+      <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
+        <h3>
+          <code>description</code> member
+        </h3>
+        <p>
+          The <dfn>description</dfn> member of a <a>ShortcutItem</a> is a
+          <a>string</a> that allows the developer to describe the purpose of
+          the shortcut. User agents MAY expose this information to assistive
+          technology.
+        </p>
+      </section>
+      <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
+        <h3>
+          <code>url</code> member
+        </h3>
+        <p>
+          The <dfn>url</dfn> member of a <a>ShortcutItem</a> is the <a>URL</a>
+          that opens when the associated shortcut is activated.
+        </p>
+      </section>
+      <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
+        <h3>
+          <dfn>icons</dfn> member
+        </h3>
+        <p>
+          The <a>icons</a> member of an <a>ShortcutItem</a> member is an
+          <a>array</a> of <a>ImageResource</a>s that can serve as iconic
+          representations of the shortcut in various contexts.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <dfn>Launching a shortcut</dfn>
+        </h3>
+        <p>
+          When <a>ShortcutItem</a> <var>shortcut</var> having
+          <a>WebAppManifest</a> <var>manifest</var> is invoked, run the
+          following steps:
+        </p>
+        <ol>
+          <li>Let <var>url</var> be <var>shortcut.url</var>.
+          </li>
+          <li>Let <var>browsing context</var> be the result of creating a new
+          <a>top-level browsing context</a>.
+          </li>
+          <li>
+            <a>Navigate</a> <var>browsing context</var> to <var>url</var>.
           </li>
         </ol>
       </section>
@@ -3132,7 +3299,7 @@
           The <dfn>type</dfn> member of a
           <a>ServiceWorkerRegistrationObject</a> dictionary is the service
           worker's {{WorkerType}}. The possible values are those of the
-          <a>WorkerType</a> enum defined in [[HTML]].
+          {{WorkerType}} enum defined in [[HTML]].
         </p>
       </section>
       <section data-dfn-for="ServiceWorkerRegistrationObject" data-link-for=
@@ -3335,13 +3502,13 @@
           registration with <a href="https://www.iana.org/">IANA</a>.
         </p>
         <p>
-          The <dfn>media type for a manifest</dfn> is
+          The <dfn>MIME type for a manifest</dfn> is
           <code>application/manifest+json</code>.
         </p>
         <p>
           If the protocol over which the manifest is transferred supports the
           [[MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
-          manifest be labeled with the <a>media type for a manifest</a>.
+          manifest be labeled with the <a>MIME type for a manifest</a>.
         </p>
         <dl>
           <dt>
@@ -3435,7 +3602,7 @@
             </p>
           </dd>
           <dt>
-            Applications that use this media type:
+            Applications that use this MIME type:
           </dt>
           <dd>
             Web browsers
@@ -3727,8 +3894,8 @@
         Developers interested in validating <a>manifest</a> documents can find
         an unofficial <a href="http://json.schemastore.org/web-manifest">JSON
         schema for the manifest format</a> at <a href=
-        "http://schemastore.org/">schemastore.org</a>. It is licensed under
-        <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache
+        "http://schemastore.org/json/">schemastore.org</a>. It is licensed
+        under <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache
         2.0</a>. It is kindly maintained by <a href=
         "https://github.com/madskristensen">Mads Kristensen</a>. If you find
         any issues with the JSON schema, please <a href=
@@ -3810,9 +3977,6 @@
         <li>[[URL]] defines the following terms:
           <ul>
             <li>
-              <dfn data-cite="URL#concept-url">URL</dfn>
-            </li>
-            <li>
               <dfn data-cite="URL#concept-url-parser" data-lt=
               "parse|parsing|URL parsing">URL parser</dfn>
             </li>
@@ -3844,10 +4008,6 @@
             <li>
               <a data-cite=
               "CSP3#directive-manifest-src"><dfn>manifest-src</dfn>
-              directive</a>
-            </li>
-            <li>
-              <a data-cite="CSP3#directive-img-src"><dfn>img-src</dfn>
               directive</a>
             </li>
             <li>
@@ -3923,14 +4083,6 @@
         <li>[[WEBIDL]] defines the following terms:
           <ul>
             <li>
-              <a data-cite=
-              "WEBIDL#invalidstateerror"><dfn>InvalidStateError</dfn></a>
-            </li>
-            <li>
-              <a data-cite=
-              "WEBIDL#notallowederror"><dfn>NotAllowedError</dfn></a>
-            </li>
-            <li>
               <a data-cite="WEBIDL#es-dictionary"><dfn data-lt=
               "to idl dictionary value">converted to IDL dictionary
               value</dfn></a>
@@ -3949,45 +4101,11 @@
             </li>
           </ul>
         </li>
-        <li>[[FETCH]] defines the following terms:
-          <ul data-sort="">
-            <li>
-              <dfn data-cite="FETCH#concept-fetch">Fetch</dfn>
-            </li>
-            <li>
-              <dfn data-cite="FETCH#concept-response">Response</dfn>
-            </li>
-            <li>
-              <dfn data-cite="FETCH#concept-request">Request</dfn>
-            </li>
-            <li>
-              <dfn data-cite="FETCH#concept-network-error">Network error</dfn>
-            </li>
-            <li>
-              <dfn data-cite="FETCH#concept-request-context">Context</dfn>
-            </li>
-          </ul>
-        </li>
         <li>[[HTML]] defines the following terms:
           <ul>
             <li>
               <dfn data-cite="HTML/parsing.html#completely-loaded">completely
               loaded</dfn>
-            </li>
-            <li>
-              <a data-cite="HTML#allowed-to-navigate"><dfn>allowed to
-              navigate</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#external-resource-link"><dfn data-lt=
-              "External Resource">external Resource link</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#top-level-browsing-context"><dfn>top-level
-              browsing context</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#same-origin"><dfn>same-origin</dfn></a>
             </li>
             <li>
               <a data-cite=
@@ -3999,74 +4117,11 @@
               "navigated|navigate|navigation">navigate algorithm</dfn></a>
             </li>
             <li>
-              <a data-cite="HTML#replacement-enabled"><dfn>replacement
-              enabled</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-link-element"><dfn data-lt=
-              "link"><code>link</code> element</dfn></a>
-            </li>
-            <li>
               <a data-cite="HTML#linkTypes"><dfn>link type</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#attr-link-media"><dfn>media</dfn></a>
             </li>
             <li>
               <a data-cite="HTML#delay-the-load-event"><dfn>delay the load
               event</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#tree-order"><dfn>tree order</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#attr-link-rel"><dfn><code>rel</code>
-              attribute</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#concept-link-obtain"><dfn>obtain a
-              resource</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#networking-task-source"><dfn>networking task
-              source</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#queue-a-task"><dfn>queue a task</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#origin"><dfn>origin</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-a-element"><dfn data-lt="a"><code>a</code>
-              element</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-meta-element"><dfn data-lt=
-              "meta"><code>meta</code> element</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-area-element"><dfn data-lt=
-              "area"><code>area</code> element</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#attr-meta-name"><dfn><code>name</code>
-              attribute</dfn></a>
-            </li>
-            <li>
-              <a data-cite=
-              "HTML#meta-application-name"><dfn>application-name</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-title-element"><dfn><code>title</code>
-              element</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#rel-icon"><dfn>icon link type</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#ascii-case-insensitive"><dfn>ASCII
-              case-insensitive</dfn></a>
             </li>
             <li>
               <a data-cite="HTML#attr-link-sizes-any"><dfn>any link
@@ -4081,13 +4136,6 @@
               the type of the resource</dfn></a>
             </li>
             <li>
-              <a data-cite="HTML#valid-mime-type"><dfn>valid MIME
-              type</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#same-origin"><dfn>same origin</dfn></a>
-            </li>
-            <li>
               <a data-cite="HTML#the-element's-base-url"><dfn>the element's
               base URL</dfn></a>.
             </li>
@@ -4095,56 +4143,12 @@
               <a data-cite="HTML#queue-a-post-load-task"><dfn>queue a post-load
               task</dfn></a>
             </li>
-            <li>
-              <a data-cite="HTML#event-handler-idl-attributes"><dfn data-lt=
-              "event handler attributes">Event handler IDL attribute</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#in-parallel"><dfn>in parallel</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#workertype"><dfn>WorkerType</dfn></a>
-            </li>
           </ul>
         </li>
         <li>[[INFRA]] defines the following terms:
           <ul>
             <li>
-              <dfn data-cite="INFRA#ascii-lowercase" data-lt="lowercased">ASCII
-              lowercase</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#list">list</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#ordered-set">set</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#set-replace">replace</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#list-iterate">for each</dfn> (for list)
-            </li>
-            <li>
-              <dfn data-cite="INFRA#iteration-continue">continue</dfn>
-            </li>
-            <li>
               <dfn data-cite="INFRA#list-contain">contains</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#list-is-empty">is empty</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#list-append" data-lt="list-append">append
-              (for list)</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#set-append" data-lt="set-append">append
-              (for set)</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#string-concatenate" data-lt=
-              "concatenation">concatenate</dfn>
             </li>
           </ul>
         </li>
