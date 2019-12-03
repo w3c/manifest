@@ -2926,36 +2926,38 @@
           by the expression [].
           </li>
           <li>[=list/For each=] <var>entry</var> of <var>entries</var>:
-          </li>
-          <li>If <var>entry</var>["src"] is not <code>undefined</code>:
             <ol>
-              <li>Let <var>image</var> be a new object created as if by the
-              expression ({}).
-              </li>
-              <li>Set <var>image</var>["src"] to the result of <a>parsing</a>
-              <var>entry</var>["src"] using <var>manifest URL</var> as the base
-              URL.
-              </li>
-              <li>Set <var>image</var>["type"] to the result of running
-              <a>processing the <code>type</code> member of an image</a> given
-              <var>entry</var> and <var>manifest URL</var>.
-              </li>
-              <li>Set <var>image</var>["sizes"] to the result of running
-              <a>processing the <code>sizes</code> member of an image</a> given
-              <var>entry</var> and <var>manifest URL</var>.
-              </li>
-              <li>Let <var>purpose</var> be the result of running <a>processing
-              the <code>purpose</code> member of an image</a> given
-              <var>entry</var> and <var>manifest URL</var>.
-              </li>
-              <li>If <var>purpose</var> is failure, [=iteration/continue=].
-              </li>
-              <li>Set <var>image</var>["purpose"] to <var>purpose</var>.
-              </li>
-              <li>Set <var>image</var>["platform"] to
-              <var>entry</var>["platform"].
-              </li>
-              <li>[=list/append=] <var>image</var> to <var>imageResources</var>
+              <li>If <var>entry</var>["src"] is not <code>undefined</code>:
+                <ol>
+                  <li>Let <var>image</var> be a new object created as if by the
+                  expression ({}).
+                  </li>
+                  <li>Set <var>image</var>["src"] to the result of <a>parsing</a>
+                  <var>entry</var>["src"] using <var>manifest URL</var> as the base
+                  URL.
+                  </li>
+                  <li>Set <var>image</var>["type"] to the result of running
+                  <a>processing the <code>type</code> member of an image</a> given
+                  <var>entry</var> and <var>manifest URL</var>.
+                  </li>
+                  <li>Set <var>image</var>["sizes"] to the result of running
+                  <a>processing the <code>sizes</code> member of an image</a> given
+                  <var>entry</var> and <var>manifest URL</var>.
+                  </li>
+                  <li>Let <var>purpose</var> be the result of running <a>processing
+                  the <code>purpose</code> member of an image</a> given
+                  <var>entry</var> and <var>manifest URL</var>.
+                  </li>
+                  <li>If <var>purpose</var> is failure, [=iteration/continue=].
+                  </li>
+                  <li>Set <var>image</var>["purpose"] to <var>purpose</var>.
+                  </li>
+                  <li>Set <var>image</var>["platform"] to
+                  <var>entry</var>["platform"].
+                  </li>
+                  <li>[=list/append=] <var>image</var> to <var>imageResources</var>
+                  </li>
+                </ol>
               </li>
             </ol>
           </li>
