@@ -2203,26 +2203,29 @@
           <a>purpose</a>.
         </p>
         <p class="note">
-          For example, an icon with purpose "<a>badge</a>" could be used as a
-          badge or pinned icon that is visually distinct, in color or form,
-          from an application's launch icon. The user agent uses the value of
-          the <a>purpose</a> member as a hint to determine where and how an
-          <a>ImageResource</a> is displayed. Unless declared otherwise by the
-          developer, a user agent can use an icon for <a>any purpose</a>.
+          For example, an icon with purpose "<a>monochrome</a>" could be used
+          as a badge or pinned icon with a single solid color, visually
+          distinct from an application's full color launch icon. The user
+          agent uses the value of the <a>purpose</a> member as a hint to
+          determine where and how an <a>ImageResource</a> is displayed. Unless
+          declared otherwise by the developer, a user agent can use an icon for
+          <a>any purpose</a>.
         </p>
         <p>
           The <dfn>icon purposes</dfn> are as follows:
         </p>
         <dl>
           <dt>
-            <dfn data-lt="badge purpose">badge</dfn>:
+            <dfn data-lt="monochrome purpose">monochrome</dfn>:
           </dt>
           <dd>
-            A user agent can present this icon where space constraints and/or
-            color requirements differ from those of the application icon.
+            A user agent can present this icon where an icon with a
+            <a href="#solid-color-icons">solid color</a> is needed. The
+            color information in the icon is discarded and only the alpha data
+            is used.
           </dd>
           <dt>
-            <dfn data-lt="badge maskable">maskable</dfn>:
+            <dfn data-lt="maskable purpose">maskable</dfn>:
           </dt>
           <dd>
             The image is designed with <a href="#icon-masks">icon masks and
@@ -2241,9 +2244,9 @@
           If an icon contains multiple purposes, it could be used for any of
           those purposes. If none of the stated purposes are recognized, the
           icon is totally ignored. For example, if an icon has purpose
-          <code>"badge fizzbuzz"</code>, then it could be used as a badge, but
-          if an icon has just the purpose <code>"fizzbuzz"</code>, then it will
-          be ignored.
+          <code>"monochrome fizzbuzz"</code>, then it could be used as a
+          monochrome icon, but if an icon has just the purpose
+          <code>"fizzbuzz"</code>, then it will be ignored.
         </p>
         <p>
           The steps for <dfn>processing the `purpose` member of an image</dfn>
@@ -2283,7 +2286,7 @@
         <div class="example">
           <p>
             In the following example, the web application is listing two icons
-            to be used as a badge, one of which is specifically designed for
+            to be used as a monochrome icon, one of which is specifically designed for
             the Android platform.
           </p>
           <pre class="example json">
@@ -2291,12 +2294,12 @@
               "name": "News",
               "icons": [{
                 "platform": "play",
-                "purpose": "badge",
+                "purpose": "monochrome",
                 "sizes": "16x16",
                 "src": "icons/badges/android.png",
                 "type": "image/png"
               }, {
-                "purpose": "badge",
+                "purpose": "monochrome",
                 "src": "icons/badges/safari.svg",
                 "type": "image/svg"
               }]
@@ -2436,6 +2439,84 @@
                 <span class="icon-title">Fullbleed</span> <span>Windows</span>
               </figcaption>
             </figure>
+          </div>
+        </section>
+      </section>
+      <section id="solid-color-icons">
+        <h2>
+          Solid color icons
+        </h2>
+        <p>
+          Some platforms enforce that icons be displayed with a single color
+          or gradient, where only the transparency of the icon can be
+          controlled. As web applications should work across multiple
+          platforms, it it possible to indicate that an icon can have a
+          user-agent-specified color applied by adding the <a>monochrome</a>
+          purpose. This allows the platform to ensure that the icon looks well
+          integrated with the platform, and even apply different colors and
+          padding in different places throughout the platform.
+        </p>
+        <p>
+          When processing a <a>monochrome</a> icon, the user agent MUST NOT use
+          the red component, green component, or blue component of a pixel. If
+          it has alpha equal to zero, the user agent SHOULD NOT display it.
+          If it the alpha component is greater than zero, the user agent SHOULD
+          display it with any tint.
+        </p>
+        <p>
+          If no monochrome icon is defined when an icon with a solid icon must
+          be presented, the user agent MAY show a fallback icon.
+        </p>
+        <p class="note">
+          Designers of <a>monochrome</a> icons are recommended to set all
+          pixels to black and use transparency to create a silhouette of their
+          icon.
+        </p>
+        <p>
+          The user agent MAY enlarge the icon by adding additional padding.
+        </p>
+        <p>
+          The user agent MAY add a background of any color behind transparent
+          pixels.
+        </p>
+        <section>
+          <h3>
+            Example usage of solid color icons
+          </h3>
+          <h2 class="icon-title">
+            Usage examples
+          </h2>
+          <div class="icons">
+            <div>
+              <img src="images/monochrome-icon-plain.svg" alt=
+              "A black icon over a checkerboard background">
+              <div class="icon-title">
+                Image
+              </div>
+              <div>
+                The base image with no color.
+              </div>
+            </div>
+            <div>
+              <img src="images/monochrome-icon-gray.svg" alt=
+              "A dark gray icon over a checkerboard background">
+              <div class="icon-title">
+                Gray tint
+              </div>
+              <div>
+                The image tinted dark gray.
+              </div>
+            </div>
+            <div>
+              <img src="images/monochrome-icon-tinted.svg" alt=
+              "A dark yellow icon over a light gray background">
+              <div class="icon-title">
+                Tinted with padding
+              </div>
+              <div>
+                Tinted with the theme color from the manifest.
+              </div>
+            </div>
           </div>
         </section>
       </section>
