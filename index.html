@@ -2345,17 +2345,32 @@
           are given by the following algorithm. The algorithm takes a
           <a data-cite=
           "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;
-          <var>shortcuts</var> as an argument. This algorithm returns an
+          <var>shortcuts</var> as an argument. This algorithm returns a
           <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;. For
-          each <var>shortcut</var> (<a>ShortcutItem</a>) in the sequence, set
-          <var>shortcut.icons</var> to the result of running <a>processing
-          `ImageResource` members</a> given <var>shortcut.icons</var> and
-          <var>manifest URL</var>. For each <var>shortcut</var>
-          (<a>ShortcutItem</a>) in the sequence, parse
-          <var>shortcut</var>["<a>url</a>"] using <var>manifest URL</var> as
-          the base URL.
+          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;.
         </p>
+        <ol>
+          <li>Let <var>processedShortcuts</var> be a new Array object created
+          as if by the expression [].
+          </li>
+          <li>For each <var>shortcut</var> (<a>ShortcutItem</a>) in the
+          sequence:
+            <ol>
+              <li>Set <var>shortcut</var>["icons"] to the result of running <a>
+                processing `ImageResource` members</a> given
+                <var>shortcut</var>["icons"] and <var>manifest URL</var>.
+              </li>
+              <li>Set <var>shortcut</var>["url"] to the result of parsing <var>
+                shortcut</var>["url"] using <var>manifest URL</var> as the base
+                URL.
+              </li>
+              <li>Append <var>shortcut</var> to <var>processedShortcuts</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>processedShortcuts</var>.
+          </li>
+        </ol>
         <p>
           A user agent SHOULD expose shortcuts via interactions that are
           consistent with exposure of an application icon's context menu in the
