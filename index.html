@@ -1531,7 +1531,7 @@
           </li>
           <li>Set <var>manifest</var>["<a>shortcuts</a>"] to the result of
           running <a>processing the <code>shortcuts</code> member</a> given
-          <var>manifest URL</var>, and <code>"shortcuts"</code>.
+          <var>manifest</var>["<a>shortcuts</a>"] and <var>manifest URL</var>.
           </li>
           <li>
             <a>Extension point</a>: process any proprietary and/or other
@@ -2345,8 +2345,8 @@
           are given by the following algorithm. The algorithm takes a
           <a data-cite=
           "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;
-          <var>shortcuts</var> as an argument. This algorithm returns a
-          <a data-cite=
+          <var>shortcuts</var> and a <a>URL</a> <var>manifest URL</var>. This
+          algorithm returns a <a data-cite=
           "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;.
         </p>
         <ol>
@@ -2356,13 +2356,22 @@
           <li>For each <var>shortcut</var> (<a>ShortcutItem</a>) in the
           sequence:
             <ol>
+              <li>If <var>shortcut</var>["name"] or <var>shortcut</var>["url"]
+              are undefined, <a>issue a developer warning</a> and
+              <a>continue</a>.
+              </li>
               <li>Set <var>shortcut</var>["icons"] to the result of running <a>
                 processing `ImageResource` members</a> given
                 <var>shortcut</var>["icons"] and <var>manifest URL</var>.
               </li>
               <li>Set <var>shortcut</var>["url"] to the result of
               <a>parsing</a> <var>shortcut</var>["url"] using <var>manifest
-              URL</var> as the base URL.
+              URL</var> as the base URL. If the result is failure, <a>issue a
+              developer warning</a> and <a>continue</a>.
+              </li>
+              <li>If <var>shortcut</var>["url"] is not <a>within scope</a> of
+              <var>manifest URL</var>, <a>issue a developer warning</a> and <a>
+                continue</a>.
               </li>
               <li>
                 <a>Append</a> <var>shortcut</var> to
@@ -3902,6 +3911,9 @@
           <ul>
             <li>
               <dfn data-cite="INFRA#list-contain">contains</dfn>
+            </li>
+            <li>
+              <dfn data-cite="INFRA#iteration-continue">continue</dfn>
             </li>
           </ul>
         </li>
