@@ -1533,7 +1533,7 @@
           </li>
           <li>Set <var>manifest</var>["<a>shortcuts</a>"] to the result of
           running <a>processing the <code>shortcuts</code> member</a> given
-          <var>manifest URL</var>, and <code>"shortcuts"</code>.
+          <var>manifest</var>["<a>shortcuts</a>"] and <var>manifest URL</var>.
           </li>
           <li>
             <a>Extension point</a>: process any proprietary and/or other
@@ -2347,17 +2347,43 @@
           are given by the following algorithm. The algorithm takes a
           <a data-cite=
           "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;
-          <var>shortcuts</var> as an argument. This algorithm returns an
-          <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;. For
-          each <var>shortcut</var> (<a>ShortcutItem</a>) in the sequence, set
-          <var>shortcut.icons</var> to the result of running <a>processing
-          `ImageResource` members</a> given <var>shortcut.icons</var> and
-          <var>manifest URL</var>. For each <var>shortcut</var>
-          (<a>ShortcutItem</a>) in the sequence, parse
-          <var>shortcut</var>["<a>url</a>"] using <var>manifest URL</var> as
-          the base URL.
+          <var>shortcuts</var> and a <a>URL</a> <var>manifest URL</var>. This
+          algorithm returns a <a data-cite=
+          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;.
         </p>
+        <ol>
+          <li>Let <var>processedShortcuts</var> be a new Array object created
+          as if by the expression [].
+          </li>
+          <li>For each <var>shortcut</var> (<a>ShortcutItem</a>) in the
+          sequence:
+            <ol>
+              <li>If <var>shortcut</var>["name"] or <var>shortcut</var>["url"]
+              are undefined, or if <var>shortcut</var>["name"] is the empty
+              string, <a>issue a developer warning</a> and <a>continue</a>.
+              </li>
+              <li>Set <var>shortcut</var>["icons"] to the result of running <a>
+                processing `ImageResource` members</a> given
+                <var>shortcut</var>["icons"] and <var>manifest URL</var>.
+              </li>
+              <li>Set <var>shortcut</var>["url"] to the result of
+              <a>parsing</a> <var>shortcut</var>["url"] using <var>manifest
+              URL</var> as the base URL. If the result is failure, <a>issue a
+              developer warning</a> and <a>continue</a>.
+              </li>
+              <li>If <var>shortcut</var>["url"] is not <a>within scope</a> of
+              <var>manifest URL</var>, <a>issue a developer warning</a> and <a>
+                continue</a>.
+              </li>
+              <li>
+                <a>Append</a> <var>shortcut</var> to
+                <var>processedShortcuts</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>processedShortcuts</var>.
+          </li>
+        </ol>
         <p>
           A user agent SHOULD expose shortcuts via interactions that are
           consistent with exposure of an application icon's context menu in the
@@ -2607,7 +2633,7 @@
           [=set=] or failure.
         </p>
         <ol>
-          <li>If [=Type=](|image|["purpose"]) it not String, or
+          <li>If [=Type=](|image|["purpose"]) is not String, or
           |image|["purpose"] consists solely of [=ascii whitespace=], then
           return the [=set=] « "any" ».
           </li>
@@ -2842,7 +2868,7 @@
           </li>
           <li>Let <var>value</var> be <var>image.sizes</var>.
           </li>
-          <li>If <a>Type</a>(<var>value</var>) it not String, return
+          <li>If <a>Type</a>(<var>value</var>) is not String, return
           <code>undefined</code>.
           </li>
           <li>Otherwise, parse <var>value</var> as if it was a [[HTML]]
@@ -2892,7 +2918,7 @@
         <ol>
           <li>Let <var>value</var> be <var>image</var>["<a>type</a>"].
           </li>
-          <li>If <a>Type</a>(<var>value</var>) it not String, return
+          <li>If <a>Type</a>(<var>value</var>) is not String, return
           <code>undefined</code>.
           </li>
           <li>If <var>value</var> is not a <a>valid MIME type string</a> or the
@@ -3024,7 +3050,8 @@
         </h3>
         <p>
           The <dfn>url</dfn> member of a <a>ShortcutItem</a> is the <a>URL</a>
-          that opens when the associated shortcut is activated.
+          <a data-lt="within scope of a manifest">within the application's
+          scope</a> that opens when the associated shortcut is activated.
         </p>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
@@ -3887,6 +3914,9 @@
           <ul>
             <li>
               <dfn data-cite="INFRA#list-contain">contains</dfn>
+            </li>
+            <li>
+              <dfn data-cite="INFRA#iteration-continue">continue</dfn>
             </li>
           </ul>
         </li>
