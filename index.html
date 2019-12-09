@@ -322,6 +322,11 @@
             </li>
           </ol>
         </li>
+        <li>Otherwise, if <var>manifest</var>["<a>start_url</a>"] is not
+        present, or not <a>within scope</a> of the URL that represents the
+        address of the <a>top-level browsing context</a>, consider the document
+        not <a>installable</a>.
+        </li>
         <li>Otherwise, the {{Document}} MAY be considered <a>installable</a>
         (at the user agent's discretion; see [[[#installability-signals]]]).
         </li>
@@ -1380,11 +1385,6 @@
           <li>Return <var>manifest</var> and <var>manifest URL</var>.
           </li>
         </ol>
-        <p class="issue">
-          TODO(mgiuca): We need to check that the start URL is present and the
-          document URL is same-origin as start URL (as part of the
-          installability check).
-        </p>
         <section>
           <h4>
             Content security policy
