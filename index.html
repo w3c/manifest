@@ -323,9 +323,9 @@
           </ol>
         </li>
         <li>Otherwise, if <var>manifest</var>["<a>start_url</a>"] is not
-        present, or not <a>within scope</a> of the URL that represents the
-        address of the <a>top-level browsing context</a>, consider the document
-        not <a>installable</a>.
+        present, or not <a>within scope</a> of the {{Document}}'s
+          <a data-cite="DOM#dom-document-url">URL</a>, consider the document
+          not <a>installable</a>.
         </li>
         <li>Otherwise, the {{Document}} MAY be considered <a>installable</a>
         (at the user agent's discretion; see [[[#installability-signals]]]).
