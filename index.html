@@ -2203,7 +2203,7 @@
           <a>purpose</a>.
         </p>
         <p class="note">
-          For example, an icon with purpose "<a>monochrome</a>" could be used
+          For example, an icon with purpose "<a>single_color</a>" could be used
           as a badge or pinned icon with a single solid color, visually
           distinct from an application's full color launch icon. The user
           agent uses the value of the <a>purpose</a> member as a hint to
@@ -2216,7 +2216,7 @@
         </p>
         <dl>
           <dt>
-            <dfn data-lt="monochrome purpose">monochrome</dfn>:
+            <dfn data-lt="single_color purpose">single_color</dfn>:
           </dt>
           <dd>
             A user agent can present this icon where an icon with a
@@ -2244,8 +2244,8 @@
           If an icon contains multiple purposes, it could be used for any of
           those purposes. If none of the stated purposes are recognized, the
           icon is totally ignored. For example, if an icon has purpose
-          <code>"monochrome fizzbuzz"</code>, then it could be used as a
-          monochrome icon, but if an icon has just the purpose
+          <code>"single_color fizzbuzz"</code>, then it could be used as a
+          single color icon, but if an icon has just the purpose
           <code>"fizzbuzz"</code>, then it will be ignored.
         </p>
         <p>
@@ -2286,7 +2286,7 @@
         <div class="example">
           <p>
             In the following example, the web application is listing two icons
-            to be used as a monochrome icon, one of which is specifically designed for
+            to be used as a single color icon, one of which is specifically designed for
             the Android platform.
           </p>
           <pre class="example json">
@@ -2294,12 +2294,12 @@
               "name": "News",
               "icons": [{
                 "platform": "play",
-                "purpose": "monochrome",
+                "purpose": "single_color",
                 "sizes": "16x16",
                 "src": "icons/badges/android.png",
                 "type": "image/png"
               }, {
-                "purpose": "monochrome",
+                "purpose": "single_color",
                 "src": "icons/badges/safari.svg",
                 "type": "image/svg"
               }]
@@ -2451,24 +2451,24 @@
           color</dfn>, where only the transparency of the icon can be
           controlled. As web applications need to across multiple
           platforms, it is possible to indicate that an icon can have a
-          user-agent-specified color applied by adding the <a>monochrome</a>
+          user-agent-specified color applied by adding the <a>single_color</a>
           purpose. This allows the platform to ensure that the icon looks well
           integrated with the platform, and even apply different colors and
           padding in different places throughout the platform.
         </p>
         <p>
-          When processing a <a>monochrome</a> icon, the user agent MUST NOT use
+          When processing a <a>single_color</a> icon, the user agent MUST NOT use
           the red component, green component, or blue component of a pixel. If
           it has alpha equal to zero, the user agent SHOULD NOT display it.
           If it the alpha component is greater than zero, the user agent SHOULD
           display it with any tint.
         </p>
         <p>
-          If no monochrome icon is defined when an icon with a solid color is
+          If no single color icon is defined when an icon with a solid color is
           expected to be presented, the user agent MAY show a fallback icon.
         </p>
         <p class="note">
-          Designers of <a>monochrome</a> icons are recommended to set all
+          Designers of <a>single_color</a> icons are recommended to set all
           pixels to black and use transparency to create a silhouette of their
           icon.
         </p>
