@@ -432,15 +432,13 @@
           proceed with installing the app. See <a href=
           "#installation-sec">privacy and security considerations</a> for
           recommendations relating to this UI. The <var>result</var> of this
-          choice is either <a data-link-for=
-          "AppBannerPromptOutcome">accepted</a> or <a data-link-for=
-          "AppBannerPromptOutcome">dismissed</a>.
+          choice is either success (the user accepted the install offer) or
+          failure (the user declined).
           </li>
           <li>Return <var>result</var>, and <a>in parallel</a>:
             <ol>
-              <li>If <var>result</var> is <a data-link-for=
-              "AppBannerPromptOutcome">accepted</a>, run the <a>steps to
-              install the web application</a>.
+              <li>If <var>result</var> is success, run the <a>steps to install
+              the web application</a>.
               </li>
             </ol>
           </li>
@@ -3706,8 +3704,10 @@
             </li>
             <li>Resolve <var>event</var>.<a>[[\userResponsePromise]]</a> with a
             newly created <a>PromptResponseObject</a> whose <a data-link-for=
-            "PromptResponseObject">userChoice</a> member is the value of <var>
-              outcome</var>.
+            "PromptResponseObject">userChoice</a> member is <a data-link-for=
+            "AppBannerPromptOutcome">accepted</a> if <var>outcome</var> is
+            success, or <a data-link-for="AppBannerPromptOutcome">dismissed</a>
+            otherwise.
             </li>
           </ol>
         </section>
