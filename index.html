@@ -2220,7 +2220,7 @@
           </dt>
           <dd>
             A user agent can present this icon where an icon with a
-            <a>solid color</a> is needed. The
+            <a>single color</a> is needed. The
             color information in the icon is discarded and only the alpha data
             is used.
           </dd>
@@ -2360,7 +2360,7 @@
         </p>
         <p>
           If the icon contains transparent pixels, the user agent MUST
-          composite the icon onto a solid color (eg. white) of the user agent's
+          composite the icon onto a single color (eg. white) of the user agent's
           choice.
         </p>
         <p class="note">
@@ -2444,10 +2444,10 @@
       </section>
       <section>
         <h2>
-          Solid color icons
+          Single color icons
         </h2>
         <p>
-          Some platforms enforce that icons be displayed with a <dfn>solid
+          Some platforms enforce that icons be displayed with a <dfn>single
           color</dfn>, where only the transparency of the icon can be
           controlled. As web applications need to across multiple
           platforms, it is possible to indicate that an icon can have a
@@ -2457,15 +2457,12 @@
           padding in different places throughout the platform.
         </p>
         <p>
-          When processing a <a>single-color</a> icon, the user agent MUST NOT use
-          the red component, green component, or blue component of a pixel. If
-          it has alpha equal to zero, the user agent SHOULD NOT display it.
-          If it the alpha component is greater than zero, the user agent SHOULD
-          display it with any tint.
-        </p>
-        <p>
-          If no single color icon is defined when an icon with a solid color is
-          expected to be presented, the user agent MAY show a fallback icon.
+          When processing a <a>single-color</a> icon, the user agent MUST NOT
+          use the red component, green component, or blue component of a pixel.
+          The user agent SHOULD display each pixel with its original alpha
+          value, but with a red, green, and blue value of the user agent's
+          choosing. It is RECOMMENDED that the user agent use the same color
+          value for all pixels.
         </p>
         <p class="note">
           Designers of <a>single-color</a> icons are recommended to set all
@@ -2481,42 +2478,48 @@
         </p>
         <section>
           <h3>
-            Example usage of solid color icons
+            Example usage of single color icons
           </h3>
           <h2 class="icon-title">
             Usage examples
           </h2>
           <div class="icons">
-            <div>
+            <figure>
               <img src="images/monochrome-icon-plain.svg" alt=
               "A black icon over a checkerboard background">
-              <div class="icon-title">
-                Image
-              </div>
-              <div>
-                The base image with no color.
-              </div>
-            </div>
-            <div>
+              <figcaption>
+                <span class="icon-title">
+                  Image
+                </span>
+                <span>
+                  The base image with no color.
+                </span>
+              </figcaption>
+            </figure>
+            <figure>
               <img src="images/monochrome-icon-gray.svg" alt=
               "A dark gray icon over a checkerboard background">
-              <div class="icon-title">
-                Gray tint
-              </div>
-              <div>
-                The image tinted dark gray.
-              </div>
-            </div>
-            <div>
+              <figcaption>
+                <span class="icon-title">
+                  Gray tint
+                </span>
+                <span>
+                  The image tinted dark gray.
+                </span>
+              </figcaption>
+            </figure>
+            <figure>
               <img src="images/monochrome-icon-tinted.svg" alt=
               "A dark yellow icon over a light gray background">
-              <div class="icon-title">
-                Tinted with padding
-              </div>
-              <div>
-                Tinted with the theme color from the manifest.
-              </div>
-            </div>
+              <figcaption>
+                <span class="icon-title">
+                  Tinted with padding
+                </span>
+                <span>
+                  Tinted with the theme color from the manifest.
+                </span>
+              </figcaption>
+            </figure>
           </div>
         </section>
       </section>
