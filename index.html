@@ -314,18 +314,17 @@
             <li>Fall back to using the <a>top-level browsing context</a>
             {{Document}}'s metadata to to populate <var>manifest</var> in a
             user-agent-specific way (e.g., setting
-            |manifest|.{{WebAppManifest/name}} to the document <a data-cite=
-            "HTML#the-title-element">`title`</a>) and considering the document
-            <a>installable</a>.
+            |manifest|["{{WebAppManifest/name}}"] to the document
+              <a data-cite="HTML#the-title-element">`title`</a>) and
+              considering the document <a>installable</a>.
             </li>
             <li>Or, consider the document not <a>installable</a>.
             </li>
           </ol>
         </li>
-        <li>Otherwise, if <var>manifest</var>["<a>start_url</a>"] is not
+        <li>Otherwise, if |manifest|["{{WebAppManifest/start_url}}"] is not
         present, or not <a>within scope</a> of the {{Document}}'s
-          <a data-cite="DOM#dom-document-url">URL</a>, consider the document
-          not <a>installable</a>.
+        {{Document/URL}}, consider the document not <a>installable</a>.
         </li>
         <li>Otherwise, the {{Document}} MAY be considered <a>installable</a>
         (at the user agent's discretion; see [[[#installability-signals]]]).
