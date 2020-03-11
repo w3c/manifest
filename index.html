@@ -115,17 +115,22 @@
         flex-wrap: wrap;
       }
 
-      .icons > div {
+      .icons > figure {
         text-align: left;
+        margin: 0;
         padding: 10px;
         width: 188px;
       }
 
-      .icons > div > img {
+      .icons > figure > img {
         width: 188px;
         height: 188px;
         min-width: 188px;
         min-height: 188px;
+      }
+
+      .icons > figure .icon-title {
+        display: block;
       }
     </style>
   </head>
@@ -2463,81 +2468,95 @@
             Icons with "maskable" purpose
           </h2>
           <div class="icons">
-            <div>
+            <figure>
               <img src="images/icon-plain.svg" alt=
               "An icon over a checkerboard background">
-              <div class="icon-title">
-                Image
-              </div>
-              <div>
-                The base image with transparent background
-              </div>
-            </div>
-            <div>
+              <figcaption>
+                <span class="icon-title">
+                  Image
+                </span>
+                <span>
+                  The base image with transparent background
+                </span>
+              </figcaption>
+            </figure>
+            <figure>
               <img src="images/icon-safe-zone.svg" alt=
               "An icon in a purple circle (40% of the size) over a yellow background">
-              <div class="icon-title">
-                Safe zone
-              </div>
-              <div>
-                Circle with radius 2/5 (40%) of the icon size
-              </div>
-            </div>
+              <figcaption>
+                <span class="icon-title">
+                  Safe zone
+                </span>
+                <span>
+                  Circle with radius 2/5 (40%) of the icon size
+                </span>
+              </figcaption>
+            </figure>
           </div>
           <h2 class="icon-title">
             Mask examples
           </h2>
           <div class="icons">
-            <div>
+            <figure>
               <img src="images/icon-mask-android-roundsquare.svg" alt=
               "An icon inside a rounded yellow square on a purple background">
-              <div class="icon-title">
-                Rounded square
-              </div>
-              <div>
-                Android
-              </div>
-            </div>
-            <div>
+              <figcaption>
+                <span class="icon-title">
+                  Rounded square
+                </span>
+                <span>
+                  Android
+                </span>
+              </figcaption>
+            </figure>
+            <figure>
               <img src="images/icon-mask-android-squircle.svg" alt=
               "An icon inside an extremely rounded yellow square on a purple background">
-              <div class="icon-title">
-                Squircle
-              </div>
-              <div>
-                Android
-              </div>
-            </div>
-            <div>
+              <figcaption>
+                <span class="icon-title">
+                  Squircle
+                </span>
+                <span>
+                  Android
+                </span>
+              </figcaption>
+            </figure>
+            <figure>
               <img src="images/icon-mask-android-circle.svg" alt=
               "An icon inside a rounded yellow circle on a purple background">
-              <div class="icon-title">
-                Circle
-              </div>
-              <div>
-                Android
-              </div>
-            </div>
-            <div>
+              <figcaption>
+                <span class="icon-title">
+                  Circle
+                </span>
+                <span>
+                  Android
+                </span>
+              </figcaption>
+            </figure>
+            <figure>
               <img src="images/icon-mask-ios.svg" alt=
               "An icon inside a somewhat rounded yellow square on a purple background">
-              <div class="icon-title">
-                Rounded square
-              </div>
-              <div>
-                iOS
-              </div>
-            </div>
-            <div>
+              <figcaption>
+                <span class="icon-title">
+                  Rounded square
+                </span>
+                <span>
+                  iOS
+                </span>
+              </figcaption>
+            </figure>
+            <figure>
               <img src="images/icon-mask-windows.svg" alt=
               "An icon on a yellow background">
-              <div class="icon-title">
-                Fullbleed
-              </div>
-              <div>
-                Windows
-              </div>
-            </div>
+              <figcaption>
+                <span class="icon-title">
+                  Fullbleed
+                </span>
+                <span>
+                  Windows
+                </span>
+              </figcaption>
+            </figure>
           </div>
         </section>
       </section>
