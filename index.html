@@ -1353,9 +1353,10 @@
           <li>If <var>manifest link</var>'s <code>href</code> attribute's value
           is the empty <a>string</a>, then abort these steps.
           </li>
-          <li>Let <var>manifest URL</var> be the result of <a>parsing</a> the
-          value of the <code>href</code> attribute, relative to <a>the
-          element's base URL</a>. If parsing fails, then abort these steps.
+          <li>Let <var>manifest URL</var> be the result of [=URL
+          Parser|parsing=] the value of the <code>href</code> attribute,
+          relative to <a>the element's base URL</a>. If parsing fails, then
+          abort these steps.
           </li>
           <li>Let |request:Request| be a new <a>Request</a>.
           </li>
@@ -1493,9 +1494,9 @@
               </li>
             </ol>
           </li>
-          <li>Let <var>manifest</var> be the result of <a data-lt=
-          "to idl dictionary value">converting</a> <var>json</var> to a
-          <a>WebAppManifest</a> dictionary.
+          <li>Let <var>manifest</var> be the result of [=converted to an idl
+          value|converting=] <var>json</var> to a <a>WebAppManifest</a>
+          dictionary.
           </li>
           <li>Set <var>manifest</var>["<a>start_url</a>"] to the result of
           running <a>processing the <code>start_url</code> member</a> given
@@ -1805,13 +1806,13 @@
           <a>URL</a>.
         </p>
         <ol>
-          <li>Let <var>default</var> be the result of <a>parsing</a> ".", using
-          <var>start URL</var> as the <var>base</var> URL.
+          <li>Let <var>default</var> be the result of [=URL Parser|parsing=]
+          ".", using <var>start URL</var> as the <var>base</var> URL.
           </li>
           <li>If <var>value</var> is the empty <a>string</a>, then return <var>
             default</var>.
           </li>
-          <li>Let <var>scope URL</var> be the result of <a>parsing</a>
+          <li>Let <var>scope URL</var> be the result of [=URL Parser|parsing=]
           <var>value</var>, using <var>manifest URL</var> as the
           <var>base</var> URL.
           </li>
@@ -1997,7 +1998,7 @@
           <li>If <var>value</var> is the empty <a>string</a>, return
           <var>document URL</var>.
           </li>
-          <li>Let <var>start URL</var> be the result of <a>parsing</a>
+          <li>Let <var>start URL</var> be the result of [=URL Parser|parsing=]
           <var>value</var>, using <var>manifest URL</var> as the
           <var>base</var> URL.
           </li>
@@ -2030,7 +2031,7 @@
             For example, if the value of <a>start_url</a> is
             <samp>../start_point.html</samp>, and the manifest's URL is
             <samp>https://example.com/resources/manifest.webmanifest</samp>,
-            then the result of <a>URL parsing</a> would be
+            then the result of [=URL parser|parsing=] would be
             <samp>https://example.com/start_point.html</samp>.
           </p>
         </div>
@@ -2372,8 +2373,8 @@
                 processing `ImageResource` members</a> given
                 <var>shortcut</var>["icons"] and <var>manifest URL</var>.
               </li>
-              <li>Set <var>shortcut</var>["url"] to the result of
-              <a>parsing</a> <var>shortcut</var>["url"] using <var>manifest
+              <li>Set <var>shortcut</var>["url"] to the result of [=URL
+              Parser|parsing=] <var>shortcut</var>["url"] using <var>manifest
               URL</var> as the base URL. If the result is failure, <a>issue a
               developer warning</a> and [=iteration/continue=].
               </li>
@@ -2948,9 +2949,9 @@
               <li>Let <var>image</var> be a new object created as if by the
               expression ({}).
               </li>
-              <li>Set <var>image</var>["src"] to the result of <a>parsing</a>
-              <var>entry</var>["src"] using <var>manifest URL</var> as the base
-              URL.
+              <li>Set <var>image</var>["src"] to the result of [=URL
+              Parser|parsing=] <var>entry</var>["src"] using <var>manifest
+              URL</var> as the base URL.
               </li>
               <li>Set <var>image</var>["type"] to the result of running
               <a>processing the <code>type</code> member of an image</a> given
@@ -3227,9 +3228,9 @@
           <li>If <var>application URL</var> is <code>undefined</code>, return
           <code>undefined</code>.
           </li>
-          <li>Otherwise, <a>parse</a> <var>application URL</var> and if the
-          result is not failure, return the result, otherwise return
-          <code>undefined</code>.
+          <li>Otherwise, [=URL Parser|parse=] <var>application URL</var> and if
+          the result is not failure, return the result, otherwise return <code>
+            undefined</code>.
           </li>
         </ol>
       </section>
@@ -3771,14 +3772,6 @@
         expected.
       </p>
       <ul class="index" data-sort="">
-        <li>[[URL]] defines the following terms:
-          <ul>
-            <li>
-              <dfn data-cite="URL#concept-url-parser" data-lt=
-              "parse|parsing|URL parsing">URL parser</dfn>
-            </li>
-          </ul>
-        </li>
         <li>[[SCREEN-ORIENTATION]] defines the following terms:
           <ul>
             <li>
@@ -3817,15 +3810,6 @@
             <li>
               <a data-cite=
               "ECMA-402#sec-canonicalizelanguagetag"><dfn>CanonicalizeLanguageTag</dfn></a>
-            </li>
-          </ul>
-        </li>
-        <li>[[WEBIDL]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite="WEBIDL#es-dictionary"><dfn data-lt=
-              "to idl dictionary value">converted to IDL dictionary
-              value</dfn></a>
             </li>
           </ul>
         </li>
