@@ -134,7 +134,7 @@
       }
     </style>
   </head>
-  <body data-cite="ENCODING">
+  <body data-cite="ENCODING MIMESNIFF">
     <section id='abstract'>
       <p>
         This specification defines a JSON-based manifest file that provides
@@ -265,11 +265,12 @@
         <div class="note" title="manifest.webmanifest or manifest.json?">
           The official file extension for the manifest is `.webmanifest`. Some
           web servers recognize this extension and transfer the file using the
-          standardized <a>MIME type for a manifest</a>
-          (`application/manifest+json`). Developers can also choose a different
+          standardized [=web app manifest MIME type=]:
+          [=application/manifest+json=]. Developers can also choose a different
           extension (e.g. `.json`) or none at all (e.g. `/api/GetManifest`),
           but are strongly encouraged to transfer the manifest using the
-          `application/manifest+json` <a data-cite="mimesniff">MIME type</a>.
+          [=application/manifest+json=] [=MIME type=] or, at least, a [=JSON
+          MIME type=].
         </div>
       </section>
     </section>
@@ -1287,9 +1288,9 @@
           </tbody>
         </table>
         <p>
-          The <a>MIME type for a manifest</a> serves as the default
-          <a data-cite="mimesniff">MIME type</a> for resources associated with
-          the "<code>manifest</code>" <a>link type</a>.
+          The [=web app manifest MIME type=] serves as the default [=MIME
+          Type=] for resources associated with the "`manifest`" <a>link
+          type</a>.
         </p>
         <p class="note">
           In cases where more than one [^link^] element with a
@@ -1374,6 +1375,10 @@
           </li>
           <li>Await the result of performing a <a>fetch</a> with
           <var>request</var>, letting <var>response</var> be the result.
+          </li>
+          <li>If [=header list/extract a MIME type=] from |response|'s
+          [=response/header list=] is failure or not a [=JSON MIME Type=], then
+          abort these steps.
           </li>
           <li>If <var>response</var> is a <a>network error</a>, then abort
           these steps.
@@ -2467,11 +2472,10 @@
         semantics of the member that is using the object (e.g., an icon that is
         part of an application menu, etc.). For an image resource, this
         specification provides developers with a means of specifying the
-        dimensions, and <a data-cite="mimesniff">MIME type</a> of an image
-        (i.e., a "responsive image" solution [[RESPIMG-USECASES]]). A user
-        agent can use these values to select an image that is best suited to
-        display on the end-user's device or most closely matches the end-user's
-        preferences.
+        dimensions, and [=MIME Type=] of an image (i.e., a "responsive image"
+        solution [[RESPIMG-USECASES]]). A user agent can use these values to
+        select an image that is best suited to display on the end-user's device
+        or most closely matches the end-user's preferences.
       </p>
       <p>
         User agents may modify the images associated with an
@@ -3301,13 +3305,13 @@
           registration with <a href="https://www.iana.org/">IANA</a>.
         </p>
         <p>
-          The <dfn>MIME type for a manifest</dfn> is
-          <code>application/manifest+json</code>.
+          The <dfn data-export="">web app manifest MIME type</dfn> is
+          <dfn data-export="">`application/manifest+json`</dfn>.
         </p>
         <p>
           If the protocol over which the manifest is transferred supports the
           [[MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
-          manifest be labeled with the <a>MIME type for a manifest</a>.
+          manifest be labeled with the [=web app manifest MIME type=].
         </p>
         <dl>
           <dt>
