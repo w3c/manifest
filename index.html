@@ -134,7 +134,7 @@
       }
     </style>
   </head>
-  <body data-cite="ENCODING">
+  <body data-cite="ENCODING SCREEN-ORIENTATION">
     <section id='abstract'>
       <p>
         This specification defines a JSON-based manifest file that provides
@@ -142,12 +142,12 @@
         web application. This metadata includes, but is not limited to, the web
         application's name, links to icons, as well as the preferred URL to
         open when a user launches the web application. The manifest also allows
-        developers to declare a default orientation for their web application,
-        as well as providing the ability to set the display mode for the
-        application (e.g., in fullscreen). Additionally, the manifest allows a
-        developer to "scope" a web application to a URL. This restricts the
-        URLs to which the manifest is applied and provides a means to "deep
-        link" into a web application from other applications.
+        developers to declare a default screen orientation for their web
+        application, as well as providing the ability to set the display mode
+        for the application (e.g., in fullscreen). Additionally, the manifest
+        allows a developer to "scope" a web application to a URL. This
+        restricts the URLs to which the manifest is applied and provides a
+        means to "deep link" into a web application from other applications.
       </p>
       <p>
         Using this metadata, user agents can provide developers with means to
@@ -849,7 +849,7 @@
           navigation scope will be <code>/pages/</code>.
         </p>
         <p>
-          Developers should take care, if they rely on the default behaviour,
+          Developers should take care, if they rely on the default behavior,
           that all of the application's page URLs begin with the parent path of
           the start URL. To be safe, explicitly specify <a>scope</a>.
         </p>
@@ -1935,18 +1935,19 @@
         </h3>
         <p>
           The <dfn>orientation</dfn> member is a <a>string</a> that serves as
-          the <a>default orientation</a> for all <a>top-level browsing
+          the <a>default screen orientation</a> for all <a>top-level browsing
           contexts</a> of the web application. The possible values are those of
           the {{OrientationLockType}} enum defined in [[SCREEN-ORIENTATION]].
         </p>
         <p>
           If the user agent honors the value of the <a>orientation</a> member
-          as the <a>default orientation</a>, then that serves as the <a>default
-          orientation</a> for the life of the web application (unless
-          overridden by some other means at runtime). This means that the user
-          agent MUST return the orientation to the <a>default orientation</a>
-          any time the orientation is unlocked [[SCREEN-ORIENTATION]] or the
-          <a>top-level browsing context</a> is <a>navigated</a>.
+          as the <a>default screen orientation</a>, then that serves as the
+          <a>default screen orientation</a> for the life of the web application
+          (unless overridden by some other means at runtime). This means that
+          the user agent MUST return the orientation to the <a>default screen
+          orientation</a> any time the orientation is unlocked
+          [[SCREEN-ORIENTATION]] or the <a>top-level browsing context</a> is
+          <a>navigated</a>.
         </p>
         <p>
           Although the specification relies on the [[SCREEN-ORIENTATION]]'s
@@ -1960,7 +1961,7 @@
           together</dfn>. Which orientations and display modes cannot be used
           together is left to the discretion of implementers. For example, for
           some user agents, it might not make sense to change the <a>default
-          orientation</a> of an application while in <code>browser</code>
+          screen orientation</a> of an application while in <code>browser</code>
           <a>display mode</a>.
         </p>
         <p class="note">
@@ -3772,19 +3773,6 @@
         expected.
       </p>
       <ul class="index" data-sort="">
-        <li>[[SCREEN-ORIENTATION]] defines the following terms:
-          <ul>
-            <li>
-              <dfn data-cite=
-              "SCREEN-ORIENTATION#dfn-default-orientation">default
-              orientation</dfn>
-            </li>
-            <li>
-              <dfn data-cite=
-              "SCREEN-ORIENTATION#dom-orientationlocktype">OrientationLockType</dfn>
-            </li>
-          </ul>
-        </li>
         <li>[[CSS-SYNTAX-3]] defines the following terms:
           <ul>
             <li>
