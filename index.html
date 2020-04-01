@@ -134,7 +134,7 @@
       }
     </style>
   </head>
-  <body data-cite="ENCODING">
+  <body data-cite="ENCODING SCREEN-ORIENTATION">
     <section id='abstract'>
       <p>
         This specification defines a JSON-based manifest file that provides
@@ -142,12 +142,12 @@
         web application. This metadata includes, but is not limited to, the web
         application's name, links to icons, as well as the preferred URL to
         open when a user launches the web application. The manifest also allows
-        developers to declare a default orientation for their web application,
-        as well as providing the ability to set the display mode for the
-        application (e.g., in fullscreen). Additionally, the manifest allows a
-        developer to "scope" a web application to a URL. This restricts the
-        URLs to which the manifest is applied and provides a means to "deep
-        link" into a web application from other applications.
+        developers to declare a default screen orientation for their web
+        application, as well as providing the ability to set the display mode
+        for the application (e.g., in fullscreen). Additionally, the manifest
+        allows a developer to "scope" a web application to a URL. This
+        restricts the URLs to which the manifest is applied and provides a
+        means to "deep link" into a web application from other applications.
       </p>
       <p>
         Using this metadata, user agents can provide developers with means to
@@ -278,15 +278,17 @@
         Installable web applications
       </h2>
       <p>
-        A common use case of a manifest is for a user agent to <dfn data-lt=
-        "installing|installed|installation" data-export="">install</dfn> a web
-        application; whereby the user agent provides the end-user with a means
-        of instantiating a new <a>top-level browsing context</a> that has the
-        manifest's members <a>applied</a> to it. That is, the manifest's
-        members, or their defaults, are in effect on the <a>top-level browsing
-        context</a>. This distinguishes an installed web application from a
-        traditional bookmark, as opening a web page from a traditional bookmark
-        will not have the manifest's properties <a>applied</a> to it.
+        A common use case of a manifest is for a user agent to
+        <dfn data-local-lt="installing|installation" data-lt=
+        "installed">install</dfn> a web application; whereby the user agent
+        provides the end-user with a means of instantiating a new <a>top-level
+        browsing context</a> that has the manifest's members <a>applied</a> to
+        it. A web application that is installed is known as a <dfn data-export=
+        "">installed web application</dfn>. That is, the manifest's members, or
+        their defaults, are in effect on the <a>top-level browsing context</a>.
+        This distinguishes an installed web application from a traditional
+        bookmark, as opening a web page from a traditional bookmark will not
+        have the manifest's properties <a>applied</a> to it.
       </p>
       <p>
         For example, on user agents that support installation, a web
@@ -445,7 +447,7 @@
         </h3>
         <p>
           User agents SHOULD provide a mechanism for the user to remove an
-          <a>installed</a> web application.
+          <a>installed web application</a> application.
         </p>
         <p>
           It is RECOMMENDED that at the time of removal, the user agent also
@@ -460,10 +462,11 @@
         Navigation scope
       </h2>
       <p data-link-for="WebAppManifest">
-        A <dfn>navigation scope</dfn> is a <a>URL</a> that represents the set
-        of URLs to which an <a>application context</a> can be navigated while
-        the manifest is <a>applied</a>. The <a>navigation scope</a> of a
-        manifest <var>manifest</var> is <var>manifest</var>["<a>scope</a>"].
+        A <dfn data-export="">navigation scope</dfn> is a <a>URL</a> that
+        represents the set of URLs to which an <a>application context</a> can
+        be navigated while the manifest is <a>applied</a>. The <a>navigation
+        scope</a> of a manifest <var>manifest</var> is
+        <var>manifest</var>["<a>scope</a>"].
       </p>
       <div class="note" data-link-for="WebAppManifest">
         <p>
@@ -476,7 +479,7 @@
           navigation scope will be <code>/pages/</code>.
         </p>
         <p>
-          Developers should take care, if they rely on the default behaviour,
+          Developers should take care, if they rely on the default behavior,
           that all of the application's page URLs begin with the parent path of
           the start URL. To be safe, explicitly specify <a>scope</a>.
         </p>
@@ -560,8 +563,8 @@
         </h3>
         <p>
           A <dfn>deep link</dfn> is a URL that is <a data-lt=
-          "within-scope-manifest">within scope</a> of an <a>installed</a> web
-          application's manifest.
+          "within-scope-manifest">within scope</a> of an <a>installed web
+          application</a>'s manifest.
         </p>
         <p>
           An <a>application context</a> can be instantiated through a <a>deep
@@ -571,13 +574,13 @@
         <div class="note">
           <p>
             The concept of a <a>deep link</a> is useful in that it allows
-            hyperlinking from one installed application to another. This can be
-            from a native application to an <a>installed</a> web application
-            (and possibly vice versa!). Theoretically, this can provide
-            seamless context switching between native and web applications
-            through standard hyperlinks. And in the case where a particular web
-            application is not <a>installed</a>, the OS can just open the link
-            in the user's preferred web browser.
+            hyperlinking from one <a>installed web application</a> to another.
+            This can be from a native application to an <a>installed web
+            application</a> (and possibly vice versa!). Theoretically, this can
+            provide seamless context switching between native and web
+            applications through standard hyperlinks. And in the case where a
+            particular web application is not <a>installed</a>, the OS can just
+            open the link in the user's preferred web browser.
           </p>
           <p>
             Implementers are encouraged make such context switching obvious to
@@ -980,9 +983,10 @@
           <li>If <var>manifest link</var>'s <code>href</code> attribute's value
           is the empty <a>string</a>, then abort these steps.
           </li>
-          <li>Let <var>manifest URL</var> be the result of <a>parsing</a> the
-          value of the <code>href</code> attribute, relative to <a>the
-          element's base URL</a>. If parsing fails, then abort these steps.
+          <li>Let <var>manifest URL</var> be the result of [=URL
+          Parser|parsing=] the value of the <code>href</code> attribute,
+          relative to <a>the element's base URL</a>. If parsing fails, then
+          abort these steps.
           </li>
           <li>Let |request:Request| be a new <a>Request</a>.
           </li>
@@ -1120,9 +1124,9 @@
               </li>
             </ol>
           </li>
-          <li>Let <var>manifest</var> be the result of <a data-lt=
-          "to idl dictionary value">converting</a> <var>json</var> to a
-          <a>WebAppManifest</a> dictionary.
+          <li>Let <var>manifest</var> be the result of [=converted to an idl
+          value|converting=] <var>json</var> to a <a>WebAppManifest</a>
+          dictionary.
           </li>
           <li>Set <var>manifest</var>["<a>start_url</a>"] to the result of
           running <a>processing the <code>start_url</code> member</a> given
@@ -1208,8 +1212,8 @@
         </div>
         <p>
           The appropriate time to <a>apply</a> a manifest is when the
-          <a>application context</a> is created and before <a>navigation</a> to
-          the <a>start URL</a> begins.
+          <a>application context</a> is created and before
+          [=navigate|navigation=] to the <a>start URL</a> begins.
         </p>
       </section>
       <section id="updating">
@@ -1432,13 +1436,13 @@
           <a>URL</a>.
         </p>
         <ol>
-          <li>Let <var>default</var> be the result of <a>parsing</a> ".", using
-          <var>start URL</var> as the <var>base</var> URL.
+          <li>Let <var>default</var> be the result of [=URL Parser|parsing=]
+          ".", using <var>start URL</var> as the <var>base</var> URL.
           </li>
           <li>If <var>value</var> is the empty <a>string</a>, then return <var>
             default</var>.
           </li>
-          <li>Let <var>scope URL</var> be the result of <a>parsing</a>
+          <li>Let <var>scope URL</var> be the result of [=URL Parser|parsing=]
           <var>value</var>, using <var>manifest URL</var> as the
           <var>base</var> URL.
           </li>
@@ -1561,18 +1565,19 @@
         </h3>
         <p>
           The <dfn>orientation</dfn> member is a <a>string</a> that serves as
-          the <a>default orientation</a> for all <a>top-level browsing
+          the <a>default screen orientation</a> for all <a>top-level browsing
           contexts</a> of the web application. The possible values are those of
           the {{OrientationLockType}} enum defined in [[SCREEN-ORIENTATION]].
         </p>
         <p>
           If the user agent honors the value of the <a>orientation</a> member
-          as the <a>default orientation</a>, then that serves as the <a>default
-          orientation</a> for the life of the web application (unless
-          overridden by some other means at runtime). This means that the user
-          agent MUST return the orientation to the <a>default orientation</a>
-          any time the orientation is unlocked [[SCREEN-ORIENTATION]] or the
-          <a>top-level browsing context</a> is <a>navigated</a>.
+          as the <a>default screen orientation</a>, then that serves as the
+          <a>default screen orientation</a> for the life of the web application
+          (unless overridden by some other means at runtime). This means that
+          the user agent MUST return the orientation to the <a>default screen
+          orientation</a> any time the orientation is unlocked
+          [[SCREEN-ORIENTATION]] or the <a>top-level browsing context</a> is
+          <a>navigated</a>.
         </p>
         <p>
           Although the specification relies on the [[SCREEN-ORIENTATION]]'s
@@ -1586,8 +1591,8 @@
           together</dfn>. Which orientations and display modes cannot be used
           together is left to the discretion of implementers. For example, for
           some user agents, it might not make sense to change the <a>default
-          orientation</a> of an application while in <code>browser</code>
-          <a>display mode</a>.
+          screen orientation</a> of an application while in
+          <code>browser</code> <a>display mode</a>.
         </p>
         <p class="note">
           Once the web application is running, other means can change the
@@ -1624,7 +1629,7 @@
           <li>If <var>value</var> is the empty <a>string</a>, return
           <var>document URL</var>.
           </li>
-          <li>Let <var>start URL</var> be the result of <a>parsing</a>
+          <li>Let <var>start URL</var> be the result of [=URL Parser|parsing=]
           <var>value</var>, using <var>manifest URL</var> as the
           <var>base</var> URL.
           </li>
@@ -1657,7 +1662,7 @@
             For example, if the value of <a>start_url</a> is
             <samp>../start_point.html</samp>, and the manifest's URL is
             <samp>https://example.com/resources/manifest.webmanifest</samp>,
-            then the result of <a>URL parsing</a> would be
+            then the result of [=URL parser|parsing=] would be
             <samp>https://example.com/start_point.html</samp>.
           </p>
         </div>
@@ -1992,20 +1997,21 @@
             <ol>
               <li>If <var>shortcut</var>["name"] or <var>shortcut</var>["url"]
               are undefined, or if <var>shortcut</var>["name"] is the empty
-              string, <a>issue a developer warning</a> and <a>continue</a>.
+              string, <a>issue a developer warning</a> and
+              [=iteration/continue=].
               </li>
               <li>Set <var>shortcut</var>["icons"] to the result of running <a>
                 processing `ImageResource` members</a> given
                 <var>shortcut</var>["icons"] and <var>manifest URL</var>.
               </li>
-              <li>Set <var>shortcut</var>["url"] to the result of
-              <a>parsing</a> <var>shortcut</var>["url"] using <var>manifest
+              <li>Set <var>shortcut</var>["url"] to the result of [=URL
+              Parser|parsing=] <var>shortcut</var>["url"] using <var>manifest
               URL</var> as the base URL. If the result is failure, <a>issue a
-              developer warning</a> and <a>continue</a>.
+              developer warning</a> and [=iteration/continue=].
               </li>
               <li>If <var>shortcut</var>["url"] is not <a>within scope</a> of
-              <var>manifest URL</var>, <a>issue a developer warning</a> and <a>
-                continue</a>.
+              <var>manifest URL</var>, <a>issue a developer warning</a> and
+              [=iteration/continue=].
               </li>
               <li>
                 <a>Append</a> <var>shortcut</var> to
@@ -2281,8 +2287,8 @@
               <li>Set |canonicalKeyword| to <a>ascii lowercased</a> |keyword|.
               </li>
               <li>If |canonicalKeyword| is not one of the [=icon purposes=], or
-              |purposes| [=contains=] |keyword|, then [=issue a developer
-              warning=] and [=iteration/continue=].
+              |purposes| [=set/contain|contains=] |keyword|, then [=issue a
+              developer warning=] and [=iteration/continue=].
               </li>
               <li>Otherwise, [=set/append=] |canonicalKeyword| to |purposes|.
               </li>
@@ -2461,15 +2467,15 @@
           consisting of an <a>unordered set of unique space-separated
           tokens</a> which are <a>ASCII case-insensitive</a> that represents
           the dimensions of an image. Each keyword is either an <a>ASCII
-          case-insensitive</a> match for the <a>string</a> "<a data-lt=
-          "any link size">any"</a>, or a value that consists of two <a>valid
-          non-negative integers</a> that do not have a leading U+0030 DIGIT
-          ZERO (0) character and that are separated by a single U+0078 LATIN
-          SMALL LETTER X or U+0058 LATIN CAPITAL LETTER X character. The
-          keywords represent icon sizes in raw pixels (as opposed to CSS
-          pixels). When multiple <a>ImageResource</a>s are available, a user
-          agent MAY use the value to decide which icon is most suitable for a
-          display context (and ignore any that are inappropriate).
+          case-insensitive</a> match for the <a>string</a> "any", or a value
+          that consists of two <a>valid non-negative integers</a> that do not
+          have a leading U+0030 DIGIT ZERO (0) character and that are separated
+          by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN CAPITAL
+          LETTER X character. The keywords represent icon sizes in raw pixels
+          (as opposed to CSS pixels). When multiple <a>ImageResource</a>s are
+          available, a user agent MAY use the value to decide which icon is
+          most suitable for a display context (and ignore any that are
+          inappropriate).
         </p>
         <p>
           The steps for <dfn>processing the <code>sizes</code> member of an
@@ -2574,21 +2580,21 @@
                   <li>Let <var>image</var> be a new object created as if by the
                   expression ({}).
                   </li>
-                  <li>Set <var>image</var>["src"] to the result of <a>parsing</a>
-                  <var>entry</var>["src"] using <var>manifest URL</var> as the base
-                  URL.
+                  <li>Set <var>image</var>["src"] to the result of [=URL
+                  Parser|parsing=] <var>entry</var>["src"] using <var>manifest
+                  URL</var> as the base URL.
                   </li>
-                  <li>Set <var>image</var>["type"] to the result of running
-                  <a>processing the <code>type</code> member of an image</a> given
-                  <var>entry</var> and <var>manifest URL</var>.
+                  <li>Set <var>image</var>["type"] to the result of running <a>
+                    processing the <code>type</code> member of an image</a>
+                    given <var>entry</var> and <var>manifest URL</var>.
                   </li>
                   <li>Set <var>image</var>["sizes"] to the result of running
-                  <a>processing the <code>sizes</code> member of an image</a> given
-                  <var>entry</var> and <var>manifest URL</var>.
+                  <a>processing the <code>sizes</code> member of an image</a>
+                  given <var>entry</var> and <var>manifest URL</var>.
                   </li>
-                  <li>Let <var>purpose</var> be the result of running <a>processing
-                  the <code>purpose</code> member of an image</a> given
-                  <var>entry</var> and <var>manifest URL</var>.
+                  <li>Let <var>purpose</var> be the result of running
+                  <a>processing the <code>purpose</code> member of an image</a>
+                  given <var>entry</var> and <var>manifest URL</var>.
                   </li>
                   <li>If <var>purpose</var> is failure, [=iteration/continue=].
                   </li>
@@ -2597,7 +2603,8 @@
                   <li>Set <var>image</var>["platform"] to
                   <var>entry</var>["platform"].
                   </li>
-                  <li>[=list/append=] <var>image</var> to <var>imageResources</var>
+                  <li>[=list/append=] <var>image</var> to
+                  <var>imageResources</var>
                   </li>
                 </ol>
               </li>
@@ -2855,9 +2862,9 @@
           <li>If <var>application URL</var> is <code>undefined</code>, return
           <code>undefined</code>.
           </li>
-          <li>Otherwise, <a>parse</a> <var>application URL</var> and if the
-          result is not failure, return the result, otherwise return
-          <code>undefined</code>.
+          <li>Otherwise, [=URL Parser|parse=] <var>application URL</var> and if
+          the result is not failure, return the result, otherwise return <code>
+            undefined</code>.
           </li>
         </ol>
       </section>
@@ -2972,7 +2979,7 @@
           <dd>
             <p>
               This specification does not directly deal with high-value data.
-              However, <a>installed</a> web applications and their data could
+              However, <a>installed web applications</a> and their data could
               be seen as "high value" (particularly from a privacy
               perspective).
             </p>
@@ -3423,10 +3430,10 @@
     <section id="idl-index" class="appendix">
       <!-- All the Web IDL will magically appear here -->
     </section>
-    <section class="appendix">
-      <h3>
+    <section id="index" class="appendix">
+      <h2>
         Terms defined by reference
-      </h3>
+      </h2>
       <p>
         As the manifest uses the JSON format, this specification relies on the
         types defined in [[ECMA-404]] specification: namely <dfn>object</dfn>,
@@ -3438,53 +3445,11 @@
         expected.
       </p>
       <ul class="index" data-sort="">
-        <li>[[URL]] defines the following terms:
-          <ul>
-            <li>
-              <dfn data-cite="URL#concept-url-parser" data-lt=
-              "parse|parsing|URL parsing">URL parser</dfn>
-            </li>
-          </ul>
-        </li>
-        <li>[[SCREEN-ORIENTATION]] defines the following terms:
-          <ul>
-            <li>
-              <dfn data-cite=
-              "SCREEN-ORIENTATION#dfn-default-orientation">default
-              orientation</dfn>
-            </li>
-            <li>
-              <dfn data-cite=
-              "SCREEN-ORIENTATION#dom-orientationlocktype">OrientationLockType</dfn>
-            </li>
-          </ul>
-        </li>
         <li>[[CSS-SYNTAX-3]] defines the following terms:
           <ul>
             <li>
               <a data-cite="CSS-SYNTAX-3#parse-component-value"><dfn>parse a
               component value</dfn></a>
-            </li>
-          </ul>
-        </li>
-        <li>[[CSP3]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite=
-              "CSP3#directive-manifest-src"><dfn>manifest-src</dfn>
-              directive</a>
-            </li>
-            <li>
-              <a data-cite="CSP3#directive-default-src"><dfn>default-src</dfn>
-              directive</a>
-            </li>
-          </ul>
-        </li>
-        <li>[[SECURE-CONTEXTS]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite="SECURE-CONTEXTS#is-origin-trustworthy"><dfn>Is
-              origin potentially trustworthy</dfn></a>
             </li>
           </ul>
         </li>
@@ -3500,12 +3465,15 @@
             </li>
           </ul>
         </li>
-        <li>[[WEBIDL]] defines the following terms:
+        <li>[[DOM]] defines the following terms:
           <ul>
             <li>
-              <a data-cite="WEBIDL#es-dictionary"><dfn data-lt=
-              "to idl dictionary value">converted to IDL dictionary
-              value</dfn></a>
+              <a data-cite="DOM#event"><dfn><code>Event</code>
+              interface</dfn></a>
+            </li>
+            <li>
+              <a data-cite="DOM#concept-event-fire"><dfn data-lt=
+              "fire|fired|firing">Fire an event</dfn></a>
             </li>
           </ul>
         </li>
@@ -3517,19 +3485,11 @@
               set of unique space-separated tokens</dfn></a>
             </li>
             <li>
-              <a data-cite="HTML#navigate"><dfn data-lt=
-              "navigated|navigate|navigation">navigate algorithm</dfn></a>
-            </li>
-            <li>
               <a data-cite="HTML#linkTypes"><dfn>link type</dfn></a>
             </li>
             <li>
               <a data-cite="HTML#delay-the-load-event"><dfn>delay the load
               event</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#attr-link-sizes-any"><dfn>any link
-              size</dfn></a>
             </li>
             <li>
               <a data-cite="HTML#valid-non-negative-integer"><dfn>valid
@@ -3542,16 +3502,6 @@
             <li>
               <a data-cite="HTML#the-element's-base-url"><dfn>the element's
               base URL</dfn></a>.
-            </li>
-          </ul>
-        </li>
-        <li>[[INFRA]] defines the following terms:
-          <ul>
-            <li>
-              <dfn data-cite="INFRA#list-contain">contains</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#iteration-continue">continue</dfn>
             </li>
           </ul>
         </li>
