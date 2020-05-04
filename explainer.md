@@ -250,6 +250,26 @@ Numerous operating systems grant native applications the ability to add menu ite
 ]
 ```
 
+## Adding protocol handlers
+Native applications often register themselves as protocol handlers to increase discoverability and usage. For web applications, you can define a set of protocol handlers to be exposed when the app is installed. Each protocol handler item must have the protocol to be handled and the URL used to handle the protocol links.
+
+```JSON
+"protocol_handlers": [
+  {
+    "protocol": "mailto",
+    "url": "/mailto?%s",
+  },
+  {
+    "protocol": "sms",
+    "url": "/sms?number=%s",
+  },
+  {
+    "protocol": "web+msg",
+    "url": "/msg?handler=%s",
+  }
+]
+```
+
 ## How can I detect if the user "installed" my app?
 The spec provides a way for you to detect when the user installs your apps by registering for "appinstalled" events.
 

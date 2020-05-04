@@ -1171,6 +1171,11 @@
           running <a>processing the <code>shortcuts</code> member</a> given
           <var>manifest</var>["<a>shortcuts</a>"] and <var>manifest URL</var>.
           </li>
+          <li>Set <var>manifest</var>["<a>protocol_handlers</a>"] to the result
+          of running <a>processing the <code>protocol_handlers</code>
+          member</a> given <var>manifest</var>["<a>protocol_handlers</a>"] and
+          <var>manifest URL</var>.
+          </li>
           <li>
             <a>Extension point</a>: process any proprietary and/or other
             supported members at this point in the algorithm.
@@ -1247,6 +1252,7 @@
              sequence&lt;ExternalApplicationResource&gt; related_applications;
              boolean prefer_related_applications = "false";
              sequence&lt;ShortcutItem&gt; shortcuts;
+             sequence&lt;ProtocolHandlerItem&gt; protocol_handlers;
           };
       </pre>
       <p>
@@ -2080,6 +2086,111 @@
           </pre>
         </div>
       </section>
+      <section>
+        <h3>
+          <code>protocol_handlers</code> member
+        </h3>
+        <p>
+          The <dfn>protocol_handlers</dfn> member is an <a>array</a> of
+          <a>ProtocolHandlerItem</a>s that allows a web application to handle
+          URL protocols.
+        </p>
+        <p class="note">
+          Protocol handlers could, for instance, be used for web app
+          communication where one app directly invokes another and passes data
+          via custom protocol links.
+        </p>
+        <p>
+          How protocol handlers are presented, and how many of them are shown
+          to the user, is at the discretion of the user agent and/or operating
+          system.
+        </p>
+        <p>
+          The steps for <dfn>processing the <code>protocol_handlers</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes a <a data-cite=
+          "WEBIDL#sequence-type">sequence</a>&lt;<a>ProtocolHandlerItem</a>&gt;
+          <var>protocol_handlers</var> and a <a>URL</a> <var>manifest
+          URL</var>. This algorithm returns a <a data-cite=
+          "WEBIDL#sequence-type">sequence</a>&lt;<a>ProtocolHandlerItem</a>&gt;.
+        </p>
+        <ol>
+          <li>Let <var>processedProtocolHandlers</var> be a new Array object
+          created as if by the expression [].
+          </li>
+          <li>For each <var>protocol_handler</var> (<a>ProtocolHandlerItem</a>)
+          in the sequence:
+            <ol>
+              <li>If <var>protocol_handler</var>["protocol"] or
+              <var>protocol_handler</var>["url"] are undefined, <a>issue a
+              developer warning</a> and [=iteration/continue=].
+              </li>
+              <li>Set <var>protocol_handler</var>["url"] to the result of [=URL
+              Parser|parsing=] <var>protocol_handler</var>["url"] using
+              <var>manifest URL</var> as the base URL. If the result is
+              failure, <a>issue a developer warning</a> and
+              [=iteration/continue=].
+              </li>
+              <li>If <var>protocol_handler</var>["url"] is not <a>within
+              scope</a> of <var>manifest URL</var>, <a>issue a developer
+              warning</a> and [=iteration/continue=].
+              </li>
+              <li>If <var>protocol_handler</var>["url"] already exists in <var>
+                processedProtocolHandlers</var>, <a>issue a developer
+                warning</a> and [=iteration/continue=].
+              </li>
+              <li>
+                <a>Append</a> <var>protocol_handler</var> to
+                <var>processedProtocolHandlers</var>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>processedProtocolHandlers</var>.
+          </li>
+        </ol>
+        <p>
+          A user agent SHOULD ask users for permission before registering a
+          <a>ProtocolHandlerItem</a> <var>protocol_handler</var> as the default
+          handler for a protocol with the host operating system. A user agent
+          MAY truncate the list of <a>ProtocolHandlerItem</a>
+          <var>protocol_handler</var> presented in order to remain consistent
+          with the conventions or limitations of the host operating system.
+        </p>
+        <div class="example">
+          <p>
+            In the following example, the developer has included two
+            <a>ProtocolHandlerItem</a> <var>protocol_handler</var>. Assuming
+            the the manifest's URL is
+            <samp>https://example.com/manifest.webmanifest</samp>:
+          </p>
+          <ul>
+            <li>The first protocol handler would register to handle "web+music"
+            URLs (e.g.: web+music://#1234). When activated, the user agent
+            would instantiate a new <a>top-level browsing context</a> and
+            navigate to
+            <samp>https://example.com/play?songId=web+music://%231234</samp>.
+            </li>
+            <li>The second protocol handler would be ignored, as the protocol
+            provided does not start with "web+" and is not part of the
+            safelist.
+            </li>
+          </ul>
+          <pre class="example json">
+            {
+              "protocol_handlers": [
+                {
+                  "protocol": "web+music",
+                  "url": "/play?songId=%s"
+                },
+                {
+                  "protocol": "store",
+                  "url": "/buy?songId=%s"
+                }
+              ]
+            }
+          </pre>
+        </div>
+      </section>
     </section>
     <section>
       <h2>
@@ -2698,6 +2809,90 @@
         </p>
         <ol>
           <li>Let <var>url</var> be <var>shortcut.url</var>.
+          </li>
+          <li>Let <var>browsing context</var> be the result of creating a new
+          <a>top-level browsing context</a>.
+          </li>
+          <li>
+            <a>Navigate</a> <var>browsing context</var> to <var>url</var>.
+          </li>
+        </ol>
+      </section>
+    </section>
+    <section>
+      <h2>
+        <dfn>ProtocolHandlerItem</dfn> and its members
+      </h2>
+      <pre class="idl">
+        dictionary ProtocolHandlerItem {
+          required DOMString protocol;
+          required USVString url;
+        };
+      </pre>
+      <p>
+        Each <a>ProtocolHandlerItem</a> represents a protocol that the web
+        application wants to handle and the corresponding URL that should
+        handle the request. A user agent SHOULD use these values to register
+        the web application as a handler with the operating system. When the
+        user activates a protocol handler URL, the user agent SHOULD run
+        <a>Handling a protocol launch</a>.
+      </p>
+      <p class="note">
+        [[HTML]]'s <code>registerProtocolHandler</code> method allows web sites
+        to register themselves as possible handlers for particular protocols.
+        What constitutes valid <code>protocol</code> and <code>url</code>
+        values for <a>ProtocolHandlerItem</a>s is defined in that API. Also
+        note that the [[HTML]] API uses <code>scheme</code> where we use
+        <code>protocol</code> but the same restrictions apply.
+      </p>
+      <section data-dfn-for="ProtocolHandlerItem" data-link-for=
+      "ProtocolHandlerItem">
+        <h3>
+          <code>protocol</code> member
+        </h3>
+        <p>
+          The <dfn>protocol</dfn> member of a <a>ProtocolHandlerItem</a> is a
+          <a>string</a> that represents the protocol to be handled, such as
+          "mailto" or "web+auth".
+        </p>
+        <p>
+          The <a>protocol</a> member of a <a>ProtocolHandlerItem</a> is
+          equivalent to <code>registerProtocolHandler</code>'s
+          <code>scheme</code> argument defined in [[HTML]], and is processed in
+          the same manner.
+        </p>
+      </section>
+      <section data-dfn-for="ProtocolHandlerItem" data-link-for=
+      "ProtocolHandlerItem">
+        <h3>
+          <code>url</code> member
+        </h3>
+        <p>
+          The <dfn>url</dfn> member of a <a>ProtocolHandlerItem</a> is the
+          <a>URL</a> <a data-lt="within scope of a manifest">within the
+          application's scope</a> that opens when the associated protocol is
+          activated.
+        </p>
+        <p>
+          The <a>url</a> member of a <a>ProtocolHandlerItem</a> is equivalent
+          to <code>registerProtocolHandler</code>'s <code>url</code> argument
+          defined in [[HTML]], and is processed in the same manner.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <dfn>Handling a protocol launch</dfn>
+        </h3>
+        <p>
+          When a <a>ProtocolHandlerItem</a> <var>protocol_handler</var> having
+          <a>WebAppManifest</a> <var>manifest</var> is invoked, run the
+          following steps:
+        </p>
+        <ol>
+          <li>Let <var>url</var> be <var>protocol_handler.url</var>.
+          </li>
+          <li>Replace the first occurrence of the exact literal string "%s" in
+          <var>url</var> with an escaped version of the absolute URL.
           </li>
           <li>Let <var>browsing context</var> be the result of creating a new
           <a>top-level browsing context</a>.
