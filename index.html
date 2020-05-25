@@ -1094,21 +1094,19 @@
         <p class="issue">
           We need to catch throws associated with enumerations in IDL
           conversion as the spec might gain new values over time not supported
-          by all exising browsers. This is especially important as we rely on
+          by all existing browsers. This is especially important as we rely on
           enums not defined in this specification.
         </p>
         <ol>
-          <li>Let <var>json</var> be the result of <a data-cite=
-          "ECMASCRIPT#sec-json.parse">parsing</a> <var>text</var>. If
-          <a data-cite="ECMASCRIPT#sec-json.parse">parsing</a> throws an error:
+          <li>Let <var>json</var> be the result of [=parse JSON from bytes=]
+          <var>text</var>. If parsing throws an error:
             <ol>
               <li>
                 <a>Issue a developer warning</a> with any details pertaining to
                 the JSON parsing error.
               </li>
-              <li>Set <var>json</var> to be the result of <a data-cite=
-              "ECMASCRIPT#sec-15.12.2">parsing</a> the <a>string</a>
-              <code>"{}"</code>.
+              <li>Set <var>json</var> to an empty [=object=] (i.e., equivalent
+              of JSON parsing the string `"{}"`).
               </li>
             </ol>
           </li>
@@ -1118,9 +1116,8 @@
                 <a>Issue a developer warning</a> that the manifest needs to be
                 an object.
               </li>
-              <li>Set <var>json</var> to be the result of <a data-cite=
-              "ECMASCRIPT#sec-15.12.2">parsing</a> the <a>string</a>
-              <code>"{}"</code>.
+              <li>Set <var>json</var> to an empty [=object=] (i.e., equivalent
+              of JSON parsing the string `"{}"`).
               </li>
             </ol>
           </li>
@@ -1760,11 +1757,9 @@
         <p>
           The steps for <dfn>processing the <code>related_applications</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ExternalApplicationResource</a>&gt;
+          takes a <a>sequence</a>&lt;<a>ExternalApplicationResource</a>&gt;
           <var>related applications</var> as an argument. This algorithm
-          returns an <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ExternalApplicationResource</a>&gt;.
+          returns an <a>sequence</a>&lt;<a>ExternalApplicationResource</a>&gt;.
         </p>
         <ol>
           <li>Let <var>relatedApplications</var> be a new Array object created
@@ -1982,11 +1977,9 @@
         <p>
           The steps for <dfn>processing the <code>shortcuts</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
-          <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;
-          <var>shortcuts</var> and a <a>URL</a> <var>manifest URL</var>. This
-          algorithm returns a <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;.
+          <a>sequence</a>&lt;<a>ShortcutItem</a>&gt; <var>shortcuts</var> and a
+          <a>URL</a> <var>manifest URL</var>. This algorithm returns a
+          <a>sequence</a>&lt;<a>ShortcutItem</a>&gt;.
         </p>
         <ol>
           <li>Let <var>processedShortcuts</var> be a new Array object created
@@ -3430,9 +3423,9 @@
     <section id="idl-index" class="appendix">
       <!-- All the Web IDL will magically appear here -->
     </section>
-    <section id="index" class="appendix">
+    <section class="appendix">
       <h2>
-        Terms defined by reference
+        Dependencies
       </h2>
       <p>
         As the manifest uses the JSON format, this specification relies on the
@@ -3504,5 +3497,6 @@
         </li>
       </ul>
     </section>
+    <section id="index"></section>
   </body>
 </html>
