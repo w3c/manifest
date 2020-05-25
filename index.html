@@ -2220,9 +2220,9 @@
           </dt>
           <dd>
             A user agent can present this icon where an icon with a
-            <a>single color</a> is needed. The
-            color information in the icon is discarded and only the alpha data
-            is used.
+            <a>single color</a> is needed. The color information in the icon is
+            discarded and only the alpha data is used. The icon can then be
+            used user agent like a mask over any colored background.
           </dd>
           <dt>
             <dfn data-lt="maskable purpose">maskable</dfn>:
@@ -2465,9 +2465,8 @@
           value for all pixels.
         </p>
         <p class="note">
-          Designers of <a>single-color</a> icons are recommended to set all
-          pixels to black and use transparency to create a silhouette of their
-          icon.
+          Designers of <a>single-color</a> icons could set all pixels to black
+          and only use transparency to create a silhouette of their icon.
         </p>
         <p>
           The user agent MAY enlarge the icon by adding additional padding.
