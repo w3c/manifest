@@ -504,7 +504,11 @@
         at least its <a>origin</a>, including whether it is served over a
         secure connection. This UI SHOULD differ from any UI used when the
         [=Document/URL=] is <a>within scope</a>, in order to make it obvious
-        that the user is navigating off scope.
+        that the user is navigating off scope. In addition, the user agent
+        SHOULD reset the <a>application context</a>'s <a>default theme
+        color</a> to its default value. The off-scope document may override
+        that color through the inclusion of a valid [[HTML]] <code>meta</code>
+        element whose <code>name</code> attribute is "theme-color".
       </p>
       <div class="note">
         <p>
@@ -1672,11 +1676,11 @@
         <p>
           If the user agent honors the value of the <code>theme_color</code>
           member as the <a>default theme color</a>, then that color serves as
-          the <a>theme color</a> for all browsing contexts to which the
-          manifest is <a>applied</a>. However, a document may override the
-          <a>default theme color</a> through the inclusion of a valid [[HTML]]
-          <code>meta</code> element whose <code>name</code> attribute is
-          "theme-color".
+          the <a>theme color</a> for all browsing contexts <a data-lt=
+          "within-scope-manifest">within scope</a> to which the manifest is
+          <a>applied</a>. However, a document may override the <a>default theme
+          color</a> through the inclusion of a valid [[HTML]] <code>meta</code>
+          element whose <code>name</code> attribute is "theme-color".
         </p>
         <p>
           The steps for <dfn>processing the <code>theme_color</code>
