@@ -972,8 +972,8 @@
           </li>
           <li>Let <var>manifest URL</var> be the result of [=URL
           Parser|parsing=] the value of the <code>href</code> attribute,
-          relative to the [=document base URL=]. If parsing fails, then
-          abort these steps.
+          relative to the [=document base URL=]. If parsing fails, then abort
+          these steps.
           </li>
           <li>Let |request:Request| be a new <a>Request</a>.
           </li>
@@ -1127,12 +1127,12 @@
           <var>manifest</var>["<a>start_url</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>theme_color</a>"] to the result of
-          running <a>processing the <code>theme_color</code> member</a> given
+          running <a>processing a color member</a> given
           <var>manifest</var>["<a>theme_color</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>background_color</a>"] to the result
-          of running <a>processing the <code>background_color</code> member</a>
-          given <var>manifest</var>["<a>background_color</a>"].
+          of running <a>processing a color member</a> given
+          <var>manifest</var>["<a>background_color</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>categories</a>"] to the result of
           running <a>processing the <code>categories</code> member</a> given
@@ -1206,6 +1206,54 @@
         </h3>
         <div class="issue" data-number="446"></div>
       </section>
+    </section>
+    <section data-cite="CSS-COLOR-4">
+      <h2>
+        Color parsing
+      </h2>
+      <p>
+        The steps for <dfn>processing a color member</dfn> are given by the
+        following algorithm. The algorithm takes a <a>USVString</a>
+        <var>potential color</var> as an argument. This algorithm returns a
+        `USVString` or `undefined`.
+      </p>
+      <ol data-cite="CSS-PARSING-3">
+        <li>Let |color| be the result of [=CSS/parsing=] |potential color| as a
+        CSS [=&lt;color&gt;=].
+        </li>
+        <li>If |color| is failure:
+          <ol>
+            <li>
+              <a>Issue a developer warning</a> that |potential color| is not a
+              valid CSS color.
+            </li>
+            <li>Return `undefined`.
+            </li>
+          </ol>
+        </li>
+        <li>If |color| is an [=sRGB=] color, then return |color|.
+        </li>
+        <li>If |color| can be converted to [=sRGB=] using solely information
+        the user agent inherently knows, then convert it to [=sRGB=], and
+        return the result. Otherwise:
+          <ol>
+            <li>
+              <a>Issue a developer warning</a> that |potential color| is not a
+              supported color value.
+            </li>
+            <li>Return `undefined`.
+            </li>
+          </ol>
+        </li>
+      </ol>
+      <p class="note" title="Supported colors">
+        Only [=sRGB=] colors, and colors the user agent can convert to [=sRGB=]
+        without any outside knowledge, are supported. For example, `lab(…)` or
+        `color(display-p3, …)` can be converted to [=sRGB=] without outside
+        knowledge, but `color(--custom-profile, …)` would require finding a
+        matching "@color-profile" rule which cannot be specified in the
+        manifest.
+      </p>
     </section>
     <section data-dfn-for="WebAppManifest" data-link-for="WebAppManifest">
       <h2>
@@ -1690,33 +1738,11 @@
           <code>meta</code> element whose <code>name</code> attribute is
           "theme-color".
         </p>
-        <p>
-          The steps for <dfn>processing the <code>theme_color</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>USVString</a> <var>theme color</var> as an argument. This
-          algorithm returns a <code>USVString?</code>.
+        <p data-cite="CSS-COLOR-4">
+          The user agent MAY ignore the <a>theme color</a>'s [=alpha
+          component=] based on the context. For example, in most environments,
+          the <a>theme color</a> cannot be transparent.
         </p>
-        <div class="issue" data-number="760"></div>
-        <ol>
-          <li>Let <var>potential color</var> be the result of running
-          [[CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm with
-          <var>theme color</var> as input. If parsing returns a syntax error,
-          return <code>undefined</code>.
-          </li>
-          <li>Let <var>color</var> be the result of attempting to parse
-          <var>potential color</var> as a CSS color, as per [[CSS-SYNTAX-3]].
-          If parsing fails:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a>.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>color</var>.
-          </li>
-        </ol>
       </section>
       <section>
         <h3>
@@ -1807,32 +1833,6 @@
           the <a>user agent</a> as the background color when the web
           application's stylesheet is available.
         </p>
-        <p>
-          The steps for <dfn>processing the <a>background_color</a>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>USVString</a> <var>background color</var> as an argument.
-          This algorithm returns a <code>USVString?</code>.
-        </p>
-        <ol>
-          <li>Let <var>potential color</var> be the result of running
-          [[CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm with
-          <var>background color</var> as input. If parsing returns a syntax
-          error, return <code>undefined</code>.
-          </li>
-          <li>Let <var>color</var> be the result of attempting to parse
-          <var>potential color</var> as a CSS color, as per [[CSS-SYNTAX-3]].
-          If parsing fails:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a>.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>color</var>.
-          </li>
-        </ol>
       </section>
       <section>
         <h3>
@@ -3430,14 +3430,6 @@
         expected.
       </p>
       <ul class="index" data-sort="">
-        <li>[[CSS-SYNTAX-3]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite="CSS-SYNTAX-3#parse-component-value"><dfn>parse a
-              component value</dfn></a>
-            </li>
-          </ul>
-        </li>
         <li>[[HTML]] defines the following terms:
           <ul>
             <li>
