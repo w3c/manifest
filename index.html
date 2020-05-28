@@ -439,10 +439,9 @@
       </h2>
       <p data-link-for="WebAppManifest">
         A <dfn data-export="">navigation scope</dfn> is a <a>URL</a> that
-        represents the set of URLs to which an <a>application context</a> can
-        be navigated while the manifest is <a>applied</a>. The <a>navigation
-        scope</a> of a manifest <var>manifest</var> is
-        <var>manifest</var>["<a>scope</a>"].
+        represents the set of URLs which are considered to be part of an
+        application. The <a>navigation scope</a> of a manifest
+        <var>manifest</var> is <var>manifest</var>["<a>scope</a>"].
       </p>
       <div class="note" data-link-for="WebAppManifest">
         <p>
@@ -1157,10 +1156,22 @@
           Applying the manifest
         </h3>
         <p>
-          A <a>manifest</a> is <dfn data-lt="apply|applying">applied</dfn> to a
-          <a>top-level browsing context</a>, meaning that the members of the
-          <a>manifest</a> are affecting the presentation or behavior of a
-          browsing context.
+          A <a>manifest</a> can be <dfn data-lt="apply|applying">applied</dfn>
+          to a <a>top-level browsing context</a>, meaning that the members of
+          the <a>manifest</a> are affecting the presentation or behavior of a
+          browsing context. Whenever a <a>top-level browsing context</a> is
+          created, the user agent MAY <a>apply</a> a manifest to it, before
+          [=navigate|navigation=] begins.
+        </p>
+        <p class="note">
+          Whether to [=apply=] a manifest, and which manifest to apply, is at
+          the discretion of the user agent, based on the user's actions. For
+          example, if the user launched an application from the system menu or
+          from a [=launching a shortcut|shortcut=], the user agent might create
+          a new [=top-level browsing context=] with that application's
+          [=manifest=] [=applied=], but it might not do so if the user simply
+          clicked a bookmark to a URL within the application's [=navigation
+          scope=].
         </p>
         <p>
           A <a>top-level browsing context</a> that has a manifest applied to it
@@ -1183,11 +1194,6 @@
             application was <a>installed</a>.
           </p>
         </div>
-        <p>
-          The appropriate time to <a>apply</a> a manifest is when the
-          <a>application context</a> is created and before
-          [=navigate|navigation=] to the <a>start URL</a> begins.
-        </p>
       </section>
       <section id="updating">
         <h3>
@@ -1671,12 +1677,15 @@
         </p>
         <p>
           If the user agent honors the value of the <code>theme_color</code>
-          member as the <a>default theme color</a>, then that color serves as
-          the <a>theme color</a> for all browsing contexts to which the
-          manifest is <a>applied</a>. However, a document may override the
-          <a>default theme color</a> through the inclusion of a valid [[HTML]]
+          member as the [=default theme color=], then that color serves as the
+          [=theme color=] for all browsing contexts to which the manifest is
+          [=applied=]. However, the user agent MAY override the [=default theme
+          color=] if a document whose URL is [=within scope=] of the
+          [=application context=]'s [=manifest=] includes a valid [[HTML]]
           <code>meta</code> element whose <code>name</code> attribute is
-          "theme-color".
+          "theme-color". The user agent SHOULD NOT override the [=default theme
+          color=] for documents that are not [=within scope=], since the
+          application has no control over these documents.
         </p>
         <p>
           The steps for <dfn>processing the <code>theme_color</code>
