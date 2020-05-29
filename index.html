@@ -468,10 +468,10 @@
         <li>If |target| and |scope| are not [=same origin=], return `false`.
         </li>
         <li>Let |scopePath:string| be the [=string/concatenation=] of
-        |scopes|'s [=URL/path=] and U+002F (/).
+        |scopes|'s [=URL/path=] using U+002F (/) as the separator.
         </li>
         <li>Let |targetPath:string| be the [=string/concatenation=] of
-        |target|'s [=URL/path=] and U+002F (/).
+        |target|'s [=URL/path=] using U+002F (/) as the separator.
         </li>
         <li>If |targetPath| starts with |scopePath:string|, return `true`.
         </li>
