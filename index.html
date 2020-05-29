@@ -460,9 +460,9 @@
         </p>
       </div>
       <p>
-        A [=URL=] |target:URL| is said to be <dfn data-export="">within the
-        navigation scope of</dfn> [=URL=] |scope:URL| if the following
-        algorithm returns `true`:
+        A [=URL=] |target:URL| is said to be <dfn data-dfn-for="URL"
+        data-export="">within scope</dfn> of [=URL=] |scope:URL| if the
+        following algorithm returns `true`:
       </p>
       <ol class="algorithm">
         <li>If |target| and |scope| are not [=same origin=], return `false`.
@@ -479,10 +479,10 @@
         </li>
       </ol>
       <p>
-        A [=URL=] |target:URL| is said to be <dfn data-export="" data-local-lt=
-        "within manifest scope">within the navigation scope of a web
+        A [=URL=] |target:URL| is said to be <dfn data-export="" data-dfn-for=
+        "manifest" data-lt="within scope">within the navigation scope of a web
         manifest</dfn> {{WebAppManifest}} |manifest:WebAppManifest| if [=URL=]
-        |target:URL| is [=within the navigation scope of=] the |manifest|'s
+        |target:URL| is [=manifest/within scope=] of the |manifest|'s
         {{WebAppManifest/scope}} member (once resolved).
       </p>
       <div class="note" title="Scope is a simple string match">
@@ -496,11 +496,11 @@
       </div>
       <p>
         If the <a>application context</a>'s <a>active document</a>'s
-        [=Document/URL=] is not [=within manifest scope=] of the <a>application
+        [=Document/URL=] is not [=manifest/within scope=] of the <a>application
         context</a>'s manifest, the user agent SHOULD show a prominent UI
         element indicating the [=Document/URL=] or at least its <a>origin</a>,
         including whether it is served over a secure connection. This UI SHOULD
-        differ from any UI used when the [=Document/URL=] is [=within manifest
+        differ from any UI used when the [=Document/URL=] is [=manifest/within
         scope=], in order to make it obvious that the user is navigating off
         scope.
       </p>
@@ -536,7 +536,7 @@
           Deep links
         </h3>
         <p>
-          A <dfn>deep link</dfn> is a URL that is [=within manifest scope=] of
+          A <dfn>deep link</dfn> is a URL that is [=manifest/within scope=] of
           an <a>installed web application</a>'s manifest.
         </p>
         <p>
@@ -1427,12 +1427,12 @@
               </li>
             </ul>
           </li>
-          <li>If <var>start URL</var> is not [=within the navigation scope of=]
-          |scope URL|:
+          <li>If <var>start URL</var> is not [=URL/within scope=] of |scope
+          URL|:
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the start URL is not
-                [=within the navigation scope of=] the scope URL.
+                [=URL/within scope=] of the |scope URL|.
               </li>
               <li>Return <var>default</var>.
               </li>
@@ -1978,9 +1978,9 @@
               URL</var> as the base URL. If the result is failure, <a>issue a
               developer warning</a> and [=iteration/continue=].
               </li>
-              <li>If <var>shortcut</var>["url"] is not [=within the navigation
-              scope of=] <var>scope URL</var>, <a>issue a developer warning</a>
-              and [=iteration/continue=].
+              <li>If <var>shortcut</var>["url"] is not [=URL/within scope=]
+              <var>scope URL</var>, <a>issue a developer warning</a> and
+              [=iteration/continue=].
               </li>
               <li>
                 <a>Append</a> <var>shortcut</var> to
@@ -2643,7 +2643,7 @@
         <p>
           The <dfn>url</dfn> member of a <a>ShortcutItem</a> is the <a>URL</a>
           that opens when the associated shortcut is activated. When resolved,
-          the {{ShortcutItem/url}} must be [=within manifest scope=], otherwise
+          the {{ShortcutItem/url}} must be [=URL/within scope=] of scope URL,
           it gets ignored.
         </p>
       </section>
