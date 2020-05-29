@@ -1138,8 +1138,9 @@
           member</a> given <var>manifest</var>["<a>related_applications</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>shortcuts</a>"] to the result of
-          running <a>processing the <code>shortcuts</code> member</a> given
-          <var>manifest</var>["<a>shortcuts</a>"] and <var>manifest URL</var>.
+          running <a>processing the `shortcuts` member</a> given
+          <var>manifest</var>["<a>shortcuts</a>"], <var>manifest URL</var>, and
+          <var>scope URL</var>.
           </li>
           <li>
             <a>Extension point</a>: process any proprietary and/or other
@@ -1950,11 +1951,11 @@
           the most critical shortcuts appearing first in the array.
         </p>
         <p>
-          The steps for <dfn>processing the <code>shortcuts</code> member</dfn>
-          are given by the following algorithm. The algorithm takes a
+          The steps for <dfn>processing the `shortcuts` member</dfn> are given
+          by the following algorithm. The algorithm takes a
           <a>sequence</a>&lt;<a>ShortcutItem</a>&gt; <var>shortcuts</var> and a
-          <a>URL</a> <var>manifest URL</var>. This algorithm returns a
-          <a>sequence</a>&lt;<a>ShortcutItem</a>&gt;.
+          <a>URL</a> |manifest URL:URL|, and [=URL=] <var>scope URL</var>. This
+          algorithm returns a <a>sequence</a>&lt;<a>ShortcutItem</a>&gt;.
         </p>
         <ol>
           <li>Let <var>processedShortcuts</var> be a new Array object created
@@ -1977,9 +1978,9 @@
               URL</var> as the base URL. If the result is failure, <a>issue a
               developer warning</a> and [=iteration/continue=].
               </li>
-              <li>If <var>shortcut</var>["url"] is not <a>within scope</a> of
-              <var>manifest URL</var>, <a>issue a developer warning</a> and
-              [=iteration/continue=].
+              <li>If <var>shortcut</var>["url"] is not [=within the navigation
+              scope of=] <var>scope URL</var>, <a>issue a developer warning</a>
+              and [=iteration/continue=].
               </li>
               <li>
                 <a>Append</a> <var>shortcut</var> to
@@ -2641,8 +2642,9 @@
         </h3>
         <p>
           The <dfn>url</dfn> member of a <a>ShortcutItem</a> is the <a>URL</a>
-          <a data-lt="within scope of a manifest">within the application's
-          scope</a> that opens when the associated shortcut is activated.
+          that opens when the associated shortcut is activated. When resolved,
+          the {{ShortcutItem/url}} must be [=within manifest scope=], otherwise
+          it gets ignored.
         </p>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
