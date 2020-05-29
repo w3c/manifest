@@ -1338,8 +1338,9 @@
           </li>
           <li>If <a>Type</a>(<var>value</var>) is String:
             <ol>
-              <li>If calling <a>IsStructurallyValidLanguageTag</a> with
-              <var>value</var> as the argument returns <code>false</code>,
+              <li>If calling <a data-cite=
+              "ECMA-402#sec-isstructurallyvalidlanguagetag">IsStructurallyValidLanguageTag</a>
+              with <var>value</var> as the argument returns <code>false</code>,
               then:
                 <ol>
                   <li>
@@ -1350,9 +1351,9 @@
                   </li>
                 </ol>
               </li>
-              <li>Otherwise, return the result of calling the
-              <a>CanonicalizeLanguageTag</a> abstract operation, passing <var>
-                V</var> as the argument.
+              <li>Otherwise, return the result of calling the <a data-cite=
+              "ECMA-402#sec-canonicalizeunicodelocaleid">CanonicalizeUnicodeLocaleId</a>
+              abstract operation, passing <var>V</var> as the argument.
               </li>
             </ol>
           </li>
@@ -3419,18 +3420,6 @@
             <li>
               <a data-cite="CSS-SYNTAX-3#parse-component-value"><dfn>parse a
               component value</dfn></a>
-            </li>
-          </ul>
-        </li>
-        <li>[[ECMA-402]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite=
-              "ECMA-402#sec-isstructurallyvalidlanguagetag"><dfn>IsStructurallyValidLanguageTag</dfn></a>
-            </li>
-            <li>
-              <a data-cite=
-              "ECMA-402#sec-canonicalizelanguagetag"><dfn>CanonicalizeLanguageTag</dfn></a>
             </li>
           </ul>
         </li>
