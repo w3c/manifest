@@ -304,7 +304,7 @@
         application into a list of bookmarks within the user agent itself.
       </p>
       <p>
-        A {{Document}} may either be <dfn>installable</dfn> or not. The initial
+        A [=document=] may either be <dfn>installable</dfn> or not. The initial
         state of a document is not <a>installable</a>.
       </p>
       <p>
@@ -321,9 +321,8 @@
             <li>Fall back to using the <a>top-level browsing context</a>
             {{Document}}'s metadata to populate <var>manifest</var> in a
             user-agent-specific way (e.g., setting
-            |manifest|.{{WebAppManifest/name}} to the document <a data-cite=
-            "HTML#the-title-element">`title`</a>) and considering the document
-            <a>installable</a>.
+            |manifest|.{{WebAppManifest/name}} to the document [^title^] and
+            considering the document <a>installable</a>.
             </li>
             <li>Or, consider the document not <a>installable</a>.
             </li>
@@ -936,7 +935,7 @@
           implementations. A user agent MAY opt to delay fetching a manifest
           until after the document and its other resources have been fully
           loaded (i.e., to not delay the availability of content and scripts
-          required by the <a>document</a>).
+          required by the <a data-cite="DOM">document</a>).
         </p>
         <p>
           A <a>manifest</a> is obtained and applied regardless of the
@@ -2484,8 +2483,8 @@
           <li>If <a>Type</a>(<var>value</var>) is not String, return
           <code>undefined</code>.
           </li>
-          <li>Otherwise, parse <var>value</var> as if it was a [[HTML]]
-          {{HTMLLinkElement/sizes}} attribute and let <a>list</a>
+          <li>Otherwise, parse <var>value</var> as if it was a
+          {{HTMLLinkElement/sizes}} attribute and let [=list=]
           <var>keywords</var> be the result.
           </li>
           <li>[=list/For each=] <var>keyword</var> of <var>keywords</var>:
