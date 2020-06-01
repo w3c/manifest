@@ -960,7 +960,7 @@
           </li>
           <li>Let <var>manifest URL</var> be the result of [=URL
           Parser|parsing=] the value of the <code>href</code> attribute,
-          relative to <a>the element's base URL</a>. If parsing fails, then
+          relative to the [=document base URL=]. If parsing fails, then
           abort these steps.
           </li>
           <li>Let |request:Request| be a new <a>Request</a>.
@@ -3435,10 +3435,6 @@
             <li>
               <a data-cite="HTML#valid-non-negative-integer"><dfn>valid
               non-negative integer</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-element's-base-url"><dfn>the element's
-              base URL</dfn></a>.
             </li>
           </ul>
         </li>
