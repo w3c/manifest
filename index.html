@@ -522,7 +522,7 @@
           "https://github.com/w3c/manifest/issues/646">Issue 646</a>.
         </p>
       </div>
-      <section data-link-for="DisplayModeType">
+      <section data-link-for="DisplayModeType" class="informative">
         <h3 id="navigation-scope-security-considerations">
           Security considerations
         </h3>
@@ -539,11 +539,10 @@
           prominent out-of-scope UI, indicating to the user that it is on
           another origin. However, in reality, the user has never navigated
           away from the installed app's origin, and the user agent is not
-          showing any out-of-scope UI. User agents MAY wish to ensure that the
-          out-of-scope UI is not shown in a way that can be spoofed by the
-          installed app when the UI is not being shown. However, due to the
-          nature of the user agent's UI being minimal or non-existent for
-          installed apps, this may not be possible.
+          showing any out-of-scope UI. User agents could try to show the
+          out-of-scope UI in a way that cannot be spoofed by the installed app.
+          However, due to the nature of the user agent's UI being minimal or
+          non-existent for installed apps, this may not be possible.
         </p>
       </section>
       <section>
