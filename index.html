@@ -521,7 +521,7 @@
           "https://github.com/w3c/manifest/issues/646">Issue 646</a>.
         </p>
       </div>
-      <section data-link-for="DisplayModeType">
+      <section data-link-for="DisplayModeType" class="informative">
         <h3 id="navigation-scope-security-considerations">
           Security considerations
         </h3>
@@ -530,6 +530,18 @@
           context</a> is navigated to an out-of-scope <a>URL</a>) is for
           security reasons. It ensures that users are always aware of which
           <a>origin</a> they are interacting with.
+        </p>
+        <p>
+          Despite this, there is still a potential spoofing risk, if an
+          installed app pretends to navigate to an out-of-scope site on another
+          <a>origin</a>. The site shows a fake version of the user agent's
+          prominent out-of-scope UI, indicating to the user that it is on
+          another origin. However, in reality, the user has never navigated
+          away from the installed app's origin, and the user agent is not
+          showing any out-of-scope UI. User agents could try to show the
+          out-of-scope UI in a way that cannot be spoofed by the installed app.
+          However, due to the nature of the user agent's UI being minimal or
+          non-existent for installed apps, this may not be possible.
         </p>
       </section>
       <section>
@@ -3121,6 +3133,11 @@
       </p>
       <p>
         Claudio Gomboli for icon example images.
+      </p>
+      <p>
+        Indiana University Bloomington security researchers have contributed to
+        this specification by reporting potential risks related to out-of-scope
+        navigation.
       </p>
     </section>
     <section id="conformance" data-status="done" class="appendix">
