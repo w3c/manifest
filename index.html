@@ -2203,24 +2203,25 @@
           <a>purpose</a>.
         </p>
         <p class="note">
-          For example, an icon with purpose "<a>single-color</a>" could be used
-          as a badge or pinned icon with a single solid color, visually
-          distinct from an application's full color launch icon. The user
-          agent uses the value of the <a>purpose</a> member as a hint to
-          determine where and how an <a>ImageResource</a> is displayed. Unless
-          declared otherwise by the developer, a user agent can use an icon for
-          <a>any purpose</a>.
+          For example, an icon with purpose "<a>monochrome</a>" could be used
+          as a badge or pinned icon with a solid fill, visually distinct from
+          an application's full color launch icon. The user agent uses the
+          value of the <a>purpose</a> member as a hint to determine where and
+          how an <a>ImageResource</a> is displayed. Unless declared otherwise
+          by the developer, a user agent can use an icon for <a>any
+          purpose</a>.
         </p>
         <p>
           The <dfn>icon purposes</dfn> are as follows:
         </p>
         <dl>
           <dt>
-            <dfn data-lt="single-color purpose">single-color</dfn>:
+            <dfn data-lt="monochrome purpose">monochrome</dfn>:
           </dt>
           <dd>
-            A user agent can present this icon where an icon with a
-            <a>single color</a> is needed. The color information in the icon is
+            A user agent can present this icon where a
+            <a href="#monochrome-icons-and-solid-fills">monochrome icon with a
+            solid fill</a> is needed. The color information in the icon is
             discarded and only the alpha data is used. The icon can then be
             used user agent like a mask over any colored background.
           </dd>
@@ -2244,8 +2245,8 @@
           If an icon contains multiple purposes, it could be used for any of
           those purposes. If none of the stated purposes are recognized, the
           icon is totally ignored. For example, if an icon has purpose
-          <code>"single-color fizzbuzz"</code>, then it could be used as a
-          single color icon as <code>"single-color"</code> is a valid purpose.
+          <code>"monochrome fizzbuzz"</code>, then it could be used as a
+          monochrome icon as <code>"monochrome"</code> is a valid purpose.
           However, if an icon just has the purpose <code>"fizzbuzz"</code>,
           then it will be ignored.
         </p>
@@ -2287,20 +2288,20 @@
         <div class="example">
           <p>
             In the following example, the web application is listing two icons
-            to be used as a single color icon, one of which is specifically designed for
-            the Android platform.
+            to be used as a monochrome icon, one of which is specifically
+            designed for the Android platform.
           </p>
           <pre class="example json">
             {
               "name": "News",
               "icons": [{
                 "platform": "play",
-                "purpose": "single-color",
+                "purpose": "monochrome",
                 "sizes": "16x16",
                 "src": "icons/badges/android.png",
                 "type": "image/png"
               }, {
-                "purpose": "single-color",
+                "purpose": "monochrome",
                 "src": "icons/badges/safari.svg",
                 "type": "image/svg"
               }]
@@ -2361,7 +2362,7 @@
         </p>
         <p>
           If the icon contains transparent pixels, the user agent MUST
-          composite the icon onto a single color (eg. white) of the user agent's
+          composite the icon onto a solid fill (eg. white) of the user agent's
           choice.
         </p>
         <p class="note">
@@ -2445,21 +2446,21 @@
       </section>
       <section>
         <h2>
-          Single color icons
+          Monochrome icons and solid fills
         </h2>
         <p>
-          Some platforms enforce that icons be displayed with a <dfn>single
-          color</dfn> or other user agent controlled fill, where only the
+          Some platforms enforce that icons be displayed with a
+          <dfn>solid fill</dfn> such as a single color, where only the
           transparency of the icon can be controlled by the application. As web
           applications need to across multiple platforms, it is possible to
           indicate  that an icon can have an user-agent-specified color applied
-          by adding the <a>single-color</a> purpose. This allows the platform
+          by adding the <a>monochrome</a> purpose. This allows the platform
           to ensure that the icon looks well integrated with the platform, and
           even apply different colors and padding in different places
           throughout the platform.
         </p>
         <p>
-          When processing a <a>single-color</a> icon, the user agent MUST NOT
+          When processing a <a>monochrome</a> icon, the user agent MUST NOT
           use the red component, green component, or blue component of a pixel.
           The user agent SHOULD display each pixel with its original alpha
           value, but with a red, green, and blue value of the user agent's
@@ -2467,7 +2468,7 @@
           value for all pixels.
         </p>
         <p class="note">
-          Designers of <a>single-color</a> icons could set all pixels to black
+          Designers of <a>monochrome</a> icons could set all pixels to black
           and only use transparency to create a silhouette of their icon.
         </p>
         <p>
@@ -2479,7 +2480,7 @@
         </p>
         <section>
           <h3>
-            Example usage of single color icons
+            Example usage of monochrome icons
           </h3>
           <h2 class="icon-title">
             Usage examples
@@ -2498,14 +2499,14 @@
               </figcaption>
             </figure>
             <figure>
-              <img src="images/monochrome-icon-gray.svg" alt=
-              "A dark gray icon over a checkerboard background">
+              <img src="images/monochrome-icon-gradient.svg" alt=
+              "A dark gradient icon over a checkerboard background">
               <figcaption>
                 <span class="icon-title">
-                  Gray tint
+                  Gradient fill
                 </span>
                 <span>
-                  The image tinted dark gray.
+                  The image filled in with a gradient.
                 </span>
               </figcaption>
             </figure>
@@ -2514,10 +2515,10 @@
               "A dark yellow icon over a light gray background">
               <figcaption>
                 <span class="icon-title">
-                  Tinted with padding
+                  Solid color fill with padding
                 </span>
                 <span>
-                  Tinted with the theme color from the manifest.
+                  Filled in with the theme color from the manifest.
                 </span>
               </figcaption>
             </figure>
