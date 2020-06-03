@@ -854,10 +854,8 @@
         </div>
         <p>
           The steps for <dfn data-export="">processing a manifest</dfn> are
-          given by the following algorithm. The algorithm takes a [=Response=]
-          |response| and a <a>URL</a> <var>manifest URL</var>, which represents
-          the location of the manifest, and a <a>URL</a> <var>document
-          URL</var>.
+          given by the following algorithm. The algorithm takes [^link^]
+          |el:HTMLLinkElement| and a [=Response=] |response|.
         </p>
         <ol>
           <li>Let |json| be the result of [=parse JSON from bytes=]
@@ -872,7 +870,7 @@
               </li>
             </ol>
           </li>
-          <li>If |json| is not an [=object=]:
+          <li>If |json| is not an [=ordered map=]:
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the manifest needs to be
@@ -883,9 +881,7 @@
               </li>
             </ol>
           </li>
-          <li>Let <var>manifest</var> be the result of [=converted to an idl
-          value|converting=] <var>json</var> to a <a>WebAppManifest</a>
-          dictionary.
+          <li>Let <var>manifest</var> new [=struct=].
           </li>
           <li>Set <var>manifest</var>["<a>start_url</a>"] to the result of
           running <a>processing the <code>start_url</code> member</a> given
