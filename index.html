@@ -2223,7 +2223,7 @@
             <a href="#monochrome-icons-and-solid-fills">monochrome icon with a
             solid fill</a> is needed. The color information in the icon is
             discarded and only the alpha data is used. The icon can then be
-            used user agent like a mask over any colored background.
+            used by the user agent like a mask over any solid fill.
           </dd>
           <dt>
             <dfn data-lt="maskable purpose">maskable</dfn>:
@@ -2246,7 +2246,7 @@
           those purposes. If none of the stated purposes are recognized, the
           icon is totally ignored. For example, if an icon has purpose
           <code>"monochrome fizzbuzz"</code>, then it could be used as a
-          monochrome icon as <code>"monochrome"</code> is a valid purpose.
+          monochrome icon, as <code>"monochrome"</code> is a valid purpose.
           However, if an icon just has the purpose <code>"fizzbuzz"</code>,
           then it will be ignored.
         </p>
@@ -2453,7 +2453,7 @@
           <dfn>solid fill</dfn> such as a single color, where only the
           transparency of the icon can be controlled by the application. As web
           applications need to across multiple platforms, it is possible to
-          indicate  that an icon can have an user-agent-specified color applied
+          indicate that an icon can have an user-agent-specified color applied
           by adding the <a>monochrome</a> purpose. This allows the platform
           to ensure that the icon looks well integrated with the platform, and
           even apply different colors and padding in different places
