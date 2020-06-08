@@ -1779,6 +1779,13 @@
           (e.g., amongst a list of other applications, or as a label for an
           icon).
         </p>
+		<section>
+          <h4>Accessible Name</h3>
+          <p>
+            The [=accessible name=] of the web application is equal to the
+            value of the <code>name</code> member.
+          </p>
+        </section>
       </section>
       <section>
         <h3>
@@ -1799,6 +1806,14 @@
           The <dfn>description</dfn> member allows the developer to describe
           the purpose of the web application.
         </p>
+		<section>
+          <h4>Accessible Description</h3>
+          <p>
+            The [=accessible description=] of the web application is equal to 
+			the value of the <code>description</code> member, if it is provided
+			or <code>null</code> if it is not.
+          </p>
+        </section>
       </section>
       <section>
         <h3>
@@ -4090,6 +4105,16 @@
             <li>
               <a data-cite=
               "ECMASCRIPT#sec-ecmascript-data-types-and-values"><dfn>Type</dfn>(<var>x</var>)</a>
+            </li>
+          </ul>
+        </li>
+		<li>[[core-aam-1.1]] defines the following terms:
+          <ul>
+            <li>
+              <a data-cite="core-aam-1.1#dfn-accessible-name"><dfn>accessible name</dfn></a>
+            </li>
+			<li>
+              <a data-cite="core-aam-1.1#dfn-accessible-description"><dfn>accessible description</dfn></a>
             </li>
           </ul>
         </li>
