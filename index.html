@@ -2687,6 +2687,26 @@
           </li>
         </ol>
       </section>
+	  <section>
+        <h3>
+          Privacy consideration: <a>ShortcutItem.url</a> tracking
+        </h3>
+        <p>
+          It's conceivable that any <a>ShortcutItem.url</a> could be crafted to
+          indicate that the application was launched from outside the browser
+          (e.g., <code>"url": "/task/?from=homescreen"</code>).
+          This can be useful for analytics and possibly other customizations.
+          However, it is also conceivable that developers could encode
+          strings into the <a>ShortcutItem.url</a> that uniquely identify the user (e.g., a
+          server assigned <abbr>UUID</abbr>). This is fingerprinting/privacy
+          sensitive information that the user might not be aware of.
+        </p>
+        <p>
+          Given the above, it is RECOMMENDED that, upon installation, or any
+          time thereafter, a user agent allows the user to inspect and, if
+          necessary, modify the <a>url</a> of a <a>ShortcutItem</a>.
+        </p>
+      </section>
     </section>
     <section>
       <h2>
