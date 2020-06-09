@@ -2656,6 +2656,21 @@
           <a data-lt="within scope of a manifest">within the application's
           scope</a> that opens when the associated shortcut is activated.
         </p>
+        <section>
+	      <h4>
+	        Privacy and security considerations
+	      </h4>
+	      <p>
+	        It's conceivable that any <a>ShortcutItem.url</a> could be crafted to
+            indicate that the application was launched from outside the browser
+            (e.g., `"url": "/task/?from=homescreen"`). However, it is also
+            conceivable that developers could encode strings into the
+            {{ShortcutItem/url}} that uniquely identify the user
+            (e.g., a server assigned <abbr>UUID</abbr>). This is
+            fingerprinting/privacy sensitive information that the user might not
+            be aware of.
+	      </p>
+	    </section>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
         <h3>
@@ -2686,26 +2701,6 @@
             <a>Navigate</a> <var>browsing context</var> to <var>url</var>.
           </li>
         </ol>
-      </section>
-	  <section>
-        <h3>
-          Privacy and security considerations
-        </h3>
-        <p>
-          It's conceivable that any <a>ShortcutItem.url</a> could be crafted to
-          indicate that the application was launched from outside the browser
-          (e.g., `"url": "/task/?from=homescreen"`).
-          However, it is also conceivable that developers could encode
-          strings into the {{ShortcutItem/url}} that uniquely identify the 
-          user (e.g., a server assigned <abbr>UUID</abbr>). This is 
-          fingerprinting/privacy sensitive information that the user might not 
-          be aware of.
-        </p>
-        <p>
-          Given the above, it is RECOMMENDED that, upon installation, or any
-          time thereafter, a user agent allows the user to inspect and, if
-          necessary, modify the {{ShortcutItem/url}} of a {{ShortcutItem}}.
-        </p>
       </section>
     </section>
     <section>
