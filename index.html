@@ -1136,13 +1136,12 @@
           <var>manifest</var>["<a>categories</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>icons</a>"] to the result of running
-          <a>processing ImageResource members</a> given
+          <a>processing `ManifestImageResource` members</a> given
           <var>manifest</var>["<a>icons</a>"] and <var>manifest URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>screenshots</a>"] to the result of
-          running <a>processing ImageResource members</a> given
-          <var>manifest</var>["<a>screenshots</a>"] and <var>manifest
-          URL</var>.
+          running <a>processing `ManifestImageResource` members</a> given <var>
+            manifest</var>["<a>screenshots</a>"] and <var>manifest URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>related_applications</a>"] to the
           result of running <a>processing the <code>related_applications</code>
@@ -1263,8 +1262,8 @@
              USVString name;
              USVString short_name;
              USVString description;
-             sequence&lt;ImageResource&gt; icons;
-             sequence&lt;ImageResource&gt; screenshots;
+             sequence&lt;ManifestImageResource&gt; icons;
+             sequence&lt;ManifestImageResource&gt; screenshots;
              sequence&lt;USVString&gt; categories;
              DOMString iarc_rating_id;
              USVString start_url;
@@ -1510,23 +1509,22 @@
           <code title="">icons</code> member
         </h3>
         <p>
-          The <dfn>icons</dfn> member is an <a>array</a> of
-          <a>ImageResource</a>s that can serve as iconic representations of the
-          web application in various contexts. For example, they can be used to
-          represent the web application amongst a list of other applications,
-          or to integrate the web application with an <abbr title=
-          "operating system">OS</abbr>'s task switcher and/or system
-          preferences.
+          The <dfn>icons</dfn> member are images that serve as iconic
+          representations of the web application in various contexts. For
+          example, they can be used to represent the web application amongst a
+          list of other applications, or to integrate the web application with
+          an <abbr title="operating system">OS</abbr>'s task switcher and/or
+          system preferences.
         </p>
         <p>
-          If there are multiple equally appropriate icons in <var>icons</var>,
-          a user agent MUST use the last one declared in order at the time that
-          the user agent collected the list of <var>icons</var>. If the user
-          agent tries to use an icon but that icon is determined, upon closer
-          examination, to in fact be inappropriate (e.g. because its content
-          type is unsupported), then the user agent MUST try the
-          next-most-appropriate icon as determined by examining the
-          <a>ImageResource</a>'s members.
+          If there are multiple equally appropriate images in
+          {{WebAppManifest/icons}}, a user agent MUST use the last one declared
+          in order at the time that the user agent collected the list of
+          {{WebAppManifest/icons}}. If the user agent tries to use an icon but
+          that icon is determined, upon closer examination, to in fact be
+          inappropriate (e.g. because its content type is unsupported), then
+          the user agent MUST try the next-most-appropriate icon as determined
+          by examining the {{ManifestImageResource}}'s members.
         </p>
         <div class="example">
           <p>
@@ -1889,8 +1887,8 @@
         </h3>
         <p>
           The <dfn>screenshots</dfn> member is an <a>array</a> of
-          <a>ImageResource</a>s, representing the web application in common
-          usage scenarios.
+          {{ManifestImageResource}}s, representing the web application in
+          common usage scenarios.
         </p>
       </section>
       <section>
@@ -1980,7 +1978,7 @@
               [=iteration/continue=].
               </li>
               <li>Set <var>shortcut</var>["icons"] to the result of running <a>
-                processing `ImageResource` members</a> given
+                processing `ManifestImageResource` members</a> given
                 <var>shortcut</var>["icons"] and <var>manifest URL</var>.
               </li>
               <li>Set <var>shortcut</var>["url"] to the result of [=URL
@@ -2060,82 +2058,31 @@
         </div>
       </section>
     </section>
-    <section>
+    <section data-cite="image-resource" data-dfn-for="ManifestImageResource">
       <h2>
-        <dfn>ImageResource</dfn> and its members
+        <dfn>ManifestImageResource</dfn> and its members
       </h2>
       <pre class="idl">
-        dictionary ImageResource {
-          required USVString src;
-          DOMString sizes;
-          USVString type;
-          USVString purpose;
+        dictionary ManifestImageResource : ImageResource {
           USVString platform;
+          USVString purpose;
         };
       </pre>
       <p>
-        Each <a>ImageResource</a> represents an image that is used as part of a
-        web application, suitable to use in various contexts depending on the
+        Each {{ManifestImageResource}} is an image that is conceptually part of
+        a web application, suitable to use in various contexts depending on the
         semantics of the member that is using the object (e.g., an icon that is
-        part of an application menu, etc.). For an image resource, this
-        specification provides developers with a means of specifying the
-        dimensions, and <a data-cite="mimesniff">MIME type</a> of an image
-        (i.e., a "responsive image" solution [[RESPIMG-USECASES]]). A user
-        agent can use these values to select an image that is best suited to
-        display on the end-user's device or most closely matches the end-user's
-        preferences.
+        part of an application menu, etc.).
       </p>
       <p>
-        User agents may modify the images associated with an
-        <a>ImageResource</a> to better match the platform’s visual style before
-        displaying it to the user, for example by rounding the corners or
-        painting it in a specific color. It is recommended that developers
+        User agents MAY modify the images associated with an
+        {{ManifestImageResource}} to better match the platform’s visual style
+        before displaying it to the user, for example by rounding the corners
+        or painting it in a specific color. It is recommended that developers
         prepare their image resources for such scenarios to avoid losing
         important information through, e.g., change of color or clipped
         corners.
       </p>
-      <section>
-        <h3>
-          Fetching image resources
-        </h3>
-        <p>
-          To <a>fetch</a> the image associated with an <a>ImageResource</a>,
-          the user agent MUST run the <dfn>steps to fetch an image
-          resource</dfn>. The algorithm takes an <var>image URL</var>
-          (<a>ImageResource.src</a>), the <var>manifest URL</var>, and the
-          {{Document}} <var>document</var> from which the manifest was linked.
-          It returns a <a>Response</a>:
-        </p>
-        <ol>
-          <li>Let <var>request</var> be a new <a>Request</a>.
-          </li>
-          <li>Set the following properties of <var>request</var>:
-            <ol>
-              <li>
-                <var>url</var> is set to <var>image URL</var>.
-              </li>
-              <li>
-                <var>initiator</var> is "<code>manifest</code>".
-              </li>
-              <li>
-                <var>type</var> is "<code>image</code>".
-              </li>
-              <li>
-                <var>cors</var> is "<code>no-cors</code>".
-              </li>
-              <li>
-                <var>referrer</var> is <var>manifest URL</var>.
-              </li>
-              <li>
-                <var>client</var> is <var>document</var>.
-              </li>
-            </ol>
-          </li>
-          <li>Perform a <a>fetch</a> using <var>request</var> and return the
-          <var>response</var>.
-          </li>
-        </ol>
-      </section>
       <section>
         <h3>
           Content security policy of image resources
@@ -2184,29 +2131,40 @@
           </p>
         </div>
       </section>
-      <section data-dfn-for="ImageResource" data-link-for="ImageResource">
+      <section>
+        <h3>
+          <dfn>platform</dfn> member
+        </h3>
+        <p>
+          The {{ManifestImageResource/platform}} member represents the
+          <a>platform</a> to which a containing object applies.
+        </p>
+      </section>
+      <section>
         <h3>
           <dfn>purpose</dfn> member
         </h3>
         <p>
-          The <a>purpose</a> member is an <a>unordered set of unique
-          space-separated tokens</a> that are <a>ASCII case-insensitive</a>.
-          The allowed values are the <a>icon purposes</a>.
+          The {{ManifestImageResource/purpose}} member is an <a>unordered set
+          of unique space-separated tokens</a> that are <a>ASCII
+          case-insensitive</a>. The allowed values are the <a>icon
+          purposes</a>.
         </p>
         <p>
-          When an <a>ImageResource</a> is used as an <dfn>icon</dfn>, a
+          When a {{ManifestImageResource}} is used as an <dfn>icon</dfn>, a
           developer can hint that the image is intended to serve some special
           purpose in the context of the host OS (i.e., for better integration).
-          User agents SHOULD NOT use an icon other than for its stated
-          <a>purpose</a>.
+          User agents SHOULD NOT use an icon other than for its stated <a>icon
+          purpose</a>.
         </p>
         <p class="note">
           For example, an icon with purpose "<a>badge</a>" could be used as a
           badge or pinned icon that is visually distinct, in color or form,
           from an application's launch icon. The user agent uses the value of
-          the <a>purpose</a> member as a hint to determine where and how an
-          <a>ImageResource</a> is displayed. Unless declared otherwise by the
-          developer, a user agent can use an icon for <a>any purpose</a>.
+          the {{ManifestImageResource/purpose}} member as a hint to determine
+          where and how a {{ManifestImageResource}} is displayed. Unless
+          declared otherwise by the developer, a user agent can use an icon for
+          <a>any purpose</a>.
         </p>
         <p>
           The <dfn>icon purposes</dfn> are as follows:
@@ -2245,9 +2203,9 @@
         </p>
         <p>
           The steps for <dfn>processing the `purpose` member of an image</dfn>
-          are given by the following algorithm. The algorithm takes an
-          <a>ImageResource</a> |image:ImageResource|. This algorithm returns a
-          [=set=] or failure.
+          are given by the following algorithm. The algorithm takes a
+          {{ManifestImageResource}} |image:ManifestImageResource|. This
+          algorithm returns a [=set=] or failure.
         </p>
         <ol>
           <li>If <a>Type</a>(|image|["purpose"]) is not String, or
@@ -2437,158 +2395,42 @@
           </div>
         </section>
       </section>
-      <section data-dfn-for="ImageResource" data-link-for="ImageResource">
-        <h3>
-          <dfn>sizes</dfn> member
-        </h3>
-        <p>
-          The <a>sizes</a> member of an <a>ImageResource</a> is a <a>string</a>
-          consisting of an <a>unordered set of unique space-separated
-          tokens</a> which are <a>ASCII case-insensitive</a> that represents
-          the dimensions of an image. Each keyword is either an <a>ASCII
-          case-insensitive</a> match for the <a>string</a> "any", or a value
-          that consists of two <a>valid non-negative integers</a> that do not
-          have a leading U+0030 DIGIT ZERO (0) character and that are separated
-          by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN CAPITAL
-          LETTER X character. The keywords represent icon sizes in raw pixels
-          (as opposed to CSS pixels). When multiple <a>ImageResource</a>s are
-          available, a user agent MAY use the value to decide which icon is
-          most suitable for a display context (and ignore any that are
-          inappropriate).
-        </p>
-        <p>
-          The steps for <dfn>processing the <code>sizes</code> member of an
-          image</dfn> are given by the following algorithm. The algorithm takes
-          an <a>ImageResource</a> <var>image</var>. This algorithm will return
-          a set.
-        </p>
-        <ol>
-          <li>Let <var>set</var> be an empty <a>set</a>.
-          </li>
-          <li>Let <var>value</var> be <var>image.sizes</var>.
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not String, return
-          <code>undefined</code>.
-          </li>
-          <li>Otherwise, parse <var>value</var> as if it was a
-          {{HTMLLinkElement/sizes}} attribute and let [=list=]
-          <var>keywords</var> be the result.
-          </li>
-          <li>[=list/For each=] <var>keyword</var> of <var>keywords</var>:
-            <ol>
-              <li>[=set/append=] <var>keyword</var>, <a>ascii lowercased</a>,
-              to <var>set</var>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>set</var>.
-          </li>
-        </ol>
-      </section>
-      <section data-dfn-for="ImageResource" data-link-for="ImageResource">
-        <h3>
-          <dfn>src</dfn> member
-        </h3>
-        <p>
-          The <a>src</a> member of an <a>ImageResource</a> is a <a>URL</a> from
-          which a user agent can fetch the image's data.
-        </p>
-      </section>
-      <section data-dfn-for="ImageResource" data-cite="mimesniff">
-        <h3>
-          <dfn>type</dfn> member
-        </h3>
-        <p>
-          The <a>type</a> member of an <a>ImageResource</a> is a hint as to the
-          <a>MIME type</a> of the image. The purpose of this member is to allow
-          a user agent to ignore images of MIME types it does not support.
-        </p>
-        <p>
-          There is no default MIME type for image resources. However, for the
-          user agents MUST use the [=rules for sniffing images specifically=].
-        </p>
-        <p>
-          The steps for <dfn>processing the <code>type</code> member of an
-          image</dfn> are given by the following algorithm. The algorithm takes
-          an <var>image</var> object as an argument, and returns either a
-          <a>string</a> or <code>undefined</code>.
-        </p>
-        <ol>
-          <li>Let <var>value</var> be <var>image</var>["<a>type</a>"].
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not String, return
-          <code>undefined</code>.
-          </li>
-          <li>If <var>value</var> is not a <a>valid MIME type string</a> or the
-          value of <var>type</var> is not a supported MIME type, issue a
-          developer warning and return <code>undefined</code>.
-          </li>
-          <li>Return <var>value</var>.
-          </li>
-        </ol>
-      </section>
-      <section data-dfn-for="ImageResource" data-link-for="ImageResource">
-        <h3>
-          <dfn>platform</dfn> member
-        </h3>
-        <p>
-          The <a>platform</a> member represents the <a>platform</a> to which a
-          containing object applies.
-        </p>
-      </section>
       <section>
         <h3>
-          processing an array of image resources
+          processing image resources
         </h3>
         <p>
-          The steps for <dfn>processing <a>ImageResource</a> members</dfn> are
-          given by the following algorithm. The algorithm takes a
-          Array&lt;<a>ImageResource</a>&gt; <var>entries</var> and a <a>URL</a>
-          <var>manifest URL</var>. This algorithm returns an
-          Array&lt;<a>ImageResource</a>&gt;.
+          The steps for <dfn>processing `ManifestImageResource` members</dfn>
+          are given by the following algorithm. The algorithm takes an a list
+          of |entries:ManifestImageResource| and a <a>URL</a>
+          |manifestURL:URL|. This algorithm returns an a list of
+          {{ManifestImageResource}}s.
         </p>
         <ol>
-          <li>Let <var>imageResources</var> be a new Array object created as if
-          by the expression [].
+          <li>Let |imageResources:list| be a new [=list=].
           </li>
-          <li>[=list/For each=] <var>entry</var> of <var>entries</var>:
+          <li>[=list/For each=] |entry:ManifestImageResource| of |entries|:
             <ol>
-              <li>If <var>entry</var>["src"] is not <code>undefined</code>:
-                <ol>
-                  <li>Let <var>image</var> be a new object created as if by the
-                  expression ({}).
-                  </li>
-                  <li>Set <var>image</var>["src"] to the result of [=URL
-                  Parser|parsing=] <var>entry</var>["src"] using <var>manifest
-                  URL</var> as the base URL.
-                  </li>
-                  <li>Set <var>image</var>["type"] to the result of running <a>
-                    processing the <code>type</code> member of an image</a>
-                    given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>Set <var>image</var>["sizes"] to the result of running
-                  <a>processing the <code>sizes</code> member of an image</a>
-                  given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>Let <var>purpose</var> be the result of running
-                  <a>processing the <code>purpose</code> member of an image</a>
-                  given <var>entry</var> and <var>manifest URL</var>.
-                  </li>
-                  <li>If <var>purpose</var> is failure, [=iteration/continue=].
-                  </li>
-                  <li>Set <var>image</var>["purpose"] to <var>purpose</var>.
-                  </li>
-                  <li>Set <var>image</var>["platform"] to
-                  <var>entry</var>["platform"].
-                  </li>
-                  <li>[=list/append=] <var>image</var> to
-                  <var>imageResources</var>
-                  </li>
-                </ol>
+              <li>Let |image| be the result of running [=process an image
+              resource from JSON=] given |entry| and |manifest URL|.
+              </li>
+              <li>If |image| is failure, [=iteration/continue=].
+              </li>
+              <li>Let |purpose| be the result of running <a>processing the
+              `purpose` member of an image</a> given |entry|.
+              </li>
+              <li>If |purpose| is failure, [=iteration/continue=].
+              </li>
+              <li>Set |image|'s {ManifestImageResource\purpose} to |purpose|.
+              </li>
+              <li>Set |image|'s {ManifestImageResource\platform} to the value
+              of |entry|'s {ManifestImageResource\platform} member.
+              </li>
+              <li>[=list/Append=] |image| to |imageResources|.
               </li>
             </ol>
           </li>
-          <li>Return <var>imageResources</var>.
+          <li>Return |imageResources|.
           </li>
         </ol>
       </section>
@@ -2603,7 +2445,7 @@
           USVString short_name;
           USVString description;
           required USVString url;
-          sequence&lt;ImageResource&gt; icons;
+          sequence&lt;ManifestImageResource&gt; icons;
         };
       </pre>
       <p>
@@ -2660,9 +2502,8 @@
           <dfn>icons</dfn> member
         </h3>
         <p>
-          The <a>icons</a> member of an <a>ShortcutItem</a> member is an
-          <a>array</a> of <a>ImageResource</a>s that can serve as iconic
-          representations of the shortcut in various contexts.
+          The <a>icons</a> member of an <a>ShortcutItem</a> member serve as
+          iconic representations of the shortcut in various contexts.
         </p>
       </section>
       <section>
@@ -2711,13 +2552,12 @@
           <li>
             <a>ExternalApplicationResource</a>
           </li>
-          <li>
-            <a>ImageResource</a>
+          <li>{{ManifestImageResource}}
           </li>
         </ul>
         <p>
-          A <a>platform</a> represents a software distribution ecosystem or
-          possibly an operating system.
+          A <dfn data-dfn-for="">platform</dfn> represents a software
+          distribution ecosystem or possibly an operating system.
         </p>
         <p class="note">
           This specification does not define the particular values for a the
