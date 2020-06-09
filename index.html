@@ -1139,13 +1139,12 @@
           <var>manifest</var>["<a>categories</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>icons</a>"] to the result of running
-          <a>processing ManifestImageResource members</a> given
+          <a>processing `ManifestImageResource` members</a> given
           <var>manifest</var>["<a>icons</a>"] and <var>manifest URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>screenshots</a>"] to the result of
-          running <a>processing ManifestImageResource members</a> given
-          <var>manifest</var>["<a>screenshots</a>"] and <var>manifest
-          URL</var>.
+          running <a>processing `ManifestImageResource` members</a> given <var>
+            manifest</var>["<a>screenshots</a>"] and <var>manifest URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>related_applications</a>"] to the
           result of running <a>processing the <code>related_applications</code>
@@ -1512,8 +1511,7 @@
           <code title="">icons</code> member
         </h3>
         <p>
-          The <dfn>icons</dfn> member is an <a>array</a> of
-          <a>ManifestImageResource</a>s that can serve as iconic
+          The <dfn>icons</dfn> member are images that serve as iconic
           representations of the web application in various contexts. For
           example, they can be used to represent the web application amongst a
           list of other applications, or to integrate the web application with
@@ -1521,14 +1519,14 @@
           system preferences.
         </p>
         <p>
-          If there are multiple equally appropriate icons in <var>icons</var>,
-          a user agent MUST use the last one declared in order at the time that
-          the user agent collected the list of <var>icons</var>. If the user
-          agent tries to use an icon but that icon is determined, upon closer
-          examination, to in fact be inappropriate (e.g. because its content
-          type is unsupported), then the user agent MUST try the
-          next-most-appropriate icon as determined by examining the
-          <a>ManifestImageResource</a>'s members.
+          If there are multiple equally appropriate images in
+          {{WebAppManifest/icons}}, a user agent MUST use the last one declared
+          in order at the time that the user agent collected the list of
+          {{WebAppManifest/icons}}. If the user agent tries to use an icon but
+          that icon is determined, upon closer examination, to in fact be
+          inappropriate (e.g. because its content type is unsupported), then
+          the user agent MUST try the next-most-appropriate icon as determined
+          by examining the {{ManifestImageResource}}'s members.
         </p>
         <div class="example">
           <p>
@@ -1891,7 +1889,7 @@
         </h3>
         <p>
           The <dfn>screenshots</dfn> member is an <a>array</a> of
-          <a>ManifestImageResource</a>s, representing the web application in
+          {{ManifestImageResource}}s, representing the web application in
           common usage scenarios.
         </p>
       </section>
@@ -2062,7 +2060,7 @@
         </div>
       </section>
     </section>
-    <section data-cite="image-resource">
+    <section data-cite="image-resource" data-dfn-for="ManifestImageResource">
       <h2>
         <dfn>ManifestImageResource</dfn> and its members
       </h2>
@@ -2073,18 +2071,18 @@
         };
       </pre>
       <p>
-        Each <a>ManifestImageResource</a> represents an image that is used as
-        part of a web application, suitable to use in various contexts
-        depending on the semantics of the member that is using the object
-        (e.g., an icon that is part of an application menu, etc.).
+        Each {{ManifestImageResource}} is an image that is conceptually part of
+        a web application, suitable to use in various contexts depending on the
+        semantics of the member that is using the object (e.g., an icon that is
+        part of an application menu, etc.).
       </p>
       <p>
         User agents MAY modify the images associated with an
-        <a>ManifestImageResource</a> to better match the platform’s visual
-        style before displaying it to the user, for example by rounding the
-        corners or painting it in a specific color. It is recommended that
-        developers prepare their image resources for such scenarios to avoid
-        losing important information through, e.g., change of color or clipped
+        {{ManifestImageResource}} to better match the platform’s visual style
+        before displaying it to the user, for example by rounding the corners
+        or painting it in a specific color. It is recommended that developers
+        prepare their image resources for such scenarios to avoid losing
+        important information through, e.g., change of color or clipped
         corners.
       </p>
       <section>
@@ -2135,41 +2133,40 @@
           </p>
         </div>
       </section>
-      <section data-dfn-for="ManifestImageResource" data-link-for=
-      "ManifestImageResource">
+      <section>
         <h3>
           <dfn>platform</dfn> member
         </h3>
         <p>
-          The <a>platform</a> member represents the <a>platform</a> to which a
-          containing object applies.
+          The {{ManifestImageResource/platform}} member represents the
+          <a>platform</a> to which a containing object applies.
         </p>
       </section>
-      <section data-dfn-for="ManifestImageResource" data-link-for=
-      "ManifestImageResource">
+      <section>
         <h3>
           <dfn>purpose</dfn> member
         </h3>
         <p>
-          The <a>purpose</a> member is an <a>unordered set of unique
-          space-separated tokens</a> that are <a>ASCII case-insensitive</a>.
-          The allowed values are the <a>icon purposes</a>.
+          The {{ManifestImageResource/purpose}} member is an <a>unordered set
+          of unique space-separated tokens</a> that are <a>ASCII
+          case-insensitive</a>. The allowed values are the <a>icon
+          purposes</a>.
         </p>
         <p>
-          When a <a>ManifestImageResource</a> is used as an <dfn>icon</dfn>, a
+          When a {{ManifestImageResource}} is used as an <dfn>icon</dfn>, a
           developer can hint that the image is intended to serve some special
           purpose in the context of the host OS (i.e., for better integration).
-          User agents SHOULD NOT use an icon other than for its stated
-          <a>purpose</a>.
+          User agents SHOULD NOT use an icon other than for its stated <a>icon
+          purpose</a>.
         </p>
         <p class="note">
           For example, an icon with purpose "<a>badge</a>" could be used as a
           badge or pinned icon that is visually distinct, in color or form,
           from an application's launch icon. The user agent uses the value of
-          the <a>purpose</a> member as a hint to determine where and how a
-          <a>ManifestImageResource</a> is displayed. Unless declared otherwise
-          by the developer, a user agent can use an icon for <a>any
-          purpose</a>.
+          the {{ManifestImageResource/purpose}} member as a hint to determine
+          where and how a {{ManifestImageResource}} is displayed. Unless
+          declared otherwise by the developer, a user agent can use an icon for
+          <a>any purpose</a>.
         </p>
         <p>
           The <dfn>icon purposes</dfn> are as follows:
@@ -2209,7 +2206,7 @@
         <p>
           The steps for <dfn>processing the `purpose` member of an image</dfn>
           are given by the following algorithm. The algorithm takes a
-          <a>ManifestImageResource</a> |image:ManifestImageResource|. This
+          {{ManifestImageResource}} |image:ManifestImageResource|. This
           algorithm returns a [=set=] or failure.
         </p>
         <ol>
@@ -2402,44 +2399,40 @@
       </section>
       <section>
         <h3>
-          processing an array of image resources
+          processing image resources
         </h3>
         <p>
-          The steps for <dfn>processing <a>ManifestImageResource</a>
-          members</dfn> are given by the following algorithm. The algorithm
-          takes an Array&lt;<a>ManifestImageResource</a>&gt; <var>entries</var>
-          and a <a>URL</a> <var>manifest URL</var>. This algorithm returns an
-          Array&lt;<a>ManifestImageResource</a>&gt;.
+          The steps for <dfn>processing `ManifestImageResource` members</dfn>
+          are given by the following algorithm. The algorithm takes an a list
+          of |entries:ManifestImageResource| and a <a>URL</a>
+          |manifestURL:URL|. This algorithm returns an a list of
+          {{ManifestImageResource}}s.
         </p>
         <ol>
-          <li>Let <var>manifestImageResources</var> be a new Array object
-          created as if by the expression [].
+          <li>Let |imageResources:list| be a new [=list=].
           </li>
-          <li>[=list/For each=] <var>entry</var> of <var>entries</var>:
+          <li>[=list/For each=] |entry:ManifestImageResource| of |entries|:
             <ol>
               <li>Let |image| be the result of running [=process an image
-              resource from JSON|processing an image resource from JSON=] given
-              |entry| and |manifest URL|.
+              resource from JSON=] given |entry| and |manifest URL|.
               </li>
               <li>If |image| is failure, [=iteration/continue=].
               </li>
-              <li>Let <var>purpose</var> be the result of running <a>processing
-              the <code>purpose</code> member of an image</a> given
-              <var>entry</var> and <var>manifest URL</var>.
+              <li>Let |purpose| be the result of running <a>processing the
+              `purpose` member of an image</a> given |entry|.
               </li>
-              <li>If <var>purpose</var> is failure, [=iteration/continue=].
+              <li>If |purpose| is failure, [=iteration/continue=].
               </li>
-              <li>Set <var>image</var>["purpose"] to <var>purpose</var>.
+              <li>Set |image|'s {ManifestImageResource\purpose} to |purpose|.
               </li>
-              <li>Set <var>image</var>["platform"] to
-              <var>entry</var>["platform"].
+              <li>Set |image|'s {ManifestImageResource\platform} to the value
+              of |entry|'s {ManifestImageResource\platform} member.
               </li>
-              <li>[=list/append=] <var>image</var> to
-              <var>manifestImageResources</var>
+              <li>[=list/Append=] |image| to |imageResources|.
               </li>
             </ol>
           </li>
-          <li>Return <var>manifestImageResources</var>.
+          <li>Return |imageResources|.
           </li>
         </ol>
       </section>
@@ -2511,8 +2504,7 @@
           <dfn>icons</dfn> member
         </h3>
         <p>
-          The <a>icons</a> member of an <a>ShortcutItem</a> member is an
-          <a>array</a> of <a>ManifestImageResource</a>s that can serve as
+          The <a>icons</a> member of an <a>ShortcutItem</a> member serve as
           iconic representations of the shortcut in various contexts.
         </p>
       </section>
@@ -2562,13 +2554,12 @@
           <li>
             <a>ExternalApplicationResource</a>
           </li>
-          <li>
-            <a>ManifestImageResource</a>
+          <li>{{ManifestImageResource}}
           </li>
         </ul>
         <p>
-          A <a>platform</a> represents a software distribution ecosystem or
-          possibly an operating system.
+          A <dfn data-dfn-for="">platform</dfn> represents a software
+          distribution ecosystem or possibly an operating system.
         </p>
         <p class="note">
           This specification does not define the particular values for a the
