@@ -1106,6 +1106,16 @@
           value|converting=] <var>json</var> to a <a>WebAppManifest</a>
           dictionary.
           </li>
+          <li>Set |manifest|["{{dir}}"] to the result of running [=processing
+          the `dir` member=] given |manifest|["{{dir}}"].
+          </li>
+          <li>Set |manifest|["{{display}}"] to the result of running
+          [=processing the `display` member=] given |manifest|["{{display}}"].
+          </li>
+          <li>Set |manifest|["{{orientation}}"] to the result of running
+          [=processing the `orientation` member=] given
+          |manifest|["{{orientation}}"].
+          </li>
           <li>Set <var>manifest</var>["<a>start_url</a>"] to the result of
           running <a>processing the <code>start_url</code> member</a> given
           <var>manifest</var>["<a>start_url</a>"], <var>manifest URL</var>, and
@@ -1155,6 +1165,27 @@
           <li>Return <var>manifest</var>.
           </li>
         </ol>
+        <section>
+          <h4>
+            Processing enumeration members
+          </h4>
+          <p>
+            The steps for <dfn>processing an enumeration member</dfn> are given
+            by the following algorithm. The algorithm takes a [=DOMString=]
+            |value| and a [=set=] of |supported values|. This algorithm returns
+            a `DOMString?`.
+          </p>
+          <ol>
+            <li>Set |value| to [=ascii lowercased=] |value|.
+            </li>
+            <li>If |supported values| [=set/contain|contains=] |value|, then return
+            |value|.
+            </li>
+            <li>Otherwise, [=issue a developer warning=] that |value| is not
+            supported and return `undefined`.
+            </li>
+          </ol>
+        </section>
       </section>
       <section>
         <h3 id="applying">
@@ -1287,9 +1318,6 @@
         <h3>
           <code>dir</code> member
         </h3>
-        <pre class="idl">
-            enum TextDirectionType { "ltr", "rtl", "auto" };
-        </pre>
         <p>
           The <dfn>dir</dfn> member specifies the <dfn>base direction</dfn> for
           the <a>localizable members</a> of the <a>manifest</a>. The <a>dir</a>
@@ -1341,8 +1369,8 @@
           </dd>
         </dl>
         <p data-link-for="TextDirectionType">
-          When displaying the <a>localizable members</a> to an end-user,
-          if the <a>base direction</a> is <a>ltr</a> or <a>rtl</a>:
+          When displaying the <a>localizable members</a> to an end-user, if the
+          <a>base direction</a> is <a>ltr</a> or <a>rtl</a>:
         </p>
         <ol>
           <li data-link-for="TextDirectionType">If the member is being
@@ -1355,6 +1383,20 @@
           behave as if the member is in a left-to-right embedding [[BIDI]] if
           the <a>base direction</a> is <a>ltr</a>, or a right-to-left embedding
           if the <a>base direction</a> is <a>rtl</a>.
+          </li>
+        </ol>
+        <p>
+          The steps for <dfn>processing the `dir` member</dfn> is given by the
+          following algorithm. The algorithm takes a [=DOMString=] |value| as
+          an argument. This algorithm returns a `DOMString`.
+        </p>
+        <ol>
+          <li>Let |value| be [=processing an enumeration member=] given |value|
+          and [=TextDirectionType=].
+          </li>
+          <li>If |value| is undefined, then return "{{auto}}".
+          </li>
+          <li>Otherwise, return |value|.
           </li>
         </ol>
       </section>
@@ -1574,19 +1616,25 @@
         <h3>
           <code>display</code> member
         </h3>
-        <pre class="idl">
-          enum DisplayModeType {
-            "fullscreen",
-            "standalone",
-            "minimal-ui",
-            "browser"
-          };
-        </pre>
         <p>
           The <dfn>display</dfn> member is a <a>DisplayModeType</a>, whose
           value is one of <a>display modes values</a>. The item represents the
           developer's preferred <a>display mode</a> for the web application.
         </p>
+        <p>
+          The steps for <dfn>processing the `display` member</dfn> is given by
+          the following algorithm. The algorithm takes a [=DOMString=] |value|
+          as an argument. This algorithm returns a `DOMString`.
+        </p>
+        <ol>
+          <li>Let |value| [=processing an enumeration member=] given |value|
+          and [=DisplayModeType=].
+          </li>
+          <li>If |value| is `undefined`, then return "{{browser}}".
+          </li>
+          <li>Return |value|.
+          </li>
+        </ol>
       </section>
       <section>
         <h3>
@@ -1628,6 +1676,16 @@
           orientation of a <a>top-level browsing context</a> (such as via
           [[SCREEN-ORIENTATION]] API).
         </p>
+        <p>
+          The steps for <dfn>processing the `orientation` member</dfn> is given
+          by the following algorithm. The algorithm takes a [=DOMString=]
+          |value| as an argument. This algorithm returns a `DOMString?`.
+        </p>
+        <ol>
+          <li>Return [=processing an enumeration member=] given |value| and
+          {{OrientationLockType}}.
+          </li>
+        </ol>
       </section>
       <section>
         <h3>
