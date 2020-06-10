@@ -2323,8 +2323,8 @@
         </p>
         <p>
           If the icon contains transparent pixels, the user agent MUST
-          composite the icon onto a solid fill (eg. white) of the user agent's
-          choice.
+          composite the icon onto a solid fill (e.g., white) of the user
+          agent's choice.
         </p>
         <p class="note">
           It is suggested that designers avoid using transparent pixels in
@@ -2412,21 +2412,21 @@
         <p>
           Some platforms enforce that icons be displayed with a
           <dfn>solid fill</dfn> such as a single color, where only the
-          transparency of the icon can be controlled by the application. As web
-          applications need to across multiple platforms, it is possible to
-          indicate that an icon can have an user-agent-specified color applied
-          by adding the <a>monochrome</a> purpose. This allows the platform
-          to ensure that the icon looks well integrated with the platform, and
-          even apply different colors and padding in different places
-          throughout the platform.
+          transparency of the icon can be declared in a [=manifest=]. As web
+          applications need to work across multiple platforms, it is possible
+          to indicate that an icon can have an user-agent-specified color
+          applied by adding the <a>monochrome</a> purpose. This allows the
+          platform to ensure that the icon looks well integrated with the
+          platform, and even apply different colors and padding in different
+          places throughout the platform.
         </p>
         <p>
           When processing a <a>monochrome</a> icon, the user agent MUST NOT
-          use the red component, green component, or blue component of a pixel.
-          The user agent SHOULD display each pixel with its original alpha
-          value, but with a red, green, and blue value of the user agent's
-          choosing. It is RECOMMENDED that the user agent use the same color
-          value for all pixels.
+          independently display the red component, green component, or blue
+          component of a pixel. The user agent SHOULD display each pixel with
+          its original alpha value, but with a red, green, and blue value of
+          the user agent's choosing. It is RECOMMENDED that the user agent use
+          the same color value for all pixels.
         </p>
         <p class="note">
           Designers of <a>monochrome</a> icons could set all pixels to black
@@ -2437,7 +2437,7 @@
         </p>
         <p>
           The user agent MAY add a background of any color behind transparent
-          pixels.
+          pixels. The background SHOULD have sufficient contrast with the icon.
         </p>
         <section>
           <h3>
