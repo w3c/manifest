@@ -1078,12 +1078,6 @@
           The output from inputting an JSON document into this algorithm is a
           <dfn>processed manifest</dfn>.
         </p>
-        <p class="issue">
-          We need to catch throws associated with enumerations in IDL
-          conversion as the spec might gain new values over time not supported
-          by all existing browsers. This is especially important as we rely on
-          enums not defined in this specification.
-        </p>
         <ol>
           <li>Let <var>json</var> be the result of [=parse JSON from bytes=]
           <var>text</var>. If parsing throws an error:
