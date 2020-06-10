@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<head>
 <html>
+  <head>
     <meta charset="utf-8">
     <title>
       Web App Manifest - App Information
@@ -83,7 +83,11 @@
   <body data-cite="ENCODING SCREEN-ORIENTATION">
     <section id='abstract'>
       <p>
-        This specification defines supplementary members of the Web App Manifest that provide additional metadata related to how the web application may be presented in the context of a digital storefront, installation dialog, or other surfaces where this web application may be marketed or distributed.
+        This specification defines supplementary members of the Web App
+        Manifest that provide additional metadata related to how the web
+        application may be presented in the context of a digital storefront,
+        installation dialog, or other surfaces where this web application may
+        be marketed or distributed.
       </p>
     </section>
     <section class="informative">
@@ -99,7 +103,9 @@
           Example manifest
         </h3>
         <p>
-          The following shows a more typical <a>manifest</a> that has been customized to provide additional metadata for use in a digital storefront.
+          The following shows a more typical <a>manifest</a> that has been
+          customized to provide additional metadata for use in a digital
+          storefront.
         </p>
         <pre class="example json" title="typical manifest">
           {
@@ -145,7 +151,16 @@
         Marketable web applications
       </h2>
       <p>
-        As web applications become available via more services (e.g., digital storefronts, search results) where they are presented alongside native applications, it becomes quite important for them to appear similarly to their native counterparts. A web application can define both its {{WebAppManifest/name}} and {{WebAppManifest/icons}} in the manifest, but those keys do not provide enough information to help users determine whether they might want to install it. Users have become accustomed to being offered more details about the applications they consider installing, and this document defines additional manifest members that can provide that.
+        As web applications become available via more services (e.g., digital
+        storefronts, search results) where they are presented alongside native
+        applications, it becomes quite important for them to appear similarly
+        to their native counterparts. A web application can define both its
+        {{WebAppManifest/name}} and {{WebAppManifest/icons}} in the manifest,
+        but those keys do not provide enough information to help users
+        determine whether they might want to install it. Users have become
+        accustomed to being offered more details about the applications they
+        consider installing, and this document defines additional manifest
+        members that can provide that.
       </p>
     </section>
     <section id="processing" data-link-for="WebAppManifestAppInfo">
@@ -153,7 +168,9 @@
         Extension to processing the manifest
       </h3>
       <p>
-        The following steps for <dfn>processing application info in a manifest</dfn> are run during the extension point in[=processing the manifest=].
+        The following steps for <dfn>processing application info in a
+        manifest</dfn> are run during the extension point in[=processing the
+        manifest=].
       </p>
       <ol>
         <li>Set <var>manifest</var>["<a>categories</a>"] to the result of
@@ -161,15 +178,18 @@
         <var>manifest</var>["<a>categories</a>"].
         </li>
         <li>Set <var>manifest</var>["<a>screenshots</a>"] to the result of
-        running <a>processing `ManifestImageResource` members</a> given <var>
-          manifest</var>["<a>screenshots</a>"] and <var>manifest URL</var>.
+        running <a>processing `ManifestImageResource` members</a> given
+        <var>manifest</var>["<a>screenshots</a>"] and <var>manifest URL</var>.
         </li>
       </ol>
       <p class="issue">
-        The {{WebAppManifestAppInfo/description}} and {{WebAppManifestAppInfo/iarc_rating_id}} would be set when converting the manifest json to a WebAppManifest distionary.
+        The {{WebAppManifestAppInfo/description}} and
+        {{WebAppManifestAppInfo/iarc_rating_id}} would be set when converting
+        the manifest json to a WebAppManifest distionary.
       </p>
     </section>
-    <section data-dfn-for="WebAppManifestAppInfo" data-link-for="WebAppManifestAppInfo">
+    <section data-dfn-for="WebAppManifestAppInfo" data-link-for=
+    "WebAppManifestAppInfo">
       <h2>
         <dfn data-dfn-for="">WebAppManifest</dfn> dictionary
       </h2>
@@ -296,7 +316,8 @@
           common usage scenarios.
         </p>
         <p>
-          For accessibility purposes, authors MUST provide a {{ImageResource/label}} for each screenshot.
+          For accessibility purposes, authors MUST provide a
+          {{ImageResource/label}} for each screenshot.
         </p>
       </section>
     </section>
@@ -326,7 +347,9 @@
         Internationalization
       </h2>
       <p>
-        It is expected that authors will localize the content of all text strings defined in this document based on {{WebAppManifest/internationalization}}.
+        It is expected that authors will localize the content of all text
+        strings defined in this document based on
+        {{WebAppManifest/internationalization}}.
       </p>
     </section>
     <section id="issue-summary"></section>
@@ -338,7 +361,7 @@
         Dependencies
       </h2>
       <p>
-       TBD.
+        TBD.
       </p>
     </section>
     <section id="index"></section>
