@@ -147,62 +147,27 @@
       <p>
         As web applications become available via more services (e.g., digital storefronts, search results) where they are presented alongside native applications, it becomes quite important for them to appear similarly to their native counterparts. A web application can define both its {{WebAppManifest/name}} and {{WebAppManifest/icons}} in the manifest, but those keys do not provide enough information to help users determine whether they might want to install it. Users have become accustomed to being offered more details about the applications they consider installing, and this document defines additional manifest members that can provide that.
       </p>
+    </section>
+    <section id="processing" data-link-for="WebAppManifestAppInfo">
+      <h3>
+        Extension to processing the manifest
+      </h3>
       <p>
-        For example, on user agents that support installation, a web
-        application could be presented and launched in a way that, to the
-        end-user, is indistinguishable from native applications: such as
-        appearing as a labeled icon on the home screen, launcher, or start
-        menu. When launched, the manifest is <a>applied</a> by the user agent
-        to the <a>top-level browsing context</a> prior to the <a>start URL</a>
-        being loaded. This gives the user agent an opportunity to apply the
-        relevant values of the manifest, possibly changing the <a>display
-        mode</a> and screen orientation of the web application. Alternatively,
-        and again as an example, the user agent could <a>install</a> the web
-        application into a list of bookmarks within the user agent itself.
-      </p>
-      <p>
-        A [=document=] may either be <dfn>installable</dfn> or not. The initial
-        state of a document is not <a>installable</a>.
-      </p>
-      <p>
-        At any time, the user agent MAY perform the <dfn>steps to determine
-        installability of the document</dfn>:
+        The following steps for <dfn>processing application info in a manifest</dfn> are run during the extension point in[=processing the manifest=].
       </p>
       <ol>
-        <li>Let <var>manifest</var> and <var>manifest URL</var> be the result
-        of <a>obtaining the manifest</a>.
+        <li>Set <var>manifest</var>["<a>categories</a>"] to the result of
+        running <a>processing the <code>categories</code> member</a> given
+        <var>manifest</var>["<a>categories</a>"].
         </li>
-        <li>If <a>obtaining the manifest</a> results in an error, the user
-        agent MAY either:
-          <ul>
-            <li>Fall back to using the <a>top-level browsing context</a>
-            {{Document}}'s metadata to populate <var>manifest</var> in a
-            user-agent-specific way (e.g., setting
-            |manifest|.{{WebAppManifest/name}} to the document [^title^] and
-            considering the document <a>installable</a>.
-            </li>
-            <li>Or, consider the document not <a>installable</a>.
-            </li>
-          </ul>
-        </li>
-        <li>Otherwise, at its discretion, the user agent MAY consider the
-        {{Document}} <a>installable</a> (see [[[#installability-signals]]]).
+        <li>Set <var>manifest</var>["<a>screenshots</a>"] to the result of
+        running <a>processing `ManifestImageResource` members</a> given <var>
+          manifest</var>["<a>screenshots</a>"] and <var>manifest URL</var>.
         </li>
       </ol>
-      <section>
-        <h3>
-          Authority of the manifest's metadata
-        </h3>
-        <p>
-          When a <a>manifest</a> is linked from a {{Document}}, it indicates to
-          the user agent that the metadata is <dfn>authoritative</dfn>: that
-          is, the user agent SHOULD use the metadata of the manifest instead of
-          the one in the {{Document}}. However, in cases where metadata is
-          missing, or in error, a user agent MAY fallback to the {{Document}}
-          to find suitable replacements for missing manifest members (e.g.,
-          using `application-name` in place of `short_name`).
-        </p>
-      </section>
+      <p class="issue">
+        The {{WebAppManifestAppInfo/description}} and {{WebAppManifestAppInfo/iarc_rating_id}} would be set when converting the manifest json to a WebAppManifest distionary.
+      </p>
     </section>
     <section data-dfn-for="WebAppManifestAppInfo" data-link-for="WebAppManifestAppInfo">
       <h2>
