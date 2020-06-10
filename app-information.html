@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<head>
+<html>
+    <meta charset="utf-8">
+    <title>
+      Web App Manifest - App Information
+    </title>
+    <script src="https://www.w3.org/Tools/respec/respec-w3c" class=
+    "remove"></script>
+    <script class='remove'>
+    var respecConfig = {
+      mdn: true,
+      previousPublishDate: "2013-12-17",
+      specStatus: "NOTE",
+      shortName: "appmanifest-appinfo",
+      prevVersion: "",
+      previousMaturity: "",
+      formerEditors: [
+        {
+          name: "Rob Dolin",
+          company: "Microsoft Corporation",
+          companyURL: "https://www.microsoft.com/en-us/",
+        },
+      ],
+      editors: [
+        {
+          name: "Aaron Gustafson",
+          company: "Microsoft Corporation",
+          companyURL: "https://microsoft.com/",
+          w3cid: 43672,
+        },
+      ],
+      wg: "Web Applications Working Group",
+      wgURI: "https://www.w3.org/2019/webapps/",
+      wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status",
+      github: "https://github.com/w3c/manifest/",
+      caniuse: {
+        feature: "web-app-manifest-appinfo",
+        browsers: [
+          "chrome",
+          "firefox",
+          "safari",
+          "edge",
+          "and_chr",
+          "and_ff",
+          "ios_saf",
+        ],
+      },
+      xref: "web-platform",
+    };
+    </script>
+    <style>
+      .icon-title {
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      .icons {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .icons > figure {
+        text-align: left;
+        margin: 0;
+        padding: 10px;
+        width: 188px;
+      }
+
+      .icons > figure > img {
+        width: 188px;
+        height: 188px;
+        min-width: 188px;
+        min-height: 188px;
+      }
+
+      .icons > figure .icon-title {
+        display: block;
+      }
+    </style>
+  </head>
+  <body data-cite="ENCODING SCREEN-ORIENTATION">
+    <section id='abstract'>
+      <p>
+        This specification defines supplementary members of the Web App Manifest that provide additional metadata related to how the web application may be presented in the context of a digital storefront, installation dialog, or other surfaces where this web application may be marketed or distributed.
+      </p>
+    </section>
+    <section class="informative">
+      <h2>
+        Usage Examples
+      </h2>
+      <p>
+        This section shows how developers can make use of the various features
+        of this specification.
+      </p>
+      <section class="informative">
+        <h3>
+          Example manifest
+        </h3>
+        <p>
+          The following shows a more typical <a>manifest</a> that has been customized to provide additional metadata for use in a digital storefront.
+        </p>
+        <pre class="example json" title="typical manifest">
+          {
+            "lang": "en",
+            "dir": "ltr",
+            "name": "Super Racer 3000",
+            "description": "The ultimate futuristic racing game from the future!",
+            "short_name": "Racer3K",
+            "icons": [{
+              "src": "icon/lowres.webp",
+              "sizes": "64x64",
+              "type": "image/webp"
+            },{
+              "src": "icon/lowres.png",
+              "sizes": "64x64"
+            }, {
+              "src": "icon/hd_hi",
+              "sizes": "128x128"
+            }],
+            "scope": "/racer/",
+            "start_url": "/racer/start.html",
+            "display": "fullscreen",
+            "orientation": "landscape",
+            "theme_color": "aliceblue",
+            "background_color": "red",
+            "screenshots": [{
+              "src": "screenshots/in-game-customize.jpg",
+              "sizes": "1280x920",
+              "type": "image/jpeg",
+              "label": "Screenshot of the car customization screen."
+            },{
+              "src": "screenshots/in-game-driving.jpg",
+              "sizes": "1280x920",
+              "type": "image/jpeg",
+              "label": "Screenshot of the the driving experience with Heads-up Display (HUD) active."
+            }]
+          }
+        </pre>
+      </section>
+    </section>
+    <section>
+      <h2>
+        Marketable web applications
+      </h2>
+      <p>
+        As web applications become available via more services (e.g., digital storefronts, search results) where they are presented alongside native applications, it becomes quite important for them to appear similarly to their native counterparts. A web application can define both its {{WebAppManifest/name}} and {{WebAppManifest/icons}} in the manifest, but those keys do not provide enough information to help users determine whether they might want to install it. Users have become accustomed to being offered more details about the applications they consider installing, and this document defines additional manifest members that can provide that.
+      </p>
+      <p>
+        For example, on user agents that support installation, a web
+        application could be presented and launched in a way that, to the
+        end-user, is indistinguishable from native applications: such as
+        appearing as a labeled icon on the home screen, launcher, or start
+        menu. When launched, the manifest is <a>applied</a> by the user agent
+        to the <a>top-level browsing context</a> prior to the <a>start URL</a>
+        being loaded. This gives the user agent an opportunity to apply the
+        relevant values of the manifest, possibly changing the <a>display
+        mode</a> and screen orientation of the web application. Alternatively,
+        and again as an example, the user agent could <a>install</a> the web
+        application into a list of bookmarks within the user agent itself.
+      </p>
+      <p>
+        A [=document=] may either be <dfn>installable</dfn> or not. The initial
+        state of a document is not <a>installable</a>.
+      </p>
+      <p>
+        At any time, the user agent MAY perform the <dfn>steps to determine
+        installability of the document</dfn>:
+      </p>
+      <ol>
+        <li>Let <var>manifest</var> and <var>manifest URL</var> be the result
+        of <a>obtaining the manifest</a>.
+        </li>
+        <li>If <a>obtaining the manifest</a> results in an error, the user
+        agent MAY either:
+          <ul>
+            <li>Fall back to using the <a>top-level browsing context</a>
+            {{Document}}'s metadata to populate <var>manifest</var> in a
+            user-agent-specific way (e.g., setting
+            |manifest|.{{WebAppManifest/name}} to the document [^title^] and
+            considering the document <a>installable</a>.
+            </li>
+            <li>Or, consider the document not <a>installable</a>.
+            </li>
+          </ul>
+        </li>
+        <li>Otherwise, at its discretion, the user agent MAY consider the
+        {{Document}} <a>installable</a> (see [[[#installability-signals]]]).
+        </li>
+      </ol>
+      <section>
+        <h3>
+          Authority of the manifest's metadata
+        </h3>
+        <p>
+          When a <a>manifest</a> is linked from a {{Document}}, it indicates to
+          the user agent that the metadata is <dfn>authoritative</dfn>: that
+          is, the user agent SHOULD use the metadata of the manifest instead of
+          the one in the {{Document}}. However, in cases where metadata is
+          missing, or in error, a user agent MAY fallback to the {{Document}}
+          to find suitable replacements for missing manifest members (e.g.,
+          using `application-name` in place of `short_name`).
+        </p>
+      </section>
+    </section>
+    <section data-dfn-for="WebAppManifestAppInfo" data-link-for="WebAppManifestAppInfo">
+      <h2>
+        <dfn data-dfn-for="">WebAppManifest</dfn> dictionary
+      </h2>
+      <pre class="idl">
+          partial dictionary WebAppManifest {
+            sequence&lt;USVString&gt; categories;
+            USVString description;
+            DOMString iarc_rating_id;
+            sequence&lt;ManifestImageResource&gt; screenshots;
+          };
+      </pre>
+      <section>
+        <h3>
+          <code title="">categories</code> member
+        </h3>
+        <p>
+          The <dfn>categories</dfn> member describes the expected application
+          categories to which the web application belongs.
+        </p>
+        <p>
+          The <a>categories</a> member is only meant as a hint to catalogs or
+          stores listing web applications and it is expected that these will
+          make a best effort to find appropriate categories (or category) under
+          which to list the web application. Like search engines and meta
+          keywords, catalogs and stores are not required to honor this hint.
+        </p>
+        <p>
+          The steps for <dfn>processing the <code>categories</code>
+          member</dfn> are given by the following algorithm. The algorithm
+          takes a sequence&lt;<a>USVString</a>&gt; <var>categories</var> as an
+          argument. This algorithm returns an
+          <code>Array&lt;USVString&gt;</code>.
+        </p>
+        <ol>
+          <li>[=list/For each=] <var>category</var> of <var>categories</var>:
+            <ol>
+              <li>[=set/Replace=] <var>category</var> within
+              <var>categories</var> with <var>category</var>, <a>ascii
+              lowercased</a>.
+              </li>
+            </ol>
+          </li>
+          <li>Return <var>categories</var>.
+          </li>
+        </ol>
+        <p>
+          The categories <a>string</a> array is case insensitive and converted
+          to lower-case by following the processing algorithm. Thus,
+          <code>sports</code>, <code>Sports</code>, <code>SPORTS</code>, and
+          <code>SpOrTs</code> are all equivalent.
+        </p>
+        <p class="note">
+          Manifest authors are encouraged to use lower-case.
+        </p>
+        <p class="note">
+          This specification does not define the particular values for
+          <dfn>USVString</dfn>s for the <a>categories</a> member. However, the
+          working group maintains a <a href=
+          "https://github.com/w3c/manifest/wiki/Categories">list of known
+          values</a> in our wiki.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <code title="">description</code> member
+        </h3>
+        <p>
+          The <dfn>description</dfn> member allows the developer to describe
+          the purpose of the web application.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <code title="">iarc_rating_id</code> member
+        </h3>
+        <p>
+          The <dfn>iarc_rating_id</dfn> member is a <a>string</a> that
+          represents the <a href="https://www.globalratings.com/">International
+          Age Rating Coalition (IARC)</a> certification code of the web
+          application. It is intended to be used to determine which ages the
+          web application is appropriate for.
+        </p>
+        <p class="note">
+          An IARC certificate can be obtained via participating storefronts,
+          intended to be used for distributing the web app. The
+          <a>iarc_rating_id</a> member only takes a single certification code.
+          The same code can be shared across participating storefronts, as long
+          as the distributed product remains the same (i.e., doesn’t serve
+          totally different code paths depending on user agent sniffing and the
+          like) and the other storefronts support it.
+        </p>
+        <div class="informative">
+          <p>
+            The following shows a very simple <a>manifest</a> with the
+            <code>iarc_rating_id</code> member.
+          </p>
+          <pre class="example json" title="very simple manifest">
+          {
+            "name": "Donate App",
+            "description": "This app helps you donate to worthy causes.",
+            "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+            "icons": [{
+              "src": "images/icon.png",
+              "sizes": "192x192"
+            }]
+          }
+        </pre>
+        </div>
+        <p>
+          More information on the IARC can be found at: <a href=
+          "https://www.globalratings.com/how-iarc-works.aspx">How IARC
+          Works</a> and <a href=
+          "https://www.globalratings.com/for-developers.aspx">How developers
+          can get their games and apps rated with IARC</a>.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <code title="">screenshots</code> member
+        </h3>
+        <p>
+          The <dfn>screenshots</dfn> member is an <a>array</a> of
+          {{ManifestImageResource}}s, representing the web application in
+          common usage scenarios.
+        </p>
+        <p>
+          For accessibility purposes, authors MUST provide a {{ImageResource/label}} for each screenshot.
+        </p>
+      </section>
+    </section>
+    <section class="appendix">
+      <h2>
+        Acknowledgements
+      </h2>
+      <p>
+        TBD
+      </p>
+    </section>
+    <section id="conformance" data-status="done" class="appendix">
+      <p>
+        There is only one class of product that can claim conformance to this
+        specification: a <dfn>user agent</dfn>.
+      </p>
+      <p class="note">
+        Although this specification is primarily targeted at web browsers, it
+        is feasible that other software could also implement this specification
+        in a conforming manner. For instance, search engines, or crawlers,
+        could find and process manifests to build up catalogs of sites that
+        potentially work as installable web applications.
+      </p>
+    </section>
+    <section id="internationalization" class="appendix informative">
+      <h2>
+        Internationalization
+      </h2>
+      <p>
+        It is expected that authors will localize the content of all text strings defined in this document based on {{WebAppManifest/internationalization}}.
+      </p>
+    </section>
+    <section id="issue-summary"></section>
+    <section id="idl-index" class="appendix">
+      <!-- All the Web IDL will magically appear here -->
+    </section>
+    <section class="appendix">
+      <h2>
+        Dependencies
+      </h2>
+      <p>
+       TBD.
+      </p>
+    </section>
+    <section id="index"></section>
+  </body>
+</html>
