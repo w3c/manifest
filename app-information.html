@@ -11,7 +11,8 @@
     var respecConfig = {
       mdn: true,
       previousPublishDate: "2013-12-17",
-      specStatus: "NOTE",
+      specStatus: "ED", 
+      noRecTrack: true,
       shortName: "appmanifest-appinfo",
       prevVersion: "",
       previousMaturity: "",
@@ -34,53 +35,11 @@
       wgURI: "https://www.w3.org/2019/webapps/",
       wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status",
       github: "https://github.com/w3c/manifest/",
-      caniuse: {
-        feature: "web-app-manifest-appinfo",
-        browsers: [
-          "chrome",
-          "firefox",
-          "safari",
-          "edge",
-          "and_chr",
-          "and_ff",
-          "ios_saf",
-        ],
-      },
       xref: "web-platform",
     };
     </script>
-    <style>
-      .icon-title {
-        text-transform: uppercase;
-        font-weight: bold;
-      }
-
-      .icons {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-      }
-
-      .icons > figure {
-        text-align: left;
-        margin: 0;
-        padding: 10px;
-        width: 188px;
-      }
-
-      .icons > figure > img {
-        width: 188px;
-        height: 188px;
-        min-width: 188px;
-        min-height: 188px;
-      }
-
-      .icons > figure .icon-title {
-        display: block;
-      }
-    </style>
   </head>
-  <body data-cite="ENCODING SCREEN-ORIENTATION">
+  <body>
     <section id='abstract'>
       <p>
         This specification defines supplementary members of the Web App
@@ -163,7 +122,7 @@
         members that can provide that.
       </p>
     </section>
-    <section id="processing" data-link-for="WebAppManifestAppInfo">
+    <section id="processing">
       <h3>
         Extension to processing the manifest
       </h3>
@@ -185,7 +144,7 @@
       <p class="issue">
         The {{WebAppManifestAppInfo/description}} and
         {{WebAppManifestAppInfo/iarc_rating_id}} would be set when converting
-        the manifest json to a WebAppManifest distionary.
+        the manifest JSON to a WebAppManifest dictionary.
       </p>
     </section>
     <section data-dfn-for="WebAppManifestAppInfo" data-link-for=
