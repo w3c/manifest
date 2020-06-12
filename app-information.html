@@ -48,62 +48,6 @@
         be marketed or distributed.
       </p>
     </section>
-    <section class="informative">
-      <h2>
-        Usage Examples
-      </h2>
-      <p>
-        This section shows how developers can make use of the various features
-        of this specification.
-      </p>
-      <section class="informative">
-        <h3>
-          Example manifest
-        </h3>
-        <p>
-          The following shows a more typical <a>manifest</a> that has been
-          customized to provide additional metadata for use in a digital
-          storefront.
-        </p>
-        <pre class="example json" title="typical manifest">
-          {
-            "lang": "en",
-            "dir": "ltr",
-            "name": "Super Racer 3000",
-            "description": "The ultimate futuristic racing game from the future!",
-            "short_name": "Racer3K",
-            "icons": [{
-              "src": "icon/lowres.webp",
-              "sizes": "64x64",
-              "type": "image/webp"
-            },{
-              "src": "icon/lowres.png",
-              "sizes": "64x64"
-            }, {
-              "src": "icon/hd_hi",
-              "sizes": "128x128"
-            }],
-            "scope": "/racer/",
-            "start_url": "/racer/start.html",
-            "display": "fullscreen",
-            "orientation": "landscape",
-            "theme_color": "aliceblue",
-            "background_color": "red",
-            "screenshots": [{
-              "src": "screenshots/in-game-customize.jpg",
-              "sizes": "1280x920",
-              "type": "image/jpeg",
-              "label": "Screenshot of the car customization screen."
-            },{
-              "src": "screenshots/in-game-driving.jpg",
-              "sizes": "1280x920",
-              "type": "image/jpeg",
-              "label": "Screenshot of the the driving experience with Heads-up Display (HUD) active."
-            }]
-          }
-        </pre>
-      </section>
-    </section>
     <section>
       <h2>
         Marketable web applications
@@ -154,7 +98,7 @@
       <pre class="idl">
           partial dictionary WebAppManifest {
             sequence&lt;USVString&gt; categories;
-            USVString description;
+            DOMString description;
             DOMString iarc_rating_id;
             sequence&lt;ManifestImageResource&gt; screenshots;
           };
