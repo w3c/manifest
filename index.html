@@ -1347,8 +1347,8 @@
           </dd>
         </dl>
         <p data-link-for="TextDirectionType">
-          When displaying the <a>localizable members</a> to an end-user,
-          if the <a>base direction</a> is <a>ltr</a> or <a>rtl</a>:
+          When displaying the <a>localizable members</a> to an end-user, if the
+          <a>base direction</a> is <a>ltr</a> or <a>rtl</a>:
         </p>
         <ol>
           <li data-link-for="TextDirectionType">If the member is being
@@ -2167,10 +2167,10 @@
           For example, an icon with purpose "<a>monochrome</a>" could be used
           as a badge or pinned icon with a solid fill, visually distinct from
           an application's full color launch icon. The user agent uses the
-          value of the {{ManifestImageResource/purpose}} member as a hint to determine where and
-          how an {{ManifestImageResource/purpose}} is displayed. Unless declared otherwise
-          by the developer, a user agent can use an icon for <a>any
-          purpose</a>.
+          value of the {{ManifestImageResource/purpose}} member as a hint to
+          determine where and how an {{ManifestImageResource/purpose}} is
+          displayed. Unless declared otherwise by the developer, a user agent
+          can use an icon for <a>any purpose</a>.
         </p>
         <p>
           The <dfn>icon purposes</dfn> are as follows:
@@ -2180,11 +2180,11 @@
             <dfn data-lt="monochrome purpose">monochrome</dfn>:
           </dt>
           <dd>
-            A user agent can present this icon where a
-            <a href="#monochrome-icons-and-solid-fills">monochrome icon with a
-            solid fill</a> is needed. The color information in the icon is
-            discarded and only the alpha data is used. The icon can then be
-            used by the user agent like a mask over any solid fill.
+            A user agent can present this icon where a <a href=
+            "#monochrome-icons-and-solid-fills">monochrome icon with a solid
+            fill</a> is needed. The color information in the icon is discarded
+            and only the alpha data is used. The icon can then be used by the
+            user agent like a mask over any solid fill.
           </dd>
           <dt>
             <dfn data-lt="maskable purpose">maskable</dfn>:
@@ -2411,15 +2411,15 @@
         </h2>
         <p class="issue atrisk" data-number="905"></p>
         <p>
-          Some platforms enforce that icons be displayed with a
-          <dfn>solid fill</dfn> such as a single color, where only the
-          transparency of the icon can be declared in a [=manifest=]. As web
-          applications need to work across multiple platforms, it is possible
-          to indicate that an icon can have an user-agent-specified color
-          applied by adding the <a>monochrome</a> purpose. This allows the
-          platform to ensure that the icon looks well integrated with the
-          platform, and even apply different colors and padding in different
-          places throughout the platform.
+          Some platforms enforce that icons be displayed with a <dfn>solid
+          fill</dfn> such as a single color, where only the transparency of the
+          icon can be declared in a [=manifest=]. As web applications need to
+          work across multiple platforms, it is possible to indicate that an
+          icon can have an user-agent-specified color applied by adding the
+          <a>monochrome</a> purpose. This allows the platform to ensure that
+          the icon looks well integrated with the platform, and even apply
+          different colors and padding in different places throughout the
+          platform.
         </p>
         <p>
           When processing a <a>monochrome</a> icon, the user agent MUST NOT
@@ -2438,8 +2438,8 @@
         </p>
         <p>
           The user agent MAY add a background of any color behind transparent
-          pixels, and SHOULD ensure that the background has sufficient
-          contrast with the icon.
+          pixels, and SHOULD ensure that the background has sufficient contrast
+          with the icon.
         </p>
         <section>
           <h3>
@@ -2453,36 +2453,24 @@
               <img src="images/monochrome-icon-plain.svg" alt=
               "A black icon over a checkerboard background">
               <figcaption>
-                <span class="icon-title">
-                  Image
-                </span>
-                <span>
-                  The base image with no color.
-                </span>
+                <span class="icon-title">Image</span> <span>The base image with
+                no color.</span>
               </figcaption>
             </figure>
             <figure>
               <img src="images/monochrome-icon-gradient.svg" alt=
               "A dark gradient icon over a checkerboard background">
               <figcaption>
-                <span class="icon-title">
-                  Gradient fill
-                </span>
-                <span>
-                  The image filled in with a gradient.
-                </span>
+                <span class="icon-title">Gradient fill</span> <span>The image
+                filled in with a gradient.</span>
               </figcaption>
             </figure>
             <figure>
               <img src="images/monochrome-icon-tinted.svg" alt=
               "A dark yellow icon over a light gray background">
               <figcaption>
-                <span class="icon-title">
-                  Solid color fill with padding
-                </span>
-                <span>
-                  Filled in with the theme color from the manifest.
-                </span>
+                <span class="icon-title">Solid color fill with padding</span>
+                <span>Filled in with the theme color from the manifest.</span>
               </figcaption>
             </figure>
           </div>
