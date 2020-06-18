@@ -1339,8 +1339,8 @@
           </dd>
         </dl>
         <p data-link-for="TextDirectionType">
-          When displaying the <a>localizable members</a> to an end-user,
-          if the <a>base direction</a> is <a>ltr</a> or <a>rtl</a>:
+          When displaying the <a>localizable members</a> to an end-user, if the
+          <a>base direction</a> is <a>ltr</a> or <a>rtl</a>:
         </p>
         <ol>
           <li data-link-for="TextDirectionType">If the member is being
@@ -2157,27 +2157,30 @@
           purpose</a>.
         </p>
         <p class="note">
-          For example, an icon with purpose "<a>badge</a>" could be used as a
-          badge or pinned icon that is visually distinct, in color or form,
-          from an application's launch icon. The user agent uses the value of
-          the {{ManifestImageResource/purpose}} member as a hint to determine
-          where and how a {{ManifestImageResource}} is displayed. Unless
-          declared otherwise by the developer, a user agent can use an icon for
-          <a>any purpose</a>.
+          For example, an icon with purpose "<a>monochrome</a>" could be used
+          as a badge or pinned icon with a solid fill, visually distinct from
+          an application's full color launch icon. The user agent uses the
+          value of the {{ManifestImageResource/purpose}} member as a hint to
+          determine where and how an {{ManifestImageResource/purpose}} is
+          displayed. Unless declared otherwise by the developer, a user agent
+          can use an icon for <a>any purpose</a>.
         </p>
         <p>
           The <dfn>icon purposes</dfn> are as follows:
         </p>
         <dl>
           <dt>
-            <dfn data-lt="badge purpose">badge</dfn>:
+            <dfn data-lt="monochrome purpose">monochrome</dfn>:
           </dt>
           <dd>
-            A user agent can present this icon where space constraints and/or
-            color requirements differ from those of the application icon.
+            A user agent can present this icon where a <a href=
+            "#monochrome-icons-and-solid-fills">monochrome icon with a solid
+            fill</a> is needed. The color information in the icon is discarded
+            and only the alpha data is used. The icon can then be used by the
+            user agent like a mask over any solid fill.
           </dd>
           <dt>
-            <dfn data-lt="badge maskable">maskable</dfn>:
+            <dfn data-lt="maskable purpose">maskable</dfn>:
           </dt>
           <dd>
             The image is designed with <a href="#icon-masks">icon masks and
@@ -2196,9 +2199,10 @@
           If an icon contains multiple purposes, it could be used for any of
           those purposes. If none of the stated purposes are recognized, the
           icon is totally ignored. For example, if an icon has purpose
-          <code>"badge fizzbuzz"</code>, then it could be used as a badge, but
-          if an icon has just the purpose <code>"fizzbuzz"</code>, then it will
-          be ignored.
+          <code>"monochrome fizzbuzz"</code>, then it could be used as a
+          monochrome icon, as <code>"monochrome"</code> is a valid purpose.
+          However, if an icon just has the purpose <code>"fizzbuzz"</code>,
+          then it will be ignored.
         </p>
         <p>
           The steps for <dfn>processing the `purpose` member of an image</dfn>
@@ -2238,20 +2242,20 @@
         <div class="example">
           <p>
             In the following example, the web application is listing two icons
-            to be used as a badge, one of which is specifically designed for
-            the Android platform.
+            to be used as a monochrome icon, one of which is specifically
+            designed for the Android platform.
           </p>
           <pre class="example json">
             {
               "name": "News",
               "icons": [{
                 "platform": "play",
-                "purpose": "badge",
+                "purpose": "monochrome",
                 "sizes": "16x16",
                 "src": "icons/badges/android.png",
                 "type": "image/png"
               }, {
-                "purpose": "badge",
+                "purpose": "monochrome",
                 "src": "icons/badges/safari.svg",
                 "type": "image/svg"
               }]
@@ -2312,8 +2316,8 @@
         </p>
         <p>
           If the icon contains transparent pixels, the user agent MUST
-          composite the icon onto a solid color (eg. white) of the user agent's
-          choice.
+          composite the icon onto a solid fill (e.g., white) of the user
+          agent's choice.
         </p>
         <p class="note">
           It is suggested that designers avoid using transparent pixels in
@@ -2389,6 +2393,77 @@
               "An icon on a yellow background">
               <figcaption>
                 <span class="icon-title">Fullbleed</span> <span>Windows</span>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+      </section>
+      <section>
+        <h2>
+          Monochrome icons and solid fills
+        </h2>
+        <p class="issue atrisk" data-number="905"></p>
+        <p>
+          Some platforms enforce that icons be displayed with a <dfn>solid
+          fill</dfn> such as a single color, where only the transparency of the
+          icon can be declared in a [=manifest=]. As web applications need to
+          work across multiple platforms, it is possible to indicate that an
+          icon can have an user-agent-specified color applied by adding the
+          <a>monochrome</a> purpose. This allows the platform to ensure that
+          the icon looks well integrated with the platform, and even apply
+          different colors and padding in different places throughout the
+          platform.
+        </p>
+        <p>
+          When processing a <a>monochrome</a> icon, the user agent MUST NOT
+          independently display the red component, green component, or blue
+          component of a pixel. The user agent SHOULD display each pixel with
+          its original alpha value, but with a red, green, and blue value of
+          the user agent's choosing. It is RECOMMENDED that the user agent use
+          the same color value for all pixels.
+        </p>
+        <p class="note">
+          Designers of <a>monochrome</a> icons could set all pixels to black
+          and only use transparency to create a silhouette of their icon.
+        </p>
+        <p>
+          The user agent MAY enlarge the icon by adding additional padding.
+        </p>
+        <p>
+          The user agent MAY add a background of any color behind transparent
+          pixels, and SHOULD ensure that the background has sufficient contrast
+          with the icon.
+        </p>
+        <section>
+          <h3>
+            Example usage of monochrome icons
+          </h3>
+          <h2 class="icon-title">
+            Usage examples
+          </h2>
+          <div class="icons">
+            <figure>
+              <img src="images/monochrome-icon-plain.svg" alt=
+              "A black icon over a checkerboard background">
+              <figcaption>
+                <span class="icon-title">Image</span> <span>The base image with
+                no color.</span>
+              </figcaption>
+            </figure>
+            <figure>
+              <img src="images/monochrome-icon-gradient.svg" alt=
+              "A dark gradient icon over a checkerboard background">
+              <figcaption>
+                <span class="icon-title">Gradient fill</span> <span>The image
+                filled in with a gradient.</span>
+              </figcaption>
+            </figure>
+            <figure>
+              <img src="images/monochrome-icon-tinted.svg" alt=
+              "A dark yellow icon over a light gray background">
+              <figcaption>
+                <span class="icon-title">Solid color fill with padding</span>
+                <span>Filled in with the theme color from the manifest.</span>
               </figcaption>
             </figure>
           </div>
