@@ -2577,6 +2577,20 @@
           <a data-lt="within scope of a manifest">within the application's
           scope</a> that opens when the associated shortcut is activated.
         </p>
+        <section>
+          <h4>
+            Privacy and security considerations
+          </h4>
+          <p>
+            It's conceivable that any {{ShortcutItem/url}} could be crafted to
+            indicate that the application was launched from outside the browser
+            (e.g., `"url": "/task/?from=homescreen"`). It is also conceivable
+            that developers could encode strings into the {{ShortcutItem/url}}
+            that uniquely identify the user (e.g., a server assigned
+            <abbr>UUID</abbr>). This is fingerprinting/privacy sensitive
+            information that the user might not be aware of.
+          </p>
+        </section>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
         <h3>
