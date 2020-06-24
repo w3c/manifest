@@ -24,7 +24,7 @@
       ],
       editors: [
         {
-          name: "Marcos Caceres",
+          name: "Marcos Cáceres",
           company: "Mozilla Corporation",
           companyURL: "https://mozilla.org/",
           w3cid: 39125,
@@ -2572,6 +2572,20 @@
           [=manifest/within scope=] of a [=processed manifest=] that opens when
           the associated shortcut is activated.
         </p>
+        <section>
+          <h4>
+            Privacy and security considerations
+          </h4>
+          <p>
+            It's conceivable that any {{ShortcutItem/url}} could be crafted to
+            indicate that the application was launched from outside the browser
+            (e.g., `"url": "/task/?from=homescreen"`). It is also conceivable
+            that developers could encode strings into the {{ShortcutItem/url}}
+            that uniquely identify the user (e.g., a server assigned
+            <abbr>UUID</abbr>). This is fingerprinting/privacy sensitive
+            information that the user might not be aware of.
+          </p>
+        </section>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
         <h3>
@@ -3054,10 +3068,10 @@
         navigation.
       </p>
     </section>
-    <section id="conformance" data-status="done" class="appendix">
+    <section id="conformance" class="appendix">
       <p>
         There is only one class of product that can claim conformance to this
-        specification: a <dfn>user agent</dfn>.
+        specification: a [=user agent=].
       </p>
       <p class="note">
         Although this specification is primarily targeted at web browsers, it
@@ -3347,17 +3361,8 @@
         <li>[[HTML]] defines the following terms:
           <ul>
             <li>
-              <a data-cite=
-              "HTML#unordered-set-of-unique-space-separated-tokens"><dfn>unordered
-              set of unique space-separated tokens</dfn></a>
-            </li>
-            <li>
               <a data-cite="HTML#delay-the-load-event"><dfn>delay the load
               event</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#valid-non-negative-integer"><dfn>valid
-              non-negative integer</dfn></a>
             </li>
           </ul>
         </li>
