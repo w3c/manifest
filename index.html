@@ -882,20 +882,20 @@
               </li>
             </ol>
           </li>
-          <li>Let <var>manifest</var> be a new [=struct=].
+          <li>Let <var>manifest</var> be a new [=ordered map=].
           </li>
           <li>Set <var>manifest</var>["<a>start_url</a>"] to the result of
           running <a>processing the <code>start_url</code> member</a> given
-          <var>manifest</var>["<a>start_url</a>"], <var>manifest URL</var>, and
+          <var>json</var>["<a>start_url</a>"], <var>manifest URL</var>, and
           <var>document URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>lang</a>"] to the result of running
           <a>processing the <code>lang</code> member</a> given
-          <var>manifest</var>["<a>lang</a>"].
+          <var>json</var>["<a>lang</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>scope</a>"] to the result of running
           <a>processing the <code>scope</code> member</a> given
-          <var>manifest</var>["<a>scope</a>"], <var>manifest URL</var>, and
+          <var>json</var>["<a>scope</a>"], <var>manifest URL</var>, and
           <var>manifest</var>["<a>start_url</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>theme_color</a>"] to the result of
@@ -904,15 +904,15 @@
           </li>
           <li>Set <var>manifest</var>["<a>background_color</a>"] to the result
           of running <a>processing a color member</a> given
-          <var>manifest</var>["<a>background_color</a>"].
+          <var>json</var>["<a>background_color</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>categories</a>"] to the result of
           running <a>processing the <code>categories</code> member</a> given
-          <var>manifest</var>["<a>categories</a>"].
+          <var>json</var>["<a>categories</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>icons</a>"] to the result of running
           <a>processing `ManifestImageResource` members</a> given
-          <var>manifest</var>["<a>icons</a>"] and <var>manifest URL</var>.
+          <var>json</var>["<a>icons</a>"] and <var>manifest URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>screenshots</a>"] to the result of
           running <a>processing `ManifestImageResource` members</a> given <var>
@@ -920,7 +920,7 @@
           </li>
           <li>Set <var>manifest</var>["<a>related_applications</a>"] to the
           result of running <a>processing the <code>related_applications</code>
-          member</a> given <var>manifest</var>["<a>related_applications</a>"].
+          member</a> given <var>json</var>["<a>related_applications</a>"].
           </li>
           <li>Run the <a>processing the <code>shortcuts</code> member</a> with
           |manifest URL| and |manifest|.
