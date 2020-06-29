@@ -60,9 +60,7 @@
           w3cid: 43672,
         },
       ],
-      wg: "Web Applications Working Group",
-      wgURI: "https://www.w3.org/2019/webapps/",
-      wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status",
+      group: "webapps",
       github: "https://github.com/w3c/manifest/",
       caniuse: {
         feature: "web-app-manifest",
@@ -113,7 +111,7 @@
   <body data-cite="ENCODING SCREEN-ORIENTATION">
     <section id='abstract'>
       <p>
-        This specification defines a JSON-based manifest file that provides
+        This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
         application's name, links to icons, as well as the preferred URL to
@@ -437,11 +435,11 @@
         Navigation scope
       </h2>
       <p data-link-for="WebAppManifest">
-        A <dfn data-export="">navigation scope</dfn> is a <a>URL</a> that
-        represents the set of URLs to which an <a>application context</a> can
-        be navigated while the manifest is <a>applied</a>. The <a>navigation
-        scope</a> of a manifest <var>manifest</var> is
-        <var>manifest</var>["<a>scope</a>"].
+        The <dfn data-dfn-for="manifest" data-lt="navigation scope"
+        data-export="">navigation scope of a manifest</dfn> is the
+        {{WebAppManifest/scope}} member of a [=processed manifest=]. The
+        navigation scope restricts the set of URLs to which an [=application
+        context=] can be [=navigated=] while the manifest is [=applied=].
       </p>
       <div class="note" data-link-for="WebAppManifest">
         <p>
@@ -460,31 +458,29 @@
         </p>
       </div>
       <p>
-        A <a>URL</a> <var>target</var> is said to be <dfn>within scope</dfn> of
-        <a>navigation scope</a> <var>scope</var> if the following algorithm
-        returns <code>true</code>:
+        A [=URL=] |target:URL| is said to be <dfn data-dfn-for="URL"
+        data-export="">within scope</dfn> of [=URL=] |scope:URL| if the
+        following algorithm returns `true`:
       </p>
-      <ol>
-        <li>Let <var>scopePath</var> be the [=string/concatenation=] of
-        <var>scopes</var>'s <a data-cite="URL#concept-url-path">path</a>, using
-        U+002F (/).
+      <ol class="algorithm">
+        <li>If |target| and |scope| are not [=same origin=], return `false`.
         </li>
-        <li>Let <var>targetPath</var> be the [=string/concatenation=] of <var>
-          target</var>'s <a data-cite="URL#concept-url-path">path</a>, using
-          U+002F (/).
+        <li>Let |scopePath:string| be the [=string/concatenation=] of
+        |scopes|'s [=URL/path=] using U+002F (/) as the separator.
         </li>
-        <li>If <var>target</var> is <a>same origin</a> as <var>scope</var> and
-        <var>targetPath</var> starts with <var>scopePath</var>, return
-        <code>true</code>.
+        <li>Let |targetPath:string| be the [=string/concatenation=] of
+        |target|'s [=URL/path=] using U+002F (/) as the separator.
         </li>
-        <li>Otherwise, return <code>false</code>.
+        <li>Return a [=boolean=] indicating whether |targetPath| starts with
+        |scopePath:string|.
         </li>
       </ol>
       <p>
-        A <a>URL</a> <var>target</var> is said to be <dfn data-lt=
-        "within-scope-manifest">within scope of a manifest</dfn>
-        <var>manifest</var> if <var>target</var> is <a>within scope</a> of the
-        navigation scope of <var>manifest</var>.
+        A [=URL=] |target:URL| is <dfn data-dfn-for="manifest" data-lt=
+        "within scope" data-export="">within scope</dfn> of a
+        |manifest:processed manifest| if the |target| is [=URL/within scope=]
+        of |manifest|'s [=manifest/navigation scope=] (i.e., [=URL/within
+        scope=] of |manifest|'s {{WebAppManifest/scope}} member).
       </p>
       <div class="note" title="Scope is a simple string match">
         The URL string matching in this algorithm is prefix-based rather than
@@ -496,21 +492,20 @@
         unexpected behavior, use a scope ending in a <code>/</code>.
       </div>
       <p>
-        If the <a>application context</a>'s <a>active document</a>'s
-        [=Document/URL=] is not <a data-lt="within-scope-manifest">within
-        scope</a> of the <a>application context</a>'s manifest, the user agent
-        SHOULD show a prominent UI element indicating the [=Document/URL=] or
-        at least its <a>origin</a>, including whether it is served over a
-        secure connection. This UI SHOULD differ from any UI used when the
-        [=Document/URL=] is <a>within scope</a>, in order to make it obvious
-        that the user is navigating off scope.
+        If the [=application context=]'s [=active document=]'s [=Document/URL=]
+        is not [=manifest/within scope=] of the [=application context=]'s
+        [=processed manifest=], the user agent SHOULD show a prominent UI
+        element indicating the [=Document/URL=] or at least its [=origin=],
+        including whether it is served over a secure connection. This UI SHOULD
+        differ from any UI used when the [=Document/URL=] is [=manifest/within
+        scope=] of the [=application context=]'s [=processed manifest=], in
+        order to make it obvious that the user is navigating off scope.
       </p>
       <div class="note">
         <p>
           Nothing prevents an <a>application context</a> from navigating to a
-          <a>URL</a> that is outside of the application's <a>navigation
-          scope</a>, while still having the <a>manifest</a> <a>applied</a> to
-          it.
+          <a>URL</a> that is outside of the manifest's [=manifest/navigation
+          scope=], while still having the <a>manifest</a> <a>applied</a> to it.
         </p>
         <p>
           Unlike previous versions of this specification, user agents are no
@@ -549,9 +544,8 @@
           Deep links
         </h3>
         <p>
-          A <dfn>deep link</dfn> is a URL that is <a data-lt=
-          "within-scope-manifest">within scope</a> of an <a>installed web
-          application</a>'s manifest.
+          A <dfn>deep link</dfn> is a URL that is [=manifest/within scope=] of
+          an [=installed web application=]'s [=processed manifest=].
         </p>
         <p>
           An <a>application context</a> can be instantiated through a <a>deep
@@ -1282,8 +1276,7 @@
       </pre>
       <p>
         A <dfn data-export="" data-dfn-for="">manifest</dfn> is a JSON document
-        that contains startup parameters and application defaults for when a
-        web application is launched.
+        that is structured as defined by this specification.
       </p>
       <p>
         Every manifest has an associated <dfn>manifest URL</dfn>, which is the
@@ -1469,8 +1462,8 @@
         <div class="issue" data-number="380"></div>
         <p>
           The <dfn>scope</dfn> member is a <a>string</a> that represents the
-          navigation scope of this web application's <a>application
-          context</a>.
+          [=manifest/navigation scope=] of this web application's
+          <a>application context</a>.
         </p>
         <p>
           The steps for <dfn>processing the <code>scope</code> member</dfn> is
@@ -1499,11 +1492,12 @@
               </li>
             </ul>
           </li>
-          <li>If <var>start URL</var> is not <a>within scope</a> of scope URL:
+          <li>If <var>start URL</var> is not [=URL/within scope=] of |scope
+          URL|:
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the start URL is not
-                <a>within scope</a> of the scope URL.
+                [=URL/within scope=] of the |scope URL|.
               </li>
               <li>Return <var>default</var>.
               </li>
@@ -2009,7 +2003,7 @@
               URL</var> as the base URL. If the result is failure, <a>issue a
               developer warning</a> and [=iteration/continue=].
               </li>
-              <li>If <var>shortcut</var>["url"] is not <a>within scope</a> of
+              <li>If <var>shortcut</var>["url"] is not [=URL/within scope=] of
               <var>manifest URL</var>, <a>issue a developer warning</a> and
               [=iteration/continue=].
               </li>
@@ -2263,13 +2257,13 @@
           <li>Return |purposes|.
           </li>
         </ol>
-        <div class="example">
+        <aside class="example">
           <p>
             In the following example, the web application is listing two icons
             to be used as a monochrome icon, one of which is specifically
             designed for the Android platform.
           </p>
-          <pre class="example json">
+          <pre class="json">
             {
               "name": "News",
               "icons": [{
@@ -2285,7 +2279,7 @@
               }]
             }
           </pre>
-        </div>
+        </aside>
       </section>
       <section id="icon-masks">
         <h2>
@@ -2519,10 +2513,10 @@
               </li>
               <li>If |purpose| is failure, [=iteration/continue=].
               </li>
-              <li>Set |image|'s {ManifestImageResource\purpose} to |purpose|.
+              <li>Set |image|'s {{ManifestImageResource/purpose}} to |purpose|.
               </li>
-              <li>Set |image|'s {ManifestImageResource\platform} to the value
-              of |entry|'s {ManifestImageResource\platform} member.
+              <li>Set |image|'s {{ManifestImageResource/platform}} to the value
+              of |entry|'s {{ManifestImageResource/platform}} member.
               </li>
               <li>[=list/Append=] |image| to |imageResources|.
               </li>
@@ -2590,10 +2584,24 @@
           <code>url</code> member
         </h3>
         <p>
-          The <dfn>url</dfn> member of a <a>ShortcutItem</a> is the <a>URL</a>
-          <a data-lt="within scope of a manifest">within the application's
-          scope</a> that opens when the associated shortcut is activated.
+          The <dfn>url</dfn> member of a <a>ShortcutItem</a> is a URL
+          [=manifest/within scope=] of a [=processed manifest=] that opens when
+          the associated shortcut is activated.
         </p>
+        <section>
+          <h4>
+            Privacy and security considerations
+          </h4>
+          <p>
+            It's conceivable that any {{ShortcutItem/url}} could be crafted to
+            indicate that the application was launched from outside the browser
+            (e.g., `"url": "/task/?from=homescreen"`). It is also conceivable
+            that developers could encode strings into the {{ShortcutItem/url}}
+            that uniquely identify the user (e.g., a server assigned
+            <abbr>UUID</abbr>). This is fingerprinting/privacy sensitive
+            information that the user might not be aware of.
+          </p>
+        </section>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
         <h3>
@@ -2724,7 +2732,7 @@
         <code>platform</code> and either an <code>url</code> or an
         <code>id</code> (or both).
       </p>
-      <div class="example">
+      <aside class="example">
         <p>
           In the following example, the web application is listing two
           different related applications, one on Google Play Store and the
@@ -2733,7 +2741,7 @@
           cryptographic fingerprints used for verification, in a
           Play-Store-specific manner.
         </p>
-        <pre class="example json">
+        <pre class="json">
           {
             "related_applications": [
               {
@@ -2755,7 +2763,7 @@
             ]
           }
         </pre>
-      </div>
+      </aside>
       <p class="issue">
         Where should the <code>platform</code> expected value be listed?
       </p>
