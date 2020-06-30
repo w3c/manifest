@@ -108,7 +108,7 @@
       }
     </style>
   </head>
-  <body data-cite="ENCODING SCREEN-ORIENTATION">
+  <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5">
     <section id='abstract'>
       <p>
         This specification defines a JSON-based file format that provides
@@ -1749,7 +1749,7 @@
         </p>
         <p>
           Implementors MAY override the value defined by the <a>theme_color</a>
-          member to support a <a>user-preferred color scheme</a>.
+          member to support <a data-xref-type="css-descriptor" data-xref-for="@media">prefers-color-scheme</a>.
         </p>
       </section>
       <section>
@@ -1843,8 +1843,8 @@
         </p>
         <p>
           Implementors MAY override the value defined by the
-          {{WebAppManifest/background_color}} member to support a
-          <a>user-preferred color scheme</a>.
+          {{WebAppManifest/background_color}} member to support
+          <a data-xref-type="css-descriptor" data-xref-for="@media">prefers-color-scheme</a>.
         </p>
       </section>
       <section>
@@ -3388,15 +3388,6 @@
               <a data-cite=
               "ECMASCRIPT#sec-ecmascript-data-types-and-values"><dfn data-dfn-for="">
               Type</dfn>(<var>x</var>)</a>
-            </li>
-          </ul>
-        </li>
-        <li>[[MEDIAQUERIES-5]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite=
-              "MEDIAQUERIES-5#prefers-color-scheme"><dfn data-dfn-for=
-              "">user-preferred color scheme</dfn></a>
             </li>
           </ul>
         </li>
