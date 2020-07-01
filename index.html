@@ -11,7 +11,7 @@
     var respecConfig = {
       mdn: true,
       previousPublishDate: "2013-12-17",
-      specStatus: "LD",
+      specStatus: "ED",
       shortName: "appmanifest",
       prevVersion: "FPWD",
       previousMaturity: "WD",
@@ -24,7 +24,7 @@
       ],
       editors: [
         {
-          name: "Marcos Caceres",
+          name: "Marcos Cáceres",
           company: "Mozilla Corporation",
           companyURL: "https://mozilla.org/",
           w3cid: 39125,
@@ -60,33 +60,7 @@
           w3cid: 43672,
         },
       ],
-      wg: "Web Applications Working Group",
-      wgURI: "https://www.w3.org/2019/webapps/",
-      wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status",
-      otherLinks: [
-        {
-          key: "Implementation status",
-          data: [
-            {
-              value: "Blink",
-              href: "https://www.chromestatus.com/feature/6488656873259008",
-            },
-            {
-              value: "EdgeHTML",
-              href:
-                "https://developer.microsoft.com/en-us/microsoft-edge/platform/status/webapplicationmanifest/",
-            },
-            {
-              value: "Gecko",
-              href: "https://bugzilla.mozilla.org/show_bug.cgi?id=997779",
-            },
-            {
-              value: "WebKit",
-              href: "https://bugs.webkit.org/show_bug.cgi?id=158205",
-            },
-          ],
-        },
-      ],
+      group: "webapps",
       github: "https://github.com/w3c/manifest/",
       caniuse: {
         feature: "web-app-manifest",
@@ -100,7 +74,7 @@
           "ios_saf",
         ],
       },
-      xref: "web-platform"
+      xref: "web-platform",
     };
     </script>
     <style>
@@ -115,34 +89,39 @@
         flex-wrap: wrap;
       }
 
-      .icons > div {
+      .icons > figure {
         text-align: left;
+        margin: 0;
         padding: 10px;
         width: 188px;
       }
 
-      .icons > div > img {
+      .icons > figure > img {
         width: 188px;
         height: 188px;
         min-width: 188px;
         min-height: 188px;
       }
+
+      .icons > figure .icon-title {
+        display: block;
+      }
     </style>
   </head>
-  <body data-cite="ENCODING">
+  <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5">
     <section id='abstract'>
       <p>
-        This specification defines a JSON-based manifest file that provides
+        This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
         application's name, links to icons, as well as the preferred URL to
         open when a user launches the web application. The manifest also allows
-        developers to declare a default orientation for their web application,
-        as well as providing the ability to set the display mode for the
-        application (e.g., in fullscreen). Additionally, the manifest allows a
-        developer to "scope" a web application to a URL. This restricts the
-        URLs to which the manifest is applied and provides a means to "deep
-        link" into a web application from other applications.
+        developers to declare a default screen orientation for their web
+        application, as well as providing the ability to set the display mode
+        for the application (e.g., in fullscreen). Additionally, the manifest
+        allows a developer to "scope" a web application to a URL. This
+        restricts the URLs to which the manifest is applied and provides a
+        means to "deep link" into a web application from other applications.
       </p>
       <p>
         Using this metadata, user agents can provide developers with means to
@@ -260,7 +239,7 @@
         <div class="note" title="manifest.webmanifest or manifest.json?">
           The official file extension for the manifest is `.webmanifest`. Some
           web servers recognize this extension and transfer the file using the
-          standardized <a>MIME type for a manifest</a>
+          standardized <a>application manifest MIME type</a>
           (`application/manifest+json`). Developers can also choose a different
           extension (e.g. `.json`) or none at all (e.g. `/api/GetManifest`),
           but are strongly encouraged to transfer the manifest using the
@@ -273,15 +252,17 @@
         Installable web applications
       </h2>
       <p>
-        A common use case of a manifest is for a user agent to <dfn data-lt=
-        "installing|installed|installation" data-export="">install</dfn> a web
-        application; whereby the user agent provides the end-user with a means
-        of instantiating a new <a>top-level browsing context</a> that has the
-        manifest's members <a>applied</a> to it. That is, the manifest's
-        members, or their defaults, are in effect on the <a>top-level browsing
-        context</a>. This distinguishes an installed web application from a
-        traditional bookmark, as opening a web page from a traditional bookmark
-        will not have the manifest's properties <a>applied</a> to it.
+        A common use case of a manifest is for a user agent to
+        <dfn data-local-lt="installing|installation" data-lt=
+        "installed">install</dfn> a web application; whereby the user agent
+        provides the end-user with a means of instantiating a new <a>top-level
+        browsing context</a> that has the manifest's members <a>applied</a> to
+        it. A web application that is installed is known as a <dfn data-export=
+        "">installed web application</dfn>. That is, the manifest's members, or
+        their defaults, are in effect on the <a>top-level browsing context</a>.
+        This distinguishes an installed web application from a traditional
+        bookmark, as opening a web page from a traditional bookmark will not
+        have the manifest's properties <a>applied</a> to it.
       </p>
       <p>
         For example, on user agents that support installation, a web
@@ -297,7 +278,7 @@
         application into a list of bookmarks within the user agent itself.
       </p>
       <p>
-        A {{Document}} may either be <dfn>installable</dfn> or not. The initial
+        A [=document=] may either be <dfn>installable</dfn> or not. The initial
         state of a document is not <a>installable</a>.
       </p>
       <p>
@@ -310,24 +291,23 @@
         </li>
         <li>If <a>obtaining the manifest</a> results in an error, the user
         agent MAY either:
-          <ol>
+          <ul>
             <li>Fall back to using the <a>top-level browsing context</a>
-            {{Document}}'s metadata to to populate <var>manifest</var> in a
+            {{Document}}'s metadata to populate <var>manifest</var> in a
             user-agent-specific way (e.g., setting
-            |manifest|["{{WebAppManifest/name}}"] to the document
-              <a data-cite="HTML#the-title-element">`title`</a>) and
-              considering the document <a>installable</a>.
+            |manifest|["{{WebAppManifest/name}}"] to the document [^title^])
+            and considering the document <a>installable</a>.
             </li>
             <li>Or, consider the document not <a>installable</a>.
             </li>
-          </ol>
+          </ul>
         </li>
         <li>Otherwise, if |manifest|["{{WebAppManifest/start_url}}"] is not
         present, or not <a>same origin</a> as the {{Document}}'s
         {{Document/URL}}, consider the document not <a>installable</a>.
         </li>
-        <li>Otherwise, the {{Document}} MAY be considered <a>installable</a>
-        (at the user agent's discretion; see [[[#installability-signals]]]).
+        <li>Otherwise, at its discretion, the user agent MAY consider the
+        {{Document}} <a>installable</a> (see [[[#installability-signals]]]).
         </li>
       </ol>
       <section>
@@ -374,148 +354,19 @@
         </p>
       </section>
       <section>
-        <h3>
-          Installation process
-        </h3>
-        <p>
-          The <dfn>steps to install the web application</dfn> are given by the
-          following algorithm:
-        </p>
-        <ol>
-          <li>Let <var>manifest</var> be the manifest value created during <a>
-            steps to determine installability of the document</a>.
-          </li>
-          <li>Perform an unspecified sequence of actions to attempt to register
-          the web application in the user's operating system (e.g., create
-          shortcuts that launch the web application, register the application
-          in the system uninstall menu, etc.). If the installation fails (which
-          can be for any reason, for example, the OS denying permission to the
-          user agent to add an icon to the home screen of the device), abort
-          these steps.
-          </li>
-          <li>
-            <a>Queue a task</a> on the <a>application life-cycle task
-            source</a> to <a>fire an event</a> named <code>appinstalled</code>
-            at the the {{Window}} object of the <a>top-level browsing
-            context</a> for which the installation took place.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <!-- TODO(mgiuca): Move this section up above Installation process. (In
-             a separate PR; otherwise it would be too hard to review.) -->
-        <h2>
-          Install prompts
-        </h2>
-        <p>
-          There are multiple ways that the installation process can be
-          triggered:
-        </p>
-        <ul>
-          <li>An end-user can <dfn data-lt="manual installation">manually</dfn>
-          trigger the installation process through the user agent's
-            <abbr title="User Interface">UI</abbr>, directly invoking the steps
-            to <a>present an install prompt</a>.
-          </li>
-          <li>The installation process can occur through an <dfn>automated
-          install prompt</dfn>: that is, a UI that the user agent presents to
-          the user when, for instance, there are sufficient <a>installability
-          signals</a> to warrant <a>installation</a> of the web application.
-          </li>
-          <li>The installation process can occur through a <dfn>site-triggered
-          install prompt</dfn>: the site can programmatically request that the
-          user agent present an install prompt to the user. The user agent MAY
-          restrict the availability of this feature to cases where, for
-          instance, there are sufficient <a>installability signals</a> to
-          warrant <a>installation</a> of the web application.
-          </li>
-        </ul>
-        <p>
-          In any case, the user agent MUST NOT <a>present an install prompt</a>
-          if the document is not <a>installable</a>.
-        </p>
-        <p>
-          Prior to presenting an <a>automated install prompt</a>, a user agent
-          MUST run the <a>steps to notify that an install prompt is
-          available</a>, to give the site the opportunity to prevent the
-          default action (which is to install the application). Alternatively,
-          the user agent MAY, at any time (only if the document is
-          <a>installable</a>), run the <a>steps to notify that an install
-          prompt is available</a> at any time, giving the site the opportunity
-          to show a <a>site-triggered install prompt</a> without automatically
-          showing the prompt.
-        </p>
-        <p>
-          To <dfn data-lt=
-          "presenting an install prompt|presentation of the install prompt">present
-          an install prompt</dfn>:
-        </p>
-        <ol>
-          <li>Show some user-agent-specific UI, asking the user whether to
-          proceed with installing the app. See <a href=
-          "#installation-sec">privacy and security considerations</a> for
-          recommendations relating to this UI. The <var>result</var> of this
-          choice is either <a data-link-for=
-          "AppBannerPromptOutcome">accepted</a> or <a data-link-for=
-          "AppBannerPromptOutcome">dismissed</a>.
-          </li>
-          <li>Return <var>result</var>, and <a>in parallel</a>:
-            <ol>
-              <li>If <var>result</var> is <a data-link-for=
-              "AppBannerPromptOutcome">accepted</a>, run the <a>steps to
-              install the web application</a>.
-              </li>
-            </ol>
-          </li>
-        </ol>
-        <p>
-          The <dfn>steps to notify that an install prompt is available</dfn>
-          are given by the following algorithm:
-        </p>
-        <ol>
-          <li>Wait until the {{Document}} of the <a>top-level browsing
-          context</a> is <a>completely loaded</a>.
-          </li>
-          <li>If there is already an <a data-lt=
-          "present an install prompt">install prompt being presented</a> or if
-          the <a>steps to install the web application</a> are currently being
-          executed, then abort this step.
-          </li>
-          <li>
-            <a>Queue a task</a> on the <a>application life-cycle task
-            source</a> to do the following:
-            <ol>
-              <li>Let <var>event</var> be a newly constructed
-              <a>BeforeInstallPromptEvent</a> named
-              <code>beforeinstallprompt</code>, with its
-              <code>cancelable</code> attribute initialized to true.
-              </li>
-              <li>Let <var>mayShowPrompt</var> be the result of <a>firing</a>
-              <var>event</var> at the {{Window}} object of the <a>top-level
-              browsing context</a>.
-              </li>
-              <li>If <var>mayShowPrompt</var> is true, then the user agent MAY,
-              <a>in parallel</a>, <a>request to present an install prompt</a>
-              with <var>event</var>.
-              </li>
-            </ol>
-          </li>
-        </ol>
-      </section>
-      <section>
         <h3 id="installation-sec">
           Privacy and security considerations
         </h3>
         <p>
-          During the <a>presentation of the install prompt</a>, it is
-          RECOMMENDED that the user agent allow the end-user to inspect the
-          icon, name, <a>start URL</a>, origin, etc. pertaining to a web
-          application. This is to give an end-user an opportunity to make a
-          conscious decision to approve, and possibly modify, the information
-          pertaining to the web application before installing it. This also
-          gives the end-user an opportunity to discern if the web application
-          is spoofing another web application, by, for example, using an
-          unexpected icon or name.
+          It is RECOMMENDED that UI that affords the end user the ability to
+          <a>install</a> a web application also allows inspecting the icon,
+          name, <a>start URL</a>, origin, etc. pertaining to a web application.
+          This is to give an end-user an opportunity to make a conscious
+          decision to approve, and possibly modify, the information pertaining
+          to the web application before installing it. This also gives the
+          end-user an opportunity to discern if the web application is spoofing
+          another web application, by, for example, using an unexpected icon or
+          name.
         </p>
         <p>
           It is RECOMMENDED that user agents prevent other applications from
@@ -572,8 +423,8 @@
           Uninstallation
         </h3>
         <p>
-          User agents SHOULD provide a mechanism for the user to remove the
-          installed application.
+          User agents SHOULD provide a mechanism for the user to remove an
+          <a>installed web application</a> application.
         </p>
         <p>
           It is RECOMMENDED that at the time of removal, the user agent also
@@ -583,259 +434,16 @@
         </p>
       </section>
     </section>
-    <section class="atrisk">
-      <h2>
-        Installation Events
-      </h2>
-      <p>
-        Installation events and supporting the {{BeforeInstallPrompt}} is
-        OPTIONAL.
-      </p>
-      <p>
-        DOM events <a>fired</a> by this specification use the <dfn>application
-        life-cycle task source</dfn>.
-      </p>
-      <section data-dfn-for="BeforeInstallPromptEvent" data-link-for=
-      "BeforeInstallPromptEvent">
-        <h3>
-          <dfn>BeforeInstallPromptEvent</dfn> Interface
-        </h3>
-        <div class="note">
-          The <a>beforeinstallprompt</a> event is somewhat misnamed, as it does
-          not necessarily signal that an <a>automated install prompt</a> will
-          follow (depending on the user agent, it might just be giving the site
-          the ability to trigger an install prompt). It is so named for
-          historical reasons.
-        </div>
-        <pre class="idl" data-cite="DOM">
-          [Exposed=Window]
-          interface BeforeInstallPromptEvent : Event {
-            constructor(DOMString type, optional EventInit eventInitDict = {});
-            Promise&lt;PromptResponseObject&gt; prompt();
-          };
-
-          dictionary PromptResponseObject {
-            AppBannerPromptOutcome userChoice;
-          };
-
-          enum AppBannerPromptOutcome {
-            "accepted",
-            "dismissed"
-          };
-        </pre>
-        <p>
-          The <a>BeforeInstallPromptEvent</a> is dispatched when the site is
-          allowed to present a <a>site-triggered install prompt</a>, or prior
-          to the user agent presenting an <a>automated install prompt</a>. It
-          allows the site to cancel the <a>automated install prompt</a>, as
-          well as manually present the <a>site-triggered install prompt</a>.
-        </p>
-        <div class="note">
-          If the <a>BeforeInstallPromptEvent</a> is <em>not</em> cancelled, the
-          user agent is allowed to <a>present an install prompt</a>
-          (specifically, an <a>automated install prompt</a>) to the end-user.
-          Canceling the default action (via <a data-cite=
-          "DOM#dom-event-preventdefault">preventDefault</a>) prevents the user
-          agent from <a>presenting an install prompt</a>. The user agent is
-          free to run <a>steps to notify that an install prompt is
-          available</a> again at a later time.
-        </div>
-        <p data-dfn-for="PromptResponseObject">
-          The <dfn>PromptResponseObject</dfn> contains the result of calling
-          <a data-lt="BeforeInstallPromptEvent.prompt()">prompt()</a>. It
-          contains one member, <dfn data-link-for=
-          "PromptResponseObject">userChoice</dfn>, which states the user's
-          chosen outcome.
-        </p>
-        <p>
-          An instance of a <a>BeforeInstallPromptEvent</a> has the following
-          internal slots:
-        </p>
-        <dl>
-          <dt>
-            <dfn>[[\didPrompt]]</dfn>
-          </dt>
-          <dd>
-            A boolean, initially <code>false</code>. Represents whether this
-            event was used to <a>present an install prompt</a> to the end-user.
-          </dd>
-          <dt>
-            <dfn>[[\userResponsePromise]]</dfn>
-          </dt>
-          <dd>
-            A promise that represents the outcome of <a>presenting an install
-            prompt</a>.
-          </dd>
-        </dl>
-        <section>
-          <h4>
-            <code>prompt()</code> method
-          </h4>
-          <p>
-            The <dfn>prompt</dfn> method, when called, runs the following
-            steps:
-          </p>
-          <ol>
-            <li>If <var>this</var>.<a>[[\userResponsePromise]]</a> is pending:
-              <ol>
-                <li>If this event's <a data-cite=
-                "DOM#dom-event-istrusted"><code>isTrusted</code></a> attribute
-                is <code>false</code>, reject
-                <var>this</var>.<a>[[\userResponsePromise]]</a> with
-                {{"NotAllowedError"}}, optionally informing the developer that
-                untrusted events can't call <code>prompt()</code>.
-                </li>
-                <li>Else if <var>this</var>.<a>[[\didPrompt]]</a> is
-                <code>false</code>, set <var>this</var>.<a>[[\didPrompt]]</a>
-                to <code>true</code>, then <a>in parallel</a>, <a>request to
-                present an install prompt</a> with this event. Wait, possibly
-                indefinitely, for the end-user to make a choice.
-                </li>
-              </ol>
-            </li>
-            <li>Return <var>this</var>.<a>[[\userResponsePromise]]</a>.
-            </li>
-          </ol>
-          <p>
-            To <dfn data-noexport="">request to present an install prompt</dfn>
-            with <a>BeforeInstallPromptEvent</a> <var>event</var>:
-          </p>
-          <ol>
-            <li>
-              <a>Present an install prompt</a> and let <var>outcome</var> be
-              the result.
-            </li>
-            <li>Resolve <var>event</var>.<a>[[\userResponsePromise]]</a> with a
-            newly created <a>PromptResponseObject</a> whose <a data-link-for=
-            "PromptResponseObject">userChoice</a> member is the value of <var>
-              outcome</var>.
-            </li>
-          </ol>
-        </section>
-        <section class="informative">
-          <h4>
-            Usage example
-          </h4>
-          <p>
-            This example shows how one might prevent an automated install
-            prompt from showing until the user clicks a button to show a
-            <a>site-triggered install prompt</a>. In this way, the site can
-            leave installation at the user's discretion (rather than prompting
-            at an arbitrary time), whilst still providing a prominent UI to do
-            so.
-          </p>
-          <pre class="example" title=
-          "Using beforeinstallprompt to present an install button">
-            window.addEventListener("beforeinstallprompt", event =&gt; {
-              // Suppress automatic prompting.
-              event.preventDefault();
-
-              // Show the (disabled-by-default) install button. This button
-              // resolves the installButtonClicked promise when clicked.
-              installButton.disabled = false;
-
-              // Wait for the user to click the button.
-              installButton.addEventListener("click", async e =&gt; {
-                // The prompt() method can only be used once.
-                installButton.disabled = true;
-
-                // Show the prompt.
-                const { userChoice } = await event.prompt();
-                console.info(`user choice was: ${userChoice}`);
-              });
-            });
-          </pre>
-        </section>
-        <section data-dfn-for="AppBannerPromptOutcome">
-          <h4>
-            <code>AppBannerPromptOutcome</code> enum
-          </h4>
-          <p>
-            The <dfn>AppBannerPromptOutcome</dfn> enum's values represent the
-            outcomes from <a>presenting an install prompt</a>.
-          </p>
-          <dl data-dfn-for="AppBannerPromptOutcome">
-            <dt>
-              <dfn>accepted</dfn>:
-            </dt>
-            <dd>
-              The end-user indicated that they would like the user agent to
-              <a>install</a> the web application.
-            </dd>
-            <dt>
-              <dfn>dismissed</dfn>:
-            </dt>
-            <dd>
-              The end-user dismissed the install prompt.
-            </dd>
-          </dl>
-        </section>
-      </section>
-      <section>
-        <h3>
-          Extensions to the <code>Window</code> object
-        </h3>
-        <p>
-          The following extensions to the <code><dfn data-cite=
-          "HTML/window-object.html#window">Window</dfn></code> object specify
-          the <a>event handler idl attribute</a> on which events relating to
-          the <a>installation</a> of a web application are <a>fired</a>.
-        </p>
-        <pre class="idl" data-cite="HTML">
-          partial interface Window {
-            attribute EventHandler onappinstalled;
-            attribute EventHandler onbeforeinstallprompt;
-          };
-        </pre>
-        <pre class="example js" title=
-        "Two ways of handling the 'appinstalled' event">
-          function handleInstalled(ev) {
-            const date = new Date(ev.timeStamp / 1000);
-            console.log(`Yay! Our app got installed at ${date.toTimeString()}.`);
-          }
-
-          // Using the event handler IDL attribute
-          window.onappinstalled = handleInstalled;
-
-          // Using .addEventListener()
-          window.addEventListener("appinstalled", handleInstalled);
-        </pre>
-        <section data-dfn-for="Window">
-          <h4>
-            <code>onappinstalled</code> attribute
-          </h4>
-          <p>
-            The <dfn>onappinstalled</dfn> is an <a>event handler IDL
-            attribute</a> for the "<dfn>appinstalled</dfn>" event type. The
-            interface used for these events is the <a><code>Event</code>
-            interface</a> [[DOM]]. This event is dispatched as a result of a
-            successful installation (see the <a>steps to install the web
-            application</a>).
-          </p>
-        </section>
-        <section data-dfn-for="Window">
-          <h4>
-            <code>onbeforeinstallprompt</code> attribute
-          </h4>
-          <p>
-            The <dfn>onbeforeinstallprompt</dfn> is an <a>event handler IDL
-            attribute</a> for the "<dfn>beforeinstallprompt</dfn>" event type.
-            The interface used for these events is the
-            <a>BeforeInstallPromptEvent</a> interface (see the <a>steps to
-            notify that an install prompt is available</a>).
-          </p>
-        </section>
-      </section>
-    </section>
     <section>
       <h2>
         Navigation scope
       </h2>
       <p data-link-for="WebAppManifest">
-        A <dfn>navigation scope</dfn> is a <a>URL</a> that represents the set
-        of URLs to which an <a>application context</a> can be navigated while
-        the manifest is <a>applied</a>. The <a>navigation scope</a> of a
-        manifest <var>manifest</var> is <var>manifest</var>["<a>scope</a>"].
+        The <dfn data-dfn-for="manifest" data-lt="navigation scope"
+        data-export="">navigation scope of a manifest</dfn> is the
+        {{WebAppManifest/scope}} member of a [=processed manifest=]. The
+        navigation scope restricts the set of URLs to which an [=application
+        context=] can be [=navigated=] while the manifest is [=applied=].
       </p>
       <div class="note" data-link-for="WebAppManifest">
         <p>
@@ -848,37 +456,35 @@
           navigation scope will be <code>/pages/</code>.
         </p>
         <p>
-          Developers should take care, if they rely on the default behaviour,
+          Developers should take care, if they rely on the default behavior,
           that all of the application's page URLs begin with the parent path of
           the start URL. To be safe, explicitly specify <a>scope</a>.
         </p>
       </div>
       <p>
-        A <a>URL</a> <var>target</var> is said to be <dfn>within scope</dfn> of
-        <a>navigation scope</a> <var>scope</var> if the following algorithm
-        returns <code>true</code>:
+        A [=URL=] |target:URL| is said to be <dfn data-dfn-for="URL"
+        data-export="">within scope</dfn> of [=URL=] |scope:URL| if the
+        following algorithm returns `true`:
       </p>
-      <ol>
-        <li>Let <var>scopePath</var> be the [=string/concatenation=] of
-        <var>scopes</var>'s <a data-cite="URL#concept-url-path">path</a>, using
-        U+002F (/).
+      <ol class="algorithm">
+        <li>If |target| and |scope| are not [=same origin=], return `false`.
         </li>
-        <li>Let <var>targetPath</var> be the [=string/concatenation=] of <var>
-          target</var>'s <a data-cite="URL#concept-url-path">path</a>, using
-          U+002F (/).
+        <li>Let |scopePath:string| be the [=string/concatenation=] of
+        |scopes|'s [=URL/path=] using U+002F (/) as the separator.
         </li>
-        <li>If <var>target</var> is <a>same origin</a> as <var>scope</var> and
-        <var>targetPath</var> starts with <var>scopePath</var>, return
-        <code>true</code>.
+        <li>Let |targetPath:string| be the [=string/concatenation=] of
+        |target|'s [=URL/path=] using U+002F (/) as the separator.
         </li>
-        <li>Otherwise, return <code>false</code>.
+        <li>Return a [=boolean=] indicating whether |targetPath| starts with
+        |scopePath:string|.
         </li>
       </ol>
       <p>
-        A <a>URL</a> <var>target</var> is said to be <dfn data-lt=
-        "within-scope-manifest">within scope of a manifest</dfn>
-        <var>manifest</var> if <var>target</var> is <a>within scope</a> of the
-        navigation scope of <var>manifest</var>.
+        A [=URL=] |target:URL| is <dfn data-dfn-for="manifest" data-lt=
+        "within scope" data-export="">within scope</dfn> of a
+        |manifest:processed manifest| if the |target| is [=URL/within scope=]
+        of |manifest|'s [=manifest/navigation scope=] (i.e., [=URL/within
+        scope=] of |manifest|'s {{WebAppManifest/scope}} member).
       </p>
       <div class="note" title="Scope is a simple string match">
         The URL string matching in this algorithm is prefix-based rather than
@@ -890,21 +496,20 @@
         unexpected behavior, use a scope ending in a <code>/</code>.
       </div>
       <p>
-        If the <a>application context</a>'s <a>active document</a>'s
-        [=Document/URL=] is not <a data-lt="within-scope-manifest">within
-        scope</a> of the <a>application context</a>'s manifest, the user agent
-        SHOULD show a prominent UI element indicating the [=Document/URL=] or
-        at least its <a>origin</a>, including whether it is served over a
-        secure connection. This UI SHOULD differ from any UI used when the
-        [=Document/URL=] is <a>within scope</a>, in order to make it obvious
-        that the user is navigating off scope.
+        If the [=application context=]'s [=active document=]'s [=Document/URL=]
+        is not [=manifest/within scope=] of the [=application context=]'s
+        [=processed manifest=], the user agent SHOULD show a prominent UI
+        element indicating the [=Document/URL=] or at least its [=origin=],
+        including whether it is served over a secure connection. This UI SHOULD
+        differ from any UI used when the [=Document/URL=] is [=manifest/within
+        scope=] of the [=application context=]'s [=processed manifest=], in
+        order to make it obvious that the user is navigating off scope.
       </p>
       <div class="note">
         <p>
           Nothing prevents an <a>application context</a> from navigating to a
-          <a>URL</a> that is outside of the application's <a>navigation
-          scope</a>, while still having the <a>manifest</a> <a>applied</a> to
-          it.
+          <a>URL</a> that is outside of the manifest's [=manifest/navigation
+          scope=], while still having the <a>manifest</a> <a>applied</a> to it.
         </p>
         <p>
           Unlike previous versions of this specification, user agents are no
@@ -915,7 +520,7 @@
           "https://github.com/w3c/manifest/issues/646">Issue 646</a>.
         </p>
       </div>
-      <section data-link-for="DisplayModeType">
+      <section data-link-for="DisplayModeType" class="informative">
         <h3 id="navigation-scope-security-considerations">
           Security considerations
         </h3>
@@ -925,15 +530,26 @@
           security reasons. It ensures that users are always aware of which
           <a>origin</a> they are interacting with.
         </p>
+        <p>
+          Despite this, there is still a potential spoofing risk, if an
+          installed app pretends to navigate to an out-of-scope site on another
+          <a>origin</a>. The site shows a fake version of the user agent's
+          prominent out-of-scope UI, indicating to the user that it is on
+          another origin. However, in reality, the user has never navigated
+          away from the installed app's origin, and the user agent is not
+          showing any out-of-scope UI. User agents could try to show the
+          out-of-scope UI in a way that cannot be spoofed by the installed app.
+          However, due to the nature of the user agent's UI being minimal or
+          non-existent for installed apps, this may not be possible.
+        </p>
       </section>
       <section>
         <h3>
           Deep links
         </h3>
         <p>
-          A <dfn>deep link</dfn> is a URL that is <a data-lt=
-          "within-scope-manifest">within scope</a> of an <a>installed</a> web
-          application's manifest.
+          A <dfn>deep link</dfn> is a URL that is [=manifest/within scope=] of
+          an [=installed web application=]'s [=processed manifest=].
         </p>
         <p>
           An <a>application context</a> can be instantiated through a <a>deep
@@ -943,13 +559,13 @@
         <div class="note">
           <p>
             The concept of a <a>deep link</a> is useful in that it allows
-            hyperlinking from one installed application to another. This can be
-            from a native application to an <a>installed</a> web application
-            (and possibly vice versa!). Theoretically, this can provide
-            seamless context switching between native and web applications
-            through standard hyperlinks. And in the case where a particular web
-            application is not <a>installed</a>, the OS can just open the link
-            in the user's preferred web browser.
+            hyperlinking from one <a>installed web application</a> to another.
+            This can be from a native application to an <a>installed web
+            application</a> (and possibly vice versa!). Theoretically, this can
+            provide seamless context switching between native and web
+            applications through standard hyperlinks. And in the case where a
+            particular web application is not <a>installed</a>, the OS can just
+            open the link in the user's preferred web browser.
           </p>
           <p>
             Implementers are encouraged make such context switching obvious to
@@ -1286,9 +902,9 @@
           </tbody>
         </table>
         <p>
-          The <a>MIME type for a manifest</a> serves as the default
+          The <a>application manifest MIME type</a> serves as the default
           <a data-cite="mimesniff">MIME type</a> for resources associated with
-          the "<code>manifest</code>" <a>link type</a>.
+          the "<code>manifest</code>" link type.
         </p>
         <p class="note">
           In cases where more than one [^link^] element with a
@@ -1305,7 +921,7 @@
           implementations. A user agent MAY opt to delay fetching a manifest
           until after the document and its other resources have been fully
           loaded (i.e., to not delay the availability of content and scripts
-          required by the <a>document</a>).
+          required by the <a data-cite="DOM">document</a>).
         </p>
         <p>
           A <a>manifest</a> is obtained and applied regardless of the
@@ -1352,15 +968,18 @@
           <li>If <var>manifest link</var>'s <code>href</code> attribute's value
           is the empty <a>string</a>, then abort these steps.
           </li>
-          <li>Let <var>manifest URL</var> be the result of <a>parsing</a> the
-          value of the <code>href</code> attribute, relative to <a>the
-          element's base URL</a>. If parsing fails, then abort these steps.
+          <li>Let <var>manifest URL</var> be the result of [=URL
+          Parser|parsing=] the value of the <code>href</code> attribute,
+          relative to the [=document base URL=]. If parsing fails, then abort
+          these steps.
           </li>
           <li>Let |request:Request| be a new <a>Request</a>.
           </li>
           <li>Set |request|'s [=request/URL=] to |manifest URL|.
           </li>
           <li>Set |request|'s [=request/initiator=] to "`manifest`".
+          </li>
+          <li>Set |request|'s [=request/destination=] to "`manifest`".
           </li>
           <li>If the |manifest link|'s {{HTMLLinkElement/crossOrigin}}
           attribute's value is "`use-credentials`", then set |request|'s
@@ -1457,21 +1076,19 @@
         <p class="issue">
           We need to catch throws associated with enumerations in IDL
           conversion as the spec might gain new values over time not supported
-          by all exising browsers. This is especially important as we rely on
+          by all existing browsers. This is especially important as we rely on
           enums not defined in this specification.
         </p>
         <ol>
-          <li>Let <var>json</var> be the result of <a data-cite=
-          "ECMASCRIPT#sec-json.parse">parsing</a> <var>text</var>. If
-          <a data-cite="ECMASCRIPT#sec-json.parse">parsing</a> throws an error:
+          <li>Let <var>json</var> be the result of [=parse JSON from bytes=]
+          <var>text</var>. If parsing throws an error:
             <ol>
               <li>
                 <a>Issue a developer warning</a> with any details pertaining to
                 the JSON parsing error.
               </li>
-              <li>Set <var>json</var> to be the result of <a data-cite=
-              "ECMASCRIPT#sec-15.12.2">parsing</a> the <a>string</a>
-              <code>"{}"</code>.
+              <li>Set <var>json</var> to an empty [=object=] (i.e., equivalent
+              of JSON parsing the string `"{}"`).
               </li>
             </ol>
           </li>
@@ -1481,15 +1098,14 @@
                 <a>Issue a developer warning</a> that the manifest needs to be
                 an object.
               </li>
-              <li>Set <var>json</var> to be the result of <a data-cite=
-              "ECMASCRIPT#sec-15.12.2">parsing</a> the <a>string</a>
-              <code>"{}"</code>.
+              <li>Set <var>json</var> to an empty [=object=] (i.e., equivalent
+              of JSON parsing the string `"{}"`).
               </li>
             </ol>
           </li>
-          <li>Let <var>manifest</var> be the result of <a data-lt=
-          "to idl dictionary value">converting</a> <var>json</var> to a
-          <a>WebAppManifest</a> dictionary.
+          <li>Let <var>manifest</var> be the result of [=converted to an idl
+          value|converting=] <var>json</var> to a <a>WebAppManifest</a>
+          dictionary.
           </li>
           <li>Set <var>manifest</var>["<a>start_url</a>"] to the result of
           running <a>processing the <code>start_url</code> member</a> given
@@ -1505,25 +1121,24 @@
           <var>manifest</var>["<a>start_url</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>theme_color</a>"] to the result of
-          running <a>processing the <code>theme_color</code> member</a> given
+          running <a>processing a color member</a> given
           <var>manifest</var>["<a>theme_color</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>background_color</a>"] to the result
-          of running <a>processing the <code>background_color</code> member</a>
-          given <var>manifest</var>["<a>background_color</a>"].
+          of running <a>processing a color member</a> given
+          <var>manifest</var>["<a>background_color</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>categories</a>"] to the result of
           running <a>processing the <code>categories</code> member</a> given
           <var>manifest</var>["<a>categories</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>icons</a>"] to the result of running
-          <a>processing ImageResource members</a> given
+          <a>processing `ManifestImageResource` members</a> given
           <var>manifest</var>["<a>icons</a>"] and <var>manifest URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>screenshots</a>"] to the result of
-          running <a>processing ImageResource members</a> given
-          <var>manifest</var>["<a>screenshots</a>"] and <var>manifest
-          URL</var>.
+          running <a>processing `ManifestImageResource` members</a> given <var>
+            manifest</var>["<a>screenshots</a>"] and <var>manifest URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>related_applications</a>"] to the
           result of running <a>processing the <code>related_applications</code>
@@ -1574,8 +1189,8 @@
         </div>
         <p>
           The appropriate time to <a>apply</a> a manifest is when the
-          <a>application context</a> is created and before <a>navigation</a> to
-          the <a>start URL</a> begins.
+          <a>application context</a> is created and before
+          [=navigate|navigation=] to the <a>start URL</a> begins.
         </p>
       </section>
       <section id="updating">
@@ -1584,6 +1199,54 @@
         </h3>
         <div class="issue" data-number="446"></div>
       </section>
+    </section>
+    <section data-cite="CSS-COLOR-4 CSS-SYNTAX-3">
+      <h2>
+        Color parsing
+      </h2>
+      <p>
+        The steps for <dfn>processing a color member</dfn> are given by the
+        following algorithm. The algorithm takes a <a>USVString</a>
+        <var>potential color</var> as an argument. This algorithm returns a
+        `USVString` or `undefined`.
+      </p>
+      <ol>
+        <li>Let |color| be the result of [=CSS/parsing=] |potential color| as a
+        CSS color.
+        </li>
+        <li>If |color| is failure:
+          <ol>
+            <li>
+              <a>Issue a developer warning</a> that |potential color| is not a
+              valid CSS color.
+            </li>
+            <li>Return `undefined`.
+            </li>
+          </ol>
+        </li>
+        <li>If |color| is an [=sRGB=] color, then return |color|.
+        </li>
+        <li>If |color| can be converted to [=sRGB=] using solely information
+        the user agent inherently knows, then convert it to [=sRGB=], and
+        return the result. Otherwise:
+          <ol>
+            <li>
+              <a>Issue a developer warning</a> that |potential color| is not a
+              supported color value.
+            </li>
+            <li>Return `undefined`.
+            </li>
+          </ol>
+        </li>
+      </ol>
+      <p class="note" title="Supported colors">
+        Only [=sRGB=] colors, and colors the user agent can convert to [=sRGB=]
+        without any outside knowledge, are supported. For example, `lab(…)` or
+        `color(display-p3, …)` can be converted to [=sRGB=] without outside
+        knowledge, but `color(--custom-profile, …)` would require finding a
+        matching "@color-profile" rule which cannot be specified in the
+        manifest.
+      </p>
     </section>
     <section data-dfn-for="WebAppManifest" data-link-for="WebAppManifest">
       <h2>
@@ -1596,8 +1259,8 @@
              USVString name;
              USVString short_name;
              USVString description;
-             sequence&lt;ImageResource&gt; icons;
-             sequence&lt;ImageResource&gt; screenshots;
+             sequence&lt;ManifestImageResource&gt; icons;
+             sequence&lt;ManifestImageResource&gt; screenshots;
              sequence&lt;USVString&gt; categories;
              DOMString iarc_rating_id;
              USVString start_url;
@@ -1612,9 +1275,8 @@
           };
       </pre>
       <p>
-        A <dfn>manifest</dfn> is a JSON document that contains startup
-        parameters and application defaults for when a web application is
-        launched.
+        A <dfn data-export="" data-dfn-for="">manifest</dfn> is a JSON document
+        that is structured as defined by this specification.
       </p>
       <p>
         Every manifest has an associated <dfn>manifest URL</dfn>, which is the
@@ -1629,12 +1291,11 @@
         </pre>
         <p>
           The <dfn>dir</dfn> member specifies the <dfn>base direction</dfn> for
-          the <a>directionality-capable members</a> of the <a>manifest</a>. The
-          <a>dir</a> member's value can be set to one of the <a>text-direction
-          values</a>.
+          the <a>localizable members</a> of the <a>manifest</a>. The <a>dir</a>
+          member's value can be set to one of the <a>text-direction values</a>.
         </p>
         <p>
-          The <dfn>directionality-capable members</dfn> are:
+          The <dfn>localizable members</dfn> are:
         </p>
         <ul>
           <li>
@@ -1646,12 +1307,17 @@
           <li>
             <a>short_name</a> member.
           </li>
+          <li>{{ShortcutItem}}'s {{ShortcutItem/name}} member.
+          </li>
+          <li>{{ShortcutItem}}'s {{ShortcutItem/short_name}} member.
+          </li>
+          <li>{{ShortcutItem}}'s {{ShortcutItem/description}} member.
+          </li>
         </ul>
         <p>
           The <dfn data-lt="text-direction value">text-direction values</dfn>
           defined by <dfn>TextDirectionType</dfn>, are the following, implying
-          that the value of the <a>directionality-capable members</a> is by
-          default:
+          that the value of the <a>localizable members</a> is by default:
         </p>
         <dl data-dfn-for="TextDirectionType">
           <dt>
@@ -1674,8 +1340,8 @@
           </dd>
         </dl>
         <p data-link-for="TextDirectionType">
-          When displaying the <a>directionality-capable members</a> to an
-          end-user, if the <a>base direction</a> is <a>ltr</a> or <a>rtl</a>:
+          When displaying the <a>localizable members</a> to an end-user, if the
+          <a>base direction</a> is <a>ltr</a> or <a>rtl</a>:
         </p>
         <ol>
           <li data-link-for="TextDirectionType">If the member is being
@@ -1698,8 +1364,8 @@
         <p>
           The <dfn>lang</dfn> member is a <a>language tag</a> (<a>string</a>)
           that specifies the primary language for the values of the manifest's
-          <a>directionality-capable members</a> (as knowing the language can
-          also help with directionality).
+          <a>localizable members</a> (as knowing the language can also help
+          with directionality).
         </p>
         <p>
           A <dfn>language tag</dfn> is a <a>string</a> that matches the
@@ -1727,8 +1393,9 @@
           </li>
           <li>If <a>Type</a>(<var>value</var>) is String:
             <ol>
-              <li>If calling <a>IsStructurallyValidLanguageTag</a> with
-              <var>value</var> as the argument returns <code>false</code>,
+              <li>If calling <a data-cite=
+              "ECMA-402#sec-isstructurallyvalidlanguagetag">IsStructurallyValidLanguageTag</a>
+              with <var>value</var> as the argument returns <code>false</code>,
               then:
                 <ol>
                   <li>
@@ -1739,9 +1406,9 @@
                   </li>
                 </ol>
               </li>
-              <li>Otherwise, return the result of calling the
-              <a>CanonicalizeLanguageTag</a> abstract operation, passing <var>
-                V</var> as the argument.
+              <li>Otherwise, return the result of calling the <a data-cite=
+              "ECMA-402#sec-canonicalizeunicodelocaleid">CanonicalizeUnicodeLocaleId</a>
+              abstract operation, passing <var>V</var> as the argument.
               </li>
             </ol>
           </li>
@@ -1758,6 +1425,10 @@
           name of the web application as it is usually displayed to the user
           (e.g., amongst a list of other applications, or as a label for an
           icon).
+        </p>
+        <p>
+          The {{WebAppManifest/name}} member serves as the <a>accessible
+          name</a> of an [=installed web application=].
         </p>
       </section>
       <section>
@@ -1779,6 +1450,10 @@
           The <dfn>description</dfn> member allows the developer to describe
           the purpose of the web application.
         </p>
+        <p>
+          The {{WebAppManifest/description}} member serves as the <a>accessible
+          description</a> of an [=installed web application=].
+        </p>
       </section>
       <section>
         <h3>
@@ -1787,8 +1462,8 @@
         <div class="issue" data-number="380"></div>
         <p>
           The <dfn>scope</dfn> member is a <a>string</a> that represents the
-          navigation scope of this web application's <a>application
-          context</a>.
+          [=manifest/navigation scope=] of this web application's
+          <a>application context</a>.
         </p>
         <p>
           The steps for <dfn>processing the <code>scope</code> member</dfn> is
@@ -1798,13 +1473,13 @@
           <a>URL</a>.
         </p>
         <ol>
-          <li>Let <var>default</var> be the result of <a>parsing</a> ".", using
-          <var>start URL</var> as the <var>base</var> URL.
+          <li>Let <var>default</var> be the result of [=URL Parser|parsing=]
+          ".", using <var>start URL</var> as the <var>base</var> URL.
           </li>
           <li>If <var>value</var> is the empty <a>string</a>, then return <var>
             default</var>.
           </li>
-          <li>Let <var>scope URL</var> be the result of <a>parsing</a>
+          <li>Let <var>scope URL</var> be the result of [=URL Parser|parsing=]
           <var>value</var>, using <var>manifest URL</var> as the
           <var>base</var> URL.
           </li>
@@ -1817,11 +1492,12 @@
               </li>
             </ul>
           </li>
-          <li>If <var>start URL</var> is not <a>within scope</a> of scope URL:
+          <li>If <var>start URL</var> is not [=URL/within scope=] of |scope
+          URL|:
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the start URL is not
-                <a>within scope</a> of the scope URL.
+                [=URL/within scope=] of the |scope URL|.
               </li>
               <li>Return <var>default</var>.
               </li>
@@ -1841,23 +1517,22 @@
           <code title="">icons</code> member
         </h3>
         <p>
-          The <dfn>icons</dfn> member is an <a>array</a> of
-          <a>ImageResource</a>s that can serve as iconic representations of the
-          web application in various contexts. For example, they can be used to
-          represent the web application amongst a list of other applications,
-          or to integrate the web application with an <abbr title=
-          "operating system">OS</abbr>'s task switcher and/or system
-          preferences.
+          The <dfn>icons</dfn> member are images that serve as iconic
+          representations of the web application in various contexts. For
+          example, they can be used to represent the web application amongst a
+          list of other applications, or to integrate the web application with
+          an <abbr title="operating system">OS</abbr>'s task switcher and/or
+          system preferences.
         </p>
         <p>
-          If there are multiple equally appropriate icons in <var>icons</var>,
-          a user agent MUST use the last one declared in order at the time that
-          the user agent collected the list of <var>icons</var>. If the user
-          agent tries to use an icon but that icon is determined, upon closer
-          examination, to in fact be inappropriate (e.g. because its content
-          type is unsupported), then the user agent MUST try the
-          next-most-appropriate icon as determined by examining the
-          <a>ImageResource</a>'s members.
+          If there are multiple equally appropriate images in
+          {{WebAppManifest/icons}}, a user agent MUST use the last one declared
+          in order at the time that the user agent collected the list of
+          {{WebAppManifest/icons}}. If the user agent tries to use an icon but
+          that icon is determined, upon closer examination, to in fact be
+          inappropriate (e.g. because its content type is unsupported), then
+          the user agent MUST try the next-most-appropriate icon as determined
+          by examining the {{ManifestImageResource}}'s members.
         </p>
         <div class="example">
           <p>
@@ -1927,18 +1602,19 @@
         </h3>
         <p>
           The <dfn>orientation</dfn> member is a <a>string</a> that serves as
-          the <a>default orientation</a> for all <a>top-level browsing
+          the <a>default screen orientation</a> for all <a>top-level browsing
           contexts</a> of the web application. The possible values are those of
           the {{OrientationLockType}} enum defined in [[SCREEN-ORIENTATION]].
         </p>
         <p>
           If the user agent honors the value of the <a>orientation</a> member
-          as the <a>default orientation</a>, then that serves as the <a>default
-          orientation</a> for the life of the web application (unless
-          overridden by some other means at runtime). This means that the user
-          agent MUST return the orientation to the <a>default orientation</a>
-          any time the orientation is unlocked [[SCREEN-ORIENTATION]] or the
-          <a>top-level browsing context</a> is <a>navigated</a>.
+          as the <a>default screen orientation</a>, then that serves as the
+          <a>default screen orientation</a> for the life of the web application
+          (unless overridden by some other means at runtime). This means that
+          the user agent MUST return the orientation to the <a>default screen
+          orientation</a> any time the orientation is unlocked
+          [[SCREEN-ORIENTATION]] or the <a>top-level browsing context</a> is
+          <a>navigated</a>.
         </p>
         <p>
           Although the specification relies on the [[SCREEN-ORIENTATION]]'s
@@ -1952,8 +1628,8 @@
           together</dfn>. Which orientations and display modes cannot be used
           together is left to the discretion of implementers. For example, for
           some user agents, it might not make sense to change the <a>default
-          orientation</a> of an application while in <code>browser</code>
-          <a>display mode</a>.
+          screen orientation</a> of an application while in
+          <code>browser</code> <a>display mode</a>.
         </p>
         <p class="note">
           Once the web application is running, other means can change the
@@ -1988,7 +1664,7 @@
         <ol>
           <li>If <var>value</var> is the empty <a>string</a>, return undefined.
           </li>
-          <li>Let <var>start URL</var> be the result of <a>parsing</a>
+          <li>Let <var>start URL</var> be the result of [=URL Parser|parsing=]
           <var>value</var>, using <var>manifest URL</var> as the
           <var>base</var> URL.
           </li>
@@ -2009,7 +1685,7 @@
             For example, if the value of <a>start_url</a> is
             <samp>../start_point.html</samp>, and the manifest's URL is
             <samp>https://example.com/resources/manifest.webmanifest</samp>,
-            then the result of <a>URL parsing</a> would be
+            then the result of [=URL parser|parsing=] would be
             <samp>https://example.com/start_point.html</samp>.
           </p>
         </div>
@@ -2052,33 +1728,16 @@
           <code>meta</code> element whose <code>name</code> attribute is
           "theme-color".
         </p>
-        <p>
-          The steps for <dfn>processing the <code>theme_color</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>USVString</a> <var>theme color</var> as an argument. This
-          algorithm returns a <code>USVString?</code>.
+        <p data-cite="CSS-COLOR-4">
+          The user agent MAY ignore the <a>theme color</a>'s [=alpha
+          component=] based on the context. For example, in most environments,
+          the <a>theme color</a> cannot be transparent.
         </p>
-        <div class="issue" data-number="760"></div>
-        <ol>
-          <li>Let <var>potential color</var> be the result of running
-          [[CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm with
-          <var>theme color</var> as input. If parsing returns a syntax error,
-          return <code>undefined</code>.
-          </li>
-          <li>Let <var>color</var> be the result of attempting to parse
-          <var>potential color</var> as a CSS color, as per [[CSS-SYNTAX-3]].
-          If parsing fails:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a>.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>color</var>.
-          </li>
-        </ol>
+        <p>
+          Implementors MAY override the value defined by the <a>theme_color</a>
+          member to support <a data-xref-type="css-descriptor" data-xref-for=
+          "@media">prefers-color-scheme</a>.
+        </p>
       </section>
       <section>
         <h3>
@@ -2107,11 +1766,9 @@
         <p>
           The steps for <dfn>processing the <code>related_applications</code>
           member</dfn> are given by the following algorithm. The algorithm
-          takes a <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ExternalApplicationResource</a>&gt;
+          takes a <a>sequence</a>&lt;<a>ExternalApplicationResource</a>&gt;
           <var>related applications</var> as an argument. This algorithm
-          returns an <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ExternalApplicationResource</a>&gt;.
+          returns an <a>sequence</a>&lt;<a>ExternalApplicationResource</a>&gt;.
         </p>
         <ol>
           <li>Let <var>relatedApplications</var> be a new Array object created
@@ -2172,31 +1829,11 @@
           application's stylesheet is available.
         </p>
         <p>
-          The steps for <dfn>processing the <a>background_color</a>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes a <a>USVString</a> <var>background color</var> as an argument.
-          This algorithm returns a <code>USVString?</code>.
+          Implementors MAY override the value defined by the
+          {{WebAppManifest/background_color}} member to support
+          <a data-xref-type="css-descriptor" data-xref-for=
+          "@media">prefers-color-scheme</a>.
         </p>
-        <ol>
-          <li>Let <var>potential color</var> be the result of running
-          [[CSS-SYNTAX-3]]'s <a>parse a component value</a> algorithm with
-          <var>background color</var> as input. If parsing returns a syntax
-          error, return <code>undefined</code>.
-          </li>
-          <li>Let <var>color</var> be the result of attempting to parse
-          <var>potential color</var> as a CSS color, as per [[CSS-SYNTAX-3]].
-          If parsing fails:
-            <ol>
-              <li>
-                <a>Issue a developer warning</a>.
-              </li>
-              <li>Return <code>undefined</code>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>color</var>.
-          </li>
-        </ol>
       </section>
       <section>
         <h3>
@@ -2255,8 +1892,8 @@
         </h3>
         <p>
           The <dfn>screenshots</dfn> member is an <a>array</a> of
-          <a>ImageResource</a>s, representing the web application in common
-          usage scenarios.
+          {{ManifestImageResource}}s, representing the web application in
+          common usage scenarios.
         </p>
       </section>
       <section>
@@ -2329,11 +1966,9 @@
         <p>
           The steps for <dfn>processing the <code>shortcuts</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
-          <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;
-          <var>shortcuts</var> and a <a>URL</a> <var>manifest URL</var>. This
-          algorithm returns a <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ShortcutItem</a>&gt;.
+          <a>sequence</a>&lt;<a>ShortcutItem</a>&gt; <var>shortcuts</var> and a
+          <a>URL</a> <var>manifest URL</var>. This algorithm returns a
+          <a>sequence</a>&lt;<a>ShortcutItem</a>&gt;.
         </p>
         <ol>
           <li>Let <var>processedShortcuts</var> be a new Array object created
@@ -2344,20 +1979,21 @@
             <ol>
               <li>If <var>shortcut</var>["name"] or <var>shortcut</var>["url"]
               are undefined, or if <var>shortcut</var>["name"] is the empty
-              string, <a>issue a developer warning</a> and <a>continue</a>.
+              string, <a>issue a developer warning</a> and
+              [=iteration/continue=].
               </li>
               <li>Set <var>shortcut</var>["icons"] to the result of running <a>
-                processing `ImageResource` members</a> given
+                processing `ManifestImageResource` members</a> given
                 <var>shortcut</var>["icons"] and <var>manifest URL</var>.
               </li>
-              <li>Set <var>shortcut</var>["url"] to the result of
-              <a>parsing</a> <var>shortcut</var>["url"] using <var>manifest
+              <li>Set <var>shortcut</var>["url"] to the result of [=URL
+              Parser|parsing=] <var>shortcut</var>["url"] using <var>manifest
               URL</var> as the base URL. If the result is failure, <a>issue a
-              developer warning</a> and <a>continue</a>.
+              developer warning</a> and [=iteration/continue=].
               </li>
-              <li>If <var>shortcut</var>["url"] is not <a>within scope</a> of
-              <var>manifest URL</var>, <a>issue a developer warning</a> and <a>
-                continue</a>.
+              <li>If <var>shortcut</var>["url"] is not [=URL/within scope=] of
+              <var>manifest URL</var>, <a>issue a developer warning</a> and
+              [=iteration/continue=].
               </li>
               <li>
                 <a>Append</a> <var>shortcut</var> to
@@ -2427,82 +2063,31 @@
         </div>
       </section>
     </section>
-    <section>
+    <section data-cite="image-resource" data-dfn-for="ManifestImageResource">
       <h2>
-        <dfn>ImageResource</dfn> and its members
+        <dfn>ManifestImageResource</dfn> and its members
       </h2>
       <pre class="idl">
-        dictionary ImageResource {
-          required USVString src;
-          DOMString sizes;
-          USVString type;
-          USVString purpose;
+        dictionary ManifestImageResource : ImageResource {
           USVString platform;
+          USVString purpose;
         };
       </pre>
       <p>
-        Each <a>ImageResource</a> represents an image that is used as part of a
-        web application, suitable to use in various contexts depending on the
+        Each {{ManifestImageResource}} is an image that is conceptually part of
+        a web application, suitable to use in various contexts depending on the
         semantics of the member that is using the object (e.g., an icon that is
-        part of an application menu, etc.). For an image resource, this
-        specification provides developers with a means of specifying the
-        dimensions, and <a data-cite="mimesniff">MIME type</a> of an image
-        (i.e., a "responsive image" solution [[RESPIMG-USECASES]]). A user
-        agent can use these values to select an image that is best suited to
-        display on the end-user's device or most closely matches the end-user's
-        preferences.
+        part of an application menu, etc.).
       </p>
       <p>
-        User agents may modify the images associated with an
-        <a>ImageResource</a> to better match the platform’s visual style before
-        displaying it to the user, for example by rounding the corners or
-        painting it in a specific color. It is recommended that developers
+        User agents MAY modify the images associated with an
+        {{ManifestImageResource}} to better match the platform’s visual style
+        before displaying it to the user, for example by rounding the corners
+        or painting it in a specific color. It is recommended that developers
         prepare their image resources for such scenarios to avoid losing
         important information through, e.g., change of color or clipped
         corners.
       </p>
-      <section>
-        <h3>
-          Fetching image resources
-        </h3>
-        <p>
-          To <a>fetch</a> the image associated with an <a>ImageResource</a>,
-          the user agent MUST run the <dfn>steps to fetch an image
-          resource</dfn>. The algorithm takes an <var>image URL</var>
-          (<a>ImageResource.src</a>), the <var>manifest URL</var>, and the
-          {{Document}} <var>document</var> from which the manifest was linked.
-          It returns a <a>Response</a>:
-        </p>
-        <ol>
-          <li>Let <var>request</var> be a new <a>Request</a>.
-          </li>
-          <li>Set the following properties of <var>request</var>:
-            <ol>
-              <li>
-                <var>url</var> is set to <var>image URL</var>.
-              </li>
-              <li>
-                <var>initiator</var> is "<code>manifest</code>".
-              </li>
-              <li>
-                <var>type</var> is "<code>image</code>".
-              </li>
-              <li>
-                <var>cors</var> is "<code>no-cors</code>".
-              </li>
-              <li>
-                <var>referrer</var> is <var>manifest URL</var>.
-              </li>
-              <li>
-                <var>client</var> is <var>document</var>.
-              </li>
-            </ol>
-          </li>
-          <li>Perform a <a>fetch</a> using <var>request</var> and return the
-          <var>response</var>.
-          </li>
-        </ol>
-      </section>
       <section>
         <h3>
           Content security policy of image resources
@@ -2551,43 +2136,57 @@
           </p>
         </div>
       </section>
-      <section data-dfn-for="ImageResource" data-link-for="ImageResource">
+      <section>
+        <h3>
+          <dfn>platform</dfn> member
+        </h3>
+        <p>
+          The {{ManifestImageResource/platform}} member represents the
+          <a>platform</a> to which a containing object applies.
+        </p>
+      </section>
+      <section>
         <h3>
           <dfn>purpose</dfn> member
         </h3>
         <p>
-          The <a>purpose</a> member is an <a>unordered set of unique
-          space-separated tokens</a> that are <a>ASCII case-insensitive</a>.
-          The allowed values are the <a>icon purposes</a>.
+          The {{ManifestImageResource/purpose}} member is an <a>unordered set
+          of unique space-separated tokens</a> that are <a>ASCII
+          case-insensitive</a>. The allowed values are the <a>icon
+          purposes</a>.
         </p>
         <p>
-          When an <a>ImageResource</a> is used as an <dfn>icon</dfn>, a
+          When a {{ManifestImageResource}} is used as an <dfn>icon</dfn>, a
           developer can hint that the image is intended to serve some special
           purpose in the context of the host OS (i.e., for better integration).
-          User agents SHOULD NOT use an icon other than for its stated
-          <a>purpose</a>.
+          User agents SHOULD NOT use an icon other than for its stated <a>icon
+          purpose</a>.
         </p>
         <p class="note">
-          For example, an icon with purpose "<a>badge</a>" could be used as a
-          badge or pinned icon that is visually distinct, in color or form,
-          from an application's launch icon. The user agent uses the value of
-          the <a>purpose</a> member as a hint to determine where and how an
-          <a>ImageResource</a> is displayed. Unless declared otherwise by the
-          developer, a user agent can use an icon for <a>any purpose</a>.
+          For example, an icon with purpose "<a>monochrome</a>" could be used
+          as a badge or pinned icon with a solid fill, visually distinct from
+          an application's full color launch icon. The user agent uses the
+          value of the {{ManifestImageResource/purpose}} member as a hint to
+          determine where and how an {{ManifestImageResource/purpose}} is
+          displayed. Unless declared otherwise by the developer, a user agent
+          can use an icon for <a>any purpose</a>.
         </p>
         <p>
           The <dfn>icon purposes</dfn> are as follows:
         </p>
         <dl>
           <dt>
-            <dfn data-lt="badge purpose">badge</dfn>:
+            <dfn data-lt="monochrome purpose">monochrome</dfn>:
           </dt>
           <dd>
-            A user agent can present this icon where space constraints and/or
-            color requirements differ from those of the application icon.
+            A user agent can present this icon where a <a href=
+            "#monochrome-icons-and-solid-fills">monochrome icon with a solid
+            fill</a> is needed. The color information in the icon is discarded
+            and only the alpha data is used. The icon can then be used by the
+            user agent like a mask over any solid fill.
           </dd>
           <dt>
-            <dfn data-lt="badge maskable">maskable</dfn>:
+            <dfn data-lt="maskable purpose">maskable</dfn>:
           </dt>
           <dd>
             The image is designed with <a href="#icon-masks">icon masks and
@@ -2606,18 +2205,19 @@
           If an icon contains multiple purposes, it could be used for any of
           those purposes. If none of the stated purposes are recognized, the
           icon is totally ignored. For example, if an icon has purpose
-          <code>"badge fizzbuzz"</code>, then it could be used as a badge, but
-          if an icon has just the purpose <code>"fizzbuzz"</code>, then it will
-          be ignored.
+          <code>"monochrome fizzbuzz"</code>, then it could be used as a
+          monochrome icon, as <code>"monochrome"</code> is a valid purpose.
+          However, if an icon just has the purpose <code>"fizzbuzz"</code>,
+          then it will be ignored.
         </p>
         <p>
           The steps for <dfn>processing the `purpose` member of an image</dfn>
-          are given by the following algorithm. The algorithm takes an
-          <a>ImageResource</a> |image:ImageResource|. This algorithm returns a
-          [=set=] or failure.
+          are given by the following algorithm. The algorithm takes a
+          {{ManifestImageResource}} |image:ManifestImageResource|. This
+          algorithm returns a [=set=] or failure.
         </p>
         <ol>
-          <li>If [=Type=](|image|["purpose"]) is not String, or
+          <li>If <a>Type</a>(|image|["purpose"]) is not String, or
           |image|["purpose"] consists solely of [=ascii whitespace=], then
           return the [=set=] « "any" ».
           </li>
@@ -2633,8 +2233,8 @@
               <li>Set |canonicalKeyword| to <a>ascii lowercased</a> |keyword|.
               </li>
               <li>If |canonicalKeyword| is not one of the [=icon purposes=], or
-              |purposes| [=contains=] |keyword|, then [=issue a developer
-              warning=] and [=iteration/continue=].
+              |purposes| [=set/contain|contains=] |keyword|, then [=issue a
+              developer warning=] and [=iteration/continue=].
               </li>
               <li>Otherwise, [=set/append=] |canonicalKeyword| to |purposes|.
               </li>
@@ -2645,29 +2245,29 @@
           <li>Return |purposes|.
           </li>
         </ol>
-        <div class="example">
+        <aside class="example">
           <p>
             In the following example, the web application is listing two icons
-            to be used as a badge, one of which is specifically designed for
-            the Android platform.
+            to be used as a monochrome icon, one of which is specifically
+            designed for the Android platform.
           </p>
-          <pre class="example json">
+          <pre class="json">
             {
               "name": "News",
               "icons": [{
                 "platform": "play",
-                "purpose": "badge",
+                "purpose": "monochrome",
                 "sizes": "16x16",
                 "src": "icons/badges/android.png",
                 "type": "image/png"
               }, {
-                "purpose": "badge",
+                "purpose": "monochrome",
                 "src": "icons/badges/safari.svg",
                 "type": "image/svg"
               }]
             }
           </pre>
-        </div>
+        </aside>
       </section>
       <section id="icon-masks">
         <h2>
@@ -2722,8 +2322,8 @@
         </p>
         <p>
           If the icon contains transparent pixels, the user agent MUST
-          composite the icon onto a solid color (eg. white) of the user agent's
-          choice.
+          composite the icon onto a solid fill (e.g., white) of the user
+          agent's choice.
         </p>
         <p class="note">
           It is suggested that designers avoid using transparent pixels in
@@ -2744,234 +2344,173 @@
             Icons with "maskable" purpose
           </h2>
           <div class="icons">
-            <div>
+            <figure>
               <img src="images/icon-plain.svg" alt=
               "An icon over a checkerboard background">
-              <div class="icon-title">
-                Image
-              </div>
-              <div>
-                The base image with transparent background
-              </div>
-            </div>
-            <div>
+              <figcaption>
+                <span class="icon-title">Image</span> <span>The base image with
+                transparent background</span>
+              </figcaption>
+            </figure>
+            <figure>
               <img src="images/icon-safe-zone.svg" alt=
               "An icon in a purple circle (40% of the size) over a yellow background">
-              <div class="icon-title">
-                Safe zone
-              </div>
-              <div>
-                Circle with radius 2/5 (40%) of the icon size
-              </div>
-            </div>
+              <figcaption>
+                <span class="icon-title">Safe zone</span> <span>Circle with
+                radius 2/5 (40%) of the icon size</span>
+              </figcaption>
+            </figure>
           </div>
           <h2 class="icon-title">
             Mask examples
           </h2>
           <div class="icons">
-            <div>
+            <figure>
               <img src="images/icon-mask-android-roundsquare.svg" alt=
               "An icon inside a rounded yellow square on a purple background">
-              <div class="icon-title">
-                Rounded square
-              </div>
-              <div>
-                Android
-              </div>
-            </div>
-            <div>
+              <figcaption>
+                <span class="icon-title">Rounded square</span>
+                <span>Android</span>
+              </figcaption>
+            </figure>
+            <figure>
               <img src="images/icon-mask-android-squircle.svg" alt=
               "An icon inside an extremely rounded yellow square on a purple background">
-              <div class="icon-title">
-                Squircle
-              </div>
-              <div>
-                Android
-              </div>
-            </div>
-            <div>
+              <figcaption>
+                <span class="icon-title">Squircle</span> <span>Android</span>
+              </figcaption>
+            </figure>
+            <figure>
               <img src="images/icon-mask-android-circle.svg" alt=
               "An icon inside a rounded yellow circle on a purple background">
-              <div class="icon-title">
-                Circle
-              </div>
-              <div>
-                Android
-              </div>
-            </div>
-            <div>
+              <figcaption>
+                <span class="icon-title">Circle</span> <span>Android</span>
+              </figcaption>
+            </figure>
+            <figure>
               <img src="images/icon-mask-ios.svg" alt=
               "An icon inside a somewhat rounded yellow square on a purple background">
-              <div class="icon-title">
-                Rounded square
-              </div>
-              <div>
-                iOS
-              </div>
-            </div>
-            <div>
+              <figcaption>
+                <span class="icon-title">Rounded square</span> <span>iOS</span>
+              </figcaption>
+            </figure>
+            <figure>
               <img src="images/icon-mask-windows.svg" alt=
               "An icon on a yellow background">
-              <div class="icon-title">
-                Fullbleed
-              </div>
-              <div>
-                Windows
-              </div>
-            </div>
+              <figcaption>
+                <span class="icon-title">Fullbleed</span> <span>Windows</span>
+              </figcaption>
+            </figure>
           </div>
         </section>
       </section>
-      <section data-dfn-for="ImageResource" data-link-for="ImageResource">
-        <h3>
-          <dfn>sizes</dfn> member
-        </h3>
+      <section>
+        <h2>
+          Monochrome icons and solid fills
+        </h2>
+        <p class="issue atrisk" data-number="905"></p>
         <p>
-          The <a>sizes</a> member of an <a>ImageResource</a> is a <a>string</a>
-          consisting of an <a>unordered set of unique space-separated
-          tokens</a> which are <a>ASCII case-insensitive</a> that represents
-          the dimensions of an image. Each keyword is either an <a>ASCII
-          case-insensitive</a> match for the <a>string</a> "<a data-lt=
-          "any link size">any"</a>, or a value that consists of two <a>valid
-          non-negative integers</a> that do not have a leading U+0030 DIGIT
-          ZERO (0) character and that are separated by a single U+0078 LATIN
-          SMALL LETTER X or U+0058 LATIN CAPITAL LETTER X character. The
-          keywords represent icon sizes in raw pixels (as opposed to CSS
-          pixels). When multiple <a>ImageResource</a>s are available, a user
-          agent MAY use the value to decide which icon is most suitable for a
-          display context (and ignore any that are inappropriate).
+          Some platforms enforce that icons be displayed with a <dfn>solid
+          fill</dfn> such as a single color, where only the transparency of the
+          icon can be declared in a [=manifest=]. As web applications need to
+          work across multiple platforms, it is possible to indicate that an
+          icon can have an user-agent-specified color applied by adding the
+          <a>monochrome</a> purpose. This allows the platform to ensure that
+          the icon looks well integrated with the platform, and even apply
+          different colors and padding in different places throughout the
+          platform.
         </p>
         <p>
-          The steps for <dfn>processing the <code>sizes</code> member of an
-          image</dfn> are given by the following algorithm. The algorithm takes
-          an <a>ImageResource</a> <var>image</var>. This algorithm will return
-          a set.
+          When processing a <a>monochrome</a> icon, the user agent MUST NOT
+          independently display the red component, green component, or blue
+          component of a pixel. The user agent SHOULD display each pixel with
+          its original alpha value, but with a red, green, and blue value of
+          the user agent's choosing. It is RECOMMENDED that the user agent use
+          the same color value for all pixels.
         </p>
-        <ol>
-          <li>Let <var>set</var> be an empty <a>set</a>.
-          </li>
-          <li>Let <var>value</var> be <var>image.sizes</var>.
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not String, return
-          <code>undefined</code>.
-          </li>
-          <li>Otherwise, parse <var>value</var> as if it was a [[HTML]]
-          {{HTMLLinkElement/sizes}} attribute and let <a>list</a>
-          <var>keywords</var> be the result.
-          </li>
-          <li>[=list/For each=] <var>keyword</var> of <var>keywords</var>:
-            <ol>
-              <li>[=set/append=] <var>keyword</var>, <a>ascii lowercased</a>,
-              to <var>set</var>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>set</var>.
-          </li>
-        </ol>
-      </section>
-      <section data-dfn-for="ImageResource" data-link-for="ImageResource">
-        <h3>
-          <dfn>src</dfn> member
-        </h3>
-        <p>
-          The <a>src</a> member of an <a>ImageResource</a> is a <a>URL</a> from
-          which a user agent can fetch the image's data.
-        </p>
-      </section>
-      <section data-dfn-for="ImageResource" data-cite="mimesniff">
-        <h3>
-          <dfn>type</dfn> member
-        </h3>
-        <p>
-          The <a>type</a> member of an <a>ImageResource</a> is a hint as to the
-          <a>MIME type</a> of the image. The purpose of this member is to allow
-          a user agent to ignore images of MIME types it does not support.
+        <p class="note">
+          Designers of <a>monochrome</a> icons could set all pixels to black
+          and only use transparency to create a silhouette of their icon.
         </p>
         <p>
-          There is no default MIME type for image resources. However, for the
-          purposes of <a>determining the type of the resource</a>, user agents
-          must expect the resource to be an image.
+          The user agent MAY enlarge the icon by adding additional padding.
         </p>
         <p>
-          The steps for <dfn>processing the <code>type</code> member of an
-          image</dfn> are given by the following algorithm. The algorithm takes
-          an <var>image</var> object as an argument, and returns either a
-          <a>string</a> or <code>undefined</code>.
+          The user agent MAY add a background of any color behind transparent
+          pixels, and SHOULD ensure that the background has sufficient contrast
+          with the icon.
         </p>
-        <ol>
-          <li>Let <var>value</var> be <var>image</var>["<a>type</a>"].
-          </li>
-          <li>If <a>Type</a>(<var>value</var>) is not String, return
-          <code>undefined</code>.
-          </li>
-          <li>If <var>value</var> is not a <a>valid MIME type string</a> or the
-          value of <var>type</var> is not a supported MIME type, issue a
-          developer warning and return <code>undefined</code>.
-          </li>
-          <li>Return <var>value</var>.
-          </li>
-        </ol>
-      </section>
-      <section data-dfn-for="ImageResource" data-link-for="ImageResource">
-        <h3>
-          <dfn>platform</dfn> member
-        </h3>
-        <p>
-          The <a>platform</a> member represents the <a>platform</a> to which a
-          containing object applies.
-        </p>
+        <section>
+          <h3>
+            Example usage of monochrome icons
+          </h3>
+          <h2 class="icon-title">
+            Usage examples
+          </h2>
+          <div class="icons">
+            <figure>
+              <img src="images/monochrome-icon-plain.svg" alt=
+              "A black icon over a checkerboard background">
+              <figcaption>
+                <span class="icon-title">Image</span> <span>The base image with
+                no color.</span>
+              </figcaption>
+            </figure>
+            <figure>
+              <img src="images/monochrome-icon-gradient.svg" alt=
+              "A dark gradient icon over a checkerboard background">
+              <figcaption>
+                <span class="icon-title">Gradient fill</span> <span>The image
+                filled in with a gradient.</span>
+              </figcaption>
+            </figure>
+            <figure>
+              <img src="images/monochrome-icon-tinted.svg" alt=
+              "A dark yellow icon over a light gray background">
+              <figcaption>
+                <span class="icon-title">Solid color fill with padding</span>
+                <span>Filled in with the theme color from the manifest.</span>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
       </section>
       <section>
         <h3>
-          processing an array of image resources
+          processing image resources
         </h3>
         <p>
-          The steps for <dfn>processing <a>ImageResource</a> members</dfn> are
-          given by the following algorithm. The algorithm takes a
-          Array&lt;<a>ImageResource</a>&gt; <var>entries</var> and a <a>URL</a>
-          <var>manifest URL</var>. This algorithm returns an
-          Array&lt;<a>ImageResource</a>&gt;.
+          The steps for <dfn>processing `ManifestImageResource` members</dfn>
+          are given by the following algorithm. The algorithm takes an a list
+          of |entries:ManifestImageResource| and a <a>URL</a>
+          |manifestURL:URL|. This algorithm returns an a list of
+          {{ManifestImageResource}}s.
         </p>
         <ol>
-          <li>Let <var>imageResources</var> be a new Array object created as if
-          by the expression [].
+          <li>Let |imageResources:list| be a new [=list=].
           </li>
-          <li>[=list/For each=] <var>entry</var> of <var>entries</var>:
-          </li>
-          <li>If <var>entry</var>["src"] is not <code>undefined</code>:
+          <li>[=list/For each=] |entry:ManifestImageResource| of |entries|:
             <ol>
-              <li>Let <var>image</var> be a new object created as if by the
-              expression ({}).
+              <li>Let |image| be the result of running [=process an image
+              resource from JSON=] given |entry| and |manifest URL|.
               </li>
-              <li>Set <var>image</var>["src"] to the result of <a>parsing</a>
-              <var>entry</var>["src"] using <var>manifest URL</var> as the base
-              URL.
+              <li>If |image| is failure, [=iteration/continue=].
               </li>
-              <li>Set <var>image</var>["type"] to the result of running
-              <a>processing the <code>type</code> member of an image</a> given
-              <var>entry</var> and <var>manifest URL</var>.
+              <li>Let |purpose| be the result of running <a>processing the
+              `purpose` member of an image</a> given |entry|.
               </li>
-              <li>Set <var>image</var>["sizes"] to the result of running
-              <a>processing the <code>sizes</code> member of an image</a> given
-              <var>entry</var> and <var>manifest URL</var>.
+              <li>If |purpose| is failure, [=iteration/continue=].
               </li>
-              <li>Let <var>purpose</var> be the result of running <a>processing
-              the <code>purpose</code> member of an image</a> given
-              <var>entry</var> and <var>manifest URL</var>.
+              <li>Set |image|'s {{ManifestImageResource/purpose}} to |purpose|.
               </li>
-              <li>If <var>purpose</var> is failure, [=iteration/continue=].
+              <li>Set |image|'s {{ManifestImageResource/platform}} to the value
+              of |entry|'s {{ManifestImageResource/platform}} member.
               </li>
-              <li>Set <var>image</var>["purpose"] to <var>purpose</var>.
-              </li>
-              <li>Set <var>image</var>["platform"] to
-              <var>entry</var>["platform"].
-              </li>
-              <li>[=list/append=] <var>image</var> to <var>imageResources</var>
+              <li>[=list/Append=] |image| to |imageResources|.
               </li>
             </ol>
           </li>
-          <li>Return <var>imageResources</var>.
+          <li>Return |imageResources|.
           </li>
         </ol>
       </section>
@@ -2986,7 +2525,7 @@
           USVString short_name;
           USVString description;
           required USVString url;
-          sequence&lt;ImageResource&gt; icons;
+          sequence&lt;ManifestImageResource&gt; icons;
         };
       </pre>
       <p>
@@ -3033,19 +2572,32 @@
           <code>url</code> member
         </h3>
         <p>
-          The <dfn>url</dfn> member of a <a>ShortcutItem</a> is the <a>URL</a>
-          <a data-lt="within scope of a manifest">within the application's
-          scope</a> that opens when the associated shortcut is activated.
+          The <dfn>url</dfn> member of a <a>ShortcutItem</a> is a URL
+          [=manifest/within scope=] of a [=processed manifest=] that opens when
+          the associated shortcut is activated.
         </p>
+        <section>
+          <h4>
+            Privacy and security considerations
+          </h4>
+          <p>
+            It's conceivable that any {{ShortcutItem/url}} could be crafted to
+            indicate that the application was launched from outside the browser
+            (e.g., `"url": "/task/?from=homescreen"`). It is also conceivable
+            that developers could encode strings into the {{ShortcutItem/url}}
+            that uniquely identify the user (e.g., a server assigned
+            <abbr>UUID</abbr>). This is fingerprinting/privacy sensitive
+            information that the user might not be aware of.
+          </p>
+        </section>
       </section>
       <section data-dfn-for="ShortcutItem" data-link-for="ShortcutItem">
         <h3>
           <dfn>icons</dfn> member
         </h3>
         <p>
-          The <a>icons</a> member of an <a>ShortcutItem</a> member is an
-          <a>array</a> of <a>ImageResource</a>s that can serve as iconic
-          representations of the shortcut in various contexts.
+          The <a>icons</a> member of an <a>ShortcutItem</a> member serve as
+          iconic representations of the shortcut in various contexts.
         </p>
       </section>
       <section>
@@ -3094,13 +2646,12 @@
           <li>
             <a>ExternalApplicationResource</a>
           </li>
-          <li>
-            <a>ImageResource</a>
+          <li>{{ManifestImageResource}}
           </li>
         </ul>
         <p>
-          A <a>platform</a> represents a software distribution ecosystem or
-          possibly an operating system.
+          A <dfn data-dfn-for="">platform</dfn> represents a software
+          distribution ecosystem or possibly an operating system.
         </p>
         <p class="note">
           This specification does not define the particular values for a the
@@ -3169,7 +2720,7 @@
         <code>platform</code> and either an <code>url</code> or an
         <code>id</code> (or both).
       </p>
-      <div class="example">
+      <aside class="example">
         <p>
           In the following example, the web application is listing two
           different related applications, one on Google Play Store and the
@@ -3178,7 +2729,7 @@
           cryptographic fingerprints used for verification, in a
           Play-Store-specific manner.
         </p>
-        <pre class="example json">
+        <pre class="json">
           {
             "related_applications": [
               {
@@ -3200,7 +2751,7 @@
             ]
           }
         </pre>
-      </div>
+      </aside>
       <p class="issue">
         Where should the <code>platform</code> expected value be listed?
       </p>
@@ -3223,9 +2774,9 @@
           <li>If <var>application URL</var> is <code>undefined</code>, return
           <code>undefined</code>.
           </li>
-          <li>Otherwise, <a>parse</a> <var>application URL</var> and if the
-          result is not failure, return the result, otherwise return
-          <code>undefined</code>.
+          <li>Otherwise, [=URL Parser|parse=] <var>application URL</var> and if
+          the result is not failure, return the result, otherwise return <code>
+            undefined</code>.
           </li>
         </ol>
       </section>
@@ -3295,13 +2846,13 @@
           registration with <a href="https://www.iana.org/">IANA</a>.
         </p>
         <p>
-          The <dfn>MIME type for a manifest</dfn> is
-          <code>application/manifest+json</code>.
+          The <dfn data-export="">application manifest MIME type</dfn> is
+          <dfn data-export="">`application/manifest+json`</dfn>.
         </p>
         <p>
           If the protocol over which the manifest is transferred supports the
           [[MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
-          manifest be labeled with the <a>MIME type for a manifest</a>.
+          manifest be labeled with the [=application manifest MIME type=].
         </p>
         <dl>
           <dt>
@@ -3340,7 +2891,7 @@
           <dd>
             <p>
               This specification does not directly deal with high-value data.
-              However, <a>installed</a> web applications and their data could
+              However, <a>installed web applications</a> and their data could
               be seen as "high value" (particularly from a privacy
               perspective).
             </p>
@@ -3429,8 +2980,8 @@
             Person & email address to contact for further information:
           </dt>
           <dd>
-            The <a href="https://www.w3.org/WebPlatform/WG/" rel="nofollow">Web
-            Platform Working Group</a> can be contacted at <a href=
+            The <a href="https://www.w3.org/2019/webapps/" rel="nofollow">Web
+            Applications Working Group</a> can be contacted at <a href=
             "https://lists.w3.org/Archives/Public/public-webapps/" rel=
             "nofollow">public-webapps@w3.org</a>.
           </dd>
@@ -3450,7 +3001,7 @@
             Author:
           </dt>
           <dd>
-            W3C's Web Platform Working Group.
+            W3C's Web Applications Working Group.
           </dd>
           <dt>
             Change controller:
@@ -3515,11 +3066,16 @@
       <p>
         Claudio Gomboli for icon example images.
       </p>
+      <p>
+        Indiana University Bloomington security researchers have contributed to
+        this specification by reporting potential risks related to out-of-scope
+        navigation.
+      </p>
     </section>
-    <section id="conformance" data-status="done" class="appendix">
+    <section id="conformance" class="appendix">
       <p>
         There is only one class of product that can claim conformance to this
-        specification: a <dfn>user agent</dfn>.
+        specification: a [=user agent=].
       </p>
       <p class="note">
         Although this specification is primarily targeted at web browsers, it
@@ -3597,6 +3153,45 @@
           </pre>
         </section>
       </section>
+    </section>
+    <section class="appendix">
+      <h2>
+        Incubations
+      </h2>
+      <p>
+        Extensions to this specification are being incubated in parallel by the
+        Web Community, some of which are shipping in multiple browsers. If two
+        or more browser engines end up supporting an incubated feature, then
+        those features will become part of this specification in the future -
+        allowing them to become a standard the Web Platform:
+      </p>
+      <dl>
+        <dt>
+          `BeforeInstallPrompt` and `window.onappinstalled` event
+        </dt>
+        <dd>
+          The `BeforeInstallPrompt` event and `window.onappinstalled` event
+          were originally part of this specification. However, they were
+          <a href="https://github.com/w3c/manifest/pull/836">removed from the
+          specification</a> because they did not have support from two or more
+          implementers. You can now find them in the <a href=
+          "https://github.com/WICG/beforeinstallprompt">`BeforeInstallPrompt`
+          event and `window.onappinstalled` repository</a> at the <a href=
+          "https://wicg.io"><abbr title=
+          "Web Incubator Community Group">WICG</abbr></a>.
+        </dd>
+        <dt>
+          `share_target` member
+        </dt>
+        <dd>
+          The `share_target` member registers a web application as "target" for
+          share actions (e.g., for sharing a text, a URL, or a file). The
+          `share_target` member is part of the <a href=
+          "https://wicg.github.io/web-share-target/">Web Share Target</a>
+          specification, being incubated at the <a href=
+          "https://wicg.io">WICG</a>.
+        </dd>
+      </dl>
     </section>
     <section class="appendix">
       <h2>
@@ -3697,7 +3292,7 @@
         repository</a> on GitHub.
       </p>
     </section>
-    <section id="internationalization" class="appendix">
+    <section id="internationalization" class="appendix informative">
       <h2>
         Internationalization
       </h2>
@@ -3753,9 +3348,9 @@
       <!-- All the Web IDL will magically appear here -->
     </section>
     <section class="appendix">
-      <h3>
-        Terms defined by reference
-      </h3>
+      <h2>
+        Dependencies
+      </h2>
       <p>
         As the manifest uses the JSON format, this specification relies on the
         types defined in [[ECMA-404]] specification: namely <dfn>object</dfn>,
@@ -3767,140 +3362,11 @@
         expected.
       </p>
       <ul class="index" data-sort="">
-        <li>[[URL]] defines the following terms:
-          <ul>
-            <li>
-              <dfn data-cite="URL#concept-url-parser" data-lt=
-              "parse|parsing|URL parsing">URL parser</dfn>
-            </li>
-          </ul>
-        </li>
-        <li>[[SCREEN-ORIENTATION]] defines the following terms:
-          <ul>
-            <li>
-              <dfn data-cite=
-              "SCREEN-ORIENTATION#dfn-default-orientation">default
-              orientation</dfn>
-            </li>
-            <li>
-              <dfn data-cite=
-              "SCREEN-ORIENTATION#dom-orientationlocktype">OrientationLockType</dfn>
-            </li>
-          </ul>
-        </li>
-        <li>[[CSS-SYNTAX-3]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite="CSS-SYNTAX-3#parse-component-value"><dfn>parse a
-              component value</dfn></a>
-            </li>
-          </ul>
-        </li>
-        <li>[[CSP3]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite=
-              "CSP3#directive-manifest-src"><dfn>manifest-src</dfn>
-              directive</a>
-            </li>
-            <li>
-              <a data-cite="CSP3#directive-default-src"><dfn>default-src</dfn>
-              directive</a>
-            </li>
-          </ul>
-        </li>
-        <li>[[SECURE-CONTEXTS]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite="SECURE-CONTEXTS#is-origin-trustworthy"><dfn>Is
-              origin potentially trustworthy</dfn></a>
-            </li>
-          </ul>
-        </li>
-        <li>[[ECMA-402]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite=
-              "ECMA-402#sec-isstructurallyvalidlanguagetag"><dfn>IsStructurallyValidLanguageTag</dfn></a>
-            </li>
-            <li>
-              <a data-cite=
-              "ECMA-402#sec-canonicalizelanguagetag"><dfn>CanonicalizeLanguageTag</dfn></a>
-            </li>
-          </ul>
-        </li>
-        <li>[[WEBIDL]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite="WEBIDL#es-dictionary"><dfn data-lt=
-              "to idl dictionary value">converted to IDL dictionary
-              value</dfn></a>
-            </li>
-          </ul>
-        </li>
-        <li>[[DOM]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite="DOM#event"><dfn><code>Event</code>
-              interface</dfn></a>
-            </li>
-            <li>
-              <a data-cite="DOM#concept-event-fire"><dfn data-lt=
-              "fire|fired|firing">Fire an event</dfn></a>
-            </li>
-          </ul>
-        </li>
         <li>[[HTML]] defines the following terms:
           <ul>
             <li>
-              <dfn data-cite="HTML/parsing.html#completely-loaded">completely
-              loaded</dfn>
-            </li>
-            <li>
-              <a data-cite=
-              "HTML#unordered-set-of-unique-space-separated-tokens"><dfn>unordered
-              set of unique space-separated tokens</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#navigate"><dfn data-lt=
-              "navigated|navigate|navigation">navigate algorithm</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#linkTypes"><dfn>link type</dfn></a>
-            </li>
-            <li>
               <a data-cite="HTML#delay-the-load-event"><dfn>delay the load
               event</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#attr-link-sizes-any"><dfn>any link
-              size</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#valid-non-negative-integer"><dfn>valid
-              non-negative integer</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#concept-link-type-sniffing"><dfn>determining
-              the type of the resource</dfn></a>
-            </li>
-            <li>
-              <a data-cite="HTML#the-element's-base-url"><dfn>the element's
-              base URL</dfn></a>.
-            </li>
-            <li>
-              <a data-cite="HTML#queue-a-post-load-task"><dfn>queue a post-load
-              task</dfn></a>
-            </li>
-          </ul>
-        </li>
-        <li>[[INFRA]] defines the following terms:
-          <ul>
-            <li>
-              <dfn data-cite="INFRA#list-contain">contains</dfn>
-            </li>
-            <li>
-              <dfn data-cite="INFRA#iteration-continue">continue</dfn>
             </li>
           </ul>
         </li>
@@ -3913,7 +3379,24 @@
             </li>
           </ul>
         </li>
+        <li>
+          <a href="https://w3c.github.io/accname">Accessible Name and
+          Description Computation</a> defines the following terms:
+          <ul>
+            <li>
+              <a href=
+              "https://w3c.github.io/accname/#dfn-accessible-name"><dfn>
+              accessible name</dfn></a>
+            </li>
+            <li>
+              <a href=
+              "https://w3c.github.io/accname/#dfn-accessible-description"><dfn>
+              accessible description</dfn></a>
+            </li>
+          </ul>
+        </li>
       </ul>
     </section>
+    <section id="index"></section>
   </body>
 </html>
