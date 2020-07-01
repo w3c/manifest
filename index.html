@@ -60,9 +60,7 @@
           w3cid: 43672,
         },
       ],
-      wg: "Web Applications Working Group",
-      wgURI: "https://www.w3.org/2019/webapps/",
-      wgPatentURI: "https://www.w3.org/2004/01/pp-impl/114929/status",
+      group: "webapps",
       github: "https://github.com/w3c/manifest/",
       caniuse: {
         feature: "web-app-manifest",
@@ -110,7 +108,7 @@
       }
     </style>
   </head>
-  <body data-cite="ENCODING SCREEN-ORIENTATION">
+  <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5">
     <section id='abstract'>
       <p>
         This specification defines a JSON-based file format that provides
@@ -1427,6 +1425,10 @@
           (e.g., amongst a list of other applications, or as a label for an
           icon).
         </p>
+        <p>
+          The {{WebAppManifest/name}} member serves as the <a>accessible
+          name</a> of an [=installed web application=].
+        </p>
       </section>
       <section>
         <h3>
@@ -1446,6 +1448,10 @@
         <p>
           The <dfn>description</dfn> member allows the developer to describe
           the purpose of the web application.
+        </p>
+        <p>
+          The {{WebAppManifest/description}} member serves as the <a>accessible
+          description</a> of an [=installed web application=].
         </p>
       </section>
       <section>
@@ -1740,6 +1746,11 @@
           component=] based on the context. For example, in most environments,
           the <a>theme color</a> cannot be transparent.
         </p>
+        <p>
+          Implementors MAY override the value defined by the <a>theme_color</a>
+          member to support <a data-xref-type="css-descriptor" data-xref-for=
+          "@media">prefers-color-scheme</a>.
+        </p>
       </section>
       <section>
         <h3>
@@ -1829,6 +1840,12 @@
           experience while a web application is loading and MUST NOT be used by
           the <a>user agent</a> as the background color when the web
           application's stylesheet is available.
+        </p>
+        <p>
+          Implementors MAY override the value defined by the
+          {{WebAppManifest/background_color}} member to support
+          <a data-xref-type="css-descriptor" data-xref-for=
+          "@media">prefers-color-scheme</a>.
         </p>
       </section>
       <section>
@@ -2240,13 +2257,13 @@
           <li>Return |purposes|.
           </li>
         </ol>
-        <div class="example">
+        <aside class="example">
           <p>
             In the following example, the web application is listing two icons
             to be used as a monochrome icon, one of which is specifically
             designed for the Android platform.
           </p>
-          <pre class="example json">
+          <pre class="json">
             {
               "name": "News",
               "icons": [{
@@ -2262,7 +2279,7 @@
               }]
             }
           </pre>
-        </div>
+        </aside>
       </section>
       <section id="icon-masks">
         <h2>
@@ -2496,10 +2513,10 @@
               </li>
               <li>If |purpose| is failure, [=iteration/continue=].
               </li>
-              <li>Set |image|'s {ManifestImageResource\purpose} to |purpose|.
+              <li>Set |image|'s {{ManifestImageResource/purpose}} to |purpose|.
               </li>
-              <li>Set |image|'s {ManifestImageResource\platform} to the value
-              of |entry|'s {ManifestImageResource\platform} member.
+              <li>Set |image|'s {{ManifestImageResource/platform}} to the value
+              of |entry|'s {{ManifestImageResource/platform}} member.
               </li>
               <li>[=list/Append=] |image| to |imageResources|.
               </li>
@@ -2715,7 +2732,7 @@
         <code>platform</code> and either an <code>url</code> or an
         <code>id</code> (or both).
       </p>
-      <div class="example">
+      <aside class="example">
         <p>
           In the following example, the web application is listing two
           different related applications, one on Google Play Store and the
@@ -2724,7 +2741,7 @@
           cryptographic fingerprints used for verification, in a
           Play-Store-specific manner.
         </p>
-        <pre class="example json">
+        <pre class="json">
           {
             "related_applications": [
               {
@@ -2746,7 +2763,7 @@
             ]
           }
         </pre>
-      </div>
+      </aside>
       <p class="issue">
         Where should the <code>platform</code> expected value be listed?
       </p>
@@ -3371,6 +3388,22 @@
               <a data-cite=
               "ECMASCRIPT#sec-ecmascript-data-types-and-values"><dfn data-dfn-for="">
               Type</dfn>(<var>x</var>)</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="https://w3c.github.io/accname">Accessible Name and
+          Description Computation</a> defines the following terms:
+          <ul>
+            <li>
+              <a href=
+              "https://w3c.github.io/accname/#dfn-accessible-name"><dfn>accessible
+              name</dfn></a>
+            </li>
+            <li>
+              <a href=
+              "https://w3c.github.io/accname/#dfn-accessible-description"><dfn>accessible
+              description</dfn></a>
             </li>
           </ul>
         </li>
