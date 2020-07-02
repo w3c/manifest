@@ -1151,9 +1151,8 @@
           result of running <a>processing the <code>related_applications</code>
           member</a> given <var>manifest</var>["<a>related_applications</a>"].
           </li>
-          <li>Set <var>manifest</var>["<a>shortcuts</a>"] to the result of
-          running <a>processing the <code>shortcuts</code> member</a> given
-          <var>manifest</var>["<a>shortcuts</a>"] and <var>manifest URL</var>.
+          <li>Run the <a>processing the <code>shortcuts</code> member</a> with
+          |manifest URL| and |manifest|.
           </li>
           <li>
             <a>Extension point</a>: process any proprietary and/or other
@@ -1975,21 +1974,20 @@
         <p>
           The steps for <dfn>processing the <code>shortcuts</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
-          <a>sequence</a>&lt;<a>ShortcutItem</a>&gt; <var>shortcuts</var> and a
-          <a>URL</a> <var>manifest URL</var>. This algorithm returns a
-          <a>sequence</a>&lt;<a>ShortcutItem</a>&gt;.
+          <a>URL</a> <var>manifest URL</var>, and a |manifest:processed
+          manifest|.
         </p>
         <ol>
           <li>Let <var>processedShortcuts</var> be a new Array object created
           as if by the expression [].
           </li>
-          <li>For each <var>shortcut</var> (<a>ShortcutItem</a>) in the
-          sequence:
+          <li>[=list/For each=] {{ShortcutItem}} |shortcut:ShortItem| of
+          |shortcuts:sequence|:
             <ol>
-              <li>If <var>shortcut</var>["name"] or <var>shortcut</var>["url"]
-              are undefined, or if <var>shortcut</var>["name"] is the empty
-              string, <a>issue a developer warning</a> and
-              [=iteration/continue=].
+              <li>If |shortcut| is not an [=object=], or
+              <var>shortcut</var>["name"] or <var>shortcut</var>["url"] are
+              undefined, or <var>shortcut</var>["name"] is the empty string,
+              <a>issue a developer warning</a> and [=iteration/continue=].
               </li>
               <li>Set <var>shortcut</var>["icons"] to the result of running <a>
                 processing `ManifestImageResource` members</a> given
@@ -2000,8 +1998,8 @@
               URL</var> as the base URL. If the result is failure, <a>issue a
               developer warning</a> and [=iteration/continue=].
               </li>
-              <li>If <var>shortcut</var>["url"] is not [=URL/within scope=] of
-              <var>manifest URL</var>, <a>issue a developer warning</a> and
+              <li>If <var>shortcut</var>["url"] is not [=manifest/within
+              scope=] of |manifest|, <a>issue a developer warning</a> and
               [=iteration/continue=].
               </li>
               <li>
@@ -2010,7 +2008,7 @@
               </li>
             </ol>
           </li>
-          <li>Return <var>processedShortcuts</var>.
+          <li>Set |manifest|["shortcuts"] to <var>processedShortcuts</var>.
           </li>
         </ol>
         <p>
@@ -3394,13 +3392,13 @@
           <ul>
             <li>
               <a href=
-              "https://w3c.github.io/accname/#dfn-accessible-name"><dfn>
-              accessible name</dfn></a>
+              "https://w3c.github.io/accname/#dfn-accessible-name"><dfn>accessible
+              name</dfn></a>
             </li>
             <li>
               <a href=
-              "https://w3c.github.io/accname/#dfn-accessible-description"><dfn>
-              accessible description</dfn></a>
+              "https://w3c.github.io/accname/#dfn-accessible-description"><dfn>accessible
+              description</dfn></a>
             </li>
           </ul>
         </li>
