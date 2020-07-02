@@ -324,6 +324,13 @@
         {{Document}} <a>installable</a> (see [[[#installability-signals]]]).
         </li>
       </ol>
+      <p class="note">
+        These steps ensure that if the document is [=installable=], the
+        associated [=processed manifest=] has a valid
+        {{WebAppManifest/start_url}} and {{WebAppManifest/scope}} that are
+        [=same origin=] as the {{Document}}'s {{Document/URL}} (and each
+        other).
+      </p>
       <section>
         <h3>
           Authority of the manifest's metadata
