@@ -295,8 +295,12 @@
             <li>Fall back to using the <a>top-level browsing context</a>
             {{Document}}'s metadata to populate <var>manifest</var> in a
             user-agent-specific way (e.g., setting
-            |manifest|["{{WebAppManifest/name}}"] to the document [^title^])
-            and considering the document <a>installable</a>.
+            |manifest|["{{WebAppManifest/name}}"] to the document [^title^]),
+            including setting |manifest|["{{WebAppManifest/start_url}}"] to the
+            {{Document}}'s {{Document/URL}}, and
+            |manifest|["{{WebAppManifest/scope}}"] to the result of [=URL
+            Parser|parsing=] "." using the {{Document}}'s {{Document/URL}} as
+            the |base URL|, then considering the document <a>installable</a>.
             </li>
             <li>Or, consider the document not <a>installable</a>.
             </li>
@@ -304,7 +308,17 @@
         </li>
         <li>Otherwise, if |manifest|["{{WebAppManifest/start_url}}"] is not
         present, or not <a>same origin</a> as the {{Document}}'s
-        {{Document/URL}}, consider the document not <a>installable</a>.
+        {{Document/URL}}, the user agent MAY either:
+          <ul>
+            <li>Set |manifest|["{{WebAppManifest/start_url}}"] to the
+            {{Document}}'s {{Document/URL}}, and set
+            |manifest|["{{WebAppManifest/scope}}"] to the result of [=URL
+            Parser|parsing=] "." using the {{Document}}'s {{Document/URL}} as
+            the |base URL|, and consider the document <a>installable</a>.
+            </li>
+            <li>Or, consider the document not <a>installable</a>.
+            </li>
+          </ul>
         </li>
         <li>Otherwise, at its discretion, the user agent MAY consider the
         {{Document}} <a>installable</a> (see [[[#installability-signals]]]).
