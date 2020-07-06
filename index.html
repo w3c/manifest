@@ -2081,7 +2081,6 @@
       </h2>
       <pre class="idl">
         dictionary ManifestImageResource : ImageResource {
-          USVString platform;
           USVString purpose;
         };
       </pre>
@@ -2147,15 +2146,6 @@
             from <code>other.com/hi-res</code> would fail.
           </p>
         </div>
-      </section>
-      <section>
-        <h3>
-          <dfn>platform</dfn> member
-        </h3>
-        <p>
-          The {{ManifestImageResource/platform}} member represents the
-          <a>platform</a> to which a containing object applies.
-        </p>
       </section>
       <section>
         <h3>
@@ -2257,29 +2247,6 @@
           <li>Return |purposes|.
           </li>
         </ol>
-        <aside class="example">
-          <p>
-            In the following example, the web application is listing two icons
-            to be used as a monochrome icon, one of which is specifically
-            designed for the Android platform.
-          </p>
-          <pre class="json">
-            {
-              "name": "News",
-              "icons": [{
-                "platform": "play",
-                "purpose": "monochrome",
-                "sizes": "16x16",
-                "src": "icons/badges/android.png",
-                "type": "image/png"
-              }, {
-                "purpose": "monochrome",
-                "src": "icons/badges/safari.svg",
-                "type": "image/svg"
-              }]
-            }
-          </pre>
-        </aside>
       </section>
       <section id="icon-masks">
         <h2>
@@ -2515,9 +2482,6 @@
               </li>
               <li>Set |image|'s {{ManifestImageResource/purpose}} to |purpose|.
               </li>
-              <li>Set |image|'s {{ManifestImageResource/platform}} to the value
-              of |entry|'s {{ManifestImageResource/platform}} member.
-              </li>
               <li>[=list/Append=] |image| to |imageResources|.
               </li>
             </ol>
@@ -2633,46 +2597,6 @@
         </ol>
       </section>
     </section>
-    <section>
-      <h2>
-        Multi-purpose members
-      </h2>
-      <p>
-        This section specifies members that can be used on multiple objects.
-        Each member specifies which object a multi-purpose member can be used
-        with.
-      </p>
-      <section data-dfn-for="ExternalApplicationResource" data-link-for=
-      "ExternalApplicationResource">
-        <h3>
-          <dfn>platform</dfn> member
-        </h3>
-        <p>
-          The <a>platform</a> member represents the <a>platform</a> to which a
-          containing object applies.
-        </p>
-        <p>
-          The following object types can make use of this member:
-        </p>
-        <ul>
-          <li>
-            <a>ExternalApplicationResource</a>
-          </li>
-          <li>{{ManifestImageResource}}
-          </li>
-        </ul>
-        <p>
-          A <dfn data-dfn-for="">platform</dfn> represents a software
-          distribution ecosystem or possibly an operating system.
-        </p>
-        <p class="note">
-          This specification does not define the particular values for a the
-          <a>platform</a> member. However, the working group maintains a
-          <a href="https://github.com/w3c/manifest/wiki/Platforms">list of
-          known platform values</a> in our wiki.
-        </p>
-      </section>
-    </section>
     <section data-dfn-for="ExternalApplicationResource" data-link-for=
     "ExternalApplicationResource">
       <h2>
@@ -2697,7 +2621,13 @@
           <code>platform</code>
         </dt>
         <dd>
-          the platform it is associated to.
+          the platform it is associated to. A <dfn data-dfn-for=
+          "">platform</dfn> represents a software distribution ecosystem or
+          possibly an operating system. This specification does not define the
+          particular values for the <a>platform</a> member. However, the
+          working group maintains a <a href=
+          "https://github.com/w3c/manifest/wiki/Platforms">list of known
+          platform values</a> in our wiki.
         </dd>
         <dt>
           <code>url</code>
