@@ -2597,10 +2597,9 @@
         </ol>
       </section>
     </section>
-    <section data-dfn-for="ExternalApplicationResource" data-link-for=
-    "ExternalApplicationResource">
+    <section data-dfn-for="ExternalApplicationResource">
       <h2>
-        ExternalApplicationResource and its members
+        `ExternalApplicationResource` and its members
       </h2>
       <pre class="idl">
         dictionary ExternalApplicationResource {
@@ -2613,50 +2612,8 @@
       </pre>
       <p>
         Each <dfn>ExternalApplicationResource</dfn>s represents an application
-        related to the web application. An application resource has the
-        following properties:
+        related to the web application.
       </p>
-      <dl>
-        <dt>
-          <code>platform</code>
-        </dt>
-        <dd>
-          the platform it is associated to. A <dfn data-dfn-for=
-          "">platform</dfn> represents a software distribution ecosystem or
-          possibly an operating system. This specification does not define the
-          particular values for the <a>platform</a> member. However, the
-          working group maintains a <a href=
-          "https://github.com/w3c/manifest/wiki/Platforms">list of known
-          platform values</a> in our wiki.
-        </dd>
-        <dt>
-          <code>url</code>
-        </dt>
-        <dd>
-          the URL where the application can be found.
-        </dd>
-        <dt>
-          <code>id</code>
-        </dt>
-        <dd>
-          information additional to the URL or instead of the URL, depending on
-          the platform.
-        </dd>
-        <dt>
-          <code>min_version</code>
-        </dt>
-        <dd>
-          information about the minimum version of an application related to
-          this web app.
-        </dd>
-        <dt>
-          <code>fingerprints</code>
-        </dt>
-        <dd>
-          an array of <a>Fingerprint</a> objects used for verifying the
-          application.
-        </dd>
-      </dl>
       <p>
         A valid <a>ExternalApplicationResource</a> dictionary MUST have
         <code>platform</code> and either an <code>url</code> or an
@@ -2694,10 +2651,21 @@
           }
         </pre>
       </aside>
-      <p class="issue">
-        Where should the <code>platform</code> expected value be listed?
-      </p>
-      <section data-dfn-for="ExternalApplicationResource">
+      <section>
+        <h3>
+          `platform` member
+        </h3>
+        <p>
+          The platform the {{ExternalApplicationResource}} is associated to. A
+          <dfn data-dfn-for="">platform</dfn> represents a software
+          distribution ecosystem or possibly an operating system. This
+          specification does not define the particular values for the
+          <a>platform</a> member. However, the working group maintains a
+          <a href="https://github.com/w3c/manifest/wiki/Platforms">list of
+          known platform values</a> in our wiki.
+        </p>
+      </section>
+      <section>
         <h3>
           <code>url</code> member
         </h3>
@@ -2722,7 +2690,7 @@
           </li>
         </ol>
       </section>
-      <section data-dfn-for="ExternalApplicationResource">
+      <section>
         <h3>
           <code>id</code> member
         </h3>
@@ -2732,7 +2700,7 @@
           application on the platform.
         </p>
       </section>
-      <section data-dfn-for="ExternalApplicationResource">
+      <section>
         <h3>
           <code>min_version</code> member
         </h3>
