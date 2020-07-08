@@ -1144,9 +1144,8 @@
           result of running <a>processing the <code>related_applications</code>
           member</a> given <var>manifest</var>["<a>related_applications</a>"].
           </li>
-          <li>Set <var>manifest</var>["<a>shortcuts</a>"] to the result of
-          running <a>processing the <code>shortcuts</code> member</a> given
-          <var>manifest</var>["<a>shortcuts</a>"] and <var>manifest URL</var>.
+          <li>Run the <a>processing the <code>shortcuts</code> member</a> with
+          |manifest URL| and |manifest|.
           </li>
           <li>
             <a>Extension point</a>: process any proprietary and/or other
@@ -1980,21 +1979,20 @@
         <p>
           The steps for <dfn>processing the <code>shortcuts</code> member</dfn>
           are given by the following algorithm. The algorithm takes a
-          <a>sequence</a>&lt;<a>ShortcutItem</a>&gt; <var>shortcuts</var> and a
-          <a>URL</a> <var>manifest URL</var>. This algorithm returns a
-          <a>sequence</a>&lt;<a>ShortcutItem</a>&gt;.
+          <a>URL</a> <var>manifest URL</var>, and a |manifest:processed
+          manifest|.
         </p>
         <ol>
           <li>Let <var>processedShortcuts</var> be a new Array object created
           as if by the expression [].
           </li>
-          <li>For each <var>shortcut</var> (<a>ShortcutItem</a>) in the
-          sequence:
+          <li>[=list/For each=] {{ShortcutItem}} |shortcut:ShortItem| of
+          |shortcuts:sequence|:
             <ol>
-              <li>If <var>shortcut</var>["name"] or <var>shortcut</var>["url"]
-              are undefined, or if <var>shortcut</var>["name"] is the empty
-              string, <a>issue a developer warning</a> and
-              [=iteration/continue=].
+              <li>If |shortcut| is not an [=object=], or
+              <var>shortcut</var>["name"] or <var>shortcut</var>["url"] are
+              undefined, or <var>shortcut</var>["name"] is the empty string,
+              <a>issue a developer warning</a> and [=iteration/continue=].
               </li>
               <li>Set <var>shortcut</var>["icons"] to the result of running <a>
                 processing `ManifestImageResource` members</a> given
@@ -2005,8 +2003,8 @@
               URL</var> as the base URL. If the result is failure, <a>issue a
               developer warning</a> and [=iteration/continue=].
               </li>
-              <li>If <var>shortcut</var>["url"] is not [=URL/within scope=] of
-              <var>manifest URL</var>, <a>issue a developer warning</a> and
+              <li>If <var>shortcut</var>["url"] is not [=manifest/within
+              scope=] of |manifest|, <a>issue a developer warning</a> and
               [=iteration/continue=].
               </li>
               <li>
@@ -2015,7 +2013,7 @@
               </li>
             </ol>
           </li>
-          <li>Return <var>processedShortcuts</var>.
+          <li>Set |manifest|["shortcuts"] to <var>processedShortcuts</var>.
           </li>
         </ol>
         <p>
@@ -2083,7 +2081,6 @@
       </h2>
       <pre class="idl">
         dictionary ManifestImageResource : ImageResource {
-          USVString platform;
           USVString purpose;
         };
       </pre>
@@ -2149,15 +2146,6 @@
             from <code>other.com/hi-res</code> would fail.
           </p>
         </div>
-      </section>
-      <section>
-        <h3>
-          <dfn>platform</dfn> member
-        </h3>
-        <p>
-          The {{ManifestImageResource/platform}} member represents the
-          <a>platform</a> to which a containing object applies.
-        </p>
       </section>
       <section>
         <h3>
@@ -2259,29 +2247,6 @@
           <li>Return |purposes|.
           </li>
         </ol>
-        <aside class="example">
-          <p>
-            In the following example, the web application is listing two icons
-            to be used as a monochrome icon, one of which is specifically
-            designed for the Android platform.
-          </p>
-          <pre class="json">
-            {
-              "name": "News",
-              "icons": [{
-                "platform": "play",
-                "purpose": "monochrome",
-                "sizes": "16x16",
-                "src": "icons/badges/android.png",
-                "type": "image/png"
-              }, {
-                "purpose": "monochrome",
-                "src": "icons/badges/safari.svg",
-                "type": "image/svg"
-              }]
-            }
-          </pre>
-        </aside>
       </section>
       <section id="icon-masks">
         <h2>
@@ -2517,9 +2482,6 @@
               </li>
               <li>Set |image|'s {{ManifestImageResource/purpose}} to |purpose|.
               </li>
-              <li>Set |image|'s {{ManifestImageResource/platform}} to the value
-              of |entry|'s {{ManifestImageResource/platform}} member.
-              </li>
               <li>[=list/Append=] |image| to |imageResources|.
               </li>
             </ol>
@@ -2635,50 +2597,9 @@
         </ol>
       </section>
     </section>
-    <section>
+    <section data-dfn-for="ExternalApplicationResource">
       <h2>
-        Multi-purpose members
-      </h2>
-      <p>
-        This section specifies members that can be used on multiple objects.
-        Each member specifies which object a multi-purpose member can be used
-        with.
-      </p>
-      <section data-dfn-for="ExternalApplicationResource" data-link-for=
-      "ExternalApplicationResource">
-        <h3>
-          <dfn>platform</dfn> member
-        </h3>
-        <p>
-          The <a>platform</a> member represents the <a>platform</a> to which a
-          containing object applies.
-        </p>
-        <p>
-          The following object types can make use of this member:
-        </p>
-        <ul>
-          <li>
-            <a>ExternalApplicationResource</a>
-          </li>
-          <li>{{ManifestImageResource}}
-          </li>
-        </ul>
-        <p>
-          A <dfn data-dfn-for="">platform</dfn> represents a software
-          distribution ecosystem or possibly an operating system.
-        </p>
-        <p class="note">
-          This specification does not define the particular values for a the
-          <a>platform</a> member. However, the working group maintains a
-          <a href="https://github.com/w3c/manifest/wiki/Platforms">list of
-          known platform values</a> in our wiki.
-        </p>
-      </section>
-    </section>
-    <section data-dfn-for="ExternalApplicationResource" data-link-for=
-    "ExternalApplicationResource">
-      <h2>
-        ExternalApplicationResource and its members
+        `ExternalApplicationResource` and its members
       </h2>
       <pre class="idl">
         dictionary ExternalApplicationResource {
@@ -2691,44 +2612,8 @@
       </pre>
       <p>
         Each <dfn>ExternalApplicationResource</dfn>s represents an application
-        related to the web application. An application resource has the
-        following properties:
+        related to the web application.
       </p>
-      <dl>
-        <dt>
-          <code>platform</code>
-        </dt>
-        <dd>
-          the platform it is associated to.
-        </dd>
-        <dt>
-          <code>url</code>
-        </dt>
-        <dd>
-          the URL where the application can be found.
-        </dd>
-        <dt>
-          <code>id</code>
-        </dt>
-        <dd>
-          information additional to the URL or instead of the URL, depending on
-          the platform.
-        </dd>
-        <dt>
-          <code>min_version</code>
-        </dt>
-        <dd>
-          information about the minimum version of an application related to
-          this web app.
-        </dd>
-        <dt>
-          <code>fingerprints</code>
-        </dt>
-        <dd>
-          an array of <a>Fingerprint</a> objects used for verifying the
-          application.
-        </dd>
-      </dl>
       <p>
         A valid <a>ExternalApplicationResource</a> dictionary MUST have
         <code>platform</code> and either an <code>url</code> or an
@@ -2766,10 +2651,21 @@
           }
         </pre>
       </aside>
-      <p class="issue">
-        Where should the <code>platform</code> expected value be listed?
-      </p>
-      <section data-dfn-for="ExternalApplicationResource">
+      <section>
+        <h3>
+          `platform` member
+        </h3>
+        <p>
+          The platform the {{ExternalApplicationResource}} is associated to. A
+          <dfn data-dfn-for="">platform</dfn> represents a software
+          distribution ecosystem or possibly an operating system. This
+          specification does not define the particular values for the
+          <a>platform</a> member. However, the working group maintains a
+          <a href="https://github.com/w3c/manifest/wiki/Platforms">list of
+          known platform values</a> in our wiki.
+        </p>
+      </section>
+      <section>
         <h3>
           <code>url</code> member
         </h3>
@@ -2794,7 +2690,7 @@
           </li>
         </ol>
       </section>
-      <section data-dfn-for="ExternalApplicationResource">
+      <section>
         <h3>
           <code>id</code> member
         </h3>
@@ -2804,7 +2700,7 @@
           application on the platform.
         </p>
       </section>
-      <section data-dfn-for="ExternalApplicationResource">
+      <section>
         <h3>
           <code>min_version</code> member
         </h3>
@@ -3399,13 +3295,13 @@
           <ul>
             <li>
               <a href=
-              "https://w3c.github.io/accname/#dfn-accessible-name"><dfn data-dfn-for="">
-              accessible name</dfn></a>
+              "https://w3c.github.io/accname/#dfn-accessible-name"><dfn>accessible
+              name</dfn></a>
             </li>
             <li>
               <a href=
-              "https://w3c.github.io/accname/#dfn-accessible-description"><dfn data-dfn-for="">
-              accessible description</dfn></a>
+              "https://w3c.github.io/accname/#dfn-accessible-description"><dfn>accessible
+              description</dfn></a>
             </li>
           </ul>
         </li>
