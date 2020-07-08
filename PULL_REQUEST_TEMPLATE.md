@@ -1,13 +1,13 @@
 Closes #???
 
-This change (choose one):
+This change (choose at least one, delete ones that don't apply):
 
-* [ ] Breaks existing normative behavior (please add label "breaking")
-* [ ] Adds new normative requirements
-* [ ] Adds new normative recommendations or optional items
-* [ ] Makes only editorial changes (only changes informative sections, or
+* Breaks existing normative behavior (please add label "breaking")
+* Adds new normative requirements
+* Adds new normative recommendations or optional items
+* Makes only editorial changes (only changes informative sections, or
   changes normative sections without changing behavior)
-* [ ] Is a "chore" (metadata, formatting, fixing warnings, etc).
+* Is a "chore" (metadata, formatting, fixing warnings, etc).
 
 Implementation commitment (delete if not making normative changes):
 
@@ -15,6 +15,10 @@ Implementation commitment (delete if not making normative changes):
 * [ ] Chrome (link to issue)
 * [ ] Firefox (link to issue)
 * [ ] Edge (public signal)
+
+If change is normative, and it adds or changes a member:
+
+* [ ] updated JSON schema
 
 Commit message:
 
