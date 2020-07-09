@@ -18,7 +18,7 @@ Implementation commitment (delete if not making normative changes):
 
 If change is normative, and it adds or changes a member:
 
-* [ ] updated JSON schema at https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/web-manifest.json
+* [ ] [updated JSON schema](https://github.com/SchemaStore/schemastore/blob/master/src/schemas/json/web-manifest.json)
 
 Commit message:
 
