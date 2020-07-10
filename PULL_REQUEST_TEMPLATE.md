@@ -5,8 +5,7 @@ This change (choose at least one, delete ones that don't apply):
 * Breaks existing normative behavior (please add label "breaking")
 * Adds new normative requirements
 * Adds new normative recommendations or optional items
-* Makes editorial changes (only changes informative sections, or
-  changes normative sections without changing behavior)
+* Makes editorial changes (changes informative sections, or changes normative sections without changing behavior)
 * Is a "chore" (metadata, formatting, fixing warnings, etc).
 
 Implementation commitment (delete if not making normative changes):
