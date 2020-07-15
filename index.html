@@ -128,10 +128,6 @@
         create user experiences that are more comparable to that of a native
         application.
       </p>
-      <p>
-        This specification also defines the `manifest` link type as a
-        declarative means to associate a document with a manifest.
-      </p>
     </section>
     <section id="sotd">
       <div class="warning">
@@ -208,10 +204,9 @@
           Using a `link` element to link to a manifest
         </h3>
         <p>
-          Example of using a [^link^] element to associate a website with a
-          <a>manifest</a>. The example also shows how to use [[HTML]]'s
-          [^link^] and <a data-tl="meta element">`meta`</a> elements to give
-          the web application a fallback name and set of icons.
+          The example also shows how to use the [=link type "manifest"=] and
+          how to use other [^meta^] and [^link^] elements to give the web
+          application a fallback name and set of icons.
         </p>
         <pre class="example html" title="linking to a manifest">
           &lt;!doctype&gt;
@@ -226,14 +221,16 @@
           &lt;link rel="icon" sizes="16x16 32x32 48x48" href="lo_def.ico"&gt;
           &lt;link rel="icon" sizes="512x512" href="hi_def.png"&gt;
         </pre>
-        <div class="note" title="manifest.webmanifest or manifest.json?">
+        <div data-cite="mimesniff" class="note" title=
+        "manifest.webmanifest or manifest.json?">
           The official file extension for the manifest is `.webmanifest`. Some
           web servers recognize this extension and transfer the file using the
           standardized <a>application manifest MIME type</a>
-          (`application/manifest+json`). Developers can also choose a different
-          extension (e.g. `.json`) or none at all (e.g. `/api/GetManifest`),
-          but are strongly encouraged to transfer the manifest using the
-          `application/manifest+json` <a data-cite="mimesniff">MIME type</a>.
+          ([=application\/manifest+json=]). Developers can also choose a
+          different extension (e.g. `.json`) or none at all (e.g.
+          `/api/GetManifest`), but are encouraged to transfer the manifest
+          using the [=application\/manifest+json=] [=MIME type=], although any
+          [=JSON MIME type=] is ok.
         </div>
       </section>
     </section>
@@ -268,34 +265,10 @@
         application into a list of bookmarks within the user agent itself.
       </p>
       <p>
-        A [=document=] may either be <dfn>installable</dfn> or not. The initial
-        state of a document is not <a>installable</a>.
+        A [=document=] <dfn data-dfn-for="document">is installable</dfn> if
+        it's a [=top-level browsing context=] and the user agent deems it to be
+        installable (e.g., see [[[#installability-signals]]]).
       </p>
-      <p>
-        At any time, the user agent MAY perform the <dfn>steps to determine
-        installability of the document</dfn>:
-      </p>
-      <ol>
-        <li>Let <var>manifest</var> and <var>manifest URL</var> be the result
-        of <a>obtaining the manifest</a>.
-        </li>
-        <li>If <a>obtaining the manifest</a> results in an error, the user
-        agent MAY either:
-          <ul>
-            <li>Fall back to using the <a>top-level browsing context</a>
-            {{Document}}'s metadata to populate <var>manifest</var> in a
-            user-agent-specific way (e.g., setting
-            |manifest|.{{WebAppManifest/name}} to the document [^title^] and
-            considering the document <a>installable</a>.
-            </li>
-            <li>Or, consider the document not <a>installable</a>.
-            </li>
-          </ul>
-        </li>
-        <li>Otherwise, at its discretion, the user agent MAY consider the
-        {{Document}} <a>installable</a> (see [[[#installability-signals]]]).
-        </li>
-      </ol>
       <section>
         <h3>
           Authority of the manifest's metadata
@@ -378,8 +351,9 @@
           Examples of <a>installability signals</a> for a web application:
         </p>
         <ul>
-          <li>is <a>associated with a manifest</a> with at least a
-          <code>name</code> member and a suitable icon.
+          <li>has a <a>manifest</a> with at least a `name` member and a
+          suitable icon (e.g., of a particular format and of a minimum
+          width/height).
           </li>
           <li>is served over a secure network connection.
           </li>
@@ -831,200 +805,17 @@
       </section>
     </section>
     <section>
-      <h3>
-        Associating a resource with a manifest
-      </h3>
-      <p>
-        A resource is said to be <dfn>associated with a manifest</dfn> if the
-        resource representation, an HTML document, has a <a href=
-        "#linking"><code>manifest</code> link relationship</a>.
-      </p>
-      <section id="linking">
-        <h3>
-          Linking to a manifest
-        </h3>
-        <p>
-          The <code>manifest</code> keyword can be used with a [[HTML]]
-          [^link^] element. This keyword creates an <a>external resource
-          link</a>.
-        </p>
-        <table class="complex data">
-          <thead>
-            <tr>
-              <th rowspan="2">
-                Link type
-              </th>
-              <th colspan="2">
-                Effect on...
-              </th>
-              <th rowspan="2">
-                Brief description
-              </th>
-            </tr>
-            <tr>
-              <th>
-                <code><a>link</a></code>
-              </th>
-              <th>
-                <code><a>a</a></code> and <code><a>area</a></code>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <code>manifest</code>
-              </td>
-              <td>
-                <a>External Resource Link</a>
-              </td>
-              <td>
-                not allowed
-              </td>
-              <td>
-                Imports or links to a <a>manifest</a>.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <p>
-          The <a>application manifest MIME type</a> serves as the default
-          <a data-cite="mimesniff">MIME type</a> for resources associated with
-          the "<code>manifest</code>" link type.
-        </p>
-        <p class="note">
-          In cases where more than one [^link^] element with a
-          <code>manifest</code> link type appears in a {{Document}}, the user
-          agent uses the first [^link^] element in tree order and ignores all
-          subsequent [^link^] elements with a <code>manifest</code> link type
-          (even if the first element was erroneous). See the steps for
-          <a>obtaining a manifest</a>.
-        </p>
-        <p>
-          To obtain a manifest, the user agent MUST run the steps for
-          <a data-lt="obtaining the manifest">obtaining a manifest</a>. The
-          appropriate time to obtain the manifest is left up to
-          implementations. A user agent MAY opt to delay fetching a manifest
-          until after the document and its other resources have been fully
-          loaded (i.e., to not delay the availability of content and scripts
-          required by the <a data-cite="DOM">document</a>).
-        </p>
-        <p>
-          A <a>manifest</a> is obtained and applied regardless of the
-          {{HTMLLinkElement/media}} attribute of the [^link^] element matches
-          the environment or not.
-        </p>
-      </section>
-    </section>
-    <section>
       <h2>
         Manifest life-cycle
       </h2>
       <p>
-        This section defines algorithms for <a href="#obtaining">obtaining</a>,
-        <a href="#processing">processing</a>, and <a>applying</a> a
-        <a>manifest</a>.
+        This section defines algorithms for [=processing a manifest=], and
+        <a>applying</a> a <a>manifest</a>.
       </p>
-      <section id="obtaining">
-        <h3>
-          Obtaining a manifest
-        </h3>
-        <p>
-          The <dfn data-lt="obtaining the manifest|obtaining a manifest">steps
-          for obtaining a manifest</dfn> are given by the following algorithm.
-          The algorithm, if successful, returns a <a>processed manifest</a> and
-          the <var>manifest URL</var>; otherwise, it aborts prematurely and
-          returns nothing. In the case of nothing being returned, the user
-          agent MUST ignore the manifest declaration. In running these steps, a
-          user agent MUST NOT <a>delay the load event</a>.
-        </p>
-        <ol>
-          <li>From the {{Document}} of the <a>top-level browsing context</a>,
-          let <var>origin</var> be the {{Document}}'s origin, and <var>manifest
-          link</var> be the first [^link^] element in <a>tree order</a> whose
-          {{HTMLLinkElement/rel}} attribute contains the token
-          <code>manifest</code>.
-          </li>
-          <li>If <var>origin</var> is an <a>opaque origin</a>, then abort these
-          steps.
-          </li>
-          <li>If <var>manifest link</var> is <code>null</code>, then abort
-          these steps.
-          </li>
-          <li>If <var>manifest link</var>'s <code>href</code> attribute's value
-          is the empty <a>string</a>, then abort these steps.
-          </li>
-          <li>Let <var>manifest URL</var> be the result of [=URL
-          Parser|parsing=] the value of the <code>href</code> attribute,
-          relative to the [=document base URL=]. If parsing fails, then abort
-          these steps.
-          </li>
-          <li>Let |request:Request| be a new <a>Request</a>.
-          </li>
-          <li>Set |request|'s [=request/URL=] to |manifest URL|.
-          </li>
-          <li>Set |request|'s [=request/initiator=] to "`manifest`".
-          </li>
-          <li>Set |request|'s [=request/destination=] to "`manifest`".
-          </li>
-          <li>If the |manifest link|'s {{HTMLLinkElement/crossOrigin}}
-          attribute's value is "`use-credentials`", then set |request|'s
-          [=request/credentials mode=] to "`include`". Otherwise, set
-          |request|'s [=request/credentials mode=] to "`omit`".
-          </li>
-          <li>Set |request|'s [=request/mode=] to "`cors`".
-          </li>
-          <li>Await the result of performing a <a>fetch</a> with
-          <var>request</var>, letting <var>response</var> be the result.
-          </li>
-          <li>If <var>response</var> is a <a>network error</a>, then abort
-          these steps.
-          </li>
-          <li>Let <var>text</var> be <a>UTF-8 decode</a> <var>response</var>'s
-          <a data-cite="FETCH#concept-request-body">body</a>.
-          </li>
-          <li>Let <var>manifest</var> be the result of running <a>processing a
-          manifest</a> given <var>text</var>, <var>manifest URL</var>, and the
-          URL that represents the address of the <a>top-level browsing
-          context</a>.
-          </li>
-          <li>Return <var>manifest</var> and <var>manifest URL</var>.
-          </li>
-        </ol>
-        <section>
-          <h4>
-            Content security policy
-          </h4>
-          <p>
-            A user agent MUST support [[CSP3]].
-          </p>
-          <div class="example">
-            <p>
-              The <a>manifest-src</a> and <a>default-src</a> directives govern
-              the origins from which a <a>user agent</a> can fetch a manifest.
-              As with other directives, by default the <a>manifest-src</a>
-              directive is <code>*</code>, meaning that a user agent can,
-              [[FETCH]]'s <abbr>CORS</abbr> permitting, fetch the manifest
-              cross-domain. Remote origins (e.g., a <abbr title=
-              "content delivery network">CDN</abbr>) wanting to host manifests
-              for various web applications will need to include the appropriate
-              <abbr>CORS</abbr> response header in their HTTP response (e.g.,
-              <code>Access-Control-Allow-Origin: https://example.com</code>).
-            </p>
-            <figure>
-              <img src="images/manifest-src-directive.svg" width="704" height=
-              "342" alt="manifest-src directive example illustrated">
-              <figcaption>
-                For a [[HTML]] document, [[CSP3]]'s <a>manifest-src</a>
-                directive controls the sources from which a [[HTML]] document
-                can load a manifest from. The same CSP policy's
-                <code>img-src</code> directive controls where the icon's images
-                can be fetched from.
-              </figcaption>
-            </figure>
-          </div>
-        </section>
-      </section>
+      <p>
+        A user agent MUST support the [=link type "manifest"=] and the
+        associated steps for how to fetch and process the linked resource.
+      </p>
       <section id="processing" data-link-for="WebAppManifest">
         <h3>
           Processing the manifest
@@ -1054,23 +845,13 @@
           </p>
         </div>
         <p>
-          The steps for <dfn>processing a manifest</dfn> are given by the
-          following algorithm. The algorithm takes a <a>string</a>
-          <var>text</var> as an argument, which represents a <a>manifest</a>,
-          and a <a>URL</a> <var>manifest URL</var>, which represents the
-          location of the manifest, and a <a>URL</a> <var>document URL</var>.
-          The output from inputting an JSON document into this algorithm is a
-          <dfn>processed manifest</dfn>.
-        </p>
-        <p class="issue">
-          We need to catch throws associated with enumerations in IDL
-          conversion as the spec might gain new values over time not supported
-          by all existing browsers. This is especially important as we rely on
-          enums not defined in this specification.
+          The steps for <dfn data-export="">processing a manifest</dfn> are
+          given by the following algorithm. The algorithm takes [^link^]
+          |el:HTMLLinkElement| and a [=Response=] |response|.
         </p>
         <ol>
-          <li>Let <var>json</var> be the result of [=parse JSON from bytes=]
-          <var>text</var>. If parsing throws an error:
+          <li>Let |json| be the result of [=parse JSON from bytes=]
+          |response|'s [=response/body=]. If parsing throws an error:
             <ol>
               <li>
                 <a>Issue a developer warning</a> with any details pertaining to
@@ -1081,7 +862,7 @@
               </li>
             </ol>
           </li>
-          <li>If <a>Type</a>(<var>json</var>) is not Object:
+          <li>If |json| is not an [=ordered map=]:
             <ol>
               <li>
                 <a>Issue a developer warning</a> that the manifest needs to be
@@ -1092,22 +873,20 @@
               </li>
             </ol>
           </li>
-          <li>Let <var>manifest</var> be the result of [=converted to an idl
-          value|converting=] <var>json</var> to a <a>WebAppManifest</a>
-          dictionary.
+          <li>Let <var>manifest</var> be a new [=ordered map=].
           </li>
           <li>Set <var>manifest</var>["<a>start_url</a>"] to the result of
           running <a>processing the <code>start_url</code> member</a> given
-          <var>manifest</var>["<a>start_url</a>"], <var>manifest URL</var>, and
+          <var>json</var>["<a>start_url</a>"], <var>manifest URL</var>, and
           <var>document URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>lang</a>"] to the result of running
           <a>processing the <code>lang</code> member</a> given
-          <var>manifest</var>["<a>lang</a>"].
+          <var>json</var>["<a>lang</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>scope</a>"] to the result of running
           <a>processing the <code>scope</code> member</a> given
-          <var>manifest</var>["<a>scope</a>"], <var>manifest URL</var>, and
+          <var>json</var>["<a>scope</a>"], <var>manifest URL</var>, and
           <var>manifest</var>["<a>start_url</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>theme_color</a>"] to the result of
@@ -1116,15 +895,15 @@
           </li>
           <li>Set <var>manifest</var>["<a>background_color</a>"] to the result
           of running <a>processing a color member</a> given
-          <var>manifest</var>["<a>background_color</a>"].
+          <var>json</var>["<a>background_color</a>"].
           </li>
           <li>Set <var>manifest</var>["<a>icons</a>"] to the result of running
           <a>processing `ManifestImageResource` members</a> given
-          <var>manifest</var>["<a>icons</a>"] and <var>manifest URL</var>.
+          <var>json</var>["<a>icons</a>"] and <var>manifest URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>related_applications</a>"] to the
           result of running <a>processing the <code>related_applications</code>
-          member</a> given <var>manifest</var>["<a>related_applications</a>"].
+          member</a> given <var>json</var>["<a>related_applications</a>"].
           </li>
           <li>Run the <a>processing the <code>shortcuts</code> member</a> with
           |manifest URL| and |manifest|.
@@ -1133,7 +912,7 @@
             <a>Extension point</a>: process any proprietary and/or other
             supported members at this point in the algorithm.
           </li>
-          <li>Return <var>manifest</var>.
+          <li>Let [=document=]'s <dfn>processed manifest</dfn> be a |manifest|.
           </li>
         </ol>
       </section>
@@ -1142,10 +921,11 @@
           Applying the manifest
         </h3>
         <p>
-          A <a>manifest</a> is <dfn data-lt="apply|applying">applied</dfn> to a
-          <a>top-level browsing context</a>, meaning that the members of the
-          <a>manifest</a> are affecting the presentation or behavior of a
-          browsing context.
+          A <a>processed manifest</a> is <dfn data-lt=
+          "apply|applying">applied</dfn> to a <a>top-level browsing
+          context</a>, meaning that the members of the <a>processed
+          manifest</a> are affecting the presentation or behavior of a browsing
+          context.
         </p>
         <p>
           A <a>top-level browsing context</a> that has a manifest applied to it
@@ -1252,8 +1032,10 @@
           };
       </pre>
       <p>
-        A <dfn data-export="" data-dfn-for="">manifest</dfn> is a JSON document
-        that is structured as defined by this specification.
+        A <dfn data-export="" data-dfn-for="" data-lt=
+        "application manifest">manifest</dfn> is a JSON document that contains
+        startup parameters and application defaults for when a web application
+        is launched.
       </p>
       <p>
         Every manifest has an associated <dfn>manifest URL</dfn>, which is the
@@ -1725,7 +1507,7 @@
         <p>
           A <dfn>related application</dfn> is an application accessible to the
           underlying application platform that has a relationship with the web
-          application <a>associated with a manifest</a>.
+          application.
         </p>
         <p>
           The <dfn>related_applications</dfn> member lists <a>related
@@ -2815,8 +2597,8 @@
             Notes:
           </dt>
           <dd>
-            Please refer to the steps for <a>obtaining a manifest</a> for
-            details about how to fetch and <a>apply</a> a <a>manifest</a>.
+            See [=link type "manifest"=] for details about how a manifest is
+            [=fetched=].
           </dd>
         </dl>
       </section>
@@ -3155,14 +2937,6 @@
         expected.
       </p>
       <ul class="index" data-sort="">
-        <li>[[HTML]] defines the following terms:
-          <ul>
-            <li>
-              <a data-cite="HTML#delay-the-load-event"><dfn>delay the load
-              event</dfn></a>
-            </li>
-          </ul>
-        </li>
         <li>[[ECMASCRIPT]] defines the following terms:
           <ul>
             <li>
