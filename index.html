@@ -231,14 +231,16 @@
           &lt;link rel="icon" sizes="16x16 32x32 48x48" href="lo_def.ico"&gt;
           &lt;link rel="icon" sizes="512x512" href="hi_def.png"&gt;
         </pre>
-        <div class="note" title="manifest.webmanifest or manifest.json?">
+        <div data-cite="mimesniff" class="note" title=
+        "manifest.webmanifest or manifest.json?">
           The official file extension for the manifest is `.webmanifest`. Some
           web servers recognize this extension and transfer the file using the
           standardized <a>application manifest MIME type</a>
           ([=application\/manifest+json=]). Developers can also choose a
           different extension (e.g. `.json`) or none at all (e.g.
-          `/api/GetManifest`), but are strongly encouraged to transfer the
-          manifest using the [=application\/manifest+json=] [=MIME type=].
+          `/api/GetManifest`), but are encouraged to transfer the manifest
+          using the [=application\/manifest+json=] [=MIME type=], although any
+          [=JSON MIME type=] is ok.
         </div>
       </section>
     </section>
@@ -359,8 +361,8 @@
           Examples of <a>installability signals</a> for a web application:
         </p>
         <ul>
-          <li>has a <a>manifest</a> with at least a <code>name</code> member
-          and a suitable icon (e.g., of a particular format and of a minimum
+          <li>has a <a>manifest</a> with at least a `name` member and a
+          suitable icon (e.g., of a particular format and of a minimum
           width/height).
           </li>
           <li>is served over a secure network connection.
@@ -823,7 +825,6 @@
       <p>
         A user agent MUST support the [=link type "manifest"=] and the
         associated steps for how to fetch and process the linked resource.
-        [[HTML]]
       </p>
       <section id="processing" data-link-for="WebAppManifest">
         <h3>
