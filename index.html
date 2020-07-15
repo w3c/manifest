@@ -1405,8 +1405,8 @@
         </p>
         <p>
           The {{WebAppManifest/name}} member serves as the <a data-cite=
-          "accname-1.2#dfn-accessible-name">accessible
-          name</a> of an [=installed web application=].
+          "accname-1.2#dfn-accessible-name">accessible name</a> of an
+          [=installed web application=].
         </p>
       </section>
       <section>
@@ -2962,6 +2962,29 @@
           "https://wicg.io">WICG</a>.
         </dd>
       </dl>
+    </section>
+    <section class="appendix">
+      <h2>
+        Application Information
+      </h2>
+      <p>
+        Several members of the Web App Manifest provide additional metadata
+        related to how the web application may be presented in the context of a
+        digital storefront, installation dialog, or other surfaces where this
+        web application may be marketed or distributed. In an effort to support
+        these use cases better, the following members have been moved into
+        {{WebAppManifestAppInfo}}:
+      </p>
+      <ul>
+        <li>{{WebAppManifestAppInfo/categories}}
+        </li>
+        <li>{{WebAppManifestAppInfo/description}}
+        </li>
+        <li>{{WebAppManifestAppInfo/iarc_rating_id}}
+        </li>
+        <li>{{WebAppManifestAppInfo/screenshots}}
+        </li>
+      </ul>
     </section>
     <section class="appendix">
       <h2>
