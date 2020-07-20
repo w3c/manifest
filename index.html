@@ -1120,21 +1120,20 @@
             No explicit directionality.
           </dd>
         </dl>
-        <p data-link-for="TextDirectionType">
-          When displaying the <a>localizable members</a> to an end-user, if the
-          <a>base direction</a> is <a>ltr</a> or <a>rtl</a>:
+        <p>
+          When displaying the <a>localizable members</a> to an end-user:
         </p>
-        <ol>
-          <li data-link-for="TextDirectionType">If the member is being
-          displayed in a paragraph by itself, the user agent MUST override Rule
-          P3 of [[BIDI]], setting the paragraph embedding level to 0 if the <a>
-            base direction</a> is <a>ltr</a>, or 1 if the <a>base direction</a>
-            is <a>rtl</a>.
+        <ol data-link-for="TextDirectionType">
+          <li>If the <a>base direction</a> is <a>ltr</a> or <a>rtl</a>, the
+          user agent MUST override Rule P3 of [[BIDI]], setting the paragraph
+          embedding level to 0 if the <a>base direction</a> is <a>ltr</a>, or 1
+          if the <a>base direction</a> is <a>rtl</a>.
           </li>
-          <li data-link-for="TextDirectionType">Otherwise, the user agent MUST
+          <li>Otherwise it's <a>auto</a>, in which case the user agent MUST
           behave as if the member is in a left-to-right embedding [[BIDI]] if
           the <a>base direction</a> is <a>ltr</a>, or a right-to-left embedding
-          if the <a>base direction</a> is <a>rtl</a>.
+          if the <a>base direction</a> is <a>rtl</a> (as per <a data-cite=
+          "bidi#The_Paragraph_Level">The Paragraph Level</a>).
           </li>
         </ol>
       </section>
