@@ -279,17 +279,6 @@
         it's a [=top-level browsing context=] and the user agent deems it to be
         installable (e.g., see [[[#installability-signals]]]).
       </p>
-      <section>
-        <h3>
-          Authority of the manifest's metadata
-        </h3>
-        <p>
-          When a <a>manifest</a> is linked from a {{Document}}, it indicates to
-          the user agent that the metadata is <dfn>authoritative</dfn>: that
-          is, the user agent SHOULD use the metadata of the manifest instead of
-          the one in the {{Document}}.
-        </p>
-      </section>
       <section data-link-for="WebAppManifest">
         <h3>
           Application's name
@@ -309,7 +298,7 @@
           undefined, a user agent MAY fallback to the {{Document}} to find
           suitable replacements for missing manifest members (e.g., using
           `application-name` in place of <a>name</a> or <a>short_name</a>).
-          Alternatively, the user agent MAY assign a default name (e.g.,
+          Alternatively, the user agent SHOULD assign a default name (e.g.,
           "Untitled") that follows platform conventions. Alternatively, a user
           agent MAY allow the end-user to input some text that can serve as the
           <a>application's name</a>.
