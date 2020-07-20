@@ -1125,15 +1125,16 @@
         </p>
         <ol data-link-for="TextDirectionType">
           <li>If the <a>base direction</a> is <a>ltr</a> or <a>rtl</a>, the
-          user agent MUST override Rule P3 of [[BIDI]], setting the paragraph
-          embedding level to 0 if the <a>base direction</a> is <a>ltr</a>, or 1
-          if the <a>base direction</a> is <a>rtl</a>.
+          user agent MUST override <a data-cite="bidi#P3">Rule P3</a> of
+          [[BIDI]], setting the paragraph embedding level to 0 if the <a>base
+          direction</a> is <a>ltr</a>, or 1 if the <a>base direction</a> is <a>
+            rtl</a>.
           </li>
           <li>Otherwise it's <a>auto</a>, in which case the user agent MUST
           behave as if the member is in a left-to-right embedding [[BIDI]] if
           the <a>base direction</a> is <a>ltr</a>, or a right-to-left embedding
           if the <a>base direction</a> is <a>rtl</a> (as per <a data-cite=
-          "bidi#The_Paragraph_Level">The Paragraph Level</a>).
+          "bidi#P1">Rule P1</a>).
           </li>
         </ol>
       </section>
