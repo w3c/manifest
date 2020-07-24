@@ -564,6 +564,27 @@
         with the <a>default display mode</a> (<code>browser</code>) being the
         last item in the chain.
       </p>
+      <p>
+        For more advanced usages, the <a data-link-for="WebAppManifest">
+        display_override</a> member can be used to specify a custom fallback
+        order. This member is valid IFF <a data-link-for="WebAppManifest">display</a> is also present.
+      </p>
+      <p>
+        The algorithm for determing the web app's requested display mode is:
+        <ol>
+          <li>[=list/For each=] <var>considering_display_mode</var> of <var><a data-link-for="WebAppManifest">
+            display_override</a></var>:
+            <ol>
+              <li>If the user agent supports the |considering_display_mode|, then that display mode is used (exit).</li>
+            </ol>
+          </li>
+          <li>Let |considering_display_mode| be the the value specified by the <a data-link-for="WebAppManifest">display</a> property.</li>
+          <li>If the user agent supports the |considering_display_mode|, then that display mode is used (exit).</li>
+          <li>While |considering_display_mode| has <a>fallback display mode</a>, assign that to |considering_display_mode| and go back to step 3.</li>
+        </ol>
+        This algorithm will end with the final <a>fallback display mode</a> of <code>browser</code>, which the user agent MUST support.
+      </p>
+      </p>
       <div class="example">
         <p>
           For example, SuperSecure Browser (a fictitious browser) only supports
@@ -1326,6 +1347,20 @@
           The <dfn>display</dfn> member is a <a>DisplayModeType</a>, whose
           value is one of <a>display modes values</a>. The item represents the
           developer's preferred <a>display mode</a> for the web application.
+        </p>
+      </section>
+      <section>
+        <h3>
+          <code>display_override</code> member
+        </h3>
+        <p>
+          The <dfn>display_override</dfn> member is a <a>sequence</a> of<a>
+          DisplayModeType</a>. This item represents the developer's preferred
+          fallback chain for display modes. This field overrides the
+          <a data-link-for="WebAppManifest">display</a> property. If the user
+          agent does not support any of the display modes specified here, then
+          it falls back to considering the <a data-link-for="WebAppManifest">
+          display</a> field (and its corresponding fallback chain).
         </p>
       </section>
       <section>
