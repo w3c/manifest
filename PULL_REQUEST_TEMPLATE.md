@@ -23,3 +23,10 @@ Commit message:
 
 (Fill in. If making normative changes, describe exactly what the behavioral
 difference will be.)
+
+Person merging, please make sure that commits are squashed with one of the following as a commit message prefix:
+
+* chore:
+* editorial:
+* BREAKING CHANGE:
+* And use none if it's a normative change
