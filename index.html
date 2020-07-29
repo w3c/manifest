@@ -200,7 +200,7 @@
         </pre>
         <p>
           The following shows a <a>manifest</a> that prefers the <code>
-          minimal-ui</code> <a data-link-for="DisplayModeType">display mode</a>
+          minimal-ui</code> {{DisplayModeType}}
           to <code>standalone</code>, but wants to support both.
         </p>
         <pre class="example json" title="Advanced display requirements manifest">
@@ -213,7 +213,7 @@
             }],
             "start_url": "/index.html",
             "display_override": ["minimal-ui", "standalone"],
-            "display": "browser",
+            "display": "minimal-ui",
             "theme_color": "yellow",
             "background_color": "red"
           }
@@ -575,85 +575,88 @@
         mode</a>.
       </p>
       <p>
-        Each <a>display mode</a>, except <code>browser</code>, has a
-        <dfn>fallback display mode</dfn>, which is the <a>display mode</a> that
-        the user agent can try to use if it doesn't support a particular
-        <a>display mode</a>. If the user agent does support a <a>fallback
-        display mode</a>, then it checks to see if it can use that <a>display
-        mode</a>'s <a>fallback display mode</a>. This creates a fallback chain,
-        with the <a>default display mode</a> (<code>browser</code>) being the
-        last item in the chain.
+        For more advanced usages, the {{WebAppManifest/display_override}}
+        member can be used to specify a custom fallback order. This member is
+        valid IFF {{WebAppManifest/display}} is also present.
       </p>
       <p>
-        For more advanced usages, the <a data-link-for="WebAppManifest">
-        display_override</a> member can be used to specify a custom fallback
-        order. This member is valid IFF <a data-link-for="WebAppManifest">display</a> is also present.
-      </p>
-      <p>
-        The algorithm for determing the web app's requested display mode is:
+        The steps for determing the web app's requested display mode is given
+        by the following algorithm. The algorithm takes a
+        [=processed manifest=] |manifest:processed manifest| and returns a
+        [=display mode=].
         <ol>
-          <li>[=list/For each=] <var>considering_display_mode</var> of <var>
-            <a data-link-for="WebAppManifest">display_override</a></var>:
+          <li>
+            [=list/For each=] |candidate_display_mode:DisplayModeType| of
+            |manifest|.{{WebAppManifest/display_override}}:
             <ol>
               <li>
-                If the user agent supports the |considering_display_mode|,
-                then that display mode is used (exit).
+                If the user agent supports the |candidate_display_mode|, then
+                return |candidate_display_mode|.
               </li>
             </ol>
           </li>
           <li>
-            Let |considering_display_mode| be the the value specified by the
-            <a data-link-for="WebAppManifest">display</a> property.
+            Let |candidate_display_mode| be the the value specified by the
+            |manifest|.{{WebAppManifest/display}} property.
           </li>
           <li>
-            If the user agent supports the |considering_display_mode|, then
-            that display mode is used (exit).
+            [=iteration/while=] |considering_display_mode| is not {{browser}}
+            <ol>
+              <li>
+                If the user agent supports the |candidate_display_mode|, then
+                return |candidate_display_mode|.
+              </li>
+              <li>
+                If |candidate_display_mode| is
+                <a data-link-for="DisplayModeType">minimal-ui</a>, set
+                |candidate_display_mode| to {{browser}}.
+              </li>
+              <li>
+                If |candidate_display_mode| is {{standalone}}, set
+                |candidate_display_mode| to <a data-link-for="DisplayModeType">
+                minimal-ui</a>.
+              </li>
+              <li>
+                If |candidate_display_mode| is {{fullscreen}}, set
+                |candidate_display_mode| to {{standalone}}.
+              </li>
+            </ol>
           </li>
           <li>
-            While |considering_display_mode| has <a>fallback display mode</a>,
-            assign that to |considering_display_mode| and go back to step 3.
+            Return |candidate_display_mode|.
           </li>
         </ol>
-        This algorithm will end with the final <a>fallback display mode</a> of
-        <code>browser</code>, which the user agent MUST support.
-      </p>
       </p>
       <div class="example">
         <p>
-          Example: SuperSecure Browser (a fictitious browser) only supports
-          the <code>minimal-ui</code> and <code>browser</code> display modes,
+          SuperSecure Browser (a fictitious browser) only supports the
+          <code>minimal-ui</code> and <code>browser</code> display modes,
           but a developer declares that she wants <code>fullscreen</code> in
-          the manifest by using the <a data-link-for="WebAppManifest">display
-          </a> property. In this case, the user agent will first check if it
-          supports <code>fullscreen</code> (it doesn't), so it falls back to
+          the manifest by using the {{WebAppManifest/display}} property. In
+          this case, the user agent will first check if it supports
+          <code>fullscreen</code> (it doesn't), so it falls back to
           <code>standalone</code> (which it also doesn't support), and
           ultimately falls back to <code>minimal-ui</code>.
         </p>
       </div>
       <div class="example">
         <p>
-          Example: Same browser as above (SuperSecure Browser),
-          but the developer instead specified the following manifest using
-          display_override:
+          Same browser as above (SuperSecure Browser), but the developer
+          instead specified the following manifest using display_override:
           <pre class="example json" title="Using display_override">
             {
               display_override: ["fullscreen"],
               display: "browser"
             }
           </pre>
-          This declares that she only wants <code>fullscreen</code>, and if
-          that is not supported, then fall back to <code>browser</code>. The
-          user agent processes the <a data-link-for="WebAppManifest">
-          display_override</a> field and does not support <code>fullscreen
-          </code>, so it falls back to processing the
-          <a data-link-for="WebAppManifest">display</a> property, resulting in
-          the <code>browser</code> display mode.
+          This declares that the user agent should use |fullscreen|, and if
+          that is not supported, it should fall back to |browser| without
+          considering the other modes.
         </p>
       </div>
       <p>
         The <dfn>display modes values</dfn> defined by
-        <dfn>DisplayModeType</dfn>, and their corresponding <a>fallback display
-        modes</a> are as follows:
+        <dfn>DisplayModeType</dfn>:
       </p>
       <dl>
         <dt>
@@ -662,10 +665,6 @@
         <dd>
           Opens the web application without any user agent chrome and takes up
           the entirety of the available display area.
-        </dd>
-        <dd>
-          The <a>fallback display mode</a> for <code>fullscreen</code> is
-          <code>standalone</code>.
         </dd>
         <dt>
           <dfn>standalone</dfn>
@@ -678,10 +677,6 @@
           URL bar, but can include other system UI elements such as a status
           bar and/or system back button.
         </dd>
-        <dd>
-          The <a>fallback display mode</a> for <code>standalone</code> is
-          <code>minimal-ui</code>.
-        </dd>
         <dt>
           <dfn>minimal-ui</dfn>
         </dt>
@@ -693,10 +688,6 @@
           other platform specific UI elements, such as "share" and "print"
           buttons or whatever is customary on the platform and user agent.
         </dd>
-        <dd>
-          The <a>fallback display mode</a> for <code>minimal-ui</code> is
-          <code>browser</code>.
-        </dd>
         <dt>
           <dfn>browser</dfn>
         </dt>
@@ -706,9 +697,8 @@
           window).
         </dd>
         <dd>
-          The <code>browser</code> <a>display mode</a> doesn't have a
-          <a>fallback display mode</a> (conforming user agents are required to
-          support the <code>browser</code> <a>display mode</a>).
+          Conforming user agents are required to
+          support the <code>browser</code> <a>display mode</a>.
         </dd>
       </dl>
       <p class="note">
@@ -1085,6 +1075,7 @@
              sequence&lt;ManifestImageResource&gt; icons;
              USVString start_url;
              DisplayModeType display = "browser";
+             sequence&lt;DisplayModeType&gt; display_override;
              OrientationLockType orientation;
              USVString theme_color;
              USVString background_color;
