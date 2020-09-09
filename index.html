@@ -576,12 +576,32 @@
         mode</a>.
       </p>
       <p>
+        The fallback chain for:
+        <ol>
+          <li>
+            {{browser}} is «{{browser}}».
+          </li>
+          <li>
+            <a data-link-for="DisplayModeType">minimal-ui</a> is «
+            <a data-link-for="DisplayModeType">minimal-ui</a>, {{browser}}».
+          </li>
+          <li>
+            {{standalone}} is «{{standalone}},
+            <a data-link-for="DisplayModeType">minimal-ui</a>, {{browser}}».
+          </li>
+          <li>
+            {{fullscreen}} is «{{fullscreen}}, {{standalone}},
+            <a data-link-for="DisplayModeType">minimal-ui</a>, {{browser}}».
+          </li>
+        </ol>
+      </p>
+      <p>
         For more advanced usages, the {{WebAppManifest/display_override}}
         member can be used to specify a custom fallback order.
       </p>
       <p>
-        The steps for determing the web app's chosen display mode is given
-        by the following algorithm. The algorithm takes a
+        The <dfn>steps for determing the web app's chosen display mode</dfn> is
+        given by the following algorithm. The algorithm takes a
         [=processed manifest=] |manifest:processed manifest| and returns a
         [=display mode=].
         <ol>
@@ -596,30 +616,8 @@
             </ol>
           </li>
           <li>
-            Define the |fallback_chain| for {{browser}} to be [{{browser}}]
-          </li>
-          <li>
-            Define the |fallback_chain| for <a data-link-for="DisplayModeType">
-            minimal-ui</a> to be [<a data-link-for="DisplayModeType">minimal-ui
-            </a>, {{browser}}]
-          </li>
-          <li>
-            Define the |fallback_chain| for {{standalone}} to be [
-            {{standalone}}, <a data-link-for="DisplayModeType">minimal-ui</a>,
-            {{browser}}]
-          </li>
-          <li>
-            Define the |fallback_chain| for {{fullscreen}} to be [
-            {{fullscreen}}, {{standalone}}, <a data-link-for="DisplayModeType">
-            minimal-ui</a>, {{browser}}]
-          </li>
-          <li>
-            Let |candidate_display_mode| be the the value specified by the
-            |manifest|.{{WebAppManifest/display}} property.
-          </li>
-          <li>
             [=list/For each=] |fallback_mode:DisplayModeType| of the
-            |fallback_chain| of the |candidate_display_mode|:
+            fallback_chain of |manifest|.{{WebAppManifest/display}}:
             <ol>
               <li>
                 If the user agent supports the |fallback_mode|, then
@@ -628,6 +626,12 @@
             </ol>
           </li>
         </ol>
+        <p class="note">
+          The above loop is guaranteed to return a value before it terminates,
+          due to the fact that {{browser}} is in every mode's fallback chain,
+          and the requirement that all user agents support the {{browser}} [=display
+          mode=].
+        </p>
       </p>
       <div class="example">
         <p>
@@ -696,10 +700,6 @@
           Opens the web application using the platform-specific convention for
           opening hyperlinks in the user agent (e.g., in a browser tab or a new
           window).
-        </dd>
-        <dd>
-          Conforming user agents are required to
-          support the <code>browser</code> <a>display mode</a>.
         </dd>
       </dl>
       <p class="note">
