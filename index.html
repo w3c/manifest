@@ -25,8 +25,8 @@
       editors: [
         {
           name: "Marcos Cáceres",
-          company: "Mozilla Corporation",
-          companyURL: "https://mozilla.org/",
+          company: "W3C Invited Expert",
+          companyURL: "https://marcosc.com",
           w3cid: 39125,
         },
         {
@@ -953,10 +953,10 @@
           If an <a>application context</a> is created as a result of the user
           agent being asked to <a>navigate</a> to a <a>deep link</a>, the user
           agent MUST immediately <a>navigate</a> to the <a>deep link</a> with
-          <a>replacement enabled</a>. Otherwise, when the <a>application
-          context</a> is created, the user agent MUST immediately
-          <a>navigate</a> to the <a>start URL</a> with <a>replacement
-          enabled</a>.
+          <var>historyHandling</var> set to "`replace`". Otherwise, when the
+          <a>application context</a> is created, the user agent MUST
+          immediately <a>navigate</a> to the <a>start URL</a> with
+          <var>historyHandling</var> set to "`replace`".
         </p>
         <div class="note">
           <p>
@@ -1567,7 +1567,7 @@
           <li>[=list/For each=] <var>app</var> of <var>related
           applications</var>:
             <ol>
-              <li>if neither <var>app</var>["src"] nor <var>app</var>["url"]
+              <li>if neither <var>app</var>["id"] nor <var>app</var>["url"]
               are <code>undefined</code>:
                 <ol>
                   <li>Set <var>app</var>["url"] to the result of running
@@ -2980,8 +2980,11 @@
       </p>
       <aside class="note" title="">
         <details>
-          <summary>Web Manifest JSON Schema</summary>
-          <pre class="json" data-include="https://json.schemastore.org/web-manifest"></pre>
+          <summary>
+            Web Manifest JSON Schema
+          </summary>
+          <pre class="json" data-include=
+          "https://json.schemastore.org/web-manifest"></pre>
         </details>
       </aside>
     </section>
