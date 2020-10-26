@@ -111,12 +111,12 @@
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5">
     <section id='abstract'>
       <p>
-        This specification defines a JSON-based file format that provides
-        developers with a centralized place to put metadata associated with a
-        web application. This metadata includes, but is not limited to, the web
-        application's name, links to icons, as well as the preferred URL to
-        open when a user launches the web application. The manifest also allows
-        developers to declare a default screen orientation for their web
+        [[SMIL3]] This specification defines a JSON-based file format that
+        provides developers with a centralized place to put metadata associated
+        with a web application. This metadata includes, but is not limited to,
+        the web application's name, links to icons, as well as the preferred
+        URL to open when a user launches the web application. The manifest also
+        allows developers to declare a default screen orientation for their web
         application, as well as providing the ability to set the display mode
         for the application (e.g., in fullscreen). Additionally, the manifest
         allows a developer to "scope" a web application to a URL. This
@@ -1567,8 +1567,8 @@
           <li>[=list/For each=] <var>app</var> of <var>related
           applications</var>:
             <ol>
-              <li>if neither <var>app</var>["id"] nor <var>app</var>["url"]
-              are <code>undefined</code>:
+              <li>if neither <var>app</var>["id"] nor <var>app</var>["url"] are
+              <code>undefined</code>:
                 <ol>
                   <li>Set <var>app</var>["url"] to the result of running
                   <a>processing the <code>url</code> member of an
@@ -3068,6 +3068,29 @@
           </ul>
         </li>
       </ul>
+    </section>
+    <section class="informative">
+      <h2>
+        Change log
+      </h2>
+      <p>
+        The following are normative changes since last publication.
+      </p>
+      <script class="remove">
+        const ignoredHashes = [
+          "c0e3654ec18d04452c079c9839909c9a7295f2f7"
+        ];
+        function removeCommits(entry) {
+          const { message, hash } = entry;
+          for (const ignoredHash of ignoredHashes) {
+            if (ignoredHash.startsWith(hash)) {
+              return false;
+            };
+          }
+          return !/^editorial|^chore|^\[chore|^fix|^refactor|^tests?|^docs|^typo|^nit/i.test(message);
+        }
+      </script> <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483"
+      filter="removeCommits"></rs-changelog>
     </section>
     <section id="index"></section>
   </body>
