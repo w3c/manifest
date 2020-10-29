@@ -213,8 +213,8 @@
               "sizes": "128x128"
             }],
             "start_url": "/index.html",
-            "display_override": ["minimal-ui", "standalone"],
-            "display": "minimal-ui",
+            "display_override": ["minimal-ui"],
+            "display": "standalone",
             "theme_color": "yellow",
             "background_color": "red"
           }
@@ -617,7 +617,7 @@
           </li>
           <li>
             [=list/For each=] |fallback_mode:DisplayModeType| of the
-            fallback_chain of |manifest|.{{WebAppManifest/display}}:
+            fallback chain of |manifest|.{{WebAppManifest/display}}:
             <ol>
               <li>
                 If the user agent supports the |fallback_mode|, then
@@ -625,12 +625,20 @@
               </li>
             </ol>
           </li>
+          <li>[=Assert=] false.</li>
         </ol>
         <p class="note">
-          The above loop is guaranteed to return a value before it terminates,
+          The above loop is guaranteed to return a value before the assertion,
           due to the fact that {{browser}} is in every mode's fallback chain,
-          and the requirement that all user agents support the {{browser}} [=display
-          mode=].
+          and the requirement that all user agents support the {{browser}}
+          [=display mode=].
+        </p>
+        <p class="note">
+          In the future, new values added to {{DisplayModeType}} will not be
+          added to the fallback chain, and the algorithm should treat these
+          values, when used with the {{WebAppManifest/display}} field, as
+          {{browser}}. New values will only be compatible with
+          {{WebAppManifest/display_override}}.
         </p>
       </p>
       <div class="example">
@@ -1406,6 +1414,12 @@
           {{display}} property. If the user agent does not support any of the
           display modes specified here, then it falls back to considering the
           {{display}} field. See [=display modes=] for the algorithm steps.
+        </p>
+        <p class="note">
+          This member is intended to be only used for advanced cases, where
+          the developer wants explicit control over the fallback order of their
+          display modes. Otherwise, the {{display}} should be sufficient for
+          most use cases.
         </p>
       </section>
       <section>
