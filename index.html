@@ -206,7 +206,7 @@
         </p>
         <pre class="example json" title="Advanced display usage manifest">
           {
-            "name": "Recipe Madness",
+            "name": "Recipe Zone",
             "description": "All of the recipes!",
             "icons": [{
               "src": "icon/hd_hi",
@@ -576,7 +576,7 @@
         mode</a>.
       </p>
       <p>
-        The fallback chain for:
+        The <dfn>fallback chain</dfn> for:
         <ol>
           <li>
             {{browser}} is «{{browser}}».
@@ -617,7 +617,7 @@
           </li>
           <li>
             [=list/For each=] |fallback_mode:DisplayModeType| of the
-            fallback chain of |manifest|.{{WebAppManifest/display}}:
+            [=fallback chain=] of |manifest|.{{WebAppManifest/display}}:
             <ol>
               <li>
                 If the user agent supports the |fallback_mode|, then
@@ -629,13 +629,13 @@
         </ol>
         <p class="note">
           The above loop is guaranteed to return a value before the assertion,
-          due to the fact that {{browser}} is in every mode's fallback chain,
-          and the requirement that all user agents support the {{browser}}
-          [=display mode=].
+          due to the fact that {{browser}} is in every mode's
+          [=fallback chain=], and the requirement that all user agents support
+          the {{browser}} [=display mode=].
         </p>
         <p class="note">
           In the future, new values added to {{DisplayModeType}} will not be
-          added to the fallback chain, and the algorithm should treat these
+          added to the [=fallback chain=], and the algorithm should treat these
           values, when used with the {{WebAppManifest/display}} field, as
           {{browser}}. New values will only be compatible with
           {{WebAppManifest/display_override}}.
