@@ -25,8 +25,8 @@
       editors: [
         {
           name: "Marcos Cáceres",
-          company: "Mozilla Corporation",
-          companyURL: "https://mozilla.org/",
+          company: "W3C Invited Expert",
+          companyURL: "https://marcosc.com",
           w3cid: 39125,
         },
         {
@@ -111,12 +111,12 @@
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5">
     <section id='abstract'>
       <p>
-        This specification defines a JSON-based file format that provides
-        developers with a centralized place to put metadata associated with a
-        web application. This metadata includes, but is not limited to, the web
-        application's name, links to icons, as well as the preferred URL to
-        open when a user launches the web application. The manifest also allows
-        developers to declare a default screen orientation for their web
+        [[SMIL3]] This specification defines a JSON-based file format that
+        provides developers with a centralized place to put metadata associated
+        with a web application. This metadata includes, but is not limited to,
+        the web application's name, links to icons, as well as the preferred
+        URL to open when a user launches the web application. The manifest also
+        allows developers to declare a default screen orientation for their web
         application, as well as providing the ability to set the display mode
         for the application (e.g., in fullscreen). Additionally, the manifest
         allows a developer to "scope" a web application to a URL. This
@@ -935,10 +935,10 @@
           If an <a>application context</a> is created as a result of the user
           agent being asked to <a>navigate</a> to a <a>deep link</a>, the user
           agent MUST immediately <a>navigate</a> to the <a>deep link</a> with
-          <a>replacement enabled</a>. Otherwise, when the <a>application
-          context</a> is created, the user agent MUST immediately
-          <a>navigate</a> to the <a>start URL</a> with <a>replacement
-          enabled</a>.
+          <var>historyHandling</var> set to "`replace`". Otherwise, when the
+          <a>application context</a> is created, the user agent MUST
+          immediately <a>navigate</a> to the <a>start URL</a> with
+          <var>historyHandling</var> set to "`replace`".
         </p>
         <div class="note">
           <p>
@@ -1538,8 +1538,8 @@
           <li>[=list/For each=] <var>app</var> of <var>related
           applications</var>:
             <ol>
-              <li>if neither <var>app</var>["src"] nor <var>app</var>["url"]
-              are <code>undefined</code>:
+              <li>if neither <var>app</var>["id"] nor <var>app</var>["url"] are
+              <code>undefined</code>:
                 <ol>
                   <li>Set <var>app</var>["url"] to the result of running
                   <a>processing the <code>url</code> member of an
@@ -2855,9 +2855,9 @@
       </h2>
       <p>
         Developers interested in validating <a>manifest</a> documents can find
-        an unofficial <a href="http://json.schemastore.org/web-manifest">JSON
+        an unofficial <a href="https://json.schemastore.org/web-manifest">JSON
         schema for the manifest format</a> at <a href=
-        "http://schemastore.org/json/">schemastore.org</a>. It is licensed
+        "https://schemastore.org/json/">schemastore.org</a>. It is licensed
         under <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache
         2.0</a>. It is kindly maintained by <a href=
         "https://github.com/madskristensen">Mads Kristensen</a>. If you find
@@ -2866,6 +2866,15 @@
         the <a href="https://github.com/SchemaStore/schemastore">SchemaStore
         repository</a> on GitHub.
       </p>
+      <aside class="note" title="">
+        <details>
+          <summary>
+            Web Manifest JSON Schema
+          </summary>
+          <pre class="json" data-include=
+          "https://json.schemastore.org/web-manifest"></pre>
+        </details>
+      </aside>
     </section>
     <section id="internationalization" class="appendix informative">
       <h2>
@@ -2947,6 +2956,29 @@
           </ul>
         </li>
       </ul>
+    </section>
+    <section class="informative">
+      <h2>
+        Change log
+      </h2>
+      <p>
+        The following are normative changes since last publication.
+      </p>
+      <script class="remove">
+        const ignoredHashes = [
+          "c0e3654ec18d04452c079c9839909c9a7295f2f7"
+        ];
+        function removeCommits(entry) {
+          const { message, hash } = entry;
+          for (const ignoredHash of ignoredHashes) {
+            if (ignoredHash.startsWith(hash)) {
+              return false;
+            };
+          }
+          return !/^editorial|^chore|^\[chore|^fix|^refactor|^tests?|^docs|^typo|^nit/i.test(message);
+        }
+      </script> <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483"
+      filter="removeCommits"></rs-changelog>
     </section>
     <section id="index"></section>
   </body>
