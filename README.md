@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/w3c/manifest)
+
 This repository is the home of the :star: **[Web App Manifest](https://www.w3.org/TR/appmanifest/)** :star: specification being worked on by
 the [Web Applications Working Group](https://www.w3.org/2019/webapps/).
 
