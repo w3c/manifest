@@ -178,7 +178,6 @@
             "lang": "en",
             "dir": "ltr",
             "name": "Super Racer 3000",
-            "description": "The ultimate futuristic racing game from the future!",
             "short_name": "Racer3K",
             "icons": [{
               "src": "icon/lowres.webp",
@@ -196,16 +195,7 @@
             "display": "fullscreen",
             "orientation": "landscape",
             "theme_color": "aliceblue",
-            "background_color": "red",
-            "screenshots": [{
-              "src": "screenshots/in-game-1x.jpg",
-              "sizes": "640x480",
-              "type": "image/jpeg"
-            },{
-              "src": "screenshots/in-game-2x.jpg",
-              "sizes": "1280x920",
-              "type": "image/jpeg"
-            }]
+            "background_color": "red"
           }
       </pre>
       </section>
@@ -907,17 +897,9 @@
           of running <a>processing a color member</a> given
           <var>json</var>["<a>background_color</a>"].
           </li>
-          <li>Set <var>manifest</var>["<a>categories</a>"] to the result of
-          running <a>processing the <code>categories</code> member</a> given
-          <var>json</var>["<a>categories</a>"].
-          </li>
           <li>Set <var>manifest</var>["<a>icons</a>"] to the result of running
           <a>processing `ManifestImageResource` members</a> given
           <var>json</var>["<a>icons</a>"] and <var>manifest URL</var>.
-          </li>
-          <li>Set <var>manifest</var>["<a>screenshots</a>"] to the result of
-          running <a>processing `ManifestImageResource` members</a> given <var>
-            manifest</var>["<a>screenshots</a>"] and <var>manifest URL</var>.
           </li>
           <li>Set <var>manifest</var>["<a>related_applications</a>"] to the
           result of running <a>processing the <code>related_applications</code>
@@ -1037,11 +1019,7 @@
              DOMString lang;
              USVString name;
              USVString short_name;
-             USVString description;
              sequence&lt;ManifestImageResource&gt; icons;
-             sequence&lt;ManifestImageResource&gt; screenshots;
-             sequence&lt;USVString&gt; categories;
-             DOMString iarc_rating_id;
              USVString start_url;
              DisplayModeType display = "browser";
              OrientationLockType orientation;
@@ -1222,15 +1200,6 @@
           short version of the name of the web application. It is intended to
           be used where there is insufficient space to display the full name of
           the web application.
-        </p>
-      </section>
-      <section>
-        <h3>
-          <code title="">description</code> member
-        </h3>
-        <p>
-          The <dfn>description</dfn> member allows the developer to describe
-          the purpose of the web application.
         </p>
       </section>
       <section>
@@ -1625,112 +1594,6 @@
           {{WebAppManifest/background_color}} member to support
           <a data-xref-type="css-descriptor" data-xref-for=
           "@media">prefers-color-scheme</a>.
-        </p>
-      </section>
-      <section>
-        <h3>
-          <code title="">categories</code> member
-        </h3>
-        <p>
-          The <dfn>categories</dfn> member describes the expected application
-          categories to which the web application belongs.
-        </p>
-        <p>
-          The <a>categories</a> member is only meant as a hint to catalogs or
-          stores listing web applications and it is expected that these will
-          make a best effort to find appropriate categories (or category) under
-          which to list the web application. Like search engines and meta
-          keywords, catalogs and stores are not required to honor this hint.
-        </p>
-        <p>
-          The steps for <dfn>processing the <code>categories</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes a sequence&lt;<a>USVString</a>&gt; <var>categories</var> as an
-          argument. This algorithm returns an
-          <code>Array&lt;USVString&gt;</code>.
-        </p>
-        <ol>
-          <li>[=list/For each=] <var>category</var> of <var>categories</var>:
-            <ol>
-              <li>[=set/Replace=] <var>category</var> within
-              <var>categories</var> with <var>category</var>, <a>ascii
-              lowercased</a>.
-              </li>
-            </ol>
-          </li>
-          <li>Return <var>categories</var>.
-          </li>
-        </ol>
-        <p>
-          The categories <a>string</a> array is case insensitive and converted
-          to lower-case by following the processing algorithm. Thus,
-          <code>sports</code>, <code>Sports</code>, <code>SPORTS</code>, and
-          <code>SpOrTs</code> are all equivalent.
-        </p>
-        <p class="note">
-          Manifest authors are encouraged to use lower-case.
-        </p>
-        <p class="note">
-          This specification does not define the particular values for
-          <dfn>USVString</dfn>s for the <a>categories</a> member. However, the
-          working group maintains a <a href=
-          "https://github.com/w3c/manifest/wiki/Categories">list of known
-          values</a> in our wiki.
-        </p>
-      </section>
-      <section>
-        <h3>
-          <code title="">screenshots</code> member
-        </h3>
-        <p>
-          The <dfn>screenshots</dfn> member is an <a>array</a> of
-          {{ManifestImageResource}}s, representing the web application in
-          common usage scenarios.
-        </p>
-      </section>
-      <section>
-        <h3>
-          <code title="">iarc_rating_id</code> member
-        </h3>
-        <p>
-          The <dfn>iarc_rating_id</dfn> member is a <a>string</a> that
-          represents the <a href="https://www.globalratings.com/">International
-          Age Rating Coalition (IARC)</a> certification code of the web
-          application. It is intended to be used to determine which ages the
-          web application is appropriate for.
-        </p>
-        <p class="note">
-          An IARC certificate can be obtained via participating storefronts,
-          intended to be used for distributing the web app. The
-          <a>iarc_rating_id</a> member only takes a single certification code.
-          The same code can be shared across participating storefronts, as long
-          as the distributed product remains the same (i.e., doesn’t serve
-          totally different code paths depending on user agent sniffing and the
-          like) and the other storefronts support it.
-        </p>
-        <div class="informative">
-          <p>
-            The following shows a very simple <a>manifest</a> with the
-            <code>iarc_rating_id</code> member.
-          </p>
-          <pre class="example json" title="very simple manifest">
-          {
-            "name": "Donate App",
-            "description": "This app helps you donate to worthy causes.",
-            "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
-            "icons": [{
-              "src": "images/icon.png",
-              "sizes": "192x192"
-            }]
-          }
-        </pre>
-        </div>
-        <p>
-          More information on the IARC can be found at: <a href=
-          "https://www.globalratings.com/how-iarc-works.aspx">How IARC
-          Works</a> and <a href=
-          "https://www.globalratings.com/for-developers.aspx">How developers
-          can get their games and apps rated with IARC</a>.
         </p>
       </section>
       <section>
@@ -2788,7 +2651,7 @@
           consistent.
         </p>
         <p>
-          To allow the community can easily find extensions, please add your
+          To allow the community to easily find extensions, please add your
           extensions to the <a href=
           "https://github.com/w3c/manifest/wiki/Extensions-Registry">Extensions
           Registry</a>.
@@ -2881,6 +2744,29 @@
           "https://wicg.io">WICG</a>.
         </dd>
       </dl>
+    </section>
+    <section class="appendix">
+      <h2>
+        Application Information
+      </h2>
+      <p>
+        Several members of the Web App Manifest provide additional metadata
+        related to how the web application may be presented in the context of a
+        digital storefront, installation dialog, or other surfaces where this
+        web application may be marketed or distributed. In an effort to support
+        these use cases better, the following members have been moved into
+        [[[manifest-app-info]]]:
+      </p>
+      <ul>
+        <li>`categories`
+        </li>
+        <li>`description`
+        </li>
+        <li>`iarc_rating_id`
+        </li>
+        <li>`screenshots`
+        </li>
+      </ul>
     </section>
     <section class="appendix">
       <h2>
