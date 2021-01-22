@@ -3,3 +3,4 @@ indent: yes
 indent-spaces: 2
 wrap: 80
 tidy-mark: no
+custom-tags: yes
