@@ -198,27 +198,6 @@
             "background_color": "red"
           }
         </pre>
-        <p>
-          The following shows a <a>manifest</a> that prefers the <code>
-          minimal-ui</code> [=display modes|display mode=]
-          to <code>standalone</code>, but if minimal-ui isn't supported, fall
-          back to standalone as opposed to browser.
-        </p>
-        <pre class="example json" title="Advanced display usage manifest">
-          {
-            "name": "Recipe Zone",
-            "description": "All of the recipes!",
-            "icons": [{
-              "src": "icon/hd_hi",
-              "sizes": "128x128"
-            }],
-            "start_url": "/index.html",
-            "display_override": ["minimal-ui"],
-            "display": "standalone",
-            "theme_color": "yellow",
-            "background_color": "red"
-          }
-        </pre>
       </section>
       <section class="informative">
         <h3>
@@ -596,24 +575,14 @@
         </ol>
       </p>
       <p>
-        For more advanced usages, the {{WebAppManifest/display_override}}
-        member can be used to specify a custom fallback order.
-      </p>
-      <p>
         The <dfn>steps for determing the web app's chosen display mode</dfn> is
         given by the following algorithm. The algorithm takes a
         [=processed manifest=] |manifest:processed manifest| and returns a
         [=display mode=].
         <ol>
           <li>
-            [=list/For each=] |candidate_display_mode:DisplayModeType| of
-            |manifest|.{{WebAppManifest/display_override}}:
-            <ol>
-              <li>
-                If the user agent supports the |candidate_display_mode|, then
-                return |candidate_display_mode|.
-              </li>
-            </ol>
+            <a>Extension point</a>: process any proprietary and/or other
+            supported display mode choosers at this point in the algorithm.
           </li>
           <li>
             [=list/For each=] |fallback_mode:DisplayModeType| of the
@@ -633,13 +602,6 @@
           [=fallback chain=], and the requirement that all user agents support
           the {{browser}} [=display mode=].
         </p>
-        <p class="note">
-          In the future, new values added to {{DisplayModeType}} will not be
-          added to the [=fallback chain=], and the algorithm should treat these
-          values, when used with the {{WebAppManifest/display}} field, as
-          {{browser}}. New values will only be compatible with
-          {{WebAppManifest/display_override}}.
-        </p>
       </p>
       <div class="example">
         <p>
@@ -651,20 +613,6 @@
           <code>fullscreen</code> (it doesn't), so it falls back to
           <code>standalone</code> (which it also doesn't support), and
           ultimately falls back to <code>minimal-ui</code>.
-        </p>
-      </div>
-      <div class="example">
-        <p>
-          Same browser as above (SuperSecure Browser), but the developer
-          instead specified the following manifest using display_override:
-          <pre class="example json" title="Using display_override">
-            {
-              display_override: ["fullscreen", "browser"]
-            }
-          </pre>
-          This declares that the user agent should use |fullscreen|, and if
-          that is not supported, it should fall back to |browser| without
-          considering the other modes.
         </p>
       </div>
       <p>
@@ -1084,7 +1032,6 @@
              sequence&lt;ManifestImageResource&gt; icons;
              USVString start_url;
              DisplayModeType display = "browser";
-             sequence&lt;DisplayModeType&gt; display_override;
              OrientationLockType orientation;
              USVString theme_color;
              USVString background_color;
@@ -1401,25 +1348,6 @@
           The <dfn>display</dfn> member is a <a>DisplayModeType</a>, whose
           value is one of <a>display modes values</a>. The item represents the
           developer's preferred <a>display mode</a> for the web application.
-        </p>
-      </section>
-      <section>
-        <h3>
-          <code>display_override</code> member
-        </h3>
-        <p>
-          The <dfn>display_override</dfn> member is a <a>sequence</a> of<a>
-          DisplayModeType</a>. This item represents the developer's preferred
-          fallback chain for [=display modes=]. This field overrides the
-          {{display}} property. If the user agent does not support any of the
-          display modes specified here, then it falls back to considering the
-          {{display}} field. See [=display modes=] for the algorithm steps.
-        </p>
-        <p class="note">
-          This member is intended to be only used for advanced cases, where
-          the developer wants explicit control over the fallback order of their
-          display modes. Otherwise, the {{display}} should be sufficient for
-          most use cases.
         </p>
       </section>
       <section>
