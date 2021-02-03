@@ -556,60 +556,56 @@
       </p>
       <p>
         The <dfn>fallback chain</dfn> for:
-        <ol>
-          <li>
-            {{browser}} is «{{browser}}».
-          </li>
-          <li>
-            <a data-link-for="DisplayModeType">minimal-ui</a> is «
-            <a data-link-for="DisplayModeType">minimal-ui</a>, {{browser}}».
-          </li>
-          <li>
-            {{standalone}} is «{{standalone}},
-            <a data-link-for="DisplayModeType">minimal-ui</a>, {{browser}}».
-          </li>
-          <li>
-            {{fullscreen}} is «{{fullscreen}}, {{standalone}},
-            <a data-link-for="DisplayModeType">minimal-ui</a>, {{browser}}».
-          </li>
-        </ol>
       </p>
+      <ol>
+        <li>{{browser}} is «{{browser}}».
+        </li>
+        <li>
+          <a data-link-for="DisplayModeType">minimal-ui</a> is «
+          <a data-link-for="DisplayModeType">minimal-ui</a>, {{browser}}».
+        </li>
+        <li>{{standalone}} is «{{standalone}}, <a data-link-for=
+        "DisplayModeType">minimal-ui</a>, {{browser}}».
+        </li>
+        <li>{{fullscreen}} is «{{fullscreen}}, {{standalone}},
+          <a data-link-for="DisplayModeType">minimal-ui</a>, {{browser}}».
+        </li>
+      </ol>
       <p>
         The <dfn>steps for determing the web app's chosen display mode</dfn> is
-        given by the following algorithm. The algorithm takes a
-        [=processed manifest=] |manifest:processed manifest| and returns a
+        given by the following algorithm. The algorithm takes a [=processed
+        manifest=] |manifest:processed manifest| and returns a [=display
+        mode=].
+      </p>
+      <ol>
+        <li>
+          <a>Extension point</a>: process any proprietary and/or other
+          supported display mode choosers at this point in the algorithm.
+        </li>
+        <li>[=list/For each=] |fallback_mode:DisplayModeType| of the [=fallback
+        chain=] of |manifest|.{{WebAppManifest/display}}:
+          <ol>
+            <li>If the user agent supports the |fallback_mode|, then return
+            |fallback_mode|.
+            </li>
+          </ol>
+        </li>
+        <li>[=Assert=] false.
+        </li>
+      </ol>
+      <p class="note">
+        The above loop is guaranteed to return a value before the assertion,
+        due to the fact that {{browser}} is in every mode's [=fallback chain=],
+        and the requirement that all user agents support the {{browser}}
         [=display mode=].
-        <ol>
-          <li>
-            <a>Extension point</a>: process any proprietary and/or other
-            supported display mode choosers at this point in the algorithm.
-          </li>
-          <li>
-            [=list/For each=] |fallback_mode:DisplayModeType| of the
-            [=fallback chain=] of |manifest|.{{WebAppManifest/display}}:
-            <ol>
-              <li>
-                If the user agent supports the |fallback_mode|, then
-                return |fallback_mode|.
-              </li>
-            </ol>
-          </li>
-          <li>[=Assert=] false.</li>
-        </ol>
-        <p class="note">
-          The above loop is guaranteed to return a value before the assertion,
-          due to the fact that {{browser}} is in every mode's
-          [=fallback chain=], and the requirement that all user agents support
-          the {{browser}} [=display mode=].
-        </p>
       </p>
       <div class="example">
         <p>
           SuperSecure Browser (a fictitious browser) only supports the
-          <code>minimal-ui</code> and <code>browser</code> display modes,
-          but a developer declares that she wants <code>fullscreen</code> in
-          the manifest by using the {{WebAppManifest/display}} property. In
-          this case, the user agent will first check if it supports
+          <code>minimal-ui</code> and <code>browser</code> display modes, but a
+          developer declares that she wants <code>fullscreen</code> in the
+          manifest by using the {{WebAppManifest/display}} property. In this
+          case, the user agent will first check if it supports
           <code>fullscreen</code> (it doesn't), so it falls back to
           <code>standalone</code> (which it also doesn't support), and
           ultimately falls back to <code>minimal-ui</code>.
