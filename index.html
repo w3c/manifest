@@ -555,32 +555,35 @@
         mode</a>.
       </p>
       <p>
-        The <dfn>fallback chain</dfn> for:
+        Every [=display mode=] has a <dfn>fallback chain</dfn>, which is a list
+        of [=display modes=]. The [=fallback chain=] for:
       </p>
       <ol>
-        <li>{{browser}} is «{{browser}}».
+        <li>{{browser}} is «».
         </li>
         <li>
-          <a data-link-for="DisplayModeType">minimal-ui</a> is «
-          <a data-link-for="DisplayModeType">minimal-ui</a>, {{browser}}».
+          <a data-link-for="DisplayModeType">minimal-ui</a> is «{{browser}}».
         </li>
-        <li>{{standalone}} is «{{standalone}}, <a data-link-for=
+        <li>{{standalone}} is «<a data-link-for=
         "DisplayModeType">minimal-ui</a>, {{browser}}».
         </li>
-        <li>{{fullscreen}} is «{{fullscreen}}, {{standalone}},
-          <a data-link-for="DisplayModeType">minimal-ui</a>, {{browser}}».
+        <li>{{fullscreen}} is «{{standalone}}, <a data-link-for=
+        "DisplayModeType">minimal-ui</a>, {{browser}}».
         </li>
       </ol>
       <p>
-        The <dfn>steps for determing the web app's chosen display mode</dfn> is
-        given by the following algorithm. The algorithm takes a [=processed
+        The <dfn>steps for determining the web app's chosen display mode</dfn>
+        is given by the following algorithm. The algorithm takes a [=processed
         manifest=] |manifest:processed manifest| and returns a [=display
         mode=].
       </p>
       <ol>
         <li>
           <a>Extension point</a>: process any proprietary and/or other
-          supported display mode choosers at this point in the algorithm.
+          supported display modes at this point in the algorithm.
+        </li>
+        <li>If the user agent supports |manifest|.{{WebAppManifest/display}},
+        then return |manifest|.{{WebAppManifest/display}}.
         </li>
         <li>[=list/For each=] |fallback_mode:DisplayModeType| of the [=fallback
         chain=] of |manifest|.{{WebAppManifest/display}}:
