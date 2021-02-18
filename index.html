@@ -555,30 +555,68 @@
         mode</a>.
       </p>
       <p>
-        Each <a>display mode</a>, except <code>browser</code>, has a
-        <dfn>fallback display mode</dfn>, which is the <a>display mode</a> that
-        the user agent can try to use if it doesn't support a particular
-        <a>display mode</a>. If the user agent does support a <a>fallback
-        display mode</a>, then it checks to see if it can use that <a>display
-        mode</a>'s <a>fallback display mode</a>. This creates a fallback chain,
-        with the <a>default display mode</a> (<code>browser</code>) being the
-        last item in the chain.
+        Every [=display mode=] has a <dfn>fallback chain</dfn>, which is a list
+        of [=display modes=]. The [=fallback chain=] for:
+      </p>
+      <ol>
+        <li>{{browser}} is «».
+        </li>
+        <li>
+          <a data-link-for="DisplayModeType">minimal-ui</a> is «{{browser}}».
+        </li>
+        <li>{{standalone}} is «<a data-link-for=
+        "DisplayModeType">minimal-ui</a>, {{browser}}».
+        </li>
+        <li>{{fullscreen}} is «{{standalone}}, <a data-link-for=
+        "DisplayModeType">minimal-ui</a>, {{browser}}».
+        </li>
+      </ol>
+      <p>
+        The <dfn>steps for determining the web app's chosen display mode</dfn>
+        is given by the following algorithm. The algorithm takes a [=processed
+        manifest=] |manifest:processed manifest| and returns a [=display
+        mode=].
+      </p>
+      <ol>
+        <li>
+          <a>Extension point</a>: process any proprietary and/or other
+          supported display modes at this point in the algorithm.
+        </li>
+        <li>If the user agent supports |manifest|.{{WebAppManifest/display}},
+        then return |manifest|.{{WebAppManifest/display}}.
+        </li>
+        <li>[=list/For each=] |fallback_mode:DisplayModeType| of the [=fallback
+        chain=] of |manifest|.{{WebAppManifest/display}}:
+          <ol>
+            <li>If the user agent supports the |fallback_mode|, then return
+            |fallback_mode|.
+            </li>
+          </ol>
+        </li>
+        <li>[=Assert=] false.
+        </li>
+      </ol>
+      <p class="note">
+        The above loop is guaranteed to return a value before the assertion,
+        due to the fact that {{browser}} is in every mode's [=fallback chain=],
+        and the requirement that all user agents support the {{browser}}
+        [=display mode=].
       </p>
       <div class="example">
         <p>
-          For example, SuperSecure Browser (a fictitious browser) only supports
-          the <code>minimal-ui</code> and <code>browser</code> display modes,
-          but a developer declares that she wants <code>fullscreen</code> in
-          the manifest. In this case, the user agent will first check if it
-          supports <code>fullscreen</code> (it doesn't), so it falls back to
+          SuperSecure Browser (a fictitious browser) only supports the
+          <code>minimal-ui</code> and <code>browser</code> display modes, but a
+          developer declares that she wants <code>fullscreen</code> in the
+          manifest by using the {{WebAppManifest/display}} property. In this
+          case, the user agent will first check if it supports
+          <code>fullscreen</code> (it doesn't), so it falls back to
           <code>standalone</code> (which it also doesn't support), and
           ultimately falls back to <code>minimal-ui</code>.
         </p>
       </div>
       <p>
         The <dfn>display modes values</dfn> defined by
-        <dfn>DisplayModeType</dfn>, and their corresponding <a>fallback display
-        modes</a> are as follows:
+        <dfn>DisplayModeType</dfn>:
       </p>
       <dl>
         <dt>
@@ -587,10 +625,6 @@
         <dd>
           Opens the web application without any user agent chrome and takes up
           the entirety of the available display area.
-        </dd>
-        <dd>
-          The <a>fallback display mode</a> for <code>fullscreen</code> is
-          <code>standalone</code>.
         </dd>
         <dt>
           <dfn>standalone</dfn>
@@ -603,10 +637,6 @@
           URL bar, but can include other system UI elements such as a status
           bar and/or system back button.
         </dd>
-        <dd>
-          The <a>fallback display mode</a> for <code>standalone</code> is
-          <code>minimal-ui</code>.
-        </dd>
         <dt>
           <dfn>minimal-ui</dfn>
         </dt>
@@ -618,10 +648,6 @@
           other platform specific UI elements, such as "share" and "print"
           buttons or whatever is customary on the platform and user agent.
         </dd>
-        <dd>
-          The <a>fallback display mode</a> for <code>minimal-ui</code> is
-          <code>browser</code>.
-        </dd>
         <dt>
           <dfn>browser</dfn>
         </dt>
@@ -629,11 +655,6 @@
           Opens the web application using the platform-specific convention for
           opening hyperlinks in the user agent (e.g., in a browser tab or a new
           window).
-        </dd>
-        <dd>
-          The <code>browser</code> <a>display mode</a> doesn't have a
-          <a>fallback display mode</a> (conforming user agents are required to
-          support the <code>browser</code> <a>display mode</a>).
         </dd>
       </dl>
       <p class="note">
