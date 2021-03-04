@@ -242,8 +242,8 @@
                 "src": "icon/hd_hi",
                 "sizes": "128x128"
               }],
-              "scope": "/racer/",
-              "start_url": "/racer/start.html",
+              "scope": "/",
+              "start_url": "/start.html",
               "display": "fullscreen",
               "orientation": "landscape",
               "theme_color": "aliceblue",
@@ -377,6 +377,53 @@
               ]
             }
           </pre>
+        </section>
+        <section class="informative">
+          <h2>
+            Understanding "scope"
+          </h2>
+          <p>
+            The [=manifest/scope=] member tells the browser which documents are
+            part of a web application, and which are not - and hence, to which
+            set of web pages the manifest is "[=applied=]" when the user
+            navigates around a web site.
+          </p>
+          <p>
+            For example, `{"scope": "/"}` means that the manifest applies to
+            every document in an origin. On the other hand, `{"scope":
+            "/racer/"}` means that only documents within the path "/racer/" are
+            [=URL/within scope=]: so "/racer/race1.html", "/racer/race2.html",
+            etc. would all be [=URL/within scope=], but "/elsewhere/" and
+            anything at the root "/" would be "out of scope" and the manifest
+            wouldn't apply to documents in those paths. Only one scope path is
+            supported. See [[[#nav-scope]]] for the technical details.
+          </p>
+          <p>
+            [=Applying=] a manifest means that any members that affect
+            presentation found in the manifest will come into effect, such as
+            display "fullscreen", or applying a particular screen orientation.
+            As long as the application is navigated to URLs that are
+            [=URL/within scope=], the browser will continue to apply the
+            manifest. However, navigating the web applications "out of scope"
+            will cause the manifest to no longer be applied, and the browser
+            will apply its own defaults. This will cause, for example, the
+            application to no longer be displayed in fullscreen, and instead be
+            displayed as a regular web page in a browser tab. It's left up to
+            implementers to decide how the deal with web pages being navigated
+            in and out of scope. See [[[#applying]]] for the technical details.
+          </p>
+          <p>
+            Finally, as it's possible that a user can install a web application
+            from any document within an origin, it's good practice to always
+            declare a [=manifest/scope=] member in a manifest. If the
+            [=manifest/scope=] member is missing from the manifest, then the
+            path of the [=manifest/start_url=] member is used as a fallback.
+            And if the [=manifest/start_url=] member is also missing, then the
+            document URL from which the web application is installed gets used
+            as the scope. To be sure you don't get any unexpected navigation
+            behavior, always include a [=manifest/scope=] member preferably set
+            to `"/"`.
+          </p>
         </section>
       </section>
       <section>
@@ -540,7 +587,6 @@
         <h3>
           `scope` member
         </h3>
-        <aside class="issue" data-number="380"></aside>
         <p>
           The [=manifest's=] <code><dfn data-dfn-for=
           "manifest">scope</dfn></code> member is a <a>string</a> that
@@ -2011,7 +2057,7 @@
         </p>
       </section>
     </section>
-    <section>
+    <section id="nav-scope">
       <h2>
         Navigation scope
       </h2>
@@ -2923,7 +2969,9 @@
       </p>
       <aside class="note" title="Web Manifest JSON Schema">
         <details>
-          <summary>Click to view schema.</summary>
+          <summary>
+            Click to view schema.
+          </summary>
           <pre class="json" data-include=
           "https://json.schemastore.org/web-manifest"></pre>
         </details>
