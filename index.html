@@ -1638,20 +1638,6 @@
           scope=] of a [=Document/processed manifest=] that opens when the
           associated shortcut is activated.
         </p>
-        <section>
-          <h4>
-            Privacy and security considerations
-          </h4>
-          <p>
-            It's conceivable that any [=shortcut item/url=] could be crafted to
-            indicate that the application was launched from outside the browser
-            (e.g., `"url": "/task/?from=homescreen"`). It is also conceivable
-            that developers could encode strings into the [=shortcut item/url=]
-            that uniquely identify the user (e.g., a server assigned
-            <abbr>UUID</abbr>). This is fingerprinting/privacy sensitive
-            information that the user might not be aware of.
-          </p>
-        </section>
       </section>
       <section>
         <h3>
@@ -1927,31 +1913,6 @@
           is best suited for the space available (e.g., the
           [=manifest/short_name=] member might be better suited for the space
           available underneath an icon).
-        </p>
-      </section>
-      <section>
-        <h3 id="installation-sec">
-          Privacy and security considerations
-        </h3>
-        <p>
-          It is RECOMMENDED that UI that affords the end user the ability to
-          <a>install</a> a web application also allows inspecting the icon,
-          name, <a>start URL</a>, origin, etc. pertaining to a web application.
-          This is to give an end-user an opportunity to make a conscious
-          decision to approve, and possibly modify, the information pertaining
-          to the web application before installing it. This also gives the
-          end-user an opportunity to discern if the web application is spoofing
-          another web application, by, for example, using an unexpected icon or
-          name.
-        </p>
-        <p>
-          It is RECOMMENDED that user agents prevent other applications from
-          determining which applications are installed on the system (e.g., via
-          a timing attack on the user agent's cache). This could be done by,
-          for example, invalidating from the user agent's cache the resources
-          linked to from the manifest (for example, icons) after a web
-          application is <a>installed</a> - or by using an entirely different
-          cache from that used for regular web browsing.
         </p>
       </section>
       <section class="informative">
@@ -2291,28 +2252,6 @@
         mode</a> set to <a>fullscreen</a>, while `document.fullScreenElement`
         returns `null`, and `fullscreenEnabled` returns `false`.
       </p>
-      <section>
-        <h3>
-          Privacy and security considerations
-        </h3>
-        <p>
-          When the web application is running, it is RECOMMENDED that the user
-          agent provides the end-user a means to access common information
-          about the web application, such as the origin, start and/or current
-          URL, granted permissions, and associated icon. How such information
-          is exposed to end-users is left up to implementers.
-        </p>
-        <p>
-          Additionally, when applying a manifest that sets the <a>display
-          mode</a> to anything except "<a>browser</a>", it is RECOMMENDED that
-          the user agent clearly indicate to the end-user that their are
-          leaving the normal browsing context of a web browser. Ideally,
-          launching or switching to a web application is performed in a manner
-          that is consistent with launching or switching to other applications
-          in the host platform. For example, a long and obvious animated
-          transition, or speaking the text "Launching application X".
-        </p>
-      </section>
       <section data-cite="css-conditional-3">
         <h3>
           The `'display-mode'` media feature
@@ -2436,21 +2375,6 @@
             }
           </pre>
         </section>
-        <section>
-          <h3>
-            Privacy and security considerations
-          </h3>
-          <p>
-            The `'display-mode'` media feature allows an origin access to
-            aspects of a user’s local computing environment and, together with
-            the `display` member, allows an origin some measure of control over
-            a user agent’s native UI: Through a CSS media query, a script can
-            know the display mode of a web application. An attacker could, in
-            such a case, exploit the fact that an application is being
-            displayed in fullscreen to mimic the user interface of another
-            application.
-          </p>
-        </section>
       </section>
     </section>
     <section id="priv-sec">
@@ -2509,6 +2433,60 @@
         manifest. Doing so can enable XSS attacks by allowing a manifest to be
         included directly in the document itself; this is best avoided
         completely.
+      </p>
+      <p>
+        It is RECOMMENDED that UI that affords the end user the ability to
+        <a>install</a> a web application also allows inspecting the icon, name,
+        <a>start URL</a>, origin, etc. pertaining to a web application. This is
+        to give an end-user an opportunity to make a conscious decision to
+        approve, and possibly modify, the information pertaining to the web
+        application before installing it. This also gives the end-user an
+        opportunity to discern if the web application is spoofing another web
+        application, by, for example, using an unexpected icon or name.
+      </p>
+      <p>
+        It is RECOMMENDED that user agents prevent other applications from
+        determining which applications are installed on the system (e.g., via a
+        timing attack on the user agent's cache). This could be done by, for
+        example, invalidating from the user agent's cache the resources linked
+        to from the manifest (for example, icons) after a web application is
+        <a>installed</a> - or by using an entirely different cache from that
+        used for regular web browsing.
+      </p>
+      <p>
+        It's conceivable that a shortcut [=shortcut item/url=] could be crafted
+        to indicate that the application was launched from outside the browser
+        (e.g., `"url": "/task/?from=homescreen"`). It is also conceivable that
+        developers could encode strings into the [=shortcut item/url=] that
+        uniquely identify the user (e.g., a server assigned <abbr>UUID</abbr>).
+        This is fingerprinting/privacy sensitive information that the user
+        might not be aware of.
+      </p>
+      <p>
+        When the web application is running, it is RECOMMENDED that the user
+        agent provides the end-user a means to access common information about
+        the web application, such as the origin, start and/or current URL,
+        granted permissions, and associated icon. How such information is
+        exposed to end-users is left up to implementers.
+      </p>
+      <p>
+        Additionally, when applying a manifest that sets the <a>display
+        mode</a> to anything except "<a>browser</a>", it is RECOMMENDED that
+        the user agent clearly indicate to the end-user that their are leaving
+        the normal browsing context of a web browser. Ideally, launching or
+        switching to a web application is performed in a manner that is
+        consistent with launching or switching to other applications in the
+        host platform. For example, a long and obvious animated transition, or
+        speaking the text "Launching application X".
+      </p>
+      <p>
+        The `'display-mode'` media feature allows an origin access to aspects
+        of a user’s local computing environment and, together with the
+        `display` member, allows an origin some measure of control over a user
+        agent’s native UI: Through a CSS media query, a script can know the
+        display mode of a web application. An attacker could, in such a case,
+        exploit the fact that an application is being displayed in fullscreen
+        to mimic the user interface of another application.
       </p>
     </section>
     <section>
