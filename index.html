@@ -242,8 +242,8 @@
                 "src": "icon/hd_hi",
                 "sizes": "128x128"
               }],
-              "scope": "/racer/",
-              "start_url": "/racer/start.html",
+              "scope": "/",
+              "start_url": "/start.html",
               "display": "fullscreen",
               "orientation": "landscape",
               "theme_color": "aliceblue",
@@ -378,13 +378,60 @@
             }
           </pre>
         </section>
+        <section class="informative">
+          <h2>
+            Understanding "scope"
+          </h2>
+          <p>
+            The [=manifest/scope=] member tells the browser which documents are
+            part of a web application, and which are not - and hence, to which
+            set of web pages the manifest is "[=applied=]" when the user
+            navigates around a web site.
+          </p>
+          <p>
+            For example, `{"scope": "/"}` means that the manifest applies to
+            every document in an origin. On the other hand, `{"scope":
+            "/racer/"}` means that only documents within the path "/racer/" are
+            [=URL/within scope=]: so "/racer/race1.html", "/racer/race2.html",
+            etc. would all be [=URL/within scope=], but "/elsewhere/" and
+            anything at the root "/" would be "out of scope" and the manifest
+            wouldn't apply to documents in those paths. Only one scope path is
+            supported. See [[[#nav-scope]]] for the technical details.
+          </p>
+          <p>
+            [=Applying=] a manifest means that any members that affect
+            presentation found in the manifest will come into effect, such as
+            display "fullscreen", or applying a particular screen orientation.
+            As long as the application is navigated to URLs that are
+            [=URL/within scope=], the browser will continue to apply the
+            manifest. However, navigating the web applications "out of scope"
+            will cause the manifest to no longer be applied, and the browser
+            will apply its own defaults. This will cause, for example, the
+            application to no longer be displayed in fullscreen, and instead be
+            displayed as a regular web page in a browser tab. It's left up to
+            implementers to decide how to deal with web pages being navigated
+            in and out of scope. See [[[#applying]]] for the technical details.
+          </p>
+          <p>
+            Finally, as it's possible that a user can install a web application
+            from any document within an origin, it's good practice to always
+            declare a [=manifest/scope=] member in a manifest. If the
+            [=manifest/scope=] member is missing from the manifest, then the
+            path of the [=manifest/start_url=] member is used as a fallback.
+            And if the [=manifest/start_url=] member is also missing, then the
+            document URL from which the web application is installed gets used
+            as the scope. To be sure you don't get any unexpected navigation
+            behavior, always include a [=manifest/scope=] member preferably set
+            to `"/"`.
+          </p>
+        </section>
       </section>
       <section>
         <h3>
           `dir` member
         </h3>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">dir</dfn></code> member specifies the <dfn>base
           direction</dfn> for the <a>localizable members</a> of the
           <a>manifest</a>. The [=manifest/dir=] member's value can be set to
@@ -462,7 +509,7 @@
           `lang` member
         </h3>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">lang</dfn></code> member is a <a>string</a> in the form of
           a <a>language tag</a> that specifies the primary language for the
           values of the manifest's <a>localizable members</a> (as knowing the
@@ -504,7 +551,7 @@
           `name` member
         </h3>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">name</dfn></code> member is a <a>string</a> that
           represents the name of the web application as it is usually displayed
           to the user (e.g., amongst a list of other applications, or as a
@@ -525,7 +572,7 @@
           `short_name` member
         </h3>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">short_name</dfn></code> member is a <a>string</a> that
           represents a short version of the name of the web application. It is
           intended to be used where there is insufficient space to display the
@@ -540,9 +587,8 @@
         <h3>
           `scope` member
         </h3>
-        <aside class="issue" data-number="380"></aside>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">scope</dfn></code> member is a <a>string</a> that
           represents the [=manifest/navigation scope=] of this web
           application's <a>application context</a>.
@@ -584,7 +630,7 @@
           `icons` member
         </h3>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">icons</dfn></code> member are images that serve as iconic
           representations of the web application in various contexts. For
           example, they can be used to represent the web application amongst a
@@ -614,7 +660,7 @@
           `display` member
         </h3>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">display</dfn></code> member represents the developer's
           preferred <a>display mode</a> for the web application. Its value is
           one of the <a>display modes values</a>.
@@ -638,7 +684,7 @@
           `orientation` member
         </h3>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">orientation</dfn></code> member is a <a>string</a> that
           serves as the <a>default screen orientation</a> for all <a>top-level
           browsing contexts</a> of the web application. The possible values are
@@ -696,7 +742,7 @@
           `start_url` member
         </h3>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">start_url</dfn></code> member is a <a>string</a> that
           represents the <dfn>start URL</dfn> , which is <a>URL</a> that the
           developer would prefer the user agent load when the user launches the
@@ -766,7 +812,7 @@
           `theme_color` member
         </h3>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">theme_color</dfn></code> member serves as the <dfn>default
           theme color</dfn> for an application context. What constitutes a
           <dfn>theme color</dfn> is defined in [[HTML]].
@@ -806,7 +852,7 @@
           application.
         </p>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">related_applications</dfn></code> member lists <a>related
           applications</a> and serves as an indication of such a relationship
           between web application and <a>related applications</a>. This
@@ -859,7 +905,7 @@
         </h3>
         <aside class="issue" data-number="957"></aside>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">`prefer_related_applications`</dfn></code> member is a
           [=boolean=] that is used as a hint for the user agent to say that
           <a>related applications</a> should be preferred over the web
@@ -874,7 +920,7 @@
           `background_color` member
         </h3>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">`background_color`</dfn></code> member describes the
           expected background color of the web application. It repeats what is
           already available in the application stylesheet but can be used by
@@ -904,7 +950,7 @@
           `shortcuts` member
         </h3>
         <p>
-          The [=manifest's=] <code><dfn data-dfn-for=
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">shortcuts</dfn></code> member is an [=array=] of
           <a>shortcut item</a>s that provide access to key tasks within a web
           application.
@@ -2014,7 +2060,7 @@
         </p>
       </section>
     </section>
-    <section>
+    <section id="nav-scope">
       <h2>
         Navigation scope
       </h2>
