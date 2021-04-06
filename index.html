@@ -2148,6 +2148,8 @@
           <li>Return <var>processedProtocolHandlers</var>.
           </li>
         </ol>
+        <p>To process the the <var>processedProtocolHandlers</var> the user agent SHOULD [=register a handler=] per item defined in the sequence.
+        </p>
         <p>
           A user agent SHOULD ask users for permission before registering a
           <a>ProtocolHandlerItem</a> <var>protocol_handler</var> as the default
@@ -2156,6 +2158,7 @@
           <var>protocol_handler</var> presented in order to remain consistent
           with the conventions or limitations of the host operating system.
         </p>
+        
         <div class="example">
           <p>
             In the following example, the developer has included two
