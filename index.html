@@ -206,8 +206,7 @@
         <p>
           Although it is optional for any member to appear in a manifest, some
           user agents might require one or more to be present to take full
-          advantage of the capabilities afforded by this specification (see
-          [[[#installability-signals]]]).
+          advantage of the capabilities afforded by this specification.
         </p>
       </aside>
       <section class="informative">
@@ -1931,11 +1930,6 @@
         and again as an example, the user agent could <a>install</a> the web
         application into a list of bookmarks within the user agent itself.
       </p>
-      <p>
-        A [=document=] <dfn data-dfn-for="document">is installable</dfn> if
-        it's a [=top-level browsing context=] and the user agent deems it to be
-        installable (e.g., see [[[#installability-signals]]]).
-      </p>
       <section>
         <h3>
           Application's name
@@ -1969,45 +1963,29 @@
           available underneath an icon).
         </p>
       </section>
-      <section class="informative">
-        <h3 id="installability-signals">
-          Installability signals
+      <section>
+        <h3 id="installation-sec">
+          Privacy and security considerations
         </h3>
         <p>
-          By design, this specification does not provide developers with an
-          explicit API to "install" a web application. Instead, a
-          <a>manifest</a> can serve as an <dfn>installability signal</dfn> to a
-          user agent that a web application can be <a>installed</a>.
+          It is RECOMMENDED that UI that affords the end user the ability to
+          <a>install</a> a web application also allows inspecting the icon,
+          name, <a>start URL</a>, origin, etc. pertaining to a web application.
+          This is to give an end-user an opportunity to make a conscious
+          decision to approve, and possibly modify, the information pertaining
+          to the web application before installing it. This also gives the
+          end-user an opportunity to discern if the web application is spoofing
+          another web application, by, for example, using an unexpected icon or
+          name.
         </p>
         <p>
-          Examples of <a>installability signals</a> for a web application:
-        </p>
-        <ul>
-          <li>has a <a>manifest</a> with at least a [=manifest/name=] member
-          and a suitable icon (e.g., of a particular format and of a minimum
-          width/height).
-          </li>
-          <li>is served over a secure network connection.
-          </li>
-          <li>has a sensible content security policy.
-          </li>
-          <li>is able to responsively adapt to display on a variety of screen
-          sizes, catering for both mobile and desktop.
-          </li>
-          <li>is able to function without a network connection.
-          </li>
-          <li>is repeatedly used by the end-user over some extended period of
-          time.
-          </li>
-          <li>has been explicitly marked by the user as one that they value and
-          trust (e.g., by bookmarking or "starring" it).
-          </li>
-        </ul>
-        <p>
-          This list is not exhaustive and some <a>installability signals</a>
-          might not apply to all user agents. How a user agent makes use of
-          these <a>installability signals</a> to determine if a web application
-          can be <a>installed</a> is left to implementers.
+          It is RECOMMENDED that user agents prevent other applications from
+          determining which applications are installed on the system (e.g., via
+          a timing attack on the user agent's cache). This could be done by,
+          for example, invalidating from the user agent's cache the resources
+          linked to from the manifest (for example, icons) after a web
+          application is <a>installed</a> - or by using an entirely different
+          cache from that used for regular web browsing.
         </p>
       </section>
       <section>
