@@ -1044,6 +1044,11 @@
             [=Response=] |response|.
           </p>
           <ol class="algorithm">
+            <li>Let |document URL:URL| be |el|'s [=Node/node document=]'s
+            [=Document/URL=].
+            </li>
+            <li>Assert: |document URL:URL| is not null.
+            </li>
             <li>Let |json| be the result of [=parse JSON from bytes=]
             |response|'s [=response/body=].
             </li>
@@ -1074,7 +1079,7 @@
             "short_name".
             </li>
             <li>[=Process the `start_url` member=] passing |json|, |manifest|,
-            |manifest URL|, and <var>document URL</var>.
+            |manifest URL|, and |document URL|.
             </li>
             <li>[=Process the `scope` member=] passing |json|, |manifest|, and
             |manifest URL|.
