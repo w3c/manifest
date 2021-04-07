@@ -615,8 +615,11 @@
           </li>
           <li>If |scope| is failure, return.
           </li>
-          <li>If |manifest|["start_url"] is not [=URL/within scope=] of |scope
-          URL|, return.
+          <li>From |scope|, remove the [=url/query=] and [=url/fragment=]
+          components.
+          </li>
+          <li>If |manifest|["start_url"] is not [=URL/within scope=] of
+          |scope|, return.
           </li>
           <li>Otherwise, set |manifest|["scope"] to |scope|.
           </li>
