@@ -2148,21 +2148,23 @@
           <li>Return <var>processedProtocolHandlers</var>.
           </li>
         </ol>
-        <p>To process the the <var>processedProtocolHandlers</var> the user agent SHOULD [=register a handler=] per item defined in the sequence.
+        <p>
+          To process the the <var>processedProtocolHandlers</var> the user
+          agent SHOULD [=register a handler=] per item defined in the
+          [=sequence=].
         </p>
         <p>
           A user agent SHOULD ask users for permission before registering a
-          <a>ProtocolHandlerItem</a> <var>protocol_handler</var> as the default
-          handler for a protocol with the host operating system. A user agent
-          MAY truncate the list of <a>ProtocolHandlerItem</a>
-          <var>protocol_handler</var> presented in order to remain consistent
+          <a>ProtocolHandlerItem</a> <var>protocol_handler</var>s as the
+          default handler for a protocol with the host operating system. A user
+          agent MAY truncate the list of <a>ProtocolHandlerItem</a>
+          <var>protocol_handlers</var> presented in order to remain consistent
           with the conventions or limitations of the host operating system.
         </p>
-        
         <div class="example">
           <p>
             In the following example, the developer has included two
-            <a>ProtocolHandlerItem</a> <var>protocol_handler</var>. Assuming
+            <a>ProtocolHandlerItem</a> <var>protocol_handler</var>s. Assuming
             the the manifest's URL is
             <samp>https://example.com/manifest.webmanifest</samp>:
           </p>
@@ -2860,7 +2862,7 @@
         </p>
         <p>
           The <a>protocol</a> member of a <a>ProtocolHandlerItem</a> is
-          equivalent to <code>registerProtocolHandler</code>'s
+          equivalent to {{NavigatorContentUtils/registerProtocolHandler()}}'s
           <code>scheme</code> argument defined in [[HTML]], and is processed in
           the same manner.
         </p>
@@ -2878,8 +2880,9 @@
         </p>
         <p>
           The <a>url</a> member of a <a>ProtocolHandlerItem</a> is equivalent
-          to <code>registerProtocolHandler</code>'s <code>url</code> argument
-          defined in [[HTML]], and is processed in the same manner.
+          to {{NavigatorContentUtils/registerProtocolHandler()}}'s
+          <code>url</code> argument defined in [[HTML]], and is processed in
+          the same manner.
         </p>
       </section>
       <section>
