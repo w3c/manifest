@@ -1043,8 +1043,7 @@
           in the sequence:
             <ol>
               <li>If <var>protocol_handler</var>["protocol"] or
-              <var>protocol_handler</var>["url"] are undefined, return failure
-              and [=iteration/continue=].
+              <var>protocol_handler</var>["url"] are undefined, [=iteration/continue=].
               </li>
               <li>Set <var>protocol_handler</var>["url"] to the result of [=URL
               Parser|parsing=] <var>protocol_handler</var>["url"] using
@@ -1052,12 +1051,10 @@
               failure, [=iteration/continue=].
               </li>
               <li>If <var>protocol_handler</var>["url"] is not
-              [=manifest/within scope=] of <var>manifest URL</var>, return
-              failure and [=iteration/continue=].
+              [=manifest/within scope=] of <var>manifest URL</var>, [=iteration/continue=].
               </li>
               <li>If <var>protocol_handler</var>["url"] already exists in <var>
-                processedProtocolHandlers</var>, return failure and
-                [=iteration/continue=].
+                processedProtocolHandlers</var>, [=iteration/continue=].
               </li>
               <li>
                 <a>Append</a> <var>protocol_handler</var> to
@@ -1070,7 +1067,7 @@
         </ol>
         <p>
           To process the the <var>processedProtocolHandlers</var> the user
-          agent SHOULD [=register a handler=] per item defined in the
+          agent SHOULD [=register a protocol handler=] per item defined in the
           [=sequence=].
         </p>
         <p>
