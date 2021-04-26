@@ -1007,13 +1007,14 @@
         </p>
       </section>
       <section>
-        <h3>`protocol_handlers` member</h3>
+        <h3>
+          `protocol_handlers` member
+        </h3>
         <p>
-          
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-            "manifest">protocol_handlers</dfn></code> member is an <a>array</a> of
-          <a>ProtocolHandlerItem</a>s that allows a web application to handle
-          URL protocols.
+          "manifest">protocol_handlers</dfn></code> member is an <a>array</a>
+          of <a>ProtocolHandlerItem</a>s that allows a web application to
+          handle URL protocols.
         </p>
         <p class="note">
           Protocol handlers could, for instance, be used for web app
@@ -1042,18 +1043,21 @@
           in the sequence:
             <ol>
               <li>If <var>protocol_handler</var>["protocol"] or
-              <var>protocol_handler</var>["url"] are undefined, return failure and [=iteration/continue=].
+              <var>protocol_handler</var>["url"] are undefined, return failure
+              and [=iteration/continue=].
               </li>
               <li>Set <var>protocol_handler</var>["url"] to the result of [=URL
               Parser|parsing=] <var>protocol_handler</var>["url"] using
               <var>manifest URL</var> as the base URL. If the result is
               failure, [=iteration/continue=].
               </li>
-              <li>If <var>protocol_handler</var>["url"] is not [=manifest/within
-                scope=] of <var>manifest URL</var>, return failure and [=iteration/continue=].
+              <li>If <var>protocol_handler</var>["url"] is not
+              [=manifest/within scope=] of <var>manifest URL</var>, return
+              failure and [=iteration/continue=].
               </li>
               <li>If <var>protocol_handler</var>["url"] already exists in <var>
-                processedProtocolHandlers</var>, return failure and [=iteration/continue=].
+                processedProtocolHandlers</var>, return failure and
+                [=iteration/continue=].
               </li>
               <li>
                 <a>Append</a> <var>protocol_handler</var> to
@@ -1867,27 +1871,36 @@
       <h2>
         ProtocolHandler items
       </h2>
-      <p>Each <dfn>ProtocolHandlerItem</dfn> is an [=object=] that represents represents a protocol that the web application wants to handle. It has the following members:</p>
+      <p>
+        Each <dfn>ProtocolHandlerItem</dfn> is an [=object=] that represents
+        represents a protocol that the web application wants to handle. It has
+        the following members:
+      </p>
       <ul>
-        <li>[=`protocol`=]</li>
-        <li>[=`url`=]</li>
+        <li>[=`protocol`=]
+        </li>
+        <li>[=`url`=]
+        </li>
       </ul>
       <p>
-        A user agent SHOULD use these values to register
-        the web application as a handler with the operating system. When the
-        user activates a protocol handler URL, the user agent SHOULD run
-        <a>Handling a protocol launch</a>.
+        A user agent SHOULD use these values to register the web application as
+        a handler with the operating system. When the user activates a protocol
+        handler URL, the user agent SHOULD run <a>Handling a protocol
+        launch</a>.
       </p>
       <p class="note">
         [[HTML]]'s <code>registerProtocolHandler</code> method allows web sites
         to register themselves as possible handlers for particular protocols.
         What constitutes valid <code>protocol</code> and <code>url</code>
         values for <a>ProtocolHandlerItem</a>s is defined in that API. Also
-        note that the [[HTML]] API uses <code>scheme</code> where we use
-        <code>protocol</code> but the same restrictions apply.
+        note that the [[HTML]] API uses <a href=
+        "https://url.spec.whatwg.org/#concept-url-scheme"><code>scheme</code></a>
+        where we use <code>protocol</code> but the same restrictions apply.
       </p>
       <section>
-        <h3>`protocol` member</h3>
+        <h3>
+          `protocol` member
+        </h3>
         <p>
           The <dfn>protocol</dfn> member of a <a>ProtocolHandlerItem</a> is a
           <a>string</a> that represents the protocol to be handled, such as
@@ -1896,22 +1909,23 @@
         <p>
           The <a>protocol</a> member of a <a>ProtocolHandlerItem</a> is
           equivalent to {{NavigatorContentUtils/registerProtocolHandler()}}'s
-          <code>scheme</code> argument defined in [[HTML]], and is processed in
-          the same manner.
+          <a href="https://url.spec.whatwg.org/#concept-url-scheme">scheme</a>
+          argument defined in [[HTML]].
         </p>
       </section>
       <section>
-        <h3>`url` member</h3>  
+        <h3>
+          `url` member
+        </h3>
         <p>
           The <dfn>url</dfn> member of a <a>ProtocolHandlerItem</a> is the
-          <a>URL</a> [=manifest/within scope=] of the application</a> that opens when the associated protocol is
-          activated.
+          <a>URL</a> [=manifest/within scope=] of the application that opens
+          when the associated protocol is activated.
         </p>
         <p>
           The <a>url</a> member of a <a>ProtocolHandlerItem</a> is equivalent
           to {{NavigatorContentUtils/registerProtocolHandler()}}'s
-          <code>url</code> argument defined in [[HTML]], and is processed in
-          the same manner.
+          <code>url</code> argument defined in [[HTML]].
         </p>
       </section>
       <section>
@@ -1920,25 +1934,33 @@
         </h3>
         <p>
           When a <a>ProtocolHandlerItem</a> <var>protocol_handler</var> having
-          [=manifest=] <var>manifest</var> is invoked, run the
-          following steps:
+          [=manifest=] <var>manifest</var> is invoked, it goes through the same
+          steps used to [=invoke a protocol handler=] defined in [=HTML=],
+          where the user agent SHOULD navigate to [=url=] and the appropriate
+          browsing context is set to a new top level browsing context.
         </p>
-        <ol>
-          <li>Let <var>url</var> be <var>protocol_handler.url</var>.
-          </li>
-          <li>Replace the first occurrence of the exact literal string "%s" in
-          <var>url</var> with an escaped version of the absolute URL.
-          </li>
-          <li>Let <var>browsing context</var> be the result of creating a new
-          <a>top-level browsing context</a>.
-          </li>
-          <li>
-            <a>Navigate</a> <var>browsing context</var> to <var>url</var>.
-          </li>
-        </ol>
       </section>
+      <section>
+        <h3>
+          Privacy and Security considerations
+        </h3>
+        <p>
+          Privacy concerns for custom scheme handling are detailed in the
+          <a href=
+          "https://html.spec.whatwg.org/multipage/system-state.html#security-and-privacy">
+          Security and privacy section</a> of
+          {{NavigatorContentUtils/registerProtocolHandler()}}.
+        </p>
+        <div class="note">
+          <p>
+            The user agent MUST ask for permission when using a protocol
+            handler for the first time. This feature requires user interaction
+            and a script cannot communicate with another application on its
+            own.
+          </p>
+        </div>
       </section>
-      
+    </section>
     <section>
       <h2>
         External application resource
