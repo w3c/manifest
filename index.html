@@ -2409,6 +2409,45 @@
         </section>
       </section>
     </section>
+    <section>
+      <h2>
+        Client Hints
+      </h2>
+      <p>
+        Developers often need to know details about how their web app is being
+        rendered in order to make content-negotiation decisions. Though this
+        information is accessible via JavaScript, when sent as part of a
+        {{Request}}, servers are empowered to do the content-negotiation
+        earlier in the process of setting up the web app, before JavaScript
+        execution takes place. To convey this information, this document
+        provides for the following <a data-cite=
+        "client-hints-infrastructure#client-hint-token">client hint token</a>:
+      </p>
+      <ul>
+        <li>`Sec-CH-Display-Mode` whose value is a suitable [=display modes
+        value=]
+        </li>
+      </ul>
+      <section>
+        <h3>
+          The 'Sec-CH-Display-Mode' Header Field
+        </h3>
+        <p>
+          The <dfn data-export="" data-lt=
+          "display mode client hint">Sec-CH-Display-Mode</dfn> request header
+          field gives a server information about the [=display mode]=] in which
+          the user agent plans to display the web app. It is a <a data-cite=
+          "rfc8941#section-3">Structured Header</a> whose value MUST be a valid
+          <a data-cite="rfc8941#section-3.3.3">string</a>.
+        </p>
+        <p>
+          The header's ABNF is:
+        </p>
+        <pre>
+          Sec-CH-Display-Mode = sf-string
+        </pre>
+      </section>
+    </section>
     <section id="priv-sec">
       <h2>
         Privacy and security considerations
@@ -3014,7 +3053,8 @@
           }
           return !/^editorial|^chore|^\[chore|^fix|^refactor|^tests?|^docs|^typo|^nit/i.test(message);
         }
-      </script> <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483"
+      </script>
+      <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483"
       filter="removeCommits"></rs-changelog>
     </section>
     <section class="appendix informative">
