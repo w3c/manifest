@@ -1013,7 +1013,7 @@
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">protocol_handlers</dfn></code> member is an <a>array</a>
-          of <a>ProtocolHandlerItem</a>s that allows a web application to
+          of <a>protocol handler description</a>s that allows a web application to
           handle URL protocols.
         </p>
         <p class="note">
@@ -1026,28 +1026,18 @@
           to the user, is at the discretion of the user agent and/or operating
           system.
         </p>
-        <p>
-          The steps for <dfn>processing the <code>protocol_handlers</code>
-          member</dfn> are given by the following algorithm. The algorithm
-          takes a <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ProtocolHandlerItem</a>&gt;
-          <var>protocol_handlers</var> and a <a>URL</a> <var>manifest
-          URL</var>. This algorithm returns a <a data-cite=
-          "WEBIDL#sequence-type">sequence</a>&lt;<a>ProtocolHandlerItem</a>&gt;.
-        </p>
+        <p>To <dfn>process the `protocol_handlers` member</dfn>, given [=object=] |json:JSON|, |manifest:ordered map|, and |manifest URL:URL|:</p>
         <ol>
-          <li>Let <var>processedProtocolHandlers</var> be a new Array object
-          created as if by the expression [].
+          <li>Let <var>processedProtocolHandlers</var> be a new [=list=].
           </li>
-          <li><a href="https://infra.spec.whatwg.org/#list-iterate">For each</a> <var>protocol_handler</var> (<a>ProtocolHandlerItem</a>)
-          in the sequence:
+          <li>[=list/For each=] <var>protocol_handler</var> (<a>protocol handler description</a>):
             <ol>
               <li>If <var>protocol_handler</var>["protocol"] or
               <var>protocol_handler</var>["url"] are undefined, [=iteration/continue=].
               </li>
               <li>Set <var>protocol_handler</var>["url"] to the result of [=URL
               Parser|parsing=] <var>protocol_handler</var>["url"] using
-              <var>manifest URL</var> as the base URL. If the result is
+              <var>manifest URL</var> as the base URL. If the result is 
               failure, [=iteration/continue=].
               </li>
               <li>If <var>protocol_handler</var>["url"] is not
@@ -1057,7 +1047,7 @@
                 processedProtocolHandlers</var>, [=iteration/continue=].
               </li>
               <li>
-                <a>Append</a> <var>protocol_handler</var> to
+                [=List/Append=] |protocol_handler| to
                 <var>processedProtocolHandlers</var>.
               </li>
             </ol>
@@ -1072,16 +1062,16 @@
         </p>
         <p>
           A user agent SHOULD ask users for permission before registering a
-          <a>ProtocolHandlerItem</a> <var>protocol_handler</var>s as the
+          <a>protocol handler description</a> <var>protocol_handler</var>s as the
           default handler for a protocol with the host operating system. A user
-          agent MAY truncate the list of <a>ProtocolHandlerItem</a>
+          agent MAY truncate the list of <a>protocol handler description</a>
           <var>protocol_handlers</var> presented in order to remain consistent
           with the conventions or limitations of the host operating system.
         </p>
-        <div class="example">
+        <aside class="example">
           <p>
             In the following example, the developer has included two
-            <a>ProtocolHandlerItem</a> <var>protocol_handler</var>s. Assuming
+            <a>protocol handler description</a> <var>protocol_handler</var>s. Assuming
             the the manifest's URL is
             <samp>https://example.com/manifest.webmanifest</samp>:
           </p>
@@ -1111,7 +1101,7 @@
               ]
             }
           </pre>
-        </div>
+        </aside>
       </section>
       <section>
         <h2>
@@ -1869,7 +1859,7 @@
         ProtocolHandler items
       </h2>
       <p>
-        Each <dfn>ProtocolHandlerItem</dfn> is an [=object=] that represents
+        Each <dfn>protocol handler description</dfn> is an [=object=] that represents
         represents a protocol that the web application wants to handle. It has
         the following members:
       </p>
@@ -1889,9 +1879,8 @@
         [[HTML]]'s <code>registerProtocolHandler</code> method allows web sites
         to register themselves as possible handlers for particular protocols.
         What constitutes valid <code>protocol</code> and <code>url</code>
-        values for <a>ProtocolHandlerItem</a>s is defined in that API. Also
-        note that the [[HTML]] API uses <a href=
-        "https://url.spec.whatwg.org/#concept-url-scheme"><code>scheme</code></a>
+        values for <a>protocol handler description</a>s is defined in that API. Also
+        note that the [[HTML]] API uses [=url/scheme=]
         where we use <code>protocol</code> but the same restrictions apply.
       </p>
       <section>
@@ -1899,12 +1888,12 @@
           `protocol` member
         </h3>
         <p>
-          The <dfn>protocol</dfn> member of a <a>ProtocolHandlerItem</a> is a
+          The <dfn>protocol</dfn> member of a <a>protocol handler description</a> is a
           <a>string</a> that represents the protocol to be handled, such as
-          "mailto" or "web+auth".
+          `mailto` or `web+auth`.
         </p>
         <p>
-          The <a>protocol</a> member of a <a>ProtocolHandlerItem</a> is
+          The <a>protocol</a> member of a <a>protocol handler description</a> is
           equivalent to {{NavigatorContentUtils/registerProtocolHandler()}}'s
           <a href="https://url.spec.whatwg.org/#concept-url-scheme">scheme</a>
           argument defined in [[HTML]].
@@ -1915,12 +1904,12 @@
           `url` member
         </h3>
         <p>
-          The <dfn>url</dfn> member of a <a>ProtocolHandlerItem</a> is the
+          The <dfn>url</dfn> member of a <a>protocol handler description</a> is the
           <a>URL</a> [=manifest/within scope=] of the application that opens
           when the associated protocol is activated.
         </p>
         <p>
-          The <a>url</a> member of a <a>ProtocolHandlerItem</a> is equivalent
+          The <a>url</a> member of a <a>protocol handler description</a> is equivalent
           to {{NavigatorContentUtils/registerProtocolHandler()}}'s
           <code>url</code> argument defined in [[HTML]].
         </p>
@@ -1930,7 +1919,7 @@
           <dfn>Handling a protocol launch</dfn>
         </h3>
         <p>
-          When a <a>ProtocolHandlerItem</a> <var>protocol_handler</var> having
+          When a <a>protocol handler description</a> <var>protocol_handler</var> having
           [=manifest=] <var>manifest</var> is invoked, it goes through the same
           steps used to [=invoke a protocol handler=] defined in [=HTML=],
           where the user agent SHOULD navigate to [=url=] and the appropriate
