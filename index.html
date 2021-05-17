@@ -1932,19 +1932,16 @@
         </h3>
         <p>
           Privacy concerns for custom scheme handling are detailed in the
-          <a href=
-          "https://html.spec.whatwg.org/multipage/system-state.html#security-and-privacy">
+          <a data-cite="HTML/system-state#security-and-privacy">
           Security and privacy section</a> of
           {{NavigatorContentUtils/registerProtocolHandler()}}.
         </p>
-        <div class="note">
-          <p>
-            The user agent MUST ask for permission when using a protocol
-            handler for the first time. This feature requires user interaction
-            and a script cannot communicate with another application on its
-            own.
-          </p>
-        </div>
+        <p>
+          The user agent MUST ask for permission when using a protocol
+          handler for the first time. This feature requires user interaction
+          and a script cannot communicate with another application on its
+          own.
+        </p>
       </section>
     </section>
     <section>
