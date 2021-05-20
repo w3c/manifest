@@ -1025,11 +1025,13 @@
             whatever manifest, member, or value caused the condition is absent.
           </p>
           <p>
-            The following algorithm provides an <dfn>extension point</dfn>:
-            other specifications that add new members to the manifest are
-            encouraged to hook themselves into this specification at this point
-            in the algorithm. They SHOULD NOT modify the existing values
-            already in the <var>manifest</var> object.
+            The following algorithm provides an <dfn data-lt=
+            "processing extension-point of web manifest" data-export=
+            "">extension point</dfn>: other specifications that add new members
+            to the manifest are encouraged to hook themselves into this
+            specification at this point in the algorithm. They SHOULD NOT
+            modify the existing values already in the <var>manifest</var>
+            object.
           </p>
           <p class="note">
             The <a>extension point</a> is meant to help avoid <a href=
