@@ -255,8 +255,8 @@
             Using a `link` element to link to a manifest
           </h3>
           <p>
-            The example also shows how to use the [=link type "manifest"=] and
-            how to use other [^meta^] and [^link^] elements to give the web
+            The example also shows how to use the link type "manifest" and how
+            to use other [^meta^] and [^link^] elements to give the web
             application a fallback name and set of icons.
           </p>
           <pre class="example html" title="Linking to a manifest">
@@ -1013,8 +1013,8 @@
           <a>applying</a> a <a>manifest</a>.
         </p>
         <p>
-          A user agent MUST support the [=link type "manifest"=] and the
-          associated steps for how to fetch and process the linked resource.
+          A user agent MUST support the link type "manifest" and the associated
+          steps for how to fetch and process the linked resource.
         </p>
         <section id="processing">
           <h3>
@@ -1025,11 +1025,13 @@
             whatever manifest, member, or value caused the condition is absent.
           </p>
           <p>
-            The following algorithm provides an <dfn>extension point</dfn>:
-            other specifications that add new members to the manifest are
-            encouraged to hook themselves into this specification at this point
-            in the algorithm. They SHOULD NOT modify the existing values
-            already in the <var>manifest</var> object.
+            The following algorithm provides an <dfn data-lt=
+            "processing extension-point of web manifest" data-export=
+            "">extension point</dfn>: other specifications that add new members
+            to the manifest are encouraged to hook themselves into this
+            specification at this point in the algorithm. They SHOULD NOT
+            modify the existing values already in the <var>manifest</var>
+            object.
           </p>
           <p class="note">
             The <a>extension point</a> is meant to help avoid <a href=
@@ -2724,7 +2726,7 @@
             Notes:
           </dt>
           <dd>
-            See [=link type "manifest"=] for details about how a manifest is
+            See link type "manifest" for details about how a manifest is
             [=fetched=].
           </dd>
         </dl>
