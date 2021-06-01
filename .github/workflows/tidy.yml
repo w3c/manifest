@@ -7,7 +7,7 @@ on:
 
 jobs:
   changelog:
-    name:
+    name: Tidy up
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,6 +15,6 @@ jobs:
       - run: tidy -config tidyconfig.txt -o index.html index.html
       - uses: peter-evans/create-pull-request@v3
         with:
-          commit-message: "chore: tidy document"
-          title: "chore(CHANGELOG): regenerate"
-          branch: regenerate-changelog
+          title: "chore(tidy): tidy up document"
+          commit-message: "Tidy document using tidy-html5"
+          branch: html-tidy
