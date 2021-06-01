@@ -10,10 +10,9 @@ This change (choose at least one, delete ones that don't apply):
 
 Implementation commitment (delete if not making normative changes):
 
-* [ ] Safari (link to issue)
-* [ ] Chrome (link to issue)
-* [ ] Firefox (link to issue)
-* [ ] Edge (public signal)
+* [ ] WebKit (link to issue)
+* [ ] Chromium (link to issue)
+* [ ] Gecko (link to issue)
 
 If change is normative, and it adds or changes a member:
 
