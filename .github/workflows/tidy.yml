@@ -9,16 +9,12 @@ jobs:
   tidy:
     name: Tidy up
     runs-on: macos-latest
-    env:
-      DID_CHANGE: ''
     steps:
       - uses: actions/checkout@v2
       - run: brew install tidy-html5
       - run: tidy -config tidyconfig.txt -o index.html index.html
-      - run: DID_CHANGE=`git status --porcelain`
       - uses: peter-evans/create-pull-request@v3
-        if: ${{ env.DID_CHANGE != '' }}
         with:
           title: "chore(tidy): tidy up document"
-          commit-message: "Tidy document using tidy-html5"
+          commit-message: "Tidied up document using tidy-html5"
           branch: html-tidy
