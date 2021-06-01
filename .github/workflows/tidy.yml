@@ -1,0 +1,20 @@
+name: Tidy document
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - gh-pages
+
+jobs:
+  changelog:
+    name:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: brew install tidy-html5
+      - run: tidy -config tidyconfig.txt -o index.html index.html
+      - uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: "chore: tidy document"
+          title: "chore(CHANGELOG): regenerate"
+          branch: regenerate-changelog
