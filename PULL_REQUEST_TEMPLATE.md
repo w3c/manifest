@@ -10,9 +10,9 @@ This change (choose at least one, delete ones that don't apply):
 
 Implementation commitment (delete if not making normative changes):
 
-* [ ] WebKit (link to issue)
-* [ ] Chromium (link to issue)
-* [ ] Gecko (link to issue)
+* [ ] WebKit (https://bugs.webkit.org)
+* [ ] Chromium (https://bugs.chromium.org/)
+* [ ] Gecko (http://bugzilla.mozilla.org)
 
 If change is normative, and it adds or changes a member:
 
