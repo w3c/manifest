@@ -1,0 +1,20 @@
+name: Tidy document
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - gh-pages
+
+jobs:
+  tidy:
+    name: Tidy up
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: brew install tidy-html5
+      - run: tidy -config tidyconfig.txt -o index.html index.html
+      - uses: peter-evans/create-pull-request@v3
+        with:
+          title: "chore(tidy): tidy up document"
+          commit-message: "Tidied up document using tidy-html5"
+          branch: html-tidy
