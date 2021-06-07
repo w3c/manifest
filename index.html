@@ -1032,17 +1032,14 @@
           <li>[=list/For each=] <var>protocol_handler</var> (<a>protocol handler description</a>):
             <ol>
               <li>If |protocol_handler|["protocol"] or
-              <var>protocol_handler</var>["url"] is undefined, [=iteration/continue=].
+                <var>protocol_handler</var>["url"] is undefined, [=iteration/continue=].
               </li>
-              <li>Set <var>protocol_handler</var>["url"] to the result of [=URL
-              Parser|parsing=] <var>protocol_handler</var>["url"] using
-              <var>manifest URL</var> as the base URL. If the result is 
-              failure, [=iteration/continue=].
+              <li>Let (<dfn>normalizedProtocol</dfn>, <dfn>normalizedUrl</dfn>) be the result of running <a data-cite="HTML/system-state#normalize-protocol-handler-parameters">normalize protocol handler parameters</a> with <var>protocol_handler</var>["protocol"], <var>protocol_handler</var>["url"] using <var>manifest URL</var> as the base URL, and [=this=]'s relevant [=environment settings object=]. If the result is failure, [=iteration/continue=].</li>
               </li>
-              <li>If <var>protocol_handler</var>["url"] is not
+              <li>If [=normalizedUrl=] is not
               [=manifest/within scope=] of <var>manifest URL</var>, [=iteration/continue=].
               </li>
-              <li>If <var>protocol_handler</var>["url"] already exists in <var>
+              <li>If [=normalizedUrl=] already exists in <var>
                 processedProtocolHandlers</var>, [=iteration/continue=].
               </li>
               <li>
