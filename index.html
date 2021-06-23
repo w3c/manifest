@@ -273,7 +273,9 @@
             &lt;link rel="icon" sizes="512x512" href="hi_def.png"&gt;
           </pre>
           <aside class="note" title="File extension: .webmanifest or .json?">
-            The official file extension for the manifest is `.webmanifest`.
+            The IANA <a href=
+            "https://www.iana.org/assignments/media-types/application/manifest+json">
+            registered</a> file extension for the manifest is `.webmanifest`.
             Some web servers recognize this extension and transfer the file
             using the standardized <a>application manifest MIME type</a>
             ([=application\/manifest+json=]). Developers can also choose a
@@ -2525,175 +2527,19 @@
         to mimic the user interface of another application.
       </p>
     </section>
-    <section>
+    <section class="appendix">
       <h2>
-        IANA considerations
+        The `application/manifest+json` MIME type
       </h2>
       <p>
-        The following registrations are for community review and will be
-        submitted to the <a href="https://www.ietf.org/iesg/">IESG</a> for
-        review, approval, and registration with <a href=
-        "https://www.iana.org/">IANA</a>.
+        The <code><dfn data-local-lt=
+        "application manifest MIME type">application/manifest+json</dfn></code>,
+        along with the `.webmanifest` file extension, is <a href=
+        "https://www.iana.org/assignments/media-types/application/manifest+json">
+        registered</a> with the Internet Assigned Numbers Authority
+        (<abbr title="Internet Assigned Numbers Authority">IANA</abbr>). Please
+        see the registration for the file extension and other relevant details.
       </p>
-      <section>
-        <h3>
-          Media type registration
-        </h3>
-        <p>
-          This section contains the required text for MIME media type
-          registration with <a href="https://www.iana.org/">IANA</a>.
-        </p>
-        <p>
-          The <dfn data-export="">application manifest MIME type</dfn> is
-          <dfn data-export="">`application/manifest+json`</dfn>.
-        </p>
-        <p>
-          If the protocol over which the manifest is transferred supports the
-          [[MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
-          manifest be labeled with the [=application manifest MIME type=].
-        </p>
-        <dl>
-          <dt>
-            Type name:
-          </dt>
-          <dd>
-            application
-          </dd>
-          <dt>
-            Subtype name:
-          </dt>
-          <dd>
-            manifest+json
-          </dd>
-          <dt>
-            Required parameters:
-          </dt>
-          <dd>
-            N/A
-          </dd>
-          <dt>
-            Optional parameters:
-          </dt>
-          <dd>
-            N/A
-          </dd>
-          <dt>
-            Encoding considerations:
-          </dt>
-          <dd>
-            Same as for application/json
-          </dd>
-          <dt>
-            Privacy and security considerations:
-          </dt>
-          <dd>
-            See [[[#priv-sec]]].
-          </dd>
-          <dt>
-            Applications that use this MIME type:
-          </dt>
-          <dd>
-            Web browsers
-          </dd>
-          <dt>
-            Additional information:
-          </dt>
-          <dd>
-            <dl>
-              <dt>
-                Magic number(s):
-              </dt>
-              <dd>
-                N/A
-              </dd>
-              <dt>
-                File extension(s):
-              </dt>
-              <dd>
-                .webmanifest
-              </dd>
-              <dt>
-                Macintosh file type code(s):
-              </dt>
-              <dd>
-                TEXT
-              </dd>
-            </dl>
-          </dd>
-          <dt>
-            Person & email address to contact for further information:
-          </dt>
-          <dd>
-            The <a href="https://www.w3.org/2019/webapps/" rel="nofollow">Web
-            Applications Working Group</a> can be contacted at <a href=
-            "https://lists.w3.org/Archives/Public/public-webapps/" rel=
-            "nofollow">public-webapps@w3.org</a>.
-          </dd>
-          <dt>
-            Intended usage:
-          </dt>
-          <dd>
-            COMMON
-          </dd>
-          <dt>
-            Restrictions on usage:
-          </dt>
-          <dd>
-            none
-          </dd>
-          <dt>
-            Author:
-          </dt>
-          <dd>
-            W3C's Web Applications Working Group.
-          </dd>
-          <dt>
-            Change controller:
-          </dt>
-          <dd>
-            W3C.
-          </dd>
-        </dl>
-      </section>
-      <section>
-        <h3>
-          Link relation type registration
-        </h3>
-        <p class="note">
-          A request to register the `manifest` link relation type been
-          submitted to IANA.
-        </p>
-        <dl>
-          <dt>
-            Relation Name:
-          </dt>
-          <dd>
-            manifest
-          </dd>
-          <dt>
-            Description:
-          </dt>
-          <dd>
-            Links to a <a>manifest</a>. A manifest provides developers with a
-            centralized place to put metadata associated with a web
-            application.
-          </dd>
-          <dt>
-            Reference:
-          </dt>
-          <dd>
-            <a href=
-            "https://www.w3.org/TR/appmanifest/">https://www.w3.org/TR/appmanifest/</a>
-          </dd>
-          <dt>
-            Notes:
-          </dt>
-          <dd>
-            See link type "manifest" for details about how a manifest is
-            [=fetched=].
-          </dd>
-        </dl>
-      </section>
     </section>
     <section id="conformance" class="appendix">
       <p>
