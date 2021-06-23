@@ -15,6 +15,7 @@ jobs:
       - uses: w3c/spec-prod@v2
         with:
           TOOLCHAIN: respec
+          VALIDATE_LINKS: true
           W3C_ECHIDNA_TOKEN: ${{ secrets.ECHIDNA_TOKEN }}
           W3C_WG_DECISION_URL: "https://lists.w3.org/Archives/Public/public-webapps/2014JulSep/0627.html"
           W3C_NOTIFICATIONS_CC: "${{ secrets.CC }}"
