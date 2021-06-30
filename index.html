@@ -275,9 +275,11 @@
             &lt;link rel="icon" sizes="512x512" href="hi_def.png"&gt;
           </pre>
           <aside class="note" title="File extension: .webmanifest or .json?">
-            The official file extension for the manifest is `.webmanifest`.
+            The IANA <a href=
+            "https://www.iana.org/assignments/media-types/application/manifest+json">
+            registered</a> file extension for the manifest is `.webmanifest`.
             Some web servers recognize this extension and transfer the file
-            using the standardized <a>application manifest MIME type</a>
+            using the standardized <a>application manifest media type</a>
             ([=application\/manifest+json=]). Developers can also choose a
             different extension (e.g. `.json`) or none at all (e.g.
             `/api/GetManifest`), but are encouraged to transfer the manifest
@@ -2707,32 +2709,27 @@
         to mimic the user interface of another application.
       </p>
     </section>
-    <section>
+    <section class="appendix">
       <h2>
         IANA considerations
       </h2>
       <p>
-        The following registrations are for community review and will be
-        submitted to the <a href="https://www.ietf.org/iesg/">IESG</a> for
-        review, approval, and registration with <a href=
-        "https://www.iana.org/">IANA</a>.
+        The mime type <code><dfn data-export=
+        "">application/manifest+json</dfn></code> is the <dfn data-export=
+        "">application manifest media type</dfn>. Both the mime type and the
+        `.webmanifest` file extension are <a href=
+        "https://www.iana.org/assignments/media-types/application/manifest+json">
+        registered</a> with the Internet Assigned Numbers Authority
+        (<abbr title="Internet Assigned Numbers Authority">IANA</abbr>).
       </p>
       <section>
         <h3>
           Media type registration
         </h3>
         <p>
-          This section contains the required text for MIME media type
-          registration with <a href="https://www.iana.org/">IANA</a>.
-        </p>
-        <p>
-          The <dfn data-export="">application manifest MIME type</dfn> is
-          <dfn data-export="">`application/manifest+json`</dfn>.
-        </p>
-        <p>
           If the protocol over which the manifest is transferred supports the
           [[MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
-          manifest be labeled with the [=application manifest MIME type=].
+          manifest be labeled with the [=application manifest media type=].
         </p>
         <dl>
           <dt>
@@ -2763,7 +2760,7 @@
             Encoding considerations:
           </dt>
           <dd>
-            Same as for application/json
+            Same as for application/json ([[RFC7159]] section 8.1)
           </dd>
           <dt>
             Privacy and security considerations:
@@ -2841,10 +2838,6 @@
         <h3>
           Link relation type registration
         </h3>
-        <p class="note">
-          A request to register the `manifest` link relation type been
-          submitted to IANA.
-        </p>
         <dl>
           <dt>
             Relation Name:
@@ -2871,8 +2864,8 @@
             Notes:
           </dt>
           <dd>
-            See link type "manifest" for details about how a manifest is
-            [=fetched=].
+            See link type "manifest" for details about how a web manifest is
+            [=fetched=] [=processing a manifest|processed=].
           </dd>
         </dl>
       </section>
