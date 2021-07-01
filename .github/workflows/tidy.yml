@@ -15,6 +15,6 @@ jobs:
       - run: tidy -config tidyconfig.txt -o index.html index.html
       - uses: peter-evans/create-pull-request@v3
         with:
-          title: "chore(tidy): tidy up document"
-          commit-message: "Tidied up document using tidy-html5"
+          title: "Tidied up document using tidy-html5"
+          commit-message: "chore(tidy): tidy up document"
           branch: html-tidy
