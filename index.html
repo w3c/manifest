@@ -201,6 +201,8 @@
         </li>
         <li>[=manifest/theme_color=]
         </li>
+        <li>[=manifest/id=]
+        </li>
       </ul>
       <aside class="note">
         <p>
@@ -242,6 +244,7 @@
                 "sizes": "128x128"
               }],
               "scope": "/",
+              "id": "superracer",
               "start_url": "/start.html",
               "display": "fullscreen",
               "orientation": "landscape",
@@ -810,6 +813,53 @@
       </section>
       <section>
         <h3>
+          `id` member
+        </h3>
+        <p>
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
+          "manifest">id</dfn></code> member is a <a>string</a> that
+          represents the <dfn>id</dfn> for the application.
+        </p>
+        <p>The |id| is used  by user agents uniquely identify the application
+          globally. When |id| is changed, it's recognized as a new app and
+          can be installed separately. When id is not changed, it can be used
+          to find installed application to perform manifest update.
+        </p>
+        <p>
+          The |id| can also be used by third party entities such as PWA stores
+          to uniquely identify and reference web apps
+        </p>
+        <p>
+          To <dfn>process the `id` member</dfn>, given [=object=]
+          |json:JSON|, [=ordered map=] |manifest:ordered map|.:
+        </p>
+        <ol class="algorithm">
+          <li>If the type of |json|["id"] is not [=string=], return.
+          </li>
+          <li>Let |id:URL| be the result of [=URL Parser|parsing=]
+          (<var>start URL's origin</var> + "/" + |json|["id"]).
+          </li>
+          <li>If |id| is failure, return.
+          </li>
+          <li>Otherwise, set |manifest|["id"] to |start URL|.
+          </li>
+        </ol>
+        <aside class="example">
+          <p>
+            For example, if the |start URL| is
+            <samp>https://example.com/resources/start</samp>,
+            and the value of [=manifest/id=] is <samp>"1"</samp>, then the
+            processed result is <samp>https://example.com/1</samp>. If the
+            value of [=manifest/id=] is <samp>""</samp>, then the processed
+            result is <samp>https://example.com/</samp>. If [=manifest/id=]
+            not specified, then the processed result is
+            <samp>https://example.com/start</samp>.
+
+          </p>
+        </aside>
+      </section>
+      <section>
+        <h3>
           `theme_color` member
         </h3>
         <p>
@@ -1083,6 +1133,9 @@
             </li>
             <li>[=Process the `start_url` member=] passing |json|, |manifest|,
             |manifest URL|, and |document URL|.
+            </li>
+            <li>[=Process the `id` member=] passing |json|, |manifest| and
+            |document URL|.
             </li>
             <li>[=Process the `scope` member=] passing |json|, |manifest|, and
             |manifest URL|.
