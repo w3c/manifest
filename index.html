@@ -855,17 +855,44 @@
           </li>
         </ol>
         <aside class="example">
-          <p>
-            For example, if the |start URL| is
-            <samp>https://example.com/resources/start</samp>,
-            and the value of [=manifest/identity=] is <samp>"1"</samp>, then the
-            processed result is <samp>https://example.com/1</samp>. If the
-            value of [=manifest/identity=] is <samp>""</samp>, then the processed
-            result is <samp>https://example.com/</samp>. If [=manifest/identity=]
-            not specified, then the processed result is
-            <samp>https://example.com/start</samp>.
-
-          </p>
+          Below table shows some example cases of the |identity| processing algorithm.
+          <table class="data">
+            <tr>
+              <th>|json|["id"]</th>
+              <th>|manifest|["start_url"]</th>
+              <th>|manifest|["id"]</th>
+            </tr>
+            <tr>
+              <td><i>missing</i></td>
+              <td>https://example.com/resources/start</td>
+              <td>https://example.com/resources/start</td>
+            </tr>
+            <tr>
+              <td>""</td>
+              <td>https://example.com/resources/start</td>
+              <td>https://example.com/</td>
+            </tr>
+            <tr>
+              <td>/</td>
+              <td>https://example.com/resources/start</td>
+              <td>https://example.com/</td>
+            </tr>
+            <tr>
+              <td>foo</td>
+              <td>https://example.com/resources/start</td>
+              <td>https://example.com/foo</td>
+            </tr>
+            <tr>
+              <td>https://example.com/foo</td>
+              <td>https://example.com/resources/start</td>
+              <td>https://example.com/foo</td>
+            </tr>
+            <tr>
+              <td>https://anothersite.com/foo</td>
+              <td>https://example.com/resources/start</td>
+              <td>https://example.com/resources/start</td>
+            </tr>
+          </table>
         </aside>
       </section>
       <section>
