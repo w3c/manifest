@@ -201,7 +201,7 @@
         </li>
         <li>[=manifest/theme_color=]
         </li>
-        <li>[=manifest/id=]
+        <li>[=manifest/identity=]
         </li>
       </ul>
       <aside class="note">
@@ -817,41 +817,51 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">id</dfn></code> member is a <a>string</a> that
-          represents the <dfn>id</dfn> for the application.
+          "manifest" id="identity">id</dfn></code> member is a <a>string</a> that
+          represents the <dfn>identity</dfn> for the application. 
+          The |identity| takes the form of a URL, which is same origin as the
+          start URL.
         </p>
-        <p>The |id| is used  by user agents uniquely identify the application
-          globally. When |id| is changed, it's recognized as a new app and
-          can be installed separately. When id is not changed, it can be used
-          to find installed application to perform manifest update.
+        <p>The |identity| is used by user agents to uniquely identify the
+        application universally. When the user agent sees a manifest with an
+        |identity| that does not correspond to an already-installed application,
+        it SHOULD treat that manifest as a description of a distinct
+        application, even if it is served from the same URL as that of another
+        application. When the user agent sees a manifest with an |identity|
+        matching that of an already-installed application, it SHOULD be used as
+        a signal that this manifest is a replacement for the already-installed
+        application's manifest, and not a distinct application, even if it is
+        served from a different URL than the one seen previously.
         </p>
         <p>
-          The |id| can also be used by third party entities such as PWA stores
-          to uniquely identify and reference web apps
+          The |identity| MAY be used by a service that collects lists of web
+          applications to uniquely identify applications.
         </p>
         <p>
           To <dfn>process the `id` member</dfn>, given [=object=]
-          |json:JSON|, [=ordered map=] |manifest:ordered map|.:
+          |json:JSON|, [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
+          <li>Set |manifest|["id"] to |manifest|["start_url"].
+          </li>
           <li>If the type of |json|["id"] is not [=string=], return.
           </li>
-          <li>Let |id:URL| be the result of [=URL Parser|parsing=]
-          (<var>start URL's origin</var> + "/" + |json|["id"]).
+          <li>Let |id:URL| be the result of [=URL Parser|parsing=] |json|["id"]
+          with |manifest|["start_ur"]'s origin as the base URL.
+          </li>
+          <li>If |id| is not same origin as |manifest|["start_url"], return.
           </li>
           <li>If |id| is failure, return.
-          </li>
-          <li>Otherwise, set |manifest|["id"] to |start URL|.
           </li>
         </ol>
         <aside class="example">
           <p>
             For example, if the |start URL| is
             <samp>https://example.com/resources/start</samp>,
-            and the value of [=manifest/id=] is <samp>"1"</samp>, then the
+            and the value of [=manifest/identity=] is <samp>"1"</samp>, then the
             processed result is <samp>https://example.com/1</samp>. If the
-            value of [=manifest/id=] is <samp>""</samp>, then the processed
-            result is <samp>https://example.com/</samp>. If [=manifest/id=]
+            value of [=manifest/identity=] is <samp>""</samp>, then the processed
+            result is <samp>https://example.com/</samp>. If [=manifest/identity=]
             not specified, then the processed result is
             <samp>https://example.com/start</samp>.
 
@@ -1263,11 +1273,14 @@
           </h3>
           <aside class="issue" data-number="446"></aside>
           <p>
-            User agents MAY re-fetch and update a manifest for an installed web
-            application and apply updated manifest to its <a>application
-             context</a>. When a manifest is processed, user agents can
-            determine whether it's an installed application that can be updated
-            or a new application by comparing application's [=manifest/id=].
+            User agents MAY, at any time, re-fetch and update a manifest for an
+            installed web application and apply updated manifest to any current
+            and future <a>application contexts</a> associated with the
+            application. When the user agent fetches a manifest as part of an
+            update check, it MUST compare the fetched processed manifest's
+            [=manifest/identity=] with the identity of the app being updated. If
+            it is not equal, the user agent MUST NOT update the installed
+            application's manifest. 
           </p>
         </section>
       </section>
