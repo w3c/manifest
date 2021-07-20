@@ -150,10 +150,10 @@
         Web Application Manifest
       </h2>
       <p>
-        A <dfn data-export="" data-dfn-for="" data-lt=
-        "application manifest|manifest's">manifest</dfn> is a [[JSON]] document
-        that contains startup parameters and application defaults for when a
-        web application is launched.
+        A <dfn data-export="" data-lt="manifest" data-local-lt=
+        "manifest's">application manifest</dfn> is a [[JSON]] document that
+        contains startup parameters and application defaults for when a web
+        application is launched.
       </p>
       <p>
         As a manifest is JSON, this specification relies on the types defined
@@ -1132,16 +1132,17 @@
             whatever manifest, member, or value caused the condition is absent.
           </p>
           <p>
-            The following algorithm provides an <dfn data-lt=
-            "processing extension-point of web manifest" data-export=
-            "">extension point</dfn>: other specifications that add new members
-            to the manifest are encouraged to hook themselves into this
+            The following algorithm provides an <dfn data-dfn-for=
+            "application manifest" data-export="">processing
+            extension-point</dfn>: other specifications that add new members to
+            the manifest are encouraged to hook themselves into this
             specification at this point in the algorithm. They SHOULD NOT
             modify the existing values already in the <var>manifest</var>
             object.
           </p>
           <p class="note">
-            The <a>extension point</a> is meant to help avoid <a href=
+            The [=application manifest/processing extension-point=] is meant to
+            help avoid <a href=
             "https://annevankesteren.nl/2014/02/monkey-patch">issues related to
             monkey patching</a>.
           </p>
@@ -1217,9 +1218,9 @@
             <li>[=Process the `shortcuts` member=] passing |json|, |manifest|,
             and |manifest URL|.
             </li>
-            <li>
-              <a>Extension point</a>: process any proprietary and/or other
-              supported members at this point in the algorithm.
+            <li>[=application manifest/Processing extension-point=]: process
+            any proprietary and/or other supported members at this point in the
+            algorithm.
             </li>
             <li>Let [=document=]'s <dfn data-dfn-for="Document">processed
             manifest</dfn> be |manifest|.
@@ -2404,9 +2405,9 @@
         returns a [=display mode=].
       </p>
       <ol class="algorithm">
-        <li>
-          <a>Extension point</a>: process any proprietary and/or other
-          supported display modes at this point in the algorithm.
+        <li>[=application manifest/processing extension-point=]: process any
+        proprietary and/or other supported display modes at this point in the
+        algorithm.
         </li>
         <li>If the user agent supports |manifest|["display"], then return
         |manifest|["display"].
@@ -2907,11 +2908,11 @@
           This specification is designed to be extensible. Other specifications
           are encouraged to define new members for the manifest. However, in
           doing so, please follow the conventions used in this specification.
-          In particular, use the <a>extension point</a> to hook into the steps
-          for <a>processing a manifest</a>. Also, be sure to specify the steps
-          for processing your particular member in the manner set forth in this
-          specification. This will help keep this part of the platform
-          consistent.
+          In particular, use the [=application manifest/processing
+          extension-point=] to hook into the steps for <a>processing a
+          manifest</a>. Also, be sure to specify the steps for processing your
+          particular member in the manner set forth in this specification. This
+          will help keep this part of the platform consistent.
         </p>
         <p>
           To allow the community to easily find extensions, please add your
