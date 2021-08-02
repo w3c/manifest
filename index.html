@@ -1034,7 +1034,11 @@
           URL:URL|:
         </p>
         <ol>
-          <li>Let <var>processedProtocolHandlers</var> be a new [=list=].
+          <li>Let <var>processedProtocolHandlers</var> be a new [=list=] of
+          |json:JSON|["<var>protocol_handlers</var>"].
+          </li>
+          <li>Set manifest["<var>protocol_handlers</var>"] to
+          <var>processedProtocolHandlers</var>.
           </li>
           <li>[=list/For each=] <var>protocol_handler</var> (<a>protocol
           handler description</a>):
@@ -1050,51 +1054,50 @@
                 the base URL, and [=this=]'s relevant [=environment settings
                 object=]. If the result is failure, [=iteration/continue=].
               </li>
+              <li>If [=normalizedUrl=] is not [=manifest/within scope=] of
+              <var>manifest URL</var>, [=iteration/continue=].
+              </li>
+              <li>If [=normalizedUrl=] already exists in
+              <var>processedProtocolHandlers</var>, [=iteration/continue=].
+              </li>
+              <li>[=List/Append=] |protocol_handler| to
+              <var>processedProtocolHandlers</var>.
+              </li>
             </ol>
           </li>
-          <li>If [=normalizedUrl=] is not [=manifest/within scope=] of
-          <var>manifest URL</var>, [=iteration/continue=].
-          </li>
-          <li>If [=normalizedUrl=] already exists in
-          <var>processedProtocolHandlers</var>, [=iteration/continue=].
-          </li>
-          <li>[=List/Append=] |protocol_handler| to
-          <var>processedProtocolHandlers</var>.
+          <li>[=list/For each=] |processedProtocolHandlers|, the user agent
+          SHOULD [=register a protocol handler=].
           </li>
         </ol>
-        <ul>
-          <li>[=list/For each=] |processedProtocolHandlers|, [=register a
-          protocol handler=].
-          </li>
+        <p>
+          A user agent SHOULD ask users for permission before registering a
+          <a>protocol handler description</a> <var>protocol_handler</var>s as
+          the default handler for a protocol with the host operating system. A
+          user agent MAY truncate the list of <a>protocol handler
+          description</a> <var>protocol_handlers</var> presented in order to
+          remain consistent with the conventions or limitations of the host
+          operating system.
+        </p>
+        <aside class="example">
           <p>
-            A user agent SHOULD ask users for permission before registering a
-            <a>protocol handler description</a> <var>protocol_handler</var>s as
-            the default handler for a protocol with the host operating system.
-            A user agent MAY truncate the list of <a>protocol handler
-            description</a> <var>protocol_handlers</var> presented in order to
-            remain consistent with the conventions or limitations of the host
-            operating system.
+            In the following example, the developer has included two
+            <a>protocol handler description</a> <var>protocol_handler</var>s.
+            Assuming the the manifest's URL is
+            <samp>https://example.com/manifest.webmanifest</samp>:
           </p>
-          <aside class="example">
-            <p>
-              In the following example, the developer has included two
-              <a>protocol handler description</a> <var>protocol_handler</var>s.
-              Assuming the the manifest's URL is
-              <samp>https://example.com/manifest.webmanifest</samp>:
-            </p>
-            <ul>
-              <li>The first protocol handler would register to handle
-              "web+music" URLs (e.g.: web+music://#1234). When activated, the
-              user agent would instantiate a new <a>top-level browsing
-              context</a> and navigate to
-              <samp>https://example.com/play?songId=web+music://%231234</samp>.
-              </li>
-              <li>The second protocol handler would be ignored, as the protocol
-              provided does not start with "web+" and is not part of the
-              [=safelisted schemes=].
-              </li>
-            </ul>
-            <pre class="example json">
+          <ul>
+            <li>The first protocol handler would register to handle "web+music"
+            URLs (e.g.: web+music://#1234). When activated, the user agent
+            would instantiate a new <a>top-level browsing context</a> and
+            navigate to
+            <samp>https://example.com/play?songId=web+music://%231234</samp>.
+            </li>
+            <li>The second protocol handler would be ignored, as the protocol
+            provided does not start with "web+" and is not part of the
+            [=safelisted schemes=].
+            </li>
+          </ul>
+          <pre class="example json">
             {
               "protocol_handlers": [
                 {
@@ -1108,8 +1111,7 @@
               ]
             }
           </pre>
-          </aside>
-        </ul>
+        </aside>
       </section>
       <section>
         <h2>
@@ -1944,21 +1946,6 @@
           new top level browsing context.
         </p>
       </section>
-      <section>
-        <h3>
-          Privacy and Security considerations
-        </h3>
-        <p>
-          Privacy concerns for custom scheme handling are detailed in the
-          Security and privacy section of
-          {{NavigatorContentUtils/registerProtocolHandler()}}.
-        </p>
-        <p>
-          The user agent MUST ask for permission when using a protocol handler
-          for the first time. This feature requires user interaction and a
-          script cannot communicate with another application on its own.
-        </p>
-      </section>
     </section>
     <section>
       <h2>
@@ -2135,6 +2122,12 @@
         and again as an example, the user agent could <a>install</a> the web
         application into a list of bookmarks within the user agent itself.
       </p>
+      <div class="note">
+        <p>
+          When a web application is installed, a user agent MAY [=register a
+          protocol handler=].
+        </p>
+      </div>
       <section>
         <h3>
           Application's name
@@ -2601,7 +2594,6 @@
           </p>
           <pre class="example js" title=
           "Accessing 'display-mode' media feature with script">
-
             const standalone = matchMedia( '(display-mode: standalone)' );
 
             standalone.onchange = (e) =&gt; {
@@ -2725,6 +2717,14 @@
         display mode of a web application. An attacker could, in such a case,
         exploit the fact that an application is being displayed in fullscreen
         to mimic the user interface of another application.
+      </p>
+      <p>
+        Privacy concerns for custom scheme handling are detailed in the
+        Security and privacy section of
+        {{NavigatorContentUtils/registerProtocolHandler()}}. Before invoking a
+        protocol handler for the first time, the user agent prompts to request
+        for permission, there is no communication with another application
+        beforehand.
       </p>
     </section>
     <section class="appendix">
