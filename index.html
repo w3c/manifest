@@ -1265,20 +1265,21 @@
           purpose</a>.
         </p>
         <p class="note">
-          For example, an icon with purpose "<a>monochrome</a>" could be used
-          as a badge or pinned icon with a solid fill, visually distinct from
-          an application's full color launch icon. The user agent uses the
-          value of the [=manifest image resource/purpose=] member as a hint to
-          determine where and how an [=manifest image resource/purpose=] is
-          displayed. Unless declared otherwise by the developer, a user agent
-          can use an icon for [=any|any purpose=].
+          For example, an icon with purpose "[=icon purpose/monochrome=]" could
+          be used as a badge or pinned icon with a solid fill, visually
+          distinct from an application's full color launch icon. The user agent
+          uses the value of the [=manifest image resource/purpose=] member as a
+          hint to determine where and how an [=manifest image
+          resource/purpose=] is displayed. Unless declared otherwise by the
+          developer, a user agent can use an icon for [=icon purpose/any|any
+          purpose=].
         </p>
         <p>
           The <dfn>icon purposes</dfn> are as follows:
         </p>
         <dl>
           <dt>
-            "<dfn>monochrome</dfn>"
+            <dfn data-dfn-for="icon purpose">monochrome</dfn>
           </dt>
           <dd>
             <aside class="issue atrisk" data-number="905"></aside>
@@ -1291,7 +1292,7 @@
             user agent like a mask over any solid fill.
           </dd>
           <dt>
-            "<dfn>maskable</dfn>"
+            <dfn data-dfn-for="icon purpose">maskable</dfn>
           </dt>
           <dd>
             The image is designed with <a href="#icon-masks">icon masks and
@@ -1300,12 +1301,17 @@
             by the user agent.
           </dd>
           <dt>
-            "<dfn>any</dfn>" (default)
+            <dfn data-dfn-for="icon purpose">any</dfn> (default)
           </dt>
           <dd>
             The user agent is free to display the icon in any context.
           </dd>
         </dl>
+        <p>
+          The <dfn>icon purposes list</dfn> is the [=list=] « "[=icon
+          purpose/monochrome=]", "[=icon purpose/maskable=]", "[=icon
+          purpose/any=]" ».
+        </p>
         <p class="note">
           If an icon contains multiple purposes, it could be used for any of
           those purposes. If none of the stated purposes are recognized, the
@@ -1333,8 +1339,8 @@
           </li>
           <li>[=set/For each=] |keyword:string| of |keywords|:
             <ol>
-              <li>If |keyword| is not one of the [=icon purposes=], then
-              [=iteration/continue=].
+              <li>If [=icon purposes list=] doesn't [=list/contain=] |keyword|,
+              then [=iteration/continue=].
               </li>
               <li>Otherwise, [=set/append=] |keyword| to |purposes|.
               </li>
@@ -1401,22 +1407,22 @@
           Some platforms have their own preferred icon shape, but as web
           applications should work across multiple platforms, it is possible to
           indicate that an icon can have a user-agent-specified mask applied by
-          adding the <a>maskable</a> purpose. This allows the platform to
-          ensure that the icon looks well integrated with the platform, and
-          even apply different masks and background colors in different places
-          throughout the platform.
+          adding the [=icon purpose/maskable=] purpose. This allows the
+          platform to ensure that the icon looks well integrated with the
+          platform, and even apply different masks and background colors in
+          different places throughout the platform.
         </p>
         <p>
-          The <dfn>safe zone</dfn> is the area within a <a>maskable</a> icon
-          which is guaranteed to always be visible, regardless of user agent
-          preferences. It is defined as a circle with center point in the
-          center of the icon and with a radius of 2/5 (40%) of the icon size,
-          which means the smaller of the icon width and height, in case the
-          icon is not square.
+          The <dfn>safe zone</dfn> is the area within a [=icon
+          purpose/maskable=] icon which is guaranteed to always be visible,
+          regardless of user agent preferences. It is defined as a circle with
+          center point in the center of the icon and with a radius of 2/5 (40%)
+          of the icon size, which means the smaller of the icon width and
+          height, in case the icon is not square.
         </p>
         <p class="note">
-          Designers of <a>maskable</a> icons will want to make sure that all
-          important parts are within the <a>safe zone</a>.
+          Designers of [=icon purpose/maskable=] icons will want to make sure
+          that all important parts are within the <a>safe zone</a>.
         </p>
         <figure>
           <img src="images/safe-zone.svg" width="340" height="340" alt=
@@ -1539,22 +1545,23 @@
           icon can be declared in a [=manifest=]. As web applications need to
           work across multiple platforms, it is possible to indicate that an
           icon can have an user-agent-specified color applied by adding the
-          <a>monochrome</a> purpose. This allows the platform to ensure that
-          the icon looks well integrated with the platform, and even apply
-          different colors and padding in different places throughout the
-          platform.
+          [=icon purpose/monochrome=] purpose. This allows the platform to
+          ensure that the icon looks well integrated with the platform, and
+          even apply different colors and padding in different places
+          throughout the platform.
         </p>
         <p>
-          When presenting a <a>monochrome</a> icon, the user agent MUST NOT
-          independently display the red component, green component, or blue
-          component of a pixel. The user agent SHOULD display each pixel with
-          its original alpha value, but with a red, green, and blue value of
-          the user agent's choosing. It is RECOMMENDED that the user agent use
-          the same color value for all pixels.
+          When presenting a [=icon purpose/monochrome=] icon, the user agent
+          MUST NOT independently display the red component, green component, or
+          blue component of a pixel. The user agent SHOULD display each pixel
+          with its original alpha value, but with a red, green, and blue value
+          of the user agent's choosing. It is RECOMMENDED that the user agent
+          use the same color value for all pixels.
         </p>
         <p class="note">
-          Designers of <a>monochrome</a> icons could set all pixels to black
-          and only use transparency to create a silhouette of their icon.
+          Designers of [=icon purpose/monochrome=] icons could set all pixels
+          to black and only use transparency to create a silhouette of their
+          icon.
         </p>
         <p>
           The user agent MAY enlarge the icon by adding additional padding.
