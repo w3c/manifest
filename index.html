@@ -1302,15 +1302,26 @@
           </h3>
           <aside class="issue" data-number="446"></aside>
           <p>
-            User agents MAY, at any time, re-fetch and update a manifest for an
-            installed web application and apply updated manifest to any current
-            and future <a>application contexts</a> associated with the
-            application. When the user agent fetches a manifest as part of an
-            update check, it MUST compare the fetched processed manifest's
-            [=manifest/identity=] with the identity of the app being updated. If
-            it is not equal, the user agent MUST NOT update the installed
-            application's manifest. 
+            User agents SHOULD re-fetch and process the manifest on every page
+            load. When the processing is successful, user agents MAY apply updated
+            manifest to any current and future <a>application contexts</a>
+            associated with the application. When the user agent fetches a
+            manifest as part of an update check, it MUST compare the fetched
+            processed manifest's [=manifest/identity=] with the identity of the
+            app being updated. If it is not equal, the user agent MUST NOT
+            update the installed application's manifest. 
           </p>
+          <section>
+            <h3>
+              Privacy and security consideration
+            </h3>
+            <p>
+              User agents SHOULD be careful about performing update to manifest
+              fields like app name and icons. Users should be fully aware if
+              such fields are to be be updated to avoid web applications being
+              installed and silently changed to appear as a different one.
+            </p>
+          </section>
         </section>
       </section>
     </section>
