@@ -849,10 +849,11 @@
           <li>Let |id:URL| be the result of [=URL Parser|parsing=] |json|["id"]
           with |manifest|["start_ur"]'s origin as the base URL.
           </li>
-          <li>If |id| is not same origin as |manifest|["start_url"], return.
-          </li>
           <li>If |id| is failure, return.
           </li>
+          <li>If |id| is not same origin as |manifest|["start_url"], return.
+          </li>
+          <li>Otherwise, set |manifest|["id"] to |id|.</li>
         </ol>
         <aside class="example">
           Below table shows some example cases of the |identity| processing algorithm.
@@ -863,7 +864,7 @@
               <th>|manifest|["id"]</th>
             </tr>
             <tr>
-              <td><i>missing</i></td>
+              <td><i>undefined</i></td>
               <td>"https://example.com/resources/start"</td>
               <td>"https://example.com/resources/start"</td>
             </tr>
