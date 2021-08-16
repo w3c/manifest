@@ -1309,7 +1309,7 @@
             load. When the processing is successful, user agents MAY apply updated
             manifest to any current and future <a>application contexts</a>
             associated with the application. When the user agent fetches a
-            manifest as part of an update check, it MUST compare the fetched
+            manifest as part of an update check, it MUST [=url/equal|compare=] the fetched
             processed manifest's [=manifest/identity=] with the identity of the
             app being updated. If it is not equal, the user agent MUST NOT
             update the installed application's manifest. 
