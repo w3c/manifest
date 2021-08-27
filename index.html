@@ -770,7 +770,8 @@
           <li>If |json|["start_url"] doesn't [=map/exist=] or
           |json|["start_url"] is not a [=string=], return.
           </li>
-          <li>If |json|["start_url"] is the empty string, return.
+          <li>If the type of |json|["start_url"] is not [=string=], or if
+          |json|["start_url"] is the empty string, return.
           </li>
           <li>Let |start URL:URL| be the result of [=URL Parser|parsing=]
           |json|["start_url"], using |manifest URL| as the base URL.
@@ -1396,9 +1397,6 @@
           <dt>
             <dfn data-dfn-for="icon purpose">monochrome</dfn>
           </dt>
-          <dd>
-            <aside class="issue atrisk" data-number="905"></aside>
-          </dd>
           <dd>
             A user agent can present this icon where a <a href=
             "#monochrome-icons-and-solid-fills">monochrome icon with a solid
