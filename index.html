@@ -1055,7 +1055,7 @@
           system via interactions that are consistent with:
         </p>
         <ul>
-          <li>The [=file handler/icon=] and [=file handler/title=] appearing in
+          <li>The [=file handler/icon=] and [=file handler/name=] appearing in
           an "Open with.." menu in the context menu of associated files.
           </li>
           <li>The [=file handler/icon=] appearing as the icon of associated
@@ -1077,12 +1077,13 @@
         </h3>
         <p>
           Depending on the operating system capabilities that the
-          [=manifest/file handler=] could become a 'default' handler of a given
-          file extension or [=mime type=] without the explicit knowledge of the
-          user, depending on the operating system. To protect against possible
-          mis-use, user agents MAY choose to offer the user the functionality
-          to not launch the web application, or even unregister a given file
-          handler for a web application.
+          [=manifest/file handler=] could become a 'default' handler (e.g.
+          handling launches of a given file type automatically) of a given file
+          type (todo define? link?) or [=mime type=] without the explicit
+          knowledge of the user, depending on the operating system. To protect
+          against possible mis-use, user agents MAY choose to offer the user
+          the functionality to not launch the web application, or even
+          unregister a given file handler for a web application.
         </p>
       </section>
       <section>
@@ -1917,9 +1918,9 @@
         <p>
           The [=file handler's=] <code><dfn data-dfn-for=
           "file handler">action</dfn></code> member is a <a>string</a> that
-          represents a relative URL of the [=start_url=] origin that is
-          [=manifest/within scope=] of a [=Document/processed manifest=]. This
-          URL will be navigated to in the [=launch event=] when handling a
+          represents a relative URL of the [=manifest/start_url=] origin that
+          is [=manifest/within scope=] of a [=Document/processed manifest=].
+          This URL will be navigated to in the [=launch event=] when handling a
           file. See [=executing a file handler launch=] for more information.
         </p>
       </section>
