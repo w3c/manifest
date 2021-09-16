@@ -1051,8 +1051,8 @@
           </li>
         </ol>
         <p>
-          A user agent SHOULD register the file handlers with the operating
-          system via interactions that are consistent with:
+          On [=installation=], a user agent SHOULD register the file handlers
+          with the operating system via interactions that are consistent with:
         </p>
         <ul>
           <li>The [=file handler/icon=] and [=file handler/name=] appear in the
@@ -1072,6 +1072,53 @@
           the 'default' file handler for a given type if the operating system
           allows.
         </p>
+        <section data-cite="file-system-access">
+          <h2>
+            <dfn>Execute a file handler launch</dfn>
+          </h2>
+          <p>
+            This is the IDL used for executing a file handling launch:
+          </p>
+          <pre class="idl">
+            partial interface Window {
+              readonly attribute LaunchQueue launchQueue;
+            };
+
+            callback LaunchConsumer = any (LaunchParams params);
+
+            [Exposed=Window] interface LaunchQueue {
+              undefined setConsumer(LaunchConsumer consumer);
+            };
+
+            [Exposed=Window] interface LaunchParams {
+              readonly attribute FrozenArray&lt;FileSystemHandle&gt; files;
+            };
+          </pre>
+          <p>
+            When a [=file type=] is registered with a web app and one or more
+            of these registered files are launched on the platform, run the
+            following steps, given the launched {{FrozenArray}} of
+            {{FileSystemHandle}}s |files:FrozenArray&lt;FileSystemHandle&gt;|
+            and the corresponding [=file handler|file_handler=].
+          </p>
+          <ol>
+            <li>Let |url| be the |file_handler|.[=file handler/action=].
+            </li>
+            <li>Let |browsing context| be the result of creating a new
+            [=top-level browsing context=].
+            </li>
+            <li>[=Navigate=] |browsing context| to |url|.
+            </li>
+            <li>XXX Wait for navigation to be complete?
+            </li>
+            <li>Let |params:LaunchParams| be {{LaunchParams}} with
+            {{LaunchParams.files}} set to |files|.
+            </li>
+            <li>Iterate through every {{LaunchConsumer}} set by
+            {{LaunchQueue/setConsumer}} and execute the function with |params|.
+            </li>
+          </ol>
+        </section>
         <section>
           <h3>
             Privacy consideration: Default [=file handler=].
@@ -1915,9 +1962,8 @@
           "file handler">action</dfn></code> member is a <a>string</a> that
           represents a relative URL of the [=manifest/start_url=] origin that
           is [=manifest/within scope=] of a [=Document/processed manifest=].
-          This URL will be navigated to in the [=launch event=] when handling a
-          file. See the process to [=execute a file handler launch=] for more
-          information.
+          This URL will be navigated to in the steps to [=execute a file handler
+          launch=].
         </p>
       </section>
       <section>
@@ -2041,22 +2087,6 @@
           <li>Return |file_handler|.
           </li>
         </ol>
-      </section>
-      <section>
-        <h2>
-          Executing a file handler launched
-        </h2>
-        <p>
-          To <dfn>execute a file handler launch</dfn>, XXX fill out
-        </p>
-        <section>
-          <h3>
-            Launch Event
-          </h3>
-          <p>
-            A <dfn>launch event</dfn> is ....
-          </p>
-        </section>
       </section>
     </section>
     <section>
