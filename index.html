@@ -1019,8 +1019,8 @@
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">`file_handlers`</dfn></code> member is a [=list=] that
-          represents URLs within the app that can handle launches of a given
-          file type (TODO: link to definition of file type).
+          represents URLs within the app that handles launches of given [=file
+          types=].
         </p>
         <p>
           How file handlers are registered and disambiguated is at the
@@ -1028,7 +1028,7 @@
         </p>
         <p>
           To <dfn>process the `file_handlers` member</dfn>, given [=ordered
-          map=] |json:ordered map|, [=ordered map=] |manifest:ordered map|:
+          map=] |json:ordered map|, and [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
           <li>Let |processedFileHandlers:list| be a new [=list=].
@@ -1055,48 +1055,49 @@
           system via interactions that are consistent with:
         </p>
         <ul>
-          <li>The [=file handler/icon=] and [=file handler/name=] appearing in
-          an "Open with…" menu in the context menu of associated files.
+          <li>The [=file handler/icon=] and [=file handler/name=] appear in the
+          host operating system surfaces presenting options for opening files,
+          for example within "Open with..." context menus for associated file
+          types.
           </li>
-          <li>The [=file handler/icon=] appearing as the icon of associated
-          files.
+          <li>The [=file handler/icon=] appears as the icon of associated files
+          in the host operating system.
           </li>
           <li>File types with multiple possible handlers can be disambiguated
           by UX provided by the operating system.
           </li>
         </ul>
         <p>
-          A user agent MAY (TODO: should?) prevent registered file handlers
-          from registering as the 'default' file handler for a given type if the
-          operating system allows.
+          A user agent MAY prevent registered file handlers from registering as
+          the 'default' file handler for a given type if the operating system
+          allows.
         </p>
-      </section>
-      <section>
-        <h3>
-          Privacy consideration: Default [=file handler=].
-        </h3>
-        <p>
-          Depending on the operating system capabilities that the
-          [=manifest/file handler=] could become a 'default' handler (e.g.
-          handling launches of a given file type automatically) of a given file
-          type (todo define? link?) or [=mime type=] without the explicit
-          knowledge of the user, depending on the operating system. To protect
-          against possible mis-use, user agents MAY choose to offer the user
-          the functionality to not launch the web application, or even
-          unregister a given file handler for a web application.
-        </p>
-      </section>
-      <section>
-        <h3>
-          Privacy consideration: Name & icon.
-        </h3>
-        <p>
-          The name and icon of each file handler can be sensitive to privacy
-          and security, as there isn't a specified way for the user to see &
-          confirm these. Due to this, user agents MAY choose to replace these
-          with name and icons derived from the application's icon and name in
-          the [=process a file handler item=] algorithm.
-        </p>
+        <section>
+          <h3>
+            Privacy consideration: Default [=file handler=].
+          </h3>
+          <p>
+            Depending on the operating system capabilities, the [=manifest/file
+            handler=] could become a 'default' handler (e.g. handling launches
+            of a given file type automatically) of a given [=file type=]
+            without the explicit knowledge of the user. To protect against
+            possible mis-use, user agents MAY choose to offer the user the
+            functionality to not launch the web application, or even unregister
+            a given file handler for a web application.
+          </p>
+        </section>
+        <section>
+          <h3>
+            Privacy consideration: Name and icon.
+          </h3>
+          <p>
+            The name and icon of each file handler can be sensitive to privacy
+            and security, as there isn't a specified way for the user to see
+            and confirm these. Due to this, user agents MAY choose to replace
+            these with name and icon derived from the application's icon and
+            name in the [=process a file handler item=] algorithm.
+          </p>
+        </section>
       </section>
       <section>
         <h2>
@@ -1882,8 +1883,8 @@
       </h2>
       <p>
         Each <dfn data-local-lt="file handler's">file handler</dfn> represents
-        a url in the scope of the application that can handle launches with
-        file types it accepts. It has the following members:
+        a URL in the scope of the application that can handle launches with
+        [=file types=] it accepts. It has the following members:
       </p>
       <ul>
         <li>[=file handler/action=]
@@ -1897,13 +1898,7 @@
       </ul>
       <p>
         A user agent can use these members to associate the web application
-        with specific file extensions or [=mime types=] on the operating
-        system. When a user launches this association When a user launches a
-        file that is associated with A user agent can use these members to
-        assemble a context menu to be displayed by the operating system when a
-        user engages with the web app's icon. When the user invokes a shortcut
-        from the operating system menu, the user agent SHOULD run <a>launching
-        a shortcut</a>.
+        with [=file type=] on the operating system.
       </p>
       <aside class="note">
         <p>
@@ -1921,7 +1916,8 @@
           represents a relative URL of the [=manifest/start_url=] origin that
           is [=manifest/within scope=] of a [=Document/processed manifest=].
           This URL will be navigated to in the [=launch event=] when handling a
-          file. See [=executing a file handler launch=] for more information.
+          file. See the process to [=execute a file handler launch=] for more
+          information.
         </p>
       </section>
       <section>
@@ -1943,11 +1939,21 @@
         <p>
           The [=file handler's=] <code><dfn data-dfn-for=
           "file handler">accept</dfn></code> member is a <a>dictionary</a>
-          mapping MIME types to extensions. This ensures applications will work
-          on operating systems that only support one of the two (example:
-          Linux, which only supports MIME types). This also allows applications
-          to register custom file types. See steps to [=associate a file
-          handler=] for more information. (TODO fix this?)
+          mapping [=MIME types=] to a list of extensions. Extensions have to be
+          strings that start with a "." and only contain [=valid suffix code
+          points=]. Additionally extensions are limited to a length of 16 code
+          points.
+        </p>
+        <p>
+          In addition to complete MIME types, "*" can be used as the subtype of
+          a MIME type to match, for example, all image formats with "image/*".
+        </p>
+        <p>
+          Websites SHOULD always provide both [=MIME types=] and file
+          extensions for each accepts entry. This format is required by
+          operating systems that use [=MIME types=] to specify the [=file
+          types=]. On platforms that only use extensions, these can easily be
+          used instead.
         </p>
       </section>
       <section>
@@ -1957,8 +1963,32 @@
         <p>
           The <a>file handler</a>'s <code><dfn data-dfn-for=
           "file handler">icons</dfn></code> member lists images that serve as
-          iconic representations of file. This MAY be replaced by the user
-          agent for privacy & security reasons.
+          graphical representations of a [=file type=] on a platform. This MAY
+          be replaced by the user agent for privacy & security reasons.
+        </p>
+      </section>
+      <section>
+        <h2>
+          Concepts
+        </h2>
+        <p>
+          A <dfn>valid suffix code point</dfn> is a [=code point=] that is
+          [=ASCII alphanumeric=], U+002B (+), or U+002E (.).
+        </p>
+        <aside class="note">
+          <p>
+            Note: These code points were chosen to support most pre-existing
+            file formats. The vast majority of file extensions are purely
+            alphanumeric, but compound extensions (such as .tar.gz) and
+            extensions such as .c++ for C++ source code are also fairly common,
+            hence the inclusion of + and . as allowed code points.
+          </p>
+        </aside>
+        <p>
+          A <dfn>file type</dfn> refers to file that has a [=mime type=] and/or
+          ends with an extension. Extensions have to be strings that start with
+          a "." and only contain [=valid suffix code points=]. Additionally
+          extensions are limited to a length of 16 code points.
         </p>
       </section>
       <section>
@@ -1975,13 +2005,10 @@
             <ul>
               <li>|item| is not [=ordered map=].
               </li>
-              <li>|item|["action"] doesn't [=map/exist=].
+              <li>|item|["action"] doesn't [=map/exist=] or is not a
+              [=string=].
               </li>
-              <li>|item|["action"] is not a [=string=].
-              </li>
-              <li>|item|["name"] doesn't [=map/exist=].
-              </li>
-              <li>|item|["name"] is the empty string.
+              <li>|item|["name"] doesn't [=map/exist=] or is the empty string.
               </li>
               <li>|item|["accepts"] doesn't [=map/exist=].
               </li>
@@ -2017,29 +2044,19 @@
       </section>
       <section>
         <h2>
-          Associating a file handler item
-        </h2>
-        <p>
-          To <dfn>associate a file handler</dfn> TODO do we need this section?
-        </p>
-      </section>
-      <section>
-        <h2>
           Executing a file handler launched
         </h2>
         <p>
           To <dfn>execute a file handler launch</dfn>, XXX fill out
         </p>
-        <ol class="algorithm">
-          <li>Let <var>url</var> be <var>shortcut.url</var>.
-          </li>
-          <li>Let <var>browsing context</var> be the result of creating a new
-          <a>top-level browsing context</a>.
-          </li>
-          <li>
-            <a>Navigate</a> <var>browsing context</var> to <var>url</var>.
-          </li>
-        </ol>
+        <section>
+          <h3>
+            Launch Event
+          </h3>
+          <p>
+            A <dfn>launch event</dfn> is ....
+          </p>
+        </section>
       </section>
     </section>
     <section>
