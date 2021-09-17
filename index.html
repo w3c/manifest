@@ -1023,6 +1023,24 @@
           types=].
         </p>
         <p>
+          A <dfn>file type</dfn> refers to file that has a [=mime type=] and/or
+          ends with a [=file extension=]. A <dfn>file extension</dfn> is a
+          string that start with a "." and only contains [=valid suffix code
+          points=]. A <dfn>valid suffix code point</dfn> is a [=code point=]
+          that is [=ASCII alphanumeric=], U+002B (+), or U+002E (.).
+          Additionally, [=file extensions=] are are limited to a length of 16
+          code points.
+        </p>
+        <aside class="note">
+          <p>
+            Note: These code points were chosen to support most pre-existing
+            file formats. The vast majority of file extensions are purely
+            alphanumeric, but compound extensions (such as .tar.gz) and
+            extensions such as .c++ for C++ source code are also fairly common,
+            hence the inclusion of + and . as allowed code points.
+          </p>
+        </aside>
+        <p>
           How file handlers are registered and disambiguated is at the
           discretion of the operating system.
         </p>
@@ -1962,8 +1980,8 @@
           "file handler">action</dfn></code> member is a <a>string</a> that
           represents a relative URL of the [=manifest/start_url=] origin that
           is [=manifest/within scope=] of a [=Document/processed manifest=].
-          This URL will be navigated to in the steps to [=execute a file handler
-          launch=].
+          This URL will be navigated to in the steps to [=execute a file
+          handler launch=].
         </p>
       </section>
       <section>
@@ -2011,30 +2029,6 @@
           "file handler">icons</dfn></code> member lists images that serve as
           graphical representations of a [=file type=] on a platform. This MAY
           be replaced by the user agent for privacy & security reasons.
-        </p>
-      </section>
-      <section>
-        <h2>
-          Concepts
-        </h2>
-        <p>
-          A <dfn>valid suffix code point</dfn> is a [=code point=] that is
-          [=ASCII alphanumeric=], U+002B (+), or U+002E (.).
-        </p>
-        <aside class="note">
-          <p>
-            Note: These code points were chosen to support most pre-existing
-            file formats. The vast majority of file extensions are purely
-            alphanumeric, but compound extensions (such as .tar.gz) and
-            extensions such as .c++ for C++ source code are also fairly common,
-            hence the inclusion of + and . as allowed code points.
-          </p>
-        </aside>
-        <p>
-          A <dfn>file type</dfn> refers to file that has a [=mime type=] and/or
-          ends with an extension. Extensions have to be strings that start with
-          a "." and only contain [=valid suffix code points=]. Additionally
-          extensions are limited to a length of 16 code points.
         </p>
       </section>
       <section>
