@@ -72,6 +72,13 @@
           "ios_saf",
         ],
       },
+      localBiblio: {
+        IANA_MEDIA_TYPES: {
+          title: "IANA Media Types",
+          href: "https://www.iana.org/assignments/media-types/media-types.xhtml",
+          publisher: "IANA",
+        },
+      },
       xref: "web-platform",
     };
     </script>
@@ -1019,27 +1026,9 @@
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">`file_handlers`</dfn></code> member is a [=list=] that
-          represents URLs within the app that handles launches of given [=file
-          types=].
+          provides instructions for how the app handles file-opening actions
+          that originate outside of the app itself.
         </p>
-        <p>
-          A <dfn>file type</dfn> refers to file that has a [=mime type=] and/or
-          ends with a [=file extension=]. A <dfn>file extension</dfn> is a
-          string that start with a "." and only contains [=valid suffix code
-          points=]. A <dfn>valid suffix code point</dfn> is a [=code point=]
-          that is [=ASCII alphanumeric=], U+002B (+), or U+002E (.).
-          Additionally, [=file extensions=] are are limited to a length of 16
-          code points.
-        </p>
-        <aside class="note">
-          <p>
-            Note: These code points were chosen to support most pre-existing
-            file formats. The vast majority of file extensions are purely
-            alphanumeric, but compound extensions (such as .tar.gz) and
-            extensions such as .c++ for C++ source code are also fairly common,
-            hence the inclusion of + and . as allowed code points.
-          </p>
-        </aside>
         <p>
           How file handlers are registered and disambiguated is at the
           discretion of the operating system.
@@ -1081,8 +1070,9 @@
           <li>The [=file handler/icon=] appears as the icon of associated files
           in the host operating system.
           </li>
-          <li>File types with multiple possible handlers can be disambiguated
-          by UX provided by the operating system.
+          <li>If there are multiple registered handlers for a file, the OS
+          allows the user to select which app should open it, and also allows
+          the user to set a default app.
           </li>
         </ul>
         <p>
@@ -1136,6 +1126,27 @@
             {{LaunchQueue/setConsumer}} and execute the function with |params|.
             </li>
           </ol>
+          <p>
+            FOR REVIEWERS - TODO - figure out a better way to wrjite this
+            algorithm. We want to also capture if the consumer was set after
+            navigation complete? Perhaps we do:
+          </p>
+          <ul>
+            <li>Defines two things ('slot?' or variable on window?) to store a
+            list of params, and a list of consumers.
+            </li>
+            <li>Create an algorithm that, when launching from a file, adds the
+            params to the list and iterates all consumers and gives each
+            consumer the new params.
+            </li>
+            <li>Create an algorithm that, when adding a new consumer, adds the
+            consuer to the list and calls the new consumer with the list of
+            params.
+            </li>
+          </ul>
+          <p>
+            What do you think?
+          </p>
         </section>
         <section>
           <h3>
@@ -1146,9 +1157,8 @@
             handler=] could become a 'default' handler (e.g. handling launches
             of a given file type automatically) of a given [=file type=]
             without the explicit knowledge of the user. To protect against
-            possible mis-use, user agents MAY choose to offer the user the
-            functionality to not launch the web application, or even unregister
-            a given file handler for a web application.
+            possible mis-use, user agents MAY require explicit user consent to
+            begin with the process to [=execute a file handler launch=].
           </p>
         </section>
         <section>
@@ -1163,6 +1173,55 @@
             name in the [=process a file handler item=] algorithm.
           </p>
         </section>
+        <aside class="example">
+          <p>
+            In the following example, the web application has 3 different file
+            handlers.
+          </p>
+          <pre class="json">
+            {
+              "name": "Grafr",
+              "file_handlers": [
+                {
+                  "action": "/open-csv",
+                  "name": "Comma-separated Value",
+                  "accept": {
+                    "text/csv": [ ".csv" ]
+                  },
+                  "icons": [
+                    {
+                      "src": "/csv-file.png",
+                      "sizes": "144x144"
+                    }
+                  ]
+                },
+                {
+                  "action": "/open-svg",
+                  "name": "Image",
+                  "accept": {
+                    "image/svg+xml": ".svg"
+                  },
+                  "icons": [
+                    {
+                      "src": "/svg-file.png",
+                      "sizes": "144x144"
+                    }
+                  ]        
+                },
+                {
+                  "action": "/open-graf",
+                  "name": "Grafr",
+                  "accept": {
+                    "application/vnd.grafr.graph": [
+                      ".grafr", ".graf"
+                    ],
+                    "application/vnd.alternative-graph-app.graph": ".graph"
+                  }
+                }
+              ]
+            }
+          </pre>
+        </aside>
       </section>
       <section>
         <h2>
@@ -1947,8 +2006,8 @@
         File Handler Items
       </h2>
       <p>
-        Each <dfn data-local-lt="file handler's">file handler</dfn> represents
-        a URL in the scope of the application that can handle launches with
+        Each <dfn data-local-lt="file handler">file handler</dfn> represents a
+        URL in the scope of the application that can handle launches with
         [=file types=] it accepts. It has the following members:
       </p>
       <ul>
@@ -1956,7 +2015,7 @@
         </li>
         <li>[=file handler/name=]
         </li>
-        <li>[=file handler/accepts=]
+        <li>[=file handler/accept=]
         </li>
         <li>[=file handler/icons=]
         </li>
@@ -1965,10 +2024,30 @@
         A user agent can use these members to associate the web application
         with [=file type=] on the operating system.
       </p>
+      <p>
+        A <dfn>file type</dfn> can be defined by a [=mime type=] and/or [=file
+        extension=]. A file belongs to a file type if the OS determines it to
+        have a mime type and/or its name ends with a certain [=file
+        extension=]. A <dfn>file extension</dfn> is a string that start with a
+        "." and only contains [=valid suffix code points=]. A <dfn>valid suffix
+        code point</dfn> is a [=code point=] that is [=ASCII alphanumeric=],
+        U+002B (+), or U+002E (.). Additionally, [=file extensions=] are are
+        limited to a length of 16 code points.
+      </p>
       <aside class="note">
         <p>
-          The disambiguation of file handlers and selecting of default file
-          handlers is functionality left to the operating system.
+          Note: These code points were chosen to support most pre-existing file
+          formats. The vast majority of file extensions are purely
+          alphanumeric, but compound extensions (such as .tar.gz) and
+          extensions such as .c++ for C++ source code are also fairly common,
+          hence the inclusion of + and . as allowed code points.
+        </p>
+      </aside>
+      <aside class="note">
+        <p>
+          The selection of an app to handle a file launch if there are multiple
+          apps registerd for the file's [=file type=] is functionality left to
+          the operating system.
         </p>
       </aside>
       <section>
@@ -1976,7 +2055,7 @@
           `action` member
         </h3>
         <p>
-          The [=file handler's=] <code><dfn data-dfn-for=
+          The [=file handler=]'s <code><dfn data-dfn-for=
           "file handler">action</dfn></code> member is a <a>string</a> that
           represents a relative URL of the [=manifest/start_url=] origin that
           is [=manifest/within scope=] of a [=Document/processed manifest=].
@@ -1989,19 +2068,19 @@
           `name` member
         </h3>
         <p>
-          The [=file handler's=] <code><dfn data-dfn-for=
+          The [=file handler=]'s <code><dfn data-dfn-for=
           "file handler">name</dfn></code> member is a <a>string</a> that
           represents a name to be provided to the user's operating system for
           use with "Open with..." UX flows. This MAY be replaced by the user
           agent for privacy & security reasons.
         </p>
       </section>
-      <section>
+      <section data-cite="MIMETYPE">
         <h3>
           `accept` member
         </h3>
         <p>
-          The [=file handler's=] <code><dfn data-dfn-for=
+          The [=file handler=]'s <code><dfn data-dfn-for=
           "file handler">accept</dfn></code> member is a <a>dictionary</a>
           mapping [=MIME types=] to a list of extensions. Extensions have to be
           strings that start with a "." and only contain [=valid suffix code
@@ -2009,12 +2088,14 @@
           points.
         </p>
         <p>
-          In addition to complete MIME types, "*" can be used as the subtype of
-          a MIME type to match, for example, all image formats with "image/*".
+          In addition to complete [=MIME types=], "*" can be used as the
+          subtype of a MIME type to match, for example, all image formats with
+          "image/*". However, the top-level type MUST be defined in [[rfc2046]]
+          and listed in [[IANA_MEDIA_TYPES]].
         </p>
         <p>
-          Websites SHOULD always provide both [=MIME types=] and file
-          extensions for each accepts entry. This format is required by
+          Websites MUST always provide both [=MIME types=] and file extensions
+          for each [=file handler/accept=] entry. This format is required by
           operating systems that use [=MIME types=] to specify the [=file
           types=]. On platforms that only use extensions, these can easily be
           used instead.
@@ -2048,13 +2129,13 @@
               <li>|item|["action"] doesn't [=map/exist=] or is not a
               [=string=].
               </li>
-              <li>|item|["name"] doesn't [=map/exist=] or is the empty string.
+              <li>|item|["name"] [=map/exists=] and is not a [=string=].
               </li>
-              <li>|item|["accepts"] doesn't [=map/exist=].
+              <li>|item|["accept"] doesn't [=map/exist=].
               </li>
-              <li>|item|["accepts"] is not a [=sequence=].
+              <li>|item|["accept"] is not a [=dictionary=].
               </li>
-              <li>|item|["accepts"] is an empty [=sequence=].
+              <li>|item|["accept"] is [=list/empty].
               </li>
             </ul>
           </li>
@@ -2066,17 +2147,41 @@
           <li>If |url| is not [=manifest/within scope=] of |scope|, return
           failure.
           </li>
-          <li>TODO - process "accepts"
+          <li>Let |accept:ordered map| be an [=ordered map=].
+          </li>
+          <li>[=map/iterate=] |mime_type_string:string| → |extensions| of
+          |item|["accept"]
+            <ol>
+              <li>If |extensions| is not a [=string=] or [=list=], return
+              failure.
+              </li>
+              <li>If |extensions| is the empty string or an [=list/empty=]
+              [=list=], return failure.
+              </li>
+              <li>If |extensions| is a [=list=] with items that are not
+              [=string=]s, return failure.
+              </li>
+              <li>Let |mime_type_parsed:mime type| be the result of running the
+              steps of [=parse a mime type=] on |mime_type_string|.
+              </li>
+              <li>If |mime_type_parsed|.type is not listed in as a top-level
+              type in [[IANA_MEDIA_TYPES]], return failure.
+              </li>
+              <li>Add |mime_type_string| → |extensions| to |accept|.
+              </li>
+            </ol>
           </li>
           <li>Let |file_handler:ordered map| be |ordered map| «[ "action" →
-          |url|, "name" → |item|["name"] ]».
+          |url|, "name" → |item|["name"], "accept" → |accept| ]».
           </li>
           <li>[=Process image resources=] passing |item|["icons"],
           |file_handler|, |manifest URL|, and "icons".
           </li>
-          <li>The user agent MAY replace |file_handler|["icons"] and
-          |file_handler|["name"] with the application icon and a string
-          containing the application name, respectively.
+          <li>The user agent MAY replace |file_handler|["icons"] with the
+          application icon.
+          </li>
+          <li>If |file_handler|["name"] doesn't [=map/exist=], the user agent
+          MAY populate a suitable name to describe the file type.
           </li>
           <li>Return |file_handler|.
           </li>
