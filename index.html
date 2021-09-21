@@ -843,6 +843,11 @@
           The [=identity=] can be used by a service that collects lists of web
           applications to uniquely identify applications.
         </p>
+        <p class="note">
+          The [=identity=] is processed like a URL but it doesn't point to a
+          resource that can be navigated to, so it's not required to be
+          [=URL/within scope=].
+        </p>
         <p>
           To <dfn>process the `id` member</dfn>, given [=object=]
           |json:JSON|, [=ordered map=] |manifest:ordered map|:
@@ -904,7 +909,23 @@
               <td>"https://example.com/my-app/start"</td>
               <td>"https://example.com/my-app/start"</td>
             </tr>
+            <tr>
+              <td>"%6D"</td>
+              <td>"https://example.com/my-app/start"</td>
+              <td>"https://example.com/m"</td>
+            </tr>
+            <tr>
+              <td>"😀"</td>
+              <td>"https://example.com/my-app/start"</td>
+              <td>"https://example.com/%F0%9F%98%80"</td>
+            </tr>
           </table>
+          <p>Since id is resolved against start_url's origin, providing id as
+          "../foo", "foo", "/foo", "./foo" all resolves to the same thing. It is
+          RECOMMENDED to always specify with a leading "/" to be explicit that
+          the id is a root-relative url path. Also the same url
+          encoding/decoding rules are applied to the id processing algorithm.
+          </p>
         </aside>
       </section>
       <section>
