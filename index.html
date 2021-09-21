@@ -871,33 +871,38 @@
             </tr>
             <tr>
               <td><i>undefined</i></td>
-              <td>"https://example.com/resources/start"</td>
-              <td>"https://example.com/resources/start"</td>
+              <td>"https://example.com/my-app/start"</td>
+              <td>"https://example.com/my-app/start"</td>
             </tr>
             <tr>
               <td>""</td>
-              <td>"https://example.com/resources/start"</td>
+              <td>"https://example.com/my-app/start"</td>
               <td>"https://example.com/"</td>
             </tr>
             <tr>
               <td>"/"</td>
-              <td>"https://example.com/resources/start"</td>
+              <td>"https://example.com/my-app/start"</td>
               <td>"https://example.com/"</td>
             </tr>
             <tr>
               <td>"foo"</td>
-              <td>"https://example.com/resources/start"</td>
+              <td>"https://example.com/my-app/start"</td>
+              <td>"https://example.com/foo"</td>
+            </tr>
+            <tr>
+              <td>"./foo"</td>
+              <td>"https://example.com/my-app/start"</td>
               <td>"https://example.com/foo"</td>
             </tr>
             <tr>
               <td>"https://example.com/foo"</td>
-              <td>"https://example.com/resources/start"</td>
+              <td>"https://example.com/my-app/start"</td>
               <td>"https://example.com/foo"</td>
             </tr>
             <tr>
               <td>"https://anothersite.com/foo"</td>
-              <td>"https://example.com/resources/start"</td>
-              <td>"https://example.com/resources/start"</td>
+              <td>"https://example.com/my-app/start"</td>
+              <td>"https://example.com/my-app/start"</td>
             </tr>
           </table>
         </aside>
@@ -1317,14 +1322,17 @@
           </h3>
           <aside class="issue" data-number="446"></aside>
           <p>
-            User agents SHOULD re-fetch and process the manifest on every page
-            load. When the processing is successful, user agents MAY apply updated
-            manifest to any current and future <a>application contexts</a>
-            associated with the application. When the user agent fetches a
-            manifest as part of an update check, it MUST [=url/equal|compare=] the fetched
-            processed manifest's [=manifest/identity=] with the identity of the
-            app being updated. If it is not equal, the user agent MUST NOT
-            update the installed application's manifest. 
+            The manifest is fetched and processed on every page load. When the
+            processing is successful, user agents MAY apply updated manifest to
+            any current and future <a>application contexts</a>
+            associated with the application. 
+          </p>
+          <p>
+            When the user agent fetches a manifest as part of an update check,
+            it MUST [=url/equal|compare=] the fetched processed manifest's
+            [=manifest/identity=] with the identity of the app being updated. If
+            it is not equal, the user agent MUST NOT update the installed
+            application's manifest. 
           </p>
           <section>
             <h3>
