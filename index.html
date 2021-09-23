@@ -857,8 +857,8 @@
           </li>
           <li>If the type of |json|["id"] is not [=string=], return.
           </li>
-          <li>Let |id:URL| be the result of [=URL Parser|parsing=] |json|["id"]
-          with |manifest|["start_url"]'s origin as the base URL.
+          <li>Let |base origin| be |manifest|["start_url"]'s [=url/origin=].</li> 
+          <li>Let |id:URL| be the result of [=URL Parser|parsing=] |json|["id"] with  |base origin| as the base URL.
           </li>
           <li>If |id| is failure, return.
           </li>
