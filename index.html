@@ -1080,74 +1080,6 @@
           the 'default' file handler for a given type if the operating system
           allows.
         </p>
-        <section data-cite="file-system-access">
-          <h2>
-            <dfn>Execute a file handler launch</dfn>
-          </h2>
-          <p>
-            This is the IDL used for executing a file handling launch:
-          </p>
-          <pre class="idl">
-            partial interface Window {
-              readonly attribute LaunchQueue launchQueue;
-            };
-
-            callback LaunchConsumer = any (LaunchParams params);
-
-            [Exposed=Window] interface LaunchQueue {
-              undefined setConsumer(LaunchConsumer consumer);
-            };
-
-            [Exposed=Window] interface LaunchParams {
-              readonly attribute FrozenArray&lt;FileSystemHandle&gt; files;
-            };
-          </pre>
-          <p>
-            When a [=file type=] is registered with a web app and one or more
-            of these registered files are launched on the platform, run the
-            following steps, given the launched {{FrozenArray}} of
-            {{FileSystemHandle}}s |files:FrozenArray&lt;FileSystemHandle&gt;|
-            and the corresponding [=file handler|file_handler=].
-          </p>
-          <ol>
-            <li>Let |url| be the |file_handler|.[=file handler/action=].
-            </li>
-            <li>Let |browsing context| be the result of creating a new
-            [=top-level browsing context=].
-            </li>
-            <li>[=Navigate=] |browsing context| to |url|.
-            </li>
-            <li>XXX Wait for navigation to be complete?
-            </li>
-            <li>Let |params:LaunchParams| be {{LaunchParams}} with
-            {{LaunchParams.files}} set to |files|.
-            </li>
-            <li>Iterate through every {{LaunchConsumer}} set by
-            {{LaunchQueue/setConsumer}} and execute the function with |params|.
-            </li>
-          </ol>
-          <p>
-            FOR REVIEWERS - TODO - figure out a better way to wrjite this
-            algorithm. We want to also capture if the consumer was set after
-            navigation complete? Perhaps we do:
-          </p>
-          <ul>
-            <li>Defines two things ('slot?' or variable on window?) to store a
-            list of params, and a list of consumers.
-            </li>
-            <li>Create an algorithm that, when launching from a file, adds the
-            params to the list and iterates all consumers and gives each
-            consumer the new params.
-            </li>
-            <li>Create an algorithm that, when adding a new consumer, adds the
-            consuer to the list and calls the new consumer with the list of
-            params.
-            </li>
-          </ul>
-          <p>
-            What do you think?
-          </p>
-        </section>
         <section>
           <h3>
             Privacy consideration: Default [=file handler=].
@@ -2188,6 +2120,109 @@
           <li>Return |file_handler|.
           </li>
         </ol>
+      </section>
+    </section>
+    <section data-cite="file-system-access">
+      <h2>
+        <dfn>Execute a file handler launch</dfn>
+      </h2>
+      <p>
+        A {{Window/window}} has an associated {{LaunchConsumer}} <dfn>assigned
+        launch consumer</dfn>.
+      </p>
+      <p>
+        A {{Window/window}} has an associated [=list=] of {{LaunchParams}}
+        <dfn>unconsumed launch params</dfn>.
+      </p>
+      <p>
+        When a [=file type=] is registered with a web app and one or more of
+        these registered files are launched on the platform, run the following
+        steps, given the launched {{FrozenArray}} of {{FileSystemHandle}}s
+        |files:FrozenArray&lt;FileSystemHandle&gt;| and the corresponding
+        [=file handler|file_handler=].
+      </p>
+      <ol>
+        <li>Let |url| be the |file_handler|.[=file handler/action=].
+        </li>
+        <li>Let |browsing context| be the result of creating a new [=top-level
+        browsing context=].
+        </li>
+        <li>[=Navigate=] |browsing context| to |url|.
+        </li>
+        <li>Let |params:LaunchParams| be {{LaunchParams}} with
+        {{LaunchParams.files}} set to |files|.
+        </li>
+        <li>If [=assigned launch consumer=] is set, call [=assigned launch
+        consumer=] with |params| and return
+        </li>
+        <li>[=list/Append=] |params| to [=unconsumed launch params=].
+        </li>
+      </ol>
+      <section data-dfn-for="LaunchParams">
+        <h3>
+          <dfn>LaunchParams</dfn> interface
+        </h3>
+        <pre class="idl">
+          [Exposed=Window] interface LaunchParams {
+            readonly attribute FrozenArray&lt;FileSystemHandle&gt; files;
+          };
+        </pre>
+        <section>
+          <h2>
+            <dfn>files</dfn> attribute
+          </h2>
+          <p>
+            The {{LaunchParams/files}} attribute is a {{FrozenArray}} of
+            {{FileSystemHandle}}s.
+          </p>
+        </section>
+      </section>
+      <section data-dfn-for="LaunchConsumer">
+        <h3>
+          <dfn>LaunchConsumer</dfn> function
+        </h3>
+        <pre class="idl">
+          callback LaunchConsumer = any (LaunchParams params);
+        </pre>
+        <p>
+          The {{LaunchConsumer}} function takes a {{LaunchParams}} interface as
+          an argument.
+        </p>
+      </section>
+      <section data-dfn-for="LaunchQueue">
+        <h3>
+          <dfn>LaunchQueue</dfn> interface
+        </h3>
+        <pre class="idl">
+          partial interface Window {
+            readonly attribute LaunchQueue launchQueue;
+          };
+
+          [Exposed=Window] interface LaunchQueue {
+            undefined setConsumer(LaunchConsumer consumer);
+          };
+        </pre>
+        <section>
+          <h2>
+            <dfn>setConsumer</dfn> method
+          </h2>
+          <p>
+            The {{LaunchQueue/setConsumer(consumer)}} method steps are:
+          </p>
+          <ol class="algorithm">
+            <li>Set the [=assigned launch consumer=] to |consumer|.
+            </li>
+            <li>[=list/for each=] |unconsumed_launch_param:LaunchParams| in
+            [=unconsumed launch params=]
+              <ol>
+                <li>Call |consumer| with |unconsumed_launch_param|.
+                </li>
+              </ol>
+            </li>
+            <li>Set [=unconsumed launch params=] to an empty [=list=]
+            </li>
+          </ol>
+        </section>
       </section>
     </section>
     <section>
