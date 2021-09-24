@@ -827,17 +827,15 @@
         </p>
         <p>The [=identity=] is used by user agents to uniquely identify the
         application universally. When the user agent sees a manifest with an
-        [=identity=] that does not correspond to an already-installed application,
-        it SHOULD treat that manifest as a description of a distinct
-        application, even if it is served from the same URL as that of another
-        application. When the user agent sees a manifest with an [=identity=]
-        matching that of an already-installed application, it SHOULD be used as
-        a signal that this manifest is a replacement for the already-installed
-        application's manifest, and not a distinct application, even if it is
-        served from a different URL than the one seen previously.
-        </p>
-        <p>
-        The [=identity=] is considered matching when the processed |manifest|["id"] [=url/equal|equals=].
+        [=identity=] that does not correspond to an already-installed
+        application, it SHOULD treat that manifest as a description of a
+        distinct application, even if it is served from the same URL as that of
+        another application. When the user agent sees a manifest where
+        |manifest|["id"] [=url/equal|equals=] the [=identity=] of an
+        already-installed application, it SHOULD be used as a signal that this
+        manifest is a replacement for the already-installed application's
+        manifest, and not a distinct application, even if it is served from a
+        different URL than the one seen previously.
         </p>
         <p class="note">
           The [=identity=] can be used by a service that collects lists of web
