@@ -851,7 +851,7 @@
           |json:JSON|, [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
-          <li>Set |manifest|["id"] to |manifest|["start_url"].
+          <li>Set |manifest|["id"] to |manifest|["start_url"] with [=URL/fragment=] removed.
           </li>
           <li>If the type of |json|["id"] is not [=string=], return.
           </li>
@@ -864,7 +864,8 @@
           </li>
           <li>If |id| is not [=same origin=] as |manifest|["start_url"], return.
           </li>
-          <li>Otherwise, set |manifest|["id"] to |id|.</li>
+          <li>Remove [=URL/fragment=] from |id|.</li>
+          <li>Set |manifest|["id"] to |id|.</li>
         </ol>
         <aside class="example">
           <p>Below table shows some example cases of the |identity| processing algorithm.</p>
@@ -873,12 +874,16 @@
               <th>|json|["id"]</th>
               <th>|manifest|["start_url"]</th>
               <th>|manifest|["id"]</th>
-              <th>Explaination</th>
             </tr>
             <tr>
               <td><i>undefined</i></td>
               <td>"https://example.com/my-app/start"</td>
               <td>"https://example.com/my-app/start"</td>
+            </tr>
+            <tr>
+              <td><i>undefined</i></td>
+              <td>"https://example.com/my-app/#here"</td>
+              <td>"https://example.com/my-app/"</td>
             </tr>
             <tr>
               <td>""</td>
