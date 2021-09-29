@@ -2176,14 +2176,17 @@
             readonly attribute FrozenArray&lt;FileSystemHandle&gt; files;
           };
         </pre>
-        <section>
+        <section data-cite="Permissions">
           <h2>
             <dfn>files</dfn> attribute
           </h2>
           <p>
             The {{LaunchParams/files}} attribute is a {{FrozenArray}} of
-            {{FileSystemHandle}}s, each with {{FileSystemPermissionMode}} of
-            {{FileSystemPermissionMode/"read"}}.
+            {{FileSystemHandle}}s. For every |file handle:FileSystemHandle| in
+            {{LaunchParams/files}}, the [=permission state=] for a descriptor
+            with {{FileSystemPermissionDescriptor/handle}} set to the |file
+            handle| and {{FileSystemPermissionDescriptor/mode}} set to
+            "{{FileSystemPermissionMode/"read"}} should be "granted".
           </p>
         </section>
       </section>
