@@ -1030,8 +1030,9 @@
           that originate outside of the app itself.
         </p>
         <p>
-          How file handlers are registered and disambiguated is at the
-          discretion of the operating system.
+          The management, presentation and selection of registered
+          file-handling applications is at the discretion of the operating
+          system.
         </p>
         <p>
           To <dfn>process the `file_handlers` member</dfn>, given [=ordered
@@ -1058,8 +1059,9 @@
           </li>
         </ol>
         <p>
-          On [=installation=], a user agent SHOULD register the file handlers
-          with the operating system via interactions that are consistent with:
+          On [=installation=], a user agent SHOULD <dfn>register file
+          handlers</dfn> with the operating system via interactions that are
+          consistent with:
         </p>
         <ul>
           <li>The [=file handler/icon=] and [=file handler/name=] appear in the
@@ -1102,17 +1104,20 @@
           <p>
             The name and icon of each file handler can be sensitive to privacy
             and security, as there isn't a specified way for the user to see
-            and confirm these. Due to this, user agents MAY choose to replace
-            these with name and icon derived from the application's icon and
-            name in the [=process a file handler item=] algorithm.
+            and confirm these. Due to this, user agents MAY choose to ignore
+            these in favor of alternative strings and icons.
           </p>
         </section>
-        <aside class="example">
+        <section class="informative">
+          <h3>
+            Example manifest with file handlers
+          </h3>
           <p>
             In the following example, the web application has 3 different file
             handlers.
           </p>
-          <pre class="json">
+          <aside class="example">
+            <pre class="json">
             {
               "name": "Grafr",
               "file_handlers": [
@@ -1133,7 +1138,7 @@
                   "action": "/open-svg",
                   "name": "Image",
                   "accept": {
-                    "image/svg+xml": ".svg"
+                    "image/svg+xml": [ ".svg" ]
                   },
                   "icons": [
                     {
@@ -1155,7 +1160,8 @@
               ]
             }
           </pre>
-        </aside>
+          </aside>
+        </section>
       </section>
       <section>
         <h2>
@@ -2016,111 +2022,114 @@
         <p>
           The [=file handler=]'s <code><dfn data-dfn-for=
           "file handler">accept</dfn></code> member is a <a>dictionary</a>
-          mapping [=MIME types=] to a list of extensions. Extensions have to be
-          strings that start with a "." and only contain [=valid suffix code
-          points=]. Additionally extensions are limited to a length of 16 code
-          points.
+          mapping [=MIME types=] to a list of [=file extensions=].
         </p>
         <p>
-          In addition to complete [=MIME types=], "*" can be used as the
-          subtype of a MIME type to match, for example, all image formats with
-          "image/*". However, the top-level type MUST be defined in [[rfc2046]]
-          and listed in [[IANA_MEDIA_TYPES]].
+          In order to [=register file handlers=], some operating systems
+          require [=MIME types=], some require [=file extensions=], and some
+          support both. Thus websites MUST always provide both for each [=file
+          handler/accept=] entry.
         </p>
         <p>
-          Websites MUST always provide both [=MIME types=] and file extensions
-          for each [=file handler/accept=] entry. This format is required by
-          operating systems that use [=MIME types=] to specify the [=file
-          types=]. On platforms that only use extensions, these can easily be
-          used instead.
+          In addition to complete [=MIME types=], <code>"*"</code> can be used
+          as the subtype of a MIME type to match, for example, all image
+          formats with <code>"image/*"</code> (that also apply to the provided
+          list of [=file extensions=]).
         </p>
+        <aside class="note">
+          For example, on Linux both the [=mime type=] and [=file extension=]
+          is used with the <code>xdg-mime</code> utility to specify that the
+          web application can open files with both the mime type specified and
+          the specific file extension. On Windows, only [=file extensions=] are
+          used, so the [=mime types=] are ignored.
+        </aside>
       </section>
-      <section>
-        <h3>
-          `icons` member
-        </h3>
-        <p>
-          The <a>file handler</a>'s <code><dfn data-dfn-for=
-          "file handler">icons</dfn></code> member lists images that serve as
-          graphical representations of a [=file type=] on a platform. This MAY
-          be replaced by the user agent for privacy & security reasons.
-        </p>
-      </section>
-      <section>
-        <h2>
-          Processing file handler items
-        </h2>
-        <p>
-          To <dfn>process a file handler item</dfn>, given [=ordered map=]
-          |item:ordered map|, [=URL=] |start_url:URL|, [=URL=] |scope:URL|, and
-          [=URL=] |manifest URL:URL|.
-        </p>
-        <ol class="algorithm">
-          <li>Return failure if it's the case that:
-            <ul>
-              <li>|item| is not [=ordered map=].
-              </li>
-              <li>|item|["action"] doesn't [=map/exist=] or is not a
-              [=string=].
-              </li>
-              <li>|item|["name"] [=map/exists=] and is not a [=string=].
-              </li>
-              <li>|item|["accept"] doesn't [=map/exist=].
-              </li>
-              <li>|item|["accept"] is not a [=dictionary=].
-              </li>
-              <li>|item|["accept"] is [=list/empty].
-              </li>
-            </ul>
-          </li>
-          <li>Let |url:URL| be the result of [=URL Parser|parsing=]
-          |item|["action"] with |start_url URL| as the base URL.
-          </li>
-          <li>If |url| is failure, return failure.
-          </li>
-          <li>If |url| is not [=manifest/within scope=] of |scope|, return
-          failure.
-          </li>
-          <li>Let |accept:ordered map| be an [=ordered map=].
-          </li>
-          <li>[=map/iterate=] |mime_type_string:string| → |extensions| of
-          |item|["accept"]
-            <ol>
-              <li>If |extensions| is not a [=string=] or [=list=], return
-              failure.
-              </li>
-              <li>If |extensions| is the empty string or an [=list/empty=]
-              [=list=], return failure.
-              </li>
-              <li>If |extensions| is a [=list=] with items that are not
-              [=string=]s, return failure.
-              </li>
-              <li>Let |mime_type_parsed:mime type| be the result of running the
-              steps of [=parse a mime type=] on |mime_type_string|.
-              </li>
-              <li>If |mime_type_parsed|.type is not listed in as a top-level
-              type in [[IANA_MEDIA_TYPES]], return failure.
-              </li>
-              <li>Add |mime_type_string| → |extensions| to |accept|.
-              </li>
-            </ol>
-          </li>
-          <li>Let |file_handler:ordered map| be |ordered map| «[ "action" →
-          |url|, "name" → |item|["name"], "accept" → |accept| ]».
-          </li>
-          <li>[=Process image resources=] passing |item|["icons"],
-          |file_handler|, |manifest URL|, and "icons".
-          </li>
-          <li>The user agent MAY replace |file_handler|["icons"] with the
-          application icon.
-          </li>
-          <li>If |file_handler|["name"] doesn't [=map/exist=], the user agent
-          MAY populate a suitable name to describe the file type.
-          </li>
-          <li>Return |file_handler|.
-          </li>
-        </ol>
-      </section>
+    </section>
+    <section>
+      <h3>
+        `icons` member
+      </h3>
+      <p>
+        The <a>file handler</a>'s <code><dfn data-dfn-for=
+        "file handler">icons</dfn></code> member lists images that serve as
+        graphical representations of a [=file type=] on a platform. This MAY be
+        replaced by the user agent for privacy & security reasons.
+      </p>
+    </section>
+    <section>
+      <h2>
+        Processing file handler items
+      </h2>
+      <p>
+        To <dfn>process a file handler item</dfn>, given [=ordered map=]
+        |item:ordered map|, [=URL=] |start_url:URL|, [=URL=] |scope:URL|, and
+        [=URL=] |manifest URL:URL|.
+      </p>
+      <ol class="algorithm">
+        <li>Return failure if it's the case that:
+          <ul>
+            <li>|item| is not [=ordered map=].
+            </li>
+            <li>|item|["action"] doesn't [=map/exist=] or is not a [=string=].
+            </li>
+            <li>|item|["name"] [=map/exists=] and is not a [=string=].
+            </li>
+            <li>|item|["accept"] doesn't [=map/exist=].
+            </li>
+            <li>|item|["accept"] is not a [=dictionary=].
+            </li>
+            <li>|item|["accept"] is [=list/empty].
+            </li>
+          </ul>
+        </li>
+        <li>Let |url:URL| be the result of [=URL Parser|parsing=]
+        |item|["action"] with |start_url URL| as the base URL.
+        </li>
+        <li>If |url| is failure, return failure.
+        </li>
+        <li>If |url| is not [=manifest/within scope=] of |scope|, return
+        failure.
+        </li>
+        <li>Let |accept:ordered map| be an [=ordered map=].
+        </li>
+        <li>[=map/iterate=] |mime_type_string:string| → |extensions| of
+        |item|["accept"]
+          <ol>
+            <li>If |extensions| is not a [=list=], return failure.
+            </li>
+            <li>If |extensions| is an [=list/empty=] [=list=], return failure.
+            </li>
+            <li>If |extensions| is a [=list=] with items that are not
+            [=string=]s, return failure.
+            </li>
+            <li>Let |mime_type_parsed:mime type| be the result of running the
+            steps of [=parse a mime type=] on |mime_type_string|.
+            </li>
+            <li>If |mime_type_parsed| is not defined in [[rfc2046]], return
+            failure.
+            </li>
+            <li>If |mime_type_parsed|.type is not listed in as a top-level type
+            in [[IANA_MEDIA_TYPES]], return failure.
+            </li>
+            <li>Add |mime_type_string| → |extensions| to |accept|.
+            </li>
+          </ol>
+        </li>
+        <li>Let |file_handler:ordered map| be |ordered map| «[ "action" →
+        |url|, "name" → |item|["name"], "accept" → |accept| ]».
+        </li>
+        <li>[=Process image resources=] passing |item|["icons"],
+        |file_handler|, |manifest URL|, and "icons".
+        </li>
+        <li>The user agent MAY replace |file_handler|["icons"] with suiteable
+        icons that describe the file type and web application.
+        </li>
+        <li>If |file_handler|["name"] doesn't [=map/exist=], the user agent MAY
+        populate a suitable name to describe the file type.
+        </li>
+        <li>Return |file_handler|.
+        </li>
+      </ol>
     </section>
     <section data-cite="file-system-access">
       <h2>
@@ -2173,7 +2182,8 @@
           </h2>
           <p>
             The {{LaunchParams/files}} attribute is a {{FrozenArray}} of
-            {{FileSystemHandle}}s.
+            {{FileSystemHandle}}s, each with {{FileSystemPermissionMode}} of
+            {{FileSystemPermissionMode/"read"}}.
           </p>
         </section>
       </section>
