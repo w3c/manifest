@@ -1216,23 +1216,18 @@
             associated with the application. 
           </p>
           <p>
+            User agents SHOULD be careful about performing update to manifest
+            fields like app name and icons. Users should be fully aware if
+            such fields are to be be updated to avoid web applications being
+            installed and silently changed to appear as a different one.
+          </p>
+          <p>
             When the user agent fetches a manifest as part of an update check,
             it MUST [=url/equal|compare=] the fetched processed manifest's
             [=manifest/identity=] with the identity of the app being updated. If
             it is not equal, the user agent MUST NOT update the installed
             application's manifest. 
           </p>
-          <section>
-            <h3>
-              Privacy and security consideration
-            </h3>
-            <p>
-              User agents SHOULD be careful about performing update to manifest
-              fields like app name and icons. Users should be fully aware if
-              such fields are to be be updated to avoid web applications being
-              installed and silently changed to appear as a different one.
-            </p>
-          </section>
         </section>
       </section>
     </section>
