@@ -864,7 +864,6 @@
           </li>
           <li>If |id| is not [=same origin=] as |manifest|["start_url"], return.
           </li>
-          <li>Remove [=URL/fragment=] from |id|.</li>
           <li>Set |manifest|["id"] to |id|.</li>
         </ol>
         <aside class="example">
@@ -883,7 +882,7 @@
             <tr>
               <td><i>undefined</i></td>
               <td>"https://example.com/my-app/#here"</td>
-              <td>"https://example.com/my-app/"</td>
+              <td>"https://example.com/my-app/#here"</td>
             </tr>
             <tr>
               <td>""</td>
