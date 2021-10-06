@@ -1036,7 +1036,8 @@
         </p>
         <p>
           To <dfn>process the `file_handlers` member</dfn>, given [=ordered
-          map=] |json:ordered map|, and [=ordered map=] |manifest:ordered map|:
+          map=] |json:ordered map|, [=ordered map=] |manifest:ordered map|,
+          |manifest_url::URL|:
         </p>
         <ol class="algorithm">
           <li>Let |processedFileHandlers:list| be a new [=list=].
@@ -1049,7 +1050,8 @@
           <li>[=list/For each=] |entry:ordered map| of |json|["file_handlers"]:
             <ol>
               <li>Let |file_handler:ordered map| be [=process a file handler
-              item=] with |entry|.
+              item=] with |entry|, |manifest/start_url|, |manifest/scope|, and
+              |manifest_url|.
               </li>
               <li>If |file_handler| is failure, continue.
               </li>
@@ -1059,29 +1061,37 @@
           </li>
         </ol>
         <p>
-          On [=installation=], a user agent SHOULD <dfn>register file
-          handlers</dfn> with the operating system via interactions that are
-          consistent with:
+          On [=installation=], a user agent SHOULD run the process to
+          [=register file handlers=]
         </p>
-        <ul>
-          <li>The [=file handler/icon=] and [=file handler/name=] appear in the
-          host operating system surfaces presenting options for opening files,
-          for example within "Open with..." context menus for associated file
-          types.
-          </li>
-          <li>The [=file handler/icon=] appears as the icon of associated files
-          in the host operating system.
-          </li>
-          <li>If there are multiple registered handlers for a file, the OS
-          allows the user to select which app should open it, and also allows
-          the user to set a default app.
-          </li>
-        </ul>
-        <p>
-          A user agent MAY prevent registered file handlers from registering as
-          the 'default' file handler for a given type if the operating system
-          allows.
-        </p>
+        <section>
+          <h3>
+            Registering file handlers
+          </h3>
+          <p>
+            The process to <dfn>register file handlers</dfn> on an operating
+            system should be consistent with:
+          </p>
+          <ul>
+            <li>The [=file handler/icon=] and [=file handler/name=] appear in
+            the host operating system surfaces presenting options for opening
+            files, for example within "Open with..." context menus for
+            associated file types.
+            </li>
+            <li>The [=file handler/icon=] appears as the icon of associated
+            files in the host operating system.
+            </li>
+            <li>If there are multiple registered handlers for a file, the OS
+            allows the user to select which app should open it, and also allows
+            the user to set a default app.
+            </li>
+          </ul>
+          <p>
+            A user agent MAY prevent registered file handlers from registering
+            as the 'default' file handler for a given type if the operating
+            system allows.
+          </p>
+        </section>
         <section>
           <h3>
             Privacy consideration: Default [=file handler=].
@@ -2066,19 +2076,17 @@
         [=URL=] |manifest URL:URL|.
       </p>
       <ol class="algorithm">
-        <li>Return failure if it's the case that:
+        <li>Return failure if any of the following are true:
           <ul>
-            <li>|item| is not [=ordered map=].
-            </li>
             <li>|item|["action"] doesn't [=map/exist=] or is not a [=string=].
             </li>
-            <li>|item|["name"] [=map/exists=] and is not a [=string=].
+            <li>|item|["name"] doest [=map/exist=] or is not a [=string=].
             </li>
             <li>|item|["accept"] doesn't [=map/exist=].
             </li>
             <li>|item|["accept"] is not a [=dictionary=].
             </li>
-            <li>|item|["accept"] is [=list/empty].
+            <li>|item|["accept"] [=map/is empty=].
             </li>
           </ul>
         </li>
@@ -2090,16 +2098,16 @@
         <li>If |url| is not [=manifest/within scope=] of |scope|, return
         failure.
         </li>
-        <li>Let |accept:ordered map| be an [=ordered map=].
+        <li>Let |accept:ordered map| be a new [=ordered map=].
         </li>
-        <li>[=map/iterate=] |mime_type_string:string| → |extensions| of
+        <li>[=map/for each=] |mime_type_string:string| → |extensions| of
         |item|["accept"]
           <ol>
             <li>If |extensions| is not a [=list=], return failure.
             </li>
-            <li>If |extensions| is an [=list/empty=] [=list=], return failure.
+            <li>If |extensions| is [=list/empty=], return failure.
             </li>
-            <li>If |extensions| is a [=list=] with items that are not
+            <li>If |extensions| [=list/contains=] items that are not
             [=string=]s, return failure.
             </li>
             <li>Let |mime_type_parsed:mime type| be the result of running the
@@ -2108,10 +2116,10 @@
             <li>If |mime_type_parsed| is not defined in [[rfc2046]], return
             failure.
             </li>
-            <li>If |mime_type_parsed|.type is not listed in as a top-level type
+            <li>If |mime_type_parsed/type| is not listed in as a top-level type
             in [[IANA_MEDIA_TYPES]], return failure.
             </li>
-            <li>Add |mime_type_string| → |extensions| to |accept|.
+            <li>Set |accept|[|mime_type_string|] to |extensions|.
             </li>
           </ol>
         </li>
@@ -2133,38 +2141,45 @@
     </section>
     <section data-cite="file-system-access">
       <h2>
-        <dfn>Execute a file handler launch</dfn>
+        Execute a file handler launch
       </h2>
       <p>
         A {{Window/window}} has an associated {{LaunchConsumer}} <dfn>assigned
         launch consumer</dfn>.
       </p>
       <p>
-        A {{Window/window}} has an associated [=list=] of {{LaunchParams}}
-        <dfn>unconsumed launch params</dfn>.
+        A {{Window/window}} has an associated {{LaunchParams}} <dfn>unconsumed
+        launch params</dfn>.
       </p>
       <p>
         When a [=file type=] is registered with a web app and one or more of
-        these registered files are launched on the platform, run the following
-        steps, given the launched {{FrozenArray}} of {{FileSystemHandle}}s
-        |files:FrozenArray&lt;FileSystemHandle&gt;| and the corresponding
-        [=file handler|file_handler=].
+        these registered files are launched on the platform run the steps to
+        [=execute a file handler launch=], given the launched {{FrozenArray}}
+        of {{FileSystemHandle}}s |files:FrozenArray&lt;FileSystemHandle&gt;|
+        and the corresponding [=file handler|file_handler=].
       </p>
-      <ol>
+      <p>
+        The steps to <dfn>execute a file handler launch</dfn> are given by the
+        following algorithm. The algorithm takes
+        |files:FrozenArray&lt;FileSystemHandle&gt;| and a [=file handler=]
+        |file_handler:file handler|.
+      </p>
+      <ol class="algorithm">
         <li>Let |url| be the |file_handler|.[=file handler/action=].
         </li>
-        <li>Let |browsing context| be the result of creating a new [=top-level
+        <li>Let |browsing_context| be the result of creating a new [=top-level
         browsing context=].
         </li>
-        <li>[=Navigate=] |browsing context| to |url|.
+        <li>[=Navigate=] |browsing_context| to |url|.
         </li>
-        <li>Let |params:LaunchParams| be {{LaunchParams}} with
+        <li>Let |params:LaunchParams| be a new {{LaunchParams}} with
         {{LaunchParams.files}} set to |files|.
         </li>
-        <li>If [=assigned launch consumer=] is set, call [=assigned launch
-        consumer=] with |params| and return
+        <li>If the [=assigned launch consumer=] on the {{Window/window}} is
+        set, call [=assigned launch consumer=] with |params| and return.
         </li>
-        <li>[=list/Append=] |params| to [=unconsumed launch params=].
+        <li>Set the [=unconsumed launch params=] on the {{Window/window}} to
+        |params|.
         </li>
       </ol>
       <section data-dfn-for="LaunchParams">
@@ -2225,14 +2240,16 @@
           <ol class="algorithm">
             <li>Set the [=assigned launch consumer=] to |consumer|.
             </li>
-            <li>[=list/for each=] |unconsumed_launch_param:LaunchParams| in
-            [=unconsumed launch params=]
+            <li>If the [=unconsumed launch params=] on the {{Window/window}} is
+            set:
+            </li>
+            <li>
               <ol>
-                <li>Call |consumer| with |unconsumed_launch_param|.
+                <li>Call |consumer| with [=unconsumed launch params=].
+                </li>
+                <li>Unset [=unconsumed launch params=].
                 </li>
               </ol>
-            </li>
-            <li>Set [=unconsumed launch params=] to an empty [=list=]
             </li>
           </ol>
         </section>
