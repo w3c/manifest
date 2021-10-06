@@ -819,23 +819,24 @@
           `id` member
         </h3>
         <p>
-          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest" id="identity">id</dfn></code> member is a <a>string</a> that
-          represents the <dfn>identity</dfn> for the application. 
-          The [=identity=] takes the form of a URL, which is same origin as the
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for="manifest"
+          id="identity">id</dfn></code> member is a <a>string</a> that
+          represents the <dfn>identity</dfn> for the application. The
+          [=identity=] takes the form of a URL, which is same origin as the
           start URL.
         </p>
-        <p>The [=identity=] is used by user agents to uniquely identify the
-        application universally. When the user agent sees a manifest with an
-        [=identity=] that does not correspond to an already-installed
-        application, it SHOULD treat that manifest as a description of a
-        distinct application, even if it is served from the same URL as that of
-        another application. When the user agent sees a manifest where
-        |manifest|["id"] [=url/equal|equals=] the [=identity=] of an
-        already-installed application, it SHOULD be used as a signal that this
-        manifest is a replacement for the already-installed application's
-        manifest, and not a distinct application, even if it is served from a
-        different URL than the one seen previously.
+        <p>
+          The [=identity=] is used by user agents to uniquely identify the
+          application universally. When the user agent sees a manifest with an
+          [=identity=] that does not correspond to an already-installed
+          application, it SHOULD treat that manifest as a description of a
+          distinct application, even if it is served from the same URL as that
+          of another application. When the user agent sees a manifest where
+          |manifest|["id"] [=url/equal|equals=] the [=identity=] of an
+          already-installed application, it SHOULD be used as a signal that
+          this manifest is a replacement for the already-installed
+          application's manifest, and not a distinct application, even if it is
+          served from a different URL than the one seen previously.
         </p>
         <p class="note">
           The [=identity=] can be used by a service that collects lists of web
@@ -847,8 +848,8 @@
           [=URL/within scope=].
         </p>
         <p>
-          To <dfn>process the `id` member</dfn>, given [=object=]
-          |json:JSON|, [=ordered map=] |manifest:ordered map|:
+          To <dfn>process the `id` member</dfn>, given [=object=] |json:JSON|,
+          [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
           <li>Set |manifest|["id"] to |manifest|["start_url"].
@@ -857,74 +858,143 @@
           </li>
           <li>If |json|["id"] is the empty string, return.
           </li>
-          <li>Let |base origin| be |manifest|["start_url"]'s [=url/origin=].</li> 
-          <li>Let |id:URL| be the result of [=URL Parser|parsing=] |json|["id"] with  |base origin| as the base URL.
+          <li>Let |base origin| be |manifest|["start_url"]'s [=url/origin=].
+          </li>
+          <li>Let |id:URL| be the result of [=URL Parser|parsing=] |json|["id"]
+          with |base origin| as the base URL.
           </li>
           <li>If |id| is failure, return.
           </li>
-          <li>If |id| is not [=same origin=] as |manifest|["start_url"], return.
+          <li>If |id| is not [=same origin=] as |manifest|["start_url"],
+          return.
           </li>
-          <li>Set |manifest|["id"] to |id|.</li>
+          <li>Set |manifest|["id"] to |id|.
+          </li>
         </ol>
         <aside class="example">
-          <p>Below table shows some example cases of the |identity| processing algorithm.</p>
+          <p>
+            Below table shows some example cases of the |identity| processing
+            algorithm.
+          </p>
           <table class="data">
             <tr>
-              <th>|json|["id"]</th>
-              <th>|manifest|["start_url"]</th>
-              <th>|manifest|["id"]</th>
+              <th>
+                |json|["id"]
+              </th>
+              <th>
+                |manifest|["start_url"]
+              </th>
+              <th>
+                |manifest|["id"]
+              </th>
             </tr>
             <tr>
-              <td><i>undefined</i></td>
-              <td>"https://example.com/my-app/start"</td>
-              <td>"https://example.com/my-app/start"</td>
+              <td>
+                <i>undefined</i>
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
             </tr>
             <tr>
-              <td><i>undefined</i></td>
-              <td>"https://example.com/my-app/#here"</td>
-              <td>"https://example.com/my-app/#here"</td>
+              <td>
+                <i>undefined</i>
+              </td>
+              <td>
+                "https://example.com/my-app/#here"
+              </td>
+              <td>
+                "https://example.com/my-app/#here"
+              </td>
             </tr>
             <tr>
-              <td>""</td>
-              <td>"https://example.com/my-app/start"</td>
-              <td>"https://example.com/my-app/start"</td>
+              <td>
+                ""
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
             </tr>
             <tr>
-              <td>"/"</td>
-              <td>"https://example.com/my-app/start"</td>
-              <td>"https://example.com/"</td>
+              <td>
+                "/"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/"
+              </td>
             </tr>
             <tr>
-              <td>"foo"</td>
-              <td>"https://example.com/my-app/start"</td>
-              <td>"https://example.com/foo"</td>
+              <td>
+                "foo"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/foo"
+              </td>
             </tr>
             <tr>
-              <td>"./foo"</td>
-              <td>"https://example.com/my-app/start"</td>
-              <td>"https://example.com/foo"</td>
+              <td>
+                "./foo"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/foo"
+              </td>
             </tr>
             <tr>
-              <td>"https://example.com/foo"</td>
-              <td>"https://example.com/my-app/start"</td>
-              <td>"https://example.com/foo"</td>
+              <td>
+                "https://example.com/foo"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/foo"
+              </td>
             </tr>
             <tr>
-              <td>"https://anothersite.com/foo"</td>
-              <td>"https://example.com/my-app/start"</td>
-              <td>"https://example.com/my-app/start"</td>
+              <td>
+                "https://anothersite.com/foo"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
             </tr>
             <tr>
-              <td>"😀"</td>
-              <td>"https://example.com/my-app/start"</td>
-              <td>"https://example.com/%F0%9F%98%80"</td>
+              <td>
+                "😀"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/%F0%9F%98%80"
+              </td>
             </tr>
           </table>
-          <p>Since [=manifest/id=] is resolved against [=manifest/start_url=]'s [=URL/origin=], providing
-          "../foo", "foo", "/foo", "./foo" all resolves to the same [=identifier=]. It is
-          As such, best practice is to use a leading "/" to be explicit that
-          the id is a root-relative url path. Also, standard
-          encoding/decoding rules are apply to the id processing algorithm, as per the [[[URL]]].
+          <p>
+            Since [=manifest/id=] is resolved against [=manifest/start_url=]'s
+            [=URL/origin=], providing "../foo", "foo", "/foo", "./foo" all
+            resolves to the same [=identifier=]. It is As such, best practice
+            is to use a leading "/" to be explicit that the id is a
+            root-relative url path. Also, standard encoding/decoding rules are
+            apply to the id processing algorithm, as per the [[[URL]]].
           </p>
         </aside>
       </section>
