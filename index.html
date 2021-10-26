@@ -1370,6 +1370,28 @@
           </ol>
         </section>
         <section>
+          <h2>
+            Processing url members
+          </h2>
+          <p>
+            To <dfn data-lt="processing a URL value">process a URL value</dfn>,
+            given [=string=] |URL:string| and [=URL=] |manifest URL:URL|:
+          </p>
+          <ol class="algorithm">
+            <li>If the type of |URL| is not [=string=], return.
+            </li>
+            <li>If |URL| is the empty string, return.
+            </li>
+            <li>Let |final URL:URL| be the result of [=URL Parser|parsing=]
+            |URL|, using |manifest URL| as the base URL.
+            </li>
+            <li>If |final URL| is failure, return.
+            </li>
+            <li>Otherwise, return |final URL|.
+            </li>
+          </ol>
+        </section>
+        <section>
           <h3 id="applying">
             Applying the manifest
           </h3>
