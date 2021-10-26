@@ -17,9 +17,14 @@
       previousMaturity: "WD",
       formerEditors: [
         {
+          name: "Mounir Lamouri",
+          company: "Google Inc.",
+          companyURL: "https://www.google.com/",
+        },
+        {
           name: "Rob Dolin",
           company: "Microsoft Corporation",
-          companyURL: "https://www.microsoft.com/en-us/",
+          companyURL: "https://www.microsoft.com/",
         },
       ],
       editors: [
@@ -34,12 +39,6 @@
           company: "Intel Corporation",
           companyURL: "https://intel.com/",
           w3cid: 57705,
-        },
-        {
-          name: "Mounir Lamouri",
-          company: "Google Inc.",
-          companyURL: "https://www.google.com/",
-          w3cid: 45389,
         },
         {
           name: "Anssi Kostiainen",
@@ -150,19 +149,10 @@
         Web Application Manifest
       </h2>
       <p>
-        A <dfn data-export="" data-dfn-for="" data-lt=
-        "application manifest|manifest's">manifest</dfn> is a [[JSON]] document
-        that contains startup parameters and application defaults for when a
-        web application is launched.
-      </p>
-      <p>
-        As a manifest is JSON, this specification relies on the types defined
-        in [[JSON]] specification: namely <dfn data-no-export="">object</dfn>,
-        <dfn data-no-export="">array</dfn>, <dfn data-no-export=
-        "">string</dfn>, and <dfn data-no-export="">boolean</dfn>. Strict type
-        checking is not enforced by this specification. Instead, each member's
-        definition specifies the steps required to process a particular member
-        and what to do when a type does not match what is expected.
+        A <dfn data-export="" data-lt="manifest" data-local-lt=
+        "manifest's">application manifest</dfn> is a [[JSON]] document that
+        contains startup parameters and application defaults for when a web
+        application is launched.
       </p>
       <p>
         A manifest has an associated <dfn>manifest URL</dfn>, which is the
@@ -180,6 +170,8 @@
         <li>[=manifest/display=]
         </li>
         <li>[=manifest/icons=]
+        </li>
+        <li>[=manifest/identity=]
         </li>
         <li>[=manifest/lang=]
         </li>
@@ -242,6 +234,7 @@
                 "sizes": "128x128"
               }],
               "scope": "/",
+              "id": "superracer",
               "start_url": "/start.html",
               "display": "fullscreen",
               "orientation": "landscape",
@@ -255,8 +248,8 @@
             Using a `link` element to link to a manifest
           </h3>
           <p>
-            The example also shows how to use the [=link type "manifest"=] and
-            how to use other [^meta^] and [^link^] elements to give the web
+            The example also shows how to use the link type "manifest" and how
+            to use other [^meta^] and [^link^] elements to give the web
             application a fallback name and set of icons.
           </p>
           <pre class="example html" title="Linking to a manifest">
@@ -273,9 +266,11 @@
             &lt;link rel="icon" sizes="512x512" href="hi_def.png"&gt;
           </pre>
           <aside class="note" title="File extension: .webmanifest or .json?">
-            The official file extension for the manifest is `.webmanifest`.
+            The IANA <a href=
+            "https://www.iana.org/assignments/media-types/application/manifest+json">
+            registered</a> file extension for the manifest is `.webmanifest`.
             Some web servers recognize this extension and transfer the file
-            using the standardized <a>application manifest MIME type</a>
+            using the standardized <a>application manifest media type</a>
             ([=application\/manifest+json=]). Developers can also choose a
             different extension (e.g. `.json`) or none at all (e.g.
             `/api/GetManifest`), but are encouraged to transfer the manifest
@@ -433,8 +428,8 @@
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">dir</dfn></code> member specifies the <dfn>base
           direction</dfn> for the <a>localizable members</a> of the
-          <a>manifest</a>. The [=manifest/dir=] member's value can be set to
-          one of the <a>text-direction values</a>.
+          <a>manifest</a>. The [=manifest/dir=] member's value can be set to a
+          <a>text-direction</a>.
         </p>
         <p>
           The <dfn>localizable members</dfn> are:
@@ -452,52 +447,60 @@
           </li>
         </ul>
         <p>
-          The <dfn>text-direction values</dfn> are the following, implying that
-          the value of the <a>localizable members</a> is by default:
+          The <dfn>text-directions</dfn> are the following, implying that the
+          value of the <a>localizable members</a> is by default:
         </p>
         <dl>
           <dt>
-            "<dfn>ltr</dfn>"
+            "<dfn data-dfn-for="text-direction">ltr</dfn>"
           </dt>
           <dd>
             Left-to-right text.
           </dd>
           <dt>
-            "<dfn>rtl</dfn>"
+            "<dfn data-dfn-for="text-direction">rtl</dfn>"
           </dt>
           <dd>
             Right-to-left text.
           </dd>
           <dt>
-            "<dfn>auto</dfn>" (default)
+            "<dfn data-dfn-for="text-direction">auto</dfn>" (default)
           </dt>
           <dd>
             No explicit directionality.
           </dd>
         </dl>
         <p>
+          The <dfn>text-direction list</dfn> is the [=list=] «
+          "[=text-direction/ltr=]", "[=text-direction/rtl=]",
+          "[=text-direction/auto=]" ».
+        </p>
+        <p>
           When displaying the <a>localizable members</a> to an end-user, the
           use agent SHOULD:
         </p>
         <ol class="algorithm">
-          <li>If the <a>base direction</a> is <a>ltr</a> or <a>rtl</a>,
-          override <a data-cite="bidi#P3">Rule P3</a> of [[BIDI]], setting the
-          paragraph embedding level to 0 if the <a>base direction</a> is
-          <a>ltr</a>, or 1 if the <a>base direction</a> is <a>rtl</a>.
+          <li>If the <a>base direction</a> is [=text-direction/ltr=] or
+          [=text-direction/rtl=], override <a data-cite="bidi#P3">Rule P3</a>
+          of [[BIDI]], setting the paragraph embedding level to 0 if the
+          <a>base direction</a> is [=text-direction/ltr=], or 1 if the <a>base
+          direction</a> is [=text-direction/rtl=].
           </li>
-          <li>Otherwise the <a>base direction</a> is "[=auto=]", in which case
-          determine the text's direction by applying <a data-cite=
-          "bidi#P1">Rule P1</a> of [[BIDI]].
+          <li>Otherwise the <a>base direction</a> is "[=text-direction/auto=]",
+          in which case determine the text's direction by applying
+            <a data-cite="bidi#P1">Rule P1</a> of [[BIDI]].
           </li>
         </ol>
         <p>
-          To <dfn>process the `dir` member</dfn>, given [=object=] |json:JSON|
-          and [=ordered map=] |manifest:ordered map|:
+          To <dfn>process the `dir` member</dfn>, given [=ordered map=]
+          |json:ordered map| and [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
-          <li>If the type of |json|["dir"] is not [=string=], or if
-          |json|["dir"] doesn't match one of the [=text-direction values=],
-          return.
+          <li>If |json|["dir"] doesn't [=map/exist=] or if |json|["dir"] is not
+          a [=string=], return.
+          </li>
+          <li>If [=text-direction list=] doesn't [=list/contain=]
+          |json|["dir"], return.
           </li>
           <li>Set |manifest|["dir"] to |json|["dir"].
           </li>
@@ -529,11 +532,12 @@
           Language Subtag Registry are considered structurally valid.
         </p>
         <p>
-          To <dfn>process the `lang` member</dfn>, given [=object=] |json:JSON|
-          and [=ordered map=] |manifest:ordered map|:
+          To <dfn>process the `lang` member</dfn>, given [=ordered map=]
+          |json:ordered map| and [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
-          <li>If the type of |json|["lang"] is not [=string=], return.
+          <li>If |json|["lang"] doesn't [=map/exist=] or if |json|["lang"] is
+          not a [=string=], return.
           </li>
           <li>If calling <a data-cite=
           "ECMA-402#sec-isstructurallyvalidlanguagetag">IsStructurallyValidLanguageTag</a>
@@ -601,13 +605,15 @@
         </aside>
         <p>
           To <dfn>process the `scope` member</dfn>, given [=object=]
-          |json:JSON|, [=ordered map=] |manifest:ordered map|, and [=URL=] |document URL:URL|:
+          |json:JSON|, [=ordered map=] |manifest:ordered map|, and [=URL=]
+          |document URL:URL|:
         </p>
         <ol class="algorithm">
           <li>Set |manifest|["scope"] to the result of [=URL Parser|parsing=]
           "." with |manifest|["start_url"] as the base URL.
           </li>
-          <li>Let |scope:URL| be the result of [=processing a URL value=] , passing |json|["scope"] and |document URL|.
+          <li>Let |scope:URL| be the result of [=processing a URL value=] ,
+          passing |json|["scope"] and |document URL|.
           </li>
           <li>If |scope| is failure, return.
           </li>
@@ -618,23 +624,6 @@
           |scope|, return.
           </li>
           <li>Otherwise, set |manifest|["scope"] to |scope|.
-          </li>
-        </ol>
-        <p>
-          To <dfn data-lt="processing a URL value">process a URL value</dfn>, given [=string=] |URL:string|
-          and [=URL=] |manifest URL:URL|:
-        </p>
-        <ol class="algorithm">
-          <li>If the type of |URL| is not [=string=], return.
-          </li>
-          <li>If |URL| is the empty string, return.
-          </li>
-          <li>Let |final URL:URL| be the result of [=URL Parser|parsing=]
-          |URL|, using |manifest URL| as the base URL.
-          </li>
-          <li>If |final URL| is failure, return.
-          </li>
-          <li>Otherwise, return |final URL|.
           </li>
         </ol>
       </section>
@@ -675,18 +664,19 @@
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">display</dfn></code> member represents the developer's
-          preferred <a>display mode</a> for the web application. Its value is
-          one of the <a>display modes values</a>.
+          preferred <a>display mode</a> for the web application. Its value is a
+          [=display mode=].
         </p>
         <p>
-          To <dfn>process the `display` member</dfn>, given [=object=]
-          |json:JSON| and [=ordered map=] |manifest:ordered map|:
+          To <dfn>process the `display` member</dfn>, given [=ordered map=]
+          |json:ordered map| and [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
-          <li>If the type of |json|["display"] is not [=string=], return.
+          <li>If |json|["display"] doesn't [=map/exist=] or |json|["display"]
+          is not a a [=string=], return.
           </li>
-          <li>If |json|["display"] doesn't match one of the [=display modes
-          values=], return.
+          <li>If [=display modes list=] doesn't [=list/contain=]
+          |json|["display"], return.
           </li>
           <li>Set |manifest|["display"] to |json|["display"].
           </li>
@@ -724,12 +714,12 @@
         </p>
         <p>
           Certain UI/UX concerns and/or platform conventions will mean that
-          some screen orientations and display modes <dfn>cannot be used
-          together</dfn>. Which orientations and display modes cannot be used
-          together is left to the discretion of implementers. For example, for
-          some user agents, it might not make sense to change the <a>default
-          screen orientation</a> of an application while in `browser`
-          <a>display mode</a>.
+          some screen orientations and <dfn>cannot be used together</dfn>.
+          Which orientations and display modes cannot be used together is left
+          to the discretion of implementers. For example, for some user agents,
+          it might not make sense to change the <a>default screen
+          orientation</a> of an application while in `browser` <a>display
+          mode</a>.
         </p>
         <p class="note">
           Once the web application is running, other means can change the
@@ -737,14 +727,15 @@
           [[SCREEN-ORIENTATION]] API).
         </p>
         <p>
-          To <dfn>process the `orientation` member</dfn>, given JSON
-          |json:JSON| and [=ordered map=] |manifest:ordered map|:
+          To <dfn>process the `orientation` member</dfn>, given [=ordered map=]
+          |json:ordered map| and [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
-          <li>If the type of |json|["orientation"] is not [=string=], return.
+          <li>If |json|["orientation"] doesn't [=map/exist=] or
+          |json|["orientation"] is not a [=string=], return.
           </li>
-          <li>If |json|["orientation"] doesn't match one of the [=orientation
-          values=], return.
+          <li>If |json|["orientation"] doesn't [=list/contain=] any of the
+          [=orientation values=], return.
           </li>
           <li>Set |manifest|["orientation"] to |json|["orientation"].
           </li>
@@ -770,12 +761,13 @@
           being created or any time thereafter.
         </p>
         <p>
-          To <dfn>process the `start_url` member</dfn>, given [=object=]
-          |json:JSON|, [=ordered map=] |manifest:ordered map|, [=URL=]
+          To <dfn>process the `start_url` member</dfn>, given [=ordered map=]
+          |json:ordered map|, [=ordered map=] |manifest:ordered map|, [=URL=]
           |manifest URL:URL|, and [=URL=] |document URL:URL|:
         </p>
         <ol class="algorithm">
-          <li>Let |start URL:URL| be the result of [=processing a URL value=], passing |json|["start_url"] and |document URL|.
+          <li>Let |start URL:URL| be the result of [=processing a URL value=],
+          passing |json|["start_url"] and |document URL|.
           </li>
           <li>If |start URL| is failure, return.
           </li>
@@ -814,6 +806,189 @@
             necessary, modify the <a>start URL</a> of an application.
           </p>
         </section>
+      </section>
+      <section>
+        <h3>
+          `id` member
+        </h3>
+        <p>
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
+          "manifest">id</dfn></code> member is a <a>string</a> that represents
+          the <dfn>identity</dfn> for the application. The [=identity=] takes
+          the form of a URL, which is same origin as the start URL.
+        </p>
+        <p>
+          The [=identity=] is used by user agents to uniquely identify the
+          application universally. When the user agent sees a manifest with an
+          [=identity=] that does not correspond to an already-installed
+          application, it SHOULD treat that manifest as a description of a
+          distinct application, even if it is served from the same URL as that
+          of another application. When the user agent sees a manifest where
+          |manifest|["id"] [=url/equal|equals=] the [=identity=] of an
+          already-installed application, it SHOULD be used as a signal that
+          this manifest is a replacement for the already-installed
+          application's manifest, and not a distinct application, even if it is
+          served from a different URL than the one seen previously.
+        </p>
+        <p class="note">
+          The [=identity=] can be used by a service that collects lists of web
+          applications to uniquely identify applications.
+        </p>
+        <p class="note">
+          The [=identity=] is processed like a URL but it doesn't point to a
+          resource that can be navigated to, so it's not required to be
+          [=URL/within scope=].
+        </p>
+        <p>
+          To <dfn>process the `id` member</dfn>, given [=object=] |json:JSON|,
+          [=ordered map=] |manifest:ordered map|:
+        </p>
+        <ol class="algorithm">
+          <li>Set |manifest|["id"] to |manifest|["start_url"].
+          </li>
+          <li>If the type of |json|["id"] is not [=string=], return.
+          </li>
+          <li>If |json|["id"] is the empty string, return.
+          </li>
+          <li>Let |base origin| be |manifest|["start_url"]'s [=url/origin=].
+          </li>
+          <li>Let |id:URL| be the result of [=URL Parser|parsing=] |json|["id"]
+          with |base origin| as the base URL.
+          </li>
+          <li>If |id| is failure, return.
+          </li>
+          <li>If |id| is not [=same origin=] as |manifest|["start_url"],
+          return.
+          </li>
+          <li>Set |manifest|["id"] to |id|.
+          </li>
+        </ol>
+        <aside class="example" title="Resulting ids">
+          <p>
+            Below table shows some example `id`s resulting from the [=process
+            the `id` member=] steps.
+          </p>
+          <table class="data">
+            <tr>
+              <th>
+                |json|["id"]
+              </th>
+              <th>
+                |manifest|["start_url"]
+              </th>
+              <th>
+                |manifest|["id"]
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <i>undefined</i>
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <i>undefined</i>
+              </td>
+              <td>
+                "https://example.com/my-app/#here"
+              </td>
+              <td>
+                "https://example.com/my-app/#here"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                ""
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                "/"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                "foo"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/foo"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                "./foo"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/foo"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                "https://example.com/foo"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/foo"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                "https://anothersite.com/foo"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                "😀"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/%F0%9F%98%80"
+              </td>
+            </tr>
+          </table>
+          <p>
+            Since [=manifest/id=] is resolved against [=manifest/start_url=]'s
+            [=URL/origin=], providing "../foo", "foo", "/foo", "./foo" all
+            resolves to the same [=identifier=]. It is As such, best practice
+            is to use a leading "/" to be explicit that the id is a
+            root-relative url path. Also, standard encoding/decoding rules are
+            apply to the id processing algorithm, as per the [[[URL]]].
+          </p>
+        </aside>
       </section>
       <section>
         <h3>
@@ -876,15 +1051,16 @@
         </p>
         <p>
           To <dfn>process the `related_applications` member</dfn>, given
-          [=object=] |json:JSON| and [=ordered map=] |manifest:ordered map|:
+          [=ordered map=] |json:ordered map| and [=ordered map=]
+          |manifest:ordered map|:
         </p>
         <ol class="algorithm">
           <li>Let |relatedApplications:list| be a new [=list=].
           </li>
           <li>Set |manifest|["related_applications"] to |relatedApplications|.
           </li>
-          <li>If the type of |json|["related_applications"] is not [=array=],
-          return.
+          <li>If |json|["related_applications"] doesn't [=map/exist=] or
+          |json|["related_applications"] is not a [=list=], return.
           </li>
           <li>[=list/For each=] <var>app</var> of
           |json|["related_applications"]:
@@ -959,7 +1135,7 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">shortcuts</dfn></code> member is an [=array=] of
+          "manifest">shortcuts</dfn></code> member is an [=list=] of
           <a>shortcut item</a>s that provide access to key tasks within a web
           application.
         </p>
@@ -971,7 +1147,7 @@
           </p>
           <p>
             Developers are encouraged to order their shortcuts by priority,
-            with the most critical shortcuts appearing first in the array.
+            with the most critical shortcuts appearing first in the list.
           </p>
         </aside>
         <p>
@@ -979,19 +1155,21 @@
           user, is at the discretion of the user agent and/or operating system.
         </p>
         <p>
-          To <dfn>process the `shortcuts` member</dfn>, given [=object=]
-          |json:JSON|, |manifest:ordered map|, and |manifest URL:URL|:
+          To <dfn>process the `shortcuts` member</dfn>, given [=ordered map=]
+          |json:ordered map|, [=ordered map=] |manifest:ordered map|, and
+          [=URL=] |manifest URL:URL|:
         </p>
         <ol class="algorithm">
           <li>Let |processedShortcuts:list| be a new [=list=].
           </li>
           <li>Set |manifest|["shortcuts"] to |processedShortcuts|.
           </li>
-          <li>If the type of |json|["shortcuts"] is not [=array=], return.
+          <li>If |json|["shortcuts"] doesn't [=map/exist=] or
+          |json|["shortcuts"] is not a [=list=], return.
           </li>
-          <li>[=list/For each=] |entry:object| of |json|["shortcuts"]:
+          <li>[=list/For each=] |entry:ordered map| of |json|["shortcuts"]:
             <ol>
-              <li>Let |shortcut:Ordered map| be [=process a shortcut=] with
+              <li>Let |shortcut:ordered map| be [=process a shortcut=] with
               |entry|.
               </li>
               <li>If |shortcut| is failure, continue.
@@ -1022,8 +1200,8 @@
           <a>applying</a> a <a>manifest</a>.
         </p>
         <p>
-          A user agent MUST support the [=link type "manifest"=] and the
-          associated steps for how to fetch and process the linked resource.
+          A user agent MUST support the link type "manifest" and the associated
+          steps for how to fetch and process the linked resource.
         </p>
         <section id="processing">
           <h3>
@@ -1034,14 +1212,17 @@
             whatever manifest, member, or value caused the condition is absent.
           </p>
           <p>
-            The following algorithm provides an <dfn>extension point</dfn>:
-            other specifications that add new members to the manifest are
-            encouraged to hook themselves into this specification at this point
-            in the algorithm. They SHOULD NOT modify the existing values
-            already in the <var>manifest</var> object.
+            The following algorithm provides an <dfn data-dfn-for=
+            "application manifest" data-export="">processing
+            extension-point</dfn>: other specifications that add new members to
+            the manifest are encouraged to hook themselves into this
+            specification at this point in the algorithm. They SHOULD NOT
+            modify the existing values already in the <var>manifest</var>
+            object.
           </p>
           <p class="note">
-            The <a>extension point</a> is meant to help avoid <a href=
+            The [=application manifest/processing extension-point=] is meant to
+            help avoid <a href=
             "https://annevankesteren.nl/2014/02/monkey-patch">issues related to
             monkey patching</a>.
           </p>
@@ -1057,19 +1238,19 @@
             </li>
             <li>Assert: |document URL:URL| is not null.
             </li>
-            <li>Let |json| be the result of [=parse JSON from bytes=]
-            |response|'s [=response/body=].
+            <li>Let |json| be the result of [=parse JSON bytes to an Infra
+            value=] passing |response|'s [=response/body=].
             </li>
-            <li>If the |json| is a parsing exception, or the type of |json| is
-            not [=object=]:
+            <li>If the |json| is a parsing exception, or |json| is not an
+            [=ordered map=]:
               <ol>
-                <li>Set |json:object| to an empty [=object=] (i.e., equivalent
-                of JSON parsing the string `"{}"`).
+                <li>Set |json:ordered map| to an empty [=ordered map=].
                 </li>
               </ol>
             </li>
-            <li>Let |manifest| be a new [=ordered map=] «[ "display" →
-            "browser", "dir" → "auto", "start_url" → |document URL| ]».
+            <li>Let |manifest:ordered map| be a new [=ordered map=] «[
+            "display" → "browser", "dir" → "auto", "start_url" → |document URL|
+            ]».
             </li>
             <li>[=Process the `dir` member=] passing |json| and |manifest|.
             </li>
@@ -1086,8 +1267,13 @@
             <li>[=Process a text member=] passing |json|, |manifest|, and
             "short_name".
             </li>
+            <li>Let |manifest URL:URL| be |response|'s [=response/URL=].
+            </li>
             <li>[=Process the `start_url` member=] passing |json|, |manifest|,
             |manifest URL|, and |document URL|.
+            </li>
+            <li>[=Process the `id` member=] passing |json|, |manifest| and
+            |document URL|.
             </li>
             <li>[=Process the `scope` member=] passing |json|, |manifest|, and
             |manifest URL|.
@@ -1114,9 +1300,9 @@
             <li>[=Process the `shortcuts` member=] passing |json|, |manifest|,
             and |manifest URL|.
             </li>
-            <li>
-              <a>Extension point</a>: process any proprietary and/or other
-              supported members at this point in the algorithm.
+            <li>[=application manifest/Processing extension-point=]: process
+            any proprietary and/or other supported members at this point in the
+            algorithm.
             </li>
             <li>Let [=document=]'s <dfn data-dfn-for="Document">processed
             manifest</dfn> be |manifest|.
@@ -1136,11 +1322,13 @@
             "@color-profile" rule which cannot be specified in the manifest.
           </p>
           <p>
-            To <dfn>process a color member</dfn>, using JSON |json:JSON|,
-            [=ordered map=] |map:ordered map|, and [=string=] |member:string|:
+            To <dfn>process a color member</dfn>, using [=ordered map=]
+            |json:ordered map|, [=ordered map=] |map:ordered map|, and
+            [=string=] |member:string|:
           </p>
           <ol class="algorithm">
-            <li>If the type of |json|[member] is not [=string=], return.
+            <li>If |json|[member] doesn't [=map/exist=] or |json|[member] is
+            not a [=string=], return.
             </li>
             <li>Let |color| be the result of [=CSS/parsing=] the value of
             |json|[member] as a CSS color.
@@ -1162,13 +1350,37 @@
             Processing text members
           </h2>
           <p>
-            To <dfn>process a text member</dfn>, given [=object=] |json:JSON|,
-            [=ordered map=] |map:ordered map|, and [=string=] |member:string|:
+            To <dfn>process a text member</dfn>, given [=ordered map=]
+            |json:ordered map|, [=ordered map=] |map:ordered map|, and
+            [=string=] |member:string|:
           </p>
           <ol class="algorithm">
-            <li>If the type of |json|[|member|] is not [=string=], return.
+            <li>If |json|[|member|] doesn't [=map/exists=] or |json|[|member|]
+            is not a [=string=], return.
             </li>
             <li>Set |map|[member] to the value of |json|[|member|].
+            </li>
+          </ol>
+        </section>
+        <section>
+          <h2>
+            Processing url members
+          </h2>
+          <p>
+            To <dfn data-lt="processing a URL value">process a URL value</dfn>,
+            given [=string=] |URL:string| and [=URL=] |manifest URL:URL|:
+          </p>
+          <ol class="algorithm">
+            <li>If the type of |URL| is not [=string=], return.
+            </li>
+            <li>If |URL| is the empty string, return.
+            </li>
+            <li>Let |final URL:URL| be the result of [=URL Parser|parsing=]
+            |URL|, using |manifest URL| as the base URL.
+            </li>
+            <li>If |final URL| is failure, return.
+            </li>
+            <li>Otherwise, return |final URL|.
             </li>
           </ol>
         </section>
@@ -1258,24 +1470,22 @@
           purpose</a>.
         </p>
         <p class="note">
-          For example, an icon with purpose "<a>monochrome</a>" could be used
-          as a badge or pinned icon with a solid fill, visually distinct from
-          an application's full color launch icon. The user agent uses the
-          value of the [=manifest image resource/purpose=] member as a hint to
-          determine where and how an [=manifest image resource/purpose=] is
-          displayed. Unless declared otherwise by the developer, a user agent
-          can use an icon for [=any|any purpose=].
+          For example, an icon with purpose "[=icon purpose/monochrome=]" could
+          be used as a badge or pinned icon with a solid fill, visually
+          distinct from an application's full color launch icon. The user agent
+          uses the value of the [=manifest image resource/purpose=] member as a
+          hint to determine where and how an [=manifest image
+          resource/purpose=] is displayed. Unless declared otherwise by the
+          developer, a user agent can use an icon for [=icon purpose/any|any
+          purpose=].
         </p>
         <p>
           The <dfn>icon purposes</dfn> are as follows:
         </p>
         <dl>
           <dt>
-            "<dfn>monochrome</dfn>"
+            <dfn data-dfn-for="icon purpose">monochrome</dfn>
           </dt>
-          <dd>
-            <aside class="issue atrisk" data-number="905"></aside>
-          </dd>
           <dd>
             A user agent can present this icon where a <a href=
             "#monochrome-icons-and-solid-fills">monochrome icon with a solid
@@ -1284,7 +1494,7 @@
             user agent like a mask over any solid fill.
           </dd>
           <dt>
-            "<dfn>maskable</dfn>"
+            <dfn data-dfn-for="icon purpose">maskable</dfn>
           </dt>
           <dd>
             The image is designed with <a href="#icon-masks">icon masks and
@@ -1293,12 +1503,17 @@
             by the user agent.
           </dd>
           <dt>
-            "<dfn>any</dfn>" (default)
+            <dfn data-dfn-for="icon purpose">any</dfn> (default)
           </dt>
           <dd>
             The user agent is free to display the icon in any context.
           </dd>
         </dl>
+        <p>
+          The <dfn>icon purposes list</dfn> is the [=list=] « "[=icon
+          purpose/monochrome=]", "[=icon purpose/maskable=]", "[=icon
+          purpose/any=]" ».
+        </p>
         <p class="note">
           If an icon contains multiple purposes, it could be used for any of
           those purposes. If none of the stated purposes are recognized, the
@@ -1308,11 +1523,12 @@
           the purpose `"fizzbuzz"`, then it will be ignored.
         </p>
         <p>
-          To <dfn>determine the purpose of an image</dfn>, given [=object=]
-          |json:image|:
+          To <dfn>determine the purpose of an image</dfn>, given [=ordered
+          map=] |json:image|:
         </p>
         <ol class="algorithm">
-          <li>If the type of |json|["purpose"] is not [=string=]:
+          <li>If |json|["purpose"] doesn't [=map/exist=] or if
+          |json|["purpose"] is not a [=string=]:
             <ol>
               <li>Return [=set=] « "any" ».
               </li>
@@ -1325,8 +1541,8 @@
           </li>
           <li>[=set/For each=] |keyword:string| of |keywords|:
             <ol>
-              <li>If |keyword| is not one of the [=icon purposes=], then
-              [=iteration/continue=].
+              <li>If [=icon purposes list=] doesn't [=list/contain=] |keyword|,
+              then [=iteration/continue=].
               </li>
               <li>Otherwise, [=set/append=] |keyword| to |purposes|.
               </li>
@@ -1393,22 +1609,22 @@
           Some platforms have their own preferred icon shape, but as web
           applications should work across multiple platforms, it is possible to
           indicate that an icon can have a user-agent-specified mask applied by
-          adding the <a>maskable</a> purpose. This allows the platform to
-          ensure that the icon looks well integrated with the platform, and
-          even apply different masks and background colors in different places
-          throughout the platform.
+          adding the [=icon purpose/maskable=] purpose. This allows the
+          platform to ensure that the icon looks well integrated with the
+          platform, and even apply different masks and background colors in
+          different places throughout the platform.
         </p>
         <p>
-          The <dfn>safe zone</dfn> is the area within a <a>maskable</a> icon
-          which is guaranteed to always be visible, regardless of user agent
-          preferences. It is defined as a circle with center point in the
-          center of the icon and with a radius of 2/5 (40%) of the icon size,
-          which means the smaller of the icon width and height, in case the
-          icon is not square.
+          The <dfn>safe zone</dfn> is the area within a [=icon
+          purpose/maskable=] icon which is guaranteed to always be visible,
+          regardless of user agent preferences. It is defined as a circle with
+          center point in the center of the icon and with a radius of 2/5 (40%)
+          of the icon size, which means the smaller of the icon width and
+          height, in case the icon is not square.
         </p>
         <p class="note">
-          Designers of <a>maskable</a> icons will want to make sure that all
-          important parts are within the <a>safe zone</a>.
+          Designers of [=icon purpose/maskable=] icons will want to make sure
+          that all important parts are within the <a>safe zone</a>.
         </p>
         <figure>
           <img src="images/safe-zone.svg" width="340" height="340" alt=
@@ -1531,22 +1747,23 @@
           icon can be declared in a [=manifest=]. As web applications need to
           work across multiple platforms, it is possible to indicate that an
           icon can have an user-agent-specified color applied by adding the
-          <a>monochrome</a> purpose. This allows the platform to ensure that
-          the icon looks well integrated with the platform, and even apply
-          different colors and padding in different places throughout the
-          platform.
+          [=icon purpose/monochrome=] purpose. This allows the platform to
+          ensure that the icon looks well integrated with the platform, and
+          even apply different colors and padding in different places
+          throughout the platform.
         </p>
         <p>
-          When presenting a <a>monochrome</a> icon, the user agent MUST NOT
-          independently display the red component, green component, or blue
-          component of a pixel. The user agent SHOULD display each pixel with
-          its original alpha value, but with a red, green, and blue value of
-          the user agent's choosing. It is RECOMMENDED that the user agent use
-          the same color value for all pixels.
+          When presenting a [=icon purpose/monochrome=] icon, the user agent
+          MUST NOT independently display the red component, green component, or
+          blue component of a pixel. The user agent SHOULD display each pixel
+          with its original alpha value, but with a red, green, and blue value
+          of the user agent's choosing. It is RECOMMENDED that the user agent
+          use the same color value for all pixels.
         </p>
         <p class="note">
-          Designers of <a>monochrome</a> icons could set all pixels to black
-          and only use transparency to create a silhouette of their icon.
+          Designers of [=icon purpose/monochrome=] icons could set all pixels
+          to black and only use transparency to create a silhouette of their
+          icon.
         </p>
         <p>
           The user agent MAY enlarge the icon by adding additional padding.
@@ -1596,9 +1813,9 @@
           Processing image resources
         </h3>
         <p>
-          To <dfn>process image resources</dfn>, given [=array=]
-          |images:array|, [=ordered map=] |map:ordered map|, |manifest URL:URL|
-          and [=string=] |member:string|:
+          To <dfn>process image resources</dfn>, given [=list=] |images:list|,
+          [=ordered map=] |map:ordered map|, |manifest URL:URL| and [=string=]
+          |member:string|:
         </p>
         <ol class="algorithm">
           <li>Let |imageResources:List&lt;Image&nbsp;Resources&gt;| be a new
@@ -1606,7 +1823,7 @@
           </li>
           <li>Set |map|[member] to |imageResources|.
           </li>
-          <li>If the type of |images| is not [=array=], return.
+          <li>If |images| is not [=list=], return.
           </li>
           <li>[=list/For each=] |potential image:Manifest image resource| of
           |images|:
@@ -1637,8 +1854,8 @@
       </h2>
       <p>
         Each <dfn data-local-lt="Shortcut item's">shortcut item</dfn> is an
-        [=object=] that represents a link to a key task or page within a web
-        app. It has the following members:
+        [=ordered map=] that represents a link to a key task or page within a
+        web app. It has the following members:
       </p>
       <ul>
         <li>[=shortcut item/name=]
@@ -1648,6 +1865,8 @@
         <li>[=shortcut item/description=]
         </li>
         <li>[=shortcut item/url=]
+        </li>
+        <li>[=shortcut item/icons=]
         </li>
       </ul>
       <p>
@@ -1707,8 +1926,8 @@
         </h3>
         <p>
           The <a>shortcut item</a>'s <code><dfn data-dfn-for=
-          "shortcut item">icons</dfn></code> member serve as iconic
-          representations of the shortcut in various contexts.
+          "shortcut item">icons</dfn></code> member lists images that serve as
+          iconic representations of the shortcut in various contexts.
         </p>
       </section>
       <section>
@@ -1735,15 +1954,26 @@
           Processing shortcut items
         </h2>
         <p>
-          To <dfn>process a shortcut</dfn>, given [=object=] |item:object|:
+          To <dfn>process a shortcut</dfn>, given [=ordered map=] |item:ordered
+          map| and [=URL=] |document URL:URL|:
         </p>
         <ol class="algorithm">
-          <li>If the type of |item| is not [=object=], return failure.
+          <li>Return failure if it's the case that:
+            <ul>
+              <li>|item| is not [=ordered map=].
+              </li>
+              <li>|item|["name"] doesn't [=map/exist=].
+              </li>
+              <li>|item|["name"] is the empty string.
+              </li>
+              <li>|item|["url"] doesn't [=map/exist=].
+              </li>
+              <li>|item|["url"] is not a [=string=].
+              </li>
+            </ul>
           </li>
-          <li>If |item|["name"] is missing or |item|["name"] is the empty
-          string, return failure.
-          </li>
-          <li>Let |url| be the result of [=processing a URL value=], passing |item|["url"] and |document URL|.
+          <li>Let |url:URL| be the result of [=processing a URL value=],
+          passing |item|["url"] and |document URL|.
           </li>
           <li>If |url| is failure, return failure.
           </li>
@@ -1894,7 +2124,7 @@
         <p>
           An [=external application resource's=] <code><dfn data-dfn-for=
           "external application resource">fingerprints</dfn></code> member
-          represents an array of [=fingerprints=].
+          represents an [=list=] of [=fingerprints=].
         </p>
         <p>
           A <dfn data-local-lt="fingerprints">fingerprint</dfn> represents a
@@ -2168,6 +2398,58 @@
         interpret them how they best see fit.
       </p>
       <p>
+        This specification defines the following [=display modes=]:
+      </p>
+      <dl>
+        <dt>
+          <dfn data-dfn-for="display mode">fullscreen</dfn>
+        </dt>
+        <dd>
+          Opens the web application with browser UI elements hidden and takes
+          up the entirety of the available display area.
+        </dd>
+        <dt>
+          <dfn data-dfn-for="display mode">standalone</dfn>
+        </dt>
+        <dd>
+          Opens the web application to look and feel like a standalone native
+          application. This can include the application having a different
+          window, its own icon in the application launcher, etc. In this mode,
+          the user agent will exclude standard browser UI elements such as an
+          URL bar, but can include other system UI elements such as a status
+          bar and/or system back button.
+        </dd>
+        <dt>
+          <dfn data-dfn-for="display mode">minimal-ui</dfn>
+        </dt>
+        <dd>
+          This mode is similar to [=display mode/standalone=], but provides the
+          end-user with some means to access a minimal set of UI elements for
+          controlling navigation (i.e., back, forward, reload, and perhaps some
+          way of viewing the document's address). A user agent can include
+          other platform specific UI elements, such as "share" and "print"
+          buttons or whatever is customary on the platform and user agent.
+        </dd>
+        <dt>
+          <dfn data-dfn-for="display mode">browser</dfn> (default)
+        </dt>
+        <dd>
+          Opens the web application using the platform-specific convention for
+          opening hyperlinks in the user agent (e.g., in a browser tab or a new
+          window).
+        </dd>
+      </dl>
+      <p class="note">
+        The [=display mode/fullscreen=] <a>display mode</a> is orthogonal to,
+        and works independently of, the [[[FULLSCREEN]]]. The [=display
+        mode/fullscreen=] <a>display mode</a> affects the fullscreen state of
+        the browser window, while the [[FULLSCREEN]] API operates on an element
+        contained within the viewport. As such, a web application can have its
+        <a>display mode</a> set to [=display mode/fullscreen=], while
+        `document.fullScreenElement` returns `null`, and `fullscreenEnabled`
+        returns `false`.
+      </p>
+      <p>
         Once a user agent [=applies=] a particular <a>display mode</a> to an
         <a>application context</a>, it becomes the <dfn>default display
         mode</dfn> for the <a>top-level browsing context</a> (i.e., it is used
@@ -2179,24 +2461,25 @@
       </p>
       <p>
         When the [=manifest/display=] member is missing, or if there is no
-        valid [=manifest/display=] member, the user agent uses the
-        <a>browser</a> <a>display mode</a> as the <a>default display mode</a>.
-        As such, the user agent MUST support the <a>browser</a> <a>display
-        mode</a>.
+        valid [=manifest/display=] member, the user agent uses the [=display
+        mode/browser=] <a>display mode</a> as the <a>default display mode</a>.
+        As such, the user agent MUST support the [=display mode/browser=]
+        <a>display mode</a>.
       </p>
       <p>
         Every [=display mode=] has a <dfn>fallback chain</dfn>, which is a list
         of [=display modes=]. The [=fallback chain=] for:
       </p>
       <ol>
-        <li>[=browser=] is «».
+        <li>[=display mode/browser=] is «».
         </li>
-        <li>[=minimal-ui=] is « "[=browser=]" ».
+        <li>[=display mode/minimal-ui=] is « "[=display mode/browser=]" ».
         </li>
-        <li>[=standalone=] is « "[=minimal-ui=]", "[=browser=]" ».
+        <li>[=display mode/standalone=] is « "[=display mode/minimal-ui=]",
+        "[=display mode/browser=]" ».
         </li>
-        <li>[=fullscreen=] is « "[=standalone=]", "[=minimal-ui=]",
-        "[=browser=]" ».
+        <li>[=display mode/fullscreen=] is « "[=display mode/standalone=]",
+        "[=display mode/minimal-ui=]", "[=display mode/browser=]" ».
         </li>
       </ol>
       <p>
@@ -2206,9 +2489,9 @@
         returns a [=display mode=].
       </p>
       <ol class="algorithm">
-        <li>
-          <a>Extension point</a>: process any proprietary and/or other
-          supported display modes at this point in the algorithm.
+        <li>[=application manifest/processing extension-point=]: process any
+        proprietary and/or other supported display modes at this point in the
+        algorithm.
         </li>
         <li>If the user agent supports |manifest|["display"], then return
         |manifest|["display"].
@@ -2224,9 +2507,9 @@
       </ol>
       <p class="note">
         The above loop is guaranteed to return a value before the assertion,
-        due to the fact that {{browser}} is in every mode's [=fallback chain=],
-        and the requirement that all user agents support the {{browser}}
-        [=display mode=].
+        due to the fact that [=display mode/browser=] is in every mode's
+        [=fallback chain=], and the requirement that all user agents support
+        the [=display mode/browser=] [=display mode=].
       </p>
       <aside class="example">
         <p>
@@ -2240,55 +2523,9 @@
         </p>
       </aside>
       <p>
-        The <dfn>display modes values</dfn> are:
-      </p>
-      <dl>
-        <dt>
-          "<dfn>fullscreen</dfn>"
-        </dt>
-        <dd>
-          Opens the web application with browser UI elements hidden and takes
-          up the entirety of the available display area.
-        </dd>
-        <dt>
-          "<dfn>standalone</dfn>"
-        </dt>
-        <dd>
-          Opens the web application to look and feel like a standalone native
-          application. This can include the application having a different
-          window, its own icon in the application launcher, etc. In this mode,
-          the user agent will exclude standard browser UI elements such as an
-          URL bar, but can include other system UI elements such as a status
-          bar and/or system back button.
-        </dd>
-        <dt>
-          "<dfn>minimal-ui</dfn>"
-        </dt>
-        <dd>
-          This mode is similar to <a>standalone</a>, but provides the end-user
-          with some means to access a minimal set of UI elements for
-          controlling navigation (i.e., back, forward, reload, and perhaps some
-          way of viewing the document's address). A user agent can include
-          other platform specific UI elements, such as "share" and "print"
-          buttons or whatever is customary on the platform and user agent.
-        </dd>
-        <dt>
-          "<dfn>browser</dfn>" (default)
-        </dt>
-        <dd>
-          Opens the web application using the platform-specific convention for
-          opening hyperlinks in the user agent (e.g., in a browser tab or a new
-          window).
-        </dd>
-      </dl>
-      <p class="note">
-        The <a>fullscreen</a> <a>display mode</a> is orthogonal to, and works
-        independently of, the [[[FULLSCREEN]]]. The <a>fullscreen</a>
-        <a>display mode</a> affects the fullscreen state of the browser window,
-        while the [[FULLSCREEN]] API operates on an element contained within
-        the viewport. As such, a web application can have its <a>display
-        mode</a> set to <a>fullscreen</a>, while `document.fullScreenElement`
-        returns `null`, and `fullscreenEnabled` returns `false`.
+        The <dfn>display modes list</dfn> is the [=list=] « "[=display
+        mode/fullscreen=]", "[=display mode/standalone=]", "[=display
+        mode/minimal-ui=]", "[=display mode/browser=]" ».
       </p>
       <section data-cite="css-conditional-3">
         <h3>
@@ -2318,8 +2555,8 @@
                 Value:
               </th>
               <td class="prod">
-                <a>fullscreen</a> | <a>standalone</a> | <a>minimal-ui</a> |
-                <a>browser</a>
+                [=display mode/fullscreen=] | [=display mode/standalone=] |
+                [=display mode/minimal-ui=] | [=display mode/browser=]
               </td>
             </tr>
             <tr>
@@ -2509,13 +2746,13 @@
       </p>
       <p>
         Additionally, when applying a manifest that sets the <a>display
-        mode</a> to anything except "<a>browser</a>", it is RECOMMENDED that
-        the user agent clearly indicate to the end-user that their are leaving
-        the normal browsing context of a web browser. Ideally, launching or
-        switching to a web application is performed in a manner that is
-        consistent with launching or switching to other applications in the
-        host platform. For example, a long and obvious animated transition, or
-        speaking the text "Launching application X".
+        mode</a> to anything except "[=display mode/browser=]", it is
+        RECOMMENDED that the user agent clearly indicate to the end-user that
+        their are leaving the normal browsing context of a web browser.
+        Ideally, launching or switching to a web application is performed in a
+        manner that is consistent with launching or switching to other
+        applications in the host platform. For example, a long and obvious
+        animated transition, or speaking the text "Launching application X".
       </p>
       <p>
         The `'display-mode'` media feature allows an origin access to aspects
@@ -2527,32 +2764,27 @@
         to mimic the user interface of another application.
       </p>
     </section>
-    <section>
+    <section class="appendix">
       <h2>
         IANA considerations
       </h2>
       <p>
-        The following registrations are for community review and will be
-        submitted to the <a href="https://www.ietf.org/iesg/">IESG</a> for
-        review, approval, and registration with <a href=
-        "https://www.iana.org/">IANA</a>.
+        The mime type <code><dfn data-export=
+        "">application/manifest+json</dfn></code> is the <dfn data-export=
+        "">application manifest media type</dfn>. Both the mime type and the
+        `.webmanifest` file extension are <a href=
+        "https://www.iana.org/assignments/media-types/application/manifest+json">
+        registered</a> with the Internet Assigned Numbers Authority
+        (<abbr title="Internet Assigned Numbers Authority">IANA</abbr>).
       </p>
       <section>
         <h3>
           Media type registration
         </h3>
         <p>
-          This section contains the required text for MIME media type
-          registration with <a href="https://www.iana.org/">IANA</a>.
-        </p>
-        <p>
-          The <dfn data-export="">application manifest MIME type</dfn> is
-          <dfn data-export="">`application/manifest+json`</dfn>.
-        </p>
-        <p>
           If the protocol over which the manifest is transferred supports the
           [[MIME-TYPES]] specification (e.g. HTTP), it is RECOMMENDED that the
-          manifest be labeled with the [=application manifest MIME type=].
+          manifest be labeled with the [=application manifest media type=].
         </p>
         <dl>
           <dt>
@@ -2583,7 +2815,7 @@
             Encoding considerations:
           </dt>
           <dd>
-            Same as for application/json
+            Same as for application/json ([[RFC7159]] section 8.1)
           </dd>
           <dt>
             Privacy and security considerations:
@@ -2661,10 +2893,6 @@
         <h3>
           Link relation type registration
         </h3>
-        <p class="note">
-          A request to register the `manifest` link relation type been
-          submitted to IANA.
-        </p>
         <dl>
           <dt>
             Relation Name:
@@ -2691,8 +2919,8 @@
             Notes:
           </dt>
           <dd>
-            See [=link type "manifest"=] for details about how a manifest is
-            [=fetched=].
+            See link type "manifest" for details about how a web manifest is
+            [=fetched=] [=processing a manifest|processed=].
           </dd>
         </dl>
       </section>
@@ -2717,11 +2945,11 @@
           This specification is designed to be extensible. Other specifications
           are encouraged to define new members for the manifest. However, in
           doing so, please follow the conventions used in this specification.
-          In particular, use the <a>extension point</a> to hook into the steps
-          for <a>processing a manifest</a>. Also, be sure to specify the steps
-          for processing your particular member in the manner set forth in this
-          specification. This will help keep this part of the platform
-          consistent.
+          In particular, use the [=application manifest/processing
+          extension-point=] to hook into the steps for <a>processing a
+          manifest</a>. Also, be sure to specify the steps for processing your
+          particular member in the manner set forth in this specification. This
+          will help keep this part of the platform consistent.
         </p>
         <p>
           To allow the community to easily find extensions, please add your
@@ -2800,7 +3028,7 @@
           <a href="https://github.com/w3c/manifest/pull/836">removed from the
           specification</a> because they did not have support from two or more
           implementers. You can now find them in the <a href=
-          "https://github.com/WICG/beforeinstallprompt">`BeforeInstallPrompt`
+          "https://github.com/WICG/manifest-incubations">`BeforeInstallPrompt`
           event and `window.onappinstalled` repository</a> at the <a href=
           "https://wicg.io"><abbr title=
           "Web Incubator Community Group">WICG</abbr></a>.
@@ -3020,8 +3248,7 @@
           }
           return !/^editorial|^chore|^\[chore|^fix|^refactor|^tests?|^docs|^typo|^nit/i.test(message);
         }
-      </script> <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483"
-      filter="removeCommits"></rs-changelog>
+      </script>
     </section>
     <section class="appendix informative">
       <h2>
