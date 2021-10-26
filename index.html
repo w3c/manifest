@@ -605,7 +605,8 @@
         </aside>
         <p>
           To <dfn>process the `scope` member</dfn>, given [=ordered map=]
-          |json:ordered map| and [=ordered map=] |manifest:ordered map|:
+          |json:ordered map|, [=ordered map=] |manifest:ordered map|, and [=URL=]
+          |document URL:URL|:
         </p>
         <ol class="algorithm">
           <li>Set |manifest|["scope"] to the result of [=URL Parser|parsing=]
@@ -613,8 +614,8 @@
           </li>
           <li>If |json|["scope"] is the empty string, then return.
           </li>
-          <li>Let |scope:URL| be the result of [=URL Parser|parsing=]
-          |json|["scope"] with |manifest URL| as the base URL.
+          <li>Let |scope:URL| be the result of [=processing a URL value=] ,
+          passing |json|["scope"] and |document URL|.
           </li>
           <li>If |scope| is failure, return.
           </li>
@@ -767,14 +768,10 @@
           |manifest URL:URL|, and [=URL=] |document URL:URL|:
         </p>
         <ol class="algorithm">
-          <li>If |json|["start_url"] doesn't [=map/exist=] or
-          |json|["start_url"] is not a [=string=], return.
+          <li>If |json|["start_url"] doesn't [=map/exist=], return.
           </li>
-          <li>If the type of |json|["start_url"] is not [=string=], or if
-          |json|["start_url"] is the empty string, return.
-          </li>
-          <li>Let |start URL:URL| be the result of [=URL Parser|parsing=]
-          |json|["start_url"], using |manifest URL| as the base URL.
+          <li>Let |start URL:URL| be the result of [=processing a URL value=],
+          passing |json|["start_url"] and |document URL|.
           </li>
           <li>If |start URL| is failure, return.
           </li>
@@ -1378,16 +1375,12 @@
             given [=string=] |URL:string| and [=URL=] |manifest URL:URL|:
           </p>
           <ol class="algorithm">
-            <li>If the type of |URL| is not [=string=], return.
-            </li>
-            <li>If |URL| is the empty string, return.
+            <li>If the type of |URL| is not [=string=] or |URL| is the empty string, return failure.
             </li>
             <li>Let |final URL:URL| be the result of [=URL Parser|parsing=]
             |URL|, using |manifest URL| as the base URL.
             </li>
-            <li>If |final URL| is failure, return.
-            </li>
-            <li>Otherwise, return |final URL|.
+            <li>Return |final URL|.
             </li>
           </ol>
         </section>
@@ -1962,7 +1955,7 @@
         </h2>
         <p>
           To <dfn>process a shortcut</dfn>, given [=ordered map=] |item:ordered
-          map|:
+          map| and [=URL=] |document URL:URL|:
         </p>
         <ol class="algorithm">
           <li>Return failure if it's the case that:
@@ -1975,12 +1968,10 @@
               </li>
               <li>|item|["url"] doesn't [=map/exist=].
               </li>
-              <li>|item|["url"] is not a [=string=].
-              </li>
             </ul>
           </li>
-          <li>Let |url:URL| be the result of [=URL Parser|parsing=]
-          |item|["url"] with |manifest URL| as the base URL.
+          <li>Let |url:URL| be the result of [=processing a URL value=],
+          passing |item|["url"] and |document URL|.
           </li>
           <li>If |url| is failure, return failure.
           </li>
