@@ -605,8 +605,8 @@
         </aside>
         <p>
           To <dfn>process the `scope` member</dfn>, given [=ordered map=]
-          |json:ordered map|, [=ordered map=] |manifest:ordered map|, and [=URL=]
-          |document URL:URL|:
+          |json:ordered map|, [=ordered map=] |manifest:ordered map|, and
+          [=URL=] |document URL:URL|:
         </p>
         <ol class="algorithm">
           <li>Set |manifest|["scope"] to the result of [=URL Parser|parsing=]
@@ -1375,7 +1375,8 @@
             given [=string=] |URL:string| and [=URL=] |manifest URL:URL|:
           </p>
           <ol class="algorithm">
-            <li>If the type of |URL| is not [=string=] or |URL| is the empty string, return failure.
+            <li>If the type of |URL| is not [=string=] or |URL| is the empty
+            string, return failure.
             </li>
             <li>Let |final URL:URL| be the result of [=URL Parser|parsing=]
             |URL|, using |manifest URL| as the base URL.
