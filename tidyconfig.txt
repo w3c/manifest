@@ -1,4 +1,4 @@
-char-encoding: utf8
+char-encoding: utf-16
 indent: yes
 indent-spaces: 2
 wrap: 80
