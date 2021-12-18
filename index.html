@@ -2378,67 +2378,14 @@
     </section>
     <section>
       <h2>
-        Display modes
+        Choosing a display mode
       </h2>
       <p>
-        A <dfn>display mode</dfn> represents how the web application is being
+        A [=display mode=], as defined in [[MEDIAQUERIES-5]],
+        represents how the web application is being
         presented within the context of an OS (e.g., in fullscreen, etc.).
         Display modes correspond to user interface (UI) metaphors and
-        functionality in use on a given platform. The UI conventions of the
-        display modes are purely advisory and implementers are free to
-        interpret them how they best see fit.
-      </p>
-      <p>
-        This specification defines the following [=display modes=]:
-      </p>
-      <dl>
-        <dt>
-          <dfn data-dfn-for="display mode">fullscreen</dfn>
-        </dt>
-        <dd>
-          Opens the web application with browser UI elements hidden and takes
-          up the entirety of the available display area.
-        </dd>
-        <dt>
-          <dfn data-dfn-for="display mode">standalone</dfn>
-        </dt>
-        <dd>
-          Opens the web application to look and feel like a standalone native
-          application. This can include the application having a different
-          window, its own icon in the application launcher, etc. In this mode,
-          the user agent will exclude standard browser UI elements such as an
-          URL bar, but can include other system UI elements such as a status
-          bar and/or system back button.
-        </dd>
-        <dt>
-          <dfn data-dfn-for="display mode">minimal-ui</dfn>
-        </dt>
-        <dd>
-          This mode is similar to [=display mode/standalone=], but provides the
-          end-user with some means to access a minimal set of UI elements for
-          controlling navigation (i.e., back, forward, reload, and perhaps some
-          way of viewing the document's address). A user agent can include
-          other platform specific UI elements, such as "share" and "print"
-          buttons or whatever is customary on the platform and user agent.
-        </dd>
-        <dt>
-          <dfn data-dfn-for="display mode">browser</dfn> (default)
-        </dt>
-        <dd>
-          Opens the web application using the platform-specific convention for
-          opening hyperlinks in the user agent (e.g., in a browser tab or a new
-          window).
-        </dd>
-      </dl>
-      <p class="note">
-        The [=display mode/fullscreen=] <a>display mode</a> is orthogonal to,
-        and works independently of, the [[[FULLSCREEN]]]. The [=display
-        mode/fullscreen=] <a>display mode</a> affects the fullscreen state of
-        the browser window, while the [[FULLSCREEN]] API operates on an element
-        contained within the viewport. As such, a web application can have its
-        <a>display mode</a> set to [=display mode/fullscreen=], while
-        `document.fullScreenElement` returns `null`, and `fullscreenEnabled`
-        returns `false`.
+        functionality in use on a given platform.
       </p>
       <p>
         Once a user agent [=applies=] a particular <a>display mode</a> to an
@@ -2518,130 +2465,17 @@
         mode/fullscreen=]", "[=display mode/standalone=]", "[=display
         mode/minimal-ui=]", "[=display mode/browser=]" ».
       </p>
-      <section data-cite="css-conditional-3">
-        <h3>
-          The `'display-mode'` media feature
-        </h3>
-        <table class="def descdef mq">
-          <tbody>
-            <tr>
-              <th>
-                Name:
-              </th>
-              <td>
-                <dfn data-dfn-for="@media" data-dfn-type="descriptor"
-                data-export="">display-mode</dfn>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                For:
-              </th>
-              <td>
-                <a data-xref-type="css-at-rule">@media</a>
-              </td>
-            </tr>
-            <tr>
-              <th>
-                Value:
-              </th>
-              <td class="prod">
-                [=display mode/fullscreen=] | [=display mode/standalone=] |
-                [=display mode/minimal-ui=] | [=display mode/browser=]
-              </td>
-            </tr>
-            <tr>
-              <th>
-                Type:
-              </th>
-              <td>
-                discrete
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <p>
-          The `display-mode` media feature represents, via a CSS media query
-          [[MEDIAQ]], the <a>display mode</a> of the web application. This
-          media feature applies to the top-level browsing context and any child
-          browsing contexts. Child browsing contexts reflect the <a>display
-          mode</a> of the <a>top-level browsing context</a>.
-        </p>
-        <p>
-          A user agent MUST expose the '`display-mode`' media feature
-          irrespective of whether a manifest is being applied to a browsing
-          context. For example, if the end-user puts the whole user agent into
-          fullscreen, then the user agent would reflect this change to CSS and
-          scripts via the '`display-mode`' media feature.
-        </p>
-        <aside class="note">
-          <p>
-            Please note that the `fullscreen` <a>display mode</a> is not
-            directly related to the CSS `:fullscreen` pseudo-class specified in
-            the [[[FULLSCREEN]]]. The `:fullscreen` pseudo-class matches
-            exclusively when a [[HTML]] element is put into the fullscreen
-            element stack. However, a side effect of calling the
-            `requestFullscreen()` method on an element using the [[FULLSCREEN]]
-            API is that the browser window can enter a fullscreen mode at the
-            OS-level. In such a case, both `:fullscreen` and `(display-mode:
-            fullscreen)` will match.
-          </p>
-          <p>
-            On some platforms, it is possible for a user to put a browser
-            window into fullscreen without the aid of the [[[FULLSCREEN]]].
-            When this happens, the `:fullscreen` pseudo class will not match,
-            but `(display-mode: fullscreen)` will match. This is exemplified in
-            CSS code below.
-          </p>
-          <pre class="example css">
-            /* applies when the window is fullscreen */
-            @media all and (display-mode: fullscreen) {
-                ...
-            }
-
-            /* applies when an element goes fullscreen */
-            #game:fullscreen {
-                ...
-            }
-          </pre>
-        </aside>
-        <p>
-          A user agent MUST reflect the applied <a>display mode</a> of the web
-          application via a CSS media query [[MEDIAQ]].
-        </p>
-        <section>
-          <h4>
-            Examples
-          </h4>
-          <p>
-            An example in CSS:
-          </p>
-          <pre class="example css" title="Using 'display-mode' media feature">
-            @media all and (display-mode: minimal-ui) {
-              /* ... */
-            }
-            @media all and (display-mode: standalone) {
-              /* ... */
-            }
-          </pre>
-          <p>
-            Accessing the display-mode media feature in ECMAScript through
-            `matchMedia()` of [[CSSOM-VIEW]]:
-          </p>
-          <pre class="example js" title=
-          "Accessing 'display-mode' media feature with script">
-            const standalone = matchMedia( '(display-mode: standalone)' );
-
-            standalone.onchange = (e) =&gt; {
-              /* handle changes to display mode */
-            }
-
-            if (standalone.matches) {
-              /* do standalone things */
-            }
-          </pre>
-        </section>
-      </section>
+      <p>
+        A user agent MUST reflect the applied <a>display mode</a> of the web
+        application in the '`display-mode`' media feature [[MEDIAQUERIES-5]].
+      </p>
+      <p class=note>
+        A user agent will expose the '`display-mode`' media feature
+        irrespective of whether a manifest is being applied to a browsing
+        context. For example, if the end-user puts the application into
+        fullscreen, then the user agent would reflect this change to CSS and
+        scripts via the '`display-mode`' media feature.
+      </p>
     </section>
     <section id="priv-sec">
       <h2>
@@ -2746,13 +2580,11 @@
         animated transition, or speaking the text "Launching application X".
       </p>
       <p>
-        The `'display-mode'` media feature allows an origin access to aspects
-        of a user’s local computing environment and, together with the
-        `display` member, allows an origin some measure of control over a user
-        agent’s native UI: Through a CSS media query, a script can know the
-        display mode of a web application. An attacker could, in such a case,
-        exploit the fact that an application is being displayed in fullscreen
+        The `display` member allows an origin some measure of control over a user
+        agent’s native UI. After taking over the full screen, it could attempt
         to mimic the user interface of another application.
+        This is also facilitated by the `'display-mode'` media feature [[MEDIAQUERIES-5]],
+        through which a script can know the display mode of a web application.
       </p>
     </section>
     <section class="appendix">
