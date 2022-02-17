@@ -844,10 +844,10 @@
           of another application. When the user agent sees a manifest where
           |manifest|["id"] is [=url/equal=] with [=URL serializer/exclude
           fragment|exclude fragment true=] to the [=identity=] of an
-          already-installed application, it SHOULD be used as a signal that this
-          manifest is a replacement for the already-installed application's
-          manifest, and not a distinct application, even if it is served from a
-          different URL than the one seen previously.
+          already-installed application, it SHOULD be used as a signal that
+          this manifest is a replacement for the already-installed
+          application's manifest, and not a distinct application, even if it is
+          served from a different URL than the one seen previously.
         </p>
         <p class="note">
           The [=identity=] can be used by a service that collects lists of web
@@ -1294,12 +1294,10 @@
             <li>[=Process the `id` member=] passing |json|, |manifest| and
             |document URL|.
             </li>
-            <li>
-              If the [=document=]'s [=document|processed
-              manifest=] is not null, and [=document=]'s [=document|processed
-              manifest=]'s id is not
-              [=URL/equal=] with [=URL serializer/exclude fragment|exclude fragment true=] to |manifest|["id"],
-              return.
+            <li>If the [=document=]'s [=document|processed manifest=] is not
+            null, and [=document=]'s [=document|processed manifest=]'s id is
+            not [=URL/equal=] with [=URL serializer/exclude fragment|exclude
+            fragment true=] to |manifest|["id"], return.
             </li>
             <li>[=Process the `scope` member=] passing |json|, |manifest|, and
             |manifest URL|.
