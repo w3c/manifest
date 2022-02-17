@@ -842,11 +842,12 @@
           application, it SHOULD treat that manifest as a description of a
           distinct application, even if it is served from the same URL as that
           of another application. When the user agent sees a manifest where
-          |manifest|["id"] [=url/equal|equals=] the [=identity=] of an
-          already-installed application, it SHOULD be used as a signal that
-          this manifest is a replacement for the already-installed
-          application's manifest, and not a distinct application, even if it is
-          served from a different URL than the one seen previously.
+          |manifest|["id"] is [=url/equal=] with [=URL serializer/exclude
+          fragment|exclude fragment true=] to the [=identity=] of an
+          already-installed application, it SHOULD be used as a signal that this
+          manifest is a replacement for the already-installed application's
+          manifest, and not a distinct application, even if it is served from a
+          different URL than the one seen previously.
         </p>
         <p class="note">
           The [=identity=] can be used by a service that collects lists of web
@@ -1293,6 +1294,13 @@
             <li>[=Process the `id` member=] passing |json|, |manifest| and
             |document URL|.
             </li>
+            <li>
+              If the [=document=]'s [=document|processed
+              manifest=] is not null, and [=document=]'s [=document|processed
+              manifest=]'s id is not
+              [=URL/equal=] with [=URL serializer/exclude fragment|exclude fragment true=] to |manifest|["id"],
+              return.
+            </li>
             <li>[=Process the `scope` member=] passing |json|, |manifest|, and
             |manifest URL|.
             </li>
@@ -1421,7 +1429,55 @@
           <h3>
             Updating the manifest
           </h3>
-          <aside class="issue" data-number="446"></aside>
+          <p>
+            As specified for [^link/rel/manifest^] link relation, the manifest
+            is fetched and processed on every page load. When the [=processing
+            a manifest=] is successful, user agents MAY apply updated manifest
+            to any current and future <a>application contexts</a> associated
+            with the application.
+          </p>
+          <p>
+            For the purpose of updating, the following member are
+            <dfn>security-sensitive members</dfn>, as they are presented during
+            installation and on launch surfaces:
+          </p>
+          <ol>
+            <li>[=manifest/short_name=],
+            </li>
+            <li>[=manifest/icons=]
+            </li>
+            <li>[=manifest/name=],
+            </li>
+          </ol>
+          <p data-cite="permissions">
+            User agents SHOULD NOT automatically apply changes to
+            [=security-sensitive members=] without [=express permission=] from
+            the user.
+          </p>
+          <p>
+            Instead, user agents SHOULD present changes to [=security-sensitive
+            members=] with appropriate management options, so the user can make
+            an informed decision about updating the web application.
+          </p>
+          <p>
+            The user agent MAY automatically apply the changes if the update
+            does not contain changes to [=security-sensitive members=].
+          </p>
+          <aside class="note" title=
+          "A user agent will not apply a partial update">
+            <p>
+              When the update contains changes both to [=security-sensitive
+              members=] and other members, a user agent won't automatically
+              partially update. For example, the user agent could present
+              options to the user:
+            </p>
+            <ol>
+              <li>Accept the update
+              </li>
+              <li>Uninstall the web app
+              </li>
+            </ol>
+          </aside>
         </section>
       </section>
     </section>
