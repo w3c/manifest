@@ -2450,6 +2450,128 @@
     </section>
     <section>
       <h2>
+        Launch queue and launch params
+      </h2>
+      <p>
+        TODO: This should move to its own spec.
+      </p>
+      <section data-dfn-for="LaunchParams">
+        <h3>
+          <dfn>LaunchParams</dfn> interface
+        </h3>
+        <pre class="idl">
+          [Exposed=Window] interface LaunchParams {
+            readonly attribute DOMString? targetURL;
+          };
+        </pre>
+        <section>
+          <h2>
+            <dfn>targetURL</dfn> attribute
+          </h2>
+          <p>
+            The {{LaunchParams/targetURL}} attribute is a [=string=] that 
+            represents the [=URL=] of the launch [=manifest/within scope=] 
+            of the application. This attribute is set by the 
+            [=Handling Web App Launches=] process.
+          </p>
+        </section>
+      </section>
+      <section data-dfn-for="LaunchConsumer">
+        <h3>
+          <dfn>LaunchConsumer</dfn> function
+        </h3>
+        <pre class="idl">
+          callback LaunchConsumer = any (LaunchParams params);
+        </pre>
+      </section>
+      <section data-dfn-for="LaunchQueue">
+        <h3>
+          <dfn>LaunchQueue</dfn> interface
+        </h3>
+        <pre class="idl">
+          partial interface Window {
+            readonly attribute LaunchQueue launchQueue;
+          };
+
+          [Exposed=Window] interface LaunchQueue {
+            undefined setConsumer(LaunchConsumer consumer);
+          };
+        </pre>
+        <p>
+          {{LaunchQueue}} has an <dfn>unconsumed launch params</dfn> which 
+          is a [=list=] of {{LaunchParams}}. [=Unconsumed launch params=] is 
+          initially empty.
+        </p>
+        <p>
+          {{LaunchQueue}} has an <dfn>assigned launch consumer</dfn>.
+        </p>
+        <section>
+          <h2>
+            <dfn>setConsumer</dfn> method
+          </h2>
+          <p>
+            The {{LaunchQueue/setConsumer(consumer)}} method steps are:
+          </p>
+          <ol class="algorithm">
+            <li>Set the [=assigned launch consumer=] to |consumer|.
+            </li>
+            <li>[=list/For each=] [=unconsumed launch params=]:
+            </li>
+            <li>
+              <ol>
+          <li>Call |consumer| with [=unconsumed launch params=].
+          </li>
+              </ol>
+            </li>
+            <li>Clear the list of [=unconsumed launch params=].
+            </li>
+          </ol>
+        </section>
+      </section>
+      <section>
+        <h3>
+          Handling Web App Launches
+        </h3>
+        <p>
+          When a web is launched, the following steps are run:
+        </p>
+        <ol class="algorithm">
+          <li>Create a new {{LaunchParams}} |params:LaunchParams|.
+          </li>
+          <li>If the launch did not create a new [=browsing context=] or 
+            navigate an existing [=browsing context=]:
+          </li>
+          <li>
+          <ol>
+            <li>If the launch URL is valid and [=manifest/within scope=], 
+              set |params.targetURL| to the launch URL.
+            </li>
+          </ol>
+          </li>
+          <li>Append |params| to the [=unconsumed launch params=] of the 
+            launched document's |window.launchQueue|.
+          </li>
+          <li>If the [=assigned launch consumer=] |consumer| is set:
+          </li>
+          <li>
+          <ol>
+            <li>[=list/For each=] [=unconsumed launch params=]:
+            </li>
+            <li>
+              <ol>
+                <li>Call |consumer| with [=unconsumed launch params=].
+                </li>
+              </ol>
+            </li>
+            <li>Clear the list of [=unconsumed launch params=].
+            </li>
+          </ol>
+          </li>
+        </ol>
+      </section>
+    </section>  
+    <section>
+      <h2>
         External application resource
       </h2>
       <aside class="issue atrisk" data-number="956"></aside>
