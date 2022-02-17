@@ -1437,11 +1437,46 @@
             with the application.
           </p>
           <p>
-            User agents SHOULD be careful about performing update to manifest
-            fields like app name and icons. Users should be fully aware if
-            such fields are to be be updated to avoid web applications being
-            installed and silently changed to appear as a different one.
+            For the purpose of updating, the following member are
+            <dfn>security-sensitive members</dfn>, as they are presented during
+            installation and on launch surfaces:
           </p>
+          <ol>
+            <li>[=manifest/short_name=],
+            </li>
+            <li>[=manifest/icons=]
+            </li>
+            <li>[=manifest/name=],
+            </li>
+          </ol>
+          <p data-cite="permissions">
+            User agents SHOULD NOT automatically apply changes to
+            [=security-sensitive members=] without [=express permission=] from
+            the user.
+          </p>
+          <p>
+            Instead, user agents SHOULD present changes to [=security-sensitive
+            members=] with appropriate management options, so the user can make
+            an informed decision about updating the web application.
+          </p>
+          <p>
+            The user agent MAY automatically apply the changes if the update
+            does not contain changes to [=security-sensitive members=].
+          </p>
+          <aside class="note" title=
+          "A user agent won't not apply a partial update">
+            <p>
+              For example, the user agent could present options to the user:
+            </p>
+            <ol>
+              <li>Accept the update
+              </li>
+              <li>Uninstall the web app, or
+              </li>
+              <li>Report the website as abusive/spam.
+              </li>
+            </ol>
+          </aside>
         </section>
       </section>
     </section>
