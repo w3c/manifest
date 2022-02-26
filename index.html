@@ -1227,7 +1227,7 @@
         <p>
           To <dfn>process the `file_handlers` member</dfn>, given [=ordered
           map=] |json:ordered map|, [=ordered map=] |manifest:ordered map|,
-          |manifest_url::URL|:
+          [=URL=] |manifest_url:URL|:
         </p>
         <ol class="algorithm">
           <li>Let |processedFileHandlers:list| be a new [=list=].
@@ -2269,7 +2269,7 @@
         <p>
           To <dfn>process a file handler item</dfn>, given [=ordered map=]
           |item:ordered map|, [=URL=] |start_url:URL|, [=URL=] |scope:URL|, and
-          [=URL=] |manifest URL:URL|.
+          [=URL=] |manifest URL:URL|:
         </p>
         <ol class="algorithm">
           <li>Return failure if any of the following are true:
@@ -2345,34 +2345,61 @@
         launch params</dfn>.
       </p>
       <p>
-        When a [=file type=] is registered with a web app and one or more of
-        these registered files are launched on the platform run the steps to
-        [=execute a file handler launch=], given the launched {{FrozenArray}}
-        of {{FileSystemHandle}}s |files:FrozenArray&lt;FileSystemHandle&gt;|
-        and the corresponding [=file handler|file_handler=].
-      </p>
-      <p>
         The steps to <dfn>execute a file handler launch</dfn> are given by the
-        following algorithm. The algorithm takes
-        |files:FrozenArray&lt;FileSystemHandle&gt;| and a [=file handler=]
-        |file_handler:file handler|.
+        following algorithm. The algorithm takes [=list=] |files:list| and a
+        [=ordered map=] |manifest:ordered_map| which holds results from
+        [=process the `file_handlers` member=].
       </p>
       <ol class="algorithm">
-        <li>Let |url| be the |file_handler|.[=file handler/action=].
+        <li>Let |file_handlers:list| be |manifest|["file_handlers"].
         </li>
-        <li>Let |browsing_context| be the result of creating a new [=top-level
-        browsing context=].
-        </li>
-        <li>[=Navigate=] |browsing_context| to |url|.
+        <li>If |file_handlers:list| is null, return.
         </li>
         <li>Let |params:LaunchParams| be a new {{LaunchParams}} with
-        {{LaunchParams.files}} set to |files|.
+        {{LaunchParams.files}} set to a {{FrozenArray}} of {{FileSystemHandle}}s
+        that correspond to the file paths names by |files|.
         </li>
-        <li>If the [=assigned launch consumer=] on the {{Window/window}} is
-        set, call [=assigned launch consumer=] with |params| and return.
+        <li>[=list/for each=] |file_handler:ordered_map| of |file_handlers:list|
+          <ol>
+            <li>If the result of [=match a file handler item=] on |files| and
+            |file_handler| is true, set {{LaunchParams.targetURL}} of |params| to
+            |file_handler|["action"] and break.
+          </ol>          
         </li>
-        <li>Set the [=unconsumed launch params=] on the {{Window/window}} to
-        |params|.
+        <li>If {{LaunchParams.targetURL}} of |params| is null, return.
+        </li>
+        <li>[=launch a web app=] with |params|.
+        </li>
+      </ol>
+      <p>
+        The steps to <dfn>match a file handler item</dfn> are given by the
+        following algorithm. The algorithm takes [=list=] |files:list| and an
+        [=ordered map=] |file_handler:ordered_map|.
+      </p>
+      <ol class="algorithm">
+        <li>Let [=list=] |all_extensions:list| be an empty list.
+        <li>[=map/for each=] |mime_type_string:string| → |extensions:list| of
+        |file_handler|["accept"]
+          <ol>
+            <li>[=list/extend=] |extensions_list| with |extensions|.
+            </li>
+          </ol>
+        </li>
+        <li>[=list/for each=] |filename:string| of |files|
+          <ol>
+            <li>Let |file_matched:boolean| be false.
+            <li>[=list/for each=] |extension:string| of |all_extensions|
+              <ol>
+                <li>If |filename| ends in |extension|, set |file_matched| to
+                true and break.
+                </li>
+              </ol>
+            </li>
+            <li>If |file_matched| is not true, return false.
+            </li>
+          </ol>
+        </li>
+        <li>Return true.
         </li>
       </ol>
       <section data-dfn-for="LaunchParams">
