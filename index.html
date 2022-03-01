@@ -1263,11 +1263,11 @@
             operating system, consistent with:
           </p>
           <ul>
-            <li> The app is exposed in appropriate OS surfaces such as
-            the native file browser and other surfaces that display lists of
-            apps that can handle a given file or file type.
+            <li>The app is exposed in appropriate OS surfaces such as the
+            native file browser and other surfaces that display lists of apps
+            that can handle a given file or file type.
             </li>
-            <li> The app is a candidate for becoming the system's default
+            <li>The app is a candidate for becoming the system's default
             handler for associated file types.
             </li>
           </ul>
@@ -1288,8 +1288,8 @@
             possible mis-use, user agents MAY require explicit user consent to
             begin with the process to [=execute a file handler launch=]. If
             consent is sought, the user agent SHOULD allow the user to specify
-            that the decision is permanent and if so specified SHOULD remove the
-            web application's OS registration as a file handling entity.
+            that the decision is permanent and if so specified SHOULD remove
+            the web application's OS registration as a file handling entity.
           </p>
         </section>
         <section>
@@ -2201,14 +2201,14 @@
         <p>
           The [=file handler=]'s <code><dfn data-dfn-for=
           "file handler">name</dfn></code> member is a <a>string</a> that
-          describes the file type. User agents MAY pass this information to
-          the operating system during file handler registration.
+          describes the file type. User agents MAY pass this information to the
+          operating system during file handler registration.
         </p>
         <aside class="note">
-          The [=file handler/name=] is used to describe the file type in a human
-          readable format, and is typically only displayed in OS surfaces (such
-          as a file browser) if the web app has become the default handler for
-          that file type. It's most useful for custom file types.
+          The [=file handler/name=] is used to describe the file type in a
+          human readable format, and is typically only displayed in OS surfaces
+          (such as a file browser) if the web app has become the default
+          handler for that file type. It's most useful for custom file types.
         </aside>
       </section>
       <section>
@@ -2244,8 +2244,8 @@
         </p>
         <p>
           In order to [=register file handlers=], some operating systems
-          require [=MIME types=] and some require [=file extensions=]. Thus
-          the manifest MUST always provide both for each [=file handler/accept=]
+          require [=MIME types=] and some require [=file extensions=]. Thus the
+          manifest MUST always provide both for each [=file handler/accept=]
           entry.
         </p>
         <p>
@@ -2274,7 +2274,8 @@
         <ol class="algorithm">
           <li>Return failure if any of the following are true:
             <ul>
-              <li>|item|["action"] doesn't [=map/exist=] or is not a [=string=].
+              <li>|item|["action"] doesn't [=map/exist=] or is not a
+              [=string=].
               </li>
               <li>|item|["accept"] doesn't [=map/exist=].
               </li>
@@ -2312,8 +2313,8 @@
               </li>
               <li>If |mime_type_parsed:mime type| is failure, continue.
               </li>
-              <li>If |mime_type_parsed/type| is not listed as a top-level type in
-              in [[IANA-MEDIA-TYPES]], continue.
+              <li>If |mime_type_parsed/type| is not listed as a top-level type
+              in in [[IANA-MEDIA-TYPES]], continue.
               </li>
               <li>Set |accept|[|mime_type_string|] to |extensions|.
               </li>
@@ -2348,7 +2349,7 @@
         The steps to <dfn>execute a file handler launch</dfn> are given by the
         following algorithm. The algorithm takes [=list=] |files:list| and a
         [=ordered map=] |manifest:ordered_map| which holds results from
-        [=process the `file_handlers` member=].
+        [=processing a manifest=].
       </p>
       <ol class="algorithm">
         <li>Let |file_handlers:list| be |manifest|["file_handlers"].
@@ -2356,15 +2357,18 @@
         <li>If |file_handlers:list| is null, return.
         </li>
         <li>Let |params:LaunchParams| be a new {{LaunchParams}} with
-        {{LaunchParams.files}} set to a {{FrozenArray}} of {{FileSystemHandle}}s
-        that correspond to the file paths names by |files|.
+        {{LaunchParams.files}} set to a {{FrozenArray}} of
+        {{FileSystemHandle}}s that correspond to the file paths named by
+        |files|.
         </li>
-        <li>[=list/for each=] |file_handler:ordered_map| of |file_handlers:list|
+        <li>[=list/for each=] |file_handler:ordered_map| of
+        |file_handlers:list|
           <ol>
             <li>If the result of [=match a file handler item=] on |files| and
-            |file_handler| is true, set {{LaunchParams.targetURL}} of |params| to
-            |file_handler|["action"] and break.
-          </ol>          
+            |file_handler| is true, set {{LaunchParams.targetURL}} of |params|
+            to |file_handler|["action"] and break.
+            </li>
+          </ol>
         </li>
         <li>If {{LaunchParams.targetURL}} of |params| is null, return.
         </li>
@@ -2378,16 +2382,18 @@
       </p>
       <ol class="algorithm">
         <li>Let [=list=] |all_extensions:list| be an empty list.
+        </li>
         <li>[=map/for each=] |mime_type_string:string| → |extensions:list| of
         |file_handler|["accept"]
           <ol>
-            <li>[=list/extend=] |extensions_list| with |extensions|.
+            <li>[=list/extend=] |all_extensions| with |extensions|.
             </li>
           </ol>
         </li>
         <li>[=list/for each=] |filename:string| of |files|
           <ol>
             <li>Let |file_matched:boolean| be false.
+            </li>
             <li>[=list/for each=] |extension:string| of |all_extensions|
               <ol>
                 <li>If |filename| ends in |extension|, set |file_matched| to
@@ -2395,7 +2401,7 @@
                 </li>
               </ol>
             </li>
-            <li>If |file_matched| is not true, return false.
+            <li>If |file_matched| is false, return false.
             </li>
           </ol>
         </li>
