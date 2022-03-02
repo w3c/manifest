@@ -1227,7 +1227,7 @@
         <p>
           To <dfn>process the `file_handlers` member</dfn>, given [=ordered
           map=] |json:ordered map|, [=ordered map=] |manifest:ordered map|,
-          |manifest_url::URL|:
+          [=URL=] |manifest_url:URL|:
         </p>
         <ol class="algorithm">
           <li>Let |processedFileHandlers:list| be a new [=list=].
@@ -1263,11 +1263,11 @@
             operating system, consistent with:
           </p>
           <ul>
-            <li> The app is exposed in appropriate OS surfaces such as
-            the native file browser and other surfaces that display lists of
-            apps that can handle a given file or file type.
+            <li>The app is exposed in appropriate OS surfaces such as the
+            native file browser and other surfaces that display lists of apps
+            that can handle a given file or file type.
             </li>
-            <li> The app is a candidate for becoming the system's default
+            <li>The app is a candidate for becoming the system's default
             handler for associated file types.
             </li>
           </ul>
@@ -1288,8 +1288,8 @@
             possible mis-use, user agents MAY require explicit user consent to
             begin with the process to [=execute a file handler launch=]. If
             consent is sought, the user agent SHOULD allow the user to specify
-            that the decision is permanent and if so specified SHOULD remove the
-            web application's OS registration as a file handling entity.
+            that the decision is permanent and if so specified SHOULD remove
+            the web application's OS registration as a file handling entity.
           </p>
         </section>
         <section>
@@ -2132,130 +2132,7 @@
         </ol>
       </section>
     </section>
-    <section>
-      <h2>
-        Launch queue and launch params
-      </h2>
-      <aside class="issue">
-        TODO: This should move to its own spec.
-      </aside>
-      <section data-dfn-for="LaunchParams">
-        <h3>
-          <dfn>LaunchParams</dfn> interface
-        </h3>
-        <pre class="idl">
-          [Exposed=Window] interface LaunchParams {
-            readonly attribute DOMString? targetURL;
-            readonly attribute FrozenArray&lt;FileSystemHandle&gt; files;
-          };
-        </pre>
-        <section>
-          <h2>
-            <dfn>targetURL</dfn> attribute
-          </h2>
-          <p>
-            The {{LaunchParams/targetURL}} attribute is a [=string=] that
-            represents the [=URL=] of the launch which MUST be
-            [=manifest/within scope=] of the application.
-          </p>
-          <h2>
-            <dfn>files</dfn> attribute
-          </h2>
-          <p>
-            The {{LaunchParams/files}} attribute is a {{FrozenArray}} of
-            {{FileSystemHandle}}s. For every |file handle:FileSystemHandle| in
-            {{LaunchParams/files}}, the [=permission state=] for a descriptor
-            with {{FileSystemPermissionDescriptor/handle}} set to the |file
-            handle| and {{FileSystemPermissionDescriptor/mode}} set to
-            "{{FileSystemPermissionMode/"readwrite"}} should be "granted".
-          </p>
-        </section>
-      </section>
-      <section data-dfn-for="LaunchConsumer">
-        <h3>
-          <dfn>LaunchConsumer</dfn> function
-        </h3>
-        <pre class="idl">
-          callback LaunchConsumer = any (LaunchParams params);
-        </pre>
-      </section>
-      <section data-dfn-for="LaunchQueue">
-        <h3>
-          <dfn>LaunchQueue</dfn> interface
-        </h3>
-        <pre class="idl">
-          partial interface Window {
-            readonly attribute LaunchQueue launchQueue;
-          };
-
-          [Exposed=Window] interface LaunchQueue {
-            undefined setConsumer(LaunchConsumer consumer);
-          };
-        </pre>
-        <p>
-          {{LaunchQueue}} has an <dfn>unconsumed launch params</dfn> which is a
-          [=list=] of {{LaunchParams}}. [=Unconsumed launch params=] is
-          initially empty.
-        </p>
-        <p>
-          {{LaunchQueue}} has an <dfn>assigned launch consumer</dfn> which is
-          initially null.
-        </p>
-        <section>
-          <h2>
-            <dfn>setConsumer</dfn> method
-          </h2>
-          <p>
-            The {{LaunchQueue/setConsumer(consumer)}} method steps are:
-          </p>
-          <ol class="algorithm">
-            <li>Set the [=assigned launch consumer=] to |consumer|.
-            </li>
-            <li>[=list/For each=] |launch_params:LaunchParams| of
-              [=unconsumed launch params=]:
-              <ol>
-                <li>Call |consumer| with |launch_params|.
-                </li>
-              </ol>
-            </li>
-            <li>Clear the list of [=unconsumed launch params=].
-            </li>
-          </ol>
-        </section>
-      </section>
-      <section>
-        <h3>
-          Handling Web App Launches
-        </h3>
-        <p>
-          The steps to <dfn>launch a web app</dfn> are given by the following
-          algorithm. The algorithm takes {{LaunchParams}}
-          |params:LaunchParams|.
-        </p>
-        <ol class="algorithm">
-          <li>If |params| is null, set |params| to a new {{LaunchParams}} with
-          params.targetURL set to [=manifest/start_url=].
-          </li>
-          <li>Append |params| to the [=unconsumed launch params=] of the
-          launched document's |window.launchQueue|.
-          </li>
-          <li>If the [=assigned launch consumer=] |consumer| is set:
-            <ol>
-              <li>[=list/For each=] |launch_params:LaunchParams| of
-              [=unconsumed launch params=]:
-                <ol>
-                  <li>Call |consumer| with |launch_params|.
-                  </li>
-                </ol>
-              </li>
-              <li>Clear the list of [=unconsumed launch params=].
-              </li>
-            </ol>
-          </li>
-        </ol>
-      </section>
-    </section>
-    <section>
+    <section data-cite="file-system-access">
       <h2>
         File Handler Items
       </h2>
@@ -2324,14 +2201,14 @@
         <p>
           The [=file handler=]'s <code><dfn data-dfn-for=
           "file handler">name</dfn></code> member is a <a>string</a> that
-          describes the file type. User agents MAY pass this information to
-          the operating system during file handler registration.
+          describes the file type. User agents MAY pass this information to the
+          operating system during file handler registration.
         </p>
         <aside class="note">
-          The [=file handler/name=] is used to describe the file type in a human
-          readable format, and is typically only displayed in OS surfaces (such
-          as a file browser) if the web app has become the default handler for
-          that file type. It's most useful for custom file types.
+          The [=file handler/name=] is used to describe the file type in a
+          human readable format, and is typically only displayed in OS surfaces
+          (such as a file browser) if the web app has become the default
+          handler for that file type. It's most useful for custom file types.
         </aside>
       </section>
       <section>
@@ -2367,8 +2244,8 @@
         </p>
         <p>
           In order to [=register file handlers=], some operating systems
-          require [=MIME types=] and some require [=file extensions=]. Thus
-          the manifest MUST always provide both for each [=file handler/accept=]
+          require [=MIME types=] and some require [=file extensions=]. Thus the
+          manifest MUST always provide both for each [=file handler/accept=]
           entry.
         </p>
         <p>
@@ -2392,12 +2269,13 @@
         <p>
           To <dfn>process a file handler item</dfn>, given [=ordered map=]
           |item:ordered map|, [=URL=] |start_url:URL|, [=URL=] |scope:URL|, and
-          [=URL=] |manifest URL:URL|.
+          [=URL=] |manifest URL:URL|:
         </p>
         <ol class="algorithm">
           <li>Return failure if any of the following are true:
             <ul>
-              <li>|item|["action"] doesn't [=map/exist=] or is not a [=string=].
+              <li>|item|["action"] doesn't [=map/exist=] or is not a
+              [=string=].
               </li>
               <li>|item|["accept"] doesn't [=map/exist=].
               </li>
@@ -2435,8 +2313,8 @@
               </li>
               <li>If |mime_type_parsed:mime type| is failure, continue.
               </li>
-              <li>If |mime_type_parsed/type| is not listed as a top-level type in
-              in [[IANA-MEDIA-TYPES]], continue.
+              <li>If |mime_type_parsed/type| is not listed as a top-level type
+              in in [[IANA-MEDIA-TYPES]], continue.
               </li>
               <li>Set |accept|[|mime_type_string|] to |extensions|.
               </li>
@@ -2454,42 +2332,186 @@
           </li>
         </ol>
       </section>
+      <section>
+        <h2>
+          Execute a file handler launch
+        </h2>
+        <p>
+          The steps to <dfn>execute a file handler launch</dfn> are given by
+          the following algorithm. The algorithm takes [=list=] |files:list|
+          and a [=ordered map=] |manifest:ordered_map| which holds results from
+          [=processing a manifest=].
+        </p>
+        <ol class="algorithm">
+          <li>Let |file_handlers:list| be |manifest|["file_handlers"].
+          </li>
+          <li>If |file_handlers:list| is null, return.
+          </li>
+          <li>Let |params:LaunchParams| be a new {{LaunchParams}} with
+          {{LaunchParams/files}} set to a {{FrozenArray}} of
+          {{FileSystemHandle}}s that correspond to the file paths named by
+          |files|.
+          </li>
+          <li>[=list/for each=] |file_handler:ordered_map| of
+          |file_handlers:list|
+            <ol>
+              <li>If the result of [=match a file handler item=] on |files| and
+              |file_handler| is true, set |params|.{{LaunchParams/targetURL}}
+              to |file_handler|["action"] and break.
+              </li>
+            </ol>
+          </li>
+          <li>If |params|.{{LaunchParams/targetURL}} is null, return.
+          </li>
+          <li>[=launch a web app=] with |params|.
+          </li>
+        </ol>
+        <p>
+          The steps to <dfn>match a file handler item</dfn> are given by the
+          following algorithm. The algorithm takes [=list=] |files:list| and an
+          [=ordered map=] |file_handler:ordered_map|.
+        </p>
+        <ol class="algorithm">
+          <li>Let [=list=] |all_extensions:list| be an empty list.
+          </li>
+          <li>[=map/for each=] |mime_type_string:string| → |extensions:list| of
+          |file_handler|["accept"]
+            <ol>
+              <li>[=list/extend=] |all_extensions| with |extensions|.
+              </li>
+            </ol>
+          </li>
+          <li>[=list/for each=] |filename:string| of |files|
+            <ol>
+              <li>Let |file_matched:boolean| be false.
+              </li>
+              <li>[=list/for each=] |extension:string| of |all_extensions|
+                <ol>
+                  <li>If |filename| ends in |extension|, set |file_matched| to
+                  true and break.
+                  </li>
+                </ol>
+              </li>
+              <li>If |file_matched| is false, return false.
+              </li>
+            </ol>
+          </li>
+          <li>Return true.
+          </li>
+        </ol>
+      </section>
     </section>
-    <section data-cite="file-system-access">
+    <section data-cite="file-system-access permissions">
       <h2>
-        Execute a file handler launch
+        Launch queue and launch params
       </h2>
-      <p>
-        When a [=file type=] is registered with a web app and one or more of
-        these registered files are launched on the platform run the steps to
-        [=execute a file handler launch=], given the launched {{FrozenArray}}
-        of {{FileSystemHandle}}s |files:FrozenArray&lt;FileSystemHandle&gt;|
-        and the corresponding [=file handler|file_handler=].
-      </p>
-      <p>
-        The steps to <dfn>execute a file handler launch</dfn> are given by the
-        following algorithm. The algorithm takes
-        |files:FrozenArray&lt;FileSystemHandle&gt;| and a [=file handler=]
-        |file_handler:file handler|.
-      </p>
-      <ol class="algorithm">
-        <li>Let |url| be the |file_handler|.[=file handler/action=].
-        </li>
-        <li>Let |browsing_context| be the result of creating a new [=top-level
-        browsing context=].
-        </li>
-        <li>[=Navigate=] |browsing_context| to |url|.
-        </li>
-        <li>Let |params:LaunchParams| be a new {{LaunchParams}} with
-        {{LaunchParams.files}} set to |files|.
-        </li>
-        <li>If the [=assigned launch consumer=] on the {{Window/window}} is
-        set, call [=assigned launch consumer=] with |params| and return.
-        </li>
-        <li>Set the [=unconsumed launch params=] on the {{Window/window}} to
-        |params|.
-        </li>
-      </ol>
+      <aside class="issue">
+        TODO: This should move to its own spec.
+      </aside>
+      <section data-dfn-for="LaunchParams">
+        <h3>
+          <dfn>LaunchParams</dfn> interface
+        </h3>
+        <pre class="idl">
+          [Exposed=Window] interface LaunchParams {
+            readonly attribute DOMString? targetURL;
+            readonly attribute FrozenArray&lt;FileSystemHandle&gt; files;
+          };
+        </pre>
+        <p>
+          {{LaunchParams/targetURL}} represents the [=URL=] of the launch which
+          MUST be [=manifest/within scope=] of the application.
+        </p>
+        <p>
+          For every |file handle:FileSystemHandle| in {{LaunchParams/files}},
+          querying the file system permission with
+          {{FileSystemPermissionDescriptor/mode}} set to
+          {{FileSystemPermissionMode/"readwrite"}} MUST return
+          {{PermissionState/"granted"}}.
+        </p>
+      </section>
+      <section data-dfn-for="LaunchConsumer">
+        <h3>
+          <dfn>LaunchConsumer</dfn> function
+        </h3>
+        <pre class="idl">
+          callback LaunchConsumer = any (LaunchParams params);
+        </pre>
+      </section>
+      <section data-dfn-for="LaunchQueue">
+        <h3>
+          <dfn>LaunchQueue</dfn> interface
+        </h3>
+        <pre class="idl">
+          partial interface Window {
+            readonly attribute LaunchQueue launchQueue;
+          };
+
+          [Exposed=Window] interface LaunchQueue {
+            undefined setConsumer(LaunchConsumer consumer);
+          };
+        </pre>
+        <p>
+          {{LaunchQueue}} has an <dfn>unconsumed launch params</dfn> which is a
+          [=list=] of {{LaunchParams}} that is initially empty.
+        </p>
+        <p>
+          {{LaunchQueue}} has an <dfn>assigned launch consumer</dfn> which is
+          initially null.
+        </p>
+        <section>
+          <h2>
+            <dfn>setConsumer</dfn> method
+          </h2>
+          <p>
+            The {{LaunchQueue/setConsumer(consumer)}} method steps are:
+          </p>
+          <ol class="algorithm">
+            <li>Set the [=assigned launch consumer=] to |consumer|.
+            </li>
+            <li>[=list/For each=] |launch_params:LaunchParams| of [=unconsumed
+            launch params=]:
+              <ol>
+                <li>Call |consumer| with |launch_params|.
+                </li>
+              </ol>
+            </li>
+            <li>Set [=unconsumed launch params=] to the empty list.
+            </li>
+          </ol>
+        </section>
+      </section>
+      <section>
+        <h3>
+          Handling Web App Launches
+        </h3>
+        <p>
+          The steps to <dfn>launch a web app</dfn> are given by the following
+          algorithm. The algorithm takes {{LaunchParams}}
+          |params:LaunchParams|.
+        </p>
+        <ol class="algorithm">
+          <li>If |params| is null, set |params| to a new {{LaunchParams}} with
+          {{LaunchParams/targetURL}} set to [=manifest/start_url=].
+          </li>
+          <li>Append |params| to the [=unconsumed launch params=] of the
+          launched document's {{Window.LaunchQueue}}.
+          </li>
+          <li>If the [=assigned launch consumer=] |consumer| is set:
+            <ol>
+              <li>[=list/For each=] |launch_params:LaunchParams| of
+              [=unconsumed launch params=]:
+                <ol>
+                  <li>Call |consumer| with |launch_params|.
+                  </li>
+                </ol>
+              </li>
+              <li>Set [=unconsumed launch params=] to the empty list.
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </section>
     </section>
     <section>
       <h2>
