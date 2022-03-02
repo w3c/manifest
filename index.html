@@ -2134,6 +2134,129 @@
     </section>
     <section>
       <h2>
+        Launch queue and launch params
+      </h2>
+      <aside class="issue">
+        TODO: This should move to its own spec.
+      </aside>
+      <section data-dfn-for="LaunchParams">
+        <h3>
+          <dfn>LaunchParams</dfn> interface
+        </h3>
+        <pre class="idl">
+          [Exposed=Window] interface LaunchParams {
+            readonly attribute DOMString? targetURL;
+            readonly attribute FrozenArray&lt;FileSystemHandle&gt; files;
+          };
+        </pre>
+        <section>
+          <h2>
+            <dfn>targetURL</dfn> attribute
+          </h2>
+          <p>
+            The {{LaunchParams/targetURL}} attribute is a [=string=] that
+            represents the [=URL=] of the launch which MUST be
+            [=manifest/within scope=] of the application.
+          </p>
+          <h2>
+            <dfn>files</dfn> attribute
+          </h2>
+          <p>
+            The {{LaunchParams/files}} attribute is a {{FrozenArray}} of
+            {{FileSystemHandle}}s. For every |file handle:FileSystemHandle| in
+            {{LaunchParams/files}}, the [=permission state=] for a descriptor
+            with {{FileSystemPermissionDescriptor/handle}} set to the |file
+            handle| and {{FileSystemPermissionDescriptor/mode}} set to
+            "{{FileSystemPermissionMode/"readwrite"}} should be "granted".
+          </p>
+        </section>
+      </section>
+      <section data-dfn-for="LaunchConsumer">
+        <h3>
+          <dfn>LaunchConsumer</dfn> function
+        </h3>
+        <pre class="idl">
+          callback LaunchConsumer = any (LaunchParams params);
+        </pre>
+      </section>
+      <section data-dfn-for="LaunchQueue">
+        <h3>
+          <dfn>LaunchQueue</dfn> interface
+        </h3>
+        <pre class="idl">
+          partial interface Window {
+            readonly attribute LaunchQueue launchQueue;
+          };
+
+          [Exposed=Window] interface LaunchQueue {
+            undefined setConsumer(LaunchConsumer consumer);
+          };
+        </pre>
+        <p>
+          {{LaunchQueue}} has an <dfn>unconsumed launch params</dfn> which is a
+          [=list=] of {{LaunchParams}}. [=Unconsumed launch params=] is
+          initially empty.
+        </p>
+        <p>
+          {{LaunchQueue}} has an <dfn>assigned launch consumer</dfn> which is
+          initially null.
+        </p>
+        <section>
+          <h2>
+            <dfn>setConsumer</dfn> method
+          </h2>
+          <p>
+            The {{LaunchQueue/setConsumer(consumer)}} method steps are:
+          </p>
+          <ol class="algorithm">
+            <li>Set the [=assigned launch consumer=] to |consumer|.
+            </li>
+            <li>[=list/For each=] |launch_params:LaunchParams| of
+              [=unconsumed launch params=]:
+              <ol>
+                <li>Call |consumer| with |launch_params|.
+                </li>
+              </ol>
+            </li>
+            <li>Clear the list of [=unconsumed launch params=].
+            </li>
+          </ol>
+        </section>
+      </section>
+      <section>
+        <h3>
+          Handling Web App Launches
+        </h3>
+        <p>
+          The steps to <dfn>launch a web app</dfn> are given by the following
+          algorithm. The algorithm takes {{LaunchParams}}
+          |params:LaunchParams|.
+        </p>
+        <ol class="algorithm">
+          <li>If |params| is null, set |params| to a new {{LaunchParams}} with
+          params.targetURL set to [=manifest/start_url=].
+          </li>
+          <li>Append |params| to the [=unconsumed launch params=] of the
+          launched document's |window.launchQueue|.
+          </li>
+          <li>If the [=assigned launch consumer=] |consumer| is set:
+            <ol>
+              <li>[=list/For each=] |launch_params:LaunchParams| of
+              [=unconsumed launch params=]:
+                <ol>
+                  <li>Call |consumer| with |launch_params|.
+                  </li>
+                </ol>
+              </li>
+              <li>Clear the list of [=unconsumed launch params=].
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </section>
+    </section>
+    <section>
+      <h2>
         File Handler Items
       </h2>
       <p>
@@ -2338,14 +2461,6 @@
         Execute a file handler launch
       </h2>
       <p>
-        A {{Window/window}} has an associated {{LaunchConsumer}} <dfn>assigned
-        launch consumer</dfn>.
-      </p>
-      <p>
-        A {{Window/window}} has an associated {{LaunchParams}} <dfn>unconsumed
-        launch params</dfn>.
-      </p>
-      <p>
         The steps to <dfn>execute a file handler launch</dfn> are given by the
         following algorithm. The algorithm takes [=list=] |files:list| and a
         [=ordered map=] |manifest:ordered_map| which holds results from
@@ -2408,78 +2523,6 @@
         <li>Return true.
         </li>
       </ol>
-      <section data-dfn-for="LaunchParams">
-        <h3>
-          <dfn>LaunchParams</dfn> interface
-        </h3>
-        <pre class="idl">
-          [Exposed=Window] interface LaunchParams {
-            readonly attribute FrozenArray&lt;FileSystemHandle&gt; files;
-          };
-        </pre>
-        <section data-cite="Permissions">
-          <h2>
-            <dfn>files</dfn> attribute
-          </h2>
-          <p>
-            The {{LaunchParams/files}} attribute is a {{FrozenArray}} of
-            {{FileSystemHandle}}s. For every |file handle:FileSystemHandle| in
-            {{LaunchParams/files}}, the [=permission state=] for a descriptor
-            with {{FileSystemPermissionDescriptor/handle}} set to the |file
-            handle| and {{FileSystemPermissionDescriptor/mode}} set to
-            "{{FileSystemPermissionMode/"readwrite"}} should be "granted".
-          </p>
-        </section>
-      </section>
-      <section data-dfn-for="LaunchConsumer">
-        <h3>
-          <dfn>LaunchConsumer</dfn> function
-        </h3>
-        <pre class="idl">
-          callback LaunchConsumer = any (LaunchParams params);
-        </pre>
-        <p>
-          The {{LaunchConsumer}} function takes a {{LaunchParams}} interface as
-          an argument.
-        </p>
-      </section>
-      <section data-dfn-for="LaunchQueue">
-        <h3>
-          <dfn>LaunchQueue</dfn> interface
-        </h3>
-        <pre class="idl">
-          partial interface Window {
-            readonly attribute LaunchQueue launchQueue;
-          };
-
-          [Exposed=Window] interface LaunchQueue {
-            undefined setConsumer(LaunchConsumer consumer);
-          };
-        </pre>
-        <section>
-          <h2>
-            <dfn>setConsumer</dfn> method
-          </h2>
-          <p>
-            The {{LaunchQueue/setConsumer(consumer)}} method steps are:
-          </p>
-          <ol class="algorithm">
-            <li>Set the [=assigned launch consumer=] to |consumer|.
-            </li>
-            <li>If the [=unconsumed launch params=] on the {{Window/window}} is
-            set:
-            </li>
-            <li>
-              <ol>
-                <li>Call |consumer| with [=unconsumed launch params=].
-                </li>
-                <li>Unset [=unconsumed launch params=].
-                </li>
-              </ol>
-            </li>
-          </ol>
-        </section>
-      </section>
     </section>
     <section>
       <h2>
