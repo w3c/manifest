@@ -1240,8 +1240,8 @@
           <li>[=list/For each=] |entry:ordered map| of |json|["file_handlers"]:
             <ol>
               <li>Let |file_handler:ordered map| be [=process a file handler
-              item=] with |entry|, |manifest/start_url|, |manifest/scope|, and
-              |manifest_url|.
+              item=] with |entry|, [=manifest/start_url=], [=manifest/scope=],
+              and |manifest_url|.
               </li>
               <li>If |file_handler| is failure, continue.
               </li>
@@ -2234,7 +2234,7 @@
           `accept` member
         </h3>
         <p>
-          The [=file handler=]'s <code><dfn data-dfn-for=
+          The [=file handler's=] <code><dfn data-dfn-for=
           "file handler">accept</dfn></code> member is a <a>dictionary</a>
           mapping [=MIME types=] to a list of [=file extensions=].
         </p>
@@ -2260,6 +2260,33 @@
           web application can open files with both the mime type specified and
           the specific file extension. On Windows, only [=file extensions=] are
           used, so the [=mime types=] are ignored.
+        </aside>
+      </section>
+      <section>
+        <h3>
+          `launch_type` member
+        </h3>
+        <p>
+          The [=file handler's=] <code><dfn data-dfn-for=
+          "file handler">launch_type</dfn></code> member is a <a>string</a>
+          that determines how the app is launched for files routed to this
+          handler. The possible values are "single-client" and
+          "multiple-clients". If not provided, the default value is
+          "single-client".
+        </p>
+        <p>
+          When a [=file handler=] is determined to match a set of files, the
+          [=file handler/launch_type=] will control whether the app is launched
+          once for each file ("multiple-clients"), or one time for all files
+          ("single-client"). See {{LaunchParams/files}}. This only applies to
+          files that match a single [=file handler=]. If the user has selected
+          files that match against multiple [=file handlers=], the user agent
+          MUST not coalesce files from different [=file handlers=] into a
+          single launch event.
+        </p>
+        <aside class="note">
+          If an app is only meant to display one file per window or tab,
+          "multiple-clients" should be applied.
         </aside>
       </section>
       <section>
@@ -2293,6 +2320,12 @@
           <li>If |url| is not [=manifest/within scope=] of |scope|, return
           failure.
           </li>
+          <li>Let |launch_type:string| be a new [=string=] initialized to
+          "single-client".
+          </li>
+          <li>If |item|["launch_type"] [=map/exists=] and is
+          "multiple-clients", set |launch_type| to |item|["launch_type"].
+          </li>
           <li>Let |accept:ordered map| be a new [=ordered map=].
           </li>
           <li>[=map/for each=] |mime_type_string:string| → |extensions| of
@@ -2323,7 +2356,8 @@
           <li>If |accept:ordered map| is empty, return failure.
           </li>
           <li>Let |file_handler:ordered map| be |ordered map| «[ "action" →
-          |url|, "name" → |item|["name"], "accept" → |accept| ]».
+          |url|, "name" → |item|["name"], "launch_type" → |launch_type|,
+          "launch_type" "accept" → |accept| ]».
           </li>
           <li>[=Process image resources=] passing |item|["icons"],
           |file_handler|, |manifest URL|, and "icons".
@@ -2347,56 +2381,67 @@
           </li>
           <li>If |file_handlers:list| is null, return.
           </li>
-          <li>Let |params:LaunchParams| be a new {{LaunchParams}} with
-          {{LaunchParams/files}} set to a {{FrozenArray}} of
-          {{FileSystemHandle}}s that correspond to the file paths named by
-          |files|.
-          </li>
-          <li>[=list/for each=] |file_handler:ordered_map| of
-          |file_handlers:list|
-            <ol>
-              <li>If the result of [=match a file handler item=] on |files| and
-              |file_handler| is true, set |params|.{{LaunchParams/targetURL}}
-              to |file_handler|["action"] and break.
-              </li>
-            </ol>
-          </li>
-          <li>If |params|.{{LaunchParams/targetURL}} is null, return.
-          </li>
-          <li>[=launch a web app=] with |params|.
-          </li>
-        </ol>
-        <p>
-          The steps to <dfn>match a file handler item</dfn> are given by the
-          following algorithm. The algorithm takes [=list=] |files:list| and an
-          [=ordered map=] |file_handler:ordered_map|.
-        </p>
-        <ol class="algorithm">
-          <li>Let [=list=] |all_extensions:list| be an empty list.
-          </li>
-          <li>[=map/for each=] |mime_type_string:string| → |extensions:list| of
-          |file_handler|["accept"]
-            <ol>
-              <li>[=list/extend=] |all_extensions| with |extensions|.
-              </li>
-            </ol>
+          <li>Let |launches:ordered map| be an [=ordered map=].
           </li>
           <li>[=list/for each=] |filename:string| of |files|
             <ol>
-              <li>Let |file_matched:boolean| be false.
-              </li>
-              <li>[=list/for each=] |extension:string| of |all_extensions|
+              <li>[=list/for each=] |file_handler:ordered_map| of
+              |file_handlers:list|
                 <ol>
-                  <li>If |filename| ends in |extension|, set |file_matched| to
-                  true and break.
+                  <li>[=map/for each=] |mime_type_string:string| →
+                  |extensions:list| of |file_handler|["accept"]
+                    <ol>
+                      <li>[=list/for each=] |extension:string| of |extensions|
+                        <ol>
+                          <li>If |filename| does not end in |extension|,
+                          continue.
+                          </li>
+                          <li>If |launches|[|file_handler|] exists, append
+                          |filename| to |launches|[|file_handler|].
+                          </li>
+                          <li>Else, set |launches|[|file_handler|] to a list
+                          with the single element |filename|.
+                          </li>
+                          <li>Continue to next element of |files|.
+                          </li>
+                        </ol>
+                      </li>
+                    </ol>
                   </li>
                 </ol>
               </li>
-              <li>If |file_matched| is false, return false.
-              </li>
             </ol>
           </li>
-          <li>Return true.
+          <li>[=map/for each=] |file_handler| → |files:list| of |launches|
+            <ol>
+              <li>If |file_handler|["launch_type"] is equal to
+              "multiple-clients"
+                <ol>
+                  <li>[=list/for each=] |file| of |files|
+                    <ol>
+                      <li>Let |params:LaunchParams| be a new {{LaunchParams}}
+                      with {{LaunchParams/files}} set to a {{FrozenArray}} with
+                      a single element that is a {{FileSystemHandle}}
+                      corresponding to |file|.
+                      </li>
+                      <li>[=launch a web app=] with |params|.
+                      </li>
+                    </ol>
+                  </li>
+                </ol>
+              </li>
+              <li>Else,
+                <ol>
+                  <li>Let |params:LaunchParams| be a new {{LaunchParams}} with
+                  {{LaunchParams/files}} set to a {{FrozenArray}} of
+                  {{FileSystemHandle}}s that correspond to the file paths named
+                  by |files|.
+                  </li>
+                  <li>[=launch a web app=] with |params|.
+                  </li>
+                </ol>
+              </li>
+            </ol>
           </li>
         </ol>
       </section>
