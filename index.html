@@ -2234,7 +2234,7 @@
           `accept` member
         </h3>
         <p>
-          The [=file handler's=] <code><dfn data-dfn-for=
+          The [=file handler=]'s <code><dfn data-dfn-for=
           "file handler">accept</dfn></code> member is a <a>dictionary</a>
           mapping [=MIME types=] to a list of [=file extensions=].
         </p>
@@ -2267,26 +2267,26 @@
           `launch_type` member
         </h3>
         <p>
-          The [=file handler's=] <code><dfn data-dfn-for=
+          The [=file handler=]'s <code><dfn data-dfn-for=
           "file handler">launch_type</dfn></code> member is a <a>string</a>
           that determines how the app is launched for files routed to this
           handler. The possible values are "single-client" and
-          "multiple-clients". If not provided, the default value is
+          "multiple-clients". If not provided, the default behavior matches
           "single-client".
         </p>
         <p>
           When a [=file handler=] is determined to match a set of files, the
           [=file handler/launch_type=] will control whether the app is launched
           once for each file ("multiple-clients"), or one time for all files
-          ("single-client"). See {{LaunchParams/files}}. This only applies to
-          files that match a single [=file handler=]. If the user has selected
-          files that match against multiple [=file handlers=], the user agent
-          MUST not coalesce files from different [=file handlers=] into a
-          single launch event.
+          ("single-client"). See {{LaunchParams/files}}. The user agent MUST
+          not coalesce files from different [=file handlers=] into a single
+          launch event.
         </p>
         <aside class="note">
           If an app is only meant to display one file per window or tab,
-          "multiple-clients" should be applied.
+          "multiple-clients" should be applied. Otherwise, one instance will be
+          launched and all opened files will be passed via the
+          {{LaunchParams/files}} array.
         </aside>
       </section>
       <section>
