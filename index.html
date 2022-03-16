@@ -2434,6 +2434,59 @@
           </p>
         </aside>
       </section>
+      <section class="informative">
+        <h3>
+          Web Apps with scope conflicts
+        </h3>
+        <p>
+          It is possible for two web apps to be installed where there are
+          conflicts between the scope. These conflicts come with disadvantages
+          outlined below and they are generally not recommended.
+        </p>
+        <ul>
+          <li>The scopes of the two web apps can be on the same origin. Not
+          recommended.
+          </li>
+          <li>The scope of one web app can be nested inside the scope of the
+          other. Strongly not recommended.
+          </li>
+          <li>The scopes of the two web apps can be the same. Strongly not
+          recommended.
+          </li>
+        </ul>
+        <p>
+          Same-origin scopes are not recommended due to origin-based settings
+          that will affect all apps installed under that origin. Settings like:
+        </p>
+        <ul>
+          <li>Permissions
+          </li>
+          <li>Storage and storage quota
+          </li>
+          <li>User settings (e.g. font size)
+          </li>
+        </ul>
+        <p>
+          Nested scopes are strongly not recommended. They have the above
+          complications of same-origin scope, along with the following UX and
+          API problems or inconsistencies among other possible consistencies:
+        </p>
+        <ul>
+          <li>Installation prompting may not work for the nested app if the
+          outer app is installed.
+          </li>
+          <li>User-agent UX around launching an app for a browsing context may
+          be inconsistent or not appear.
+          </li>
+          <li>Badging API calls will not be able to consistently update the
+          correct web app badge.
+          </li>
+          <li>Notifications may have incorrect attribution or not appear.
+          </li>
+          <li>Future APIs may not work at all in this configuration.
+          </li>
+        </ul>
+      </section>
     </section>
     <section>
       <h2>
