@@ -3,7 +3,7 @@ name: Node CI
 on:
   push:
     branches:
-      - gh-pages
+      - main
   pull_request: {}
 
 jobs:
@@ -12,8 +12,15 @@ jobs:
     runs-on: ubuntu-latest # only linux supported at present
     steps:
       - uses: actions/checkout@v2
-      - uses: sidvishnoi/spec-prod@v2
+      - uses: w3c/spec-prod@v2
         with:
+          TOOLCHAIN: respec
+          VALIDATE_LINKS: false
+          VALIDATE_PUBRULES: true
+          GH_PAGES_BRANCH: gh-pages
+          W3C_API_KEY: ${{ secrets.W3C_API_KEY }}
           W3C_ECHIDNA_TOKEN: ${{ secrets.ECHIDNA_TOKEN }}
           W3C_WG_DECISION_URL: "https://lists.w3.org/Archives/Public/public-webapps/2014JulSep/0627.html"
           W3C_NOTIFICATIONS_CC: "${{ secrets.CC }}"
+          W3C_BUILD_OVERRIDE: |
+            specStatus: WD
