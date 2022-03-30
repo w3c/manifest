@@ -1215,12 +1215,12 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">`file_handlers`</dfn></code> member is a [=list=] that
+          "manifest">file_handlers</dfn></code> member is a [=list=] that
           provides instructions for how the app handles file-opening actions
           that originate outside of the app itself.
         </p>
         <p>
-          The management, presentation and selection of registered
+          The management, presentation, and selection of registered
           file-handling applications is at the discretion of the operating
           system.
         </p>
@@ -1273,7 +1273,8 @@
           </ul>
           <p>
             A user agent MAY truncate the total set of [=file extensions=] to
-            preserve functionality and prevent abuse.
+            preserve functionality and prevent abuse. A user agent MAY prevent
+            associations with certain filetypes.
           </p>
         </section>
         <section>
@@ -2162,23 +2163,16 @@
         extension=]. A <dfn>file extension</dfn> is a string that start with a
         "." and only contains [=valid suffix code points=]. A <dfn>valid suffix
         code point</dfn> is a [=code point=] that is [=ASCII alphanumeric=],
-        U+002B (+), or U+002E (.). Additionally, [=file extensions=] are are
+        U+002B (+), or U+002E (.). Additionally, [=file extensions=] are
         limited to a length of 16 code points.
       </p>
       <aside class="note">
         <p>
-          Note: These code points were chosen to support most pre-existing file
+          These code points were chosen to support most pre-existing file
           formats. The vast majority of file extensions are purely
           alphanumeric, but compound extensions (such as .tar.gz) and
           extensions such as .c++ for C++ source code are also fairly common,
           hence the inclusion of + and . as allowed code points.
-        </p>
-      </aside>
-      <aside class="note">
-        <p>
-          The selection of an app to handle a file launch if there are multiple
-          apps registered for the file's [=file type=] is functionality left to
-          the operating system.
         </p>
       </aside>
       <section>
@@ -2188,10 +2182,10 @@
         <p>
           The [=file handler=]'s <code><dfn data-dfn-for=
           "file handler">action</dfn></code> member is a <a>string</a> that
-          represents a relative URL of the [=manifest/start_url=] origin that
-          is [=manifest/within scope=] of a [=Document/processed manifest=].
-          This URL will be navigated to in the steps to [=execute a file
-          handler launch=].
+          represents a URL relative to the [=manifest URL=] that is
+          [=manifest/within scope=] of a [=Document/processed manifest=]. This
+          URL will be navigated to in the steps to [=execute a file handler
+          launch=].
         </p>
       </section>
       <section>
@@ -2201,14 +2195,17 @@
         <p>
           The [=file handler=]'s <code><dfn data-dfn-for=
           "file handler">name</dfn></code> member is a <a>string</a> that
-          describes the file type. User agents MAY pass this information to the
-          operating system during file handler registration.
+          identifies the file type to the user. User agents MAY pass this
+          information to the operating system during file handler registration.
         </p>
         <aside class="note">
-          The [=file handler/name=] is used to describe the file type in a
-          human readable format, and is typically only displayed in OS surfaces
-          (such as a file browser) if the web app has become the default
-          handler for that file type. It's most useful for custom file types.
+          <p>
+            The [=file handler/name=] is used to identify and describe the file
+            type in a human readable format, and is typically only displayed in
+            OS surfaces (such as a file browser) if the web app has become the
+            default handler for that file type. It's most useful for custom
+            file types.
+          </p>
         </aside>
       </section>
       <section>
@@ -2271,8 +2268,7 @@
           "file handler">launch_type</dfn></code> member is a <a>string</a>
           that determines how the app is launched for files routed to this
           handler. The possible values are "single-client" and
-          "multiple-clients". If not provided, the default behavior matches
-          "single-client".
+          "multiple-clients". If not provided, it defaults to "single-client".
         </p>
         <p>
           When a [=file handler=] is determined to match a set of files, the
