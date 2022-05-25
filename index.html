@@ -2539,13 +2539,67 @@
     </section>
     <section>
       <h2>
-        Choosing a display mode
+        Display modes
       </h2>
       <p>
-        A [=display mode=], as defined in [[MEDIAQUERIES-5]], represents how
-        the web application is being presented within the context of an OS
-        (e.g., in fullscreen, etc.). Display modes correspond to user interface
-        (UI) metaphors and functionality in use on a given platform.
+        A <dfn>display mode</dfn> represents how the web application is being
+        presented within the context of an OS (e.g., in fullscreen, etc.).
+        Display modes correspond to user interface (UI) metaphors and
+        functionality in use on a given platform. The UI conventions of the
+        display modes are purely advisory and implementers are free to
+        interpret them how they best see fit.
+      </p>
+      <p>
+        This specification defines the following [=display modes=]:
+      </p>
+      <dl>
+        <dt>
+          <dfn data-dfn-for="display mode">fullscreen</dfn>
+        </dt>
+        <dd>
+          Opens the web application with browser UI elements hidden and takes
+          up the entirety of the available display area.
+        </dd>
+        <dt>
+          <dfn data-dfn-for="display mode">standalone</dfn>
+        </dt>
+        <dd>
+          Opens the web application to look and feel like a standalone native
+          application. This can include the application having a different
+          window, its own icon in the application launcher, etc. In this mode,
+          the user agent will exclude standard browser UI elements such as an
+          URL bar, but can include other system UI elements such as a status
+          bar and/or system back button.
+        </dd>
+        <dt>
+          <dfn data-dfn-for="display mode">minimal-ui</dfn>
+        </dt>
+        <dd>
+          This mode is similar to [=display mode/standalone=], but provides the
+          end-user with some means to access a minimal set of UI elements for
+          controlling navigation (i.e., back, forward, reload, and perhaps some
+          way of viewing the document's address). A user agent can include
+          other platform specific UI elements, such as "share" and "print"
+          buttons or whatever is customary on the platform and user agent.
+        </dd>
+        <dt>
+          <dfn data-dfn-for="display mode">browser</dfn> (default)
+        </dt>
+        <dd>
+          Opens the web application using the platform-specific convention for
+          opening hyperlinks in the user agent (e.g., in a browser tab or a new
+          window).
+        </dd>
+      </dl>
+      <p class="note">
+        The [=display mode/fullscreen=] <a>display mode</a> is orthogonal to,
+        and works independently of, the [[[FULLSCREEN]]]. The [=display
+        mode/fullscreen=] <a>display mode</a> affects the fullscreen state of
+        the browser window, while the [[FULLSCREEN]] API operates on an element
+        contained within the viewport. As such, a web application can have its
+        <a>display mode</a> set to [=display mode/fullscreen=], while
+        `document.fullScreenElement` returns `null`, and `fullscreenEnabled`
+        returns `false`.
       </p>
       <p>
         Once a user agent [=applies=] a particular <a>display mode</a> to an
