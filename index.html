@@ -1986,18 +1986,10 @@
         </h3>
         <p>
           When <a>shortcut item</a> <var>shortcut</var> having
-          <var>manifest</var> is invoked, run the following steps:
+          <var>manifest</var> is invoked, run the steps to
+          [=launch a web application=] given <var>mainfest</var> and
+          <var>shortcut.url</var>.
         </p>
-        <ol class="algorithm">
-          <li>Let <var>url</var> be <var>shortcut.url</var>.
-          </li>
-          <li>Let <var>browsing context</var> be the result of creating a new
-          <a>top-level browsing context</a>.
-          </li>
-          <li>
-            <a>Navigate</a> <var>browsing context</var> to <var>url</var>.
-          </li>
-        </ol>
       </section>
       <section>
         <h2>
@@ -2248,6 +2240,30 @@
           [=manifest/short_name=] member might be better suited for the space
           available underneath an icon).
         </p>
+      </section>
+      <section>
+        <h3 id="installation-sec">
+          Launching a web application
+        </h3>
+        <p>
+          The steps to <dfn>launch a web application</dfn> is given by the
+          following algorithm. The algorithm takes a
+          [=Document/processed manifest=] |manifest:processed manifest| and an
+          optional |target URL:URL|.
+        </p>
+        <ol class="algorithm">
+          <li>If <var>url</var> is unset, set <var>url</var> to
+              |manifest|.[=manifest/start_url=].
+          </li>
+          <li>Let |client| be the result of
+              <a data-cite="html#creating-a-new-top-level-browsing-context">
+              creating a new top-level browsing context</a>.
+          </li>
+          <li>[=Navigate=] |client| passing |url|.
+          </li>
+          <li>[=Apply=] |manifest| to |client|.
+          </li>
+        </ol>
       </section>
       <section>
         <h3 id="installation-sec">
