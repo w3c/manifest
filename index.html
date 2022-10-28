@@ -1248,8 +1248,8 @@
           <p>
             The steps for <dfn data-export="" data-local-lt=
             "processing">processing a manifest</dfn> are given by the following
-            algorithm. The algorithm takes [^link^] |el:HTMLLinkElement| and a
-            [=Response=] |response|.
+            algorithm. The algorithm takes [^link^] |el:HTMLLinkElement|, a
+            [=Response=] |response|, and a [=byte sequence=] |bodyBytes|.
           </p>
           <ol class="algorithm">
             <li>Let |document URL:URL| be |el|'s [=Node/node document=]'s
@@ -1258,7 +1258,7 @@
             <li>Assert: |document URL:URL| is not null.
             </li>
             <li>Let |json| be the result of [=parse JSON bytes to an Infra
-            value=] passing |response|'s [=response/body=].
+            value=] passing |bodyBytes|.
             </li>
             <li>If the |json| is a parsing exception, or |json| is not an
             [=ordered map=]:
