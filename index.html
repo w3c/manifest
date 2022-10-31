@@ -2179,8 +2179,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </p></div>
           <p>
             The steps for <dfn data-export="" data-local-lt="processing" data-lt="processing a manifest|processing" id="dfn-processing-a-manifest" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">processing a manifest</dfn> are given by the following
-            algorithm. The algorithm takes <code><a data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-link-element" id="ref-for-index-term-link-element-2">link</a></code> <var data-type="HTMLLinkElement">el</var> and a
-            <a data-link-type="dfn" data-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response" id="ref-for-index-term-response-1">Response</a> <var>response</var>.
+            algorithm. The algorithm takes <code><a data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-link-element" id="ref-for-index-term-link-element-2">link</a></code> <var data-type="HTMLLinkElement">el</var>, a
+            <a data-link-type="dfn" data-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response" id="ref-for-index-term-response-1">Response</a> <var>response</var>, and a <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#byte-sequence" id="ref-for-index-term-byte-sequence-1">byte sequence</a> <var>bodyBytes</var>.
           </p>
           <ol class="algorithm">
             <li>Let <var data-type="URL">document URL</var> be <var data-type="HTMLLinkElement">el</var>'s <a data-link-type="dfn" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-node-document" id="ref-for-index-term-node-document-for-node-1">node document</a>'s
@@ -2188,7 +2188,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             </li>
             <li class="assert"><a href="https://infra.spec.whatwg.org/#assert">Assert</a>: <var data-type="URL">document URL</var> is not null.
             </li>
-            <li>Let <var>json</var> be the result of <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#parse-json-bytes-to-an-infra-value" id="ref-for-index-term-parse-json-bytes-to-an-infra-value-1">parse JSON bytes to an Infra value</a> passing <var>response</var>'s <a data-link-type="dfn" data-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response-body" id="ref-for-index-term-body-for-response-1">body</a>.
+            <li>Let <var>json</var> be the result of <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#parse-json-bytes-to-an-infra-value" id="ref-for-index-term-parse-json-bytes-to-an-infra-value-1">parse JSON bytes to an Infra value</a> passing <var>bodyBytes</var>.
             </li>
             <li>If the <var>json</var> is a parsing exception, or <var>json</var> is not an
             <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-19">ordered map</a>:
@@ -4301,8 +4301,6 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-fetch">FETCH</a></cite>] defines the following:
         <ul>
           <li>
-    <span class="index-term" data-href="https://fetch.spec.whatwg.org/#concept-response-body" id="index-term-body-for-response" tabindex="0" aria-haspopup="dialog">body (for <code>response</code>)</span>
-  </li><li>
     <span class="index-term" data-href="https://fetch.spec.whatwg.org/#concept-fetch" id="index-term-fetched" tabindex="0" aria-haspopup="dialog">fetched</span>
   </li><li>
     <span class="index-term" data-href="https://fetch.spec.whatwg.org/#concept-response" id="index-term-response" tabindex="0" aria-haspopup="dialog">Response</span>
@@ -4351,6 +4349,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#set-append" id="index-term-append-for-set" tabindex="0" aria-haspopup="dialog">append (for <code>set</code>)</span>
   </li><li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#boolean" id="index-term-boolean-type" tabindex="0" aria-haspopup="dialog">boolean type</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#byte-sequence" id="index-term-byte-sequence" tabindex="0" aria-haspopup="dialog">byte sequence</span>
   </li><li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#string-concatenate" id="index-term-concatenation-for-string" tabindex="0" aria-haspopup="dialog">concatenation (for <code>string</code>)</span>
   </li><li>
@@ -6080,18 +6080,6 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <a href="#ref-for-index-term-isstructurallyvalidlanguagetag-1" title="§ 1.3 lang member">§ 1.3 lang member</a> 
   </li>
   </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-body-for-response" aria-label="Links in this document to definition: body (for response)">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="https://fetch.spec.whatwg.org/#concept-response-body" aria-label="Permalink for definition: body (for response). Activate to close this dialog.">Permalink</a>
-         
-      </div>
-      <p><b>Referenced in:</b></p>
-      <ul>
-    <li>
-    <a href="#ref-for-index-term-body-for-response-1" title="§ 1.17.1 Processing the manifest">§ 1.17.1 Processing the manifest</a> 
-  </li>
-  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-fetched" aria-label="Links in this document to definition: fetched">
       <span class="caret"></span>
       <div>
@@ -6330,6 +6318,18 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <a href="#ref-for-index-term-boolean-type-1" title="§ 1.14 prefer_related_applications member">§ 1.14 prefer_related_applications member</a> 
   </li><li>
     <a href="#ref-for-index-term-boolean-type-2" title="§ 6. Navigation scope">§ 6. Navigation scope</a> 
+  </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-byte-sequence" aria-label="Links in this document to definition: byte sequence">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://infra.spec.whatwg.org/#byte-sequence" aria-label="Permalink for definition: byte sequence. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+    <a href="#ref-for-index-term-byte-sequence-1" title="§ 1.17.1 Processing the manifest">§ 1.17.1 Processing the manifest</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-concatenation-for-string" aria-label="Links in this document to definition: concatenation (for string)">
