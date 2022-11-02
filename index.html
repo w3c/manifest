@@ -2250,19 +2250,21 @@
           following algorithm. The algorithm takes a
           [=Document/processed manifest=] |manifest:processed manifest|, an
           optional |target URL:URL| and an optional
-          <a data-cite="html#post-resource">POST resource</a> or null
-          |post resource| (default null).
+          <a data-cite="html#post-resource">POST resource</a> |POST resource|.
         </p>
         <ol class="algorithm">
-          <li>If <var>url</var> is unset, set <var>url</var> to
+          <li>If |target URL| is null, set |target URL| to
               |manifest|.[=manifest/start_url=].
           </li>
-          <li>Let |client| be the result of
+          <li>Let |traversable| be the result of
               <a data-cite="html#create-a-fresh-top-level-traversable">
-              creating a fresh top-level traversable</a> passing |url| and
-              |post resource|.
+              creating a fresh top-level traversable</a> passing |target URL|
+              and |POST resource|.
           </li>
-          <li>[=Apply=] |manifest| to |client|.
+          <li>Let |browsing context| be the |traversable|'s
+              <a data-cite="html#nav-bc">active browsing context</a>.
+          </li>
+          <li>[=Apply=] |manifest| to |browsing context|.
           </li>
         </ol>
       </section>
