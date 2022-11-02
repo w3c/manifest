@@ -2248,18 +2248,19 @@
         <p>
           The steps to <dfn>launch a web application</dfn> is given by the
           following algorithm. The algorithm takes a
-          [=Document/processed manifest=] |manifest:processed manifest| and an
-          optional |target URL:URL|.
+          [=Document/processed manifest=] |manifest:processed manifest|, an
+          optional |target URL:URL| and an optional
+          <a data-cite="html#post-resource">post resource</a> or null
+          |post resource| (default null).
         </p>
         <ol class="algorithm">
           <li>If <var>url</var> is unset, set <var>url</var> to
               |manifest|.[=manifest/start_url=].
           </li>
           <li>Let |client| be the result of
-              <a data-cite="html#creating-a-new-top-level-browsing-context">
-              creating a new top-level browsing context</a>.
-          </li>
-          <li>[=Navigate=] |client| passing |url|.
+              <a data-cite="html#create-a-fresh-top-level-traversable">
+              creating a fresh top-level traversable</a> passing |url| and
+              |post resource|.
           </li>
           <li>[=Apply=] |manifest| to |client|.
           </li>
