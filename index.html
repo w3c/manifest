@@ -1992,7 +1992,7 @@
         <p>
           When <a>shortcut item</a> <var>shortcut</var> having
           <var>manifest</var> is invoked, run the steps to
-          [=launch a web application=] given <var>manifest</var> and
+          [=launch a web application=] with <var>manifest</var> and
           <var>shortcut.url</var>.
         </p>
       </section>
@@ -2266,12 +2266,12 @@
           <a data-cite="html#post-resource">POST resource</a> |POST resource|.
         </p>
         <ol class="algorithm">
-          <li>If |target URL| was not passed, set |target URL| to [=start URL=].
+          <li>If |target URL| was not given, set |target URL| to [=start URL=].
           </li>
           <li>Let |traversable| be the result of
               <a data-cite="html#create-a-fresh-top-level-traversable">
-              creating a fresh top-level traversable</a> passing |target URL|
-              and |POST resource| (or null if |POST resource| was not passed).
+              creating a fresh top-level traversable</a> with |target URL|
+              and |POST resource| (or null if |POST resource| was not given).
           </li>
           <li>Let |browsing context| be the |traversable|'s
               <a data-cite="html#nav-bc">active browsing context</a>.
