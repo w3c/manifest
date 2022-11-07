@@ -2247,8 +2247,9 @@
           Launching a web application
         </h3>
         <p>
-          At the discretion of the OS or UA, run the steps to
-          [=launch a web application=] with a [=Document/processed manifest=].
+          At the discretion of the operating system or user agent, run the steps
+          to [=launch a web application=] with a
+          [=Document/processed manifest=].
         </p>
         <p class="note">
           This would typically take place when the user selects an [=installed=]
@@ -2259,8 +2260,36 @@
           The steps to <dfn data-lt="launching a web application">launch a web
           application</dfn> is given by the following algorithm. The algorithm
           takes a [=Document/processed manifest=] |manifest:processed manifest|,
-          an optional |target URL:URL| and an optional
-          <a data-cite="html#post-resource">POST resource</a> |POST resource|.
+          an optional |target URL:URL|, an optional
+          <a data-cite="html#post-resource">POST resource</a> |POST resource|
+          and returns an [=application context=].
+        </p>
+        <p>
+          Other specifications MAY replace this algorithm's steps with their own
+          steps. This replacement will take effect for all invocations
+          of [=launching a web application=].
+        </p>
+        <p class="note">
+          This algorithm is replaceable to allow an experimental
+          <a href="https://github.com/WICG/web-app-launch">launch_handler</a>
+          manifest field to configure the behavior of all web application
+          launches. The replacement algorithm invokes [=create a new
+          application context=] by default but under certain conditions behaves
+          differently.
+        </p>
+        <ol class="algorithm">
+          <li>Return the result of running the steps to [=create a new
+              application context=] passing |manifest|, |target URL| and
+              |POST resource|.
+          </li>
+        </ol>
+        <p>
+          The steps to <dfn>create a new application context</dfn> is given
+          by the following algorithm. The algorithm takes a
+          [=Document/processed manifest=] |manifest:processed manifest|,
+          an optional |target URL:URL|, an optional
+          <a data-cite="html#post-resource">POST resource</a> |POST resource|
+          and returns an [=application context=].
         </p>
         <ol class="algorithm">
           <li>If |target URL| was not given, set |target URL| to [=start URL=].
