@@ -1397,11 +1397,6 @@
             [=Document/processed manifest=] are affecting the presentation or
             behavior of a browsing context.
           </p>
-          <p class="note">
-            This gives the user agent an opportunity to apply the relevant
-            values of the manifest, possibly changing the <a>display mode</a>
-            and screen orientation of the web application.
-          </p>
           <p>
             A <a>top-level browsing context</a> that has a manifest applied to
             it is referred to as an <dfn>application context</dfn>.
@@ -2207,9 +2202,12 @@
         appearing as a labeled icon on the home screen, launcher, or start
         menu. When [=launching a web application=], the manifest is
         <a>applied</a> by the user agent to the <a>top-level browsing
-        context</a> prior to the <a>start URL</a> being loaded. Alternatively,
-        and again as an example, the user agent could <a>install</a> the web
-        application into a list of bookmarks within the user agent itself.
+        context</a> prior to the <a>start URL</a> being loaded. This gives the
+        user agent an opportunity to apply the relevant values of the manifest,
+        possibly changing the <a>display mode</a> and screen orientation of the
+        web application. Alternatively, and again as an example, the user agent
+        could <a>install</a> the web application into a list of bookmarks within
+        the user agent itself.
       </p>
       <section>
         <h3>
