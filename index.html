@@ -2260,9 +2260,8 @@
           The steps to <dfn data-lt="launching a web application">launch a web
           application</dfn> is given by the following algorithm. The algorithm
           takes a [=Document/processed manifest=] |manifest:processed manifest|,
-          an optional |target URL:URL|, an optional
-          <a data-cite="html#post-resource">POST resource</a> |POST resource|
-          and returns an [=application context=].
+          an optional |target URL:URL|, an optional [=POST resource=]
+          |POST resource| and returns an [=application context=].
         </p>
         <p>
           Other specifications MAY replace this algorithm's steps with their own
@@ -2287,17 +2286,15 @@
           The steps to <dfn>create a new application context</dfn> is given
           by the following algorithm. The algorithm takes a
           [=Document/processed manifest=] |manifest:processed manifest|,
-          an optional |target URL:URL|, an optional
-          <a data-cite="html#post-resource">POST resource</a> |POST resource|
-          and returns an [=application context=].
+          an optional |target URL:URL|, an optional [=POST resource=]
+          |POST resource| and returns an [=application context=].
         </p>
         <ol class="algorithm">
           <li>If |target URL| was not given, set |target URL| to [=start URL=].
           </li>
-          <li>Let |traversable| be the result of
-              <a data-cite="html#create-a-fresh-top-level-traversable">
-              creating a fresh top-level traversable</a> with |target URL|
-              and |POST resource|.
+          <li>Let |traversable| be the result of running the steps to [=create
+              a fresh top-level traversable=] with |target URL| and
+              |POST resource|.
           </li>
           <li>Let |browsing context| be the |traversable|'s
               <a data-cite="html#nav-bc">active browsing context</a>.
