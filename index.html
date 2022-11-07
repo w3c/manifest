@@ -2249,9 +2249,8 @@
           Launching a web application
         </h3>
         <p>
-          At the discretion of the operating system and/or user agent, run the
-          steps to [=launch a web application=] with a
-          [=Document/processed manifest=].
+          At the discretion of the OS or UA, run the steps to
+          [=launch a web application=] with a [=Document/processed manifest=].
         </p>
         <p class="note">
           This would typically take place when the user selects an [=installed=]
@@ -2271,13 +2270,12 @@
           <li>Let |traversable| be the result of
               <a data-cite="html#create-a-fresh-top-level-traversable">
               creating a fresh top-level traversable</a> with |target URL|
-              and |POST resource| (or null if |POST resource| was not given).
+              and |POST resource|.
           </li>
           <li>Let |browsing context| be the |traversable|'s
               <a data-cite="html#nav-bc">active browsing context</a>.
           </li>
-          <li>[=Apply=] |manifest| to |browsing context| prior to the
-              |traversable| [=navigating=] to |target URL|.
+          <li>[=Apply=] |manifest| to |browsing context|.
           </li>
         </ol>
       </section>
