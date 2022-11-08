@@ -1986,18 +1986,10 @@
         </h3>
         <p>
           When <a>shortcut item</a> <var>shortcut</var> having
-          <var>manifest</var> is invoked, run the following steps:
+          <var>manifest</var> is invoked, run the steps to
+          [=launch a web application=] with <var>manifest</var> and
+          <var>shortcut.url</var>.
         </p>
-        <ol class="algorithm">
-          <li>Let <var>url</var> be <var>shortcut.url</var>.
-          </li>
-          <li>Let <var>browsing context</var> be the result of creating a new
-          <a>top-level browsing context</a>.
-          </li>
-          <li>
-            <a>Navigate</a> <var>browsing context</var> to <var>url</var>.
-          </li>
-        </ol>
       </section>
       <section>
         <h2>
@@ -2203,18 +2195,19 @@
         bookmark, as opening a web page from a traditional bookmark will not
         have the manifest's properties <a>applied</a> to it.
       </p>
-      <p>
+      <p class="note">
         For example, on user agents that support installation, a web
         application could be presented and launched in a way that, to the
         end-user, is indistinguishable from native applications: such as
         appearing as a labeled icon on the home screen, launcher, or start
-        menu. When launched, the manifest is <a>applied</a> by the user agent
-        to the <a>top-level browsing context</a> prior to the <a>start URL</a>
-        being loaded. This gives the user agent an opportunity to apply the
-        relevant values of the manifest, possibly changing the <a>display
-        mode</a> and screen orientation of the web application. Alternatively,
-        and again as an example, the user agent could <a>install</a> the web
-        application into a list of bookmarks within the user agent itself.
+        menu. When [=launching a web application=], the manifest is
+        <a>applied</a> by the user agent to the <a>top-level browsing
+        context</a> prior to the <a>start URL</a> being loaded. This gives the
+        user agent an opportunity to apply the relevant values of the manifest,
+        possibly changing the <a>display mode</a> and screen orientation of the
+        web application. Alternatively, and again as an example, the user agent
+        could <a>install</a> the web application into a list of bookmarks within
+        the user agent itself.
       </p>
       <section>
         <h3>
@@ -2248,6 +2241,74 @@
           [=manifest/short_name=] member might be better suited for the space
           available underneath an icon).
         </p>
+      </section>
+      <section>
+        <h3>
+          Launching a web application
+        </h3>
+        <p>
+          At the discretion of the operating system or user agent, run the steps
+          to [=launch a web application=] with a
+          [=Document/processed manifest=].
+        </p>
+        <p class="note">
+          This would typically take place when the user selects an [=installed=]
+          web app from an app launching UI surface e.g., a home screen, launcher
+          or start menu.
+        </p>
+        <p>
+          The steps to
+          <dfn data-lt="launching a web application" data-export="">launch a web
+          application</dfn> is given by the following algorithm. The algorithm
+          takes a [=Document/processed manifest=] |manifest:processed manifest|,
+          an optional [=URL=] |target URL:URL|, an optional [=POST resource=]
+          |POST resource| and returns an [=application context=].
+        </p>
+        <p>
+          |target URL|, if given, MUST be [=manifest/within scope=] of
+          |manifest|.
+        </p>
+        <p>
+          Other specifications MAY replace this algorithm's steps with their own
+          steps. This replacement will take effect for all invocations of
+          [=launch a web application=].
+        </p>
+        <p class="note">
+          This algorithm is replaceable to allow an experimental
+          <a href="https://github.com/WICG/web-app-launch">launch_handler</a>
+          manifest field to configure the behavior of all web application
+          launches. The replacement algorithm invokes [=create a new
+          application context=] by default but under certain conditions behaves
+          differently.
+        </p>
+        <ol class="algorithm">
+          <li>Return the result of running the steps to [=create a new
+              application context=] passing |manifest|, |target URL| and
+              |POST resource|.
+          </li>
+        </ol>
+        <p>
+          The steps to <dfn data-export="">create a new application context
+          </dfn> is given by the following algorithm. The algorithm takes a
+          [=Document/processed manifest=] |manifest:processed manifest|,
+          an optional [=URL=] |target URL:URL|, an optional [=POST resource=]
+          |POST resource| and returns an [=application context=].
+        </p>
+        <ol class="algorithm">
+          <li>If |target URL| was not given, set |target URL| to [=start URL=].
+          </li>
+          <li>Let |traversable| be the result of running the steps to [=create
+              a fresh top-level traversable=] with |target URL| and
+              |POST resource|.
+          </li>
+          <li>Let |browsing context| be the |traversable|'s
+              <a data-cite="html#nav-bc">active browsing context</a>.
+          </li>
+          <li>[=Apply=] |manifest| to |browsing context|.
+          </li>
+          <li>Return |browsing context|.
+          </li>
+        </ol>
       </section>
       <section>
         <h3 id="installation-sec">
