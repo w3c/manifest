@@ -274,15 +274,15 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "publishISODate": "2022-10-31T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 31 October 2022"
+  "publishISODate": "2022-11-08T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 08 November 2022"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5 IMAGE-RESOURCE MIMESNIFF HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2022-10-31">31 October 2022</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2022-11-08">08 November 2022</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -771,12 +771,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             agent would present
             <samp>https://example.com/icons/play-later.svg</samp> next to the
             text. When launched, the user agent would instantiate a new
-            <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-1">top-level browsing context</a> and navigate to
+            <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-1">top-level browsing context</a> and navigate to
             <samp>https://example.com/play-later</samp>.
             </li>
             <li>The second shortcut would be displayed with the text
             "Subscriptions". When launched, the user agent would instantiate a
-            new <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-2">top-level browsing context</a> and navigate to
+            new <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-2">top-level browsing context</a> and navigate to
             <samp>https://example.com/subscriptions?sort=desc</samp>.
             </li>
           </ul>
@@ -1372,7 +1372,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         <p>
           The <a data-link-type="dfn" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-12">manifest's</a> <code><dfn data-export="" data-dfn-for="manifest" id="dfn-orientation" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">orientation</dfn></code> member is a <a data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-9">string</a> that
-          serves as the <a data-type="dfn" href="https://www.w3.org/TR/screen-orientation/#dfn-default-screen-orientation" id="ref-for-index-term-default-screen-orientation-1">default screen orientation</a> for all <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-3">top-level
+          serves as the <a data-type="dfn" href="https://www.w3.org/TR/screen-orientation/#dfn-default-screen-orientation" id="ref-for-index-term-default-screen-orientation-1">default screen orientation</a> for all <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-3">top-level
           browsing contexts</a> of the web application. The possible values are
           those of the <a data-link-type="idl" data-lt="OrientationLockType" data-type="enum" href="https://www.w3.org/TR/screen-orientation/#dom-orientationlocktype" id="ref-for-index-term-orientationlocktype-enum-1"><code>OrientationLockType</code></a> enum, which in this
           specification are referred to as the <dfn id="dfn-orientation-values" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">orientation values</dfn>
@@ -1386,7 +1386,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           application (unless overridden by some other means at runtime). This
           means that the user agent <em class="rfc2119">MUST</em> return the orientation to the
           <a data-type="dfn" href="https://www.w3.org/TR/screen-orientation/#dfn-default-screen-orientation" id="ref-for-index-term-default-screen-orientation-4">default screen orientation</a> any time the orientation is
-          unlocked [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="The Screen Orientation API">SCREEN-ORIENTATION</a></cite>] or the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-4">top-level browsing
+          unlocked [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="The Screen Orientation API">SCREEN-ORIENTATION</a></cite>] or the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-4">top-level browsing
           context</a> is <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-1">navigated</a>.
         </p>
         <div class="note" role="note" id="issue-container-generatedID-6"><div role="heading" class="note-title marker" id="h-note-5" aria-level="4"><span>Note</span></div><p class="">
@@ -1406,7 +1406,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </p>
         <div class="note" role="note" id="issue-container-generatedID-7"><div role="heading" class="note-title marker" id="h-note-6" aria-level="4"><span>Note</span></div><p class="">
           Once the web application is running, other means can change the
-          orientation of a <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-5">top-level browsing context</a> (such as via
+          orientation of a <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-5">top-level browsing context</a> (such as via
           [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="The Screen Orientation API">SCREEN-ORIENTATION</a></cite>] API).
         </p></div>
         <p>
@@ -1502,7 +1502,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
           <li>If <var data-type="URL">start URL</var> is failure, return.
           </li>
-          <li>If <var data-type="URL">start URL</var> is not <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#same-origin" id="ref-for-index-term-same-origin-1">same origin</a> as <var>document
+          <li>If <var data-type="URL">start URL</var> is not <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" id="ref-for-index-term-same-origin-1">same origin</a> as <var>document
           URL</var>, return.
           </li>
           <li>Otherwise, set <var data-type="ordered map">manifest</var>["start_url"] to <var data-type="URL">start URL</var>.
@@ -1594,7 +1594,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
           <li>If <var data-type="URL">id</var> is failure, return.
           </li>
-          <li>If <var data-type="URL">id</var> is not <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#same-origin" id="ref-for-index-term-same-origin-2">same origin</a> as <var data-type="ordered map">manifest</var>["start_url"],
+          <li>If <var data-type="URL">id</var> is not <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" id="ref-for-index-term-same-origin-2">same origin</a> as <var data-type="ordered map">manifest</var>["start_url"],
           return.
           </li>
           <li>Set <var data-type="ordered map">manifest</var>["id"] to <var data-type="URL">id</var>.
@@ -2320,13 +2320,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </h4><a class="self-link" href="#applying" aria-label="Permalink for Section 1.17.4"></a></div>
           
           <p>
-            A <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-1">processed manifest</a> is <dfn data-export="" data-local-lt="apply|applying" data-lt="applied|apply|applying" data-plurals="applies" id="dfn-applied" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">applied</dfn> to a <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-6">top-level
+            A <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-1">processed manifest</a> is <dfn data-export="" data-local-lt="apply|applying" data-lt="applied|apply|applying" data-plurals="applies" id="dfn-applied" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">applied</dfn> to a <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-6">top-level
             browsing context</a>, meaning that the members of the
             <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-2">processed manifest</a> are affecting the presentation or
             behavior of a browsing context.
           </p>
           <p>
-            A <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-7">top-level browsing context</a> that has a manifest applied to
+            A <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-7">top-level browsing context</a> that has a manifest applied to
             it is referred to as an <dfn data-plurals="application contexts" id="dfn-application-context" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">application context</dfn>.
           </p>
           <p>
@@ -2886,7 +2886,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <li>Let <var>url</var> be <var>shortcut.url</var>.
           </li>
           <li>Let <var>browsing context</var> be the result of creating a new
-          <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-8">top-level browsing context</a>.
+          <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-8">top-level browsing context</a>.
           </li>
           <li>
             <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-6">Navigate</a> <var>browsing context</var> to <var>url</var>.
@@ -3088,10 +3088,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p>
         A common use case of a manifest is for a user agent to
         <dfn data-local-lt="installing|installation" data-lt="installed|install|installing|installation" id="dfn-installed" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">install</dfn> a web application; whereby the user agent
-        provides the end-user with a means of instantiating a new <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-9">top-level
+        provides the end-user with a means of instantiating a new <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-9">top-level
         browsing context</a> that has the manifest's members <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-6">applied</a> to
         it. A web application that is installed is known as a <dfn data-export="" data-plurals="installed web applications" id="dfn-installed-web-application" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">installed web application</dfn>. That is, the manifest's members, or
-        their defaults, are in effect on the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-10">top-level browsing context</a>.
+        their defaults, are in effect on the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-10">top-level browsing context</a>.
         This distinguishes an installed web application from a traditional
         bookmark, as opening a web page from a traditional bookmark will not
         have the manifest's properties <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-7">applied</a> to it.
@@ -3102,7 +3102,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         end-user, is indistinguishable from native applications: such as
         appearing as a labeled icon on the home screen, launcher, or start
         menu. When launched, the manifest is <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-8">applied</a> by the user agent
-        to the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-11">top-level browsing context</a> prior to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-6">start URL</a>
+        to the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-11">top-level browsing context</a> prior to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-6">start URL</a>
         being loaded. This gives the user agent an opportunity to apply the
         relevant values of the manifest, possibly changing the <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-4">display
         mode</a> and screen orientation of the web application. Alternatively,
@@ -3214,7 +3214,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         following algorithm returns <code>true</code>:
       </p>
       <ol class="algorithm">
-        <li>If <var data-type="URL">target</var> and <var data-type="URL">scope</var> are not <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#same-origin" id="ref-for-index-term-same-origin-3">same origin</a>, return <code>false</code>.
+        <li>If <var data-type="URL">target</var> and <var data-type="URL">scope</var> are not <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" id="ref-for-index-term-same-origin-3">same origin</a>, return <code>false</code>.
         </li>
         <li>Let <var data-type="string">scopePath</var> be the <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#string-concatenate" id="ref-for-index-term-concatenation-for-string-1">concatenation</a> of
         <var>scopes</var>'s <a data-link-type="dfn" data-type="dfn" href="https://url.spec.whatwg.org/#concept-url-path" id="ref-for-index-term-path-for-url-1">path</a> using U+002F (/) as the separator.
@@ -3243,13 +3243,14 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </p>
       </aside></div>
       <p>
-        If the <a data-link-type="dfn" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-7">application context</a>'s <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#active-document" id="ref-for-index-term-active-document-1">active document</a>'s <a data-link-type="dfn" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-2">URL</a>
-        is not <a data-link-type="dfn" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-3">within scope</a> of the <a data-link-type="dfn" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-8">application context</a>'s
-        <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-5">processed manifest</a>, the user agent <em class="rfc2119">SHOULD</em> show a prominent
-        UI element indicating the <a data-link-type="dfn" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-3">URL</a> or at least its <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-index-term-origin-1">origin</a>,
-        including whether it is served over a secure connection. This UI <em class="rfc2119">SHOULD</em>
-        differ from any UI used when the <a data-link-type="dfn" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-4">URL</a> is <a data-link-type="dfn" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-4">within scope</a> of the <a data-link-type="dfn" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-9">application context</a>'s <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-6">processed manifest</a>, in order to make it obvious that the user is navigating off
-        scope.
+        If the <a data-link-type="dfn" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-7">application context</a>'s <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="ref-for-index-term-active-document-for-navigable-1">active document</a>'s
+        <a data-link-type="dfn" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-2">URL</a> is not <a data-link-type="dfn" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-3">within scope</a> of the <a data-link-type="dfn" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-8">application context</a>'s <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-5">processed manifest</a>, the user agent <em class="rfc2119">SHOULD</em> show
+        a prominent UI element indicating the <a data-link-type="dfn" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-3">URL</a> or at least its
+        <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-1">origin</a>, including whether it is served over a secure connection.
+        This UI <em class="rfc2119">SHOULD</em> differ from any UI used when the <a data-link-type="dfn" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-4">URL</a> is
+        <a data-link-type="dfn" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-4">within scope</a> of the <a data-link-type="dfn" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-9">application context</a>'s
+        <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-6">processed manifest</a>, in order to make it obvious that the
+        user is navigating off scope.
       </p>
       <div class="note" role="note" id="issue-container-generatedID-25"><div role="heading" class="note-title marker" id="h-note-24" aria-level="3"><span>Note</span></div><aside class="">
         <p>
@@ -3259,7 +3260,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <p>
           Unlike previous versions of this specification, user agents are no
           longer required or allowed to block off-scope navigations, or open
-          them in a new <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-12">top-level browsing context</a>. This practice broke
+          them in a new <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-12">top-level browsing context</a>. This practice broke
           some sites that navigate to an off-scope URL (e.g., to perform
           third-party authentication). See <a href="https://github.com/w3c/manifest/issues/646">Issue 646</a>.
         </p>
@@ -3272,12 +3273,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           The above recommendation (to show some UI when the <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-11">application
           context</a> is navigated to an out-of-scope <a data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-10">URL</a>) is for
           security reasons. It ensures that users are always aware of which
-          <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-index-term-origin-2">origin</a> they are interacting with.
+          <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-2">origin</a> they are interacting with.
         </p>
         <p>
           Despite this, there is still a potential spoofing risk, if an
           installed app pretends to navigate to an out-of-scope site on another
-          <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="ref-for-index-term-origin-3">origin</a>. The site shows a fake version of the user agent's
+          <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-3">origin</a>. The site shows a fake version of the user agent's
           prominent out-of-scope UI, indicating to the user that it is on
           another origin. However, in reality, the user has never navigated
           away from the installed app's origin, and the user agent is not
@@ -3333,10 +3334,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p>
         Once a user agent <a data-link-type="dfn" href="#dfn-applied" class="internalDFN" id="ref-for-dfn-applied-11">applies</a> a particular <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-6">display mode</a> to an
         <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-13">application context</a>, it becomes the <dfn id="dfn-default-display-mode" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">default display
-        mode</dfn> for the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-13">top-level browsing context</a> (i.e., it is used
+        mode</dfn> for the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-13">top-level browsing context</a> (i.e., it is used
         as the display mode when the window is <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-8">navigated</a>). The user
         agent <em class="rfc2119">MAY</em> override the <a href="#dfn-default-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-default-display-mode-1">default display mode</a> for security reasons
-        (e.g., the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-14">top-level browsing context</a> is <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-9">navigated</a> to
+        (e.g., the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-14">top-level browsing context</a> is <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-9">navigated</a> to
         another origin) and/or the user agent <em class="rfc2119">MAY</em> provide the user with a means
         of switching to another <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-7">display mode</a>.
       </p>
@@ -4312,7 +4313,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-html">HTML</a></cite>] defines the following:
         <ul>
           <li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsers.html#active-document" id="index-term-active-document" tabindex="0" aria-haspopup="dialog">active document</span>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="index-term-active-document-for-navigable" tabindex="0" aria-haspopup="dialog">active document (for <code>navigable</code>)</span>
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#the-link-element" id="index-term-link-element" tabindex="0" aria-haspopup="dialog"><code>link</code> element</span>
   </li><li>
@@ -4322,11 +4323,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="index-term-navigated" tabindex="0" aria-haspopup="dialog">navigated</span>
   </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" id="index-term-origin" tabindex="0" aria-haspopup="dialog">origin</span>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="index-term-origin" tabindex="0" aria-haspopup="dialog">origin</span>
   </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/origin.html#same-origin" id="index-term-same-origin" tabindex="0" aria-haspopup="dialog">same origin</span>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" id="index-term-same-origin" tabindex="0" aria-haspopup="dialog">same origin</span>
   </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" id="index-term-top-level-browsing-context" tabindex="0" aria-haspopup="dialog">top-level browsing context</span>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="index-term-top-level-browsing-context" tabindex="0" aria-haspopup="dialog">top-level browsing context</span>
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens" id="index-term-unordered-set-of-unique-space-separated-tokens" tabindex="0" aria-haspopup="dialog">unordered set of unique space-separated tokens</span>
   </li>
@@ -4483,7 +4484,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-csp3">[CSP3]</dt><dd>
       <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 14 October 2022. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
     </dd><dt id="bib-css-color-4">[css-color-4]</dt><dd>
-      <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Tab Atkins Jr.; Chris Lilley; Lea Verou.  W3C. 5 July 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
+      <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Tab Atkins Jr.; Chris Lilley; Lea Verou.  W3C. 1 November 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
     </dd><dt id="bib-css-mime">[CSS-MIME]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2318"><cite>The text/css Media Type</cite></a>. H. Lie; B. Bos; C. Lilley.  IETF. March 1998. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc2318">https://www.rfc-editor.org/rfc/rfc2318</a>
     </dd><dt id="bib-css-syntax-3">[css-syntax-3]</dt><dd>
@@ -4517,7 +4518,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
     </dd><dt id="bib-screen-orientation">[SCREEN-ORIENTATION]</dt><dd>
-      <a href="https://www.w3.org/TR/screen-orientation/"><cite>The Screen Orientation API</cite></a>. Marcos Caceres.  W3C. 27 October 2022. W3C Working Draft. URL: <a href="https://www.w3.org/TR/screen-orientation/">https://www.w3.org/TR/screen-orientation/</a>
+      <a href="https://www.w3.org/TR/screen-orientation/"><cite>The Screen Orientation API</cite></a>. Marcos Caceres.  W3C. 3 November 2022. W3C Working Draft. URL: <a href="https://www.w3.org/TR/screen-orientation/">https://www.w3.org/TR/screen-orientation/</a>
     </dd><dt id="bib-unicode">[UNICODE]</dt><dd>
       <a href="https://www.unicode.org/versions/latest/"><cite>The Unicode Standard</cite></a>.  Unicode Consortium. URL: <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
     </dd><dt id="bib-unicode-security">[UNICODE-SECURITY]</dt><dd>
@@ -6116,16 +6117,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <a href="#ref-for-index-term-url-for-response-1" title="§ 1.17.1 Processing the manifest">§ 1.17.1 Processing the manifest</a> 
   </li>
   </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-active-document" aria-label="Links in this document to definition: active document">
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-active-document-for-navigable" aria-label="Links in this document to definition: active document (for navigable)">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="https://html.spec.whatwg.org/multipage/browsers.html#active-document" aria-label="Permalink for definition: active document. Activate to close this dialog.">Permalink</a>
+        <a class="self-link" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" aria-label="Permalink for definition: active document (for navigable). Activate to close this dialog.">Permalink</a>
          
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-    <a href="#ref-for-index-term-active-document-1" title="§ 6. Navigation scope">§ 6. Navigation scope</a> 
+    <a href="#ref-for-index-term-active-document-for-navigable-1" title="§ 6. Navigation scope">§ 6. Navigation scope</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-link-element" aria-label="Links in this document to definition: link element">
@@ -6191,7 +6192,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-origin" aria-label="Links in this document to definition: origin">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="https://html.spec.whatwg.org/multipage/origin.html#concept-origin" aria-label="Permalink for definition: origin. Activate to close this dialog.">Permalink</a>
+        <a class="self-link" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" aria-label="Permalink for definition: origin. Activate to close this dialog.">Permalink</a>
          
       </div>
       <p><b>Referenced in:</b></p>
@@ -6205,7 +6206,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-same-origin" aria-label="Links in this document to definition: same origin">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="https://html.spec.whatwg.org/multipage/origin.html#same-origin" aria-label="Permalink for definition: same origin. Activate to close this dialog.">Permalink</a>
+        <a class="self-link" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" aria-label="Permalink for definition: same origin. Activate to close this dialog.">Permalink</a>
          
       </div>
       <p><b>Referenced in:</b></p>
@@ -6221,7 +6222,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-top-level-browsing-context" aria-label="Links in this document to definition: top-level browsing context">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="https://html.spec.whatwg.org/multipage/browsers.html#top-level-browsing-context" aria-label="Permalink for definition: top-level browsing context. Activate to close this dialog.">Permalink</a>
+        <a class="self-link" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" aria-label="Permalink for definition: top-level browsing context. Activate to close this dialog.">Permalink</a>
          
       </div>
       <p><b>Referenced in:</b></p>
