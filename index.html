@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" dir="ltr"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 32.3.0">
+<meta name="generator" content="ReSpec 32.6.0">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -235,8 +235,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "editors": [
     {
       "name": "Marcos Cáceres",
-      "company": "W3C",
-      "companyURL": "https://www.w3.org",
+      "company": "Apple",
+      "companyURL": "https://apple.com",
       "w3cid": 39125
     },
     {
@@ -274,15 +274,15 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "publishISODate": "2022-11-09T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 09 November 2022"
+  "publishISODate": "2022-12-20T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 20 December 2022"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5 IMAGE-RESOURCE MIMESNIFF HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2022-11-09">09 November 2022</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2022-12-20">20 December 2022</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -304,7 +304,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         
         <dt>Editors:</dt><dd class="editor p-author h-card vcard" data-editor-id="39125">
-    <span class="p-name fn">Marcos Cáceres</span> (<a class="p-org org h-org" href="https://www.w3.org">W3C</a>)
+    <span class="p-name fn">Marcos Cáceres</span> (<a class="p-org org h-org" href="https://apple.com">Apple</a>)
   </dd><dd class="editor p-author h-card vcard" data-editor-id="57705">
     <span class="p-name fn">Kenneth Rohde Christiansen</span> (<a class="p-org org h-org" href="https://intel.com/">Intel Corporation</a>)
   </dd><dd class="editor p-author h-card vcard" data-editor-id="91260">
@@ -679,7 +679,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           
           <p>
             The example also shows how to use the link type "manifest" and how
-            to use other <code><a data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-index-term-meta-element-1">meta</a></code> and <code><a data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-link-element" id="ref-for-index-term-link-element-1">link</a></code> elements to give the web
+            to use other <code><a data-link-type="element" data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-index-term-meta-element-1">meta</a></code> and <code><a data-link-type="element" data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-link-element" id="ref-for-index-term-link-element-1">link</a></code> elements to give the web
             application a fallback name and set of icons.
           </p>
           <div class="example" id="example-linking-to-a-manifest">
@@ -1388,13 +1388,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           application (unless overridden by some other means at runtime). This
           means that the user agent <em class="rfc2119">MUST</em> return the orientation to the
           <a data-type="dfn" href="https://www.w3.org/TR/screen-orientation/#dfn-default-screen-orientation" id="ref-for-index-term-default-screen-orientation-4">default screen orientation</a> any time the orientation is
-          unlocked [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="The Screen Orientation API">SCREEN-ORIENTATION</a></cite>] or the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-4">top-level browsing
+          unlocked [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="Screen Orientation">SCREEN-ORIENTATION</a></cite>] or the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-4">top-level browsing
           context</a> is <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-1">navigated</a>.
         </p>
         <div class="note" role="note" id="issue-container-generatedID-6"><div role="heading" class="note-title marker" id="h-note-5" aria-level="4"><span>Note</span></div><p class="">
-          Although the specification relies on the [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="The Screen Orientation API">SCREEN-ORIENTATION</a></cite>]'s
+          Although the specification relies on the [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="Screen Orientation">SCREEN-ORIENTATION</a></cite>]'s
           <a data-link-type="idl" data-lt="OrientationLockType" data-type="enum" href="https://www.w3.org/TR/screen-orientation/#dom-orientationlocktype" id="ref-for-index-term-orientationlocktype-enum-2"><code>OrientationLockType</code></a>, it is <em class="rfc2119">OPTIONAL</em> for a user agent to implement
-          the [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="The Screen Orientation API">SCREEN-ORIENTATION</a></cite>] API. Supporting the [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="The Screen Orientation API">SCREEN-ORIENTATION</a></cite>]
+          the [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="Screen Orientation">SCREEN-ORIENTATION</a></cite>] API. Supporting the [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="Screen Orientation">SCREEN-ORIENTATION</a></cite>]
           API is, of course, encouraged.
         </p></div>
         <p>
@@ -1409,7 +1409,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <div class="note" role="note" id="issue-container-generatedID-7"><div role="heading" class="note-title marker" id="h-note-6" aria-level="4"><span>Note</span></div><p class="">
           Once the web application is running, other means can change the
           orientation of a <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-5">top-level browsing context</a> (such as via
-          [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="The Screen Orientation API">SCREEN-ORIENTATION</a></cite>] API).
+          [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation" title="Screen Orientation">SCREEN-ORIENTATION</a></cite>] API).
         </p></div>
         <p>
           To <dfn id="dfn-process-the-orientation-member" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">process the <code>orientation</code> member</dfn>, given <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-9">ordered map</a>
@@ -1788,7 +1788,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           the <a href="#dfn-theme-color" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-theme-color-1">theme color</a> for all browsing contexts to which the
           manifest is <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-3">applied</a>. However, a document may override the
           <a href="#dfn-default-theme-color" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-default-theme-color-2">default theme color</a> through the inclusion of a valid [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>]
-          <code><a data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-index-term-meta-element-2">meta</a></code> element whose <code><a data-type="element-attr" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name" id="ref-for-index-term-name-attribute-for-meta-element-1">name</a></code> attribute value is
+          <code><a data-link-type="element" data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-index-term-meta-element-2">meta</a></code> element whose <code><a data-link-type="element-attr" data-type="element-attr" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name" id="ref-for-index-term-name-attribute-for-meta-element-1">name</a></code> attribute value is
           <code>"theme-color"</code>.
         </p>
         <p data-cite="CSS-COLOR-4">
@@ -2181,7 +2181,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </p></div>
           <p>
             The steps for <dfn data-export="" data-local-lt="processing" data-lt="processing a manifest|processing" id="dfn-processing-a-manifest" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">processing a manifest</dfn> are given by the following
-            algorithm. The algorithm takes <code><a data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-link-element" id="ref-for-index-term-link-element-2">link</a></code> <var data-type="HTMLLinkElement">el</var>, a
+            algorithm. The algorithm takes <code><a data-link-type="element" data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-link-element" id="ref-for-index-term-link-element-2">link</a></code> <var data-type="HTMLLinkElement">el</var>, a
             <a data-link-type="dfn" data-type="dfn" href="https://fetch.spec.whatwg.org/#concept-response" id="ref-for-index-term-response-1">Response</a> <var>response</var>, and a <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#byte-sequence" id="ref-for-index-term-byte-sequence-1">byte sequence</a> <var>bodyBytes</var>.
           </p>
           <ol class="algorithm">
@@ -2359,7 +2359,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </h4><a class="self-link" href="#updating" aria-label="Permalink for Section 1.17.5"></a></div>
           
           <p>
-            As specified for <code><a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-21">manifest</a></code> link relation, the manifest
+            As specified for <code><a data-link-type="attr-value" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-21">manifest</a></code> link relation, the manifest
             is fetched and processed on every page load. When the <a data-link-type="dfn" href="#dfn-processing-a-manifest" class="internalDFN" id="ref-for-dfn-processing-a-manifest-7">processing a manifest</a> is successful, user agents <em class="rfc2119">MAY</em> apply updated manifest
             to any current and future <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-5">application contexts</a> associated
             with the application.
@@ -4553,7 +4553,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-bidi">[BIDI]</dt><dd>
       <a href="https://www.unicode.org/reports/tr9/tr9-46.html"><cite>Unicode Bidirectional Algorithm</cite></a>. Mark Davis; Ken Whistler.  Unicode Consortium. 16 August 2022. Unicode Standard Annex #9. URL: <a href="https://www.unicode.org/reports/tr9/tr9-46.html">https://www.unicode.org/reports/tr9/tr9-46.html</a>
     </dd><dt id="bib-csp3">[CSP3]</dt><dd>
-      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 14 October 2022. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
+      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 1 December 2022. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
     </dd><dt id="bib-css-color-4">[css-color-4]</dt><dd>
       <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Tab Atkins Jr.; Chris Lilley; Lea Verou.  W3C. 1 November 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
     </dd><dt id="bib-css-mime">[CSS-MIME]</dt><dd>
@@ -4581,7 +4581,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-mime-types">[MIME-TYPES]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2046"><cite>Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</cite></a>. N. Freed; N. Borenstein.  IETF. November 1996. Draft Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc2046">https://www.rfc-editor.org/rfc/rfc2046</a>
     </dd><dt id="bib-permissions">[permissions]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 19 October 2022. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 10 December 2022. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
     </dd><dt id="bib-rfc7159">[RFC7159]</dt><dd>
@@ -4589,7 +4589,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
     </dd><dt id="bib-screen-orientation">[SCREEN-ORIENTATION]</dt><dd>
-      <a href="https://www.w3.org/TR/screen-orientation/"><cite>The Screen Orientation API</cite></a>. Marcos Caceres.  W3C. 3 November 2022. W3C Working Draft. URL: <a href="https://www.w3.org/TR/screen-orientation/">https://www.w3.org/TR/screen-orientation/</a>
+      <a href="https://www.w3.org/TR/screen-orientation/"><cite>Screen Orientation</cite></a>. Marcos Caceres.  W3C. 16 December 2022. W3C Working Draft. URL: <a href="https://www.w3.org/TR/screen-orientation/">https://www.w3.org/TR/screen-orientation/</a>
     </dd><dt id="bib-unicode">[UNICODE]</dt><dd>
       <a href="https://www.unicode.org/versions/latest/"><cite>The Unicode Standard</cite></a>.  Unicode Consortium. URL: <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
     </dd><dt id="bib-unicode-security">[UNICODE-SECURITY]</dt><dd>
