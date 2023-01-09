@@ -1275,13 +1275,8 @@
             </li>
             <li>[=Process the `lang` member=] passing |json| and |manifest|.
             </li>
-            <li>[=list/For each=] |member:string| of [=list=] « "name",
-            "short_name" »:
-              <ol>
-                <li>[=Process a text member=] passing |json|, |manifest|, and
-                |member|.
-                </li>
-              </ol>
+            <li>[=Process a text member=] passing |json|, |manifest|, and
+            "name".
             </li>
             <li>[=Process a text member=] passing |json|, |manifest|, and
             "short_name".
@@ -1301,13 +1296,11 @@
             <li>[=Process the `scope` member=] passing |json|, |manifest|, and
             |manifest URL|.
             </li>
-            <li>[=list/For each=] |member:string| of [=list=] « "theme_color",
-            "background_color" »:
-              <ol>
-                <li>[=Process a color member=] passing |json|, |manifest|, and
-                |member|.
-                </li>
-              </ol>
+            <li>[=Process a color member=] passing |json|, |manifest|, and
+            "theme_color".
+            </li>
+            <li>[=Process a color member=] passing |json|, |manifest|, and
+            "background_color".
             </li>
             <li>[=Process the `display` member=] passing |json| and |manifest|.
             </li>
