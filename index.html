@@ -502,6 +502,8 @@
           |json:ordered map| and [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
+          <li>Set |manifest|["dir"] to "auto".
+          </li>
           <li>If |json|["dir"] doesn't [=map/exist=] or if |json|["dir"] is not
           a [=string=], return.
           </li>
@@ -679,6 +681,8 @@
           |json:ordered map| and [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
+          <li>Set |manifest|["display"] to "browser".
+          </li>
           <li>If |json|["display"] doesn't [=map/exist=] or |json|["display"]
           is not a a [=string=], return.
           </li>
@@ -773,6 +777,8 @@
           |manifest URL:URL|, and [=URL=] |document URL:URL|:
         </p>
         <ol class="algorithm">
+          <li>Set |manifest|["start_url"] to |document URL|.
+          </li>
           <li>If |json|["start_url"] doesn't [=map/exist=] or
           |json|["start_url"] is not a [=string=], return.
           </li>
@@ -784,8 +790,8 @@
           </li>
           <li>If |start URL| is failure, return.
           </li>
-          <li>If |start URL| is not <a>same origin</a> as <var>document
-          URL</var>, return.
+          <li>If |start URL| is not <a>same origin</a> as |document URL|,
+          return.
           </li>
           <li>Otherwise, set |manifest|["start_url"] to |start URL|.
           </li>
@@ -1267,9 +1273,7 @@
                 </li>
               </ol>
             </li>
-            <li>Let |manifest:ordered map| be a new [=ordered map=] «[
-            "display" → "browser", "dir" → "auto", "start_url" → |document URL|
-            ]».
+            <li>Let |manifest:ordered map| be an empty [=ordered map=].
             </li>
             <li>[=Process the `dir` member=] passing |json| and |manifest|.
             </li>
