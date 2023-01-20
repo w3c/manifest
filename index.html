@@ -1246,11 +1246,12 @@
             using a manifest without having to first load a document that links
             to the manifest (e.g. when installing an app onto the user's device
             via a sync service). But the above requirement forces the user
-            agent to verify that, for manifests that are not on the same origin
-            as the pages in the application scope, that at least some page on
-            the origin of the application scope applies that manifest.
-            (Otherwise, it would be possible for a manifest to control the
-            metadata for an unaffiliated app.)
+            agent to verify that, when an application scope is on origin A and
+            the manifest is on a different origin B, there is a bidirectional
+            relationship between the two origins: that at least some page on
+            origin A links to the manifest on origin B. (Otherwise, it would be
+            possible for a manifest on origin B to control the metadata for an
+            unaffiliated app on origin A.)
           </p>
           <p>
             When instructed to <dfn>ignore</dfn>, the user agent MUST act as if
