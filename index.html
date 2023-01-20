@@ -859,8 +859,8 @@
           [=URL/within scope=].
         </p>
         <p>
-          To <dfn>process the `id` member</dfn>, given [=ordered map=] |json:JSON|,
-          [=ordered map=] |manifest:ordered map|:
+          To <dfn>process the `id` member</dfn>, given [=ordered map=]
+          |json:JSON|, [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
           <li>Set |manifest|["id"] to |manifest|["start_url"].
@@ -1329,7 +1329,7 @@
             algorithm.
             </li>
             <li>Let [=document=]'s <dfn data-export="" data-dfn-for="Document">
-            processed manifest</dfn> be |manifest|.
+              processed manifest</dfn> be |manifest|.
             </li>
           </ol>
         </section>
@@ -1987,9 +1987,8 @@
         </h3>
         <p>
           When <a>shortcut item</a> <var>shortcut</var> having
-          <var>manifest</var> is invoked, run the steps to
-          [=launch a web application=] with <var>manifest</var> and
-          <var>shortcut.url</var>.
+          <var>manifest</var> is invoked, run the steps to [=launch a web
+          application=] with <var>manifest</var> and <var>shortcut.url</var>.
         </p>
       </section>
       <section>
@@ -1998,7 +1997,7 @@
         </h2>
         <p>
           To <dfn>process a shortcut</dfn>, given [=ordered map=] |item:ordered
-          map| and  |scope:URL|,:
+          map| and |scope:URL|,:
         </p>
         <ol class="algorithm">
           <li>Return failure if it's the case that:
@@ -2020,8 +2019,8 @@
           </li>
           <li>If |url| is failure, return failure.
           </li>
-          <li>If |url| is not [=manifest/within scope=] of |scope|,
-          return failure.
+          <li>If |url| is not [=manifest/within scope=] of |scope|, return
+          failure.
           </li>
           <li>Let |shortcut:ordered map| be |ordered map| «[ "url" → |url|,
           "name" → |item|["name"] ]».
@@ -2207,8 +2206,8 @@
         user agent an opportunity to apply the relevant values of the manifest,
         possibly changing the <a>display mode</a> and screen orientation of the
         web application. Alternatively, and again as an example, the user agent
-        could <a>install</a> the web application into a list of bookmarks within
-        the user agent itself.
+        could <a>install</a> the web application into a list of bookmarks
+        within the user agent itself.
       </p>
       <section>
         <h3>
@@ -2248,62 +2247,61 @@
           Launching a web application
         </h3>
         <p>
-          At the discretion of the operating system or user agent, run the steps
-          to [=launch a web application=] with a
-          [=Document/processed manifest=].
+          At the discretion of the operating system or user agent, run the
+          steps to [=launch a web application=] with a [=Document/processed
+          manifest=].
         </p>
         <p class="note">
-          This would typically take place when the user selects an [=installed=]
-          web app from an app launching UI surface e.g., a home screen, launcher
-          or start menu.
+          This would typically take place when the user selects an
+          [=installed=] web app from an app launching UI surface e.g., a home
+          screen, launcher or start menu.
         </p>
         <p>
-          The steps to
-          <dfn data-lt="launching a web application" data-export="">launch a web
-          application</dfn> is given by the following algorithm. The algorithm
-          takes a [=Document/processed manifest=] |manifest:processed manifest|,
-          an optional [=URL=] |target URL:URL|, an optional [=POST resource=]
-          |POST resource| and returns an [=application context=].
+          The steps to <dfn data-lt="launching a web application" data-export=
+          "">launch a web application</dfn> is given by the following
+          algorithm. The algorithm takes a [=Document/processed manifest=]
+          |manifest:processed manifest|, an optional [=URL=] |target URL:URL|,
+          an optional [=POST resource=] |POST resource| and returns an
+          [=application context=].
         </p>
         <p>
           |target URL|, if given, MUST be [=manifest/within scope=] of
           |manifest|.
         </p>
         <p>
-          Other specifications MAY replace this algorithm's steps with their own
-          steps. This replacement will take effect for all invocations of
+          Other specifications MAY replace this algorithm's steps with their
+          own steps. This replacement will take effect for all invocations of
           [=launch a web application=].
         </p>
         <p class="note">
-          This algorithm is replaceable to allow an experimental
-          <a href="https://github.com/WICG/web-app-launch">launch_handler</a>
-          manifest field to configure the behavior of all web application
-          launches. The replacement algorithm invokes [=create a new
-          application context=] by default but under certain conditions behaves
-          differently.
+          This algorithm is replaceable to allow an experimental <a href=
+          "https://github.com/WICG/web-app-launch">launch_handler</a> manifest
+          field to configure the behavior of all web application launches. The
+          replacement algorithm invokes [=create a new application context=] by
+          default but under certain conditions behaves differently.
         </p>
         <ol class="algorithm">
           <li>Return the result of running the steps to [=create a new
-              application context=] passing |manifest|, |target URL| and
-              |POST resource|.
+          application context=] passing |manifest|, |target URL| and |POST
+          resource|.
           </li>
         </ol>
         <p>
-          The steps to <dfn data-export="">create a new application context
-          </dfn> is given by the following algorithm. The algorithm takes a
-          [=Document/processed manifest=] |manifest:processed manifest|,
-          an optional [=URL=] |target URL:URL|, an optional [=POST resource=]
-          |POST resource| and returns an [=application context=].
+          The steps to <dfn data-export="">create a new application
+          context</dfn> is given by the following algorithm. The algorithm
+          takes a [=Document/processed manifest=] |manifest:processed
+          manifest|, an optional [=URL=] |target URL:URL|, an optional [=POST
+          resource=] |POST resource| and returns an [=application context=].
         </p>
         <ol class="algorithm">
           <li>If |target URL| was not given, set |target URL| to [=start URL=].
           </li>
           <li>Let |traversable| be the result of running the steps to [=create
-              a fresh top-level traversable=] with |target URL| and
-              |POST resource|.
+          a fresh top-level traversable=] with |target URL| and |POST
+          resource|.
           </li>
-          <li>Let |browsing context| be the |traversable|'s
-              <a data-cite="html#nav-bc">active browsing context</a>.
+          <li>Let |browsing context| be the |traversable|'s <a data-cite=
+          "html#nav-bc">active browsing context</a>.
           </li>
           <li>[=Apply=] |manifest| to |browsing context|.
           </li>
