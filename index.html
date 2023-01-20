@@ -1254,15 +1254,10 @@
           <p>
             The steps for <dfn data-export="" data-local-lt=
             "processing">processing a manifest</dfn> are given by the following
-            algorithm. The algorithm takes [^link^] |el:HTMLLinkElement|, a
-            [=Response=] |response|, and a [=byte sequence=] |bodyBytes|.
+            algorithm. The algorithm takes a [=URL=] |document URL:URL|, a
+            [=URL=] |manifest URL:URL|, and a [=byte sequence=] |bodyBytes|.
           </p>
           <ol class="algorithm">
-            <li>Let |document URL:URL| be |el|'s [=Node/node document=]'s
-            [=Document/URL=].
-            </li>
-            <li>Assert: |document URL:URL| is not null.
-            </li>
             <li>Let |json| be the result of [=parse JSON bytes to an Infra
             value=] passing |bodyBytes|.
             </li>
@@ -1284,8 +1279,6 @@
             </li>
             <li>[=Process a text member=] passing |json|, |manifest|, and
             "short_name".
-            </li>
-            <li>Let |manifest URL:URL| be |response|'s [=response/URL=].
             </li>
             <li>[=Process the `start_url` member=] passing |json|, |manifest|,
             |manifest URL|, and |document URL|.
