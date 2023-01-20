@@ -1233,6 +1233,26 @@
             Processing the manifest
           </h3>
           <p>
+            These processing steps are invoked by [[HTML]]'s processing steps
+            for the [^link^] element, but MAY also be invoked by the user agent
+            to process a manifest without an associated document. In this case,
+            the user agent MUST supply a |document URL| which is either <a>same
+            origin</a> as |manifest URL|, or <a>same origin</a> as at least one
+            page with a [^link^] element of type "manifest" that references the
+            given |manifest URL|.
+          </p>
+          <p class="note">
+            This provision allows user agents to perform app installations
+            using a manifest without having to first load a document that links
+            to the manifest (e.g. when installing an app onto the user's device
+            via a sync service). But the above requirement forces the user
+            agent to verify that, for manifests that are not on the same origin
+            as the pages in the application scope, that at least some page on
+            the origin of the application scope applies that manifest.
+            (Otherwise, it would be possible for a manifest to control the
+            metadata for an unaffiliated app.)
+          </p>
+          <p>
             When instructed to <dfn>ignore</dfn>, the user agent MUST act as if
             whatever manifest, member, or value caused the condition is absent.
           </p>
