@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" dir="ltr"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 32.6.0">
+<meta name="generator" content="ReSpec 32.6.1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -274,15 +274,15 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "publishISODate": "2022-12-20T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 20 December 2022"
+  "publishISODate": "2023-01-25T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 25 January 2023"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5 IMAGE-RESOURCE MIMESNIFF HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2022-12-20">20 December 2022</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2023-01-25">25 January 2023</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -339,11 +339,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p class="copyright">
     <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
     ©
-    2022
+    2023
     
-    <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="https://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
-    <a href="https://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="https://www.keio.ac.jp/">Keio</a>,
-    <a href="https://ev.buaa.edu.cn/">Beihang</a>). W3C
+    <a href="https://www.w3.org/">World Wide Web Consortium</a>.
+    <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup>
     <a href="https://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
     <a href="https://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
     <a rel="license" href="https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document" title="W3C Software and Document Notice and License">permissive document license</a> rules apply.
@@ -932,6 +931,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <var data-type="ordered map">json</var> and <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-2">ordered map</a> <var data-type="ordered map">manifest</var>:
         </p>
         <ol class="algorithm">
+          <li>Set <var data-type="ordered map">manifest</var>["dir"] to "auto".
+          </li>
           <li>If <var data-type="ordered map">json</var>["dir"] doesn't <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-index-term-exist-for-map-1">exist</a> or if <var data-type="ordered map">json</var>["dir"] is not
           a <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-1">string</a>, return.
           </li>
@@ -1315,6 +1316,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <var data-type="ordered map">json</var> and <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-8">ordered map</a> <var data-type="ordered map">manifest</var>:
         </p>
         <ol class="algorithm">
+          <li>Set <var data-type="ordered map">manifest</var>["display"] to "browser".
+          </li>
           <li>If <var data-type="ordered map">json</var>["display"] doesn't <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-index-term-exist-for-map-3">exist</a> or <var data-type="ordered map">json</var>["display"]
           is not a a <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-8">string</a>, return.
           </li>
@@ -1493,6 +1496,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <var data-type="URL">manifest URL</var>, and <a data-link-type="dfn" data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-3">URL</a> <var data-type="URL">document URL</var>:
         </p>
         <ol class="algorithm">
+          <li>Set <var data-type="ordered map">manifest</var>["start_url"] to <var data-type="URL">document URL</var>.
+          </li>
           <li>If <var data-type="ordered map">json</var>["start_url"] doesn't <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-index-term-exist-for-map-5">exist</a> or
           <var data-type="ordered map">json</var>["start_url"] is not a <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-12">string</a>, return.
           </li>
@@ -1504,8 +1509,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
           <li>If <var data-type="URL">start URL</var> is failure, return.
           </li>
-          <li>If <var data-type="URL">start URL</var> is not <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" id="ref-for-index-term-same-origin-1">same origin</a> as <var>document
-          URL</var>, return.
+          <li>If <var data-type="URL">start URL</var> is not <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" id="ref-for-index-term-same-origin-1">same origin</a> as <var data-type="URL">document URL</var>,
+          return.
           </li>
           <li>Otherwise, set <var data-type="ordered map">manifest</var>["start_url"] to <var data-type="URL">start URL</var>.
           </li>
@@ -1579,8 +1584,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <a data-link-type="dfn" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-5">within scope</a>.
         </p></div>
         <p>
-          To <dfn id="dfn-process-the-id-member" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">process the <code>id</code> member</dfn>, given <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-13">ordered map</a> <var data-type="JSON">json</var>,
-          <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-14">ordered map</a> <var data-type="ordered map">manifest</var>:
+          To <dfn id="dfn-process-the-id-member" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">process the <code>id</code> member</dfn>, given <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-13">ordered map</a>
+          <var data-type="JSON">json</var>, <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-14">ordered map</a> <var data-type="ordered map">manifest</var>:
         </p>
         <ol class="algorithm">
           <li>Set <var data-type="ordered map">manifest</var>["id"] to <var data-type="ordered map">manifest</var>["start_url"].
@@ -2199,21 +2204,14 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
                 </li>
               </ol>
             </li>
-            <li>Let <var data-type="ordered map">manifest</var> be a new <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-21">ordered map</a> «[
-            "display" → "browser", "dir" → "auto", "start_url" → <var data-type="URL">document URL</var>
-            ]».
+            <li>Let <var data-type="ordered map">manifest</var> be an empty <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-21">ordered map</a>.
             </li>
             <li><a data-link-type="dfn" href="#dfn-process-the-dir-member" class="internalDFN" id="ref-for-dfn-process-the-dir-member-1">Process the <code>dir</code> member</a> passing <var data-type="ordered map">json</var> and <var data-type="ordered map">manifest</var>.
             </li>
             <li><a data-link-type="dfn" href="#dfn-process-the-lang-member" class="internalDFN" id="ref-for-dfn-process-the-lang-member-1">Process the <code>lang</code> member</a> passing <var data-type="ordered map">json</var> and <var data-type="ordered map">manifest</var>.
             </li>
-            <li><a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-3">For each</a> <var data-type="string">member</var> of <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-7">list</a> « "name",
-            "short_name" »:
-              <ol>
-                <li><a data-link-type="dfn" href="#dfn-process-a-text-member" class="internalDFN" id="ref-for-dfn-process-a-text-member-3">Process a text member</a> passing <var data-type="ordered map">json</var>, <var data-type="ordered map">manifest</var>, and
-                <var data-type="string">member</var>.
-                </li>
-              </ol>
+            <li><a data-link-type="dfn" href="#dfn-process-a-text-member" class="internalDFN" id="ref-for-dfn-process-a-text-member-3">Process a text member</a> passing <var data-type="ordered map">json</var>, <var data-type="ordered map">manifest</var>, and
+            "name".
             </li>
             <li><a data-link-type="dfn" href="#dfn-process-a-text-member" class="internalDFN" id="ref-for-dfn-process-a-text-member-4">Process a text member</a> passing <var data-type="ordered map">json</var>, <var data-type="ordered map">manifest</var>, and
             "short_name".
@@ -2223,8 +2221,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             <li><a data-link-type="dfn" href="#dfn-process-the-start_url-member" class="internalDFN" id="ref-for-dfn-process-the-start_url-member-1">Process the <code>start_url</code> member</a> passing <var data-type="ordered map">json</var>, <var data-type="ordered map">manifest</var>,
             <var data-type="URL">manifest URL</var>, and <var data-type="URL">document URL</var>.
             </li>
-            <li><a data-link-type="dfn" href="#dfn-process-the-id-member" class="internalDFN" id="ref-for-dfn-process-the-id-member-2">Process the <code>id</code> member</a> passing <var data-type="ordered map">json</var>, <var data-type="ordered map">manifest</var> and
-            <var data-type="URL">document URL</var>.
+            <li><a data-link-type="dfn" href="#dfn-process-the-id-member" class="internalDFN" id="ref-for-dfn-process-the-id-member-2">Process the <code>id</code> member</a> passing <var data-type="ordered map">json</var> and <var data-type="ordered map">manifest</var>.
             </li>
             <li>If the <a data-link-type="dfn" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-1">document</a>'s <a data-link-type="dfn" data-lt="document" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-2">processed manifest</a> is not
             null, and <a data-link-type="dfn" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-3">document</a>'s <a data-link-type="dfn" data-lt="document" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-4">processed manifest</a>'s id is
@@ -2233,13 +2230,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             <li><a data-link-type="dfn" href="#dfn-process-the-scope-member" class="internalDFN" id="ref-for-dfn-process-the-scope-member-1">Process the <code>scope</code> member</a> passing <var data-type="ordered map">json</var>, <var data-type="ordered map">manifest</var>, and
             <var data-type="URL">manifest URL</var>.
             </li>
-            <li><a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-4">For each</a> <var data-type="string">member</var> of <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-8">list</a> « "theme_color",
-            "background_color" »:
-              <ol>
-                <li><a data-link-type="dfn" href="#dfn-process-a-color-member" class="internalDFN" id="ref-for-dfn-process-a-color-member-3">Process a color member</a> passing <var data-type="ordered map">json</var>, <var data-type="ordered map">manifest</var>, and
-                <var data-type="string">member</var>.
-                </li>
-              </ol>
+            <li><a data-link-type="dfn" href="#dfn-process-a-color-member" class="internalDFN" id="ref-for-dfn-process-a-color-member-3">Process a color member</a> passing <var data-type="ordered map">json</var>, <var data-type="ordered map">manifest</var>, and
+            "theme_color".
+            </li>
+            <li><a data-link-type="dfn" href="#dfn-process-a-color-member" class="internalDFN" id="ref-for-dfn-process-a-color-member-4">Process a color member</a> passing <var data-type="ordered map">json</var>, <var data-type="ordered map">manifest</var>, and
+            "background_color".
             </li>
             <li><a data-link-type="dfn" href="#dfn-process-the-display-member" class="internalDFN" id="ref-for-dfn-process-the-display-member-1">Process the <code>display</code> member</a> passing <var data-type="ordered map">json</var> and <var data-type="ordered map">manifest</var>.
             </li>
@@ -2260,7 +2255,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             algorithm.
             </li>
             <li>Let <a data-link-type="dfn" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-5">document</a>'s <dfn data-export="" data-dfn-for="Document" id="dfn-processed-manifest" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">
-            processed manifest</dfn> be <var data-type="ordered map">manifest</var>.
+              processed manifest</dfn> be <var data-type="ordered map">manifest</var>.
             </li>
           </ol>
         </section>
@@ -2482,7 +2477,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </dd>
         </dl>
         <p>
-          The <dfn id="dfn-icon-purposes-list" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">icon purposes list</dfn> is the <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-9">list</a> « "<a data-link-type="dfn" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-2">monochrome</a>", "<a data-link-type="dfn" href="#dfn-maskable" class="internalDFN" id="ref-for-dfn-maskable-1">maskable</a>", "<a data-link-type="dfn" href="#dfn-any" class="internalDFN" id="ref-for-dfn-any-2">any</a>" ».
+          The <dfn id="dfn-icon-purposes-list" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">icon purposes list</dfn> is the <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-7">list</a> « "<a data-link-type="dfn" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-2">monochrome</a>", "<a data-link-type="dfn" href="#dfn-maskable" class="internalDFN" id="ref-for-dfn-maskable-1">maskable</a>", "<a data-link-type="dfn" href="#dfn-any" class="internalDFN" id="ref-for-dfn-any-2">any</a>" ».
         </p>
         <div class="note" role="note" id="issue-container-generatedID-18"><div role="heading" class="note-title marker" id="h-note-17" aria-level="4"><span>Note</span></div><p class="">
           If an icon contains multiple purposes, it could be used for any of
@@ -2507,7 +2502,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
           <li>Let <var data-type="set">purposes</var> be new <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-index-term-set-2">set</a>.
           </li>
-          <li><a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-5">For each</a> <var data-type="string">keyword</var> of <var data-type="list<string>">keywords</var>:
+          <li><a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-3">For each</a> <var data-type="string">keyword</var> of <var data-type="list<string>">keywords</var>:
             <ol>
               <li>If <a data-link-type="dfn" href="#dfn-icon-purposes-list" class="internalDFN" id="ref-for-dfn-icon-purposes-list-1">icon purposes list</a> doesn't <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list-contain" id="ref-for-index-term-contain-for-list-4">contain</a> <var data-type="string">keyword</var>,
               then <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#iteration-continue" id="ref-for-index-term-continue-for-iteration-1">continue</a>.
@@ -2767,19 +2762,19 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </h3><a class="self-link" href="#processing-image-resources" aria-label="Permalink for Section 2.5"></a></div>
         
         <p>
-          To <dfn id="dfn-process-image-resources" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">process image resources</dfn>, given <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-10">list</a> <var data-type="list">images</var>,
+          To <dfn id="dfn-process-image-resources" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">process image resources</dfn>, given <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-8">list</a> <var data-type="list">images</var>,
           <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-27">ordered map</a> <var data-type="ordered map">map</var>, <var data-type="URL">manifest URL</var> and <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-21">string</a>
           <var data-type="string">member</var>:
         </p>
         <ol class="algorithm">
           <li>Let <var data-type="List<Image&nbsp;Resources>">imageResources</var> be a new
-          <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-11">list</a>.
+          <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-9">list</a>.
           </li>
           <li>Set <var data-type="ordered map">map</var>[member] to <var data-type="List<Image&nbsp;Resources>">imageResources</var>.
           </li>
-          <li>If <var data-type="list">images</var> is not <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-12">list</a>, return.
+          <li>If <var data-type="list">images</var> is not <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-10">list</a>, return.
           </li>
-          <li><a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-6">For each</a> <var data-type="Manifest image resource">potential image</var> of
+          <li><a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-4">For each</a> <var data-type="Manifest image resource">potential image</var> of
           <var data-type="list">images</var>:
             <ol>
               <li>Let <var data-type="ordered map">image</var> be the result of running <a data-link-type="dfn" data-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-process-an-image-resource-from-json" id="ref-for-index-term-process-an-image-resource-from-json-1">process an image resource from JSON</a> given <var data-type="Manifest image resource">potential image</var> and <var>manifest
@@ -2883,9 +2878,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         <p>
           When <a href="#dfn-shortcut-item" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-shortcut-item-10">shortcut item</a> <var>shortcut</var> having
-          <var>manifest</var> is invoked, run the steps to
-          <a data-link-type="dfn" href="#dfn-launching-a-web-application" class="internalDFN" id="ref-for-dfn-launching-a-web-application-1">launch a web application</a> with <var>manifest</var> and
-          <var>shortcut.url</var>.
+          <var>manifest</var> is invoked, run the steps to <a data-link-type="dfn" href="#dfn-launching-a-web-application" class="internalDFN" id="ref-for-dfn-launching-a-web-application-1">launch a web application</a> with <var>manifest</var> and <var>shortcut.url</var>.
         </p>
       </section>
       <section id="processing-shortcut-items"><div class="header-wrapper"><h3 id="x3-7-processing-shortcut-items"><bdi class="secno">3.7 </bdi>
@@ -2894,7 +2887,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         <p>
           To <dfn id="dfn-process-a-shortcut" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">process a shortcut</dfn>, given <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-29">ordered map</a> <var data-type="ordered
-          map">item</var> and  <var data-type="URL">scope</var>,:
+          map">item</var> and <var data-type="URL">scope</var>,:
         </p>
         <ol class="algorithm">
           <li>Return failure if it's the case that:
@@ -2922,8 +2915,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
           <li>If <var data-type="URL">url</var> is failure, return failure.
           </li>
-          <li>If <var data-type="URL">url</var> is not <a data-link-type="dfn" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-2">within scope</a> of <var data-type="URL">scope</var>,
-          return failure.
+          <li>If <var data-type="URL">url</var> is not <a data-link-type="dfn" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-2">within scope</a> of <var data-type="URL">scope</var>, return
+          failure.
           </li>
           <li>Let <var data-type="ordered map">shortcut</var> be <var>ordered map</var> «[ "url" → <var data-type="URL">url</var>,
           "name" → <var data-type="ordered
@@ -3066,7 +3059,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         <p>
           An <a data-link-type="dfn" href="#dfn-external-application-resource" class="internalDFN" id="ref-for-dfn-external-application-resource-6">external application resource's</a> <code><dfn data-dfn-for="external application resource" id="dfn-fingerprints" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">fingerprints</dfn></code> member
-          represents an <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-13">list</a> of <a data-link-type="dfn" href="#dfn-fingerprints-0" class="internalDFN" id="ref-for-dfn-fingerprints-0-1">fingerprints</a>.
+          represents an <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-11">list</a> of <a data-link-type="dfn" href="#dfn-fingerprints-0" class="internalDFN" id="ref-for-dfn-fingerprints-0-1">fingerprints</a>.
         </p>
         <p>
           A <dfn data-local-lt="fingerprints" data-lt="fingerprint|fingerprints" id="dfn-fingerprints-0" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">fingerprint</dfn> represents a
@@ -3102,8 +3095,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         user agent an opportunity to apply the relevant values of the manifest,
         possibly changing the <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-4">display mode</a> and screen orientation of the
         web application. Alternatively, and again as an example, the user agent
-        could <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-2">install</a> the web application into a list of bookmarks within
-        the user agent itself.
+        could <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-2">install</a> the web application into a list of bookmarks
+        within the user agent itself.
       </p></div>
       <section id="application-s-name"><div class="header-wrapper"><h3 id="x5-1-application-s-name"><bdi class="secno">5.1 </bdi>
           Application's name
@@ -3143,61 +3136,57 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </h3><a class="self-link" href="#launching-a-web-application" aria-label="Permalink for Section 5.2"></a></div>
         
         <p>
-          At the discretion of the operating system or user agent, run the steps
-          to <a data-link-type="dfn" href="#dfn-launching-a-web-application" class="internalDFN" id="ref-for-dfn-launching-a-web-application-3">launch a web application</a> with a
-          <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-4">processed manifest</a>.
+          At the discretion of the operating system or user agent, run the
+          steps to <a data-link-type="dfn" href="#dfn-launching-a-web-application" class="internalDFN" id="ref-for-dfn-launching-a-web-application-3">launch a web application</a> with a <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-4">processed manifest</a>.
         </p>
         <div class="note" role="note" id="issue-container-generatedID-24"><div role="heading" class="note-title marker" id="h-note-23" aria-level="4"><span>Note</span></div><p class="">
-          This would typically take place when the user selects an <a data-link-type="dfn" href="#dfn-installed" class="internalDFN" id="ref-for-dfn-installed-3">installed</a>
-          web app from an app launching UI surface e.g., a home screen, launcher
-          or start menu.
+          This would typically take place when the user selects an
+          <a data-link-type="dfn" href="#dfn-installed" class="internalDFN" id="ref-for-dfn-installed-3">installed</a> web app from an app launching UI surface e.g., a home
+          screen, launcher or start menu.
         </p></div>
         <p>
-          The steps to
-          <dfn data-lt="launching a web application|launch a web application" data-export="" id="dfn-launching-a-web-application" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">launch a web
-          application</dfn> is given by the following algorithm. The algorithm
-          takes a <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-5">processed manifest</a> <var data-type="processed manifest">manifest</var>,
-          an optional <a data-link-type="dfn" data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-6">URL</a> <var data-type="URL">target URL</var>, an optional <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#post-resource" id="ref-for-index-term-post-resource-1">POST resource</a>
-          <var>POST resource</var> and returns an <a data-link-type="dfn" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-6">application context</a>.
+          The steps to <dfn data-lt="launching a web application|launch a web application" data-export="" id="dfn-launching-a-web-application" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">launch a web application</dfn> is given by the following
+          algorithm. The algorithm takes a <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-5">processed manifest</a>
+          <var data-type="processed manifest">manifest</var>, an optional <a data-link-type="dfn" data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-6">URL</a> <var data-type="URL">target URL</var>,
+          an optional <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#post-resource" id="ref-for-index-term-post-resource-1">POST resource</a> <var>POST resource</var> and returns an
+          <a data-link-type="dfn" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-6">application context</a>.
         </p>
         <p>
           <var data-type="URL">target URL</var>, if given, <em class="rfc2119">MUST</em> be <a data-link-type="dfn" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-3">within scope</a> of
           <var data-type="processed manifest">manifest</var>.
         </p>
         <p>
-          Other specifications <em class="rfc2119">MAY</em> replace this algorithm's steps with their own
-          steps. This replacement will take effect for all invocations of
+          Other specifications <em class="rfc2119">MAY</em> replace this algorithm's steps with their
+          own steps. This replacement will take effect for all invocations of
           <a data-link-type="dfn" href="#dfn-launching-a-web-application" class="internalDFN" id="ref-for-dfn-launching-a-web-application-4">launch a web application</a>.
         </p>
         <div class="note" role="note" id="issue-container-generatedID-25"><div role="heading" class="note-title marker" id="h-note-24" aria-level="4"><span>Note</span></div><p class="">
-          This algorithm is replaceable to allow an experimental
-          <a href="https://github.com/WICG/web-app-launch">launch_handler</a>
-          manifest field to configure the behavior of all web application
-          launches. The replacement algorithm invokes <a data-link-type="dfn" href="#dfn-create-a-new-application-context" class="internalDFN" id="ref-for-dfn-create-a-new-application-context-1">create a new application context</a> by default but under certain conditions behaves
-          differently.
+          This algorithm is replaceable to allow an experimental <a href="https://github.com/WICG/web-app-launch">launch_handler</a> manifest
+          field to configure the behavior of all web application launches. The
+          replacement algorithm invokes <a data-link-type="dfn" href="#dfn-create-a-new-application-context" class="internalDFN" id="ref-for-dfn-create-a-new-application-context-1">create a new application context</a> by
+          default but under certain conditions behaves differently.
         </p></div>
         <ol class="algorithm">
-          <li>Return the result of running the steps to <a data-link-type="dfn" href="#dfn-create-a-new-application-context" class="internalDFN" id="ref-for-dfn-create-a-new-application-context-2">create a new application context</a> passing <var data-type="processed manifest">manifest</var>, <var data-type="URL">target URL</var> and
-              <var>POST resource</var>.
+          <li>Return the result of running the steps to <a data-link-type="dfn" href="#dfn-create-a-new-application-context" class="internalDFN" id="ref-for-dfn-create-a-new-application-context-2">create a new application context</a> passing <var data-type="processed manifest">manifest</var>, <var data-type="URL">target URL</var> and <var>POST
+          resource</var>.
           </li>
         </ol>
         <p>
-          The steps to <dfn data-export="" id="dfn-create-a-new-application-context" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">create a new application context
-          </dfn> is given by the following algorithm. The algorithm takes a
-          <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-6">processed manifest</a> <var data-type="processed manifest">manifest</var>,
-          an optional <a data-link-type="dfn" data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-7">URL</a> <var data-type="URL">target URL</var>, an optional <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#post-resource" id="ref-for-index-term-post-resource-2">POST resource</a>
-          <var>POST resource</var> and returns an <a data-link-type="dfn" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-7">application context</a>.
+          The steps to <dfn data-export="" id="dfn-create-a-new-application-context" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">create a new application
+          context</dfn> is given by the following algorithm. The algorithm
+          takes a <a data-link-type="dfn" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-6">processed manifest</a> <var data-type="processed
+          manifest">manifest</var>, an optional <a data-link-type="dfn" data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-7">URL</a> <var data-type="URL">target URL</var>, an optional <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#post-resource" id="ref-for-index-term-post-resource-2">POST resource</a> <var>POST resource</var> and returns an <a data-link-type="dfn" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-7">application context</a>.
         </p>
         <ol class="algorithm">
           <li>If <var data-type="URL">target URL</var> was not given, set <var data-type="URL">target URL</var> to <a data-link-type="dfn" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-7">start URL</a>.
           </li>
-          <li>Let <var>traversable</var> be the result of running the steps to <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#create-a-fresh-top-level-traversable" id="ref-for-index-term-create-a-fresh-top-level-traversable-1">create a fresh top-level traversable</a> with <var data-type="URL">target URL</var> and
-              <var>POST resource</var>.
+          <li>Let <var>traversable</var> be the result of running the steps to <a data-link-type="dfn" data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#create-a-fresh-top-level-traversable" id="ref-for-index-term-create-a-fresh-top-level-traversable-1">create a fresh top-level traversable</a> with <var data-type="URL">target URL</var> and <var>POST
+          resource</var>.
           </li>
-          <li>Let <var>browsing context</var> be the <var>traversable</var>'s
-              <a href="https://html.spec.whatwg.org/multipage/#nav-bc" id="ref-for-index-term-active-browsing-context-1">active browsing context</a>.
+          <li>Let <var>browsing context</var> be the <var>traversable</var>'s <a href="https://html.spec.whatwg.org/multipage/#nav-bc" id="ref-for-index-term-active-browsing-context-1">active browsing context</a>.
           </li>
-          <li><a data-link-type="dfn" href="#dfn-applied" class="internalDFN" id="ref-for-dfn-applied-9">Apply</a> <var data-type="processed manifest">manifest</var> to <var>browsing context</var>.
+          <li><a data-link-type="dfn" href="#dfn-applied" class="internalDFN" id="ref-for-dfn-applied-9">Apply</a> <var data-type="processed
+          manifest">manifest</var> to <var>browsing context</var>.
           </li>
           <li>Return <var>browsing context</var>.
           </li>
@@ -3438,7 +3427,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <li>If the user agent supports <var data-type="processed manifest">manifest</var>["display"], then return
         <var data-type="processed manifest">manifest</var>["display"].
         </li>
-        <li><a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-7">For each</a> <var>fallback_mode</var> of the <a data-link-type="dfn" href="#dfn-fallback-chain" class="internalDFN" id="ref-for-dfn-fallback-chain-2">fallback chain</a> of
+        <li><a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-5">For each</a> <var>fallback_mode</var> of the <a data-link-type="dfn" href="#dfn-fallback-chain" class="internalDFN" id="ref-for-dfn-fallback-chain-2">fallback chain</a> of
         <var data-type="processed manifest">manifest</var>["display"]:
           <ol>
             <li>If the user agent supports the <var>fallback_mode</var>, then return
@@ -3467,7 +3456,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </p>
       </aside>
       <p>
-        The <dfn id="dfn-display-modes-list" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">display modes list</dfn> is the <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-14">list</a> « "<a data-link-type="dfn" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-fullscreen" id="ref-for-index-term-fullscreen-for-display-mode-2">fullscreen</a>", "<a data-link-type="dfn" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-standalone" id="ref-for-index-term-standalone-for-display-mode-3">standalone</a>", "<a data-link-type="dfn" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-minimal-ui" id="ref-for-index-term-minimal-ui-for-display-mode-4">minimal-ui</a>", "<a data-link-type="dfn" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="ref-for-index-term-browser-for-display-mode-9">browser</a>" ».
+        The <dfn id="dfn-display-modes-list" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">display modes list</dfn> is the <a data-link-type="dfn" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-12">list</a> « "<a data-link-type="dfn" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-fullscreen" id="ref-for-index-term-fullscreen-for-display-mode-2">fullscreen</a>", "<a data-link-type="dfn" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-standalone" id="ref-for-index-term-standalone-for-display-mode-3">standalone</a>", "<a data-link-type="dfn" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-minimal-ui" id="ref-for-index-term-minimal-ui-for-display-mode-4">minimal-ui</a>", "<a data-link-type="dfn" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="ref-for-index-term-browser-for-display-mode-9">browser</a>" ».
       </p>
       <p>
         A user agent <em class="rfc2119">MUST</em> reflect the applied <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-14">display mode</a> of the web
@@ -4046,7 +4035,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Public Working Draft:
       </p>
        <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483" filter="removeCommits"><ul>
-      <li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li>
+      <li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li>
       </ul></rs-changelog>
     </section>
     <section class="appendix informative" id="acknowledgements"><div class="header-wrapper"><h2 id="k-acknowledgements"><bdi class="secno">K. </bdi>
@@ -4581,7 +4570,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-mime-types">[MIME-TYPES]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2046"><cite>Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</cite></a>. N. Freed; N. Borenstein.  IETF. November 1996. Draft Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc2046">https://www.rfc-editor.org/rfc/rfc2046</a>
     </dd><dt id="bib-permissions">[permissions]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 10 December 2022. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 20 December 2022. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
     </dd><dt id="bib-rfc7159">[RFC7159]</dt><dd>
@@ -5317,7 +5306,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </li><li>
     <a href="#ref-for-dfn-process-a-color-member-2" title="§ 1.15 background_color member">§ 1.15 background_color member</a> 
   </li><li>
-    <a href="#ref-for-dfn-process-a-color-member-3" title="§ 1.17.1 Processing the manifest">§ 1.17.1 Processing the manifest</a> 
+    <a href="#ref-for-dfn-process-a-color-member-3" title="§ 1.17.1 Processing the manifest">§ 1.17.1 Processing the manifest</a> <a href="#ref-for-dfn-process-a-color-member-4" title="Reference 2">(2)</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-a-text-member" aria-label="Links in this document to definition: process a text member">
@@ -6565,13 +6554,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </li><li>
     <a href="#ref-for-index-term-for-each-for-list-2" title="§ 1.16 shortcuts member">§ 1.16 shortcuts member</a> 
   </li><li>
-    <a href="#ref-for-index-term-for-each-for-list-3" title="§ 1.17.1 Processing the manifest">§ 1.17.1 Processing the manifest</a> <a href="#ref-for-index-term-for-each-for-list-4" title="Reference 2">(2)</a> 
+    <a href="#ref-for-index-term-for-each-for-list-3" title="§ 2.1 purpose member">§ 2.1 purpose member</a> 
   </li><li>
-    <a href="#ref-for-index-term-for-each-for-list-5" title="§ 2.1 purpose member">§ 2.1 purpose member</a> 
+    <a href="#ref-for-index-term-for-each-for-list-4" title="§ 2.5 Processing image resources">§ 2.5 Processing image resources</a> 
   </li><li>
-    <a href="#ref-for-index-term-for-each-for-list-6" title="§ 2.5 Processing image resources">§ 2.5 Processing image resources</a> 
-  </li><li>
-    <a href="#ref-for-index-term-for-each-for-list-7" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> 
+    <a href="#ref-for-index-term-for-each-for-list-5" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-is-empty-for-list" aria-label="Links in this document to definition: is empty (for list)">
@@ -6601,15 +6588,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </li><li>
     <a href="#ref-for-index-term-list-4" title="§ 1.16 shortcuts member">§ 1.16 shortcuts member</a> <a href="#ref-for-index-term-list-5" title="Reference 2">(2)</a> <a href="#ref-for-index-term-list-6" title="Reference 3">(3)</a> 
   </li><li>
-    <a href="#ref-for-index-term-list-7" title="§ 1.17.1 Processing the manifest">§ 1.17.1 Processing the manifest</a> <a href="#ref-for-index-term-list-8" title="Reference 2">(2)</a> 
+    <a href="#ref-for-index-term-list-7" title="§ 2.1 purpose member">§ 2.1 purpose member</a> 
   </li><li>
-    <a href="#ref-for-index-term-list-9" title="§ 2.1 purpose member">§ 2.1 purpose member</a> 
+    <a href="#ref-for-index-term-list-8" title="§ 2.5 Processing image resources">§ 2.5 Processing image resources</a> <a href="#ref-for-index-term-list-9" title="Reference 2">(2)</a> <a href="#ref-for-index-term-list-10" title="Reference 3">(3)</a> 
   </li><li>
-    <a href="#ref-for-index-term-list-10" title="§ 2.5 Processing image resources">§ 2.5 Processing image resources</a> <a href="#ref-for-index-term-list-11" title="Reference 2">(2)</a> <a href="#ref-for-index-term-list-12" title="Reference 3">(3)</a> 
+    <a href="#ref-for-index-term-list-11" title="§ 4.5 fingerprints member">§ 4.5 fingerprints member</a> 
   </li><li>
-    <a href="#ref-for-index-term-list-13" title="§ 4.5 fingerprints member">§ 4.5 fingerprints member</a> 
-  </li><li>
-    <a href="#ref-for-index-term-list-14" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> 
+    <a href="#ref-for-index-term-list-12" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> 
   </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-ordered-map" aria-label="Links in this document to definition: ordered map">
