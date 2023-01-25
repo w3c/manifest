@@ -502,6 +502,8 @@
           |json:ordered map| and [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
+          <li>Set |manifest|["dir"] to "auto".
+          </li>
           <li>If |json|["dir"] doesn't [=map/exist=] or if |json|["dir"] is not
           a [=string=], return.
           </li>
@@ -679,6 +681,8 @@
           |json:ordered map| and [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
+          <li>Set |manifest|["display"] to "browser".
+          </li>
           <li>If |json|["display"] doesn't [=map/exist=] or |json|["display"]
           is not a a [=string=], return.
           </li>
@@ -773,6 +777,8 @@
           |manifest URL:URL|, and [=URL=] |document URL:URL|:
         </p>
         <ol class="algorithm">
+          <li>Set |manifest|["start_url"] to |document URL|.
+          </li>
           <li>If |json|["start_url"] doesn't [=map/exist=] or
           |json|["start_url"] is not a [=string=], return.
           </li>
@@ -784,8 +790,8 @@
           </li>
           <li>If |start URL| is failure, return.
           </li>
-          <li>If |start URL| is not <a>same origin</a> as <var>document
-          URL</var>, return.
+          <li>If |start URL| is not <a>same origin</a> as |document URL|,
+          return.
           </li>
           <li>Otherwise, set |manifest|["start_url"] to |start URL|.
           </li>
@@ -1267,21 +1273,14 @@
                 </li>
               </ol>
             </li>
-            <li>Let |manifest:ordered map| be a new [=ordered map=] «[
-            "display" → "browser", "dir" → "auto", "start_url" → |document URL|
-            ]».
+            <li>Let |manifest:ordered map| be an empty [=ordered map=].
             </li>
             <li>[=Process the `dir` member=] passing |json| and |manifest|.
             </li>
             <li>[=Process the `lang` member=] passing |json| and |manifest|.
             </li>
-            <li>[=list/For each=] |member:string| of [=list=] « "name",
-            "short_name" »:
-              <ol>
-                <li>[=Process a text member=] passing |json|, |manifest|, and
-                |member|.
-                </li>
-              </ol>
+            <li>[=Process a text member=] passing |json|, |manifest|, and
+            "name".
             </li>
             <li>[=Process a text member=] passing |json|, |manifest|, and
             "short_name".
@@ -1291,8 +1290,7 @@
             <li>[=Process the `start_url` member=] passing |json|, |manifest|,
             |manifest URL|, and |document URL|.
             </li>
-            <li>[=Process the `id` member=] passing |json|, |manifest| and
-            |document URL|.
+            <li>[=Process the `id` member=] passing |json| and |manifest|.
             </li>
             <li>If the [=document=]'s [=document|processed manifest=] is not
             null, and [=document=]'s [=document|processed manifest=]'s id is
@@ -1302,13 +1300,11 @@
             <li>[=Process the `scope` member=] passing |json|, |manifest|, and
             |manifest URL|.
             </li>
-            <li>[=list/For each=] |member:string| of [=list=] « "theme_color",
-            "background_color" »:
-              <ol>
-                <li>[=Process a color member=] passing |json|, |manifest|, and
-                |member|.
-                </li>
-              </ol>
+            <li>[=Process a color member=] passing |json|, |manifest|, and
+            "theme_color".
+            </li>
+            <li>[=Process a color member=] passing |json|, |manifest|, and
+            "background_color".
             </li>
             <li>[=Process the `display` member=] passing |json| and |manifest|.
             </li>
