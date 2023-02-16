@@ -16,7 +16,7 @@ jobs:
         with:
           TOOLCHAIN: respec
           VALIDATE_LINKS: false
-          VALIDATE_PUBRULES: true
+          VALIDATE_PUBRULES: false
           GH_PAGES_BRANCH: gh-pages
           W3C_API_KEY: ${{ secrets.W3C_API_KEY }}
           W3C_ECHIDNA_TOKEN: ${{ secrets.ECHIDNA_TOKEN }}

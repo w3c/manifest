@@ -30,8 +30,8 @@
       editors: [
         {
           name: "Marcos Cáceres",
-          company: "W3C",
-          companyURL: "https://www.w3.org",
+          company: "Apple",
+          companyURL: "https://apple.com",
           w3cid: 39125,
         },
         {
@@ -502,6 +502,8 @@
           |json:ordered map| and [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
+          <li>Set |manifest|["dir"] to "auto".
+          </li>
           <li>If |json|["dir"] doesn't [=map/exist=] or if |json|["dir"] is not
           a [=string=], return.
           </li>
@@ -679,6 +681,8 @@
           |json:ordered map| and [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
+          <li>Set |manifest|["display"] to "browser".
+          </li>
           <li>If |json|["display"] doesn't [=map/exist=] or |json|["display"]
           is not a a [=string=], return.
           </li>
@@ -773,6 +777,8 @@
           |manifest URL:URL|, and [=URL=] |document URL:URL|:
         </p>
         <ol class="algorithm">
+          <li>Set |manifest|["start_url"] to |document URL|.
+          </li>
           <li>If |json|["start_url"] doesn't [=map/exist=] or
           |json|["start_url"] is not a [=string=], return.
           </li>
@@ -784,8 +790,8 @@
           </li>
           <li>If |start URL| is failure, return.
           </li>
-          <li>If |start URL| is not <a>same origin</a> as <var>document
-          URL</var>, return.
+          <li>If |start URL| is not <a>same origin</a> as |document URL|,
+          return.
           </li>
           <li>Otherwise, set |manifest|["start_url"] to |start URL|.
           </li>
@@ -859,8 +865,8 @@
           [=URL/within scope=].
         </p>
         <p>
-          To <dfn>process the `id` member</dfn>, given [=object=] |json:JSON|,
-          [=ordered map=] |manifest:ordered map|:
+          To <dfn>process the `id` member</dfn>, given [=ordered map=]
+          |json:JSON|, [=ordered map=] |manifest:ordered map|:
         </p>
         <ol class="algorithm">
           <li>Set |manifest|["id"] to |manifest|["start_url"].
@@ -1189,7 +1195,7 @@
           <li>[=list/For each=] |entry:ordered map| of |json|["shortcuts"]:
             <ol>
               <li>Let |shortcut:ordered map| be [=process a shortcut=] with
-              |entry|.
+              |entry| and |manifest|["scope"].
               </li>
               <li>If |shortcut| is failure, continue.
               </li>
@@ -1248,8 +1254,8 @@
           <p>
             The steps for <dfn data-export="" data-local-lt=
             "processing">processing a manifest</dfn> are given by the following
-            algorithm. The algorithm takes [^link^] |el:HTMLLinkElement| and a
-            [=Response=] |response|.
+            algorithm. The algorithm takes [^link^] |el:HTMLLinkElement|, a
+            [=Response=] |response|, and a [=byte sequence=] |bodyBytes|.
           </p>
           <ol class="algorithm">
             <li>Let |document URL:URL| be |el|'s [=Node/node document=]'s
@@ -1258,7 +1264,7 @@
             <li>Assert: |document URL:URL| is not null.
             </li>
             <li>Let |json| be the result of [=parse JSON bytes to an Infra
-            value=] passing |response|'s [=response/body=].
+            value=] passing |bodyBytes|.
             </li>
             <li>If the |json| is a parsing exception, or |json| is not an
             [=ordered map=]:
@@ -1267,21 +1273,14 @@
                 </li>
               </ol>
             </li>
-            <li>Let |manifest:ordered map| be a new [=ordered map=] «[
-            "display" → "browser", "dir" → "auto", "start_url" → |document URL|
-            ]».
+            <li>Let |manifest:ordered map| be an empty [=ordered map=].
             </li>
             <li>[=Process the `dir` member=] passing |json| and |manifest|.
             </li>
             <li>[=Process the `lang` member=] passing |json| and |manifest|.
             </li>
-            <li>[=list/For each=] |member:string| of [=list=] « "name",
-            "short_name" »:
-              <ol>
-                <li>[=Process a text member=] passing |json|, |manifest|, and
-                |member|.
-                </li>
-              </ol>
+            <li>[=Process a text member=] passing |json|, |manifest|, and
+            "name".
             </li>
             <li>[=Process a text member=] passing |json|, |manifest|, and
             "short_name".
@@ -1291,8 +1290,7 @@
             <li>[=Process the `start_url` member=] passing |json|, |manifest|,
             |manifest URL|, and |document URL|.
             </li>
-            <li>[=Process the `id` member=] passing |json|, |manifest| and
-            |document URL|.
+            <li>[=Process the `id` member=] passing |json| and |manifest|.
             </li>
             <li>If the [=document=]'s [=document|processed manifest=] is not
             null, and [=document=]'s [=document|processed manifest=]'s id is
@@ -1302,13 +1300,11 @@
             <li>[=Process the `scope` member=] passing |json|, |manifest|, and
             |manifest URL|.
             </li>
-            <li>[=list/For each=] |member:string| of [=list=] « "theme_color",
-            "background_color" »:
-              <ol>
-                <li>[=Process a color member=] passing |json|, |manifest|, and
-                |member|.
-                </li>
-              </ol>
+            <li>[=Process a color member=] passing |json|, |manifest|, and
+            "theme_color".
+            </li>
+            <li>[=Process a color member=] passing |json|, |manifest|, and
+            "background_color".
             </li>
             <li>[=Process the `display` member=] passing |json| and |manifest|.
             </li>
@@ -1328,8 +1324,8 @@
             any proprietary and/or other supported members at this point in the
             algorithm.
             </li>
-            <li>Let [=document=]'s <dfn data-dfn-for="Document">processed
-            manifest</dfn> be |manifest|.
+            <li>Let [=document=]'s <dfn data-export="" data-dfn-for="Document">
+              processed manifest</dfn> be |manifest|.
             </li>
           </ol>
         </section>
@@ -1399,7 +1395,8 @@
           </p>
           <p>
             A <a>top-level browsing context</a> that has a manifest applied to
-            it is referred to as an <dfn>application context</dfn>.
+            it is referred to as an <dfn data-export="">application
+            context</dfn>.
           </p>
           <p>
             If an <a>application context</a> is created as a result of the user
@@ -1986,18 +1983,9 @@
         </h3>
         <p>
           When <a>shortcut item</a> <var>shortcut</var> having
-          <var>manifest</var> is invoked, run the following steps:
+          <var>manifest</var> is invoked, run the steps to [=launch a web
+          application=] with <var>manifest</var> and <var>shortcut.url</var>.
         </p>
-        <ol class="algorithm">
-          <li>Let <var>url</var> be <var>shortcut.url</var>.
-          </li>
-          <li>Let <var>browsing context</var> be the result of creating a new
-          <a>top-level browsing context</a>.
-          </li>
-          <li>
-            <a>Navigate</a> <var>browsing context</var> to <var>url</var>.
-          </li>
-        </ol>
       </section>
       <section>
         <h2>
@@ -2005,7 +1993,7 @@
         </h2>
         <p>
           To <dfn>process a shortcut</dfn>, given [=ordered map=] |item:ordered
-          map|:
+          map| and |scope:URL|,:
         </p>
         <ol class="algorithm">
           <li>Return failure if it's the case that:
@@ -2027,8 +2015,8 @@
           </li>
           <li>If |url| is failure, return failure.
           </li>
-          <li>If |url| is not [=manifest/within scope=] of |manifest URL|,
-          return failure.
+          <li>If |url| is not [=manifest/within scope=] of |scope|, return
+          failure.
           </li>
           <li>Let |shortcut:ordered map| be |ordered map| «[ "url" → |url|,
           "name" → |item|["name"] ]».
@@ -2203,18 +2191,19 @@
         bookmark, as opening a web page from a traditional bookmark will not
         have the manifest's properties <a>applied</a> to it.
       </p>
-      <p>
+      <p class="note">
         For example, on user agents that support installation, a web
         application could be presented and launched in a way that, to the
         end-user, is indistinguishable from native applications: such as
         appearing as a labeled icon on the home screen, launcher, or start
-        menu. When launched, the manifest is <a>applied</a> by the user agent
-        to the <a>top-level browsing context</a> prior to the <a>start URL</a>
-        being loaded. This gives the user agent an opportunity to apply the
-        relevant values of the manifest, possibly changing the <a>display
-        mode</a> and screen orientation of the web application. Alternatively,
-        and again as an example, the user agent could <a>install</a> the web
-        application into a list of bookmarks within the user agent itself.
+        menu. When [=launching a web application=], the manifest is
+        <a>applied</a> by the user agent to the <a>top-level browsing
+        context</a> prior to the <a>start URL</a> being loaded. This gives the
+        user agent an opportunity to apply the relevant values of the manifest,
+        possibly changing the <a>display mode</a> and screen orientation of the
+        web application. Alternatively, and again as an example, the user agent
+        could <a>install</a> the web application into a list of bookmarks
+        within the user agent itself.
       </p>
       <section>
         <h3>
@@ -2248,6 +2237,73 @@
           [=manifest/short_name=] member might be better suited for the space
           available underneath an icon).
         </p>
+      </section>
+      <section>
+        <h3>
+          Launching a web application
+        </h3>
+        <p>
+          At the discretion of the operating system or user agent, run the
+          steps to [=launch a web application=] with a [=Document/processed
+          manifest=].
+        </p>
+        <p class="note">
+          This would typically take place when the user selects an
+          [=installed=] web app from an app launching UI surface e.g., a home
+          screen, launcher or start menu.
+        </p>
+        <p>
+          The steps to <dfn data-lt="launching a web application" data-export=
+          "">launch a web application</dfn> is given by the following
+          algorithm. The algorithm takes a [=Document/processed manifest=]
+          |manifest:processed manifest|, an optional [=URL=] |target URL:URL|,
+          an optional [=POST resource=] |POST resource| and returns an
+          [=application context=].
+        </p>
+        <p>
+          |target URL|, if given, MUST be [=manifest/within scope=] of
+          |manifest|.
+        </p>
+        <p>
+          Other specifications MAY replace this algorithm's steps with their
+          own steps. This replacement will take effect for all invocations of
+          [=launch a web application=].
+        </p>
+        <p class="note">
+          This algorithm is replaceable to allow an experimental <a href=
+          "https://github.com/WICG/web-app-launch">launch_handler</a> manifest
+          field to configure the behavior of all web application launches. The
+          replacement algorithm invokes [=create a new application context=] by
+          default but under certain conditions behaves differently.
+        </p>
+        <ol class="algorithm">
+          <li>Return the result of running the steps to [=create a new
+          application context=] passing |manifest|, |target URL| and |POST
+          resource|.
+          </li>
+        </ol>
+        <p>
+          The steps to <dfn data-export="">create a new application
+          context</dfn> is given by the following algorithm. The algorithm
+          takes a [=Document/processed manifest=] |manifest:processed
+          manifest|, an optional [=URL=] |target URL:URL|, an optional [=POST
+          resource=] |POST resource| and returns an [=application context=].
+        </p>
+        <ol class="algorithm">
+          <li>If |target URL| was not given, set |target URL| to [=start URL=].
+          </li>
+          <li>Let |traversable| be the result of running the steps to [=create
+          a fresh top-level traversable=] with |target URL| and |POST
+          resource|.
+          </li>
+          <li>Let |browsing context| be the |traversable|'s <a data-cite=
+          "html#nav-bc">active browsing context</a>.
+          </li>
+          <li>[=Apply=] |manifest| to |browsing context|.
+          </li>
+          <li>Return |browsing context|.
+          </li>
+        </ol>
       </section>
       <section>
         <h3 id="installation-sec">
@@ -2354,15 +2410,15 @@
         </p>
       </aside>
       <p>
-        If the [=application context=]'s [=active document=]'s [=Document/URL=]
-        is not [=manifest/within scope=] of the [=application context=]'s
-        [=Document/processed manifest=], the user agent SHOULD show a prominent
-        UI element indicating the [=Document/URL=] or at least its [=origin=],
-        including whether it is served over a secure connection. This UI SHOULD
-        differ from any UI used when the [=Document/URL=] is [=manifest/within
-        scope=] of the [=application context=]'s [=Document/processed
-        manifest=], in order to make it obvious that the user is navigating off
-        scope.
+        If the [=application context=]'s [=navigable/active document=]'s
+        [=Document/URL=] is not [=manifest/within scope=] of the [=application
+        context=]'s [=Document/processed manifest=], the user agent SHOULD show
+        a prominent UI element indicating the [=Document/URL=] or at least its
+        [=origin=], including whether it is served over a secure connection.
+        This UI SHOULD differ from any UI used when the [=Document/URL=] is
+        [=manifest/within scope=] of the [=application context=]'s
+        [=Document/processed manifest=], in order to make it obvious that the
+        user is navigating off scope.
       </p>
       <aside class="note">
         <p>
