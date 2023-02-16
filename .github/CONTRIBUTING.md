@@ -5,8 +5,7 @@ Everyone is welcome to contribute to this specification.
 Any simple editorial contribution can simply be done with a GitHub Pull Request.
 You can even do an inline edit of the file on GitHub.
 
-For more substantial contributions, please first start a thread in the
-[webapps mailing list](https://lists.w3.org/Archives/Public/public-webapps/) at the W3C.
+For more substantial contributions, please first [file an issue](https://github.com/w3c/manifest/issues/new) here on Github.
 
 Note: Contributions to this repository are intended to become part of Recommendation-track documents governed by the
 [W3C Patent Policy](https://www.w3.org/Consortium/Patent-Policy-20040205/) and
