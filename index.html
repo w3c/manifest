@@ -2916,9 +2916,26 @@
           </h3>
           <p>
             Although proprietary extensions are undesirable, they can't
-            realistically be avoided. As such, the RECOMMENDED way to add a new
-            proprietary manifest member as an extension is to use a vendor
-            prefix.
+            realistically be avoided. If a user agent chooses to interpret a
+            member in the manifest JSON which is not specified in this document,
+            it can do so, but with care.
+          </p>
+          <p>
+            We encourage implementors adding proprietary extensions to consider
+            whether they could become a standard (i.e. if it would make sense
+            for a second user agent on a different platform to make use of that
+            member, even if no other user agent has expressed interest right
+            now). If so, we ask authors to design the API in a vendor-neutral
+            way, and propose it as a standard (see [[[#incubations]]]). If the
+            new member is truly proprietary (i.e. will only ever make sense in
+            the context of a proprietary ecosystem), use this process, and
+            prefix it with the short name of that proprietary ecosystem to avoid
+            name collisions.
+          </p>
+          <p>
+            Do not use vendor prefixes which you intend to later remove once it
+            becomes a standard (those tend to stick around forever). Only use
+            prefixes that will make sense now and into the future.
           </p>
           <p>
             We encourage implementors to add proprietary extensions to our
@@ -2930,23 +2947,30 @@
             standardization.
           </p>
           <p>
-            The following is an example of three hypothetical vendor
+            The following is an example of three hypothetical proprietary
             extensions.
           </p>
-          <pre class="example json" title="Vendor extensions">
+          <pre class="example json" title="Proprietary extensions">
             {
               ...
-              "webkit_fancy_feature": "some/url/img",
-              "moz_awesome_thing": { ... },
-              "vendor_example_site_verification": "KEY_9864D0966935"
+              "kpl_fancy_feature": "some/url/img",
+              "gmpc_awesome_thing": { ... },
+              "blitzly_site_verification": "KEY_9864D0966935"
               ...
             }
           </pre>
+          <p class="note">
+            In this example, we have deliberately chosen (made-up) names of
+            things that could be external sites or services, <em>not</em> names
+            of browsers or browser vendors. These are not vendor prefixes
+            belonging to the browser that invented them; they are prefixes of
+            proprietary services.
+          </p>
         </section>
       </section>
     </section>
     <section class="appendix informative">
-      <h2>
+      <h2 id="incubations">
         Incubations
       </h2>
       <p>
