@@ -2501,8 +2501,11 @@
           (detailed below) and is thus considered bad practice.
         </p>
         <p>
-          Same-origin scopes are not recommended due to origin-based settings
-          that will affect all apps installed under that origin. Settings like:
+          One origin per application is ideal because it isolates common user
+          agent settings and controls to apply to only one web applications.
+          Without this isolation, these settings or controls can apply to more
+          than one web application, which will likely be unexpected by the
+          user. Examples:
         </p>
         <ul>
           <li>Permissions
@@ -2533,8 +2536,8 @@
           </li>
           <li>Notifications and notification attribution.
           </li>
-          <li>And current or future APIs that somehow correspond to a single web app identity
-          (e.g. badging).
+          <li>And current or future APIs that somehow correspond to a single
+          web app identity (e.g. badging).
           </li>
         </ul>
         <aside class="example">
