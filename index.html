@@ -2495,21 +2495,11 @@
           Web Apps with scope conflicts
         </h3>
         <p>
-          Because scopes are based on URL matching, it is possible for a developer to create
-          multiple web applications with the same, overlapping, or nested scopes. Doing so creates
-          several issues (detailed below) and is thus considered bad practice.
+          Because scopes are based on URL matching, it is possible for a
+          developer to create multiple web applications with the same,
+          overlapping, or nested scopes. Doing so creates several issues
+          (detailed below) and is thus considered bad practice.
         </p>
-        <ul>
-          <li>The scopes of the two web apps can be on the same origin. Not
-          recommended.
-          </li>
-          <li>The scope of one web app can be nested inside the scope of the
-          other. Strongly not recommended.
-          </li>
-          <li>The scopes of the two web apps can be the same. Strongly not
-          recommended.
-          </li>
-        </ul>
         <p>
           Same-origin scopes are not recommended due to origin-based settings
           that will affect all apps installed under that origin. Settings like:
@@ -2519,28 +2509,49 @@
           </li>
           <li>Storage and storage quota
           </li>
-          <li>User settings (e.g. font size)
+          <li>User settings (e.g. font size, zoom level)
           </li>
         </ul>
         <p>
-          Further, overlapping, nested, or duplicate scopes can have the following UX and
-          API problems or inconsistencies among other possible consistencies:
+          To aide with disambiguation apps with scope conflicts, user agents
+          can determine the <dfn>controlling app</dfn> for a given document
+          URL, which is an [=installed web application=] with the longest
+          [=manifest/scope=] where the document url is [=manifest/within
+          scope=] of that application. If multiple apps fit this description
+          (in the case of matching scopes), then the user agent may choose
+          none, one, or all, depending on the scenario.
+        </p>
+        <p>
+          The following scenarios may require the user agent choosing a
+          [=controlling app=], not work, or be unpredictable with nested or
+          matching scopes:
         </p>
         <ul>
-          <li>Installation prompting may not work for the nested app if the
-          outer app is installed.
+          <li>Installation prompting.
           </li>
-          <li>User-agent UX around launching an app for a browsing context may
-          be inconsistent or not appear.
+          <li>User-agent UX around launching an app for a browsing context.
           </li>
-          <li>Badging API calls will not be able to consistently update the
-          correct web app badge.
+          <li>Notifications and notification attribution.
           </li>
-          <li>Notifications may have incorrect attribution or not appear.
-          </li>
-          <li>Future APIs may not work at all in this configuration.
+          <li>And current or future APIs that somehow correspond to a single web app identity
+          (e.g. badging).
           </li>
         </ul>
+        <aside class="example">
+          <p>
+            If a user agent supports the notifications API and there are two
+            apps installed with matching scopes, which app should be seen as
+            the author of that notification if it comes from within the scope
+            of both?
+          </p>
+          <p>
+            If two apps are nested and a notification is triggered within scope
+            of both, the notification will likely be attributed to the
+            [=controlling app=]. But what if the nested app is not installed,
+            and the outer app is? Is the developer expecting the notification
+            to be attributed to the outer app?
+          </p>
+        </aside>
       </section>
     </section>
     <section>
