@@ -1241,6 +1241,16 @@
             page with a [^link^] element of type [^link/rel/manifest^] that
             references the given |manifest URL|.
           </p>
+          <p>
+            Additionally, the user agent SHOULD ensure that the |bodyBytes|
+            data was fetched with a [=CORS Request=] whose <a data-xref-type=
+            "http-header">`Origin`</a> matches a page with a [^link^] element
+            of type [^link/rel/manifest^] that references the given |manifest
+            URL|, and that its [=Request/credentials mode=] is set to the
+            [=CORS settings attribute credentials mode=] for that [^link^]'s
+            [^link/crossorigin^] attribute. (The [[HTML]] steps automatically
+            ensure this.)
+          </p>
           <p class="note">
             This provision allows user agents to perform app installations
             using a manifest without having to first load a document that links
@@ -1251,7 +1261,9 @@
             relationship between the two origins: that at least some page on
             origin A links to the manifest on origin B. (Otherwise, it would be
             possible for a manifest on origin B to control the metadata for an
-            unaffiliated app on origin A.)
+            unaffiliated app on origin A.) Also, the user agent is expected to
+            fetch the manifest using the same CORS settings as it would if
+            going directly through the document.
           </p>
           <p>
             When instructed to <dfn>ignore</dfn>, the user agent MUST act as if
