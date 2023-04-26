@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" dir="ltr"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 32.8.0">
+<meta name="generator" content="ReSpec 34.0.1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -274,15 +274,15 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "publishISODate": "2023-03-29T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 29 March 2023"
+  "publishISODate": "2023-04-26T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 26 April 2023"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5 IMAGE-RESOURCE MIMESNIFF HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2023-03-29">29 March 2023</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2023-04-26">26 April 2023</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -1552,7 +1552,50 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </p>
         </section>
       </section>
-      <section id="id-member"><div class="header-wrapper"><h3 id="x1-11-id-member"><bdi class="secno">1.11 </bdi>
+      <aside class="mdn"><details>
+    <summary aria-label="Expand MDN details for id"><span>MDN</span><span> </span></summary>
+    <a title="The id member is a string that represents the identity of the web application — the unique identifier for the web application. If the web application ID does not match an existing ID, the application will be treated as a unique identity even if it is from the same URL." href="https://developer.mozilla.org/en-US/docs/Web/Manifest/id">id</a>
+    
+    <table>
+    <tr class="chrome yes">
+      <td>Chrome</td>
+      <td>96+</td>
+    </tr><tr class="chrome_android unknown">
+      <td>Chrome Android</td>
+      <td>?</td>
+    </tr><tr class="edge unknown">
+      <td>Edge</td>
+      <td>?</td>
+    </tr><tr class="edge_mobile unknown">
+      <td>Edge Mobile</td>
+      <td>?</td>
+    </tr><tr class="firefox yes">
+      <td>Firefox</td>
+      <td>95+</td>
+    </tr><tr class="firefox_android unknown">
+      <td>Firefox Android</td>
+      <td>?</td>
+    </tr><tr class="opera unknown">
+      <td>Opera</td>
+      <td>?</td>
+    </tr><tr class="opera_android unknown">
+      <td>Opera Android</td>
+      <td>?</td>
+    </tr><tr class="safari unknown">
+      <td>Safari</td>
+      <td>?</td>
+    </tr><tr class="safari_ios unknown">
+      <td>Safari iOS</td>
+      <td>?</td>
+    </tr><tr class="samsunginternet_android unknown">
+      <td>Samsung Internet</td>
+      <td>?</td>
+    </tr><tr class="webview_android unknown">
+      <td>WebView Android</td>
+      <td>?</td>
+    </tr>
+  </table>
+  </details></aside><section id="id-member"><div class="header-wrapper"><h3 id="x1-11-id-member"><bdi class="secno">1.11 </bdi>
           <code>id</code> member
         </h3><a class="self-link" href="#id-member" aria-label="Permalink for Section 1.11"></a></div>
         
@@ -2047,50 +2090,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           algorithm is used to process <a data-link-type="dfn" href="#dfn-background_color" class="internalDFN" id="ref-for-dfn-background_color-4"><code>background_color</code></a> member.
         </p></div>
       </section>
-      <aside class="mdn"><details>
-    <summary aria-label="Expand MDN details for shortcuts"><span>MDN</span><span title="This feature has limited support.">🚫</span></summary>
-    <a title="The shortcuts member defines an array of shortcuts or links to key tasks or pages within a web app. A user agent can use these values to assemble a context menu to be displayed by the operating system when a user engages with the web app's icon. When user invokes a shortcut, the user agent will navigate to the address given by shortcut's url member." href="https://developer.mozilla.org/en-US/docs/Web/Manifest/shortcuts">shortcuts</a>
-    <p class="engines-some">This feature has limited support.</p>
-    <table>
-    <tr class="chrome yes">
-      <td>Chrome</td>
-      <td>85+</td>
-    </tr><tr class="chrome_android yes">
-      <td>Chrome Android</td>
-      <td>84+</td>
-    </tr><tr class="edge unknown">
-      <td>Edge</td>
-      <td>?</td>
-    </tr><tr class="edge_mobile unknown">
-      <td>Edge Mobile</td>
-      <td>?</td>
-    </tr><tr class="firefox no">
-      <td>Firefox</td>
-      <td>No</td>
-    </tr><tr class="firefox_android unknown">
-      <td>Firefox Android</td>
-      <td>?</td>
-    </tr><tr class="opera unknown">
-      <td>Opera</td>
-      <td>?</td>
-    </tr><tr class="opera_android unknown">
-      <td>Opera Android</td>
-      <td>?</td>
-    </tr><tr class="safari no">
-      <td>Safari</td>
-      <td>No</td>
-    </tr><tr class="safari_ios unknown">
-      <td>Safari iOS</td>
-      <td>?</td>
-    </tr><tr class="samsunginternet_android unknown">
-      <td>Samsung Internet</td>
-      <td>?</td>
-    </tr><tr class="webview_android unknown">
-      <td>WebView Android</td>
-      <td>?</td>
-    </tr>
-  </table>
-  </details></aside><section id="shortcuts-member"><div class="header-wrapper"><h3 id="x1-16-shortcuts-member"><bdi class="secno">1.16 </bdi>
+      <section id="shortcuts-member"><div class="header-wrapper"><h3 id="x1-16-shortcuts-member"><bdi class="secno">1.16 </bdi>
           <code>shortcuts</code> member
         </h3><a class="self-link" href="#shortcuts-member" aria-label="Permalink for Section 1.16"></a></div>
         
@@ -2636,14 +2636,14 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </h5><a class="self-link" href="#icons-with-maskable-purpose" aria-label="Permalink for Section 2.3.1.1"></a></div>
           <div class="icons">
             <figure id="fig-image-the-base-image-with-transparent-background">
-              <img src="images/icon-plain.svg" alt="An icon over a checkerboard background" height="150" width="150">
+              <img src="images/icon-plain.svg" alt="An icon over a checkerboard background">
               <figcaption><a class="self-link" href="#fig-image-the-base-image-with-transparent-background">Figure <bdi class="figno">2</bdi></a> <span class="fig-title">
                 <span class="icon-title">Image</span> <span>The base image with
                 transparent background</span>
               </span></figcaption>
             </figure>
             <figure id="fig-safe-zone-circle-with-radius-2-5-40-of-the-icon-size">
-              <img src="images/icon-safe-zone.svg" alt="An icon in a purple circle (40% of the size) over a yellow background" height="150" width="150">
+              <img src="images/icon-safe-zone.svg" alt="An icon in a purple circle (40% of the size) over a yellow background">
               <figcaption><a class="self-link" href="#fig-safe-zone-circle-with-radius-2-5-40-of-the-icon-size">Figure <bdi class="figno">3</bdi></a> <span class="fig-title">
                 <span class="icon-title">Safe zone</span> <span>Circle with
                 radius 2/5 (40%) of the icon size</span>
@@ -2655,32 +2655,32 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </h5><a class="self-link" href="#mask-examples" aria-label="Permalink for Section 2.3.1.2"></a></div>
           <div class="icons">
             <figure id="fig-rounded-square-android">
-              <img src="images/icon-mask-android-roundsquare.svg" alt="An icon inside a rounded yellow square on a purple background" height="150" width="150">
+              <img src="images/icon-mask-android-roundsquare.svg" alt="An icon inside a rounded yellow square on a purple background">
               <figcaption><a class="self-link" href="#fig-rounded-square-android">Figure <bdi class="figno">4</bdi></a> <span class="fig-title">
                 <span class="icon-title">Rounded square</span>
                 <span>Android</span>
               </span></figcaption>
             </figure>
             <figure id="fig-squircle-android">
-              <img src="images/icon-mask-android-squircle.svg" alt="An icon inside an extremely rounded yellow square on a purple background" height="150" width="150">
+              <img src="images/icon-mask-android-squircle.svg" alt="An icon inside an extremely rounded yellow square on a purple background">
               <figcaption><a class="self-link" href="#fig-squircle-android">Figure <bdi class="figno">5</bdi></a> <span class="fig-title">
                 <span class="icon-title">Squircle</span> <span>Android</span>
               </span></figcaption>
             </figure>
             <figure id="fig-circle-android">
-              <img src="images/icon-mask-android-circle.svg" alt="An icon inside a rounded yellow circle on a purple background" height="150" width="150">
+              <img src="images/icon-mask-android-circle.svg" alt="An icon inside a rounded yellow circle on a purple background">
               <figcaption><a class="self-link" href="#fig-circle-android">Figure <bdi class="figno">6</bdi></a> <span class="fig-title">
                 <span class="icon-title">Circle</span> <span>Android</span>
               </span></figcaption>
             </figure>
             <figure id="fig-rounded-square-ios">
-              <img src="images/icon-mask-ios.svg" alt="An icon inside a somewhat rounded yellow square on a purple background" height="150" width="150">
+              <img src="images/icon-mask-ios.svg" alt="An icon inside a somewhat rounded yellow square on a purple background">
               <figcaption><a class="self-link" href="#fig-rounded-square-ios">Figure <bdi class="figno">7</bdi></a> <span class="fig-title">
                 <span class="icon-title">Rounded square</span> <span>iOS</span>
               </span></figcaption>
             </figure>
             <figure id="fig-fullbleed-windows">
-              <img src="images/icon-mask-windows.svg" alt="An icon on a yellow background" height="150" width="150">
+              <img src="images/icon-mask-windows.svg" alt="An icon on a yellow background">
               <figcaption><a class="self-link" href="#fig-fullbleed-windows">Figure <bdi class="figno">8</bdi></a> <span class="fig-title">
                 <span class="icon-title">Fullbleed</span> <span>Windows</span>
               </span></figcaption>
@@ -2734,21 +2734,21 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </h5><a class="self-link" href="#usage-examples" aria-label="Permalink for Section 2.4.1.1"></a></div>
           <div class="icons">
             <figure id="fig-image-the-base-image-with-no-color">
-              <img src="images/monochrome-icon-plain.svg" alt="A black icon over a checkerboard background" height="150" width="150">
+              <img src="images/monochrome-icon-plain.svg" alt="A black icon over a checkerboard background">
               <figcaption><a class="self-link" href="#fig-image-the-base-image-with-no-color">Figure <bdi class="figno">9</bdi></a> <span class="fig-title">
                 <span class="icon-title">Image</span> <span>The base image with
                 no color.</span>
               </span></figcaption>
             </figure>
             <figure id="fig-gradient-fill-the-image-filled-in-with-a-gradient">
-              <img src="images/monochrome-icon-gradient.svg" alt="A dark gradient icon over a checkerboard background" height="150" width="150">
+              <img src="images/monochrome-icon-gradient.svg" alt="A dark gradient icon over a checkerboard background">
               <figcaption><a class="self-link" href="#fig-gradient-fill-the-image-filled-in-with-a-gradient">Figure <bdi class="figno">10</bdi></a> <span class="fig-title">
                 <span class="icon-title">Gradient fill</span> <span>The image
                 filled in with a gradient.</span>
               </span></figcaption>
             </figure>
             <figure id="fig-solid-color-fill-with-padding-filled-in-with-the-theme-color-from-the-manifest">
-              <img src="images/monochrome-icon-tinted.svg" alt="A dark yellow icon over a light gray background" height="150" width="150">
+              <img src="images/monochrome-icon-tinted.svg" alt="A dark yellow icon over a light gray background">
               <figcaption><a class="self-link" href="#fig-solid-color-fill-with-padding-filled-in-with-the-theme-color-from-the-manifest">Figure <bdi class="figno">11</bdi></a> <span class="fig-title">
                 <span class="icon-title">Solid color fill with padding</span>
                 <span>Filled in with the theme color from the manifest.</span>
@@ -3804,8 +3804,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Incubations</a>). If the
             new member is truly proprietary (i.e. will only ever make sense in
             the context of a proprietary ecosystem), use this process, and
-            prefix it with the short name of that proprietary ecosystem to avoid
-            name collisions.
+            prefix it with the short name of that proprietary ecosystem to
+            avoid name collisions.
           </p>
           <p>
             Do not use vendor prefixes that you intend to later remove once it
@@ -4567,7 +4567,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-bidi">[BIDI]</dt><dd>
       <a href="https://www.unicode.org/reports/tr9/tr9-46.html"><cite>Unicode Bidirectional Algorithm</cite></a>. Mark Davis; Ken Whistler.  Unicode Consortium. 16 August 2022. Unicode Standard Annex #9. URL: <a href="https://www.unicode.org/reports/tr9/tr9-46.html">https://www.unicode.org/reports/tr9/tr9-46.html</a>
     </dd><dt id="bib-csp3">[CSP3]</dt><dd>
-      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 20 February 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
+      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 11 April 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
     </dd><dt id="bib-css-color-4">[css-color-4]</dt><dd>
       <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Tab Atkins Jr.; Chris Lilley; Lea Verou.  W3C. 1 November 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
     </dd><dt id="bib-css-mime">[CSS-MIME]</dt><dd>
@@ -4603,7 +4603,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
     </dd><dt id="bib-screen-orientation">[SCREEN-ORIENTATION]</dt><dd>
-      <a href="https://www.w3.org/TR/screen-orientation/"><cite>Screen Orientation</cite></a>. Marcos Caceres.  W3C. 21 March 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/screen-orientation/">https://www.w3.org/TR/screen-orientation/</a>
+      <a href="https://www.w3.org/TR/screen-orientation/"><cite>Screen Orientation</cite></a>. Marcos Caceres.  W3C. 14 April 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/screen-orientation/">https://www.w3.org/TR/screen-orientation/</a>
     </dd><dt id="bib-unicode">[UNICODE]</dt><dd>
       <a href="https://www.unicode.org/versions/latest/"><cite>The Unicode Standard</cite></a>.  Unicode Consortium. URL: <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
     </dd><dt id="bib-unicode-security">[UNICODE-SECURITY]</dt><dd>
@@ -4614,7 +4614,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </section><section id="informative-references"><div class="header-wrapper"><h3 id="m-2-informative-references"><bdi class="secno">M.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix M.2"></a></div>
     
     <dl class="bibliography"><dt id="bib-manifest-app-info">[manifest-app-info]</dt><dd>
-      <a href="https://www.w3.org/TR/manifest-app-info/" id="ref-for-index-term-web-app-manifest-application-information-2"><cite>Web App Manifest - Application Information</cite></a>. Aaron Gustafson.  W3C. 25 October 2022. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/manifest-app-info/" id="ref-for-index-term-web-app-manifest-application-information-3">https://www.w3.org/TR/manifest-app-info/</a>
+      <a href="https://www.w3.org/TR/manifest-app-info/" id="ref-for-index-term-web-app-manifest-application-information-2"><cite>Web App Manifest - Application Information</cite></a>. Aaron Gustafson.  W3C. 20 April 2023. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/manifest-app-info/" id="ref-for-index-term-web-app-manifest-application-information-3">https://www.w3.org/TR/manifest-app-info/</a>
     </dd><dt id="bib-mimesniff">[mimesniff]</dt><dd>
       <a href="https://mimesniff.spec.whatwg.org/"><cite>MIME Sniffing Standard</cite></a>. Gordon P. Hemsley.  WHATWG. Living Standard. URL: <a href="https://mimesniff.spec.whatwg.org/">https://mimesniff.spec.whatwg.org/</a>
     </dd><dt id="bib-rfc7258">[RFC7258]</dt><dd>
