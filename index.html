@@ -1383,35 +1383,53 @@
             The [=processing a manifest=] steps are invoked by [[HTML]]'s
             processing steps for the [^link^] element, but MAY also be invoked
             by the user agent to process a manifest without an associated
-            document. In this case, the user agent MUST supply a |document URL|
-            which is either <a>same origin</a> as |manifest URL|, or <a>same
-            origin</a> as at least one page on origin |linkOrigin| with a
-            [^link^] element |linkElement| of type [^link/rel/manifest^] that
-            references the given |manifest URL|.
+            document.
           </p>
           <p>
-            Additionally, the user agent SHOULD ensure that the |bodyBytes|
-            data was fetched with a [=CORS Request=] whose <a data-xref-type=
-            "http-header">`Origin`</a> is |linkOrigin|, and whose
-            [=Request/credentials mode=] is set to the [=CORS settings
-            attribute credentials mode=] for |linkElement|'s
-            [^link/crossorigin^] attribute. (The [[HTML]] steps automatically
-            ensure this.)
+            In this case, the user agent SHOULD ensure that, at least at some
+            point in the past:
           </p>
-          <p class="note">
-            This provision allows user agents to perform app installations
-            using a manifest without having to first load a document that links
-            to the manifest (e.g. when installing an app onto the user's device
-            via a sync service). But the above requirement forces the user
-            agent to verify that, when an application scope is on origin A and
-            the manifest is on a different origin B, there is a bidirectional
-            relationship between the two origins: that at least some page on
-            origin A links to the manifest on origin B. (Otherwise, it would be
-            possible for a manifest on origin B to control the metadata for an
-            unaffiliated app on origin A.) Also, the user agent is expected to
-            fetch the manifest using the same CORS settings as it would if
-            going directly through the document.
+          <ul>
+            <li>there was at least one page which is [=same origin=] as
+            |document URL:URL| that has a [^link^] element
+            |linkElement:HTMLLinkElement| with a [^link/rel^] of
+            [^link/rel/manifest^] and a [^link/href^] that resolves to
+            |manifest URL:URL|, and that
+            </li>
+            <li>if |manifest URL| is not [=same origin=] as |document URL|, the
+            |bodyBytes:byte sequence| data was fetched with a [=CORS Request=]
+            whose <a data-xref-type="http-header">`Origin`</a> is |document
+            URL|'s [=url/origin=], and whose [=Request/credentials mode=] is
+            set to the [=CORS settings attribute credentials mode=] for
+            |linkElement|'s [^link/crossorigin^] attribute.
+            </li>
+          </ul>
+          <p>
+            (The [[HTML]] steps automatically ensure this.)
           </p>
+          <div class="note">
+            <p>
+              This provision allows user agents to perform app installations
+              using a manifest without having to first load a document that
+              links to the manifest (e.g. when installing an app onto the
+              user's device via a sync service). But the above recommendations
+              ask the user agent to verify that, when an application scope is
+              on origin A and the manifest is on a different origin B, there is
+              a bidirectional relationship between the two origins.
+            </p>
+            <p>
+              The first check ensures that at least some page on origin A links
+              to the manifest on origin B (otherwise, it would be possible for
+              a manifest on origin B to control the metadata for an
+              unaffiliated app on origin A).
+            </p>
+            <p>
+              The second check ensures that origin B allows (via the [=CORS
+              protocol=]) its manifest to be applied by origin A, and also that
+              the manifest is fetched with or without credentials, as agreed by
+              both origins, as it would if going directly through the document.
+            </p>
+          </div>
         </section>
         <section>
           <h3 id="applying">
