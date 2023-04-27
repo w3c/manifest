@@ -1383,14 +1383,14 @@
             The [=processing a manifest=] steps are invoked by [[HTML]]'s
             processing steps for the [^link^] element, but MAY also be invoked
             by the user agent to process a manifest without an associated
-            document.
+            [=document=].
           </p>
           <p>
-            In this case, the user agent SHOULD ensure that, at least at some
+            In this case, the user agent SHOULD ensure that at least at some
             point in the past:
           </p>
           <ul>
-            <li>there was at least one page which is [=same origin=] as
+            <li>there was at least one [=document=] that is [=same origin=] as
             |document URL:URL| that has a [^link^] element
             |linkElement:HTMLLinkElement| with a [^link/rel^] of
             [^link/rel/manifest^] and a [^link/href^] that resolves to
@@ -1407,7 +1407,7 @@
           <p>
             (The [[HTML]] steps automatically ensure this.)
           </p>
-          <div class="note">
+          <aside class="note">
             <p>
               This provision allows user agents to perform app installations
               using a manifest without having to first load a document that
@@ -1429,7 +1429,7 @@
               the manifest is fetched with or without credentials, as agreed by
               both origins, as it would if going directly through the document.
             </p>
-          </div>
+          </aside>
         </section>
         <section>
           <h3 id="applying">
