@@ -1386,8 +1386,9 @@
             [=document=].
           </p>
           <p>
-            In this case, the user agent SHOULD ensure that at least at some
-            point in the past:
+            In this case, to match the guarantees made by the corresponding
+            steps in [[HTML]], the user agent SHOULD ensure that at least at
+            some point in the past:
           </p>
           <ul>
             <li>there was at least one [=document=] that is [=same origin=] as
@@ -1397,17 +1398,14 @@
             |manifest URL:URL|, and that
             </li>
             <li>if |manifest URL| is not [=same origin=] as |document URL|, the
-            |bodyBytes:byte sequence| data was fetched with a [=CORS Request=]
-            whose <a data-xref-type="http-header">`Origin`</a> is |document
-            URL|'s [=url/origin=], and whose [=Request/credentials mode=] is
-            set to the [=CORS settings attribute credentials mode=] for
-            |linkElement|'s [^link/crossorigin^] attribute.
+            |bodyBytes:byte sequence| data was [=fetch|fetched=] with a [=CORS
+            Request=] whose <a data-xref-type="http-header">`Origin`</a> is
+            |document URL|'s [=url/origin=], and whose [=Request/credentials
+            mode=] is set to the [=CORS settings attribute credentials mode=]
+            for |linkElement|'s [^link/crossorigin^] attribute.
             </li>
           </ul>
-          <p>
-            (The [[HTML]] steps automatically ensure this.)
-          </p>
-          <aside class="note">
+          <aside class="note" title="The rationale for these checks">
             <p>
               This provision allows user agents to perform app installations
               using a manifest without having to first load a document that
