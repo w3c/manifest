@@ -1254,15 +1254,10 @@
           <p>
             The steps for <dfn data-export="" data-local-lt=
             "processing">processing a manifest</dfn> are given by the following
-            algorithm. The algorithm takes [^link^] |el:HTMLLinkElement|, a
-            [=Response=] |response|, and a [=byte sequence=] |bodyBytes|.
+            algorithm. The algorithm takes a [=URL=] |document URL:URL|, a
+            [=URL=] |manifest URL:URL|, and a [=byte sequence=] |bodyBytes|.
           </p>
           <ol class="algorithm">
-            <li>Let |document URL:URL| be |el|'s [=Node/node document=]'s
-            [=Document/URL=].
-            </li>
-            <li>Assert: |document URL:URL| is not null.
-            </li>
             <li>Let |json| be the result of [=parse JSON bytes to an Infra
             value=] passing |bodyBytes|.
             </li>
@@ -1284,8 +1279,6 @@
             </li>
             <li>[=Process a text member=] passing |json|, |manifest|, and
             "short_name".
-            </li>
-            <li>Let |manifest URL:URL| be |response|'s [=response/URL=].
             </li>
             <li>[=Process the `start_url` member=] passing |json|, |manifest|,
             |manifest URL|, and |document URL|.
@@ -1381,6 +1374,60 @@
             <li>Set |map|[member] to the value of |json|[|member|].
             </li>
           </ol>
+        </section>
+        <section>
+          <h3>
+            Processing the manifest without a document
+          </h3>
+          <p>
+            The [=processing a manifest=] steps are invoked by [[HTML]]'s
+            processing steps for the [^link^] element, but MAY also be invoked
+            by the user agent to process a manifest without an associated
+            [=document=].
+          </p>
+          <p>
+            In this case, to match the guarantees made by the corresponding
+            steps in [[HTML]], the user agent SHOULD ensure that at least at
+            some point in the past:
+          </p>
+          <ul>
+            <li>there was at least one [=document=] that is [=same origin=] as
+            |document URL:URL| that has a [^link^] element
+            |linkElement:HTMLLinkElement| with a [^link/rel^] of
+            [^link/rel/manifest^] and a [^link/href^] that resolves to
+            |manifest URL:URL|, and that
+            </li>
+            <li>if |manifest URL| is not [=same origin=] as |document URL|, the
+            |bodyBytes:byte sequence| data was [=fetch|fetched=] with a [=CORS
+            Request=] whose <a data-xref-type="http-header">`Origin`</a> is
+            |document URL|'s [=url/origin=], and whose [=Request/credentials
+            mode=] is set to the [=CORS settings attribute credentials mode=]
+            for |linkElement|'s [^link/crossorigin^] attribute.
+            </li>
+          </ul>
+          <aside class="note" title="The rationale for these checks">
+            <p>
+              This provision allows user agents to perform app installations
+              using a manifest without having to first load a document that
+              links to the manifest (e.g. when installing an app onto the
+              user's device via a sync service). But the above recommendations
+              ask the user agent to verify that, when an application scope is
+              on origin A and the manifest is on a different origin B, there is
+              a bidirectional relationship between the two origins.
+            </p>
+            <p>
+              The first check ensures that at least some page on origin A links
+              to the manifest on origin B (otherwise, it would be possible for
+              a manifest on origin B to control the metadata for an
+              unaffiliated app on origin A).
+            </p>
+            <p>
+              The second check ensures that origin B allows (via the [=CORS
+              protocol=]) its manifest to be applied by origin A, and also that
+              the manifest is fetched with or without credentials, as agreed by
+              both origins, as it would if going directly through the document.
+            </p>
+          </aside>
         </section>
         <section>
           <h3 id="applying">
