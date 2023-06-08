@@ -10,7 +10,7 @@ jobs:
     name: Tidy up
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: brew install tidy-html5
       - run: tidy -config tidyconfig.txt -o index.html index.html
       - uses: peter-evans/create-pull-request@v5
