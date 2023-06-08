@@ -52,7 +52,7 @@
             <path d="M396.5,254.5 L399.5,243.7 L393.5,243.7 L396.5,254.5 L396.5,254.5 L396.5,254.5 Z" id="Line-decoration-1" stroke="#979797" fill="#D8D8D8" sketch:type="MSShapeGroup"></path>
             <text id="manifest-src-bar.com" fill="#000000" sketch:type="MSTextLayer" font-family="Courier New" font-size="12">
                 <tspan x="75" y="189">manifest-src bar.com</tspan>
-                <tspan x="75" y="203">image-src icons.com</tspan>
+                <tspan x="75" y="203">img-src icons.com</tspan>
             </text>
             <g id="icon-group" aria-labelledby="icons" role="listitem">
                 <text id="icons" fill="#000000" sketch:type="MSTextLayer" font-family="Helvetica" font-size="14">

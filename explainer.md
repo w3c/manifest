@@ -2,9 +2,9 @@
 
 [Many of us](https://github.com/w3c/manifest/graphs/contributors) who work on the web are actively working to narrow "the gap" between native applications and web applications.
 
-But what is that gap? Just a few years ago, that gap was largely technological. If you wanted access to a device’s GPS, you had to write a native app. Nowadays, the situation is improving somewhat: we can now access devices sensors like GPS, camera, and orientation sensors – though we still have a long way to go. Thanks to recent advances in the web platform we now have a platform that can compete with native applications on a more equal footing.
+But what is that gap? Just a few years ago, that gap was largely technological. If you wanted access to a device’s GPS, you had to write a native app. Nowadays, the situation is improving somewhat: we can now access devices' sensors like GPS, camera, and orientation sensors – though we still have a long way to go. Thanks to recent advances in the web platform we now have a platform that can compete with native applications on a more equal footing.
 
-Nowadays, the primary gaps between native and web is not so much technological. It’s user experience. Users prefer to install apps, which live snugly on the homescreen (or possibly event the desktop, on desktop-class browsers).
+Nowadays, the primary gaps between native and web is not so much technological. It’s user experience. Users prefer to install apps, which live snugly on the homescreen (or possibly even the desktop, on desktop-class browsers).
 
 Furthermore, native apps work offline by default, and integrate with the facilities provided by the underlying operating system: consider being able to see installed applications in the task switcher. Or being able to control an app’s privacy settings in the same place as apps installed from an app store. In browser land, we are still fumbling around trying to find opened tabs and having to type long and boring URLs to get anything done.
 
@@ -126,7 +126,7 @@ TBW.
 More information about purpose can be found in the [Web App Manifest spec](https://www.w3.org/TR/appmanifest/#purpose-member).
 
 ## Display modes and orientation
-Apps need to be able to control how they are to be displayed when they starts-up. If it’s a game, it might need to be in full-screen and possibly in landscape mode. In order to do this, the manifest format provides you with two properties.
+Apps need to be able to control how they are to be displayed when they start-up. If it’s a game, it might need to be in full-screen and possibly in landscape mode. In order to do this, the manifest format provides you with two properties.
 
 ```JSON
 {
@@ -194,6 +194,62 @@ TBW: using description and screenshots.
 ## Theme color and background color
 TBW...
 
+## Adding shortcuts
+Numerous operating systems grant native applications the ability to add menu items to the app icon itself. These often provide quick access to key tasks for an app. Typically, these are exposed via a right click, long tap, or a similar context menu-triggering action. For web applications, you can define a set of shortcuts to be exposed when the app is installed. Each shortcut item must have a name and a target URL. You may also include additional information, such as a shorter name, a description for the action, and one or more icons.
+
+```JSON
+"shortcuts": [
+  {
+    "name": "Play Later",
+    "description": "View the list of podcasts you saved for later",
+    "url": "/play-later",
+    "icons": [
+      {
+        "src": "/icons/play-later.svg",
+        "type": "image/svg+xml",
+        "purpose": "any"
+      }
+    ]
+  },
+  {
+    "name": "Subscriptions",
+    "description": "View the list of podcasts you listen to",
+    "url": "/subscriptions",
+    "icons": [
+      {
+        "src": "/icons/subscriptions.svg",
+        "type": "image/svg+xml",
+        "purpose": "any"
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "description": "Search for new podcasts to listen to",
+    "url": "/search",
+    "icons": [
+      {
+        "src": "/icons/search.svg",
+        "type": "image/svg+xml",
+        "purpose": "any"
+      }
+    ]
+  },
+  {
+    "name": "Discover",
+    "description": "Browse for new podcasts to listen to",
+    "url": "/discover",
+    "icons": [
+      {
+        "src": "/icons/discover.svg",
+        "type": "image/svg+xml",
+        "purpose": "any"
+      }
+    ]
+  }  
+]
+```
+
 ## How can I detect if the user "installed" my app?
 The spec provides a way for you to detect when the user installs your apps by registering for "appinstalled" events.
 
@@ -213,7 +269,7 @@ window.addEventListener("appinstalled", handleInstalled);
 However, for privacy reasons, you can't directly detect if your application is installed - only if the manifest is being used with your web application.
 
 ## What’s wrong with `<meta>` tags?
-During the specification discussions, it was hotly debated whether to use `<meta>` tags in HTML rather than make a new format. After all, the Chrome implementation of Add to Homescreen uses `<meta>` tags, and this has been the natural home for proprietary flimflam since the web began.
+During the specification discussions, it was hotly debated whether to use `<meta>` tags in HTML rather than make a new format. After all, the Chrome implementation of Add to Home screen uses `<meta>` tags, and this has been the natural home for proprietary flimflam since the web began.
 
 The reasons for including a separate file are
 

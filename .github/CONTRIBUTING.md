@@ -5,7 +5,7 @@ Everyone is welcome to contribute to this specification.
 Any simple editorial contribution can simply be done with a GitHub Pull Request.
 You can even do an inline edit of the file on GitHub.
 
-For more substantial contributions that, please first start a thread in the
+For more substantial contributions, please first start a thread in the
 [webapps mailing list](https://lists.w3.org/Archives/Public/public-webapps/) at the W3C.
 
 Note: Contributions to this repository are intended to become part of Recommendation-track documents governed by the
@@ -44,11 +44,12 @@ instructions on running HTML5 tidy, see below.
 # Running HTML5 Tidy
 
 Please make sure you have HTML5 tidy installed, instead of
-the the one that ships with *nix systems. You can comfirm this by running:
+the the one that ships with *nix systems. You can confirm this by running:
 
 ```bash 
 tidy --version  #HTML Tidy for HTML5 (experimental) for ...
 ```
+
 Once you have confirmed (make sure you have committed your changes before
 running tidy, as the changes are destructive ... in a good way:)):
 
