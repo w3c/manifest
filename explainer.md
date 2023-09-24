@@ -123,7 +123,7 @@ If you omit the icons, the browser just falls back to looking for `<link rel="ic
 
 TBW.
 
-More information about purpose can be found in the [Web App Manifest spec](https://www.w3.org/TR/appmanifest/#purpose-member).
+More information about purpose can be found in the [Web Application Manifest spec](https://www.w3.org/TR/appmanifest/#purpose-member).
 
 ## Display modes and orientation
 Apps need to be able to control how they are to be displayed when they start-up. If it’s a game, it might need to be in full-screen and possibly in landscape mode. In order to do this, the manifest format provides you with two properties.
@@ -284,9 +284,9 @@ The manifest, and Progressive Web Apps are implemented in Chrome, Opera, and Sam
 
 ## Interaction with Web Crawlers
 
-Like other web resources, a web app manifest should be accessible to any web browser or web crawler.
+Like other web resources, a web application manifest should be accessible to any web browser or web crawler.
 
-If a web app developer wants to inform web crawlers of a desire for the file not to be crawled, the developer MAY do so by including the web app manifest in a robots.txt file.
+If a web app developer wants to inform web crawlers of a desire for the file not to be crawled, the developer MAY do so by including the web application manifest in a robots.txt file.
 This is further described in the [robots.txt](http://www.robotstxt.org/) protocol.
 A web app developer could also use the `X-Robots-Tag` HTTP header.
 
