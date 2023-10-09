@@ -446,29 +446,14 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">dir</dfn></code> member specifies the default string
-          direction for the <a>localizable members</a> of the <a>manifest</a>.
+          "manifest">dir</dfn></code> member specifies the <dfn>default
+          direction</dfn> for the [=localizable members=] of the [=manifest=].
           The [=manifest/dir=] member's value can be set to a
-          <a>text-direction</a>.
+          [=text-direction=].
         </p>
-        <p>
-          The <dfn>localizable members</dfn> are:
-        </p>
-        <ul>
-          <li>[=manifest/name=] member.
-          </li>
-          <li>[=manifest/short_name=] member.
-          </li>
-          <li>[=Shortcut item's=] [=shortcut item/name=] member.
-          </li>
-          <li>[=Shortcut item's=] [=shortcut item/short_name=] member.
-          </li>
-          <li>[=Shortcut item's=] [=shortcut item/description=] member.
-          </li>
-        </ul>
         <p>
           The <dfn>text-directions</dfn> are the following, implying that the
-          value of the <a>localizable members</a> is by default:
+          value of the [=localizable members=] is by default:
         </p>
         <dl>
           <dt>
@@ -559,9 +544,10 @@
           "ECMA-402#sec-isstructurallyvalidlanguagetag">IsStructurallyValidLanguageTag</a>
           with |json|["lang"] returns `false`, return.
           </li>
-          <li>Set |manifest|["lang"] to the result of calling the
-            <a data-cite="ECMA-402#sec-canonicalizeunicodelocaleid">CanonicalizeUnicodeLocaleId</a>
-            abstract operation with |json|["lang"].
+          <li>[=Map/Set=] |manifest|["lang"] to the result of calling the
+          <a data-cite=
+          "ECMA-402#sec-canonicalizeunicodelocaleid">CanonicalizeUnicodeLocaleId</a>
+          abstract operation with |json|["lang"].
           </li>
         </ol>
       </section>
@@ -575,6 +561,9 @@
           represents the name of the web application as it is usually displayed
           to the user (e.g., amongst a list of other applications, or as a
           label for an icon).
+        </p>
+        <p>
+          The [=manifest/name=] member is a [=localizable member=].
         </p>
         <p>
           The [=manifest/name=] member serves as the <a data-cite=
@@ -596,6 +585,9 @@
           represents a short version of the name of the web application. It is
           intended to be used where there is insufficient space to display the
           full name of the web application.
+        </p>
+        <p>
+          The [=manifest/short_name=] member is a [=localizable member=].
         </p>
         <p class="note" title="Processing the `short_name` member">
           When [=processing a manifest=], the [=process a text member=]
@@ -655,6 +647,9 @@
           list of other applications, or to integrate the web application with
           an <abbr title="Operating system">OS</abbr>'s task switcher and/or
           system preferences.
+        </p>
+        <p>
+          The [=manifest/icons=] member is a [=localizable member=].
         </p>
         <aside class="note">
           <p>
@@ -1238,7 +1233,7 @@
         <ol class="algorithm">
           <li>Let |processedShortcuts:list| be a new [=list=].
           </li>
-          <li>Set |manifest|["shortcuts"] to |processedShortcuts|.
+          <li>[=Map/Set=] |manifest|["shortcuts"] to |processedShortcuts|.
           </li>
           <li>If |json|["shortcuts"] doesn't [=map/exist=] or
           |json|["shortcuts"] is not a [=list=], return.
@@ -1246,7 +1241,8 @@
           <li>[=list/For each=] |entry:ordered map| of |json|["shortcuts"]:
             <ol>
               <li>Let |shortcut:ordered map| be [=process a shortcut=] with
-              |entry| and |manifest|["scope"].
+              |entry|, |manifest URL|, |manifest|["scope"], and
+              |manifest|["dir"].
               </li>
               <li>If |shortcut| is failure, continue.
               </li>
@@ -1266,6 +1262,289 @@
           shortcuts presented in order to remain consistent with the
           conventions or limitations of the host operating system.
         </p>
+      </section>
+      <section>
+        <h3>
+          `*_localized` members
+        </h3>
+        <p>
+          A <dfn>localizable member</dfn> is a [=manifest=] member that can be
+          localized. Each [=localizable member=] of the [=manifest=] has a
+          corresponding <code><dfn data-export="" data-dfn-for=
+          "manifest">*_localized</dfn></code> member, where `*` represents the
+          member name.
+        </p>
+        <aside class="example">
+          <p>
+            For example, the [=manifest/name=] member is a [=localizable
+            member=], and `name_localized` is its corresponding
+            [=manifest/*_localized=] member.
+          </p>
+        </aside>
+        <p>
+          A <dfn>language map</dfn> is an [=ordered map=] whose key is a
+          [=language tag=] and whose value is a [=localized value=]. The
+          <dfn>localized value</dfn> is content localized in the language given
+          by the key.
+        </p>
+        <aside class="example" title="Localizing the application name">
+          <pre class="json">
+            {
+              "lang": "en-US",
+              "dir": "ltr",
+              "name": "Color Picker",
+              "name_localized": {
+                "de":    "Farbwähler",
+                "en":    {"value": "Color Picker"},
+                "en-GB": {"value": "Colour Picker", "dir": "ltr"},
+                "fr":    {"value": "Sélecteur de Couleur", "lang": "fr-CA", "dir": "ltr"},
+                "ar":    {"value": "منتقي الألوان", "dir": "rtl"}
+              }
+            }
+          </pre>
+        </aside>
+        <p>
+          The value assigned to the [=localizable member=] is the
+          <dfn data-dfn-for="localizable member">default representation</dfn>.
+          [=manifest/*_localized=] members contain a [=language map=] that
+          defines [=localized values=] for the given [=localizable member=] in
+          the application. The user agent SHOULD use the user's localization
+          settings to select the [=localized value=] whose [=language tag=] key
+          best matches the user's preference. When no such [=localized value=]
+          is available, the [=localizable member/default representation=] is
+          used.
+        </p>
+        <section>
+          <h3>
+            Localizing text values
+          </h3>
+          <p>
+            A <dfn>localized text object</dfn> is an [=ordered map=] with the
+            following properties:
+          </p>
+          <dl>
+            <dt>
+              <code><dfn data-export="" data-dfn-for=
+              "manifest/*_localized">value</dfn></code>
+            </dt>
+            <dd>
+              The localized [=string=].
+            </dd>
+            <dt>
+              <code><dfn data-export="" data-dfn-for=
+              "manifest/*_localized">dir</dfn></code> (optional)
+            </dt>
+            <dd>
+              The [=text-direction=].
+            </dd>
+            <dt>
+              <code><dfn data-export="" data-dfn-for=
+              "manifest/*_localized">lang</dfn></code> (optional)
+            </dt>
+            <dd>
+              A [=language tag=].
+            </dd>
+          </dl>
+          <p>
+            For [=localizable members=] that accept [=strings=], the
+            [=manifest/*_localized=] member's [=language map=] accepts either a
+            [=string=] or a [=localized text object=] as the [=localized
+            value=].
+          </p>
+          <p>
+            When a [=string=] is used, or when the [=manifest/*_localized/dir=]
+            member of the [=localized text object=] is missing, the [=default
+            direction=] ([=manifest/dir=] member of the [=manifest=]) is
+            applied.
+          </p>
+          <aside class="note">
+            The [=manifest/*_localized/dir=] member of the [=localized text
+            object=] needs to be present if the direction of a localized string
+            differs from the [=default direction=] set in the manifest
+            ([=manifest/dir=] member). Right-to-left text will require specific
+            direction settings if the manifest's default direction is
+            left-to-right, and vice versa.
+          </aside>
+          <p>
+            When a [=string=] is used, or when the
+            [=manifest/*_localized/lang=] member of the [=localized text
+            object=] is missing, the [=language tag=] of the [=language map=]
+            key is applied.
+          </p>
+          <aside class="note">
+            To support multilingual content and ensure optimal display and
+            accessibility, it is possible to specify a different language for a
+            [=localized text object=]. This is needed for situations where a
+            term or text needs to be presented in a language different from the
+            user's set locale.
+          </aside>
+          <aside class="example">
+            <p>
+              For example, brand names might need to be pronounced in a
+              language different from the user's locale:
+            </p>
+            <pre class="json">
+            {
+              "lang": "fr",
+              "name": "Superbes biscuits",
+              "name_localized": {
+                "de-DE": {"value": "Super Cookies", "lang": "en"}
+              }
+            }
+          </pre>
+          </aside>
+          <p>
+            To <dfn>process a `*_localized` text member</dfn>, given [=ordered
+            map=] |json:ordered map|, [=ordered map=] |map:ordered map|,
+            [=string=] |member:string|, and [=text-direction=]
+            |defaultDirection:string|:
+          </p>
+          <ol class="algorithm">
+            <li>If |member| does not [=map/exist=] in |json|, return.
+            </li>
+            <li>Let |languageMap| be |json|[|member|].
+            </li>
+            <li>If |languageMap| is not an [=ordered map=], return.
+            </li>
+            <li>Let |languageTags:ordered set| be the [=map/keys=] of
+            |languageMap:ordered map|.
+            </li>
+            <li>Set |map|[|member|] to a new [=ordered map=].
+            </li>
+            <li>[=Set/For each=] |languageTag:string| of |languageTags|, run
+            [=process a localized text object=], passing
+            |languageMap|[|languageTag|], |languageTag|, |map|, |member|, and
+            |defaultDirection|.
+            </li>
+          </ol>
+          <p>
+            To <dfn>process a localized text object</dfn>, given [=string=] or
+            [=ordered map=] |localizedValue|, [=string=]
+            |defaultLanguageTag:string|, [=ordered map=] |map:ordered map|,
+            [=string=] |member:string|, and [=text-direction=]
+            |defaultDirection:string|:
+          </p>
+          <ol class="algorithm">
+            <li>Let |normalizedValue:ordered map| be an [=ordered map=].
+            </li>
+            <li>If |localizedValue| is a [=string=], [=strip leading and
+            trailing ASCII whitespace=] from |localizedValue:string| and
+            [=map/set=] |normalizedValue|["value"] to |localizedValue|.
+            </li>
+            <li>If |localizedValue:ordered map| is an [=ordered map=]:
+              <ol>
+                <li>If "value" [=map/exists=] in |localizedValue| and
+                |localizedValue|["value"] is a [=string=], [=strip leading and
+                trailing ASCII whitespace=] from |localizedValue|["value"] and
+                [=map/set=] |normalizedValue|["value"] to
+                |localizedValue|["value"].
+                </li>
+                <li>If "lang" [=map/exists=] in |localizedValue| and
+                |localizedValue|["lang"] is a [=string=], [=strip leading and
+                trailing ASCII whitespace=] from |localizedValue|["lang"] and
+                [=map/set=] |normalizedValue|["lang"] to
+                |localizedValue|["lang"].
+                </li>
+                <li>If "dir" [=map/exists=] in |localizedValue| and
+                |localizedValue|["dir"] is a [=string=]:
+                  <ol>
+                    <li>[=Strip leading and trailing ASCII whitespace=] from
+                    |localizedValue|["dir"].
+                    </li>
+                    <li>If [=text-direction list=] [=list/contains=]
+                    |localizedValue|["dir"], [=map/set=]
+                    |normalizedValue|["dir"] to |localizedValue|["dir"].
+                    </li>
+                  </ol>
+                </li>
+              </ol>
+            </li>
+            <li>If "value" does not [=map/exist=] in |normalizedValue|, return.
+            </li>
+            <li>If "lang" does not [=map/exist=] in |normalizedValue|,
+            [=map/set=] |normalizedValue|["lang"] to |defaultLanguageTag|.
+            </li>
+            <li>If "dir" does not [=map/exist=] in |normalizedValue|,
+            [=map/set=] |normalizedValue|["dir"] to |defaultDirection|.
+            </li>
+            <li>If calling <a data-cite=
+            "ECMA-402#sec-isstructurallyvalidlanguagetag">IsStructurallyValidLanguageTag</a>
+            with |normalizedValue|["lang"] or calling <a data-cite=
+            "ECMA-402#sec-isstructurallyvalidlanguagetag">IsStructurallyValidLanguageTag</a>
+            with |defaultLanguageTag| returns `false`, return.
+            </li>
+            <li>[=Map/Set=] |map|[|member|][|defaultLanguageTag|] to
+            |normalizedValue|.
+            </li>
+          </ol>
+          <p class="note">
+            The [=process a localized text object=] algorithm takes both a
+            [=string=] or a [=localized text object=] for the [=localized
+            value=] parameter, but the processed result will be normalized into
+            a [=localized text object=] with the
+            [=manifest/*_localized/value=], [=manifest/*_localized/lang=], and
+            [=manifest/*_localized/dir=] members set.
+          </p>
+        </section>
+        <section>
+          <h3>
+            Localizing image resources
+          </h3>
+          <p>
+            For [=localizable members=] that accept a [=list=] of [=image
+            resources=], the [=manifest/*_localized=] member's [=language map=]
+            accepts a [=list=] of [=image resources=] as the [=localized
+            value=].
+          </p>
+          <aside class="example" title="Localizing the application icon">
+            <pre class="json">
+            {
+              "lang": "en-US",
+              "icons": [
+                { "src": "icon/lowres.png", "sizes": "64x64" },
+                { "src": "icon/hires.png", "sizes": "256x256" }
+              ],
+              "icons_localized": {
+                "fr": [
+                  { "src": "icon/lowres_fr.png", "sizes": "64x64" },
+                  { "src": "icon/hires_fr.png", "sizes": "256x256" }
+                ]
+              }
+            }
+          </pre>
+          </aside>
+          <p>
+            To <dfn>process a `*_localized` image resource member</dfn>, given
+            [=ordered map=] |json:ordered map|, [=ordered map=] |map:ordered
+            map|, [=string=] |member:string|, and [=URL=] |manifest URL:URL|:
+          </p>
+          <ol class="algorithm">
+            <li>If |member| does not [=map/exist=] in |json|, return.
+            </li>
+            <li>Let |languageMap| be |json|[|member|].
+            </li>
+            <li>If |languageMap| is not an [=ordered map=], return.
+            </li>
+            <li>Let |languageTags:ordered set| be the [=map/keys=] of
+            |languageMap:ordered map|.
+            </li>
+            <li>[=Map/Set=] |map|[|member|] to a new [=ordered map=].
+            </li>
+            <li>[=List/For each=] |languageTag:string| of |languageTags|:
+              <ol>
+                <li>If calling <a data-cite=
+                "ECMA-402#sec-isstructurallyvalidlanguagetag">IsStructurallyValidLanguageTag</a>
+                with |languageTag| returns `false`, [=iteration/continue=].
+                </li>
+                <li>Run [=process image resources=], passing
+                |languageMap|[|languageTag|] as the [=list=] of [=image
+                resources=], |map|[|member|], |manifest URL|, and |languageTag|
+                as the member.
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </section>
       </section>
       <section>
         <h2>
@@ -1328,8 +1607,14 @@
             <li>[=Process a text member=] passing |json|, |manifest|, and
             "name".
             </li>
+            <li>[=Process a `*_localized` text member=] passing |json|,
+            |manifest|, "name_localized", and |manifest|["dir"].
+            </li>
             <li>[=Process a text member=] passing |json|, |manifest|, and
             "short_name".
+            </li>
+            <li>[=Process a `*_localized` text member=] passing |json|,
+            |manifest|, "short_name_localized", and |manifest|["dir"].
             </li>
             <li>[=Process the `start_url` member=] passing |json|, |manifest|,
             |manifest URL|, and |document URL|.
@@ -1353,6 +1638,9 @@
             </li>
             <li>[=Process image resources=] passing |json|["icons"],
             |manifest|, |manifest URL|, and "icons".
+            </li>
+            <li>[=Process a `*_localized` image resource member=] passing
+            |json|, |manifest|, "icons_localized", and |manifest URL|.
             </li>
             <li>[=Process the `orientation` member=] passing |json|,
             |manifest|.
@@ -1540,13 +1828,21 @@
             installation and on launch surfaces:
           </p>
           <ol>
-            <li>[=manifest/short_name=],
+            <li>[=manifest/short_name=] and localized representations in
+            `short_name_localized`,
             </li>
-            <li>[=manifest/icons=]
+            <li>[=manifest/icons=] and localized representations in
+            `icons_localized`,
             </li>
-            <li>[=manifest/name=],
+            <li>[=manifest/name=] and localized representations in
+            `name_localized`.
             </li>
           </ol>
+          <p>
+            [=Security-sensitive members=] SHOULD be displayed in a
+            bidirectionally isolated way as described in [[UTS55]], regardless
+            of their direction.
+          </p>
           <p data-cite="permissions">
             User agents SHOULD NOT automatically apply changes to
             [=security-sensitive members=] without [=express permission=] from
@@ -1560,6 +1856,13 @@
           <p>
             The user agent MAY automatically apply the changes if the update
             does not contain changes to [=security-sensitive members=].
+          </p>
+          <p>
+            If a user changes localization settings, the user agent MAY
+            automatically adjust the [=security-sensitive members=] visible on
+            launch surfaces to their localized representations specified in the
+            [=manifest/`*_localized`=] members. These changes SHOULD be
+            presented to users the next time they open the web application.
           </p>
           <aside class="note" title=
           "A user agent will not apply a partial update">
@@ -2037,6 +2340,9 @@
           represents the name of the shortcut as it is usually displayed to the
           user in a context menu.
         </p>
+        <p>
+          The [=shortcut item/name=] member is a [=localizable member=].
+        </p>
       </section>
       <section>
         <h3>
@@ -2049,6 +2355,9 @@
           intended to be used where there is insufficient space to display the
           full name of the shortcut.
         </p>
+        <p>
+          The [=shortcut item/short_name=] member is a [=localizable member=].
+        </p>
       </section>
       <section>
         <h3>
@@ -2059,6 +2368,9 @@
           "shortcut item">description</dfn></code> member is a <a>string</a>
           that allows the developer to describe the purpose of the shortcut.
           User agents MAY expose this information to assistive technology.
+        </p>
+        <p>
+          The [=shortcut item/description=] member is a [=localizable member=].
         </p>
       </section>
       <section>
@@ -2081,6 +2393,9 @@
           "shortcut item">icons</dfn></code> member lists images that serve as
           iconic representations of the shortcut in various contexts.
         </p>
+        <p>
+          The [=shortcut item/icons=] member is a [=localizable member=].
+        </p>
       </section>
       <section>
         <h3>
@@ -2098,7 +2413,8 @@
         </h2>
         <p>
           To <dfn>process a shortcut</dfn>, given [=ordered map=] |item:ordered
-          map| and |scope:URL|,:
+          map|, [=URL=] |manifest URL:URL|, [=URL=] |scope:URL|, and
+          [=text-direction=] |defaultDirection:string|:
         </p>
         <ol class="algorithm">
           <li>Return failure if it's the case that:
@@ -2126,8 +2442,28 @@
           <li>Let |shortcut:ordered map| be |ordered map| «[ "url" → |url|,
           "name" → |item|["name"] ]».
           </li>
+          <li>[=Process a `*_localized` text member=] passing |item|,
+          |shortcut|, "name_localized", and |defaultDirection|.
+          </li>
+          <li>If "short_name" [=map/exists=] in |item|, and
+          |item|["short_name"] is a [=string=], [=map/set=]
+          |shortcut|["short_name"] to |item|["short_name"].
+          </li>
+          <li>[=Process a `*_localized` text member=] passing |item|,
+          |shortcut|, "short_name_localized", and |defaultDirection|.
+          </li>
+          <li>If "description" [=map/exists=] in |item|, and
+          |item|["description"] is a [=string=], [=map/set=]
+          |shortcut|["description"] to |item|["description"].
+          </li>
+          <li>[=Process a `*_localized` text member=] passing |item|,
+          |shortcut|, "description_localized", and |defaultDirection|.
+          </li>
           <li>[=Process image resources=] passing |item|["icons"], |shortcut|,
           |manifest URL|, and "icons".
+          </li>
+          <li>[=Process a `*_localized` image resource member=] passing |item|,
+          |shortcut|, "icons_localized", and |manifest URL|.
           </li>
           <li>Return |shortcut|.
           </li>
@@ -2316,7 +2652,9 @@
         </h3>
         <p>
           The <dfn>application's name</dfn> is derived from either the
-          [=manifest/name=] member or [=manifest/short_name=] member.
+          [=manifest/name=] member or [=manifest/short_name=] member. The user
+          agent SHOULD first resolve the localized values from their
+          corresponding [=manifest/`*_localized`=] members.
         </p>
         <p>
           When either the [=manifest/name=] member or the
@@ -3303,7 +3641,8 @@
         </details>
       </aside>
     </section>
-    <section id="internationalization" class="appendix informative">
+    <section id="internationalization" class="appendix informative" data-cite=
+    "i18n-glossary">
       <h2>
         Internationalization
       </h2>
@@ -3312,6 +3651,16 @@
         using one of the following options:
       </p>
       <dl>
+        <dt>
+          Localized values in the manifest:
+        </dt>
+        <dd>
+          Authors can provide [=localized values=] for the [=localizable
+          members=] of the [=manifest=]. The user agent passes all localized
+          values to the host operating system. When the user changes the
+          [=locale=] at the OS level, the OS can present the updated localized
+          values of the [=installed web application=].
+        </dd>
         <dt>
           Dynamically setting the language:
         </dt>
