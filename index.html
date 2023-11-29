@@ -580,6 +580,20 @@
       </section>
       <section>
         <h3>
+          `names` member
+        </h3>
+        <p>
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
+          "manifest">names</dfn></code> member is a translation object that
+          contains localized versions of the [=manifest/name=] member.
+        </p>
+        <p>
+          When present, it can override the name of the [=installed web
+          application=] based on the user's localization settings.
+        </p>
+      </section>
+      <section>
+        <h3>
           `short_name` member
         </h3>
         <p>
@@ -592,6 +606,21 @@
         <p class="note" title="Processing the `short_name` member">
           When [=processing a manifest=], the [=process a text member=]
           algorithm is used to process the [=manifest/short_name=] member.
+        </p>
+      </section>
+      <section>
+        <h3>
+          `short_names` member
+        </h3>
+        <p>
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
+          "manifest">short_names</dfn></code> member is a translation object
+          that contains localized versions of the [=manifest/short_name=]
+          member.
+        </p>
+        <p>
+          When present, it can override the short name of the [=installed web
+          application=] based on the user's localization settings.
         </p>
       </section>
       <section>
@@ -1274,11 +1303,11 @@
             </li>
             <li>[=Process the `lang` member=] passing |json| and |manifest|.
             </li>
-            <li>[=Process a text member=] passing |json|, |manifest|, and
-            "name".
+            <li>[=Process a localizable text member=] passing |json|,
+            |manifest|, "name", and "names".
             </li>
-            <li>[=Process a text member=] passing |json|, |manifest|, and
-            "short_name".
+            <li>[=Process a localizable text member=] passing |json|,
+            |manifest|, and "short_name", and "short_names".
             </li>
             <li>[=Process the `start_url` member=] passing |json|, |manifest|,
             |manifest URL|, and |document URL|.
@@ -1374,6 +1403,24 @@
             <li>Set |map|[member] to the value of |json|[|member|].
             </li>
           </ol>
+        </section>
+        <section>
+          <h2>
+            Processing localizable text members
+          </h2>
+          <p>
+            To <dfn>process a localizable text member</dfn>, given [=ordered
+            map=] |json:ordered map|, [=ordered map=] |map:ordered map|,
+            [=string=] |member:string|, and [=string=]
+            |localizedMember:string|:
+          </p>
+          <ul>
+            <li>If |json|[|member|] doesn't [=map/exists=] or |json|[|member|]
+            is not a [=string=], return.
+            </li>
+            <li>Set |map|[member] to the value of |json|[|member|].
+            </li>
+          </ul>
         </section>
         <section>
           <h3>
@@ -1981,6 +2028,21 @@
       </section>
       <section>
         <h3>
+          `names` member
+        </h3>
+        <p>
+          The [=shortcut item's=] <code><dfn data-export="" data-dfn-for=
+          "shortcut item">names</dfn></code> member is a translation object
+          that contains localized versions of the [=shortcut item/name=]
+          member.
+        </p>
+        <p>
+          When present, it can override the name of the [=shortcut item=] based
+          on the user's localization settings.
+        </p>
+      </section>
+      <section>
+        <h3>
           `short_name` member
         </h3>
         <p>
@@ -1993,6 +2055,21 @@
       </section>
       <section>
         <h3>
+          `short_names` member
+        </h3>
+        <p>
+          The [=shortcut item's=] <code><dfn data-export="" data-dfn-for=
+          "shortcut item">short_names</dfn></code> member is a translation
+          object that contains localized versions of the [=shortcut
+          item/short_name=] member.
+        </p>
+        <p>
+          When present, it can override the short name of the [=shortcut item=]
+          based on the user's localization settings.
+        </p>
+      </section>
+      <section>
+        <h3>
           `description` member
         </h3>
         <p>
@@ -2000,6 +2077,21 @@
           "shortcut item">description</dfn></code> member is a <a>string</a>
           that allows the developer to describe the purpose of the shortcut.
           User agents MAY expose this information to assistive technology.
+        </p>
+      </section>
+      <section>
+        <h3>
+          `descriptions` member
+        </h3>
+        <p>
+          The [=shortcut item's=] <code><dfn data-export="" data-dfn-for=
+          "shortcut item">descriptions</dfn></code> member is a translation
+          object that contains localized versions of the [=shortcut
+          item/description=] member.
+        </p>
+        <p>
+          When present, it can override the description of the [=shortcut
+          item=] based on the user's localization settings.
         </p>
       </section>
       <section>
@@ -2066,7 +2158,7 @@
           </li>
           <li>Let |shortcut:ordered map| be |ordered map| «[ "url" → |url|,
           "name" → |item|["name"] ]».
-          </li>
+          </li><!-- TODO: short_name and localization -->
           <li>[=Process image resources=] passing |item|["icons"], |shortcut|,
           |manifest URL|, and "icons".
           </li>
