@@ -36,7 +36,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag localbuild/testimage:latest
     - name: Run the Anchore Grype scan action
-      uses: anchore/scan-action@65161264d84bfeed55775e43bdbe5eb7c8a433fb
+      uses: anchore/scan-action@1d59d90b47fc11ff8f97822da6c25eec888f81cf
       id: scan
       with:
         image: "localbuild/testimage:latest"
