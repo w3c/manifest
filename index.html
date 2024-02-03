@@ -155,7 +155,7 @@
         Web Application Manifest
       </h2>
       <p>
-        A <dfn data-export="" data-lt="manifest" data-local-lt=
+        An <dfn data-export="" data-lt="manifest" data-local-lt=
         "manifest's">application manifest</dfn> is a [[JSON]] document that
         contains startup parameters and application defaults for when a web
         application is launched.
@@ -892,7 +892,7 @@
         </ol>
         <aside class="example" title="Resulting ids">
           <p>
-            Below table shows some example `id`s resulting from the [=process
+            The table below shows some example `id`s resulting from the [=process
             the `id` member=] steps.
           </p>
           <table class="data">
@@ -1010,9 +1010,9 @@
           <p>
             Since [=manifest/id=] is resolved against [=manifest/start_url=]'s
             [=URL/origin=], providing "../foo", "foo", "/foo", "./foo" all
-            resolves to the same [=identifier=]. It is As such, best practice
+            resolves to the same [=identifier=]. As such, best practice
             is to use a leading "/" to be explicit that the id is a
-            root-relative url path. Also, standard encoding/decoding rules are
+            root-relative URL path. Also, standard encoding/decoding rules
             apply to the id processing algorithm, as per the [[[URL]]].
           </p>
         </aside>
@@ -1361,15 +1361,10 @@
           <p>
             The steps for <dfn data-export="" data-local-lt=
             "processing">processing a manifest</dfn> are given by the following
-            algorithm. The algorithm takes [^link^] |el:HTMLLinkElement|, a
-            [=Response=] |response|, and a [=byte sequence=] |bodyBytes|.
+            algorithm. The algorithm takes a [=URL=] |document URL:URL|, a
+            [=URL=] |manifest URL:URL|, and a [=byte sequence=] |bodyBytes|.
           </p>
           <ol class="algorithm">
-            <li>Let |document URL:URL| be |el|'s [=Node/node document=]'s
-            [=Document/URL=].
-            </li>
-            <li>Assert: |document URL:URL| is not null.
-            </li>
             <li>Let |json| be the result of [=parse JSON bytes to an Infra
             value=] passing |bodyBytes|.
             </li>
@@ -1391,8 +1386,6 @@
             </li>
             <li>[=Process a text member=] passing |json|, |manifest|, and
             "short_name".
-            </li>
-            <li>Let |manifest URL:URL| be |response|'s [=response/URL=].
             </li>
             <li>[=Process the `start_url` member=] passing |json|, |manifest|,
             |manifest URL|, and |document URL|.
@@ -1491,6 +1484,60 @@
             <li>Set |map|[member] to the value of |json|[|member|].
             </li>
           </ol>
+        </section>
+        <section>
+          <h3>
+            Processing the manifest without a document
+          </h3>
+          <p>
+            The [=processing a manifest=] steps are invoked by [[HTML]]'s
+            processing steps for the [^link^] element, but MAY also be invoked
+            by the user agent to process a manifest without an associated
+            [=document=].
+          </p>
+          <p>
+            In this case, to match the guarantees made by the corresponding
+            steps in [[HTML]], the user agent SHOULD ensure that at least at
+            some point in the past:
+          </p>
+          <ul>
+            <li>there was at least one [=document=] that is [=same origin=] as
+            |document URL:URL| that has a [^link^] element
+            |linkElement:HTMLLinkElement| with a [^link/rel^] of
+            [^link/rel/manifest^] and a [^link/href^] that resolves to
+            |manifest URL:URL|, and that
+            </li>
+            <li>if |manifest URL| is not [=same origin=] as |document URL|, the
+            |bodyBytes:byte sequence| data was [=fetch|fetched=] with a [=CORS
+            Request=] whose <a data-xref-type="http-header">`Origin`</a> is
+            |document URL|'s [=url/origin=], and whose [=Request/credentials
+            mode=] is set to the [=CORS settings attribute credentials mode=]
+            for |linkElement|'s [^link/crossorigin^] attribute.
+            </li>
+          </ul>
+          <aside class="note" title="The rationale for these checks">
+            <p>
+              This provision allows user agents to perform app installations
+              using a manifest without having to first load a document that
+              links to the manifest (e.g. when installing an app onto the
+              user's device via a sync service). But the above recommendations
+              ask the user agent to verify that, when an application scope is
+              on origin A and the manifest is on a different origin B, there is
+              a bidirectional relationship between the two origins.
+            </p>
+            <p>
+              The first check ensures that at least some page on origin A links
+              to the manifest on origin B (otherwise, it would be possible for
+              a manifest on origin B to control the metadata for an
+              unaffiliated app on origin A).
+            </p>
+            <p>
+              The second check ensures that origin B allows (via the [=CORS
+              protocol=]) its manifest to be applied by origin A, and also that
+              the manifest is fetched with or without credentials, as agreed by
+              both origins, as it would if going directly through the document.
+            </p>
+          </aside>
         </section>
         <section>
           <h3 id="applying">
@@ -1897,7 +1944,6 @@
         <h2>
           Monochrome icons and solid fills
         </h2>
-        <aside class="issue atrisk" data-number="905"></aside>
         <p>
           Some platforms enforce that icons be displayed with a <dfn>solid
           fill</dfn> such as a single color, where only the transparency of the
@@ -2792,8 +2838,8 @@
         as "high value" (particularly from a privacy perspective).
       </p>
       <p>
-        As the manifest format is JSON and will commonly be encoded using
-        [[UNICODE]], the security considerations described in [[JSON]] and
+        As the manifest format is JSON and will be encoded using [[UNICODE]],
+        the security considerations described in [[JSON]] and
         [[UNICODE-SECURITY]] apply. In addition, because there is no way to
         prevent developers from including custom/unrestrained data in a
         <a>manifest</a>, implementors need to impose their own
@@ -3128,8 +3174,8 @@
             way, and propose it as a standard (see [[[#incubations]]]). If the
             new member is truly proprietary (i.e. will only ever make sense in
             the context of a proprietary ecosystem), use this process, and
-            prefix it with the short name of that proprietary ecosystem to avoid
-            name collisions.
+            prefix it with the short name of that proprietary ecosystem to
+            avoid name collisions.
           </p>
           <p>
             Do not use vendor prefixes that you intend to later remove once it
@@ -3212,12 +3258,12 @@
         Application Information
       </h2>
       <p>
-        Several members of the Web App Manifest provide additional metadata
-        related to how the web application may be presented in the context of a
-        digital storefront, installation dialog, or other surfaces where the
-        web application may be marketed or distributed. In an effort to support
-        these use cases better, the following members have been moved into
-        [[[manifest-app-info]]]:
+        Several members of the Web Application Manifest provide additional
+        metadata related to how the web application may be presented in the
+        context of a digital storefront, installation dialog, or other surfaces
+        where the web application may be marketed or distributed. In an effort
+        to support these use cases better, the following members have been
+        moved into [[[manifest-app-info]]]:
       </p>
       <ul>
         <li>`categories`
@@ -3362,8 +3408,8 @@
           The server that hosts the web application could attempt to
           predetermine the end-user's language by using <a href=
           "https://en.wikipedia.org/wiki/Geotargeting">geotargeting</a> or by
-          using content negotiation (e.g., using [[RFC7540]]'s
-          "`Accept-Language`" header, or even a custom HTTP header).
+          using content negotiation (e.g., using an HTTP "`Accept-Language`"
+          header [[RFC9110]], or even a custom HTTP header).
         </dd>
       </dl>
       <p>
