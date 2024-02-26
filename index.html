@@ -2682,14 +2682,20 @@
       </p>
       <p>
         A user agent MUST reflect the applied <a>display mode</a> of the web
-        application in the '`display-mode`' media feature [[MEDIAQUERIES-5]].
+        application in the <a data-xref-type="css-descriptor" data-xref-for=
+        "@media">`display-mode`</a> media feature [[MEDIAQUERIES-5]].
       </p>
       <p class="note">
-        A user agent will expose the '`display-mode`' media feature
-        irrespective of whether a manifest is being applied to a browsing
-        context. For example, if the end-user puts the application into
-        fullscreen, then the user agent would reflect this change to CSS and
-        scripts via the '`display-mode`' media feature.
+        A user agent will expose the actual display mode being applied — not
+        necessarily the one declared in the manifest — via the
+        <a data-xref-type="css-descriptor" data-xref-for=
+        "@media">`display-mode`</a> media feature, accessible through CSS or
+        JavaScript. Note that this media feature will also reflect other
+        display modes for a web page when a manifest is not being applied. For
+        example, if the end-user puts the page into fullscreen, then the user
+        agent would reflect this change to CSS and scripts via the
+        <a data-xref-type="css-descriptor" data-xref-for=
+        "@media">`display-mode`</a> media feature.
       </p>
     </section>
     <section id="priv-sec">
