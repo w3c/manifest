@@ -817,8 +817,17 @@
             This can be useful for analytics and possibly other customizations.
             However, it is also conceivable that developers could encode
             strings into the start_url that uniquely identify the user (e.g., a
-            server assigned <abbr>UUID</abbr>). This is fingerprinting/privacy
-            sensitive information that the user might not be aware of.
+            server-assigned <abbr>UUID</abbr> such as `"?user=123"`,
+            `"/user/123/"`, or `"https://user123.foo.bar"`). This is
+            fingerprinting/privacy sensitive information that the user might
+            not be aware of.
+          </p>
+          <p class="note">
+            It would be irresponsible for a developer to use the [=start URL=]
+            to include information that uniquely identifies a user, as it would
+            represent a fingerprint that is not cleared when the user clears
+            site data. However, nothing in this specification can practically
+            prevent developers from doing this.
           </p>
           <p>
             Given the above, it is RECOMMENDED that, upon installation, or any
@@ -826,9 +835,11 @@
             necessary, modify the [=start URL=] of an application.
           </p>
           <p>
-            Additionally, developers MUST NOT use the [=manifest/start URL=] to include
-            information that uniquely identifies a user (e.g., "?user=123" or
-            "/user/123/", or "https://user123.foo.bar").
+            A user agent MAY offer other protections against this form of
+            fingerprinting. For example, if a user clears data from an origin,
+            the user agent MAY offer to uninstall applications that are
+            [=manifest/within scope=] of that origin, thus removing the
+            potential fingerprint from the application's start URL.
           </p>
         </section>
       </section>
