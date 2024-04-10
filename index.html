@@ -161,8 +161,8 @@
         application is launched.
       </p>
       <p>
-        A manifest has an associated <dfn>manifest URL</dfn>, which is the
-        [[URL]] from which the <a>manifest</a> was fetched.
+        A manifest has an associated <dfn class="export">manifest URL</dfn>,
+        which is the [[URL]] from which the <a>manifest</a> was fetched.
       </p>
       <p>
         A [=manifest=] can have any of the following members at its root, all
@@ -607,8 +607,8 @@
         <aside class="note" title="Default scope">
           <p>
             The "default scope" (when [=manifest/scope=] member is missing,
-            empty, or failure) is the start URL, but with its filename, query,
-            and fragment removed.
+            empty, or failure) is the [=start URL=], but with its filename,
+            query, and fragment removed.
           </p>
         </aside>
         <p>
@@ -759,10 +759,11 @@
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">start_url</dfn></code> member is a <a>string</a> that
-          represents the <dfn>start URL</dfn> , which is <a>URL</a> that the
-          developer would prefer the user agent load when the user launches the
-          web application (e.g., when the user clicks on the icon of the web
-          application from a device's application menu or homescreen).
+          represents the <dfn class="export">start URL</dfn> , which is
+          <a>URL</a> that the developer would prefer the user agent load when
+          the user launches the web application (e.g., when the user clicks on
+          the icon of the web application from a device's application menu or
+          homescreen).
         </p>
         <p>
           The [=manifest/start_url=] member is purely advisory, and a user
@@ -822,12 +823,12 @@
           <p>
             Given the above, it is RECOMMENDED that, upon installation, or any
             time thereafter, a user agent allows the user to inspect and, if
-            necessary, modify the <a>start URL</a> of an application.
+            necessary, modify the [=start URL=] of an application.
           </p>
           <p>
-            Additionally, developers MUST NOT use the <a>start URL</a> to
-            include information that uniquely identifies a user (e.g.,
-            "?user=123" or "/user/123/", or "https://user123.foo.bar").
+            Additionally, developers MUST NOT use the [=manifest/start URL=] to include
+            information that uniquely identifies a user (e.g., "?user=123" or
+            "/user/123/", or "https://user123.foo.bar").
           </p>
         </section>
       </section>
@@ -839,7 +840,7 @@
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">id</dfn></code> member is a <a>string</a> that represents
           the <dfn>identity</dfn> for the application. The [=identity=] takes
-          the form of a URL, which is same origin as the start URL.
+          the form of a URL, which is same origin as the [=start URL=].
         </p>
         <p>
           The [=identity=] is used by user agents to uniquely identify the
@@ -890,8 +891,8 @@
         </ol>
         <aside class="example" title="Resulting ids">
           <p>
-            The table below shows some example `id`s resulting from the [=process
-            the `id` member=] steps.
+            The table below shows some example `id`s resulting from the
+            [=process the `id` member=] steps.
           </p>
           <table class="data">
             <tr>
@@ -1008,10 +1009,10 @@
           <p>
             Since [=manifest/id=] is resolved against [=manifest/start_url=]'s
             [=URL/origin=], providing "../foo", "foo", "/foo", "./foo" all
-            resolves to the same [=identifier=]. As such, best practice
-            is to use a leading "/" to be explicit that the id is a
-            root-relative URL path. Also, standard encoding/decoding rules
-            apply to the id processing algorithm, as per the [[[URL]]].
+            resolves to the same [=identifier=]. As such, best practice is to
+            use a leading "/" to be explicit that the id is a root-relative URL
+            path. Also, standard encoding/decoding rules apply to the id
+            processing algorithm, as per the [[[URL]]].
           </p>
         </aside>
       </section>
