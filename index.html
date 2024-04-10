@@ -1,15 +1,13 @@
 <!DOCTYPE html><html lang="en" dir="ltr"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 34.2.2">
+<meta name="generator" content="ReSpec 34.5.0">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
 :is(aside,div).example,div.illegal-example{padding:.5em;margin:1em 0;position:relative;clear:both}
 div.illegal-example{color:red}
 div.illegal-example p{color:#000}
-:is(aside,div).example{border-left-width:.5em;border-left-style:solid;border-color:#e0cb52;background:#fcfaee}
 aside.example div.example{border-left-width:.1em;border-color:#999;background:#fff}
-.example pre{background-color:rgba(0,0,0,.03)}
 </style>
 <style>
 .issue-label{text-transform:initial}
@@ -18,7 +16,7 @@ aside.example div.example{border-left-width:.1em;border-color:#999;background:#f
 span.warning{padding:.1em .5em .15em}
 .issue.closed span.issue-number{text-decoration:line-through}
 .issue.closed span.issue-number::after{content:" (Closed)";font-size:smaller}
-.warning{border-color:#f11;border-width:.2em;border-style:solid;background:#fbe9e9}
+.warning{border-color:#f11;border-color:var(--warning-border,#f11);border-width:.2em;border-style:solid;background:#fbe9e9;background:var(--warning-bg,#fbe9e9);color:#000;color:var(--text,#000)}
 .warning-title:before{content:"⚠";font-size:1.3em;float:left;padding-right:.3em;margin-top:-.3em}
 li.task-list-item{list-style:none}
 input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
@@ -26,13 +24,13 @@ input.task-list-item-checkbox{margin:0 .35em .25em -1.6em;vertical-align:middle}
 </style>
 <style>
 dfn{cursor:pointer}
-.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;color:#000;box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);border-radius:2px}
+.dfn-panel{position:absolute;z-index:35;min-width:300px;max-width:500px;padding:.5em .75em;margin-top:.6em;font-family:"Helvetica Neue",sans-serif;font-size:small;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px}
 .dfn-panel:not(.docked)>.caret{position:absolute;top:-9px}
-.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;top:0}
-.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1}
+.dfn-panel:not(.docked)>.caret::after,.dfn-panel:not(.docked)>.caret::before{content:"";position:absolute;border:10px solid transparent;border-top:0;border-bottom:10px solid #fff;border-bottom-color:var(--indextable-hover-bg,#fff);top:0}
+.dfn-panel:not(.docked)>.caret::before{border-bottom:9px solid #a2a9b1;border-bottom-color:var(--indextable-hover-bg,#a2a9b1)}
 .dfn-panel *{margin:0}
-.dfn-panel b{display:block;color:#000;margin-top:.25em}
-.dfn-panel ul a[href]{color:#333}
+.dfn-panel b{display:block;color:#000;color:var(--text,#000);margin-top:.25em}
+.dfn-panel ul a[href]{color:#333;color:var(--text,#333)}
 .dfn-panel>div{display:flex}
 .dfn-panel a.self-link{font-weight:700;margin-right:auto}
 .dfn-panel .marker{padding:.1em;margin-left:.5em;border-radius:.2em;text-align:center;white-space:nowrap;font-size:90%;color:#040b1c}
@@ -70,7 +68,6 @@ cite .bibref{font-style:normal}
 a[href].orcid{padding-left:4px;padding-right:4px}
 a[href].orcid>svg{margin-bottom:-2px}
 .toc a,.tof a{text-decoration:none}
-a .figno,a .secno{color:#000}
 ol.tof,ul.tof{list-style:none outside none}
 .caption{margin-top:.5em;font-style:italic}
 table.simple{border-spacing:0;border-collapse:collapse;border-bottom:3px solid #005a9c}
@@ -155,9 +152,9 @@ ul.index code{color:inherit}
 <style>
 .mdn{font-size:.75em;position:absolute;right:.3em;min-width:0;margin-top:3rem}
 .mdn details{width:100%;margin:1px 0;position:relative;z-index:10;box-sizing:border-box;padding:.4em;padding-top:0}
-.mdn details[open]{min-width:25ch;max-width:32ch;background:#fff;box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);border-radius:2px;z-index:11;margin-bottom:.4em}
+.mdn details[open]{min-width:25ch;max-width:32ch;background:#fff;background:var(--indextable-hover-bg,#fff);color:#000;color:var(--indextable-hover-text,#000);box-shadow:0 1em 3em -.4em rgba(0,0,0,.3),0 0 1px 1px rgba(0,0,0,.05);box-shadow:0 1em 3em -.4em var(--tocsidebar-shadow,rgba(0,0,0,.3)),0 0 1px 1px var(--tocsidebar-shadow,rgba(0,0,0,.05));border-radius:2px;z-index:11;margin-bottom:.4em}
 .mdn summary{text-align:right;cursor:default;margin-right:-.4em}
-.mdn summary span{font-family:zillaslab,Palatino,"Palatino Linotype",serif;color:#fff;background-color:#000;display:inline-block;padding:3px}
+.mdn summary span{font-family:zillaslab,Palatino,"Palatino Linotype",serif;color:#fff;color:var(--bg,#fff);background-color:#000;background-color:var(--text,#000);display:inline-block;padding:3px}
 .mdn a{display:inline-block;word-break:break-all}
 .mdn p{margin:0}
 .mdn .engines-all{color:#058b00}
@@ -178,7 +175,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="9d8ad08735e82d03828e6c836c508539a086f5a8">
+<meta name="revision" content="1bd4be6a4e34478abe27853e334ba1c541cb2329">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -191,15 +188,19 @@ ul.index code{color:inherit}
         restricts the URLs to which the manifest is applied and provides a
         means to &quot;deep link&quot; into a web application from other applications.">
 <style>
-.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;background:#fafafa}
-.hljs-comment,.hljs-quote{color:#717277;font-style:italic}
-.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4}
-.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;font-weight:700}
-.hljs-literal{color:#0b76c5}
-.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c}
-.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01}
-.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801}
-.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3}
+.hljs{--base:#fafafa;--mono-1:#383a42;--mono-2:#686b77;--mono-3:#717277;--hue-1:#0b76c5;--hue-2:#336ae3;--hue-3:#a626a4;--hue-4:#42803c;--hue-5:#ca4706;--hue-5-2:#c91243;--hue-6:#986801;--hue-6-2:#9a6a01}
+@media (prefers-color-scheme:dark){
+.hljs{--base:#282c34;--mono-1:#abb2bf;--mono-2:#818896;--mono-3:#5c6370;--hue-1:#56b6c2;--hue-2:#61aeee;--hue-3:#c678dd;--hue-4:#98c379;--hue-5:#e06c75;--hue-5-2:#be5046;--hue-6:#d19a66;--hue-6-2:#e6c07b}
+}
+.hljs{display:block;overflow-x:auto;padding:.5em;color:#383a42;color:var(--mono-1,#383a42);background:#fafafa;background:var(--base,#fafafa)}
+.hljs-comment,.hljs-quote{color:#717277;color:var(--mono-3,#717277);font-style:italic}
+.hljs-doctag,.hljs-formula,.hljs-keyword{color:#a626a4;color:var(--hue-3,#a626a4)}
+.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#ca4706;color:var(--hue-5,#ca4706);font-weight:700}
+.hljs-literal{color:#0b76c5;color:var(--hue-1,#0b76c5)}
+.hljs-addition,.hljs-attribute,.hljs-meta-string,.hljs-regexp,.hljs-string{color:#42803c;color:var(--hue-4,#42803c)}
+.hljs-built_in,.hljs-class .hljs-title{color:#9a6a01;color:var(--hue-6-2,#9a6a01)}
+.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#986801;color:var(--hue-6,#986801)}
+.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#336ae3;color:var(--hue-2,#336ae3)}
 .hljs-emphasis{font-style:italic}
 .hljs-strong{font-weight:700}
 .hljs-link{text-decoration:underline}
@@ -207,8 +208,8 @@ ul.index code{color:inherit}
 <style>
 var{position:relative;cursor:pointer}
 var[data-type]::after,var[data-type]::before{position:absolute;left:50%;top:-6px;opacity:0;transition:opacity .4s;pointer-events:none}
-var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#000}
-var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#000;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
+var[data-type]::before{content:"";transform:translateX(-50%);border-width:4px 6px 0 6px;border-style:solid;border-color:transparent;border-top-color:#222}
+var[data-type]::after{content:attr(data-type);transform:translateX(-50%) translateY(-100%);background:#222;text-align:center;font-family:"Dank Mono","Fira Code",monospace;font-style:normal;padding:6px;border-radius:3px;color:#daca88;text-indent:0;font-weight:400}
 var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 </style>
 <script id="initialUserConfig" type="application/json">{
@@ -272,16 +273,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "9d8ad08735e82d03828e6c836c508539a086f5a8",
-  "publishISODate": "2023-11-29T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 29 November 2023"
+  "gitRevision": "1bd4be6a4e34478abe27853e334ba1c541cb2329",
+  "publishISODate": "2024-04-10T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 10 April 2024"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5 IMAGE-RESOURCE MIMESNIFF HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2023-11-29">29 November 2023</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2024-04-10">10 April 2024</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -338,7 +339,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p class="copyright">
     <a href="https://www.w3.org/policies/#copyright">Copyright</a>
     ©
-    2023
+    2024
     
     <a href="https://www.w3.org/">World Wide Web Consortium</a>.
     <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup>
@@ -583,8 +584,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         application is launched.
       </p>
       <p>
-        A manifest has an associated <dfn id="dfn-manifest-url" tabindex="0" aria-haspopup="dialog" class="respec-offending-element" title="Found definition for &quot;manifest URL&quot;, but nothing links to it. This is usually a spec bug!" data-dfn-type="dfn">manifest URL</dfn>, which is the
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-url" title="URL Standard">URL</a></cite>] from which the <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-1">manifest</a> was fetched.
+        A manifest has an associated <dfn class="export" data-export="" id="dfn-manifest-url" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">manifest URL</dfn>,
+        which is the [<cite><a class="bibref" data-link-type="biblio" href="#bib-url" title="URL Standard">URL</a></cite>] from which the <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-1">manifest</a> was fetched.
       </p>
       <p>
         A <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-2">manifest</a> can have any of the following members at its root, all
@@ -960,7 +961,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           specifications (see the <a href="https://www.iana.org/assignments/language-subtag-registry"><abbr title="Internet Assigned Numbers Authority">IANA</abbr>
           Language Subtag Registry</a> for an authoritative list of possible
           values). That is, a language range is composed of one or more
-          <dfn id="dfn-subtags" tabindex="0" aria-haspopup="dialog" class="respec-offending-element" title="Found definition for &quot;subtags&quot;, but nothing links to it. This is usually a spec bug!" data-dfn-type="dfn">subtags</dfn> that are delimited by a U+002D HYPHEN-MINUS ("-").
+          <dfn id="dfn-subtags" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;subtags&quot;, but nothing links to it. This is usually a spec bug!">subtags</dfn> that are delimited by a U+002D HYPHEN-MINUS ("-").
           For example, the '<code>en-AU</code>' language range represents English as
           spoken in Australia, and '<code>fr-CA</code>' represents French as spoken in
           Canada. Language tags that meet the validity criteria of [<cite><a class="bibref" data-link-type="biblio" href="#bib-bcp47" title="Tags for Identifying Languages">RFC5646</a></cite>]
@@ -1159,8 +1160,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <div class="note" role="note" id="issue-container-generatedID-4"><div role="heading" class="note-title marker" id="h-note-3" aria-level="4"><span>Note</span><span class="issue-label">: Default scope</span></div><aside class="">
           <p>
             The "default scope" (when <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-6"><code>scope</code></a> member is missing,
-            empty, or failure) is the start URL, but with its filename, query,
-            and fragment removed.
+            empty, or failure) is the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-1">start URL</a>, but with its filename,
+            query, and fragment removed.
           </p>
         </aside></div>
         <p>
@@ -1403,7 +1404,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </p></div>
         <p>
           Certain UI/UX concerns and/or platform conventions will mean that
-          some screen orientations and <dfn id="dfn-cannot-be-used-together" tabindex="0" aria-haspopup="dialog" class="respec-offending-element" title="Found definition for &quot;cannot be used together&quot;, but nothing links to it. This is usually a spec bug!" data-dfn-type="dfn">cannot be used together</dfn>.
+          some screen orientations and <dfn id="dfn-cannot-be-used-together" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;cannot be used together&quot;, but nothing links to it. This is usually a spec bug!">cannot be used together</dfn>.
           Which orientations and display modes cannot be used together is left
           to the discretion of implementers. For example, for some user agents,
           it might not make sense to change the <a data-type="dfn" href="https://www.w3.org/TR/screen-orientation/#dfn-default-screen-orientation" id="ref-for-index-term-default-screen-orientation-5">default screen
@@ -1479,10 +1480,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         <p>
           The <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-13">manifest's</a> <code><dfn data-export="" data-dfn-for="manifest" id="dfn-start_url" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">start_url</dfn></code> member is a <a data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-11">string</a> that
-          represents the <dfn id="dfn-start-url" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">start URL</dfn> , which is <a data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-1">URL</a> that the
-          developer would prefer the user agent load when the user launches the
-          web application (e.g., when the user clicks on the icon of the web
-          application from a device's application menu or homescreen).
+          represents the <dfn class="export" data-export="" id="dfn-start-url" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">start URL</dfn> , which is
+          <a data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-1">URL</a> that the developer would prefer the user agent load when
+          the user launches the web application (e.g., when the user clicks on
+          the icon of the web application from a device's application menu or
+          homescreen).
         </p>
         <p>
           The <a data-link-type="dfn|abstract-op" href="#dfn-start_url" class="internalDFN" id="ref-for-dfn-start_url-4"><code>start_url</code></a> member is purely advisory, and a user
@@ -1544,12 +1546,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <p>
             Given the above, it is <em class="rfc2119">RECOMMENDED</em> that, upon installation, or any
             time thereafter, a user agent allows the user to inspect and, if
-            necessary, modify the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-1">start URL</a> of an application.
+            necessary, modify the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-2">start URL</a> of an application.
           </p>
           <p>
-            Additionally, developers <em class="rfc2119">MUST NOT</em> use the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-2">start URL</a> to
-            include information that uniquely identifies a user (e.g.,
-            "?user=123" or "/user/123/", or "https://user123.foo.bar").
+            Additionally, developers <em class="rfc2119">MUST NOT</em> use the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-3">start URL</a> to include
+            information that uniquely identifies a user (e.g., "?user=123" or
+            "/user/123/", or "https://user123.foo.bar").
           </p>
         </section>
       </section>
@@ -1603,7 +1605,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <p>
           The <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-14">manifest's</a> <code><dfn data-export="" data-dfn-for="manifest" id="dfn-id" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">id</dfn></code> member is a <a data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-14">string</a> that represents
           the <dfn id="dfn-identity" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">identity</dfn> for the application. The <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-2">identity</a> takes
-          the form of a URL, which is same origin as the start URL.
+          the form of a URL, which is same origin as the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-4">start URL</a>.
         </p>
         <p>
           The <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-3">identity</a> is used by user agents to uniquely identify the
@@ -1655,7 +1657,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <a class="self-link" href="#example-resulting-ids">Example<bdi> 6</bdi></a><span class="example-title">: Resulting ids</span>
   </div>
           <p>
-            The table below shows some example <code>id</code>s resulting from the <a data-link-type="dfn|abstract-op" href="#dfn-process-the-id-member" class="internalDFN" id="ref-for-dfn-process-the-id-member-1">process the <code>id</code> member</a> steps.
+            The table below shows some example <code>id</code>s resulting from the
+            <a data-link-type="dfn|abstract-op" href="#dfn-process-the-id-member" class="internalDFN" id="ref-for-dfn-process-the-id-member-1">process the <code>id</code> member</a> steps.
           </p>
           <table class="data">
             <tbody><tr>
@@ -1772,10 +1775,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <p>
             Since <a data-link-type="dfn|abstract-op" href="#dfn-id" class="internalDFN" id="ref-for-dfn-id-1"><code>id</code></a> is resolved against <a data-link-type="dfn|abstract-op" href="#dfn-start_url" class="internalDFN" id="ref-for-dfn-start_url-8"><code>start_url</code></a>'s
             <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://url.spec.whatwg.org/#concept-url-origin" id="ref-for-index-term-origin-for-url-2">origin</a>, providing "../foo", "foo", "/foo", "./foo" all
-            resolves to the same <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-identifier" id="ref-for-index-term-identifier-1">identifier</a>. As such, best practice
-            is to use a leading "/" to be explicit that the id is a
-            root-relative URL path. Also, standard encoding/decoding rules
-            apply to the id processing algorithm, as per the <cite><a data-matched-text="[[[URL]]]" href="https://url.spec.whatwg.org/">URL Standard</a></cite>.
+            resolves to the same <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-identifier" id="ref-for-index-term-identifier-1">identifier</a>. As such, best practice is to
+            use a leading "/" to be explicit that the id is a root-relative URL
+            path. Also, standard encoding/decoding rules apply to the id
+            processing algorithm, as per the <cite><a data-matched-text="[[[URL]]]" href="https://url.spec.whatwg.org/">URL Standard</a></cite>.
           </p>
         </aside>
       </section>
@@ -2421,12 +2424,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             user agent <em class="rfc2119">MUST</em> immediately <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-3">navigate</a> to the <a href="#dfn-deep-link" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-deep-link-2">deep link</a>
             with <var>historyHandling</var> set to "<code>replace</code>". Otherwise, when
             the <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-3">application context</a> is created, the user agent <em class="rfc2119">MUST</em>
-            immediately <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-4">navigate</a> to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-3">start URL</a> with
+            immediately <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-4">navigate</a> to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-5">start URL</a> with
             <var>historyHandling</var> set to "<code>replace</code>".
           </p>
           <div class="note" role="note" id="issue-container-generatedID-16"><div role="heading" class="note-title marker" id="h-note-15" aria-level="5"><span>Note</span></div><aside class="">
             <p>
-              The <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-4">start URL</a> is not necessarily the value of the
+              The <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-6">start URL</a> is not necessarily the value of the
               <a data-link-type="dfn|abstract-op" href="#dfn-start_url" class="internalDFN" id="ref-for-dfn-start_url-9"><code>start_url</code></a> member: the user or user agent could have
               changed it when the application was <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-1">installed</a>.
             </p>
@@ -2434,7 +2437,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <p>
             The appropriate time to <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-5">apply</a> a manifest is when the
             <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-4">application context</a> is created and before
-            <a data-link-type="dfn|abstract-op" data-lt="navigate" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-5">navigation</a> to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-5">start URL</a> begins.
+            <a data-link-type="dfn|abstract-op" data-lt="navigate" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-5">navigation</a> to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-7">start URL</a> begins.
           </p>
         </section>
         <section id="updating"><div class="header-wrapper"><h4 id="x1-17-6-updating-the-manifest"><bdi class="secno">1.17.6 </bdi>
@@ -2521,7 +2524,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           values are the <a href="#dfn-icon-purposes" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-icon-purposes-1">icon purposes</a>.
         </p>
         <p>
-          When a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-4">manifest image resource</a> is used as an <dfn id="dfn-icon" tabindex="0" aria-haspopup="dialog" class="respec-offending-element" title="Found definition for &quot;icon&quot;, but nothing links to it. This is usually a spec bug!" data-dfn-type="dfn">icon</dfn>, a
+          When a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-4">manifest image resource</a> is used as an <dfn id="dfn-icon" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;icon&quot;, but nothing links to it. This is usually a spec bug!">icon</dfn>, a
           developer can hint that the image is intended to serve some special
           purpose in the context of the host <abbr title="Operating system">OS</abbr> (i.e., for better integration).
           User agents <em class="rfc2119">SHOULD NOT</em> use an icon other than for its stated <a href="#dfn-icon-purposes" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-icon-purposes-2">icon
@@ -2781,7 +2784,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </h3><a class="self-link" href="#monochrome-icons-and-solid-fills" aria-label="Permalink for Section 2.4"></a></div>
         
         <p>
-          Some platforms enforce that icons be displayed with a <dfn id="dfn-solid-fill" tabindex="0" aria-haspopup="dialog" class="respec-offending-element" title="Found definition for &quot;solid fill&quot;, but nothing links to it. This is usually a spec bug!" data-dfn-type="dfn">solid
+          Some platforms enforce that icons be displayed with a <dfn id="dfn-solid-fill" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;solid fill&quot;, but nothing links to it. This is usually a spec bug!">solid
           fill</dfn> such as a single color, where only the transparency of the
           icon can be declared in a <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-23">manifest</a>. As web applications need to
           work across multiple platforms, it is possible to indicate that an
@@ -3151,7 +3154,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <p>
           A <dfn data-local-lt="fingerprints" data-lt="fingerprint|fingerprints" id="dfn-fingerprints-0" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">fingerprint</dfn> represents a
           set of cryptographic fingerprints used for verifying the application.
-          A fingerprint has the following two members: <dfn data-dfn-for="fingerprint" id="dfn-type" tabindex="0" aria-haspopup="dialog" class="respec-offending-element" title="Found definition for &quot;type&quot;, but nothing links to it. This is usually a spec bug!" data-dfn-type="dfn">type</dfn> and <dfn data-dfn-for="fingerprint" id="dfn-value" tabindex="0" aria-haspopup="dialog" class="respec-offending-element" title="Found definition for &quot;value&quot;, but nothing links to it. This is usually a spec bug!" data-dfn-type="dfn">value</dfn>. Each of these are <a data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-27">string</a>s, but
+          A fingerprint has the following two members: <dfn data-dfn-for="fingerprint" id="dfn-type" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;type&quot;, but nothing links to it. This is usually a spec bug!">type</dfn> and <dfn data-dfn-for="fingerprint" id="dfn-value" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;value&quot;, but nothing links to it. This is usually a spec bug!">value</dfn>. Each of these are <a data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-27">string</a>s, but
           their syntax and semantics are platform-defined.
         </p>
       </section>
@@ -3178,7 +3181,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         appearing as a labeled icon on the home screen, launcher, or start
         menu. When <a data-link-type="dfn|abstract-op" href="#dfn-launching-a-web-application" class="internalDFN" id="ref-for-dfn-launching-a-web-application-2">launching a web application</a>, the manifest is
         <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-8">applied</a> by the user agent to the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-10">top-level browsing
-        context</a> prior to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-6">start URL</a> being loaded. This gives the
+        context</a> prior to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-8">start URL</a> being loaded. This gives the
         user agent an opportunity to apply the relevant values of the manifest,
         possibly changing the <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-4">display mode</a> and screen orientation of the
         web application. Alternatively, and again as an example, the user agent
@@ -3265,7 +3268,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           manifest">manifest</var>, an optional <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-9">URL</a> <var data-type="URL">target URL</var>, an optional <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#post-resource" id="ref-for-index-term-post-resource-2">POST resource</a> <var>POST resource</var> and returns an <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-7">application context</a>.
         </p>
         <ol class="algorithm">
-          <li>If <var data-type="URL">target URL</var> was not given, set <var data-type="URL">target URL</var> to <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-7">start URL</a>.
+          <li>If <var data-type="URL">target URL</var> was not given, set <var data-type="URL">target URL</var> to <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-9">start URL</a>.
           </li>
           <li>Let <var>traversable</var> be the result of running the steps to <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#create-a-fresh-top-level-traversable" id="ref-for-index-term-create-a-fresh-top-level-traversable-1">create a fresh top-level traversable</a> with <var data-type="URL">target URL</var> and <var>POST
           resource</var>.
@@ -3286,7 +3289,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <p>
           It is <em class="rfc2119">RECOMMENDED</em> that UI that affords the end user the ability to
           <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-4">install</a> a web application also allows inspecting the icon,
-          name, <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-8">start URL</a>, origin, etc. pertaining to a web application.
+          name, <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-10">start URL</a>, origin, etc. pertaining to a web application.
           This is to give an end-user an opportunity to make a conscious
           decision to approve, and possibly modify, the information pertaining
           to the web application before installing it. This also gives the
@@ -3501,7 +3504,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </li>
       </ol>
       <p>
-        The <dfn id="dfn-steps-for-determining-the-web-app-s-chosen-display-mode" tabindex="0" aria-haspopup="dialog" class="respec-offending-element" title="Found definition for &quot;steps for determining the web app's chosen display mode&quot;, but nothing links to it. This is usually a spec bug!" data-dfn-type="dfn">steps for determining the web app's chosen display mode</dfn>
+        The <dfn id="dfn-steps-for-determining-the-web-app-s-chosen-display-mode" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;steps for determining the web app's chosen display mode&quot;, but nothing links to it. This is usually a spec bug!">steps for determining the web app's chosen display mode</dfn>
         is given by the following algorithm. The algorithm takes a
         <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-11">processed manifest</a> <var data-type="processed manifest">manifest</var> and
         returns a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-12">display mode</a>.
@@ -3615,7 +3618,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p>
         It is <em class="rfc2119">RECOMMENDED</em> that UI that affords the end user the ability to
         <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-7">install</a> a web application also allows inspecting the icon, name,
-        <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-9">start URL</a>, origin, etc. pertaining to a web application. This is
+        <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-11">start URL</a>, origin, etc. pertaining to a web application. This is
         to give an end-user an opportunity to make a conscious decision to
         approve, and possibly modify, the information pertaining to the web
         application before installing it. This also gives the end-user an
@@ -4649,15 +4652,15 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 <section id="references" class="appendix"><div class="header-wrapper"><h2 id="m-references"><bdi class="secno">M. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix M."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="m-1-normative-references"><bdi class="secno">M.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix M.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-accname-1.2">[accname-1.2]</dt><dd>
-      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Joanmarie Diggs; Michael Cooper.  W3C. 11 July 2019. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
+      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 3 April 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
     </dd><dt id="bib-bcp47">[BCP47]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc5646"><cite>Tags for Identifying Languages</cite></a>. A. Phillips, Ed.; M. Davis, Ed..  IETF. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc5646">https://www.rfc-editor.org/rfc/rfc5646</a>
     </dd><dt id="bib-bidi">[BIDI]</dt><dd>
       <a href="https://www.unicode.org/reports/tr9/tr9-48.html"><cite>Unicode Bidirectional Algorithm</cite></a>. Manish Goregaokar मनीष गोरेगांवकर; Robin Leroy.  Unicode Consortium. 15 August 2023. Unicode Standard Annex #9. URL: <a href="https://www.unicode.org/reports/tr9/tr9-48.html">https://www.unicode.org/reports/tr9/tr9-48.html</a>
     </dd><dt id="bib-csp3">[CSP3]</dt><dd>
-      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 30 October 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
+      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 21 February 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
     </dd><dt id="bib-css-color-4">[css-color-4]</dt><dd>
-      <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Tab Atkins Jr.; Chris Lilley; Lea Verou.  W3C. 1 November 2022. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
+      <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Chris Lilley; Tab Atkins Jr.; Lea Verou.  W3C. 13 February 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
     </dd><dt id="bib-css-mime">[CSS-MIME]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2318"><cite>The text/css Media Type</cite></a>. H. Lie; B. Bos; C. Lilley.  IETF. March 1998. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc2318">https://www.rfc-editor.org/rfc/rfc2318</a>
     </dd><dt id="bib-css-syntax-3">[css-syntax-3]</dt><dd>
@@ -4683,7 +4686,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-mime-types">[MIME-TYPES]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2046"><cite>Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</cite></a>. N. Freed; N. Borenstein.  IETF. November 1996. Draft Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc2046">https://www.rfc-editor.org/rfc/rfc2046</a>
     </dd><dt id="bib-permissions">[permissions]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 22 November 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 19 March 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
     </dd><dt id="bib-rfc7159">[RFC7159]</dt><dd>
@@ -4782,7 +4785,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-manifest-url" aria-label="Permalink for definition: manifest URL. Activate to close this dialog.">Permalink</a>
-         
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
@@ -5134,22 +5137,26 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-start-url" aria-label="Permalink for definition: start URL. Activate to close this dialog.">Permalink</a>
-         
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-start-url-1" title="§ 1.10.1 Privacy consideration: start_url tracking">§ 1.10.1 Privacy consideration: start_url tracking</a> <a href="#ref-for-dfn-start-url-2" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-start-url-1" title="§ 1.6 scope member">§ 1.6 scope member</a> 
     </li><li>
-      <a href="#ref-for-dfn-start-url-3" title="§ 1.17.5 Applying the manifest">§ 1.17.5 Applying the manifest</a> <a href="#ref-for-dfn-start-url-4" title="Reference 2">(2)</a> <a href="#ref-for-dfn-start-url-5" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-start-url-2" title="§ 1.10.1 Privacy consideration: start_url tracking">§ 1.10.1 Privacy consideration: start_url tracking</a> <a href="#ref-for-dfn-start-url-3" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-start-url-6" title="§ 5. Installable web applications">§ 5. Installable web applications</a> 
+      <a href="#ref-for-dfn-start-url-4" title="§ 1.11 id member">§ 1.11 id member</a> 
     </li><li>
-      <a href="#ref-for-dfn-start-url-7" title="§ 5.2 Launching a web application">§ 5.2 Launching a web application</a> 
+      <a href="#ref-for-dfn-start-url-5" title="§ 1.17.5 Applying the manifest">§ 1.17.5 Applying the manifest</a> <a href="#ref-for-dfn-start-url-6" title="Reference 2">(2)</a> <a href="#ref-for-dfn-start-url-7" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-start-url-8" title="§ 5.3 Privacy and security considerations">§ 5.3 Privacy and security considerations</a> 
+      <a href="#ref-for-dfn-start-url-8" title="§ 5. Installable web applications">§ 5. Installable web applications</a> 
     </li><li>
-      <a href="#ref-for-dfn-start-url-9" title="§ 8. Privacy and security considerations">§ 8. Privacy and security considerations</a> 
+      <a href="#ref-for-dfn-start-url-9" title="§ 5.2 Launching a web application">§ 5.2 Launching a web application</a> 
+    </li><li>
+      <a href="#ref-for-dfn-start-url-10" title="§ 5.3 Privacy and security considerations">§ 5.3 Privacy and security considerations</a> 
+    </li><li>
+      <a href="#ref-for-dfn-start-url-11" title="§ 8. Privacy and security considerations">§ 8. Privacy and security considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-the-start_url-member" aria-label="Links in this document to definition: process the start_url member">
