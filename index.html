@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" dir="ltr"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 34.5.0">
+<meta name="generator" content="ReSpec 35.0.2">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -52,8 +52,6 @@ dfn{cursor:pointer}
 25%{transform:scale(1.25,1.25);opacity:.75}
 100%{transform:scale(1,1)}
 }
-:is(h1,h2,h3,h4,h5,h6,a) abbr{border:none}
-dfn{font-weight:700}
 a.internalDFN{color:inherit;border-bottom:1px solid #99c;text-decoration:none}
 a.externalDFN{color:inherit;border-bottom:1px dotted #ccc;text-decoration:none}
 a.bibref{text-decoration:none}
@@ -67,19 +65,8 @@ a.bibref{text-decoration:none}
 cite .bibref{font-style:normal}
 a[href].orcid{padding-left:4px;padding-right:4px}
 a[href].orcid>svg{margin-bottom:-2px}
-.toc a,.tof a{text-decoration:none}
 ol.tof,ul.tof{list-style:none outside none}
 .caption{margin-top:.5em;font-style:italic}
-table.simple{border-spacing:0;border-collapse:collapse;border-bottom:3px solid #005a9c}
-.simple th{background:#005a9c;color:#fff;padding:3px 5px;text-align:left}
-.simple th a{color:#fff;padding:3px 5px;text-align:left}
-.simple th[scope=row]{background:inherit;color:inherit;border-top:1px solid #ddd}
-.simple td{padding:3px 10px;border-top:1px solid #ddd}
-.simple tr:nth-child(even){background:#f0f6ff}
-.section dd>p:first-child{margin-top:0}
-.section dd>p:last-child{margin-bottom:0}
-.section dd{margin-bottom:1em}
-.section dl.attrs dd,.section dl.eldef dd{margin-bottom:0}
 #issue-summary>ul{column-count:2}
 #issue-summary li{list-style:none;display:inline-block}
 details.respec-tests-details{margin-left:1em;display:inline-block;vertical-align:top}
@@ -138,6 +125,7 @@ dd{margin-left:0}
     
 </style>
   
+<meta name="color-scheme" content="light">
 <style>
 ul.index{columns:30ch;column-gap:1.5em}
 ul.index li{list-style:inherit}
@@ -175,7 +163,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="1bd4be6a4e34478abe27853e334ba1c541cb2329">
+<meta name="revision" content="a791201a5df7b9ff58606d4922cb3c697aff66a8">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -273,16 +261,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "1bd4be6a4e34478abe27853e334ba1c541cb2329",
-  "publishISODate": "2024-04-10T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 10 April 2024"
+  "gitRevision": "a791201a5df7b9ff58606d4922cb3c697aff66a8",
+  "publishISODate": "2024-05-01T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 01 May 2024"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5 IMAGE-RESOURCE MIMESNIFF HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2024-04-10">10 April 2024</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2024-05-01">01 May 2024</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -543,8 +531,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           Security considerations
         </a></li><li class="tocline"><a class="tocxref" href="#deep-links"><bdi class="secno">6.2 </bdi>
           Deep links
-        </a></li></ol></li><li class="tocline"><a class="tocxref" href="#choosing-a-display-mode"><bdi class="secno">7. </bdi>
-        Choosing a display mode
+        </a></li></ol></li><li class="tocline"><a class="tocxref" href="#display-modes"><bdi class="secno">7. </bdi>
+        Display modes
       </a></li><li class="tocline"><a class="tocxref" href="#priv-sec"><bdi class="secno">8. </bdi>
         Privacy and security considerations
       </a></li><li class="tocline"><a class="tocxref" href="#iana-considerations"><bdi class="secno">A. </bdi>
@@ -1310,8 +1298,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         <p>
           The <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-11">manifest's</a> <code><dfn data-export="" data-dfn-for="manifest" id="dfn-display" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">display</dfn></code> member represents the developer's
-          preferred <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-1">display mode</a> for the web application. Its value is a
-          <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-2">display mode</a>.
+          preferred <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-1">display mode</a> for the web application. Its value is a
+          <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-2">display mode</a>.
         </p>
         <p>
           To <dfn id="dfn-process-the-display-member" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">process the <code>display</code> member</dfn>, given <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-7">ordered map</a>
@@ -1408,7 +1396,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           Which orientations and display modes cannot be used together is left
           to the discretion of implementers. For example, for some user agents,
           it might not make sense to change the <a data-type="dfn" href="https://www.w3.org/TR/screen-orientation/#dfn-default-screen-orientation" id="ref-for-index-term-default-screen-orientation-5">default screen
-          orientation</a> of an application while in <code>browser</code> <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-3">display
+          orientation</a> of an application while in <code>browser</code> <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-3">display
           mode</a>.
         </p>
         <div class="note" role="note" id="issue-container-generatedID-7"><div role="heading" class="note-title marker" id="h-note-6" aria-level="4"><span>Note</span></div><p class="">
@@ -3183,7 +3171,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-8">applied</a> by the user agent to the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-10">top-level browsing
         context</a> prior to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-8">start URL</a> being loaded. This gives the
         user agent an opportunity to apply the relevant values of the manifest,
-        possibly changing the <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-4">display mode</a> and screen orientation of the
+        possibly changing the <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-4">display mode</a> and screen orientation of the
         web application. Alternatively, and again as an example, the user agent
         could <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-2">install</a> the web application into a list of bookmarks
         within the user agent itself.
@@ -3461,53 +3449,107 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </aside></div>
       </section>
     </section>
-    <section id="choosing-a-display-mode"><div class="header-wrapper"><h2 id="x7-choosing-a-display-mode"><bdi class="secno">7. </bdi>
-        Choosing a display mode
-      </h2><a class="self-link" href="#choosing-a-display-mode" aria-label="Permalink for Section 7."></a></div>
+    <section id="display-modes"><div class="header-wrapper"><h2 id="x7-display-modes"><bdi class="secno">7. </bdi>
+        Display modes
+      </h2><a class="self-link" href="#display-modes" aria-label="Permalink for Section 7."></a></div>
       
       <p>
-        A <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-5">display mode</a>, as defined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5" title="Media Queries Level 5">MEDIAQUERIES-5</a></cite>], represents how
-        the web application is being presented within the context of an <abbr title="Operating system">OS</abbr>
-        (e.g., in fullscreen, etc.). Display modes correspond to user interface
-        (UI) metaphors and functionality in use on a given platform.
+        A <dfn class="export" data-export="" data-plurals="display modes" id="dfn-display-mode" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">display mode</dfn> represents how the web
+        application is being presented within the context of an <abbr title="Operating system">OS</abbr> (e.g., in
+        fullscreen, etc.). Display modes correspond to user interface (UI)
+        metaphors and functionality in use on a given platform. The UI
+        conventions of the display modes are purely advisory and implementers
+        are free to interpret them how they best see fit.
       </p>
       <p>
-        Once a user agent <a data-link-type="dfn|abstract-op" href="#dfn-applied" class="internalDFN" id="ref-for-dfn-applied-12">applies</a> a particular <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-6">display mode</a> to an
+        This specification defines the following <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-5">display modes</a>:
+      </p>
+      <dl>
+        <dt>
+          <dfn class="export" data-dfn-for="display mode" data-export="" id="dfn-fullscreen" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">fullscreen</dfn>
+        </dt>
+        <dd>
+          Opens the web application with browser UI elements hidden and takes
+          up the entirety of the available display area.
+        </dd>
+        <dt>
+          <dfn class="export" data-dfn-for="display mode" data-export="" id="dfn-standalone" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">standalone</dfn>
+        </dt>
+        <dd>
+          Opens the web application to look and feel like a standalone native
+          application. This can include the application having a different
+          window, its own icon in the application launcher, etc. In this mode,
+          the user agent will exclude standard browser UI elements such as an
+          URL bar, but can include other system UI elements such as a status
+          bar and/or system back button.
+        </dd>
+        <dt>
+          <dfn class="export" data-dfn-for="display mode" data-export="" id="dfn-minimal-ui" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">minimal-ui</dfn>
+        </dt>
+        <dd>
+          This mode is similar to <a data-link-type="dfn|abstract-op" href="#dfn-standalone" class="internalDFN" id="ref-for-dfn-standalone-1">standalone</a>, but provides the
+          end-user with some means to access a minimal set of UI elements for
+          controlling navigation (i.e., back, forward, reload, and perhaps some
+          way of viewing the document's address). A user agent can include
+          other platform specific UI elements, such as "share" and "print"
+          buttons or whatever is customary on the platform and user agent.
+        </dd>
+        <dt>
+          <dfn class="export" data-dfn-for="display mode" data-export="" id="dfn-browser" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">browser</dfn>
+          (default)
+        </dt>
+        <dd>
+          Opens the web application using the platform-specific convention for
+          opening hyperlinks in the user agent (e.g., in a browser tab or a new
+          window).
+        </dd>
+      </dl>
+      <div class="note" role="note" id="issue-container-generatedID-31"><div role="heading" class="note-title marker" id="h-note-30" aria-level="3"><span>Note</span></div><p class="">
+        The <a data-link-type="dfn|abstract-op" href="#dfn-fullscreen" class="internalDFN" id="ref-for-dfn-fullscreen-1">fullscreen</a> <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-6">display mode</a> is orthogonal to,
+        and works independently of, the <cite><a data-matched-text="[[[FULLSCREEN]]]" href="https://fullscreen.spec.whatwg.org/">Fullscreen API Standard</a></cite>. The <a data-link-type="dfn|abstract-op" href="#dfn-fullscreen" class="internalDFN" id="ref-for-dfn-fullscreen-2">fullscreen</a> <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-7">display mode</a> affects the fullscreen state of
+        the browser window, while the [<cite><a class="bibref" data-link-type="biblio" href="#bib-fullscreen" title="Fullscreen API Standard">FULLSCREEN</a></cite>] API operates on an element
+        contained within the viewport. As such, a web application can have its
+        <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-8">display mode</a> set to <a data-link-type="dfn|abstract-op" href="#dfn-fullscreen" class="internalDFN" id="ref-for-dfn-fullscreen-3">fullscreen</a>, while
+        <code>document.fullScreenElement</code> returns <code>null</code>, and <code>fullscreenEnabled</code>
+        returns <code>false</code>.
+      </p></div>
+      <p>
+        Once a user agent <a data-link-type="dfn|abstract-op" href="#dfn-applied" class="internalDFN" id="ref-for-dfn-applied-12">applies</a> a particular <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-9">display mode</a> to an
         <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-15">application context</a>, it becomes the <dfn id="dfn-default-display-mode" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">default display
         mode</dfn> for the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-12">top-level browsing context</a> (i.e., it is used
         as the display mode when the window is <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-7">navigated</a>). The user
         agent <em class="rfc2119">MAY</em> override the <a href="#dfn-default-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-default-display-mode-1">default display mode</a> for security reasons
         (e.g., the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-13">top-level browsing context</a> is <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-8">navigated</a> to
         another origin) and/or the user agent <em class="rfc2119">MAY</em> provide the user with a means
-        of switching to another <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-7">display mode</a>.
+        of switching to another <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-10">display mode</a>.
       </p>
       <p>
         When the <a data-link-type="dfn|abstract-op" href="#dfn-display" class="internalDFN" id="ref-for-dfn-display-2"><code>display</code></a> member is missing, or if there is no
-        valid <a data-link-type="dfn|abstract-op" href="#dfn-display" class="internalDFN" id="ref-for-dfn-display-3"><code>display</code></a> member, the user agent uses the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="ref-for-index-term-browser-for-display-mode-1">browser</a> <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-8">display mode</a> as the <a href="#dfn-default-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-default-display-mode-2">default display mode</a>.
-        As such, the user agent <em class="rfc2119">MUST</em> support the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="ref-for-index-term-browser-for-display-mode-2">browser</a>
-        <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-9">display mode</a>.
+        valid <a data-link-type="dfn|abstract-op" href="#dfn-display" class="internalDFN" id="ref-for-dfn-display-3"><code>display</code></a> member, the user agent uses the <a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-1">browser</a> <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-11">display mode</a> as the <a href="#dfn-default-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-default-display-mode-2">default display mode</a>.
+        As such, the user agent <em class="rfc2119">MUST</em> support the <a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-2">browser</a>
+        <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-12">display mode</a>.
       </p>
       <p>
-        Every <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-10">display mode</a> has a <dfn id="dfn-fallback-chain" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">fallback chain</dfn>, which is a list
-        of <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-11">display modes</a>. The <a data-link-type="dfn|abstract-op" href="#dfn-fallback-chain" class="internalDFN" id="ref-for-dfn-fallback-chain-1">fallback chain</a> for:
+        Every <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-13">display mode</a> has a <dfn id="dfn-fallback-chain" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">fallback chain</dfn>, which is a list
+        of <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-14">display modes</a>. The <a data-link-type="dfn|abstract-op" href="#dfn-fallback-chain" class="internalDFN" id="ref-for-dfn-fallback-chain-1">fallback chain</a> for:
       </p>
       <ol>
-        <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="ref-for-index-term-browser-for-display-mode-3">browser</a> is «».
+        <li><a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-3">browser</a> is «».
         </li>
-        <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-minimal-ui" id="ref-for-index-term-minimal-ui-for-display-mode-1">minimal-ui</a> is « "<a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="ref-for-index-term-browser-for-display-mode-4">browser</a>" ».
+        <li><a data-link-type="dfn|abstract-op" href="#dfn-minimal-ui" class="internalDFN" id="ref-for-dfn-minimal-ui-1">minimal-ui</a> is « "<a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-4">browser</a>" ».
         </li>
-        <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-standalone" id="ref-for-index-term-standalone-for-display-mode-1">standalone</a> is « "<a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-minimal-ui" id="ref-for-index-term-minimal-ui-for-display-mode-2">minimal-ui</a>",
-        "<a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="ref-for-index-term-browser-for-display-mode-5">browser</a>" ».
+        <li><a data-link-type="dfn|abstract-op" href="#dfn-standalone" class="internalDFN" id="ref-for-dfn-standalone-2">standalone</a> is « "<a data-link-type="dfn|abstract-op" href="#dfn-minimal-ui" class="internalDFN" id="ref-for-dfn-minimal-ui-2">minimal-ui</a>",
+        "<a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-5">browser</a>" ».
         </li>
-        <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-fullscreen" id="ref-for-index-term-fullscreen-for-display-mode-1">fullscreen</a> is « "<a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-standalone" id="ref-for-index-term-standalone-for-display-mode-2">standalone</a>",
-        "<a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-minimal-ui" id="ref-for-index-term-minimal-ui-for-display-mode-3">minimal-ui</a>", "<a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="ref-for-index-term-browser-for-display-mode-6">browser</a>" ».
+        <li><a data-link-type="dfn|abstract-op" href="#dfn-fullscreen" class="internalDFN" id="ref-for-dfn-fullscreen-4">fullscreen</a> is « "<a data-link-type="dfn|abstract-op" href="#dfn-standalone" class="internalDFN" id="ref-for-dfn-standalone-3">standalone</a>",
+        "<a data-link-type="dfn|abstract-op" href="#dfn-minimal-ui" class="internalDFN" id="ref-for-dfn-minimal-ui-3">minimal-ui</a>", "<a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-6">browser</a>" ».
         </li>
       </ol>
       <p>
         The <dfn id="dfn-steps-for-determining-the-web-app-s-chosen-display-mode" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;steps for determining the web app's chosen display mode&quot;, but nothing links to it. This is usually a spec bug!">steps for determining the web app's chosen display mode</dfn>
         is given by the following algorithm. The algorithm takes a
         <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-11">processed manifest</a> <var data-type="processed manifest">manifest</var> and
-        returns a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-12">display mode</a>.
+        returns a <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-15">display mode</a>.
       </p>
       <ol class="algorithm">
         <li><a data-link-type="dfn|abstract-op" href="#dfn-processing-extension-point" class="internalDFN" id="ref-for-dfn-processing-extension-point-3">processing extension-point</a>: process any
@@ -3526,11 +3568,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </ol>
         </li>
       </ol>
-      <div class="note" role="note" id="issue-container-generatedID-31"><div role="heading" class="note-title marker" id="h-note-30" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-32"><div role="heading" class="note-title marker" id="h-note-31" aria-level="3"><span>Note</span></div><p class="">
         The above loop is guaranteed to return a value before the assertion,
-        due to the fact that <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="ref-for-index-term-browser-for-display-mode-7">browser</a> is in every mode's
+        due to the fact that <a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-7">browser</a> is in every mode's
         <a data-link-type="dfn|abstract-op" href="#dfn-fallback-chain" class="internalDFN" id="ref-for-dfn-fallback-chain-3">fallback chain</a>, and the requirement that all user agents support
-        the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="ref-for-index-term-browser-for-display-mode-8">browser</a> <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-13">display mode</a>.
+        the <a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-8">browser</a> <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-16">display mode</a>.
       </p></div>
       <aside class="example" id="example-9"><div class="marker">
     <a class="self-link" href="#example-9">Example<bdi> 9</bdi></a>
@@ -3546,18 +3588,21 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </p>
       </aside>
       <p>
-        The <dfn id="dfn-display-modes-list" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">display modes list</dfn> is the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-12">list</a> « "<a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-fullscreen" id="ref-for-index-term-fullscreen-for-display-mode-2">fullscreen</a>", "<a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-standalone" id="ref-for-index-term-standalone-for-display-mode-3">standalone</a>", "<a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-minimal-ui" id="ref-for-index-term-minimal-ui-for-display-mode-4">minimal-ui</a>", "<a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="ref-for-index-term-browser-for-display-mode-9">browser</a>" ».
+        The <dfn id="dfn-display-modes-list" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">display modes list</dfn> is the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-12">list</a> « "<a data-link-type="dfn|abstract-op" href="#dfn-fullscreen" class="internalDFN" id="ref-for-dfn-fullscreen-5">fullscreen</a>", "<a data-link-type="dfn|abstract-op" href="#dfn-standalone" class="internalDFN" id="ref-for-dfn-standalone-4">standalone</a>", "<a data-link-type="dfn|abstract-op" href="#dfn-minimal-ui" class="internalDFN" id="ref-for-dfn-minimal-ui-4">minimal-ui</a>", "<a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-9">browser</a>" ».
       </p>
       <p>
-        A user agent <em class="rfc2119">MUST</em> reflect the applied <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-14">display mode</a> of the web
-        application in the '<code>display-mode</code>' media feature [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5" title="Media Queries Level 5">MEDIAQUERIES-5</a></cite>].
+        A user agent <em class="rfc2119">MUST</em> reflect the applied <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-17">display mode</a> of the web
+        application in the <a data-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-1"><code>display-mode</code></a> media feature [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5" title="Media Queries Level 5">MEDIAQUERIES-5</a></cite>].
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-32"><div role="heading" class="note-title marker" id="h-note-31" aria-level="3"><span>Note</span></div><p class="">
-        A user agent will expose the '<code>display-mode</code>' media feature
-        irrespective of whether a manifest is being applied to a browsing
-        context. For example, if the end-user puts the application into
-        fullscreen, then the user agent would reflect this change to CSS and
-        scripts via the '<code>display-mode</code>' media feature.
+      <div class="note" role="note" id="issue-container-generatedID-33"><div role="heading" class="note-title marker" id="h-note-32" aria-level="3"><span>Note</span></div><p class="">
+        A user agent will expose the actual display mode being applied — not
+        necessarily the one declared in the manifest — via the
+        <a data-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-2"><code>display-mode</code></a> media feature, accessible through CSS or
+        JavaScript. Note that this media feature will also reflect other
+        display modes for a web page when a manifest is not being applied. For
+        example, if the end-user puts the page into fullscreen, then the user
+        agent would reflect this change to CSS and scripts via the
+        <a data-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-3"><code>display-mode</code></a> media feature.
       </p></div>
     </section>
     <section id="priv-sec"><div class="header-wrapper"><h2 id="x8-privacy-and-security-considerations"><bdi class="secno">8. </bdi>
@@ -3651,8 +3696,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         exposed to end-users is left up to implementers.
       </p>
       <p>
-        Additionally, when applying a manifest that sets the <a data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="ref-for-index-term-display-mode-15">display
-        mode</a> to anything except "<a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="ref-for-index-term-browser-for-display-mode-10">browser</a>", it is
+        Additionally, when applying a manifest that sets the <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-18">display
+        mode</a> to anything except "<a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-10">browser</a>", it is
         <em class="rfc2119">RECOMMENDED</em> that the user agent clearly indicate to the end-user that
         their are leaving the normal browsing context of a web browser.
         Ideally, launching or switching to a web application is performed in a
@@ -3836,7 +3881,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         There is only one class of product that can claim conformance to this
         specification: a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agent-5">user agent</a>.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-33"><div role="heading" class="note-title marker" id="h-note-32" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-34"><div role="heading" class="note-title marker" id="h-note-33" aria-level="3"><span>Note</span></div><p class="">
         Although this specification is primarily targeted at web browsers, it
         is feasible that other software could also implement this specification
         in a conforming manner. For instance, search engines, or crawlers,
@@ -3925,7 +3970,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   ...
 }</code></pre>
       </div>
-          <div class="note" role="note" id="issue-container-generatedID-34"><div role="heading" class="note-title marker" id="h-note-33" aria-level="5"><span>Note</span></div><p class="">
+          <div class="note" role="note" id="issue-container-generatedID-35"><div role="heading" class="note-title marker" id="h-note-34" aria-level="5"><span>Note</span></div><p class="">
             In this example, we have deliberately chosen (made-up) names of
             things that could be external sites or services, <em>not</em> names
             of browsers or browser vendors. These are not vendor prefixes
@@ -4082,7 +4127,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         the <a href="https://github.com/SchemaStore/schemastore">SchemaStore
         repository</a> on GitHub.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-35"><div role="heading" class="note-title marker" id="h-note-34" aria-level="3"><span>Note</span><span class="issue-label">: Web Manifest JSON Schema</span></div><aside class="">
+      <div class="note" role="note" id="issue-container-generatedID-36"><div role="heading" class="note-title marker" id="h-note-35" aria-level="3"><span>Note</span><span class="issue-label">: Web Manifest JSON Schema</span></div><aside class="">
         <details>
           <summary>
             Click to view schema.
@@ -4198,6 +4243,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <span class="print-only">§1.15</span></li><li>
       <a class="index-term" href="#dfn-base-direction">base direction</a> 
     <span class="print-only">§1.2</span></li><li>
+      <a class="index-term" href="#dfn-browser">browser</a> 
+    <span class="print-only">§7.</span></li><li>
       <a class="index-term" href="#dfn-cannot-be-used-together">cannot be used together</a> 
     <span class="print-only">§1.9</span></li><li>
       <a class="index-term" href="#dfn-create-a-new-application-context">create a new application context</a> 
@@ -4216,6 +4263,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <span class="print-only">§1.2</span></li><li>
       <a class="index-term" href="#dfn-display"><code>display</code></a> 
     <span class="print-only">§1.8</span></li><li>
+      <a class="index-term" href="#dfn-display-mode">display mode</a> 
+    <span class="print-only">§7.</span></li><li>
       <a class="index-term" href="#dfn-display-modes-list">display modes list</a> 
     <span class="print-only">§7.</span></li><li>
       <a class="index-term" href="#dfn-external-application-resource">external application resource</a> 
@@ -4226,6 +4275,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <span class="print-only">§4.5</span></li><li>
       <a class="index-term" href="#dfn-fingerprints"><code>fingerprints</code></a> 
     <span class="print-only">§4.5</span></li><li>
+      <a class="index-term" href="#dfn-fullscreen">fullscreen</a> 
+    <span class="print-only">§7.</span></li><li>
       <a class="index-term" href="#dfn-icon">icon</a> 
     <span class="print-only">§2.1</span></li><li>
       <a class="index-term" href="#dfn-icon-purposes">icon purposes</a> 
@@ -4278,6 +4329,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <span class="print-only">§2.1</span></li><li>
       <a class="index-term" href="#dfn-min_version"><code>min_version</code></a> 
     <span class="print-only">§4.4</span></li><li>
+      <a class="index-term" href="#dfn-minimal-ui">minimal-ui</a> 
+    <span class="print-only">§7.</span></li><li>
       <a class="index-term" href="#dfn-monochrome">monochrome</a> 
     <span class="print-only">§2.1</span></li><li>
     name
@@ -4369,6 +4422,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <span class="print-only">§1.16</span></li><li>
       <a class="index-term" href="#dfn-solid-fill">solid fill</a> 
     <span class="print-only">§2.4</span></li><li>
+      <a class="index-term" href="#dfn-standalone">standalone</a> 
+    <span class="print-only">§7.</span></li><li>
       <a class="index-term" href="#dfn-start-url">start URL</a> 
     <span class="print-only">§1.10</span></li><li>
       <a class="index-term" href="#dfn-start_url"><code>start_url</code></a> 
@@ -4569,17 +4624,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5">MEDIAQUERIES-5</a></cite>] defines the following:
         <ul>
           <li>
-    <span class="index-term" data-href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" id="index-term-browser-for-display-mode" tabindex="0" aria-haspopup="dialog">browser (for display mode)</span>
-  </li><li>
-    <span class="index-term" data-href="https://www.w3.org/TR/mediaqueries-5/#display-mode" id="index-term-display-mode" tabindex="0" aria-haspopup="dialog">display mode</span>
-  </li><li>
-    <span class="index-term" data-href="https://www.w3.org/TR/mediaqueries-5/#display-mode-fullscreen" id="index-term-fullscreen-for-display-mode" tabindex="0" aria-haspopup="dialog">fullscreen (for display mode)</span>
-  </li><li>
-    <span class="index-term" data-href="https://www.w3.org/TR/mediaqueries-5/#display-mode-minimal-ui" id="index-term-minimal-ui-for-display-mode" tabindex="0" aria-haspopup="dialog">minimal-ui (for display mode)</span>
+    <span class="index-term" data-href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="index-term-display-mode-for-media" tabindex="0" aria-haspopup="dialog">display-mode (for <code>@media</code>)</span>
   </li><li>
     <span class="index-term" data-href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-prefers-color-scheme" id="index-term-prefers-color-scheme-for-media" tabindex="0" aria-haspopup="dialog">prefers-color-scheme (for <code>@media</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://www.w3.org/TR/mediaqueries-5/#display-mode-standalone" id="index-term-standalone-for-display-mode" tabindex="0" aria-haspopup="dialog">standalone (for display mode)</span>
   </li>
         </ul>
       </li><li>
@@ -4652,13 +4699,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 <section id="references" class="appendix"><div class="header-wrapper"><h2 id="m-references"><bdi class="secno">M. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix M."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="m-1-normative-references"><bdi class="secno">M.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix M.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-accname-1.2">[accname-1.2]</dt><dd>
-      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 3 April 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
+      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 29 April 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
     </dd><dt id="bib-bcp47">[BCP47]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc5646"><cite>Tags for Identifying Languages</cite></a>. A. Phillips, Ed.; M. Davis, Ed..  IETF. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc5646">https://www.rfc-editor.org/rfc/rfc5646</a>
     </dd><dt id="bib-bidi">[BIDI]</dt><dd>
       <a href="https://www.unicode.org/reports/tr9/tr9-48.html"><cite>Unicode Bidirectional Algorithm</cite></a>. Manish Goregaokar मनीष गोरेगांवकर; Robin Leroy.  Unicode Consortium. 15 August 2023. Unicode Standard Annex #9. URL: <a href="https://www.unicode.org/reports/tr9/tr9-48.html">https://www.unicode.org/reports/tr9/tr9-48.html</a>
     </dd><dt id="bib-csp3">[CSP3]</dt><dd>
-      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 21 February 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
+      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 24 April 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
     </dd><dt id="bib-css-color-4">[css-color-4]</dt><dd>
       <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Chris Lilley; Tab Atkins Jr.; Lea Verou.  W3C. 13 February 2024. W3C Candidate Recommendation. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
     </dd><dt id="bib-css-mime">[CSS-MIME]</dt><dd>
@@ -4704,7 +4751,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd></dl>
   </section><section id="informative-references"><div class="header-wrapper"><h3 id="m-2-informative-references"><bdi class="secno">M.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix M.2"></a></div>
     
-    <dl class="bibliography"><dt id="bib-manifest-app-info">[manifest-app-info]</dt><dd>
+    <dl class="bibliography"><dt id="bib-fullscreen">[FULLSCREEN]</dt><dd>
+      <a href="https://fullscreen.spec.whatwg.org/"><cite>Fullscreen API Standard</cite></a>. Philip Jägenstedt.  WHATWG. Living Standard. URL: <a href="https://fullscreen.spec.whatwg.org/">https://fullscreen.spec.whatwg.org/</a>
+    </dd><dt id="bib-manifest-app-info">[manifest-app-info]</dt><dd>
       <a href="https://www.w3.org/TR/manifest-app-info/"><cite>Web App Manifest - Application Information</cite></a>. Aaron Gustafson.  W3C. 21 August 2023. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/manifest-app-info/">https://www.w3.org/TR/manifest-app-info/</a>
     </dd><dt id="bib-mimesniff">[mimesniff]</dt><dd>
       <a href="https://mimesniff.spec.whatwg.org/"><cite>MIME Sniffing Standard</cite></a>. Gordon P. Hemsley.  WHATWG. Living Standard. URL: <a href="https://mimesniff.spec.whatwg.org/">https://mimesniff.spec.whatwg.org/</a>
@@ -5046,7 +5095,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <li>
       <a href="#ref-for-dfn-display-1" title="§ 1. Web Application Manifest">§ 1. Web Application Manifest</a> 
     </li><li>
-      <a href="#ref-for-dfn-display-2" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> <a href="#ref-for-dfn-display-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-display-4" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-display-2" title="§ 7. Display modes">§ 7. Display modes</a> <a href="#ref-for-dfn-display-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-display-4" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-the-display-member" aria-label="Links in this document to definition: process the display member">
@@ -5360,7 +5409,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <li>
       <a href="#ref-for-dfn-processing-extension-point-1" title="§ 1.17.1 Processing the manifest">§ 1.17.1 Processing the manifest</a> <a href="#ref-for-dfn-processing-extension-point-2" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-processing-extension-point-3" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> 
+      <a href="#ref-for-dfn-processing-extension-point-3" title="§ 7. Display modes">§ 7. Display modes</a> 
     </li><li>
       <a href="#ref-for-dfn-processing-extension-point-4" title="§ B.1 Extensibility">§ B.1 Extensibility</a> 
     </li>
@@ -5414,7 +5463,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-processed-manifest-10" title="§ 6.2 Deep links">§ 6.2 Deep links</a> 
     </li><li>
-      <a href="#ref-for-dfn-processed-manifest-11" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> 
+      <a href="#ref-for-dfn-processed-manifest-11" title="§ 7. Display modes">§ 7. Display modes</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-a-color-member" aria-label="Links in this document to definition: process a color member">
@@ -5472,7 +5521,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-applied-10" title="§ 6. Navigation scope">§ 6. Navigation scope</a> <a href="#ref-for-dfn-applied-11" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-applied-12" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> 
+      <a href="#ref-for-dfn-applied-12" title="§ 7. Display modes">§ 7. Display modes</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-application-context" aria-label="Links in this document to definition: application context">
@@ -5498,7 +5547,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-application-context-14" title="§ 6.2 Deep links">§ 6.2 Deep links</a> 
     </li><li>
-      <a href="#ref-for-dfn-application-context-15" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> 
+      <a href="#ref-for-dfn-application-context-15" title="§ 7. Display modes">§ 7. Display modes</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-security-sensitive-members" aria-label="Links in this document to definition: security-sensitive members">
@@ -6085,6 +6134,76 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-dfn-deep-link-3" title="§ 6.2 Deep links">§ 6.2 Deep links</a> <a href="#ref-for-dfn-deep-link-4" title="Reference 2">(2)</a> <a href="#ref-for-dfn-deep-link-5" title="Reference 3">(3)</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-display-mode" aria-label="Links in this document to definition: display mode">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-display-mode" aria-label="Permalink for definition: display mode. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-display-mode-1" title="§ 1.8 display member">§ 1.8 display member</a> <a href="#ref-for-dfn-display-mode-2" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-display-mode-3" title="§ 1.9 orientation member">§ 1.9 orientation member</a> 
+    </li><li>
+      <a href="#ref-for-dfn-display-mode-4" title="§ 5. Installable web applications">§ 5. Installable web applications</a> 
+    </li><li>
+      <a href="#ref-for-dfn-display-mode-5" title="§ 7. Display modes">§ 7. Display modes</a> <a href="#ref-for-dfn-display-mode-6" title="Reference 2">(2)</a> <a href="#ref-for-dfn-display-mode-7" title="Reference 3">(3)</a> <a href="#ref-for-dfn-display-mode-8" title="Reference 4">(4)</a> <a href="#ref-for-dfn-display-mode-9" title="Reference 5">(5)</a> <a href="#ref-for-dfn-display-mode-10" title="Reference 6">(6)</a> <a href="#ref-for-dfn-display-mode-11" title="Reference 7">(7)</a> <a href="#ref-for-dfn-display-mode-12" title="Reference 8">(8)</a> <a href="#ref-for-dfn-display-mode-13" title="Reference 9">(9)</a> <a href="#ref-for-dfn-display-mode-14" title="Reference 10">(10)</a> <a href="#ref-for-dfn-display-mode-15" title="Reference 11">(11)</a> <a href="#ref-for-dfn-display-mode-16" title="Reference 12">(12)</a> <a href="#ref-for-dfn-display-mode-17" title="Reference 13">(13)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-display-mode-18" title="§ 8. Privacy and security considerations">§ 8. Privacy and security considerations</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-fullscreen" aria-label="Links in this document to definition: fullscreen">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-fullscreen" aria-label="Permalink for definition: fullscreen. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-fullscreen-1" title="§ 7. Display modes">§ 7. Display modes</a> <a href="#ref-for-dfn-fullscreen-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-fullscreen-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-fullscreen-4" title="Reference 4">(4)</a> <a href="#ref-for-dfn-fullscreen-5" title="Reference 5">(5)</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-standalone" aria-label="Links in this document to definition: standalone">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-standalone" aria-label="Permalink for definition: standalone. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-standalone-1" title="§ 7. Display modes">§ 7. Display modes</a> <a href="#ref-for-dfn-standalone-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-standalone-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-standalone-4" title="Reference 4">(4)</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-minimal-ui" aria-label="Links in this document to definition: minimal-ui">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-minimal-ui" aria-label="Permalink for definition: minimal-ui. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-minimal-ui-1" title="§ 7. Display modes">§ 7. Display modes</a> <a href="#ref-for-dfn-minimal-ui-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-minimal-ui-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-minimal-ui-4" title="Reference 4">(4)</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-browser" aria-label="Links in this document to definition: browser">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-browser" aria-label="Permalink for definition: browser. Activate to close this dialog.">Permalink</a>
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-browser-1" title="§ 7. Display modes">§ 7. Display modes</a> <a href="#ref-for-dfn-browser-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-browser-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-browser-4" title="Reference 4">(4)</a> <a href="#ref-for-dfn-browser-5" title="Reference 5">(5)</a> <a href="#ref-for-dfn-browser-6" title="Reference 6">(6)</a> <a href="#ref-for-dfn-browser-7" title="Reference 7">(7)</a> <a href="#ref-for-dfn-browser-8" title="Reference 8">(8)</a> <a href="#ref-for-dfn-browser-9" title="Reference 9">(9)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-browser-10" title="§ 8. Privacy and security considerations">§ 8. Privacy and security considerations</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-default-display-mode" aria-label="Links in this document to definition: default display mode">
       <span class="caret"></span>
       <div>
@@ -6094,7 +6213,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-default-display-mode-1" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> <a href="#ref-for-dfn-default-display-mode-2" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-default-display-mode-1" title="§ 7. Display modes">§ 7. Display modes</a> <a href="#ref-for-dfn-default-display-mode-2" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-fallback-chain" aria-label="Links in this document to definition: fallback chain">
@@ -6106,7 +6225,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-fallback-chain-1" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> <a href="#ref-for-dfn-fallback-chain-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-fallback-chain-3" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-fallback-chain-1" title="§ 7. Display modes">§ 7. Display modes</a> <a href="#ref-for-dfn-fallback-chain-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-fallback-chain-3" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-steps-for-determining-the-web-app-s-chosen-display-mode" aria-label="Links in this document to definition: steps for determining the web app's chosen display mode">
@@ -6482,7 +6601,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-index-term-navigated-6" title="§ 6. Navigation scope">§ 6. Navigation scope</a> 
     </li><li>
-      <a href="#ref-for-index-term-navigated-7" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> <a href="#ref-for-index-term-navigated-8" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-navigated-7" title="§ 7. Display modes">§ 7. Display modes</a> <a href="#ref-for-index-term-navigated-8" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-origin-0" aria-label="Links in this document to definition: origin">
@@ -6560,7 +6679,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-index-term-top-level-browsing-context-11" title="§ 6. Navigation scope">§ 6. Navigation scope</a> 
     </li><li>
-      <a href="#ref-for-index-term-top-level-browsing-context-12" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> <a href="#ref-for-index-term-top-level-browsing-context-13" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-top-level-browsing-context-12" title="§ 7. Display modes">§ 7. Display modes</a> <a href="#ref-for-index-term-top-level-browsing-context-13" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-unordered-set-of-unique-space-separated-tokens" aria-label="Links in this document to definition: unordered set of unique space-separated tokens">
@@ -6746,7 +6865,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-index-term-for-each-for-list-4" title="§ 2.5 Processing image resources">§ 2.5 Processing image resources</a> 
     </li><li>
-      <a href="#ref-for-index-term-for-each-for-list-5" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> 
+      <a href="#ref-for-index-term-for-each-for-list-5" title="§ 7. Display modes">§ 7. Display modes</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-is-empty-for-list" aria-label="Links in this document to definition: is empty (for list)">
@@ -6782,7 +6901,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-index-term-list-11" title="§ 4.5 fingerprints member">§ 4.5 fingerprints member</a> 
     </li><li>
-      <a href="#ref-for-index-term-list-12" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> 
+      <a href="#ref-for-index-term-list-12" title="§ 7. Display modes">§ 7. Display modes</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-ordered-map" aria-label="Links in this document to definition: ordered map">
@@ -6929,62 +7048,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-index-term-user-agent-5" title="§ B. Conformance">§ B. Conformance</a> 
     </li>
   </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-browser-for-display-mode" aria-label="Links in this document to definition: browser (for display mode)">
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-display-mode-for-media" aria-label="Links in this document to definition: display-mode (for @media)">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-browser" aria-label="Permalink for definition: browser (for display mode). Activate to close this dialog.">Permalink</a>
+        <a class="self-link" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" aria-label="Permalink for definition: display-mode (for @media). Activate to close this dialog.">Permalink</a>
          
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-browser-for-display-mode-1" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> <a href="#ref-for-index-term-browser-for-display-mode-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-browser-for-display-mode-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-browser-for-display-mode-4" title="Reference 4">(4)</a> <a href="#ref-for-index-term-browser-for-display-mode-5" title="Reference 5">(5)</a> <a href="#ref-for-index-term-browser-for-display-mode-6" title="Reference 6">(6)</a> <a href="#ref-for-index-term-browser-for-display-mode-7" title="Reference 7">(7)</a> <a href="#ref-for-index-term-browser-for-display-mode-8" title="Reference 8">(8)</a> <a href="#ref-for-index-term-browser-for-display-mode-9" title="Reference 9">(9)</a> 
-    </li><li>
-      <a href="#ref-for-index-term-browser-for-display-mode-10" title="§ 8. Privacy and security considerations">§ 8. Privacy and security considerations</a> 
-    </li>
-  </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-display-mode" aria-label="Links in this document to definition: display mode">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="https://www.w3.org/TR/mediaqueries-5/#display-mode" aria-label="Permalink for definition: display mode. Activate to close this dialog.">Permalink</a>
-         
-      </div>
-      <p><b>Referenced in:</b></p>
-      <ul>
-    <li>
-      <a href="#ref-for-index-term-display-mode-1" title="§ 1.8 display member">§ 1.8 display member</a> <a href="#ref-for-index-term-display-mode-2" title="Reference 2">(2)</a> 
-    </li><li>
-      <a href="#ref-for-index-term-display-mode-3" title="§ 1.9 orientation member">§ 1.9 orientation member</a> 
-    </li><li>
-      <a href="#ref-for-index-term-display-mode-4" title="§ 5. Installable web applications">§ 5. Installable web applications</a> 
-    </li><li>
-      <a href="#ref-for-index-term-display-mode-5" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> <a href="#ref-for-index-term-display-mode-6" title="Reference 2">(2)</a> <a href="#ref-for-index-term-display-mode-7" title="Reference 3">(3)</a> <a href="#ref-for-index-term-display-mode-8" title="Reference 4">(4)</a> <a href="#ref-for-index-term-display-mode-9" title="Reference 5">(5)</a> <a href="#ref-for-index-term-display-mode-10" title="Reference 6">(6)</a> <a href="#ref-for-index-term-display-mode-11" title="Reference 7">(7)</a> <a href="#ref-for-index-term-display-mode-12" title="Reference 8">(8)</a> <a href="#ref-for-index-term-display-mode-13" title="Reference 9">(9)</a> <a href="#ref-for-index-term-display-mode-14" title="Reference 10">(10)</a> 
-    </li><li>
-      <a href="#ref-for-index-term-display-mode-15" title="§ 8. Privacy and security considerations">§ 8. Privacy and security considerations</a> 
-    </li>
-  </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-fullscreen-for-display-mode" aria-label="Links in this document to definition: fullscreen (for display mode)">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-fullscreen" aria-label="Permalink for definition: fullscreen (for display mode). Activate to close this dialog.">Permalink</a>
-         
-      </div>
-      <p><b>Referenced in:</b></p>
-      <ul>
-    <li>
-      <a href="#ref-for-index-term-fullscreen-for-display-mode-1" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> <a href="#ref-for-index-term-fullscreen-for-display-mode-2" title="Reference 2">(2)</a> 
-    </li>
-  </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-minimal-ui-for-display-mode" aria-label="Links in this document to definition: minimal-ui (for display mode)">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-minimal-ui" aria-label="Permalink for definition: minimal-ui (for display mode). Activate to close this dialog.">Permalink</a>
-         
-      </div>
-      <p><b>Referenced in:</b></p>
-      <ul>
-    <li>
-      <a href="#ref-for-index-term-minimal-ui-for-display-mode-1" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> <a href="#ref-for-index-term-minimal-ui-for-display-mode-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-minimal-ui-for-display-mode-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-minimal-ui-for-display-mode-4" title="Reference 4">(4)</a> 
+      <a href="#ref-for-index-term-display-mode-for-media-1" title="§ 7. Display modes">§ 7. Display modes</a> <a href="#ref-for-index-term-display-mode-for-media-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-display-mode-for-media-3" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-prefers-color-scheme-for-media" aria-label="Links in this document to definition: prefers-color-scheme (for @media)">
@@ -6999,18 +7072,6 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-index-term-prefers-color-scheme-for-media-1" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> 
     </li><li>
       <a href="#ref-for-index-term-prefers-color-scheme-for-media-2" title="§ 1.15 background_color member">§ 1.15 background_color member</a> 
-    </li>
-  </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-standalone-for-display-mode" aria-label="Links in this document to definition: standalone (for display mode)">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="https://www.w3.org/TR/mediaqueries-5/#display-mode-standalone" aria-label="Permalink for definition: standalone (for display mode). Activate to close this dialog.">Permalink</a>
-         
-      </div>
-      <p><b>Referenced in:</b></p>
-      <ul>
-    <li>
-      <a href="#ref-for-index-term-standalone-for-display-mode-1" title="§ 7. Choosing a display mode">§ 7. Choosing a display mode</a> <a href="#ref-for-index-term-standalone-for-display-mode-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-standalone-for-display-mode-3" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-computed-mime-type" aria-label="Links in this document to definition: computed mime type">
