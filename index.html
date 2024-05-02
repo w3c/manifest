@@ -163,7 +163,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="a38a519f97102d8a4e0ce2321ff34dc1e9b0ea93">
+<meta name="revision" content="2a8fc0a28c9b39b7e1402646c3bcf6d812c3d583">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -261,7 +261,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "a38a519f97102d8a4e0ce2321ff34dc1e9b0ea93",
+  "gitRevision": "2a8fc0a28c9b39b7e1402646c3bcf6d812c3d583",
   "publishISODate": "2024-05-02T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 02 May 2024"
 }</script>
@@ -531,8 +531,6 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           Security considerations
         </a></li><li class="tocline"><a class="tocxref" href="#deep-links"><bdi class="secno">6.2 </bdi>
           Deep links
-        </a></li><li class="tocline"><a class="tocxref" href="#web-apps-with-scope-conflicts"><bdi class="secno">6.3 </bdi>
-          Web Apps with scope conflicts
         </a></li></ol></li><li class="tocline"><a class="tocxref" href="#display-modes"><bdi class="secno">7. </bdi>
         Display modes
       </a></li><li class="tocline"><a class="tocxref" href="#priv-sec"><bdi class="secno">8. </bdi>
@@ -3461,58 +3459,6 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </p>
         </aside></div>
       </section>
-      <section class="informative" id="web-apps-with-scope-conflicts"><div class="header-wrapper"><h3 id="x6-3-web-apps-with-scope-conflicts"><bdi class="secno">6.3 </bdi>
-          Web Apps with scope conflicts
-        </h3><a class="self-link" href="#web-apps-with-scope-conflicts" aria-label="Permalink for Section 6.3"></a></div><p><em>This section is non-normative.</em></p>
-        
-        <p>
-          Because scopes are based on URL matching, it is possible for a developer to create
-          multiple web applications with the same, overlapping, or nested scopes. Doing so creates
-          several issues (detailed below) and is thus considered bad practice.
-        </p>
-        <ul>
-          <li>The scopes of the two web apps can be on the same origin. Not
-          recommended.
-          </li>
-          <li>The scope of one web app can be nested inside the scope of the
-          other. Strongly not recommended.
-          </li>
-          <li>The scopes of the two web apps can be the same. Strongly not
-          recommended.
-          </li>
-        </ul>
-        <p>
-          Same-origin scopes are not recommended due to origin-based settings
-          that will affect all apps installed under that origin. Settings like:
-        </p>
-        <ul>
-          <li>Permissions
-          </li>
-          <li>Storage and storage quota
-          </li>
-          <li>User settings (e.g. font size)
-          </li>
-        </ul>
-        <p>
-          Further, overlapping, nested, or duplicate scopes can have the following UX and
-          API problems or inconsistencies among other possible consistencies:
-        </p>
-        <ul>
-          <li>Installation prompting may not work for the nested app if the
-          outer app is installed.
-          </li>
-          <li>User-agent UX around launching an app for a browsing context may
-          be inconsistent or not appear.
-          </li>
-          <li>Badging API calls will not be able to consistently update the
-          correct web app badge.
-          </li>
-          <li>Notifications may have incorrect attribution or not appear.
-          </li>
-          <li>Future APIs may not work at all in this configuration.
-          </li>
-        </ul>
-      </section>
     </section>
     <section id="display-modes"><div class="header-wrapper"><h2 id="x7-display-modes"><bdi class="secno">7. </bdi>
         Display modes
@@ -4260,7 +4206,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Public Working Draft:
       </p>
        <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483" filter="removeCommits"><ul>
-      <li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a38a519">Revert "addressing comments, adding dfn"</a></li><li><a href="https://github.com/w3c/manifest/commit/35e7844">addressing comments, adding dfn</a></li><li><a href="https://github.com/w3c/manifest/commit/19fbab1">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/b242480">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/a56c351">Add scope conflict section</a></li>
+      <li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a38a519">Revert "addressing comments, adding dfn"</a></li><li><a href="https://github.com/w3c/manifest/commit/35e7844">addressing comments, adding dfn</a></li><li><a href="https://github.com/w3c/manifest/commit/19fbab1">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/b242480">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/a56c351">Add scope conflict section</a></li><li><a href="https://github.com/w3c/manifest/commit/a38a519">Revert "addressing comments, adding dfn"</a></li><li><a href="https://github.com/w3c/manifest/commit/35e7844">addressing comments, adding dfn</a></li><li><a href="https://github.com/w3c/manifest/commit/19fbab1">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/b242480">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/a38a519">Revert "addressing comments, adding dfn"</a></li><li><a href="https://github.com/w3c/manifest/commit/35e7844">addressing comments, adding dfn</a></li><li><a href="https://github.com/w3c/manifest/commit/19fbab1">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/b242480">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/a38a519">Revert "addressing comments, adding dfn"</a></li><li><a href="https://github.com/w3c/manifest/commit/35e7844">addressing comments, adding dfn</a></li><li><a href="https://github.com/w3c/manifest/commit/19fbab1">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/b242480">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/a38a519">Revert "addressing comments, adding dfn"</a></li><li><a href="https://github.com/w3c/manifest/commit/35e7844">addressing comments, adding dfn</a></li><li><a href="https://github.com/w3c/manifest/commit/19fbab1">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/b242480">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/a38a519">Revert "addressing comments, adding dfn"</a></li><li><a href="https://github.com/w3c/manifest/commit/35e7844">addressing comments, adding dfn</a></li><li><a href="https://github.com/w3c/manifest/commit/19fbab1">Update index.html</a></li><li><a href="https://github.com/w3c/manifest/commit/b242480">Update index.html</a></li>
       </ul></rs-changelog>
     </section>
     <section class="appendix informative" id="acknowledgements"><div class="header-wrapper"><h2 id="k-acknowledgements"><bdi class="secno">K. </bdi>
