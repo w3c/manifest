@@ -163,7 +163,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="2a8fc0a28c9b39b7e1402646c3bcf6d812c3d583">
+<meta name="revision" content="3aab3be3cc102d0238894f05e9b400c13a6e1f34">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -261,7 +261,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "2a8fc0a28c9b39b7e1402646c3bcf6d812c3d583",
+  "gitRevision": "3aab3be3cc102d0238894f05e9b400c13a6e1f34",
   "publishISODate": "2024-05-02T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 02 May 2024"
 }</script>
@@ -1528,14 +1528,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             This can be useful for analytics and possibly other customizations.
             However, it is also conceivable that developers could encode
             strings into the start_url that uniquely identify the user (e.g., a
-            server-assigned identifier, such as <code>"?user=123"</code>,
-            <code>"/user/123/"</code>, or <code>"https://user123.foo.bar"</code>). This is
-            fingerprinting/privacy sensitive information that the user might
-            not be aware of.
+            server-assigned identifier, such as <code>"?user=123"</code>, <code>"/user/123/"</code>,
+            or <code>"https://user123.foo.bar"</code>). This is fingerprinting/privacy
+            sensitive information that the user might not be aware of.
           </p>
           <div class="note" role="note" id="issue-container-generatedID-8"><div role="heading" class="note-title marker" id="h-note-7" aria-level="5"><span>Note</span><span class="issue-label">: Don't add identifiers to start URLs</span></div><p class="">
-            It is bad practice for a developer to use the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-2">start URL</a>
-            to include information that uniquely identifies a user, as it would
+            It is bad practice for a developer to use the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-2">start URL</a> to
+            include information that uniquely identifies a user, as it would
             represent a fingerprint that is not cleared when the user clears
             site data. However, nothing in this specification can practically
             prevent developers from doing this.
