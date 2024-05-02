@@ -817,14 +817,13 @@
             This can be useful for analytics and possibly other customizations.
             However, it is also conceivable that developers could encode
             strings into the start_url that uniquely identify the user (e.g., a
-            server-assigned identifier, such as `"?user=123"`,
-            `"/user/123/"`, or `"https://user123.foo.bar"`). This is
-            fingerprinting/privacy sensitive information that the user might
-            not be aware of.
+            server-assigned identifier, such as `"?user=123"`, `"/user/123/"`,
+            or `"https://user123.foo.bar"`). This is fingerprinting/privacy
+            sensitive information that the user might not be aware of.
           </p>
           <p class="note" title="Don't add identifiers to start URLs">
-            It is bad practice for a developer to use the [=start URL=]
-            to include information that uniquely identifies a user, as it would
+            It is bad practice for a developer to use the [=start URL=] to
+            include information that uniquely identifies a user, as it would
             represent a fingerprint that is not cleared when the user clears
             site data. However, nothing in this specification can practically
             prevent developers from doing this.
