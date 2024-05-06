@@ -865,6 +865,19 @@
           a distinct application, even if it is served from a different URL
           than the one seen previously.
         </p>
+        <p class="note" title="Exclude fragments for good measure">
+          Since the [=process the id member|processing algorithm=] removes the
+          [=URL/fragment=] from the <code>[=id=]</code> member, it is not
+          strictly necessary to [=URL/equals/exclude fragments=] when checking
+          for a matching application. However, a database of installed
+          applications can contain old or erroneous data. In particular, old
+          versions of this spec (and therefore possibly old versions of user
+          agents) did not remove the [=URL/fragment=] from the [=URL=] at parse
+          time, and relied only on [=URL/equals/exclude fragments|excluding
+          fragments=] during comparisons. Therefore, we ask that user agents
+          continue to [=URL/equals/exclude fragments=] when comparing against
+          their existing app database.
+        </p>
         <p class="note">
           The [=identity=] can be used by a service that collects lists of web
           applications to uniquely identify applications.
