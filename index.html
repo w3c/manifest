@@ -865,7 +865,7 @@
           application's manifest, and not a distinct application, even if it is
           served from a different URL than the one seen previously.
         </p>
-        <p class="note" title="Exclude fragments for good measure">
+        <p class="note" title="Excluding fragments is best practice">
           Since the [=process the id member|processing algorithm=] removes the
           [=URL/fragment=] from the <code>[=manifest/id=]</code> member, it is
           not strictly necessary to [=URL/equals/exclude fragments=] when
@@ -873,10 +873,10 @@
           this spec (and, possibly, old user agents) did not remove the
           [=URL/fragment=] from the [=URL=] at parse time, and relied only on
           [=URL/equals/exclude fragments|excluding fragments=] during
-          comparisons, there may be historical app data with [=URL/fragments=]
-          in the <code>[=manifest/id=]</code>. Therefore, it is best practice
-          for user agents to [=URL/equals/exclude fragments=] even when
-          comparing two [=URLs=] that should not have any fragments.
+          comparisons, historical app data could contain [=URL/fragments=] in
+          the <code>[=manifest/id=]</code>. Therefore, it is best practice for
+          user agents to [=URL/equals/exclude fragments=] even when comparing
+          two [=URLs=] that ought not to have fragments.
         </p>
         <p class="note">
           The [=identity=] can be used by a service that collects lists of web
