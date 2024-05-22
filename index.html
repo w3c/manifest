@@ -867,16 +867,16 @@
         </p>
         <p class="note" title="Exclude fragments for good measure">
           Since the [=process the id member|processing algorithm=] removes the
-          [=URL/fragment=] from the <code>[=manifest/id=]</code> member, it is not
-          strictly necessary to [=URL/equals/exclude fragments=] when checking
-          for a matching application. However, since old versions of this spec
-          (and, possibly, old user agents) did not remove the [=URL/fragment=]
-          from the [=URL=] at parse time, and relied only on
+          [=URL/fragment=] from the <code>[=manifest/id=]</code> member, it is
+          not strictly necessary to [=URL/equals/exclude fragments=] when
+          checking for a matching application. However, since old versions of
+          this spec (and, possibly, old user agents) did not remove the
+          [=URL/fragment=] from the [=URL=] at parse time, and relied only on
           [=URL/equals/exclude fragments|excluding fragments=] during
           comparisons, there may be historical app data with [=URL/fragments=]
-          in the <code>[=manifest/id=]</code>. Therefore, it is best practice for user
-          agents to [=URL/equals/exclude fragments=] even when comparing two
-          [=URLs=] that should not have any fragments.
+          in the <code>[=manifest/id=]</code>. Therefore, it is best practice
+          for user agents to [=URL/equals/exclude fragments=] even when
+          comparing two [=URLs=] that should not have any fragments.
         </p>
         <p class="note">
           The [=identity=] can be used by a service that collects lists of web
