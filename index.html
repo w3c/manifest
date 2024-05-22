@@ -858,9 +858,9 @@
           application, it SHOULD treat that manifest as a description of a
           distinct application, even if it is served from the same URL as that
           of another application. When the user agent sees a manifest where
-          |manifest|["id"] is [=url/equal=] (OPTIONAL: with
-          [=URL/equals/exclude fragments=] set to true) to the [=identity=] of
-          an already-installed application, it SHOULD be used as a signal that
+          |manifest|["id"] is [=url/equal=] (with [=URL/equals/exclude
+          fragments=] OPTIONALLY set to true) to the [=identity=] of an
+          already-installed application, it SHOULD be used as a signal that
           this manifest is a replacement for the already-installed
           application's manifest, and not a distinct application, even if it is
           served from a different URL than the one seen previously.
