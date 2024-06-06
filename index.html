@@ -487,7 +487,20 @@
             "<dfn data-dfn-for="text-direction">auto</dfn>" (default)
           </dt>
           <dd>
-            No explicit directionality.
+            <p>
+              Direction determined from content using <a data-cite=
+              "bidi#P2">Rule P2</a> of the [[BIDI]] algorithm.
+            </p>
+            <aside class="note">
+              <p>
+                [=text-direction/auto=] means that the directionality of each
+                member is determined by its first strongly directional
+                character (as per the <a data-cite="bidi#P2">Rule P2</a>). An
+                explicit direction value such as "[=text-direction/rtl=]" or
+                "[=text-direction/ltr=]" is preferred to relying on the default
+                of "[=text-direction/auto=]".
+              </p>
+            </aside>
           </dd>
         </dl>
         <p>
