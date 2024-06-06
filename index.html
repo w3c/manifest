@@ -653,8 +653,7 @@
           </li>
           <li>If |scope| is failure, return.
           </li>
-          <li>From |scope|, remove the [=url/query=] and [=url/fragment=]
-          components.
+          <li>Set |scope|'s [=URL/query=] and [=URL/fragment=] to null.
           </li>
           <li>If |manifest|["start_url"] is not [=URL/within scope=] of
           |scope|, return.
@@ -675,16 +674,6 @@
           list of other applications, or to integrate the web application with
           an <abbr title="Operating system">OS</abbr>'s task switcher and/or
           system preferences.
-        </p>
-        <p>
-          If there are multiple equally appropriate images in
-          [=manifest/icons=], a user agent MUST use the last one declared in
-          order at the time that the user agent collected the list of
-          [=manifest/icons=]. If the user agent tries to use an icon but that
-          icon is determined, upon closer examination, to be inappropriate
-          (e.g. because its content type is unsupported), then the user agent
-          MUST try the next-most-appropriate icon as determined by examining
-          the [=manifest image resource=]'s members.
         </p>
         <aside class="note">
           <p>
@@ -886,13 +875,26 @@
           application, it SHOULD treat that manifest as a description of a
           distinct application, even if it is served from the same URL as that
           of another application. When the user agent sees a manifest where
-          |manifest|["id"] is [=url/equal=] with [=URL serializer/exclude
-          fragment|exclude fragment true=] to the [=identity=] of an
+          |manifest|["id"] is [=url/equal=] (with [=URL/equals/exclude
+          fragments=] OPTIONALLY set to true) to the [=identity=] of an
           already-installed application, it SHOULD be used as a signal that
           this manifest is a replacement for the already-installed
           application's manifest, and not a distinct application, even if it is
           served from a different URL than the one seen previously.
         </p>
+        <aside class="note" title="Excluding fragments is best practice">
+          Since the [=process the id member|processing algorithm=] removes the
+          [=URL/fragment=] from the <code>[=manifest/id=]</code> member, it is
+          not strictly necessary to [=URL/equals/exclude fragments=] when
+          checking for a matching application. However, since old versions of
+          this spec (and, possibly, old user agents) did not remove the
+          [=URL/fragment=] from the [=URL=] at parse time, and relied only on
+          [=URL/equals/exclude fragments|excluding fragments=] during
+          comparisons, historical app data could contain [=URL/fragments=] in
+          the <code>[=manifest/id=]</code>. Therefore, it is best practice for
+          user agents to [=URL/equals/exclude fragments=] even when comparing
+          two [=URLs=] that ought not to have fragments.
+        </aside>
         <p class="note">
           The [=identity=] can be used by a service that collects lists of web
           applications to uniquely identify applications.
@@ -922,6 +924,8 @@
           </li>
           <li>If |id| is not [=same origin=] as |manifest|["start_url"],
           return.
+          </li>
+          <li>Set |id|'s [=URL/fragment=] to null.
           </li>
           <li>Set |manifest|["id"] to |id|.
           </li>
@@ -962,7 +966,7 @@
                 "https://example.com/my-app/#here"
               </td>
               <td>
-                "https://example.com/my-app/#here"
+                "https://example.com/my-app/"
               </td>
             </tr>
             <tr>
@@ -990,6 +994,28 @@
             <tr>
               <td>
                 "foo"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/foo"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                "foo?x=y"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/foo?x=y"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                "foo#heading"
               </td>
               <td>
                 "https://example.com/my-app/start"
@@ -1325,8 +1351,7 @@
             </li>
             <li>If the [=document=]'s [=document|processed manifest=] is not
             null, and [=document=]'s [=document|processed manifest=]'s id is
-            not [=URL/equal=] with [=URL serializer/exclude fragment|exclude
-            fragment true=] to |manifest|["id"], return.
+            not [=URL/equal=] to |manifest|["id"], return.
             </li>
             <li>[=Process the `scope` member=] passing |json|, |manifest|, and
             |manifest URL|.
@@ -1638,7 +1663,11 @@
             <dfn data-dfn-for="icon purpose">any</dfn> (default)
           </dt>
           <dd>
-            The user agent is free to display the icon in any context.
+            The user agent is free to display the icon where no [=manifest
+            image resource/purpose=] is required. For example, a
+            [=manifest image resource=] with a "any" purpose 
+            wouldn't be used in a context where "[=icon purpose/monochrome=]" 
+            is required.
           </dd>
         </dl>
         <p>
