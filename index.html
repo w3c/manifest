@@ -163,7 +163,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="bceb2ee2c6383744beb5cd470dbbc28fe4aa491a">
+<meta name="revision" content="2f54efe6f1cfcf3e90d8e6eb234640492e88c655">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -275,7 +275,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "bceb2ee2c6383744beb5cd470dbbc28fe4aa491a",
+  "gitRevision": "2f54efe6f1cfcf3e90d8e6eb234640492e88c655",
   "publishISODate": "2024-06-06T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 06 June 2024"
 }</script>
@@ -1249,20 +1249,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           an <abbr title="Operating system">OS</abbr>'s task switcher and/or
           system preferences.
         </p>
-        <p>
-          If there are multiple equally appropriate images in
-          <a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-2"><code>icons</code></a>, a user agent <em class="rfc2119">MUST</em> use the last one declared in
-          order at the time that the user agent collected the list of
-          <a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-3"><code>icons</code></a>. If the user agent tries to use an icon but that
-          icon is determined, upon closer examination, to be inappropriate
-          (e.g. because its content type is unsupported), then the user agent
-          <em class="rfc2119">MUST</em> try the next-most-appropriate icon as determined by examining
-          the <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-1">manifest image resource</a>'s members.
-        </p>
         <div class="note" role="note" id="issue-container-generatedID-5"><div role="heading" class="note-title marker" id="h-note-4" aria-level="4"><span>Note</span></div><aside class="">
           <p>
             When <a data-link-type="dfn|abstract-op" href="#dfn-processing-a-manifest" class="internalDFN" id="ref-for-dfn-processing-a-manifest-3">processing a manifest</a>, the <a data-link-type="dfn|abstract-op" href="#dfn-process-image-resources" class="internalDFN" id="ref-for-dfn-process-image-resources-1">process image resources</a>
-            algorithm is used to process the <a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-4"><code>icons</code></a> member.
+            algorithm is used to process the <a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-2"><code>icons</code></a> member.
           </p>
         </aside></div>
       </section>
@@ -2510,7 +2500,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <ol>
             <li><a data-link-type="dfn|abstract-op" href="#dfn-short_name" class="internalDFN" id="ref-for-dfn-short_name-4"><code>short_name</code></a>,
             </li>
-            <li><a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-5"><code>icons</code></a>
+            <li><a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-3"><code>icons</code></a>
             </li>
             <li><a data-link-type="dfn|abstract-op" href="#dfn-name" class="internalDFN" id="ref-for-dfn-name-5"><code>name</code></a>,
             </li>
@@ -2555,11 +2545,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         object (e.g., an icon that is part of an application menu, etc.).
       </p>
       <p>
-        A <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-2">manifest image resource</a> differs from a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-image-resource" id="ref-for-index-term-image-resource-2">image resource</a> in that
+        A <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-1">manifest image resource</a> differs from a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-image-resource" id="ref-for-index-term-image-resource-2">image resource</a> in that
         it can have an additional <a data-link-type="dfn|abstract-op" href="#dfn-purpose" class="internalDFN" id="ref-for-dfn-purpose-1"><code>purpose</code></a> member.
       </p>
       <p>
-        User agents <em class="rfc2119">MAY</em> modify the images associated with an <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-3">manifest image resource</a> to better match the platform’s visual style before
+        User agents <em class="rfc2119">MAY</em> modify the images associated with an <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-2">manifest image resource</a> to better match the platform’s visual style before
         displaying it to the user, for example by rounding the corners or
         painting it in a specific color. It is recommended that developers
         prepare their image resources for such scenarios to avoid losing
@@ -2576,7 +2566,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           values are the <a href="#dfn-icon-purposes" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-icon-purposes-1">icon purposes</a>.
         </p>
         <p>
-          When a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-4">manifest image resource</a> is used as an <dfn id="dfn-icon" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;icon&quot;, but nothing links to it. This is usually a spec bug!">icon</dfn>, a
+          When a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-3">manifest image resource</a> is used as an <dfn id="dfn-icon" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;icon&quot;, but nothing links to it. This is usually a spec bug!">icon</dfn>, a
           developer can hint that the image is intended to serve some special
           purpose in the context of the host <abbr title="Operating system">OS</abbr> (i.e., for better integration).
           User agents <em class="rfc2119">SHOULD NOT</em> use an icon other than for its stated <a href="#dfn-icon-purposes" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-icon-purposes-2">icon
@@ -2616,11 +2606,14 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             <dfn data-dfn-for="icon purpose" id="dfn-any" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">any</dfn> (default)
           </dt>
           <dd>
-            The user agent is free to display the icon in any context.
+            The user agent is free to display the icon where no <a data-link-type="dfn|abstract-op" href="#dfn-purpose" class="internalDFN" id="ref-for-dfn-purpose-4"><code>purpose</code></a> is required. For example, a
+            <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-4">manifest image resource</a> with a "any" purpose 
+            wouldn't be used in a context where "<a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-2">monochrome</a>" 
+            is required.
           </dd>
         </dl>
         <p>
-          The <dfn id="dfn-icon-purposes-list" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">icon purposes list</dfn> is the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-7">list</a> « "<a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-2">monochrome</a>", "<a data-link-type="dfn|abstract-op" href="#dfn-maskable" class="internalDFN" id="ref-for-dfn-maskable-1">maskable</a>", "<a data-link-type="dfn|abstract-op" href="#dfn-any" class="internalDFN" id="ref-for-dfn-any-2">any</a>" ».
+          The <dfn id="dfn-icon-purposes-list" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">icon purposes list</dfn> is the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-7">list</a> « "<a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-3">monochrome</a>", "<a data-link-type="dfn|abstract-op" href="#dfn-maskable" class="internalDFN" id="ref-for-dfn-maskable-1">maskable</a>", "<a data-link-type="dfn|abstract-op" href="#dfn-any" class="internalDFN" id="ref-for-dfn-any-2">any</a>" ».
         </p>
         <div class="note" role="note" id="issue-container-generatedID-21"><div role="heading" class="note-title marker" id="h-note-20" aria-level="4"><span>Note</span></div><p class="">
           If an icon contains multiple purposes, it could be used for any of
@@ -2841,13 +2834,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           icon can be declared in a <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-23">manifest</a>. As web applications need to
           work across multiple platforms, it is possible to indicate that an
           icon can have an user-agent-specified color applied by adding the
-          <a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-3">monochrome</a> purpose. This allows the platform to
+          <a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-4">monochrome</a> purpose. This allows the platform to
           ensure that the icon looks well integrated with the platform, and
           even apply different colors and padding in different places
           throughout the platform.
         </p>
         <p>
-          When presenting a <a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-4">monochrome</a> icon, the user agent
+          When presenting a <a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-5">monochrome</a> icon, the user agent
           <em class="rfc2119">MUST NOT</em> independently display the red component, green component, or
           blue component of a pixel. The user agent <em class="rfc2119">SHOULD</em> display each pixel
           with its original alpha value, but with a red, green, and blue value
@@ -2855,7 +2848,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           use the same color value for all pixels.
         </p>
         <div class="note" role="note" id="issue-container-generatedID-25"><div role="heading" class="note-title marker" id="h-note-24" aria-level="4"><span>Note</span></div><p class="">
-          Designers of <a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-5">monochrome</a> icons could set all pixels
+          Designers of <a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-6">monochrome</a> icons could set all pixels
           to black and only use transparency to create a silhouette of their
           icon.
         </p></div>
@@ -4259,7 +4252,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Public Working Draft:
       </p>
        <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483" filter="removeCommits"><ul>
-      <li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li>
+      <li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li>
       </ul></rs-changelog>
     </section>
     <section class="appendix informative" id="acknowledgements"><div class="header-wrapper"><h2 id="k-acknowledgements"><bdi class="secno">K. </bdi>
@@ -5143,9 +5136,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <li>
       <a href="#ref-for-dfn-icons-1" title="§ 1. Web Application Manifest">§ 1. Web Application Manifest</a> 
     </li><li>
-      <a href="#ref-for-dfn-icons-2" title="§ 1.7 icons member">§ 1.7 icons member</a> <a href="#ref-for-dfn-icons-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-icons-4" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-icons-2" title="§ 1.7 icons member">§ 1.7 icons member</a> 
     </li><li>
-      <a href="#ref-for-dfn-icons-5" title="§ 1.17.6 Updating the manifest">§ 1.17.6 Updating the manifest</a> 
+      <a href="#ref-for-dfn-icons-3" title="§ 1.17.6 Updating the manifest">§ 1.17.6 Updating the manifest</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-display" aria-label="Links in this document to definition: display">
@@ -5635,11 +5628,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-manifest-image-resource-1" title="§ 1.7 icons member">§ 1.7 icons member</a> 
+      <a href="#ref-for-dfn-manifest-image-resource-1" title="§ 2. Manifest image resources">§ 2. Manifest image resources</a> <a href="#ref-for-dfn-manifest-image-resource-2" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-image-resource-2" title="§ 2. Manifest image resources">§ 2. Manifest image resources</a> <a href="#ref-for-dfn-manifest-image-resource-3" title="Reference 2">(2)</a> 
-    </li><li>
-      <a href="#ref-for-dfn-manifest-image-resource-4" title="§ 2.1 purpose member">§ 2.1 purpose member</a> 
+      <a href="#ref-for-dfn-manifest-image-resource-3" title="§ 2.1 purpose member">§ 2.1 purpose member</a> <a href="#ref-for-dfn-manifest-image-resource-4" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-purpose" aria-label="Links in this document to definition: purpose">
@@ -5653,7 +5644,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <li>
       <a href="#ref-for-dfn-purpose-1" title="§ 2. Manifest image resources">§ 2. Manifest image resources</a> 
     </li><li>
-      <a href="#ref-for-dfn-purpose-2" title="§ 2.1 purpose member">§ 2.1 purpose member</a> <a href="#ref-for-dfn-purpose-3" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-purpose-2" title="§ 2.1 purpose member">§ 2.1 purpose member</a> <a href="#ref-for-dfn-purpose-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-purpose-4" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-icon" aria-label="Links in this document to definition: icon">
@@ -5687,9 +5678,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-monochrome-1" title="§ 2.1 purpose member">§ 2.1 purpose member</a> <a href="#ref-for-dfn-monochrome-2" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-monochrome-1" title="§ 2.1 purpose member">§ 2.1 purpose member</a> <a href="#ref-for-dfn-monochrome-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-monochrome-3" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-monochrome-3" title="§ 2.4 Monochrome icons and solid fills">§ 2.4 Monochrome icons and solid fills</a> <a href="#ref-for-dfn-monochrome-4" title="Reference 2">(2)</a> <a href="#ref-for-dfn-monochrome-5" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-monochrome-4" title="§ 2.4 Monochrome icons and solid fills">§ 2.4 Monochrome icons and solid fills</a> <a href="#ref-for-dfn-monochrome-5" title="Reference 2">(2)</a> <a href="#ref-for-dfn-monochrome-6" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-maskable" aria-label="Links in this document to definition: maskable">
