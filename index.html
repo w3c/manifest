@@ -489,13 +489,13 @@
           <dd>
             <p>
               Direction determined from content using <a data-cite=
-              "bidi#P2">Rule P2</a> of the [[BIDI]] algorithm.
+              "UAX9#P2">Rule P2</a> of the [[UAX9]] algorithm.
             </p>
             <aside class="note">
               <p>
                 [=text-direction/auto=] means that the directionality of each
                 member is determined by its first strongly directional
-                character (as per the <a data-cite="bidi#P2">Rule P2</a>). An
+                character (as per the <a data-cite="UAX9#P2">Rule P2</a>). An
                 explicit direction value such as "[=text-direction/rtl=]" or
                 "[=text-direction/ltr=]" is preferred to relying on the default
                 of "[=text-direction/auto=]".
@@ -514,14 +514,14 @@
         </p>
         <ol class="algorithm">
           <li>If the <a>base direction</a> is [=text-direction/ltr=] or
-          [=text-direction/rtl=], override <a data-cite="bidi#P3">Rule P3</a>
-          of [[BIDI]], setting the paragraph embedding level to 0 if the
+          [=text-direction/rtl=], override <a data-cite="UAX9#P3">Rule P3</a>
+          of [[UAX9]], setting the paragraph embedding level to 0 if the
           <a>base direction</a> is [=text-direction/ltr=], or 1 if the <a>base
           direction</a> is [=text-direction/rtl=].
           </li>
           <li>Otherwise the <a>base direction</a> is "[=text-direction/auto=]",
           in which case determine the text's direction by applying
-            <a data-cite="bidi#P1">Rule P1</a> of [[BIDI]].
+            <a data-cite="UAX9#P1">Rule P1</a> of [[UAX9]].
           </li>
         </ol>
         <p>
