@@ -557,18 +557,14 @@
         such as fonts, styling, hyphenation, or text-to-speech voices for accessibility.
         </p>
         <p>
-          A <dfn>language tag</dfn> is a <a>string</a> that matches the
-          production of a `Language-Tag` defined in the [[BCP47]]
-          specifications (see the <a href=
-          "https://www.iana.org/assignments/language-subtag-registry">IANA
-          Language Subtag Registry</a> for an authoritative list of possible
-          values). That is, a language range is composed of one or more
-          <dfn>subtags</dfn> that are delimited by a U+002D HYPHEN-MINUS ("-").
-          For example, the '`en-AU`' language range represents English as
-          spoken in Australia, and '`fr-CA`' represents French as spoken in
-          Canada. Language tags that meet the validity criteria of [[RFC5646]]
-          section 2.2.9 that can be verified without reference to the IANA
-          Language Subtag Registry are considered structurally valid.
+          A <dfn>language tag</dfn> is a [=string=] that matches the production
+          of a well-formed `Language-Tag` defined in [[BCP47]].
+        </p>
+        <p class="note">
+          Language tags are case-insensitive. Examples of language tags include
+          '`fr`' (French), '`en-AU`' (English as spoken in Australia), or
+          '`zh-Hans-CN`' (Chinese as written in the Simplified Han script as
+          spoken in China).
         </p>
         <p>
           To <dfn>process the `lang` member</dfn>, given [=ordered map=]
