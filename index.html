@@ -452,21 +452,6 @@
           <a>text-direction</a>.
         </p>
         <p>
-          The <dfn>localizable members</dfn> are:
-        </p>
-        <ul>
-          <li>[=manifest/name=] member.
-          </li>
-          <li>[=manifest/short_name=] member.
-          </li>
-          <li>[=Shortcut item's=] [=shortcut item/name=] member.
-          </li>
-          <li>[=Shortcut item's=] [=shortcut item/short_name=] member.
-          </li>
-          <li>[=Shortcut item's=] [=shortcut item/description=] member.
-          </li>
-        </ul>
-        <p>
           The <dfn>text-directions</dfn> are the following, implying that the
           value of the <a>localizable members</a> is by default:
         </p>
@@ -568,7 +553,7 @@
           "manifest">name</dfn></code> member is a <a>string</a> that
           represents the name of the web application as it is usually displayed
           to the user (e.g., amongst a list of other applications, or as a
-          label for an icon).
+          label for an icon). This member is a [=localizable member=].
         </p>
         <p>
           The [=manifest/name=] member serves as the <a data-cite=
@@ -589,7 +574,8 @@
           "manifest">short_name</dfn></code> member is a <a>string</a> that
           represents a short version of the name of the web application. It is
           intended to be used where there is insufficient space to display the
-          full name of the web application.
+          full name of the web application. This member is a [=localizable
+          member=].
         </p>
         <p class="note" title="Processing the `short_name` member">
           When [=processing a manifest=], the [=process a text member=]
@@ -649,6 +635,10 @@
           list of other applications, or to integrate the web application with
           an <abbr title="Operating system">OS</abbr>'s task switcher and/or
           system preferences.
+        </p>
+        <p>
+          This member is a [=localizable member=]. Setting a [=text-direction=]
+          is not supported and will be ignored.
         </p>
         <aside class="note">
           <p>
@@ -1254,6 +1244,161 @@
           shortcuts presented in order to remain consistent with the
           conventions or limitations of the host operating system.
         </p>
+      </section>
+      <section>
+        <h3>
+          `*_localized` members
+        </h3>
+        <p>
+          A <dfn>localizable member</dfn> is a [=manifest=] member that can be
+          localized. Each [=localizable member=] of the [=manifest=] has a
+          corresponding <dfn>localized member</dfn> with the suffix
+          `_localized`. For example, the [=manifest/name=] member is a
+          [=localizable member=], where `name_localized` is the corresponding
+          [=localized member=].
+        </p>
+        <p>
+          [=Localized members=] contain a [=language map=] that defines
+          [=localized values=] for different locales denoted by a [=language
+          tag=]. If present and if the [=language map=] contains a [=localized
+          value=] that matches the user's localization settings, the user agent
+          SHOULD override the value of the [=localizable member=].
+        </p>
+        <aside class="example" title=
+        "Localizing the application name">
+          <pre class="json">
+            {
+              "lang": "en-US",
+              "name": "Color Picker",
+              "name_localized": {
+                "en":    {"value": "Color Picker"},
+                "en-GB": {"value": "Colour Picker", "dir": "ltr"},
+                "fr":    {"value": "Sélecteur de Couleur", "lang": "fr-CA", "dir": "ltr"},
+                "ar":    {"value": "منتقي الألوان", "dir": "rtl"}
+              }
+            }
+          </pre>
+        </aside>
+        <p>
+          The <dfn>language map</dfn> is an [=ordered map=] whose key is a
+          [=language tag=] and whose value is a [=localized value=]. The
+          <dfn>localized value</dfn> represents the value applied for the
+          [=language tag=] specified as the key. The value matches the type of
+          its corresponding [=localizable member=]. For example, a [=localized
+          value=] for the [=manifest/name=] member could directly be a
+          [=string=].
+        </p>
+        <p class="note">
+          To support multilingual content and ensure proper display and
+          accessibility, it is possible to specify a different language tag and
+          text direction for a localized value. This is needed for situations
+          where a term or text must be presented in a language different from
+          the user's set language.
+        </p>
+        <p>
+          Alternatively, the [=localized value=] can be an [=ordered map=]
+          consisting of a `lang`, `dir`, and `value` member, where the `lang`
+          member is a [=language tag=], `dir` is a [=text-direction=], and
+          `value` contains the localization, matching the type of its
+          corresponding [=localizable member=]. The `lang` and `dir` members
+          are optional. When they are not set, `lang` matches the [=language
+          tag=] of the key, and `dir` matches the [=manifest/dir=] member of
+          the [=manifest=]. 
+          <!-- todo: maybe processed value of dir? or the default dir of the locale? -->
+        </p><!-- todo: better example -->
+        <!-- todo: distinguish between text and image resource localization? -->
+        <aside class="example" title="Advanced localization example">
+          <pre class="json">
+            {
+              "lang": "en-US",
+              "dir": "ltr",
+              "shortcuts": [{
+                "description": "Change language",
+                "description_localized": {
+                  "ar": { "lang": "en", "dir": "ltr", "value": "Change language" }
+                },
+                "icons": [{
+                  "src": "/icons/play-later.svg",
+                  "type": "image/svg+xml"
+                }],
+                "icons_localized": {
+                  "ar": [{
+                    "src": "/icons/ar/play-later.svg",
+                    "type": "image/svg+xml"
+                  }]
+                }
+              }]
+            }
+          </pre>
+        </aside>
+        <p>
+          <!-- todo: is there an "any" type? -->
+           To <dfn>normalize the localized value</dfn>, given |localizedValue|,
+          [=string=] |languageTag:string|, and [=ordered map=]
+          |manifest:ordered map|:
+        </p>
+        <ol class="algorithm">
+          <li>Let |normalizedValue| be an [=ordered map=].
+          </li>
+          <li>If |localizedValue| is an [=ordered map=], and "value"
+          [=map/exists=] in |localizedValue|:
+            <ol>
+              <li>[=map/Set=] |normalizedValue|["value"] to
+              |localizedValue|["value"].
+              </li>
+              <li>If "lang" [=map/exists=] in |localizedValue|, [=map/set=]
+              |normalizedValue|["lang"] to |localizedValue|["lang"].
+              </li>
+              <li>If "dir" [=map/exists=] in |localizedValue|, [=map/set=]
+              |normalizedValue|["dir"] to |localizedValue|["dir"].
+              </li>
+            </ol>
+          </li>
+          <li>If "value" does not exist in |normalizedValue|, [=map/set=]
+          result["value"] to |localizedValue|.
+          </li>
+          <li>If "lang" does not exist in |normalizedValue|, [=map/set=]
+          |result|["lang"] to |languageTag|.
+          </li>
+          <li>If "dir" does not exist in |normalizedValue|, [=map/set=]
+          |normalizedValue|["dir"] to |manifest|["dir"].
+          </li>
+          <li>Return |normalizedValue|.
+          </li>
+        </ol>
+        <p>
+          To <dfn>process a localizable member</dfn>, given [=string=]
+          |localizableMemberName| and [=ordered map=] |json|:
+        </p><!-- todo: use algorithm when processing manifest -->
+        <ol class="algorithm">
+          <li>Let |localizedMemberName| be the [=string/concatenation=] of the
+          [=list=] « |localizableMemberName|, "_localized" ».
+          </li>
+          <li>If |localizedMemberName| [=map/exists=] in |json|:
+            <ol>
+              <li>Let |localizedMember| be |json|[|localizedMemberName|].
+              </li>
+              <li>If |localizedMember| is not an [=ordered map=], continue.
+              </li>
+              <!-- todo: any existing algorithm for this? lookup, rfc4647 -->
+              <!-- todo: also take manifest's own lang into account -->
+              <li>Let |languageKey| be the most suitable language key based on
+              the user's localization settings from the [=map/keys=] of
+              |localizedMember|.
+              </li>
+              <li>If |languageKey| has a value, return the result of
+              [=normalize the localized value=], passing
+              |localizedMember|[|languageKey|], |languageKey|, and |manifest|.
+              </li>
+            </ol>
+          </li><!-- todo: ensure lang was set during processing -->
+          <li>If |localizableMemberName| [=map/exists=] in |json|, return the
+          result of [=normalize the localized value=], passing
+          |json|[|localizableMemberName|], |manifest|["lang"], and |manifest|.
+          </li>
+          <li>Otherwise, return.
+          </li>
+        </ol>
       </section>
       <section>
         <h2>
@@ -2017,7 +2162,7 @@
           The [=shortcut item's=] <code><dfn data-dfn-for=
           "shortcut item">name</dfn></code> member is a <a>string</a> that
           represents the name of the shortcut as it is usually displayed to the
-          user in a context menu.
+          user in a context menu. This member is a [=localizable member=].
         </p>
       </section>
       <section>
@@ -2029,7 +2174,7 @@
           "shortcut item">short_name</dfn></code> member is a <a>string</a>
           that represents a short version of the name of the shortcut. It is
           intended to be used where there is insufficient space to display the
-          full name of the shortcut.
+          full name of the shortcut. This member is a [=localizable member=].
         </p>
       </section>
       <section>
@@ -2040,7 +2185,8 @@
           The [=shortcut item's=] <code><dfn data-dfn-for=
           "shortcut item">description</dfn></code> member is a <a>string</a>
           that allows the developer to describe the purpose of the shortcut.
-          User agents MAY expose this information to assistive technology.
+          User agents MAY expose this information to assistive technology. This
+          member is a [=localizable member=].
         </p>
       </section>
       <section>
@@ -2062,6 +2208,10 @@
           The <a>shortcut item</a>'s <code><dfn data-dfn-for=
           "shortcut item">icons</dfn></code> member lists images that serve as
           iconic representations of the shortcut in various contexts.
+        </p>
+        <p>
+          This member is a [=localizable member=]. Setting a [=text-direction=]
+          is not supported and will be ignored.
         </p>
       </section>
       <section>
@@ -3294,6 +3444,13 @@
         using one of the following options:
       </p>
       <dl>
+        <dt>
+          Localized values in the manifest:
+        </dt>
+        <dd>
+          Authors can provide [=localized values=] for the [=localizable
+          members=] of the [=manifest=].
+        </dd>
         <dt>
           Dynamically setting the language:
         </dt>
