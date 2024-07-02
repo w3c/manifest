@@ -446,9 +446,9 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">dir</dfn></code> member specifies the <dfn>base
-          direction</dfn> for the <a>localizable members</a> of the
-          <a>manifest</a>. The [=manifest/dir=] member's value can be set to a
+          "manifest">dir</dfn></code> member specifies the default string
+          direction for the <a>localizable members</a> of the <a>manifest</a>.
+          The [=manifest/dir=] member's value can be set to a
           <a>text-direction</a>.
         </p>
         <p>
@@ -487,20 +487,9 @@
             "<dfn data-dfn-for="text-direction">auto</dfn>" (default)
           </dt>
           <dd>
-            <p>
-              Direction determined from content using <a data-cite=
-              "UAX9#P2">Rule P2</a> of the [[UAX9]] algorithm.
-            </p>
-            <aside class="note">
-              <p>
-                [=text-direction/auto=] means that the directionality of each
-                member is determined by its first strongly directional
-                character (as per the <a data-cite="UAX9#P2">Rule P2</a>). An
-                explicit direction value such as "[=text-direction/rtl=]" or
-                "[=text-direction/ltr=]" is preferred to relying on the default
-                of "[=text-direction/auto=]".
-              </p>
-            </aside>
+            Text direction is unknown. The user agent should use heuristics to
+            estimate the display of the text, for example the first-strong
+            algorithm as described in [[UAX9]].
           </dd>
         </dl>
         <p>
@@ -508,22 +497,6 @@
           "[=text-direction/ltr=]", "[=text-direction/rtl=]",
           "[=text-direction/auto=]" ».
         </p>
-        <p>
-          When displaying the <a>localizable members</a> to an end-user, the
-          use agent SHOULD:
-        </p>
-        <ol class="algorithm">
-          <li>If the <a>base direction</a> is [=text-direction/ltr=] or
-          [=text-direction/rtl=], override <a data-cite="UAX9#P3">Rule P3</a>
-          of [[UAX9]], setting the paragraph embedding level to 0 if the
-          <a>base direction</a> is [=text-direction/ltr=], or 1 if the <a>base
-          direction</a> is [=text-direction/rtl=].
-          </li>
-          <li>Otherwise the <a>base direction</a> is "[=text-direction/auto=]",
-          in which case determine the text's direction by applying
-            <a data-cite="UAX9#P1">Rule P1</a> of [[UAX9]].
-          </li>
-        </ol>
         <p>
           To <dfn>process the `dir` member</dfn>, given [=ordered map=]
           |json:ordered map| and [=ordered map=] |manifest:ordered map|:
@@ -549,12 +522,14 @@
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">lang</dfn></code> member is a [=string=] in the form of a
           [=language tag=] that specifies the language for the values of the
-          manifest's [=localizable members=].
+          manifest's [=localizable members=]. If the `lang` member is not
+          specified, the language is treated as unknown.
         </p>
         <p class="note">
-        Specifying the language improves the user experience by helping
-        user agents select the most appropriate processing or resources,
-        such as fonts, styling, hyphenation, or text-to-speech voices for accessibility.
+          Specifying the language improves the user experience by helping user
+          agents select the most appropriate processing or resources, such as
+          fonts, styling, hyphenation, or text-to-speech voices for
+          accessibility.
         </p>
         <p>
           A <dfn>language tag</dfn> is a [=string=] that matches the production
@@ -1664,10 +1639,9 @@
           </dt>
           <dd>
             The user agent is free to display the icon where no [=manifest
-            image resource/purpose=] is required. For example, a
-            [=manifest image resource=] with a "any" purpose 
-            wouldn't be used in a context where "[=icon purpose/monochrome=]" 
-            is required.
+            image resource/purpose=] is required. For example, a [=manifest
+            image resource=] with a "any" purpose wouldn't be used in a context
+            where "[=icon purpose/monochrome=]" is required.
           </dd>
         </dl>
         <p>
