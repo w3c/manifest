@@ -534,13 +534,7 @@
           <li>If |json|["lang"] doesn't [=map/exist=] or if |json|["lang"] is
           not a [=string=], return.
           </li>
-          <li>If calling <a data-cite=
-          "ECMA-402#sec-isstructurallyvalidlanguagetag">IsStructurallyValidLanguageTag</a>
-          with |json|["lang"] returns `false`, return.
-          </li>
-          <li>Set |manifest|["lang"] to the result of calling the
-            <a data-cite="ECMA-402#sec-canonicalizeunicodelocaleid">CanonicalizeUnicodeLocaleId</a>
-            abstract operation with |json|["lang"].
+          <li>[=Map/Set=] |manifest|["lang"] to |json|["lang"].
           </li>
         </ol>
       </section>
