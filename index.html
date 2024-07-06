@@ -1416,7 +1416,7 @@
             The [=process a localized text value=] algorithm takes both a
             [=string=] or an [=ordered map=] for the [=localized value=]
             parameter, but the processed result will be normalized into an
-            [=ordered map=].
+            [=ordered map=] with the `value`, `lang`, and `dir` members set.
           </p>
         </section>
         <section>
@@ -1465,7 +1465,7 @@
             <li>[=List/For each=] |languageTag:string| of |languageTags|, run
             [=process image resources=], passing |languageMap|[|languageTag|]
             as the [=list=] of [=image resources=], |map|[|member|], |manifest
-            URL|, and |languageTag|.
+            URL|, and |languageTag| as the member.
             </li>
           </ol>
         </section>
