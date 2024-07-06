@@ -1223,7 +1223,8 @@
           <li>[=list/For each=] |entry:ordered map| of |json|["shortcuts"]:
             <ol>
               <li>Let |shortcut:ordered map| be [=process a shortcut=] with
-              |entry|, |manifest URL|, |manifest|["scope"], and |manifest|["dir"].
+              |entry|, |manifest URL|, |manifest|["scope"], and
+              |manifest|["dir"].
               </li>
               <li>If |shortcut| is failure, continue.
               </li>
@@ -2307,8 +2308,8 @@
         </h2>
         <p>
           To <dfn>process a shortcut</dfn>, given [=ordered map=] |item:ordered
-          map|, [=URL=] |manifest URL:URL|, [=URL=] |scope:URL|, and [=text-direction=] |manifest
-          direction:string|:
+          map|, [=URL=] |manifest URL:URL|, [=URL=] |scope:URL|, and
+          [=text-direction=] |manifest direction:string|:
         </p>
         <ol class="algorithm">
           <li>Return failure if it's the case that:
