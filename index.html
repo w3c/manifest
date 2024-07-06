@@ -2551,7 +2551,9 @@
         </h3>
         <p>
           The <dfn>application's name</dfn> is derived from either the
-          [=manifest/name=] member or [=manifest/short_name=] member.
+          [=manifest/name=] member or [=manifest/short_name=] member. The user
+          agent SHOULD first resolve the localized values from their
+          corresponding [=manifest/`*_localized`=] members.
         </p>
         <p>
           When either the [=manifest/name=] member or the
