@@ -1746,11 +1746,14 @@
             installation and on launch surfaces:
           </p>
           <ol>
-            <li>[=manifest/short_name=],
+            <li>[=manifest/short_name=] and localized representations in
+            `short_name_localized`,
             </li>
-            <li>[=manifest/icons=]
+            <li>[=manifest/icons=] and localized representations in
+            `icons_localized`,
             </li>
-            <li>[=manifest/name=],
+            <li>[=manifest/name=] and localized representations in
+            `name_localized`.
             </li>
           </ol>
           <p data-cite="permissions">
@@ -1766,6 +1769,13 @@
           <p>
             The user agent MAY automatically apply the changes if the update
             does not contain changes to [=security-sensitive members=].
+          </p>
+          <p>
+            If a user changes localization settings, the user agent MAY
+            automatically adjust the [=security-sensitive members=] visible on
+            launch surfaces to their localized representations specified in the
+            [=manifest/`*_localized`=] members. These changes SHOULD be
+            presented to users the next time they open the web application.
           </p>
           <aside class="note" title=
           "A user agent will not apply a partial update">
