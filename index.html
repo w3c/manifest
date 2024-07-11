@@ -1260,8 +1260,7 @@
         <p>
           A <dfn>language map</dfn> is an [=ordered map=] whose key is a
           [=language tag=] and whose value is a [=localized value=]. The
-          <dfn>localized value</dfn> represents the value applied for the
-          [=language tag=] specified as the key.
+          <dfn>localized value</dfn> is content localized in the language given by the key.
         </p>
         <aside class="example" title="Localizing the application name">
           <pre class="json">
@@ -1293,9 +1292,8 @@
           </h3>
           <p>
             For [=manifest/*_localized=] members that accept a [=string=] as
-            their value, the [=localized value=] can either be a plain
-            localized [=string=] or an [=ordered map=] containing the following
-            members:
+            their value, the [=localized value=] can be either 
+            a [=string=] or a [=language map=]. 
           </p>
           <dl>
             <dt>
@@ -1318,24 +1316,24 @@
             </dd>
           </dl>
           <p>
-            When a plain [=string=] is used, or when the `lang` or `dir`
-            members are omitted, `lang` falls back the [=language tag=] of the
+            When a [=string=] is used, or when the `lang` or `dir`
+            members are missing, `lang` falls back the [=language tag=] of the
             [=language map=] key, and `dir` falls back to the [=manifest/dir=]
             member of the [=manifest=].
           </p>
           <aside class="note">
             <p>
-              The `dir` member must be specified if the direction of a
+              The `dir` member needs to be present if the direction of a
               localized string differs from the default direction set in the
               manifest ([=manifest/dir=] member). Right-to-left text will
               require specific direction settings if the manifest's default
               direction is left-to-right, and vice versa.
             </p>
             <p>
-              To support multilingual content and ensure proper display and
+              To support multilingual content and ensure optimal display and
               accessibility, it is possible to specify a different [=language
               tag=] for a [=localized value=]. This is needed for situations
-              where a term or text must be presented in a language different
+              where a term or text needs to be presented in a language different
               from the user's set language. For example, this helps ensure that
               an application name is correctly pronounced by assistive
               technology, even if it is in a foreign language.
@@ -1419,8 +1417,8 @@
           </h3>
           <p>
             For [=manifest/*_localized=] members that accept a [=list=] of
-            [=image resources=] as their value, the [=localized value=] must
-            also be a [=list=] of [=image resources=].
+            [=image resources=] as their value, the [=localized value=] is
+            a [=list=] of [=image resources=].
           </p>
           <aside class="example" title="Localizing the application icon">
             <pre class="json">
@@ -3562,7 +3560,7 @@
           Authors can provide [=localized values=] for the [=localizable
           members=] of the [=manifest=]. The user agent should pass all
           localized values to the host operating system. When the user changes
-          the [=locale=] at the OS level, the OS can immediately display the
+          the [=locale=] at the OS level, the OS can present the
           updated localized values of the [=installed web application=].
         </dd>
         <dt>
