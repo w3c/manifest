@@ -446,14 +446,14 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">dir</dfn></code> member specifies the default string
-          direction for the <a>localizable members</a> of the <a>manifest</a>.
+          "manifest">dir</dfn></code> member specifies the <dfn>default
+          direction</dfn> for the [=localizable members=] of the [=manifest=].
           The [=manifest/dir=] member's value can be set to a
-          <a>text-direction</a>.
+          [=text-direction=].
         </p>
         <p>
           The <dfn>text-directions</dfn> are the following, implying that the
-          value of the <a>localizable members</a> is by default:
+          value of the [=localizable members=] is by default:
         </p>
         <dl>
           <dt>
@@ -1260,7 +1260,8 @@
         <p>
           A <dfn>language map</dfn> is an [=ordered map=] whose key is a
           [=language tag=] and whose value is a [=localized value=]. The
-          <dfn>localized value</dfn> is content localized in the language given by the key.
+          <dfn>localized value</dfn> is content localized in the language given
+          by the key.
         </p>
         <aside class="example" title="Localizing the application name">
           <pre class="json">
@@ -1279,12 +1280,14 @@
           </pre>
         </aside>
         <p>
-          [=manifest/*_localized=] members contain a [=language map=] that
-          defines [=localized values=] for the given [=localizable member=] in
-          the application. The user agent SHOULD use the user's localization
-          settings to select the [=localized value=] whose [=language tag=] key best
-          matches the user's preference. When no such [=localized value=] is
-          available, the default representation is used.
+          The value assigned to the [=localizable member=] is the <dfn>default
+          representation</dfn>. [=manifest/*_localized=] members contain a
+          [=language map=] that defines [=localized values=] for the given
+          [=localizable member=] in the application. The user agent SHOULD use
+          the user's localization settings to select the [=localized value=]
+          whose [=language tag=] key best matches the user's preference. When
+          no such [=localized value=] is available, the [=default
+          representation=] is used.
         </p>
         <section>
           <h3>
@@ -1304,49 +1307,56 @@
             </dd>
             <dt>
               <code><dfn data-export="" data-dfn-for=
-              "manifest/*_localized">lang</dfn></code> (optional)
-            </dt>
-            <dd>
-              A [=language tag=].
-            </dd>
-            <dt>
-              <code><dfn data-export="" data-dfn-for=
               "manifest/*_localized">dir</dfn></code> (optional)
             </dt>
             <dd>
               The [=text-direction=].
             </dd>
+            <dt>
+              <code><dfn data-export="" data-dfn-for=
+              "manifest/*_localized">lang</dfn></code> (optional)
+            </dt>
+            <dd>
+              A [=language tag=].
+            </dd>
           </dl>
           <p>
-            For [=manifest/*_localized=] members that accept a [=string=] as
-            their value, the [=localized value=] specified in the [=language
-            map=] can be either a [=string=] or a [=localized text resource=].
+            For [=localizable members=] that accept [=strings=], the
+            [=manifest/*_localized=] member's [=language map=] accepts either a
+            [=string=] or a [=localized text resource=] as the [=localized
+            value=].
           </p>
           <p>
-            When a [=string=] is used, or when the
-            [=manifest/*_localized/lang=] or [=manifest/*_localized/dir=]
-            members of the [=localized text resource=] are missing,
-            [=manifest/*_localized/lang=] falls back the [=language tag=] of
-            the [=language map=] key, and [=manifest/*_localized/dir=] falls
-            back to the [=manifest/dir=] member of the [=manifest=].
+            When a [=string=] is used, or when the [=manifest/*_localized/dir=]
+            member of the [=localized text resource=] is missing, the [=default
+            direction=] ([=manifest/dir=] member of the [=manifest=]) is
+            applied.
           </p>
-          <aside class="note" title=
-          "Optional members of the localized text resource">
+          <aside class="note">
+            The [=manifest/*_localized/dir=] member of the [=localized text
+            resource=] needs to be present if the direction of a localized
+            string differs from the [=default direction=] set in the manifest
+            ([=manifest/dir=] member). Right-to-left text will require specific
+            direction settings if the manifest's default direction is
+            left-to-right, and vice versa.
+          </aside>
+          <p>
+            When a [=string=] is used, or when the
+            [=manifest/*_localized/lang=] member of the [=localized text
+            resource=] is missing, the [=language tag=] of the [=language map=]
+            key is applied.
+          </p>
+          <aside class="note">
+            To support multilingual content and ensure optimal display and
+            accessibility, it is possible to specify a different language for a
+            [=localized text resource=]. This is needed for situations where a
+            term or text needs to be presented in a language different from the
+            user's set locale.
+          </aside>
+          <aside class="example">
             <p>
-              The [=manifest/*_localized/dir=] member of the [=localized text
-              resource=] needs to be present if the direction of a localized
-              string differs from the default direction set in the manifest
-              ([=manifest/dir=] member). Right-to-left text will require
-              specific direction settings if the manifest's default direction
-              is left-to-right, and vice versa.
-            </p>
-            <p>
-              To support multilingual content and ensure optimal display and
-              accessibility, it is possible to specify a different [=language
-              tag=] for a [=localized text resource=]. This is needed for
-              situations where a term or text needs to be presented in a
-              language different from the user's set locale. For example, brand
-              names might need to be pronounced in a different language:
+              For example, brand names might need to be pronounced in a
+              language different from the user's locale:
             </p>
             <pre class="json">
             {
@@ -1438,9 +1448,10 @@
             Localizing image resources
           </h3>
           <p>
-            For [=manifest/*_localized=] members that accept a [=list=] of
-            [=image resources=] as their value, the [=localized value=] is
-            a [=list=] of [=image resources=].
+            For [=localizable members=] that accept a [=list=] of [=image
+            resources=], the [=manifest/*_localized=] member's [=language map=]
+            accepts a [=list=] of [=image resources=] as the [=localized
+            value=].
           </p>
           <aside class="example" title="Localizing the application icon">
             <pre class="json">
@@ -1772,8 +1783,8 @@
           </ol>
           <p>
             [=Security-sensitive members=] SHOULD be displayed in a
-            bidirectionally isolated way as described in [[UTS55]], regardless of
-            their direction.
+            bidirectionally isolated way as described in [[UTS55]], regardless
+            of their direction.
           </p>
           <p data-cite="permissions">
             User agents SHOULD NOT automatically apply changes to
@@ -3580,10 +3591,10 @@
         </dt>
         <dd>
           Authors can provide [=localized values=] for the [=localizable
-          members=] of the [=manifest=]. The user agent passes all
-          localized values to the host operating system. When the user changes
-          the [=locale=] at the OS level, the OS can present the
-          updated localized values of the [=installed web application=].
+          members=] of the [=manifest=]. The user agent passes all localized
+          values to the host operating system. When the user changes the
+          [=locale=] at the OS level, the OS can present the updated localized
+          values of the [=installed web application=].
         </dd>
         <dt>
           Dynamically setting the language:
