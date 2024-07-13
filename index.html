@@ -1292,8 +1292,12 @@
           </h3>
           <p>
             For [=manifest/*_localized=] members that accept a [=string=] as
-            their value, the [=localized value=] can be either 
-            a [=string=] or a [=language map=]. 
+            their value, the [=localized value=] can be either a [=string=] or
+            a [=localized text object=].
+          </p>
+          <p>
+            A <dfn>localized text object</dfn> is an [=ordered map=] with the
+            following properties:
           </p>
           <dl>
             <dt>
@@ -1319,28 +1323,40 @@
             </dd>
           </dl>
           <p>
-            When a [=string=] is used, or when the `lang` or `dir`
-            members are missing, `lang` falls back the [=language tag=] of the
-            [=language map=] key, and `dir` falls back to the [=manifest/dir=]
-            member of the [=manifest=].
+            When a [=string=] is used, or when the
+            [=manifest/*_localized/lang=] or [=manifest/*_localized/dir=]
+            members of the [=localized text object=] are missing,
+            [=manifest/*_localized/lang=] falls back the [=language tag=] of
+            the [=language map=] key, and [=manifest/*_localized/dir=] falls
+            back to the [=manifest/dir=] member of the [=manifest=].
           </p>
-          <aside class="note">
+          <aside class="note" title=
+          "Optional members of the localized text object">
             <p>
-              The `dir` member needs to be present if the direction of a
-              localized string differs from the default direction set in the
-              manifest ([=manifest/dir=] member). Right-to-left text will
-              require specific direction settings if the manifest's default
-              direction is left-to-right, and vice versa.
+              The [=manifest/*_localized/dir=] member of the [=localized text
+              object=] needs to be present if the direction of a localized
+              string differs from the default direction set in the manifest
+              ([=manifest/dir=] member). Right-to-left text will require
+              specific direction settings if the manifest's default direction
+              is left-to-right, and vice versa.
             </p>
             <p>
               To support multilingual content and ensure optimal display and
               accessibility, it is possible to specify a different [=language
               tag=] for a [=localized value=]. This is needed for situations
-              where a term or text needs to be presented in a language different
-              from the user's set language. For example, this helps ensure that
-              an application name is correctly pronounced by assistive
-              technology, even if it is in a foreign language.
+              where a term or text needs to be presented in a language
+              different from the user's set locale. For example, brand names
+              might need to be pronounced in a different language:
             </p>
+            <pre class="json">
+            {
+              "lang": "fr",
+              "name": "Superbes biscuits",
+              "name_localized": {
+                "de-DE": {"value": "Super Cookies", "lang": "en"}
+              }
+            }
+          </pre>
           </aside>
           <p>
             To <dfn>process a `*_localized` text member</dfn>, given [=ordered
@@ -1409,11 +1425,11 @@
           </ol>
           <p class="note">
             The [=process a localized text value=] algorithm takes both a
-            [=string=] or an [=ordered map=] for the [=localized value=]
-            parameter, but the processed result will be normalized into an
-            [=ordered map=] with the [=manifest/*_localized/value=],
-            [=manifest/*_localized/lang=], and [=manifest/*_localized/dir=]
-            members set.
+            [=string=] or a [=localized text object=] for the [=localized
+            value=] parameter, but the processed result will be normalized into
+            an [=localized text object=] with the
+            [=manifest/*_localized/value=], [=manifest/*_localized/lang=], and
+            [=manifest/*_localized/dir=] members set.
           </p>
         </section>
         <section>
