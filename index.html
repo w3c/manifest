@@ -507,6 +507,9 @@
           <li>If |json|["dir"] doesn't [=map/exist=] or if |json|["dir"] is not
           a [=string=], return.
           </li>
+          <li>[=Strip leading and trailing ASCII whitespace=] from
+          |json|["dir"].
+          </li>
           <li>If [=text-direction list=] doesn't [=list/contain=]
           |json|["dir"], return.
           </li>
@@ -548,6 +551,9 @@
         <ol class="algorithm">
           <li>If |json|["lang"] doesn't [=map/exist=] or if |json|["lang"] is
           not a [=string=], return.
+          </li>
+          <li>[=Strip leading and trailing ASCII whitespace=] from
+          |json|["lang"].
           </li>
           <li>If calling <a data-cite=
           "ECMA-402#sec-isstructurallyvalidlanguagetag">IsStructurallyValidLanguageTag</a>
@@ -677,6 +683,9 @@
           <li>If |json|["display"] doesn't [=map/exist=] or |json|["display"]
           is not a a [=string=], return.
           </li>
+          <li>[=Strip leading and trailing ASCII whitespace=] from
+          |json|["display"].
+          </li>
           <li>If [=display modes list=] doesn't [=list/contain=]
           |json|["display"], return.
           </li>
@@ -735,6 +744,9 @@
         <ol class="algorithm">
           <li>If |json|["orientation"] doesn't [=map/exist=] or
           |json|["orientation"] is not a [=string=], return.
+          </li>
+          <li>[=Strip leading and trailing ASCII whitespace=] from
+          |json|["orientation"].
           </li>
           <li>If |json|["orientation"] doesn't [=list/contain=] any of the
           [=orientation values=], return.
@@ -1381,6 +1393,9 @@
             <li>If |json|[member] doesn't [=map/exist=] or |json|[member] is
             not a [=string=], return.
             </li>
+            <li>[=Strip leading and trailing ASCII whitespace=] from
+            |json|[|member|].
+            </li>
             <li>Let |color| be the result of [=CSS/parsing=] the value of
             |json|[member] as a CSS color.
             </li>
@@ -1408,6 +1423,9 @@
           <ol class="algorithm">
             <li>If |json|[|member|] doesn't [=map/exists=] or |json|[|member|]
             is not a [=string=], return.
+            </li>
+            <li>[=Strip leading and trailing ASCII whitespace=] from
+            |json|[|member|].
             </li>
             <li>Set |map|[member] to the value of |json|[|member|].
             </li>
