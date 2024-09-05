@@ -163,7 +163,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="84b2080fc685e5ac5ad8c3f6867b939a0a371c39">
+<meta name="revision" content="3e1fd572e9be9b439d8d00da42a0163f69ee8438">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -275,16 +275,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "84b2080fc685e5ac5ad8c3f6867b939a0a371c39",
-  "publishISODate": "2024-07-02T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 02 July 2024"
+  "gitRevision": "3e1fd572e9be9b439d8d00da42a0163f69ee8438",
+  "publishISODate": "2024-09-05T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 05 September 2024"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5 IMAGE-RESOURCE MIMESNIFF HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2024-07-02">02 July 2024</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2024-09-05">05 September 2024</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -930,6 +930,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <li>If <var data-type="ordered map">json</var>["dir"] doesn't <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-index-term-exist-for-map-1">exist</a> or if <var data-type="ordered map">json</var>["dir"] is not
           a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-1">string</a>, return.
           </li>
+          <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" id="ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-1">Strip leading and trailing ASCII whitespace</a> from
+          <var data-type="ordered map">json</var>["dir"].
+          </li>
           <li>If <a data-link-type="dfn|abstract-op" href="#dfn-text-direction-list" class="internalDFN" id="ref-for-dfn-text-direction-list-1">text-direction list</a> doesn't <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list-contain" id="ref-for-index-term-contain-for-list-1">contain</a>
           <var data-type="ordered map">json</var>["dir"], return.
           </li>
@@ -970,6 +973,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <ol class="algorithm">
           <li>If <var data-type="ordered map">json</var>["lang"] doesn't <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-index-term-exist-for-map-2">exist</a> or if <var data-type="ordered map">json</var>["lang"] is
           not a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-4">string</a>, return.
+          </li>
+          <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" id="ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-2">Strip leading and trailing ASCII whitespace</a> from
+          <var data-type="ordered map">json</var>["lang"].
           </li>
           <li>If calling <a href="https://tc39.es/ecma402/#sec-isstructurallyvalidlanguagetag" id="ref-for-index-term-isstructurallyvalidlanguagetag-1">IsStructurallyValidLanguageTag</a>
           with <var data-type="ordered map">json</var>["lang"] returns <code>false</code>, return.
@@ -1307,6 +1313,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <li>If <var data-type="ordered map">json</var>["display"] doesn't <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-index-term-exist-for-map-3">exist</a> or <var data-type="ordered map">json</var>["display"]
           is not a a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-8">string</a>, return.
           </li>
+          <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" id="ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-3">Strip leading and trailing ASCII whitespace</a> from
+          <var data-type="ordered map">json</var>["display"].
+          </li>
           <li>If <a data-link-type="dfn|abstract-op" href="#dfn-display-modes-list" class="internalDFN" id="ref-for-dfn-display-modes-list-1">display modes list</a> doesn't <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list-contain" id="ref-for-index-term-contain-for-list-2">contain</a>
           <var data-type="ordered map">json</var>["display"], return.
           </li>
@@ -1407,6 +1416,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <ol class="algorithm">
           <li>If <var data-type="ordered map">json</var>["orientation"] doesn't <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-index-term-exist-for-map-4">exist</a> or
           <var data-type="ordered map">json</var>["orientation"] is not a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-10">string</a>, return.
+          </li>
+          <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" id="ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-4">Strip leading and trailing ASCII whitespace</a> from
+          <var data-type="ordered map">json</var>["orientation"].
           </li>
           <li>If <var data-type="ordered map">json</var>["orientation"] doesn't <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list-contain" id="ref-for-index-term-contain-for-list-3">contain</a> any of the
           <a data-link-type="dfn|abstract-op" href="#dfn-orientation-values" class="internalDFN" id="ref-for-dfn-orientation-values-1">orientation values</a>, return.
@@ -2351,6 +2363,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             <li>If <var data-type="ordered map">json</var>[member] doesn't <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-index-term-exist-for-map-8">exist</a> or <var data-type="ordered map">json</var>[member] is
             not a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-17">string</a>, return.
             </li>
+            <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" id="ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-5">Strip leading and trailing ASCII whitespace</a> from
+            <var data-type="ordered map">json</var>[<var data-type="string">member</var>].
+            </li>
             <li>Let <var>color</var> be the result of <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/css-syntax-3/#css-parse-something-according-to-a-css-grammar" id="ref-for-index-term-parsing-for-css-1">parsing</a> the value of
             <var data-type="ordered map">json</var>[member] as a CSS color.
             </li>
@@ -2378,6 +2393,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <ol class="algorithm">
             <li>If <var data-type="ordered map">json</var>[<var data-type="string">member</var>] doesn't <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#map-exists" id="ref-for-index-term-exist-for-map-9">exists</a> or <var data-type="ordered map">json</var>[<var data-type="string">member</var>]
             is not a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-19">string</a>, return.
+            </li>
+            <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" id="ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-6">Strip leading and trailing ASCII whitespace</a> from
+            <var data-type="ordered map">json</var>[<var data-type="string">member</var>].
             </li>
             <li>Set <var data-type="ordered map">map</var>[member] to the value of <var data-type="ordered map">json</var>[<var data-type="string">member</var>].
             </li>
@@ -4239,7 +4257,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Public Working Draft:
       </p>
        <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483" filter="removeCommits"><ul>
-      <li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li>
+      <li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/3e1fd57">Trim `dir`, `lang`, `display`, `orientation`, text and color values (…</a></li>
       </ul></rs-changelog>
     </section>
     <section class="appendix informative" id="acknowledgements"><div class="header-wrapper"><h2 id="k-acknowledgements"><bdi class="secno">K. </bdi>
@@ -4648,6 +4666,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </li><li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#string" id="index-term-string" tabindex="0" aria-haspopup="dialog">string</span>
   </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" id="index-term-strip-leading-and-trailing-ascii-whitespace" tabindex="0" aria-haspopup="dialog">Strip leading and trailing ASCII whitespace</span>
+  </li><li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#user-agent" id="index-term-user-agent" tabindex="0" aria-haspopup="dialog">user agent</span>
   </li>
         </ul>
@@ -4730,7 +4750,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 <section id="references" class="appendix"><div class="header-wrapper"><h2 id="m-references"><bdi class="secno">M. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix M."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="m-1-normative-references"><bdi class="secno">M.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix M.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-accname-1.2">[accname-1.2]</dt><dd>
-      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 21 June 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
+      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 2 August 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
     </dd><dt id="bib-bcp47">[BCP47]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc5646"><cite>Tags for Identifying Languages</cite></a>. A. Phillips, Ed.; M. Davis, Ed..  IETF. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc5646">https://www.rfc-editor.org/rfc/rfc5646</a>
     </dd><dt id="bib-csp3">[CSP3]</dt><dd>
@@ -7013,6 +7033,28 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-index-term-string-26" title="§ 4.4 min_version member">§ 4.4 min_version member</a> 
     </li><li>
       <a href="#ref-for-index-term-string-27" title="§ 4.5 fingerprints member">§ 4.5 fingerprints member</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-strip-leading-and-trailing-ascii-whitespace" aria-label="Links in this document to definition: Strip leading and trailing ASCII whitespace">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" aria-label="Permalink for definition: Strip leading and trailing ASCII whitespace. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-1" title="§ 1.2 dir member">§ 1.2 dir member</a> 
+    </li><li>
+      <a href="#ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-2" title="§ 1.3 lang member">§ 1.3 lang member</a> 
+    </li><li>
+      <a href="#ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-3" title="§ 1.8 display member">§ 1.8 display member</a> 
+    </li><li>
+      <a href="#ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-4" title="§ 1.9 orientation member">§ 1.9 orientation member</a> 
+    </li><li>
+      <a href="#ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-5" title="§ 1.17.2 Processing color members">§ 1.17.2 Processing color members</a> 
+    </li><li>
+      <a href="#ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-6" title="§ 1.17.3 Processing text members">§ 1.17.3 Processing text members</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-user-agent" aria-label="Links in this document to definition: user agent">
