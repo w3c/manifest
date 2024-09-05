@@ -201,6 +201,8 @@
         </li>
         <li>[=manifest/prefer_related_applications=]
         </li>
+        <li>[=manifest/protocol_handlers=]
+        </li>
         <li>[=manifest/related_applications=]
         </li>
         <li>[=manifest/scope=]
@@ -1268,6 +1270,111 @@
         </p>
       </section>
       <section>
+        <h3>
+          `protocol_handlers` member
+        </h3>
+        <p>
+          The [=manifest's=] <code><dfn data-dfn-for=
+          "manifest">protocol_handlers</dfn></code> member is an <a>array</a>
+          of <a>protocol handler description</a>s that allows a web application
+          to handle URL protocols.
+        </p>
+        <p class="example">
+          Protocol handlers could, for instance, be used for web app
+          communication where one app directly invokes another and passes data
+          via custom protocol links.
+        </p>
+        <p>
+          How protocol handlers are presented, and how many of them are shown
+          to the user, is at the discretion of the user agent and/or operating
+          system.
+        </p>
+        <p>
+          To <dfn>process the `protocol_handlers` member</dfn>, given
+          [=object=] |json:JSON|, |manifest:ordered map|, and |manifest
+          URL:URL|:
+        </p>
+        <ol>
+          <li>Let <var>processedProtocolHandlers</var> be a new [=list=] of
+          |json:JSON|["<var>protocol_handlers</var>"].
+          </li>
+          <li>Set manifest["<var>protocol_handlers</var>"] to
+          <var>processedProtocolHandlers</var>.
+          </li>
+          <li>[=list/For each=] <var>protocol_handler</var> (<a>protocol
+          handler description</a>):
+            <ol>
+              <li>If |protocol_handler|["protocol"] or
+              <var>protocol_handler</var>["url"] is undefined,
+              [=iteration/continue=].
+              </li>
+              <li>Let (<dfn>normalizedProtocol</dfn>, <dfn>normalizedUrl</dfn>)
+              be the result of running [=normalize protocol handler
+              parameters=] with <var>protocol_handler</var>["protocol"], <var>
+                protocol_handler</var>["url"] using <var>manifest URL</var> as
+                the base URL, and [=this=]'s relevant [=environment settings
+                object=]. If the result is failure, [=iteration/continue=].
+              </li>
+              <li>If [=normalizedUrl=] is not [=manifest/within scope=] of
+              <var>manifest URL</var>, [=iteration/continue=].
+              </li>
+              <li>If [=normalizedUrl=] already exists in
+              <var>processedProtocolHandlers</var>, [=iteration/continue=].
+              </li>
+              <li>[=List/Append=] |protocol_handler| to
+              <var>processedProtocolHandlers</var>.
+              </li>
+            </ol>
+          </li>
+          <li>[=list/For each=] |processedProtocolHandlers|, the user agent
+          SHOULD [=register a protocol handler=].
+          </li>
+        </ol>
+        <p>
+          A user agent SHOULD ask users for permission before registering a
+          <a>protocol handler description</a> <var>protocol_handler</var>s as
+          the default handler for a protocol with the host operating system. A
+          user agent MAY truncate the list of <a>protocol handler
+          description</a> <var>protocol_handlers</var> presented in order to
+          remain consistent with the conventions or limitations of the host
+          operating system.
+        </p>
+        <aside class="example">
+          <p>
+            In the following example, the developer has included two
+            <a>protocol handler description</a> <var>protocol_handler</var>s.
+            Assuming the the manifest's URL is
+            <samp>https://example.com/manifest.webmanifest</samp>:
+          </p>
+          <ul>
+            <li>The first protocol handler would register to handle "web+music"
+            URLs (e.g.: web+music://#1234). When activated, the user agent
+            would instantiate a new <a>top-level browsing context</a> and
+            navigate to
+            <samp>https://example.com/play?songId=web+music://%231234</samp>.
+            </li>
+            <li>The second protocol handler would be ignored, as the protocol
+            provided does not start with "web+" and is not part of the
+            [=safelisted schemes=].
+            </li>
+          </ul>
+          <pre class="example json">
+            {
+              "protocol_handlers": [
+                {
+                  "protocol": "web+music",
+                  "url": "/play?songId=%s"
+                },
+                {
+                  "protocol": "store",
+                  "url": "/buy?songId=%s"
+                }
+              ]
+            }
+          </pre>
+        </aside>
+      </section>
+      <section>
         <h2>
           Manifest life-cycle
         </h2>
@@ -1356,6 +1463,9 @@
             </li>
             <li>[=Process the `orientation` member=] passing |json|,
             |manifest|.
+            </li>
+            <li>[=Process the `protocol_handlers` member=] passing |json|,
+            |manifest|, and |manifest URL|.
             </li>
             <li>[=Process the `related_applications` member=] passing |json|
             and |manifest|.
@@ -2136,6 +2246,81 @@
     </section>
     <section>
       <h2>
+        ProtocolHandler items
+      </h2>
+      <p>
+        Each <dfn>protocol handler description</dfn> is an [=object=] that
+        represents a protocol that the web application wants to handle. It has
+        the following members:
+      </p>
+      <ul>
+        <li>[=`protocol`=]
+        </li>
+        <li>[=`url`=]
+        </li>
+      </ul>
+      <p>
+        A user agent SHOULD use these values to register the web application as
+        a handler with the operating system. When the user activates a protocol
+        handler URL, the user agent SHOULD run <a>handling a protocol
+        launch</a>.
+      </p>
+      <p class="note">
+        [[HTML]]'s {{NavigatorContentUtils/registerProtocolHandler()}} allows
+        web sites to register themselves as possible handlers for particular
+        protocols. What constitutes valid <code>protocol</code> and
+        <code>url</code> values for <a>protocol handler description</a>s is
+        defined in that API. Also note that the [[HTML]] API uses
+        [=url/scheme=] where we use <code>protocol</code> but the same
+        restrictions apply.
+      </p>
+      <section>
+        <h3>
+          `protocol` member
+        </h3>
+        <p>
+          The <dfn>protocol</dfn> member of a <a>protocol handler
+          description</a> is a <a>string</a> that represents the protocol to be
+          handled, such as `mailto` or `web+auth`.
+        </p>
+        <p>
+          The <a>protocol</a> member of a <a>protocol handler description</a>
+          is equivalent to
+          {{NavigatorContentUtils/registerProtocolHandler()}}'s |scheme|
+          argument defined in [[HTML]].
+        </p>
+      </section>
+      <section>
+        <h3>
+          `url` member
+        </h3>
+        <p>
+          The <dfn>url</dfn> member of a <a>protocol handler description</a> is
+          the <a>URL</a> [=manifest/within scope=] of the application that
+          opens when the associated protocol is activated.
+        </p>
+        <p>
+          The <a>url</a> member of a <a>protocol handler description</a> is
+          equivalent to {{NavigatorContentUtils/registerProtocolHandler()}}'s
+          <code>url</code> argument defined in [[HTML]].
+        </p>
+      </section>
+      <section>
+        <h3>
+          <dfn>Handling a protocol launch</dfn>
+        </h3>
+        <p>
+          When a <a>protocol handler description</a>
+          <var>protocol_handler</var> having [=manifest=] <var>manifest</var>
+          is invoked, it goes through the same steps used to [=invoke a
+          protocol handler=] defined in [=HTML=], where the user agent SHOULD
+          navigate to [=url=] and the appropriate browsing context is set to a
+          new top level browsing context.
+        </p>
+      </section>
+    </section>
+    <section>
+      <h2>
         External application resource
       </h2>
       <aside class="issue atrisk" data-number="956"></aside>
@@ -2310,6 +2495,12 @@
         could <a>install</a> the web application into a list of bookmarks
         within the user agent itself.
       </p>
+      <div class="note">
+        <p>
+          When a web application is installed, a user agent MAY [=register a
+          protocol handler=].
+        </p>
+      </div>
       <section>
         <h3>
           Application's name
@@ -2867,6 +3058,14 @@
         [[MEDIAQUERIES-5]], through which a script can know the display mode of
         a web application.
       </p>
+      <p>
+        Privacy concerns for custom scheme handling are detailed in the
+        Security and privacy section of
+        {{NavigatorContentUtils/registerProtocolHandler()}}. Before invoking a
+        protocol handler for the first time, the user agent prompts to request
+        for permission, there is no communication with another application
+        beforehand.
+      </p>
     </section>
     <section class="appendix">
       <h2>
@@ -3299,7 +3498,8 @@
             Click to view schema.
           </summary>
           <pre class="json" data-include=
-          "https://json.schemastore.org/web-manifest"></pre>
+          "https://json.schemastore.org/web-manifest">
+          </pre>
         </details>
       </aside>
     </section>
