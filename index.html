@@ -1074,12 +1074,16 @@
         </p>
         <p>
           If the user agent honors the value of the [=manifest/theme_color=]
-          member as the <a>default theme color</a>, then that color serves as
-          the <a>theme color</a> for all browsing contexts to which the
-          manifest is <a>applied</a>. However, a document may override the
-          <a>default theme color</a> through the inclusion of a valid [[HTML]]
-          [^meta^] element whose [^meta/name^] attribute value is
-          `"theme-color"`.
+          member as the [=default theme color=], then that color serves as the
+          [=theme color=] for all browsing contexts to which the manifest is
+          [=applied=]. However, the user agent MAY override the [=default theme
+          color=] if a document whose URL is [=within scope=] of the
+          [=application context=]'s [=manifest=] includes a [^meta^] element
+          whose [^meta/name^] attribute is "[^meta/name/theme-color^]".
+          However, the user agent SHOULD NOT override the [=default theme
+          color=] via an [^meta^] element whose [^meta/name^] attribute is
+          "theme-color" for documents that are not [=within scope=], since the
+          application has no control over these documents.
         </p>
         <p data-cite="CSS-COLOR-4">
           The user agent MAY ignore the <a>theme color</a>'s [=alpha
@@ -1779,12 +1783,23 @@
             Applying the manifest
           </h3>
           <p>
-            A [=Document/processed manifest=] is <dfn data-export=""
-            data-local-lt="apply|applying">applied</dfn> to a <a>top-level
-            browsing context</a>, meaning that the members of the
-            [=Document/processed manifest=] are affecting the presentation or
-            behavior of a browsing context.
+            A [=Document/processed manifest=] is <dfn data-lt=
+            "apply|applying">applied</dfn> to a [=top-level browsing context=],
+            meaning that the members of the <a>manifest</a> are affecting the
+            presentation and/or behavior of the browsing context. Whenever a
+            [=top-level browsing context=] is created, the user agent MAY
+            [=apply=] a manifest to it before [=navigate|navigation=] begins.
           </p>
+          <aside class="note">
+            Whether to [=apply=] a manifest, and which manifest to apply, is at
+            the discretion of the user agent, based on the user's actions. For
+            example, if the user launched an application from the system menu
+            or from a [=launching a shortcut|shortcut=], the user agent might
+            create a new [=top-level browsing context=] with that application's
+            [=manifest=] [=applied=], but it might not do so if the user simply
+            clicked a bookmark to a URL within the application's [=navigation
+            scope=].
+          </aside>
           <p>
             A <a>top-level browsing context</a> that has a manifest applied to
             it is referred to as an <dfn data-export="">application
@@ -1806,11 +1821,6 @@
               changed it when the application was <a>installed</a>.
             </p>
           </aside>
-          <p>
-            The appropriate time to <a>apply</a> a manifest is when the
-            <a>application context</a> is created and before
-            [=navigate|navigation=] to the <a>start URL</a> begins.
-          </p>
         </section>
         <section id="updating">
           <h3>
@@ -2796,10 +2806,10 @@
       </h2>
       <p>
         The <dfn data-dfn-for="manifest" data-lt="navigation scope"
-        data-export="">navigation scope of a manifest</dfn> is the "scope" item
-        of a [=Document/processed manifest=]. The navigation scope restricts
-        the set of URLs to which an [=application context=] can be
-        [=navigated=] while the manifest is [=applied=].
+        data-export="">navigation scope of a manifest</dfn> is the
+        "<a>scope</a>" member of a [=Document/processed manifest=]. The
+        navigation scope governs the set of URLs to which an [=application
+        context=] can be [=navigated=] while the manifest is [=applied=].
       </p>
       <div class="note">
         <p>
