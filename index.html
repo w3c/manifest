@@ -163,7 +163,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="40cf2c73ce6d8d9a795f345491a0ae5e97cd17cb">
+<meta name="revision" content="ec8a23b832f106517a6e03cadc8b5efee923b0cb">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -276,7 +276,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "40cf2c73ce6d8d9a795f345491a0ae5e97cd17cb",
+  "gitRevision": "ec8a23b832f106517a6e03cadc8b5efee923b0cb",
   "publishISODate": "2024-11-07T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 07 November 2024"
 }</script>
@@ -808,7 +808,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <p>
             The <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-2"><code>scope</code></a> member tells the browser which documents are
             part of a web application, and which are not - and hence, to which
-            set of web pages the manifest is "<a data-link-type="dfn|abstract-op" href="#dfn-applied" class="internalDFN" id="ref-for-dfn-applied-1">applied</a>" when the user
+            set of web pages the manifest is "<a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-1">applied</a>" when the user
             navigates around a web site.
           </p>
           <p>
@@ -823,7 +823,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Navigation scope</a> for the technical details.
           </p>
           <p>
-            <a data-link-type="dfn|abstract-op" href="#dfn-applied" class="internalDFN" id="ref-for-dfn-applied-2">Applying</a> a manifest means that any members that affect
+            <a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-2">Applying</a> a manifest means that any members that affect
             presentation found in the manifest will come into effect, such as
             display "fullscreen", or applying a particular screen orientation.
             As long as the application is navigated to URLs that are
@@ -1866,12 +1866,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </p>
         <p>
           If the user agent honors the value of the <a data-link-type="dfn|abstract-op" href="#dfn-theme_color" class="internalDFN" id="ref-for-dfn-theme_color-2"><code>theme_color</code></a>
-          member as the <a href="#dfn-default-theme-color" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-default-theme-color-1">default theme color</a>, then that color serves as
-          the <a href="#dfn-theme-color" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-theme-color-1">theme color</a> for all browsing contexts to which the
-          manifest is <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-3">applied</a>. However, a document may override the
-          <a href="#dfn-default-theme-color" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-default-theme-color-2">default theme color</a> through the inclusion of a valid [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>]
-          <code><a data-link-type="element" data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-index-term-meta-element-2">meta</a></code> element whose <code><a data-link-type="element-attr" data-type="element-attr" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name" id="ref-for-index-term-name-attribute-for-meta-element-1">name</a></code> attribute value is
-          <code>"theme-color"</code>.
+          member as the <a data-link-type="dfn|abstract-op" href="#dfn-default-theme-color" class="internalDFN" id="ref-for-dfn-default-theme-color-1">default theme color</a>, then that color serves as the
+          <a data-link-type="dfn|abstract-op" href="#dfn-theme-color" class="internalDFN" id="ref-for-dfn-theme-color-1">theme color</a> for all <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" id="ref-for-index-term-browsing-contexts-1">browsing contexts</a> to which the manifest
+          is <a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-3">applied</a>. However, the user agent <em class="rfc2119">MAY</em> override the <a data-link-type="dfn|abstract-op" href="#dfn-default-theme-color" class="internalDFN" id="ref-for-dfn-default-theme-color-2">default theme color</a> if a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-1">document</a> whose <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-1">URL</a> is
+          <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-6">within scope</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-2">application context</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-16">manifest</a>
+          includes a <code><a data-link-type="element" data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-index-term-meta-element-2">meta</a></code> element whose <code><a data-link-type="element-attr" data-type="element-attr" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name" id="ref-for-index-term-name-attribute-for-meta-element-1">name</a></code> attribute is
+          "<code><a data-link-type="attr-value" data-type="attr-value" href="https://html.spec.whatwg.org/multipage/semantics.html#meta-theme-color" id="ref-for-index-term-theme-color-for-meta-name-1">theme-color</a></code>". However, the user agent <em class="rfc2119">SHOULD NOT</em>
+          override the <a data-link-type="dfn|abstract-op" href="#dfn-default-theme-color" class="internalDFN" id="ref-for-dfn-default-theme-color-3">default theme color</a> via a <code><a data-link-type="element" data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="ref-for-index-term-meta-element-3">meta</a></code> element whose
+          <code><a data-link-type="element-attr" data-type="element-attr" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name" id="ref-for-index-term-name-attribute-for-meta-element-2">name</a></code> attribute is "theme-color" for <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-2">documents</a>'
+          <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-2">URL</a> are not <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-7">within scope</a>, since the application
+          has no control over these documents.
         </p>
         <p data-cite="CSS-COLOR-4">
           The user agent <em class="rfc2119">MAY</em> ignore the <a href="#dfn-theme-color" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-theme-color-2">theme color</a>'s <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/css-color-4/#alpha-channel" id="ref-for-index-term-alpha-component-1">alpha component</a> based on the context. For example, in most environments,
@@ -1934,7 +1938,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </h3><a class="self-link" href="#background_color-member" aria-label="Permalink for Section 1.13"></a></div>
         
         <p>
-          The <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-16">manifest's</a> <code><dfn data-export="" data-dfn-for="manifest" id="dfn-background_color" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn"><code>background_color</code></dfn></code> member describes the
+          The <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-17">manifest's</a> <code><dfn data-export="" data-dfn-for="manifest" id="dfn-background_color" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn"><code>background_color</code></dfn></code> member describes the
           expected background color of the web application. It repeats what is
           already available in the application stylesheet but can be used by
           the <a data-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agent-1">user agent</a> to draw the background color of a web
@@ -2005,7 +2009,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </h3><a class="self-link" href="#shortcuts-member" aria-label="Permalink for Section 1.14"></a></div>
         
         <p>
-          The <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-17">manifest's</a> <code><dfn data-export="" data-dfn-for="manifest" id="dfn-shortcuts" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">shortcuts</dfn></code> member is an <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-2">list</a> of
+          The <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-18">manifest's</a> <code><dfn data-export="" data-dfn-for="manifest" data-plurals="shortcut" id="dfn-shortcuts" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">shortcuts</dfn></code> member is an <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-2">list</a> of
           <a href="#dfn-shortcut-item" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-shortcut-item-1">shortcut item</a>s that provide access to key tasks within a web
           application.
         </p>
@@ -2067,8 +2071,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </h3><a class="self-link" href="#x_localized-members" aria-label="Permalink for Section 1.15"></a></div>
         
         <p>
-          A <dfn data-plurals="localizable members" id="dfn-localizable-member" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">localizable member</dfn> is a <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-18">manifest</a> member that can be
-          localized. Each <a data-link-type="dfn|abstract-op" href="#dfn-localizable-member" class="internalDFN" id="ref-for-dfn-localizable-member-7">localizable member</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-19">manifest</a> has a
+          A <dfn data-plurals="localizable members" id="dfn-localizable-member" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">localizable member</dfn> is a <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-19">manifest</a> member that can be
+          localized. Each <a data-link-type="dfn|abstract-op" href="#dfn-localizable-member" class="internalDFN" id="ref-for-dfn-localizable-member-7">localizable member</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-20">manifest</a> has a
           corresponding <code><dfn data-export="" data-dfn-for="manifest" id="dfn-_localized" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">*_localized</dfn></code> member, where <code>*</code> represents the
           member name.
         </p>
@@ -2148,7 +2152,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </p>
           <p>
             When a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-19">string</a> is used, or when the <a data-link-type="dfn|abstract-op" href="#dfn-dir-0" class="internalDFN" id="ref-for-dfn-dir-0-1"><code>dir</code></a>
-            member of the <a data-link-type="dfn|abstract-op" href="#dfn-localized-text-object" class="internalDFN" id="ref-for-dfn-localized-text-object-2">localized text object</a> is missing, the <a data-link-type="dfn|abstract-op" href="#dfn-default-direction" class="internalDFN" id="ref-for-dfn-default-direction-1">default direction</a> (<a data-link-type="dfn|abstract-op" href="#dfn-dir" class="internalDFN" id="ref-for-dfn-dir-3"><code>dir</code></a> member of the <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-20">manifest</a>) is
+            member of the <a data-link-type="dfn|abstract-op" href="#dfn-localized-text-object" class="internalDFN" id="ref-for-dfn-localized-text-object-2">localized text object</a> is missing, the <a data-link-type="dfn|abstract-op" href="#dfn-default-direction" class="internalDFN" id="ref-for-dfn-default-direction-1">default direction</a> (<a data-link-type="dfn|abstract-op" href="#dfn-dir" class="internalDFN" id="ref-for-dfn-dir-3"><code>dir</code></a> member of the <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-21">manifest</a>) is
             applied.
           </p>
           <div class="note" role="note" id="issue-container-generatedID-17"><div role="heading" class="note-title marker" id="h-note-16" aria-level="5"><span>Note</span></div><aside class="">
@@ -2335,7 +2339,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         <p>
           This section defines algorithms for <a data-link-type="dfn|abstract-op" href="#dfn-processing-a-manifest" class="internalDFN" id="ref-for-dfn-processing-a-manifest-6">processing a manifest</a>, and
-          <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-4">applying</a> a <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-21">manifest</a>.
+          <a href="#dfn-apply" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-apply-4">applying</a> a <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-22">manifest</a>.
         </p>
         <p>
           A user agent <em class="rfc2119">MUST</em> support the link type "manifest" and the associated
@@ -2400,8 +2404,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             </li>
             <li><a data-link-type="dfn|abstract-op" href="#dfn-process-the-id-member" class="internalDFN" id="ref-for-dfn-process-the-id-member-3">Process the <code>id</code> member</a> passing <var data-type="ordered map">json</var> and <var data-type="ordered map">manifest</var>.
             </li>
-            <li>If the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-1">document</a>'s <a data-link-type="dfn|abstract-op" data-lt="document" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-2">processed manifest</a> is not
-            null, and <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-3">document</a>'s <a data-link-type="dfn|abstract-op" data-lt="document" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-4">processed manifest</a>'s id is
+            <li>If the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-3">document</a>'s <a data-link-type="dfn|abstract-op" data-lt="document" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-4">processed manifest</a> is not
+            null, and <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-5">document</a>'s <a data-link-type="dfn|abstract-op" data-lt="document" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-6">processed manifest</a>'s id is
             not <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://url.spec.whatwg.org/#concept-url-equals" id="ref-for-index-term-equal-for-url-2">equal</a> to <var data-type="ordered map">manifest</var>["id"], return.
             </li>
             <li><a data-link-type="dfn|abstract-op" href="#dfn-process-the-scope-member" class="internalDFN" id="ref-for-dfn-process-the-scope-member-1">Process the <code>scope</code> member</a> passing <var data-type="ordered map">json</var>, <var data-type="ordered map">manifest</var>, and
@@ -2431,7 +2435,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             any proprietary and/or other supported members at this point in the
             algorithm.
             </li>
-            <li>Let <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-5">document</a>'s <dfn data-export="" data-dfn-for="Document" id="dfn-processed-manifest" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">
+            <li>Let <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-7">document</a>'s <dfn data-export="" data-dfn-for="Document" id="dfn-processed-manifest" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">
               processed manifest</dfn> be <var data-type="ordered map">manifest</var>.
             </li>
           </ol>
@@ -2503,7 +2507,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             The <a data-link-type="dfn|abstract-op" href="#dfn-processing-a-manifest" class="internalDFN" id="ref-for-dfn-processing-a-manifest-7">processing a manifest</a> steps are invoked by [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>]'s
             processing steps for the <code><a data-link-type="element" data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-link-element" id="ref-for-index-term-link-element-2">link</a></code> element, but <em class="rfc2119">MAY</em> also be invoked
             by the user agent to process a manifest without an associated
-            <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-6">document</a>.
+            <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-8">document</a>.
           </p>
           <p>
             In this case, to match the guarantees made by the corresponding
@@ -2511,10 +2515,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             some point in the past:
           </p>
           <ul>
-            <li>there was at least one <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-7">document</a> that is <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" id="ref-for-index-term-same-origin-3">same origin</a> as
+            <li>there was at least one <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document" id="ref-for-index-term-document-9">document</a> that is <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" id="ref-for-index-term-same-origin-3">same origin</a> as
             <var data-type="URL">document URL</var> that has a <code><a data-link-type="element" data-type="element" href="https://html.spec.whatwg.org/multipage/semantics.html#the-link-element" id="ref-for-index-term-link-element-3">link</a></code> element
             <var data-type="HTMLLinkElement">linkElement</var> with a <code><a data-link-type="element-attr" data-type="element-attr" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-link-rel" id="ref-for-index-term-rel-attribute-for-link-element-1">rel</a></code> of
-            <code><a data-link-type="attr-value" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-22">manifest</a></code> and a <code><a data-link-type="element-attr" data-type="element-attr" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-link-href" id="ref-for-index-term-href-attribute-for-link-element-1">href</a></code> that resolves to
+            <code><a data-link-type="attr-value" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-23">manifest</a></code> and a <code><a data-link-type="element-attr" data-type="element-attr" href="https://html.spec.whatwg.org/multipage/semantics.html#attr-link-href" id="ref-for-index-term-href-attribute-for-link-element-1">href</a></code> that resolves to
             <var data-type="URL">manifest URL</var>, and that
             </li>
             <li>if <var data-type="URL">manifest URL</var> is not <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" id="ref-for-index-term-same-origin-4">same origin</a> as <var data-type="URL">document URL</var>, the
@@ -2551,44 +2555,50 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </h4><a class="self-link" href="#applying" aria-label="Permalink for Section 1.16.5"></a></div>
           
           <p>
-            A <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-1">processed manifest</a> is <dfn data-export="" data-local-lt="apply|applying" data-lt="applied|apply|applying" data-plurals="applies" id="dfn-applied" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">applied</dfn> to a <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-6">top-level
-            browsing context</a>, meaning that the members of the
-            <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-2">processed manifest</a> are affecting the presentation or
-            behavior of a browsing context.
+            A <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-1">processed manifest</a> is <dfn data-lt="apply|applying|applied" data-plurals="applies" id="dfn-apply" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">applied</dfn> to a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-6">top-level browsing context</a>,
+            meaning that the members of the <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-24">manifest</a> are affecting the
+            presentation and/or behavior of the browsing context. Whenever a
+            <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-7">top-level browsing context</a> is created, the user agent <em class="rfc2119">MAY</em>
+            <a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-5">apply</a> a manifest to it before <a data-link-type="dfn|abstract-op" data-lt="navigate" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-2">navigation</a> begins.
           </p>
+          <div class="note" role="note" id="issue-container-generatedID-23"><div role="heading" class="note-title marker" id="h-note-22" aria-level="5"><span>Note</span></div><aside class="">
+            Whether to <a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-6">apply</a> a manifest, and which manifest to apply, is at
+            the discretion of the user agent, based on the user's actions. For
+            example, if the user launched an application from the system menu
+            or from a <a data-link-type="dfn|abstract-op" data-lt="launching a shortcut" href="#dfn-launching-a-shortcut" class="internalDFN" id="ref-for-dfn-launching-a-shortcut-1">shortcut</a>, the user agent might
+            create a new <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-8">top-level browsing context</a> with that application's
+            <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-25">manifest</a> <a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-7">applied</a>, but it might not do so if the user simply
+            clicked a bookmark to a URL within the application's
+            <a data-link-type="dfn|abstract-op" href="#dfn-navigation-scope" class="internalDFN" id="ref-for-dfn-navigation-scope-2">navigation scope</a>.
+          </aside></div>
           <p>
-            A <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-7">top-level browsing context</a> that has a manifest applied to
+            A <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-9">top-level browsing context</a> that has a manifest applied to
             it is referred to as an <dfn data-export="" data-plurals="application contexts" id="dfn-application-context" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">application
             context</dfn>.
           </p>
           <p>
-            If an <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-2">application context</a> is created as a result of the user
-            agent being asked to <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-2">navigate</a> to a <a href="#dfn-deep-link" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-deep-link-1">deep link</a>, the
-            user agent <em class="rfc2119">MUST</em> immediately <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-3">navigate</a> to the <a href="#dfn-deep-link" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-deep-link-2">deep link</a>
+            If an <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-3">application context</a> is created as a result of the user
+            agent being asked to <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-3">navigate</a> to a <a href="#dfn-deep-link" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-deep-link-1">deep link</a>, the
+            user agent <em class="rfc2119">MUST</em> immediately <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-4">navigate</a> to the <a href="#dfn-deep-link" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-deep-link-2">deep link</a>
             with <var>historyHandling</var> set to "<code>replace</code>". Otherwise, when
-            the <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-3">application context</a> is created, the user agent <em class="rfc2119">MUST</em>
-            immediately <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-4">navigate</a> to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-5">start URL</a> with
+            the <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-4">application context</a> is created, the user agent <em class="rfc2119">MUST</em>
+            immediately <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-5">navigate</a> to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-5">start URL</a> with
             <var>historyHandling</var> set to "<code>replace</code>".
           </p>
-          <div class="note" role="note" id="issue-container-generatedID-23"><div role="heading" class="note-title marker" id="h-note-22" aria-level="5"><span>Note</span></div><aside class="">
+          <div class="note" role="note" id="issue-container-generatedID-24"><div role="heading" class="note-title marker" id="h-note-23" aria-level="5"><span>Note</span></div><aside class="">
             <p>
               The <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-6">start URL</a> is not necessarily the value of the
               <a data-link-type="dfn|abstract-op" href="#dfn-start_url" class="internalDFN" id="ref-for-dfn-start_url-9"><code>start_url</code></a> member: the user or user agent could have
               changed it when the application was <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-1">installed</a>.
             </p>
           </aside></div>
-          <p>
-            The appropriate time to <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-5">apply</a> a manifest is when the
-            <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-4">application context</a> is created and before
-            <a data-link-type="dfn|abstract-op" data-lt="navigate" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-5">navigation</a> to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-7">start URL</a> begins.
-          </p>
         </section>
         <section id="updating"><div class="header-wrapper"><h4 id="x1-16-6-updating-the-manifest"><bdi class="secno">1.16.6 </bdi>
             Updating the manifest
           </h4><a class="self-link" href="#updating" aria-label="Permalink for Section 1.16.6"></a></div>
           
           <p>
-            As specified for <code><a data-link-type="attr-value" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-23">manifest</a></code> link relation, the manifest
+            As specified for <code><a data-link-type="attr-value" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-26">manifest</a></code> link relation, the manifest
             is fetched and processed on every page load. When the <a data-link-type="dfn|abstract-op" href="#dfn-processing-a-manifest" class="internalDFN" id="ref-for-dfn-processing-a-manifest-8">processing a manifest</a> is successful, user agents <em class="rfc2119">MAY</em> apply updated manifest
             to any current and future <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-5">application contexts</a> associated
             with the application.
@@ -2634,7 +2644,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             <a data-link-type="dfn|abstract-op" href="#dfn-_localized" class="internalDFN" id="ref-for-dfn-_localized-5"><code><code>*_localized</code></code></a> members. These changes <em class="rfc2119">SHOULD</em> be
             presented to users the next time they open the web application.
           </p>
-          <div class="note" role="note" id="issue-container-generatedID-24"><div role="heading" class="note-title marker" id="h-note-23" aria-level="5"><span>Note</span><span class="issue-label">: A user agent will not apply a partial update</span></div><aside class="">
+          <div class="note" role="note" id="issue-container-generatedID-25"><div role="heading" class="note-title marker" id="h-note-24" aria-level="5"><span>Note</span><span class="issue-label">: A user agent will not apply a partial update</span></div><aside class="">
             <p>
               When the update contains changes both to <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-members" class="internalDFN" id="ref-for-dfn-security-sensitive-members-6">security-sensitive members</a> and other members, a user agent won't automatically
               partially update. For example, the user agent could present
@@ -2688,7 +2698,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           User agents <em class="rfc2119">SHOULD NOT</em> use an icon other than for its stated <a href="#dfn-icon-purposes" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-icon-purposes-2">icon
           purpose</a>.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-25"><div role="heading" class="note-title marker" id="h-note-24" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-26"><div role="heading" class="note-title marker" id="h-note-25" aria-level="4"><span>Note</span></div><p class="">
           For example, an icon with purpose "<a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-1">monochrome</a>" could
           be used as a badge or pinned icon with a solid fill, visually
           distinct from an application's full color launch icon. The user agent
@@ -2729,7 +2739,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <p>
           The <dfn id="dfn-icon-purposes-list" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">icon purposes list</dfn> is the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-8">list</a> « "<a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-3">monochrome</a>", "<a data-link-type="dfn|abstract-op" href="#dfn-maskable" class="internalDFN" id="ref-for-dfn-maskable-1">maskable</a>", "<a data-link-type="dfn|abstract-op" href="#dfn-any" class="internalDFN" id="ref-for-dfn-any-2">any</a>" ».
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-26"><div role="heading" class="note-title marker" id="h-note-25" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-27"><div role="heading" class="note-title marker" id="h-note-26" aria-level="4"><span>Note</span></div><p class="">
           If an icon contains multiple purposes, it could be used for any of
           those purposes. If none of the stated purposes are recognized, the
           icon is totally ignored. For example, if an icon has purpose
@@ -2832,7 +2842,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           of the icon size, which means the smaller of the icon width and
           height, in case the icon is not square.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-27"><div role="heading" class="note-title marker" id="h-note-26" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-28"><div role="heading" class="note-title marker" id="h-note-27" aria-level="4"><span>Note</span></div><p class="">
           Designers of <a data-link-type="dfn|abstract-op" href="#dfn-maskable" class="internalDFN" id="ref-for-dfn-maskable-4">maskable</a> icons will want to make sure
           that all important parts are within the <a href="#dfn-safe-zone" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-safe-zone-2">safe zone</a>.
         </p></div>
@@ -2866,7 +2876,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           composite the icon onto a solid fill (e.g., white) of the user
           agent's choice.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-28"><div role="heading" class="note-title marker" id="h-note-27" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-29"><div role="heading" class="note-title marker" id="h-note-28" aria-level="4"><span>Note</span></div><p class="">
           It is suggested that designers avoid using transparent pixels in
           maskable icons.
         </p></div>
@@ -2874,7 +2884,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             Examples of masks
           </h4><a class="self-link" href="#examples-of-masks" aria-label="Permalink for Section 2.3.1"></a></div>
           
-          <div class="note" role="note" id="issue-container-generatedID-29"><div role="heading" class="note-title marker" id="h-note-28" aria-level="5"><span>Note</span></div><p class="">
+          <div class="note" role="note" id="issue-container-generatedID-30"><div role="heading" class="note-title marker" id="h-note-29" aria-level="5"><span>Note</span></div><p class="">
             By staying inside the <a href="#dfn-safe-zone" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-safe-zone-4">safe zone</a>, most icons will have around
             10% padding on the top, bottom, right and left with no content or
             non-essential content, such as an icon background. It is suggested
@@ -2945,7 +2955,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <p>
           Some platforms enforce that icons be displayed with a <dfn id="dfn-solid-fill" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;solid fill&quot;, but nothing links to it. This is usually a spec bug!">solid
           fill</dfn> such as a single color, where only the transparency of the
-          icon can be declared in a <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-24">manifest</a>. As web applications need to
+          icon can be declared in a <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-27">manifest</a>. As web applications need to
           work across multiple platforms, it is possible to indicate that an
           icon can have an user-agent-specified color applied by adding the
           <a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-4">monochrome</a> purpose. This allows the platform to
@@ -2961,7 +2971,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           of the user agent's choosing. It is <em class="rfc2119">RECOMMENDED</em> that the user agent
           use the same color value for all pixels.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-30"><div role="heading" class="note-title marker" id="h-note-29" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-31"><div role="heading" class="note-title marker" id="h-note-30" aria-level="4"><span>Note</span></div><p class="">
           Designers of <a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-6">monochrome</a> icons could set all pixels
           to black and only use transparency to create a silhouette of their
           icon.
@@ -3070,7 +3080,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         A user agent can use these members to assemble a context menu to be
         displayed by the operating system when a user engages with the web
         app's icon. When the user invokes a shortcut from the operating system
-        menu, the user agent <em class="rfc2119">SHOULD</em> run <a href="#dfn-launching-a-shortcut" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-launching-a-shortcut-1">launching a shortcut</a>.
+        menu, the user agent <em class="rfc2119">SHOULD</em> run <a href="#dfn-launching-a-shortcut" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-launching-a-shortcut-2">launching a shortcut</a>.
       </p>
       <section id="name-member-0"><div class="header-wrapper"><h3 id="x3-1-name-member"><bdi class="secno">3.1 </bdi>
           <code>name</code> member
@@ -3117,7 +3127,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </h3><a class="self-link" href="#url-member" aria-label="Permalink for Section 3.4"></a></div>
         
         <p>
-          The <a data-link-type="dfn|abstract-op" href="#dfn-shortcut-item" class="internalDFN" id="ref-for-dfn-shortcut-item-5">shortcut item's</a> <code><dfn data-dfn-for="shortcut item" data-plurals="urls" id="dfn-url" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">url</dfn></code> member is a URL <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-2">within scope</a> of a <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-3">processed manifest</a> that opens when the
+          The <a data-link-type="dfn|abstract-op" href="#dfn-shortcut-item" class="internalDFN" id="ref-for-dfn-shortcut-item-5">shortcut item's</a> <code><dfn data-dfn-for="shortcut item" data-plurals="urls" id="dfn-url" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">url</dfn></code> member is a URL <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-2">within scope</a> of a <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-2">processed manifest</a> that opens when the
           associated shortcut is activated.
         </p>
       </section>
@@ -3230,22 +3240,22 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p>
         A common use case of a manifest is for a user agent to
         <dfn data-local-lt="installing|installation" data-lt="installed|install|installing|installation" id="dfn-installed" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">install</dfn> a web application; whereby the user agent
-        provides the end-user with a means of instantiating a new <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-8">top-level
-        browsing context</a> that has the manifest's members <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-6">applied</a> to
+        provides the end-user with a means of instantiating a new <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-10">top-level
+        browsing context</a> that has the manifest's members <a href="#dfn-apply" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-apply-8">applied</a> to
         it. A web application that is installed is known as a <dfn data-export="" data-plurals="installed web applications" id="dfn-installed-web-application" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">installed web application</dfn>. That is, the manifest's members, or
-        their defaults, are in effect on the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-9">top-level browsing context</a>.
+        their defaults, are in effect on the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-11">top-level browsing context</a>.
         This distinguishes an installed web application from a traditional
         bookmark, as opening a web page from a traditional bookmark will not
-        have the manifest's properties <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-7">applied</a> to it.
+        have the manifest's properties <a href="#dfn-apply" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-apply-9">applied</a> to it.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-31"><div role="heading" class="note-title marker" id="h-note-30" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-32"><div role="heading" class="note-title marker" id="h-note-31" aria-level="3"><span>Note</span></div><p class="">
         For example, on user agents that support installation, a web
         application could be presented and launched in a way that, to the
         end-user, is indistinguishable from native applications: such as
         appearing as a labeled icon on the home screen, launcher, or start
         menu. When <a data-link-type="dfn|abstract-op" href="#dfn-launching-a-web-application" class="internalDFN" id="ref-for-dfn-launching-a-web-application-2">launching a web application</a>, the manifest is
-        <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-8">applied</a> by the user agent to the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-10">top-level browsing
-        context</a> prior to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-8">start URL</a> being loaded. This gives the
+        <a href="#dfn-apply" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-apply-10">applied</a> by the user agent to the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-12">top-level browsing
+        context</a> prior to the <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-7">start URL</a> being loaded. This gives the
         user agent an opportunity to apply the relevant values of the manifest,
         possibly changing the <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-4">display mode</a> and screen orientation of the
         web application. Alternatively, and again as an example, the user agent
@@ -3293,16 +3303,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         <p>
           At the discretion of the operating system or user agent, run the
-          steps to <a data-link-type="dfn|abstract-op" href="#dfn-launching-a-web-application" class="internalDFN" id="ref-for-dfn-launching-a-web-application-3">launch a web application</a> with a <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-4">processed manifest</a>.
+          steps to <a data-link-type="dfn|abstract-op" href="#dfn-launching-a-web-application" class="internalDFN" id="ref-for-dfn-launching-a-web-application-3">launch a web application</a> with a <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-3">processed manifest</a>.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-32"><div role="heading" class="note-title marker" id="h-note-31" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-33"><div role="heading" class="note-title marker" id="h-note-32" aria-level="4"><span>Note</span></div><p class="">
           This would typically take place when the user selects an
           <a data-link-type="dfn|abstract-op" href="#dfn-installed" class="internalDFN" id="ref-for-dfn-installed-3">installed</a> web app from an app launching UI surface e.g., a home
           screen, launcher or start menu.
         </p></div>
         <p>
           The steps to <dfn data-lt="launching a web application|launch a web application" data-export="" id="dfn-launching-a-web-application" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">launch a web application</dfn> is given by the following
-          algorithm. The algorithm takes a <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-5">processed manifest</a>
+          algorithm. The algorithm takes a <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-4">processed manifest</a>
           <var data-type="processed manifest">manifest</var>, an optional <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-12">URL</a> <var data-type="URL">target URL</var>,
           an optional <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#post-resource" id="ref-for-index-term-post-resource-1">POST resource</a> <var>POST resource</var> and returns an
           <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-6">application context</a>.
@@ -3316,7 +3326,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           own steps. This replacement will take effect for all invocations of
           <a data-link-type="dfn|abstract-op" href="#dfn-launching-a-web-application" class="internalDFN" id="ref-for-dfn-launching-a-web-application-4">launch a web application</a>.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-33"><div role="heading" class="note-title marker" id="h-note-32" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-34"><div role="heading" class="note-title marker" id="h-note-33" aria-level="4"><span>Note</span></div><p class="">
           This algorithm is replaceable to allow an experimental <a href="https://github.com/WICG/web-app-launch">launch_handler</a> manifest
           field to configure the behavior of all web application launches. The
           replacement algorithm invokes <a data-link-type="dfn|abstract-op" href="#dfn-create-a-new-application-context" class="internalDFN" id="ref-for-dfn-create-a-new-application-context-1">create a new application context</a> by
@@ -3330,18 +3340,18 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <p>
           The steps to <dfn data-export="" id="dfn-create-a-new-application-context" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">create a new application
           context</dfn> is given by the following algorithm. The algorithm
-          takes a <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-6">processed manifest</a> <var data-type="processed
+          takes a <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-5">processed manifest</a> <var data-type="processed
           manifest">manifest</var>, an optional <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-13">URL</a> <var data-type="URL">target URL</var>, an optional <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#post-resource" id="ref-for-index-term-post-resource-2">POST resource</a> <var>POST resource</var> and returns an <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-7">application context</a>.
         </p>
         <ol class="algorithm">
-          <li>If <var data-type="URL">target URL</var> was not given, set <var data-type="URL">target URL</var> to <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-9">start URL</a>.
+          <li>If <var data-type="URL">target URL</var> was not given, set <var data-type="URL">target URL</var> to <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-8">start URL</a>.
           </li>
           <li>Let <var>traversable</var> be the result of running the steps to <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#create-a-fresh-top-level-traversable" id="ref-for-index-term-create-a-fresh-top-level-traversable-1">create a fresh top-level traversable</a> with <var data-type="URL">target URL</var> and <var>POST
           resource</var>.
           </li>
           <li>Let <var>browsing context</var> be the <var>traversable</var>'s <a href="https://html.spec.whatwg.org/multipage/#nav-bc" id="ref-for-index-term-active-browsing-context-1">active browsing context</a>.
           </li>
-          <li><a data-link-type="dfn|abstract-op" href="#dfn-applied" class="internalDFN" id="ref-for-dfn-applied-9">Apply</a> <var data-type="processed
+          <li><a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-11">Apply</a> <var data-type="processed
           manifest">manifest</var> to <var>browsing context</var>.
           </li>
           <li>Return <var>browsing context</var>.
@@ -3355,7 +3365,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <p>
           It is <em class="rfc2119">RECOMMENDED</em> that UI that affords the end user the ability to
           <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-4">install</a> a web application also allows inspecting the icon,
-          name, <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-10">start URL</a>, origin, etc. pertaining to a web application.
+          name, <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-9">start URL</a>, origin, etc. pertaining to a web application.
           This is to give an end-user an opportunity to make a conscious
           decision to approve, and possibly modify, the information pertaining
           to the web application before installing it. This also gives the
@@ -3394,17 +3404,17 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </h2><a class="self-link" href="#nav-scope" aria-label="Permalink for Section 5."></a></div>
       
       <p>
-        The <dfn data-dfn-for="manifest" data-lt="navigation scope|navigation scope of a manifest" data-export="" id="dfn-navigation-scope" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">navigation scope of a manifest</dfn> is the "scope" item
-        of a <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-7">processed manifest</a>. The navigation scope restricts
-        the set of URLs to which an <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-8">application context</a> can be
-        <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-6">navigated</a> while the manifest is <a data-link-type="dfn|abstract-op" href="#dfn-applied" class="internalDFN" id="ref-for-dfn-applied-10">applied</a>.
+        The <dfn data-dfn-for="manifest" data-lt="navigation scope|navigation scope of a manifest" data-export="" id="dfn-navigation-scope" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">navigation scope of a manifest</dfn> is the
+        "<a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-7"><code>scope</code></a>" member of a <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-6">processed manifest</a>. The
+        navigation scope is the URLs to which an <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-8">application context</a> can be
+        <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-6">navigated</a> while the manifest is <a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-12">applied</a>.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-34"><div role="heading" class="note-title marker" id="h-note-33" aria-level="3"><span>Note</span></div><div class="">
+      <div class="note" role="note" id="issue-container-generatedID-35"><div role="heading" class="note-title marker" id="h-note-34" aria-level="3"><span>Note</span></div><div class="">
         <p>
-          If the <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-7"><code>scope</code></a> member is not present in the manifest, it
+          If the <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-8"><code>scope</code></a> member is not present in the manifest, it
           defaults to the parent path of the <a data-link-type="dfn|abstract-op" href="#dfn-start_url" class="internalDFN" id="ref-for-dfn-start_url-10"><code>start_url</code></a> member. For
           example, if <a data-link-type="dfn|abstract-op" href="#dfn-start_url" class="internalDFN" id="ref-for-dfn-start_url-11"><code>start_url</code></a> is <code>/pages/welcome.html</code>, and
-          <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-8"><code>scope</code></a> is missing, the navigation scope will be <code>/pages/</code>
+          <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-9"><code>scope</code></a> is missing, the navigation scope will be <code>/pages/</code>
           on the same origin. If <a data-link-type="dfn|abstract-op" href="#dfn-start_url" class="internalDFN" id="ref-for-dfn-start_url-12"><code>start_url</code></a> is <code>/pages/</code> (the
           trailing slash is important!), the navigation scope will be
           <code>/pages/</code>.
@@ -3412,7 +3422,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <p>
           Developers should take care, if they rely on the default behavior,
           that all of the application's page URLs begin with the parent path of
-          the start URL. To be safe, explicitly specify <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-9"><code>scope</code></a>.
+          the start URL. To be safe, explicitly specify <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-10"><code>scope</code></a>.
         </p>
       </div></div>
       <p>
@@ -3434,10 +3444,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </ol>
       <p>
         A <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-16">URL</a> <var data-type="URL">target</var> is <dfn data-dfn-for="manifest" data-lt="within scope" data-export="" id="dfn-within-scope-0" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">within scope</dfn> of a
-        <var data-type="processed manifest">manifest</var> if the <var data-type="URL">target</var> is <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-6">within scope</a>
-        of <var data-type="processed manifest">manifest</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-navigation-scope" class="internalDFN" id="ref-for-dfn-navigation-scope-2">navigation scope</a> (i.e., <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-7">within scope</a> of <var data-type="processed manifest">manifest</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-10"><code>scope</code></a> member).
+        <var data-type="processed manifest">manifest</var> if the <var data-type="URL">target</var> is <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-8">within scope</a>
+        of <var data-type="processed manifest">manifest</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-navigation-scope" class="internalDFN" id="ref-for-dfn-navigation-scope-3">navigation scope</a> (i.e., <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-9">within scope</a> of <var data-type="processed manifest">manifest</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-11"><code>scope</code></a> member).
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-35"><div role="heading" class="note-title marker" id="h-note-34" aria-level="3"><span>Note</span><span class="issue-label">: Scope is a simple string match</span></div><aside class="">
+      <div class="note" role="note" id="issue-container-generatedID-36"><div role="heading" class="note-title marker" id="h-note-35" aria-level="3"><span>Note</span><span class="issue-label">: Scope is a simple string match</span></div><aside class="">
         <p>
           The URL string matching in this algorithm is prefix-based rather than
           path-structural (e.g. a target URL string <code>/prefix-of/resource.html</code>
@@ -3450,23 +3460,23 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </aside></div>
       <p>
         If the <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-9">application context</a>'s <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="ref-for-index-term-active-document-for-navigable-1">active document</a>'s
-        <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-1">URL</a> is not <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-5">within scope</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-10">application context</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-8">processed manifest</a>, the user agent <em class="rfc2119">SHOULD</em> show
-        a prominent UI element indicating the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-2">URL</a> or at least its
+        <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-3">URL</a> is not <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-5">within scope</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-10">application context</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-7">processed manifest</a>, the user agent <em class="rfc2119">SHOULD</em> show
+        a prominent UI element indicating the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-4">URL</a> or at least its
         <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-0-1">origin</a>, including whether it is served over a secure connection.
-        This UI <em class="rfc2119">SHOULD</em> differ from any UI used when the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-3">URL</a> is
+        This UI <em class="rfc2119">SHOULD</em> differ from any UI used when the <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-5">URL</a> is
         <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-6">within scope</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-11">application context</a>'s
-        <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-9">processed manifest</a>, in order to make it obvious that the
+        <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-8">processed manifest</a>, in order to make it obvious that the
         user is navigating off scope.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-36"><div role="heading" class="note-title marker" id="h-note-35" aria-level="3"><span>Note</span></div><aside class="">
+      <div class="note" role="note" id="issue-container-generatedID-37"><div role="heading" class="note-title marker" id="h-note-36" aria-level="3"><span>Note</span></div><aside class="">
         <p>
           Nothing prevents an <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-12">application context</a> from navigating to a
-          <a data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-17">URL</a> that is outside of the manifest's <a data-link-type="dfn|abstract-op" href="#dfn-navigation-scope" class="internalDFN" id="ref-for-dfn-navigation-scope-3">navigation scope</a>, while still having the <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-25">manifest</a> <a href="#dfn-applied" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-applied-11">applied</a> to it.
+          <a data-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-17">URL</a> that is outside of the manifest's <a data-link-type="dfn|abstract-op" href="#dfn-navigation-scope" class="internalDFN" id="ref-for-dfn-navigation-scope-4">navigation scope</a>, while still having the <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-28">manifest</a> <a href="#dfn-apply" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-apply-13">applied</a> to it.
         </p>
         <p>
           Unlike previous versions of this specification, user agents are no
           longer required or allowed to block off-scope navigations, or open
-          them in a new <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-11">top-level browsing context</a>. This practice broke
+          them in a new <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-13">top-level browsing context</a>. This practice broke
           some sites that navigate to an off-scope URL (e.g., to perform
           third-party authentication). See <a href="https://github.com/w3c/manifest/issues/646">Issue 646</a>.
         </p>
@@ -3500,14 +3510,14 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         <p>
           A <dfn id="dfn-deep-link" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">deep link</dfn> is a URL that is <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-7">within scope</a> of
-          an <a data-link-type="dfn|abstract-op" href="#dfn-installed-web-application" class="internalDFN" id="ref-for-dfn-installed-web-application-3">installed web application</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-10">processed manifest</a>.
+          an <a data-link-type="dfn|abstract-op" href="#dfn-installed-web-application" class="internalDFN" id="ref-for-dfn-installed-web-application-3">installed web application</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-9">processed manifest</a>.
         </p>
         <p>
           An <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-14">application context</a> can be instantiated through a <a href="#dfn-deep-link" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-deep-link-3">deep
           link</a>, in which case, the manifest is applied and the <a href="#dfn-deep-link" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-deep-link-4">deep
           link</a> is loaded within the context of a web application.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-37"><div role="heading" class="note-title marker" id="h-note-36" aria-level="4"><span>Note</span></div><aside class="">
+        <div class="note" role="note" id="issue-container-generatedID-38"><div role="heading" class="note-title marker" id="h-note-37" aria-level="4"><span>Note</span></div><aside class="">
           <p>
             The concept of a <a href="#dfn-deep-link" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-deep-link-5">deep link</a> is useful in that it allows
             hyperlinking from one <a href="#dfn-installed-web-application" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-web-application-4">installed web application</a> to another.
@@ -3582,7 +3592,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           window).
         </dd>
       </dl>
-      <div class="note" role="note" id="issue-container-generatedID-38"><div role="heading" class="note-title marker" id="h-note-37" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-39"><div role="heading" class="note-title marker" id="h-note-38" aria-level="3"><span>Note</span></div><p class="">
         The <a data-link-type="dfn|abstract-op" href="#dfn-fullscreen" class="internalDFN" id="ref-for-dfn-fullscreen-1">fullscreen</a> <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-6">display mode</a> is orthogonal to,
         and works independently of, the <cite><a data-matched-text="[[[FULLSCREEN]]]" href="https://fullscreen.spec.whatwg.org/">Fullscreen API Standard</a></cite>. The <a data-link-type="dfn|abstract-op" href="#dfn-fullscreen" class="internalDFN" id="ref-for-dfn-fullscreen-2">fullscreen</a> <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-7">display mode</a> affects the fullscreen state of
         the browser window, while the [<cite><a class="bibref" data-link-type="biblio" href="#bib-fullscreen" title="Fullscreen API Standard">FULLSCREEN</a></cite>] API operates on an element
@@ -3592,12 +3602,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         returns <code>false</code>.
       </p></div>
       <p>
-        Once a user agent <a data-link-type="dfn|abstract-op" href="#dfn-applied" class="internalDFN" id="ref-for-dfn-applied-12">applies</a> a particular <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-9">display mode</a> to an
+        Once a user agent <a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-14">applies</a> a particular <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-9">display mode</a> to an
         <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-15">application context</a>, it becomes the <dfn id="dfn-default-display-mode" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">default display
-        mode</dfn> for the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-12">top-level browsing context</a> (i.e., it is used
+        mode</dfn> for the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-14">top-level browsing context</a> (i.e., it is used
         as the display mode when the window is <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-7">navigated</a>). The user
         agent <em class="rfc2119">MAY</em> override the <a href="#dfn-default-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-default-display-mode-1">default display mode</a> for security reasons
-        (e.g., the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-13">top-level browsing context</a> is <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-8">navigated</a> to
+        (e.g., the <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-15">top-level browsing context</a> is <a data-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-8">navigated</a> to
         another origin) and/or the user agent <em class="rfc2119">MAY</em> provide the user with a means
         of switching to another <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-10">display mode</a>.
       </p>
@@ -3626,7 +3636,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p>
         The <dfn id="dfn-steps-for-determining-the-web-app-s-chosen-display-mode" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;steps for determining the web app's chosen display mode&quot;, but nothing links to it. This is usually a spec bug!">steps for determining the web app's chosen display mode</dfn>
         is given by the following algorithm. The algorithm takes a
-        <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-11">processed manifest</a> <var data-type="processed manifest">manifest</var> and
+        <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-10">processed manifest</a> <var data-type="processed manifest">manifest</var> and
         returns a <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-15">display mode</a>.
       </p>
       <ol class="algorithm">
@@ -3646,7 +3656,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </ol>
         </li>
       </ol>
-      <div class="note" role="note" id="issue-container-generatedID-39"><div role="heading" class="note-title marker" id="h-note-38" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-40"><div role="heading" class="note-title marker" id="h-note-39" aria-level="3"><span>Note</span></div><p class="">
         The above loop is guaranteed to return a value before the assertion,
         due to the fact that <a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-7">browser</a> is in every mode's
         <a data-link-type="dfn|abstract-op" href="#dfn-fallback-chain" class="internalDFN" id="ref-for-dfn-fallback-chain-3">fallback chain</a>, and the requirement that all user agents support
@@ -3672,7 +3682,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         A user agent <em class="rfc2119">MUST</em> reflect the applied <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-17">display mode</a> of the web
         application in the <a data-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-1"><code>display-mode</code></a> media feature [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5" title="Media Queries Level 5">MEDIAQUERIES-5</a></cite>].
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-40"><div role="heading" class="note-title marker" id="h-note-39" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-41"><div role="heading" class="note-title marker" id="h-note-40" aria-level="3"><span>Note</span></div><p class="">
         A user agent will expose the actual display mode being applied — not
         necessarily the one declared in the manifest — via the
         <a data-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-2"><code>display-mode</code></a> media feature, accessible through CSS or
@@ -3697,7 +3707,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         the security considerations described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-json" title="The JavaScript Object Notation (JSON) Data Interchange Format">JSON</a></cite>] and
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-unicode-security" title="Unicode Security Considerations">UNICODE-SECURITY</a></cite>] apply. In addition, because there is no way to
         prevent developers from including custom/unrestrained data in a
-        <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-26">manifest</a>, implementors need to impose their own
+        <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-29">manifest</a>, implementors need to impose their own
         implementation-specific limits on the values of otherwise unconstrained
         member types, e.g. to prevent denial of service attacks, to guard
         against running out of memory, or to work around platform-specific
@@ -3741,7 +3751,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p>
         It is <em class="rfc2119">RECOMMENDED</em> that UI that affords the end user the ability to
         <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-7">install</a> a web application also allows inspecting the icon, name,
-        <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-11">start URL</a>, origin, etc. pertaining to a web application. This is
+        <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-10">start URL</a>, origin, etc. pertaining to a web application. This is
         to give an end-user an opportunity to make a conscious decision to
         approve, and possibly modify, the information pertaining to the web
         application before installing it. This also gives the end-user an
@@ -3928,7 +3938,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             Description:
           </dt>
           <dd>
-            Links to a <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-27">manifest</a>. A manifest provides developers with a
+            Links to a <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-30">manifest</a>. A manifest provides developers with a
             centralized place to put metadata associated with a web
             application.
           </dd>
@@ -3959,7 +3969,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         There is only one class of product that can claim conformance to this
         specification: a <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agent-4">user agent</a>.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-41"><div role="heading" class="note-title marker" id="h-note-40" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-42"><div role="heading" class="note-title marker" id="h-note-41" aria-level="3"><span>Note</span></div><p class="">
         Although this specification is primarily targeted at web browsers, it
         is feasible that other software could also implement this specification
         in a conforming manner. For instance, search engines, or crawlers,
@@ -4048,7 +4058,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   ...
 }</code></pre>
       </div>
-          <div class="note" role="note" id="issue-container-generatedID-42"><div role="heading" class="note-title marker" id="h-note-41" aria-level="5"><span>Note</span></div><p class="">
+          <div class="note" role="note" id="issue-container-generatedID-43"><div role="heading" class="note-title marker" id="h-note-42" aria-level="5"><span>Note</span></div><p class="">
             In this example, we have deliberately chosen (made-up) names of
             things that could be external sites or services, <em>not</em> names
             of browsers or browser vendors. These are not vendor prefixes
@@ -4196,7 +4206,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </h2><a class="self-link" href="#json-schema" aria-label="Permalink for Appendix F."></a></div><p><em>This section is non-normative.</em></p>
       
       <p>
-        Developers interested in validating <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-28">manifest</a> documents can find
+        Developers interested in validating <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-31">manifest</a> documents can find
         an unofficial <a href="https://json.schemastore.org/web-manifest">JSON
         schema for the manifest format</a> at <a href="https://schemastore.org/json/">schemastore.org</a>. It is licensed
         under <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache
@@ -4205,7 +4215,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         the <a href="https://github.com/SchemaStore/schemastore">SchemaStore
         repository</a> on GitHub.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-43"><div role="heading" class="note-title marker" id="h-note-42" aria-level="3"><span>Note</span><span class="issue-label">: Web Manifest JSON Schema</span></div><aside class="">
+      <div class="note" role="note" id="issue-container-generatedID-44"><div role="heading" class="note-title marker" id="h-note-43" aria-level="3"><span>Note</span><span class="issue-label">: Web Manifest JSON Schema</span></div><aside class="">
         <details>
           <summary>
             Click to view schema.
@@ -4227,7 +4237,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           Localized values in the manifest:
         </dt>
         <dd>
-          Authors can provide <a data-link-type="dfn|abstract-op" href="#dfn-localized-value" class="internalDFN" id="ref-for-dfn-localized-value-8">localized values</a> for the <a data-link-type="dfn|abstract-op" href="#dfn-localizable-member" class="internalDFN" id="ref-for-dfn-localizable-member-17">localizable members</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-29">manifest</a>. The user agent passes all localized
+          Authors can provide <a data-link-type="dfn|abstract-op" href="#dfn-localized-value" class="internalDFN" id="ref-for-dfn-localized-value-8">localized values</a> for the <a data-link-type="dfn|abstract-op" href="#dfn-localizable-member" class="internalDFN" id="ref-for-dfn-localizable-member-17">localizable members</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-32">manifest</a>. The user agent passes all localized
           values to the host operating system. When the user changes the
           <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#dfn-locale" id="ref-for-index-term-locale-1">locale</a> at the <abbr title="Operating system">OS</abbr> level, the <abbr title="Operating system">OS</abbr> can present the updated localized
           values of the <a data-link-type="dfn|abstract-op" href="#dfn-installed-web-application" class="internalDFN" id="ref-for-dfn-installed-web-application-7">installed web application</a>.
@@ -4282,7 +4292,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Public Working Draft:
       </p>
        <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483" filter="removeCommits"><ul>
-      <li><a href="https://github.com/w3c/manifest/commit/75ae2b4">Add members for localization</a> (<a href="https://github.com/w3c/manifest/pull/1101">#1101</a>)</li><li><a href="https://github.com/w3c/manifest/commit/3e1fd57">Trim `dir`, `lang`, `display`, `orientation`, text and color values (…</a></li><li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1a06ac7">Move `prefer_related_applications` and `related_applications` to mani…</a></li>
+      <li><a href="https://github.com/w3c/manifest/commit/75ae2b4">Add members for localization</a> (<a href="https://github.com/w3c/manifest/pull/1101">#1101</a>)</li><li><a href="https://github.com/w3c/manifest/commit/3e1fd57">Trim `dir`, `lang`, `display`, `orientation`, text and color values (…</a></li><li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1a06ac7">Move `prefer_related_applications` and `related_applications` to mani…</a></li><li><a href="https://github.com/w3c/manifest/commit/40cf2c7">Make enums case-insensitive</a> (<a href="https://github.com/w3c/manifest/pull/1149">#1149</a>)</li><li><a href="https://github.com/w3c/manifest/commit/ec8a23b">clarify the definition of "navigation scope", "applied", and off-scop…</a></li>
       </ul></rs-changelog>
     </section>
     <section class="appendix informative" id="acknowledgements"><div class="header-wrapper"><h2 id="k-acknowledgements"><bdi class="secno">K. </bdi>
@@ -4324,7 +4334,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <span class="print-only">§4.1</span></li><li>
       <a class="index-term" href="#dfn-application-manifest-json"><code>application/manifest+json</code></a> 
     <span class="print-only">§A.</span></li><li>
-      <a class="index-term" href="#dfn-applied">applied</a> 
+      <a class="index-term" href="#dfn-apply">applied</a> 
     <span class="print-only">§1.16.5</span></li><li>
       <a class="index-term" href="#dfn-auto">auto</a> 
     <span class="print-only">§1.2</span></li><li>
@@ -4604,6 +4614,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="index-term-active-document-for-navigable" tabindex="0" aria-haspopup="dialog">active document (for <code>navigable</code>)</span>
   </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" id="index-term-browsing-contexts" tabindex="0" aria-haspopup="dialog">browsing contexts</span>
+  </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute-credentials-mode" id="index-term-cors-settings-attribute-credentials-mode" tabindex="0" aria-haspopup="dialog">CORS settings attribute credentials mode</span>
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#create-a-fresh-top-level-traversable" id="index-term-create-a-fresh-top-level-traversable" tabindex="0" aria-haspopup="dialog">create a fresh top-level traversable</span>
@@ -4627,6 +4639,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#attr-link-rel" id="index-term-rel-attribute-for-link-element" tabindex="0" aria-haspopup="dialog"><code>rel</code> attribute (for <code>link</code> element)</span>
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" id="index-term-same-origin" tabindex="0" aria-haspopup="dialog">same origin</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#meta-theme-color" id="index-term-theme-color-for-meta-name" tabindex="0" aria-haspopup="dialog">theme-color (for <code>meta/name</code>)</span>
   </li><li>
     <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="index-term-top-level-browsing-context" tabindex="0" aria-haspopup="dialog">top-level browsing context</span>
   </li><li>
@@ -4883,33 +4897,35 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-manifest-14" title="§ 1.11 id member">§ 1.11 id member</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-15" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> 
+      <a href="#ref-for-dfn-manifest-15" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> <a href="#ref-for-dfn-manifest-16" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-16" title="§ 1.13 background_color member">§ 1.13 background_color member</a> 
+      <a href="#ref-for-dfn-manifest-17" title="§ 1.13 background_color member">§ 1.13 background_color member</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-17" title="§ 1.14 shortcuts member">§ 1.14 shortcuts member</a> 
+      <a href="#ref-for-dfn-manifest-18" title="§ 1.14 shortcuts member">§ 1.14 shortcuts member</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-18" title="§ 1.15 *_localized members">§ 1.15 *_localized members</a> <a href="#ref-for-dfn-manifest-19" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-manifest-19" title="§ 1.15 *_localized members">§ 1.15 *_localized members</a> <a href="#ref-for-dfn-manifest-20" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-20" title="§ 1.15.1 Localizing text values">§ 1.15.1 Localizing text values</a> 
+      <a href="#ref-for-dfn-manifest-21" title="§ 1.15.1 Localizing text values">§ 1.15.1 Localizing text values</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-21" title="§ 1.16 Manifest life-cycle">§ 1.16 Manifest life-cycle</a> 
+      <a href="#ref-for-dfn-manifest-22" title="§ 1.16 Manifest life-cycle">§ 1.16 Manifest life-cycle</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-22" title="§ 1.16.4 Processing the manifest without a document">§ 1.16.4 Processing the manifest without a document</a> 
+      <a href="#ref-for-dfn-manifest-23" title="§ 1.16.4 Processing the manifest without a document">§ 1.16.4 Processing the manifest without a document</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-23" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> 
+      <a href="#ref-for-dfn-manifest-24" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> <a href="#ref-for-dfn-manifest-25" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-24" title="§ 2.4 Monochrome icons and solid fills">§ 2.4 Monochrome icons and solid fills</a> 
+      <a href="#ref-for-dfn-manifest-26" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-25" title="§ 5. Navigation scope">§ 5. Navigation scope</a> 
+      <a href="#ref-for-dfn-manifest-27" title="§ 2.4 Monochrome icons and solid fills">§ 2.4 Monochrome icons and solid fills</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-26" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> 
+      <a href="#ref-for-dfn-manifest-28" title="§ 5. Navigation scope">§ 5. Navigation scope</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-27" title="§ A.2 Link relation type registration">§ A.2 Link relation type registration</a> 
+      <a href="#ref-for-dfn-manifest-29" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-28" title="§ F. JSON Schema">§ F. JSON Schema</a> 
+      <a href="#ref-for-dfn-manifest-30" title="§ A.2 Link relation type registration">§ A.2 Link relation type registration</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-29" title="§ G. Internationalization">§ G. Internationalization</a> 
+      <a href="#ref-for-dfn-manifest-31" title="§ F. JSON Schema">§ F. JSON Schema</a> 
+    </li><li>
+      <a href="#ref-for-dfn-manifest-32" title="§ G. Internationalization">§ G. Internationalization</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-manifest-url" aria-label="Links in this document to definition: manifest URL">
@@ -5121,7 +5137,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-scope-6" title="§ 1.6 scope member">§ 1.6 scope member</a> 
     </li><li>
-      <a href="#ref-for-dfn-scope-7" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-scope-8" title="Reference 2">(2)</a> <a href="#ref-for-dfn-scope-9" title="Reference 3">(3)</a> <a href="#ref-for-dfn-scope-10" title="Reference 4">(4)</a> 
+      <a href="#ref-for-dfn-scope-7" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-scope-8" title="Reference 2">(2)</a> <a href="#ref-for-dfn-scope-9" title="Reference 3">(3)</a> <a href="#ref-for-dfn-scope-10" title="Reference 4">(4)</a> <a href="#ref-for-dfn-scope-11" title="Reference 5">(5)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-the-scope-member" aria-label="Links in this document to definition: process the scope member">
@@ -5265,15 +5281,15 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-start-url-4" title="§ 1.11 id member">§ 1.11 id member</a> 
     </li><li>
-      <a href="#ref-for-dfn-start-url-5" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> <a href="#ref-for-dfn-start-url-6" title="Reference 2">(2)</a> <a href="#ref-for-dfn-start-url-7" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-start-url-5" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> <a href="#ref-for-dfn-start-url-6" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-start-url-8" title="§ 4. Installable web applications">§ 4. Installable web applications</a> 
+      <a href="#ref-for-dfn-start-url-7" title="§ 4. Installable web applications">§ 4. Installable web applications</a> 
     </li><li>
-      <a href="#ref-for-dfn-start-url-9" title="§ 4.2 Launching a web application">§ 4.2 Launching a web application</a> 
+      <a href="#ref-for-dfn-start-url-8" title="§ 4.2 Launching a web application">§ 4.2 Launching a web application</a> 
     </li><li>
-      <a href="#ref-for-dfn-start-url-10" title="§ 4.3 Privacy and security considerations">§ 4.3 Privacy and security considerations</a> 
+      <a href="#ref-for-dfn-start-url-9" title="§ 4.3 Privacy and security considerations">§ 4.3 Privacy and security considerations</a> 
     </li><li>
-      <a href="#ref-for-dfn-start-url-11" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> 
+      <a href="#ref-for-dfn-start-url-10" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-the-start_url-member" aria-label="Links in this document to definition: process the start_url member">
@@ -5351,7 +5367,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-default-theme-color-1" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> <a href="#ref-for-dfn-default-theme-color-2" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-default-theme-color-1" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> <a href="#ref-for-dfn-default-theme-color-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-default-theme-color-3" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-theme-color" aria-label="Links in this document to definition: theme color">
@@ -5661,17 +5677,17 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-processed-manifest-1" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> <a href="#ref-for-dfn-processed-manifest-2" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-processed-manifest-1" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> 
     </li><li>
-      <a href="#ref-for-dfn-processed-manifest-3" title="§ 3.4 url member">§ 3.4 url member</a> 
+      <a href="#ref-for-dfn-processed-manifest-2" title="§ 3.4 url member">§ 3.4 url member</a> 
     </li><li>
-      <a href="#ref-for-dfn-processed-manifest-4" title="§ 4.2 Launching a web application">§ 4.2 Launching a web application</a> <a href="#ref-for-dfn-processed-manifest-5" title="Reference 2">(2)</a> <a href="#ref-for-dfn-processed-manifest-6" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-processed-manifest-3" title="§ 4.2 Launching a web application">§ 4.2 Launching a web application</a> <a href="#ref-for-dfn-processed-manifest-4" title="Reference 2">(2)</a> <a href="#ref-for-dfn-processed-manifest-5" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-processed-manifest-7" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-processed-manifest-8" title="Reference 2">(2)</a> <a href="#ref-for-dfn-processed-manifest-9" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-processed-manifest-6" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-processed-manifest-7" title="Reference 2">(2)</a> <a href="#ref-for-dfn-processed-manifest-8" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-processed-manifest-10" title="§ 5.2 Deep links">§ 5.2 Deep links</a> 
+      <a href="#ref-for-dfn-processed-manifest-9" title="§ 5.2 Deep links">§ 5.2 Deep links</a> 
     </li><li>
-      <a href="#ref-for-dfn-processed-manifest-11" title="§ 6. Display modes">§ 6. Display modes</a> 
+      <a href="#ref-for-dfn-processed-manifest-10" title="§ 6. Display modes">§ 6. Display modes</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-a-color-member" aria-label="Links in this document to definition: process a color member">
@@ -5706,30 +5722,30 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-dfn-process-a-text-member-3" title="§ 1.16.1 Processing the manifest">§ 1.16.1 Processing the manifest</a> <a href="#ref-for-dfn-process-a-text-member-4" title="Reference 2">(2)</a> 
     </li>
   </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-applied" aria-label="Links in this document to definition: applied">
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-apply" aria-label="Links in this document to definition: applied">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="#dfn-applied" aria-label="Permalink for definition: applied. Activate to close this dialog.">Permalink</a>
-        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
+        <a class="self-link" href="#dfn-apply" aria-label="Permalink for definition: applied. Activate to close this dialog.">Permalink</a>
+         
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-applied-1" title="§ 1.1.5 Understanding &quot;scope&quot;">§ 1.1.5 Understanding "scope"</a> <a href="#ref-for-dfn-applied-2" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-apply-1" title="§ 1.1.5 Understanding &quot;scope&quot;">§ 1.1.5 Understanding "scope"</a> <a href="#ref-for-dfn-apply-2" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-applied-3" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> 
+      <a href="#ref-for-dfn-apply-3" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> 
     </li><li>
-      <a href="#ref-for-dfn-applied-4" title="§ 1.16 Manifest life-cycle">§ 1.16 Manifest life-cycle</a> 
+      <a href="#ref-for-dfn-apply-4" title="§ 1.16 Manifest life-cycle">§ 1.16 Manifest life-cycle</a> 
     </li><li>
-      <a href="#ref-for-dfn-applied-5" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> 
+      <a href="#ref-for-dfn-apply-5" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> <a href="#ref-for-dfn-apply-6" title="Reference 2">(2)</a> <a href="#ref-for-dfn-apply-7" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-applied-6" title="§ 4. Installable web applications">§ 4. Installable web applications</a> <a href="#ref-for-dfn-applied-7" title="Reference 2">(2)</a> <a href="#ref-for-dfn-applied-8" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-apply-8" title="§ 4. Installable web applications">§ 4. Installable web applications</a> <a href="#ref-for-dfn-apply-9" title="Reference 2">(2)</a> <a href="#ref-for-dfn-apply-10" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-applied-9" title="§ 4.2 Launching a web application">§ 4.2 Launching a web application</a> 
+      <a href="#ref-for-dfn-apply-11" title="§ 4.2 Launching a web application">§ 4.2 Launching a web application</a> 
     </li><li>
-      <a href="#ref-for-dfn-applied-10" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-applied-11" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-apply-12" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-apply-13" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-applied-12" title="§ 6. Display modes">§ 6. Display modes</a> 
+      <a href="#ref-for-dfn-apply-14" title="§ 6. Display modes">§ 6. Display modes</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-application-context" aria-label="Links in this document to definition: application context">
@@ -5743,7 +5759,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <li>
       <a href="#ref-for-dfn-application-context-1" title="§ 1.6 scope member">§ 1.6 scope member</a> 
     </li><li>
-      <a href="#ref-for-dfn-application-context-2" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> <a href="#ref-for-dfn-application-context-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-application-context-4" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-application-context-2" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> 
+    </li><li>
+      <a href="#ref-for-dfn-application-context-3" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> <a href="#ref-for-dfn-application-context-4" title="Reference 2">(2)</a> 
     </li><li>
       <a href="#ref-for-dfn-application-context-5" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> 
     </li><li>
@@ -6031,7 +6049,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-launching-a-shortcut-1" title="§ 3. Shortcut items">§ 3. Shortcut items</a> 
+      <a href="#ref-for-dfn-launching-a-shortcut-1" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> 
+    </li><li>
+      <a href="#ref-for-dfn-launching-a-shortcut-2" title="§ 3. Shortcut items">§ 3. Shortcut items</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-a-shortcut" aria-label="Links in this document to definition: process a shortcut">
@@ -6139,7 +6159,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <li>
       <a href="#ref-for-dfn-navigation-scope-1" title="§ 1.6 scope member">§ 1.6 scope member</a> 
     </li><li>
-      <a href="#ref-for-dfn-navigation-scope-2" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-navigation-scope-3" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-navigation-scope-2" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> 
+    </li><li>
+      <a href="#ref-for-dfn-navigation-scope-3" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-navigation-scope-4" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-within-scope" aria-label="Links in this document to definition: within scope">
@@ -6157,7 +6179,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-within-scope-5" title="§ 1.11 id member">§ 1.11 id member</a> 
     </li><li>
-      <a href="#ref-for-dfn-within-scope-6" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-within-scope-7" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-within-scope-6" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> <a href="#ref-for-dfn-within-scope-7" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-within-scope-8" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-within-scope-9" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-within-scope-0" aria-label="Links in this document to definition: within scope">
@@ -6395,9 +6419,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-document-1" title="§ 1.16.1 Processing the manifest">§ 1.16.1 Processing the manifest</a> <a href="#ref-for-index-term-document-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-document-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-document-4" title="Reference 4">(4)</a> <a href="#ref-for-index-term-document-5" title="Reference 5">(5)</a> 
+      <a href="#ref-for-index-term-document-1" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> <a href="#ref-for-index-term-document-2" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-index-term-document-6" title="§ 1.16.4 Processing the manifest without a document">§ 1.16.4 Processing the manifest without a document</a> <a href="#ref-for-index-term-document-7" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-document-3" title="§ 1.16.1 Processing the manifest">§ 1.16.1 Processing the manifest</a> <a href="#ref-for-index-term-document-4" title="Reference 2">(2)</a> <a href="#ref-for-index-term-document-5" title="Reference 3">(3)</a> <a href="#ref-for-index-term-document-6" title="Reference 4">(4)</a> <a href="#ref-for-index-term-document-7" title="Reference 5">(5)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-document-8" title="§ 1.16.4 Processing the manifest without a document">§ 1.16.4 Processing the manifest without a document</a> <a href="#ref-for-index-term-document-9" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-document-interface" aria-label="Links in this document to definition: Document interface">
@@ -6423,7 +6449,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-url-for-document-1" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-index-term-url-for-document-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-url-for-document-3" title="Reference 3">(3)</a> 
+      <a href="#ref-for-index-term-url-for-document-1" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> <a href="#ref-for-index-term-url-for-document-2" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-url-for-document-3" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-index-term-url-for-document-4" title="Reference 2">(2)</a> <a href="#ref-for-index-term-url-for-document-5" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-canonicalizeunicodelocaleid" aria-label="Links in this document to definition: CanonicalizeUnicodeLocaleId">
@@ -6540,6 +6568,18 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-index-term-active-document-for-navigable-1" title="§ 5. Navigation scope">§ 5. Navigation scope</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-browsing-contexts" aria-label="Links in this document to definition: browsing contexts">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" aria-label="Permalink for definition: browsing contexts. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-browsing-contexts-1" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-cors-settings-attribute-credentials-mode" aria-label="Links in this document to definition: CORS settings attribute credentials mode">
       <span class="caret"></span>
       <div>
@@ -6613,7 +6653,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <li>
       <a href="#ref-for-index-term-meta-element-1" title="§ 1.1.2 Using a link element to link to a manifest">§ 1.1.2 Using a link element to link to a manifest</a> 
     </li><li>
-      <a href="#ref-for-index-term-meta-element-2" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> 
+      <a href="#ref-for-index-term-meta-element-2" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> <a href="#ref-for-index-term-meta-element-3" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-name-attribute-for-meta-element" aria-label="Links in this document to definition: name attribute (for meta element)">
@@ -6625,7 +6665,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-name-attribute-for-meta-element-1" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> 
+      <a href="#ref-for-index-term-name-attribute-for-meta-element-1" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> <a href="#ref-for-index-term-name-attribute-for-meta-element-2" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-navigated" aria-label="Links in this document to definition: navigated">
@@ -6702,6 +6742,18 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-index-term-same-origin-5" title="§ 5. Navigation scope">§ 5. Navigation scope</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-theme-color-for-meta-name" aria-label="Links in this document to definition: theme-color (for meta/name)">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://html.spec.whatwg.org/multipage/semantics.html#meta-theme-color" aria-label="Permalink for definition: theme-color (for meta/name). Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-theme-color-for-meta-name-1" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-top-level-browsing-context" aria-label="Links in this document to definition: top-level browsing context">
       <span class="caret"></span>
       <div>
@@ -6715,13 +6767,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-index-term-top-level-browsing-context-3" title="§ 1.9 orientation member">§ 1.9 orientation member</a> <a href="#ref-for-index-term-top-level-browsing-context-4" title="Reference 2">(2)</a> <a href="#ref-for-index-term-top-level-browsing-context-5" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-top-level-browsing-context-6" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> <a href="#ref-for-index-term-top-level-browsing-context-7" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-top-level-browsing-context-6" title="§ 1.16.5 Applying the manifest">§ 1.16.5 Applying the manifest</a> <a href="#ref-for-index-term-top-level-browsing-context-7" title="Reference 2">(2)</a> <a href="#ref-for-index-term-top-level-browsing-context-8" title="Reference 3">(3)</a> <a href="#ref-for-index-term-top-level-browsing-context-9" title="Reference 4">(4)</a> 
     </li><li>
-      <a href="#ref-for-index-term-top-level-browsing-context-8" title="§ 4. Installable web applications">§ 4. Installable web applications</a> <a href="#ref-for-index-term-top-level-browsing-context-9" title="Reference 2">(2)</a> <a href="#ref-for-index-term-top-level-browsing-context-10" title="Reference 3">(3)</a> 
+      <a href="#ref-for-index-term-top-level-browsing-context-10" title="§ 4. Installable web applications">§ 4. Installable web applications</a> <a href="#ref-for-index-term-top-level-browsing-context-11" title="Reference 2">(2)</a> <a href="#ref-for-index-term-top-level-browsing-context-12" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-index-term-top-level-browsing-context-11" title="§ 5. Navigation scope">§ 5. Navigation scope</a> 
+      <a href="#ref-for-index-term-top-level-browsing-context-13" title="§ 5. Navigation scope">§ 5. Navigation scope</a> 
     </li><li>
-      <a href="#ref-for-index-term-top-level-browsing-context-12" title="§ 6. Display modes">§ 6. Display modes</a> <a href="#ref-for-index-term-top-level-browsing-context-13" title="Reference 2">(2)</a> 
+      <a href="#ref-for-index-term-top-level-browsing-context-14" title="§ 6. Display modes">§ 6. Display modes</a> <a href="#ref-for-index-term-top-level-browsing-context-15" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-unordered-set-of-unique-space-separated-tokens" aria-label="Links in this document to definition: unordered set of unique space-separated tokens">
