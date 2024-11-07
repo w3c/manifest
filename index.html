@@ -1077,15 +1077,16 @@
         <p>
           If the user agent honors the value of the [=manifest/theme_color=]
           member as the [=default theme color=], then that color serves as the
-          [=theme color=] for all [=browsing contexts=] to which the manifest is
-          [=applied=]. However, the user agent MAY override the [=default theme
-          color=] if a [=document=] whose [=Document/URL=] is [=URL/within scope=] of the
-          [=application context=]'s [=manifest=] includes a [^meta^] element
-          whose [^meta/name^] attribute is "[^meta/name/theme-color^]".
-          However, the user agent SHOULD NOT override the [=default theme
-          color=] via a [^meta^] element whose [^meta/name^] attribute is
-          "theme-color" for [=documents=]' [=Document/URL=] are not [=URL/within scope=], since the
-          application has no control over these documents.
+          [=theme color=] for all [=browsing contexts=] to which the manifest
+          is [=applied=]. However, the user agent MAY override the [=default
+          theme color=] if a [=document=] whose [=Document/URL=] is
+          [=URL/within scope=] of the [=application context=]'s [=manifest=]
+          includes a [^meta^] element whose [^meta/name^] attribute is
+          "[^meta/name/theme-color^]". However, the user agent SHOULD NOT
+          override the [=default theme color=] via a [^meta^] element whose
+          [^meta/name^] attribute is "theme-color" for [=documents=]'
+          [=Document/URL=] are not [=URL/within scope=], since the application
+          has no control over these documents.
         </p>
         <p data-cite="CSS-COLOR-4">
           The user agent MAY ignore the <a>theme color</a>'s [=alpha
@@ -1721,8 +1722,8 @@
             or from a [=launching a shortcut|shortcut=], the user agent might
             create a new [=top-level browsing context=] with that application's
             [=manifest=] [=applied=], but it might not do so if the user simply
-            clicked a bookmark to a URL within the application's [=navigation
-            scope=].
+            clicked a bookmark to a URL within the application's
+            [=manifest/navigation scope=].
           </aside>
           <p>
             A <a>top-level browsing context</a> that has a manifest applied to
@@ -2587,8 +2588,8 @@
         The <dfn data-dfn-for="manifest" data-lt="navigation scope"
         data-export="">navigation scope of a manifest</dfn> is the
         "[=manifest/scope=]" member of a [=Document/processed manifest=]. The
-        navigation scope is the URLs to which an [=application
-        context=] can be [=navigated=] while the manifest is [=applied=].
+        navigation scope is the URLs to which an [=application context=] can be
+        [=navigated=] while the manifest is [=applied=].
       </p>
       <div class="note">
         <p>
