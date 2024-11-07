@@ -200,10 +200,6 @@
         </li>
         <li>[=manifest/orientation=]
         </li>
-        <li>[=manifest/prefer_related_applications=]
-        </li>
-        <li>[=manifest/related_applications=]
-        </li>
         <li>[=manifest/scope=]
         </li>
         <li>[=manifest/short_name=]
@@ -1098,81 +1094,6 @@
       </section>
       <section>
         <h3>
-          `related_applications` member
-        </h3>
-        <aside class="issue" data-number="956"></aside>
-        <p>
-          A <dfn>related application</dfn> is an application accessible to the
-          underlying application platform that has a relationship with the web
-          application.
-        </p>
-        <p>
-          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">related_applications</dfn></code> member lists <a>related
-          applications</a> and serves as an indication of such a relationship
-          between web application and <a>related applications</a>. This
-          relationship is unidirectional and unless a listed application claims
-          the same relationship, the <a>user agent</a> MUST NOT assume a
-          bi-directional endorsement.
-        </p>
-        <p>
-          Example of usages of the `related_applications` could be a crawler
-          that would use that information to gather more information about the
-          web application or a browser that could suggest a listed application
-          as an alternative if the user wants to install the web application.
-        </p>
-        <p>
-          To <dfn>process the `related_applications` member</dfn>, given
-          [=ordered map=] |json:ordered map| and [=ordered map=]
-          |manifest:ordered map|:
-        </p>
-        <ol class="algorithm">
-          <li>Let |relatedApplications:list| be a new [=list=].
-          </li>
-          <li>Set |manifest|["related_applications"] to |relatedApplications|.
-          </li>
-          <li>If |json|["related_applications"] doesn't [=map/exist=] or
-          |json|["related_applications"] is not a [=list=], return.
-          </li>
-          <li>[=list/For each=] <var>app</var> of
-          |json|["related_applications"]:
-            <ol>
-              <li>If neither <var>app</var>["id"] nor <var>app</var>["url"] are
-              missing:
-                <ol>
-                  <li>Set <var>app</var>["url"] to the result of running
-                  <a>process the `url` member of an application</a> given <var>
-                    app</var>["url"].
-                  </li>
-                  <li>[=list/append=] <var>app</var> to
-                  <var>relatedApplications</var>.
-                  </li>
-                </ol>
-              </li>
-            </ol>
-          </li>
-          <li>Set <var>relatedApplications</var>.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
-          `prefer_related_applications` member
-        </h3>
-        <aside class="issue" data-number="957"></aside>
-        <p>
-          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">`prefer_related_applications`</dfn></code> member is a
-          [=boolean=] that is used as a hint for the user agent to say that
-          <a>related applications</a> should be preferred over the web
-          application. If the `prefer_related_applications` member is set to
-          `true`, and the user agent wants to suggest to install the web
-          application, the user agent might want to suggest installing one of
-          the <a>related applications</a> instead.
-        </p>
-      </section>
-      <section>
-        <h3>
           `background_color` member
         </h3>
         <p>
@@ -1645,9 +1566,6 @@
             </li>
             <li>[=Process the `orientation` member=] passing |json|,
             |manifest|.
-            </li>
-            <li>[=Process the `related_applications` member=] passing |json|
-            and |manifest|.
             </li>
             <li>[=Process the `shortcuts` member=] passing |json|, |manifest|,
             and |manifest URL|.
@@ -2469,151 +2387,6 @@
           <li>Return |shortcut|.
           </li>
         </ol>
-      </section>
-    </section>
-    <section>
-      <h2>
-        External application resource
-      </h2>
-      <aside class="issue atrisk" data-number="956"></aside>
-      <p>
-        Each <dfn data-local-lt="external application resource's">external
-        application resource</dfn> represents an application related to the web
-        application.
-      </p>
-      <p>
-        An [=external application resource=] can have the following members,
-        some of which are required to be a [=valid external application
-        resource=]:
-      </p>
-      <ul>
-        <li>[=external application resource/fingerprints=] member
-        </li>
-        <li>[=external application resource/id=] member
-        </li>
-        <li>[=external application resource/min_version=] member
-        </li>
-        <li>[=external application resource/platform=] member
-        </li>
-        <li>[=external application resource/url=] member
-        </li>
-      </ul>
-      <p>
-        A <dfn>valid external application resource</dfn> MUST have [=external
-        application resource/platform=] member, and either an [=external
-        application resource/url=] or an [=external application resource/id=]
-        member (or both).
-      </p>
-      <aside class="example">
-        <p>
-          In the following example, the web application is listing two
-          different related applications, one on Google Play Store and the
-          other one on the iTunes Store. The one on the Google Play Store has
-          an Android package name, a minimum version specifier, and
-          cryptographic fingerprints used for verification, in a
-          Play-Store-specific manner.
-        </p>
-        <pre class="json">
-          {
-            "related_applications": [
-              {
-                "platform": "play",
-                "url": "https://play.google.com/store/apps/details?id=com.example.app1",
-                "id": "com.example.app1",
-                "min_version": "2",
-                "fingerprints": [
-                  {
-                    "type": "sha256_cert",
-                    "value": "92:5A:39:05:C5:B9:EA:BC:71:48:5F:F2"
-                  }
-                ]
-              },
-              {
-                "platform": "itunes",
-                "url": "https://itunes.apple.com/app/example-app1/id123456789"
-              }
-            ]
-          }
-        </pre>
-      </aside>
-      <section>
-        <h3>
-          `platform` member
-        </h3>
-        <p>
-          The <code><dfn data-dfn-for=
-          "external application resource">platform</dfn></code> member
-          represents the [=platform=] this [=external application resource=] is
-          associated with. A <dfn data-dfn-for="">platform</dfn> represents a
-          software distribution ecosystem or possibly an operating system. This
-          specification does not define the particular values for the
-          <a>platform</a> member.
-        </p>
-        <aside class="Platforms registry">
-          The working group maintains a <a href=
-          "https://github.com/w3c/manifest/wiki/Platforms">registry of known
-          platform values</a>.
-        </aside>
-      </section>
-      <section>
-        <h3>
-          `url` member
-        </h3>
-        <p>
-          An [=external application resource's=] <code><dfn data-dfn-for=
-          "external application resource">url</dfn></code> member is the
-          <a>URL</a> where the application can be found.
-        </p>
-        <p>
-          To <dfn>process the `url` member of an application</dfn>:
-        </p>
-        <ol class="algorithm">
-          <li>If <var>application URL</var> is missing, return null.
-          </li>
-          <li>Otherwise, [=URL Parser|parse=] <var>application URL</var> and if
-          the result is not failure, return the result. Otherwise return null.
-          </li>
-        </ol>
-      </section>
-      <section>
-        <h3>
-          `id` member
-        </h3>
-        <p>
-          An [=external application resource's=] <code><dfn data-dfn-for=
-          "external application resource">id</dfn></code> member represents the
-          id which is used to represent the application on the platform.
-        </p>
-      </section>
-      <section>
-        <h3>
-          `min_version` member
-        </h3>
-        <p>
-          An [=external application resource's=] <code><dfn data-dfn-for=
-          "external application resource">min_version</dfn></code> member
-          represents the minimum version of the application that is considered
-          related to this web app. This version is a <a>string</a> with
-          platform-specific syntax and semantics.
-        </p>
-      </section>
-      <section>
-        <h3>
-          `fingerprints` member
-        </h3>
-        <p>
-          An [=external application resource's=] <code><dfn data-dfn-for=
-          "external application resource">fingerprints</dfn></code> member
-          represents an [=list=] of [=fingerprints=].
-        </p>
-        <p>
-          A <dfn data-local-lt="fingerprints">fingerprint</dfn> represents a
-          set of cryptographic fingerprints used for verifying the application.
-          A fingerprint has the following two members: <dfn data-dfn-for=
-          "fingerprint">type</dfn> and <dfn data-dfn-for=
-          "fingerprint">value</dfn>. Each of these are <a>string</a>s, but
-          their syntax and semantics are platform-defined.
-        </p>
       </section>
     </section>
     <section>
