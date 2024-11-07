@@ -163,7 +163,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="1a06ac714769d11f08a039d54de97785f48de6d8">
+<meta name="revision" content="40cf2c73ce6d8d9a795f345491a0ae5e97cd17cb">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -276,7 +276,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "1a06ac714769d11f08a039d54de97785f48de6d8",
+  "gitRevision": "40cf2c73ce6d8d9a795f345491a0ae5e97cd17cb",
   "publishISODate": "2024-11-07T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 07 November 2024"
 }</script>
@@ -905,6 +905,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" id="ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-1">Strip leading and trailing ASCII whitespace</a> from
           <var data-type="ordered map">json</var>["dir"].
           </li>
+          <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#ascii-lowercase" id="ref-for-index-term-ascii-lowercase-1">ASCII lowercase</a> <var data-type="ordered map">json</var>["dir"].
+          </li>
           <li>If <a data-link-type="dfn|abstract-op" href="#dfn-text-direction-list" class="internalDFN" id="ref-for-dfn-text-direction-list-1">text-direction list</a> doesn't <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list-contain" id="ref-for-index-term-contain-for-list-1">contain</a>
           <var data-type="ordered map">json</var>["dir"], return.
           </li>
@@ -1297,6 +1299,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" id="ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-3">Strip leading and trailing ASCII whitespace</a> from
           <var data-type="ordered map">json</var>["display"].
           </li>
+          <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#ascii-lowercase" id="ref-for-index-term-ascii-lowercase-2">ASCII lowercase</a> <var data-type="ordered map">json</var>["display"].
+          </li>
           <li>If <a data-link-type="dfn|abstract-op" href="#dfn-display-modes-list" class="internalDFN" id="ref-for-dfn-display-modes-list-1">display modes list</a> doesn't <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list-contain" id="ref-for-index-term-contain-for-list-2">contain</a>
           <var data-type="ordered map">json</var>["display"], return.
           </li>
@@ -1400,6 +1404,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
           <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" id="ref-for-index-term-strip-leading-and-trailing-ascii-whitespace-4">Strip leading and trailing ASCII whitespace</a> from
           <var data-type="ordered map">json</var>["orientation"].
+          </li>
+          <li><a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#ascii-lowercase" id="ref-for-index-term-ascii-lowercase-3">ASCII lowercase</a> <var data-type="ordered map">json</var>["orientation"].
           </li>
           <li>If <var data-type="ordered map">json</var>["orientation"] doesn't <a data-link-type="dfn|abstract-op" data-type="dfn" href="https://infra.spec.whatwg.org/#list-contain" id="ref-for-index-term-contain-for-list-3">contain</a> any of the
           <a data-link-type="dfn|abstract-op" href="#dfn-orientation-values" class="internalDFN" id="ref-for-dfn-orientation-values-1">orientation values</a>, return.
@@ -4651,6 +4657,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </li><li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#list-append" id="index-term-append-for-list" tabindex="0" aria-haspopup="dialog">Append (for <code>list</code>)</span>
   </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#ascii-lowercase" id="index-term-ascii-lowercase" tabindex="0" aria-haspopup="dialog">ASCII lowercase</span>
+  </li><li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#boolean" id="index-term-boolean-type" tabindex="0" aria-haspopup="dialog">boolean type</span>
   </li><li>
     <span class="index-term" data-href="https://infra.spec.whatwg.org/#byte-sequence" id="index-term-byte-sequence" tabindex="0" aria-haspopup="dialog">byte sequence</span>
@@ -6790,6 +6798,22 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-index-term-append-for-list-1" title="§ 1.14 shortcuts member">§ 1.14 shortcuts member</a> 
     </li><li>
       <a href="#ref-for-index-term-append-for-list-2" title="§ 2.5 Processing image resources">§ 2.5 Processing image resources</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-ascii-lowercase" aria-label="Links in this document to definition: ASCII lowercase">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://infra.spec.whatwg.org/#ascii-lowercase" aria-label="Permalink for definition: ASCII lowercase. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-ascii-lowercase-1" title="§ 1.2 dir member">§ 1.2 dir member</a> 
+    </li><li>
+      <a href="#ref-for-index-term-ascii-lowercase-2" title="§ 1.8 display member">§ 1.8 display member</a> 
+    </li><li>
+      <a href="#ref-for-index-term-ascii-lowercase-3" title="§ 1.9 orientation member">§ 1.9 orientation member</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-boolean-type" aria-label="Links in this document to definition: boolean type">
