@@ -1,0 +1,1590 @@
+Web App Manifest
+Living Document
+W3C Working Draft 04 September 2017
+This version:
+https://www.w3.org/TR/2017/WD-appmanifest-20170904/
+Latest published version:
+https://www.w3.org/TR/appmanifest/
+Previous version:
+https://www.w3.org/TR/2013/WD-appmanifest-20131217/
+Editors:
+Marcos Caceres , Mozilla Corporation
+Kenneth Rohde Christiansen , Intel Corporation
+Mounir Lamouri , Google Inc.
+Anssi Kostiainen , Intel Corporation
+Rob Dolin , Microsoft Corporation
+Repository:
+We are on Github.
+File a bug.
+Commit history.
+Mailing list.
+Implementation status:
+Blink
+EdgeHTML
+Gecko
+WebKit
+Copyright © 2017 W3C ® ( MIT , ERCIM , Keio , Beihang ). W3C liability , trademark and permissive document license rules apply.
+
+Abstract
+This specification defines a JSON-based manifest file that provides developers with a centralized place to put metadata associated with a web application. This metadata includes, but is not limited to, the web application's name, links to icons, as well as the preferred URL to open when a user launches the web application. The manifest also allows developers to declare a default orientation for their web application, as well as providing the ability to set the display mode for the application (e.g., in fullscreen). Additionally, the manifest allows a developer to "scope" a web application to a URL. This restricts the URLs to which the manifest is applied and provides a means to "deep link" into a web application from other applications.
+
+Using this metadata, user agents can provide developers with means to create user experiences that are more comparable to that of a native application.
+
+This specification also defines the manifest link type as a declarative means to associate a document with a manifest.
+
+Status of This Document
+This is a preview
+Do not attempt to implement this version of the specification. Do not reference this version as authoritative in any way.
+
+This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current W3C publications and the latest revision of this technical report can be found in the W3C technical reports index at https://www.w3.org/TR/.
+
+Warning
+Implementors need to be aware that this specification is not stable. However, aspects of this specification are shipping in at least one browser (see links to implementation status at the top of this document). Implementors who are not taking part in the discussions will find the specification changing out from under them in incompatible ways. Vendors interested in implementing this specification before it eventually reaches the Candidate Recommendation phase should subscribe to the repository on GitHub and take part in the discussions.
+
+This document was published by the Web Platform Working Group as a Working Draft. This document is intended to become a W3C Recommendation. Comments regarding this document are welcome. Please send them to public-webapps@w3.org ( subscribe , archives ).
+
+Publication as a Working Draft does not imply endorsement by the W3C Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.
+
+This document was produced by a group operating under the 5 February 2004 W3C Patent Policy . W3C maintains a public list of any patent disclosures made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains Essential Claim(s) must disclose the information in accordance with section 6 of the W3C Patent Policy .
+
+This document is governed by the 1 March 2017 W3C Process Document .
+
+Table of Contents
+1.Usage Examples
+1.1Example manifests
+1.2Using a link element to link to a manifest
+2.Installable web applications
+2.1AppBannerPromptOutcome enum
+2.2Authority of the manifest's metadata
+2.3Application's name
+2.4Installation process
+2.5Install prompts
+2.6Privacy and security considerations
+2.7Installability signals
+3.Installation Events
+3.1BeforeInstallPromptEvent Interface
+3.1.1prompt() method
+3.1.2Usage example
+3.2Extensions to the Window object
+3.2.1onappinstalled attribute
+3.2.2onbeforeinstallprompt attribute
+4.Navigation scope
+4.1Security considerations
+4.2Deep links
+5.Display modes
+5.1Privacy and security considerations
+5.2The 'display-mode' media feature
+5.2.1Examples
+5.2.2Security and privacy considerations
+6.Associating a resource with a manifest
+6.1Linking to a manifest
+7.Manifest life-cycle
+7.1Obtaining a manifest
+7.1.1Content security policy
+7.2Processing the manifest
+7.3Applying the manifest
+7.4Updating the manifest
+8.Manifest and its members
+8.1dir member
+8.2lang member
+8.3name member
+8.4short_name member
+8.5description member
+8.6scope member
+8.7icons member
+8.8display member
+8.9orientation member
+8.10start_url member
+8.10.1Privacy consideration: start_url tracking
+8.11serviceworker member
+8.12theme_color member
+8.13related_applications member
+8.14prefer_related_applications member
+8.15background_color member
+8.16categories member
+8.17screenshots member
+8.18iarc_rating_id member
+9.Image object and its members
+9.1Fetching image objects
+9.2Content security policy of image objects
+9.3purpose member
+9.4sizes member
+9.5src member
+9.6type member
+9.7Processing an array of images
+10.Multi-purpose members
+10.1platform member
+11.The serviceworker object and its members
+11.1src member
+11.2scope member
+11.3type member
+11.4use_cache member
+12.Application object and its members
+12.1url member
+12.2id member
+12.3min_version member
+12.4fingerprints member
+13.Common conventions and dependencies
+14.IANA considerations
+14.1Media type registration
+14.2Link relation type registration
+15.Conformance
+15.1Extensibility
+15.1.1Proprietary manifest members
+A.Relationship to HTML's link and meta elements
+B.JSON Schema
+C.Internationalization
+D.Use Cases and Requirements
+E.Issue Summary
+F.Acknowledgments
+G.References
+G.1Normative references
+G.2Informative references
+1. Usage Examples
+This section is non-normative.
+
+This section shows how developers can make use of the various features of this specification.
+
+1.1 Example manifests
+This section is non-normative.
+
+The following shows a very simple manifest .
+
+Example 1 : very simple manifest
+{
+  "name": "Donate App",
+  "description": "This app helps you donate to worthy causes.",
+  "icons": [{
+    "src": "images/icon.png",
+    "sizes": "192x192"
+  }]
+}
+The following shows a more typical manifest .
+
+Example 2 : typical manifest
+{
+  "lang": "en",
+  "dir": "ltr",
+  "name": "Donate App",
+  "description": "This app helps you donate to worthy causes.",
+  "short_name": "Donate",
+  "icons": [{
+    "src": "icon/lowres.webp",
+    "sizes": "64x64",
+    "type": "image/webp"
+  },{
+    "src": "icon/lowres.png",
+    "sizes": "64x64"
+  }, {
+    "src": "icon/hd_hi",
+    "sizes": "128x128"
+  }],
+  "scope": "/racer/",
+  "start_url": "/racer/start.html",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "theme_color": "aliceblue",
+  "background_color": "red",
+  "serviceworker": {
+    "src": "sw.js",
+    "scope": "/racer/",
+    "use_cache": false
+  },
+  "screenshots": [{
+    "src": "screenshots/in-game-1x.jpg",
+    "sizes": "640x480",
+    "type": "image/jpeg"
+  },{
+    "src": "screenshots/in-game-2x.jpg",
+    "sizes": "1280x920",
+    "type": "image/jpeg"
+  }]
+}
+1.2 Using a link element to link to a manifest
+This section is non-normative.
+
+Example of using a link element to associate a website with a manifest . The example also shows how to use [ HTML ]'s link and meta elements to give the web application a fallback name and set of icons.
+
+Example 3 : linking to a manifest
+<!doctype>
+<html>
+<title>Racer 3K</title>
+<!-- Startup configuration -->
+<link rel="manifest" href="manifest.webmanifest">
+<!-- Fallback application metadata for legacy browsers -->
+<meta name="application-name" content="Racer3K">
+<link rel="icon" sizes="16x16 32x32 48x48" href="lo_def.ico">
+<link rel="icon" sizes="512x512" href="hi_def.png">
+2. Installable web applications
+A common use case of a manifest is for a user agent to install a web application; whereby the user agent provides the end-user with a means of instantiating a new top-level browsing context that has the manifest's members applied to it. That is, the manifest's members, or their defaults, are in effect on the top-level browsing context . This distinguishes an installed web application from a traditional bookmark, as opening a web page from a traditional bookmark will not have the manifest's properties applied to it.
+
+For example, on user agents that support installation, a web application could be presented and launched in a way that, to the end-user, is indistinguishable from native applications: such as appearing as a labeled icon on the home screen, launcher, or start menu. When launched, the manifest is applied by the user agent to the top-level browsing context prior to the start URL being loaded. This gives the user agent an opportunity to apply the relevant values of the manifest, possibly changing the display mode and screen orientation of the web application. Alternatively, and again as an example, the user agent could install the web application into a list of bookmarks within the user agent itself.
+
+2.1 AppBannerPromptOutcome enum
+enum AppBannerPromptOutcome {
+    "accepted",
+    "dismissed"
+};
+The AppBannerPromptOutcome enum's values represent the outcomes from presenting the end-user with an install prompt .
+
+accepted :
+The end-user indicated that they would like the user agent to install the web application.
+dismissed :
+The end-user dismissed the install prompt.
+2.2 Authority of the manifest's metadata
+When a manifest is linked from a Document , it indicates to the user agent that the metadata is authoritative : that is, the user agent SHOULD use the metadata of the manifest instead of the one in the Document . However, in cases where metadata is missing, or in error, a user agent MAY fallback to the Document to find suitable replacements for missing manifest members (e.g., using application-name in place of short_name ).
+
+2.3 Application's name
+The application's name is derived from either the name member or short_name member (if either is present) - otherwise, it is generated by the user agent or provided by the end-user.
+
+When either member is missing from the manifest, a user agent MAY use the name member as a fallback for the short_name member or vice versa.
+
+If the name and short_name members are undefined, the user agent SHOULD assign a default name (e.g., "Untitled"). Alternatively, a user agent MAY allow the end-user to input some text that can serve as the application's name .
+
+When both the name and short_name members are present, it is left up to implementations to decide which member is best suited for the space available (e.g., the short_name member might be better suited for the space available underneath an icon).
+
+2.4 Installation process
+An installation process is an attempt by the user agent to install a web application. The details of such a process (i.e., the display of an install UI , and any resulting IO operations of the host OS ) are left up to implementers. Implementers need to be aware that there are privacy and security considerations that directly relate to the installation process .
+
+For the purpose of this specification, the installation succeeded once the installation process succeeds in installing the web application (e.g., an icon was successfully placed onto the device's homescreen). If the end-user cancels the installation process (even if they manually triggered it, and then changed their minds), then the installation was canceled . Otherwise, the installation failed . Reasons for installation failure can include, for example, the OS denying permission to the user agent to add an icon to the homescreen of the device and the end-user rejecting the installation.
+
+The steps to install the web application are given by the following algorithm:
+
+Let window be the Window object of the top-level browsing context for which the user agent will attempt installation.
+Then, in parallel :
+Instantiate an installation process .
+Let manifest and manifest URL be the result of obtaining the manifest .
+If obtaining the manifest results in an error, a user agent can, at this point, fall back to using the top-level browsing context Document 's metadata to populate an installation process 's UI.
+If obtaining the manifest succeeds, and the result of running the steps for processing the serviceworker member with manifest returns a valid registration , a user agent can at this point
+Let client be the top-level browsing context Document 's relevant settings object , or null if unavailable.
+Invoke Start Register with scope and src members of the registration , a new promise , client , manifest URL , plus the type and use_cache members of the registration ,
+in which case the state of the settled promise determines whether the installation succeeded or not.
+If the installation succeeded , queue a task on the application life-cycle task source to fire an event named appinstalled at the window object.
+2.5 Install prompts
+There are multiple ways that the installation process can be triggered:
+
+An end-user can manually trigger the installation process through the user agent's UI .
+The installation process can occur through an automated install prompt : that is, a UI that the user agent presents to the user when, for instance, there are sufficient installability signals to warrant installation of the web application.
+The installation process can occur through a site-triggered install prompt : the site can programmatically request that the user agent present an install prompt to the user. The user agent MAY restrict the availability of this feature to cases where, for instance, there are sufficient installability signals to warrant installation of the web application.
+Prior to presenting an automated install prompt , a user agent MUST run the steps to notify that an install prompt is available , to give the site the opportunity to prevent the default action (which is to install the application). Alternatively, the user agent MAY run the steps to notify that an install prompt is available at any time, giving the site the opportunity to show a site-triggered install prompt without automatically showing the prompt.
+
+In either case, when a user agent presents an install prompt , the end-user's choice is represented either "accepted" or "dismissed". These values are represented in the API of this specification via the AppBannerPromptOutcome enum.
+
+The steps to notify that an install prompt is available are given by the following algorithm:
+
+Wait until the Document of the top-level browsing context is completely loaded .
+If there is already an installation process being presented , terminate this algorithm.
+Queue a task on the application life-cycle task source to do the following:
+Let event be a newly constructed BeforeInstallPromptEvent named beforeinstallprompt , with its cancelable attribute initialized to true.
+Let mayShowPrompt be the result of firing event at the Window object of the top-level browsing context .
+If mayShowPrompt is true, then the user agent MAY , in parallel , request to present an install prompt with event .
+2.6 Privacy and security considerations
+During the installation process , it is RECOMMENDED that the user agent allow the end-user to inspect the icon, name, start URL , origin, etc. pertaining to a web application. This is to give an end-user an opportunity to make a conscious decision to approve, and possibly modify, the information pertaining to the web application before installing it. This also gives the end-user an opportunity to discern if the web application is spoofing another web application, by, for example, using an unexpected icon or name.
+
+It is RECOMMENDED that user agents prevent other applications from determining which applications are installed on the system (e.g., via a timing attack on the user agent's cache). This could be done by, for example, invalidating from the user agent's cache the resources linked to from the manifest (for example, icons) after a web application is installed - or by using an entirely different cache from that used for regular web browsing.
+
+2.7 Installability signals
+This section is non-normative.
+
+By design, this specification does not provide developers with an explicit API to "install" a web application. Instead, a manifest can serve as an installability signal to a user agent that a web application can be installed .
+
+Examples of installability signals for a web application:
+
+is associated with a manifest with at least a name member and a suitable icon.
+is served over a secure network connection.
+has a sensible content security policy.
+is able to responsively adapt to display on a variety of screen sizes, catering for both mobile and desktop.
+is able to function without a network connection.
+is repeatedly used by the end-user over some extended period of time.
+has been explicitly marked by the user as one that they value and trust (e.g., by bookmarking or "starring" it).
+This list is not exhaustive and some installability signals might not apply to all user agents. How a user agent makes use of these installability signals to determine if a web application can be installed is left to implementers.
+
+3. Installation Events
+DOM events fired by this specification use the application life-cycle task source .
+
+3.1 BeforeInstallPromptEvent Interface
+Note
+The beforeinstallprompt event is somewhat misnamed, as it does not necessarily signal that an automated install prompt will follow (depending on the user agent, it might just be giving the site the ability to trigger an install prompt). It is so named for historical reasons.
+[Constructor]
+interface BeforeInstallPromptEvent : Event {
+    Promise<PromptResponseObject> prompt();
+};
+dictionary PromptResponseObject {
+    AppBannerPromptOutcome userChoice;
+};
+The BeforeInstallPromptEvent is dispatched when the site is allowed to present a site-triggered install prompt , or prior to the user agent presenting an automated install prompt . It allows the site to cancel the automated install prompt , as well as manually present the site-triggered install prompt .
+
+Note
+If the BeforeInstallPromptEvent is not cancelled, the user agent is allowed to present an automated install prompt to the end-user. Canceling the default action (via preventDefault ) prevents the user agent from presenting an automated install prompt . The user agent is free to run steps to notify that an install prompt is available again at a later time.
+The PromptResponseObject contains the result of calling prompt() . It contains one member, userChoice , which states the user's chosen outcome.
+
+An instance of a BeforeInstallPromptEvent has the following internal slots:
+
+[[didPrompt]]
+A boolean, initially false . Represents whether this event was used to present an install prompt to the end-user.
+[[userResponsePromise]]
+A promise that represents the outcome of presenting an install prompt .
+3.1.1 prompt() method
+The prompt method, when called, runs the following steps:
+
+If this . [[userResponsePromise]] is pending:
+If this event's isTrusted attribute is false , reject this . [[userResponsePromise]] with NotAllowedError , optionally informing the developer that untrusted events can't call prompt() .
+Else if this . [[didPrompt]] is false , set this . [[didPrompt]] to true , then in parallel , request to present an install prompt with this event. Wait, possibly indefinitely, for the end-user to make a choice.
+Return this . [[userResponsePromise]] .
+To request to present an install prompt with BeforeInstallPromptEvent event :
+
+Present an install prompt and let outcome be the result.
+Resolve event . [[userResponsePromise]] with a newly created PromptResponseObject whose userChoice member is the value of outcome .
+3.1.2 Usage example
+This section is non-normative.
+
+This example shows how one might prevent an automated install prompt from showing until the user clicks a button to show a site-triggered install prompt . In this way, the site can leave installation at the user's discretion (rather than prompting at an arbitrary time), whilst still providing a prominent UI to do so.
+
+Example 4 : Using beforeinstallprompt to present an install button
+window.addEventListener("beforeinstallprompt", event => {
+  // Suppress automatic prompting.
+  event.preventDefault();
+  // Show the (disabled-by-default) install button. This button
+  // resolves the installButtonClicked promise when clicked.
+  installButton.disabled = false;
+  // Wait for the user to click the button.
+  installButton.addEventListener("click", async e => {
+    // The prompt() method can only be used once.
+    installButton.disabled = true;
+    // Show the prompt.
+    const { userChoice } = await event.prompt();
+    console.info(`user choice was: ${userChoice}`);
+  });
+});
+3.2 Extensions to the Window object
+The following extensions to the Window object specify the event handler attributes on which events relating to the installation of a web application are fired .
+
+partial interface Window {
+    attribute EventHandler onappinstalled;
+    attribute EventHandler onbeforeinstallprompt;
+};
+This example shows two ways of handling the " appinstalled " event.
+
+Example 5
+function handleInstalled(ev) {
+  const date = new Date(ev.timeStamp / 1000);
+  console.log(`Yay! Our app got installed at ${date.toTimeString()}.`);
+}
+// Using the event handler IDL attribute
+window.onappinstalled = handleInstalled;
+// Using .addEventListener()
+window.addEventListener("appinstalled", handleInstalled);
+3.2.1 onappinstalled attribute
+The onappinstalled is an event handler IDL attribute for the " appinstalled " event type. The interface used for these events is the Event interface [ DOM ]. This event is dispatched as a result of a successful installation (see the steps to install the web application ).
+
+3.2.2 onbeforeinstallprompt attribute
+The onbeforeinstallprompt is an event handler IDL attribute for the " beforeinstallprompt " event type. The interface used for these events is the BeforeInstallPromptEvent interface (see the steps to notify that an install prompt is available ).
+
+4. Navigation scope
+A navigation scope is a [ URL ] that represents the set of URLs to which an application context can be navigated while the manifest is applied . To determine if a URL is within the navigation scope , the user agent MUST run the within scope algorithm.
+
+A string targetURL is said the be within scope of navigation scope scopeURL if the following algorithm returns true :
+
+If scopeURL is undefined (i.e., it is unbounded because of an error or it was not declared in the manifest), return true .
+Let target be a new URL using targetURL as input. If target is failure, return false .
+Let scopePath be the elements of scopes 's path , separated by U+002F (/).
+Let targetPath be the elements of target 's path , separated by U+002F (/).
+If target is same origin as scope and targetPath starts with scopePath , return true .
+Otherwise, return false .
+Note : Scope is a simple string match
+The URL string matching in this algorithm is prefix-based rather than path-structural (e.g. a target URL string /prefix-of/resource.html will match an app with scope /prefix , even though the path segment name is not an exact match). This is intentional for consistency with Service Workers . To avoid unexpected behavior, use a scope ending in a / .
+Issue : 🐒 patch
+Enforcing the navigation scope depends on [ HTML ]'s navigate algorithm. As such, the following algorithm monkey patches [ HTML ]. Bug 27653 has been filed to address this.
+
+The user agent MUST navigate the application context as per [ HTML ]'s navigate algorithm with exceptions enabled. If the URL of the resource being loaded in the navigation is not within scope of the navigation scope, then the user agent MUST behave as if the application context is not allowed to navigate (this provides the ability for the user agent to perform the navigation in a different browsing context, or in a different user agent entirely). If during the handle redirects step of HTML's navigate algorithm the redirect URL is not within scope , abort HTML's navigation algorithm with a SecurityError .
+
+A developer specifies the navigation scope via the scope member . In the case where the scope member is missing or in error, the navigation scope is treated as unbounded (represented as the value undefined ). In such a case, the manifest is applied to all URLs the application context is navigated to (see related security considerations ).
+
+4.1 Security considerations
+When the navigation scope is unbounded and a display mode other than browser is being applied, it is RECOMMENDED that user agents signal to the end-user when security and/or privacy sensitive navigations occur. The manner of signaling is left up to implementers, but can include things like showing the URL of the application context, dropping out of fullscreen to the browser display mode . Examples of security and/or privacy sensitive navigations include, but are not limited to:
+
+the application context being navigated from a secure connection to an insecure connection (or vice versa).
+the application context being navigated to a different origin.
+This specification distinguishes between behavior in first-party and third-party contexts. In particular, if a scope member is declared in the manifest, it is not possible to navigate the top-level browsing context to somewhere outside the scope while the manifest is applied to the top-level browsing context . That's not to say that the web application cannot be navigated: just that the set of URLs to which the manifest applies is restricted by the navigation scope .
+
+4.2 Deep links
+Issue 363 : Deep linking - need proper use cases and requirements analysis
+In #332 (comment) , @PaulKinlan said:
+
+Also deeplinking, the section in the spec makes no sense. Is there a plan for it to be expanded? I ask because Deep linking on Android has a very specific configuration, and I would expect to see some configuration of ownership of multiple paths, protocols etc (potentialy via a scope).
+
+We should do a proper analysis of how this stuff works on Android. What is currently in the spec may indeed be insufficient.
+
+A deep link is a URL that is within scope of an installed web application.
+
+An application context can be instantiated through a deep link (a URL that is within scope of the installed web application); in which case, the manifest is applied and the deep link is loaded within the context of a web application.
+
+Note
+The concept of a deep link is useful in that it allows hyperlinking from one installed application to another. This can be from a native application to an installed web application (and possibly vice versa!). Theoretically, this can provide seamless context switching between native and web applications through standard hyperlinks. And in the case where a particular web application is not installed , the OS can just open the link in the user's preferred web browser.
+
+Implementers are encouraged make such context switching obvious to the user, for example, by adhering to the human interface guidelines of the underlying platform with respect to application switching.
+
+5. Display modes
+A display mode represents how the web application is being presented within the context of an OS (e.g., in fullscreen, etc.). Display modes correspond to user interface (UI) metaphors and functionality in use on a given platform. The UI conventions of the display modes are purely advisory and implementers are free to interpret them how they best see fit.
+
+Once a user agent applies a particular display mode to an application context , it becomes the default display mode for the top-level browsing context (i.e., it is used as the display mode when the window is navigated ). The user agent MAY override the default display mode for security reasons (e.g., the top-level browsing context is navigated to another origin) and/or the user agent MAY provide the user with a means of switching to another display mode .
+
+When the display member is missing, or if there is no valid display member, the user agent uses the browser display mode as the default display mode . As such, the user agent is REQUIRED to support the browser display mode .
+
+Each display mode , except browser , has a fallback display mode , which is the display mode that the user agent can try to use if it doesn't support a particular display mode . If the user agent does support a fallback display mode , then it checks to see if it can use that display mode 's fallback display mode . This creates a fallback chain, with the default display mode ( browser ) being the last item in the chain.
+
+For example, SuperSecure Browser (a fictitious browser) only supports the minimal-ui and browser display modes, but a developer declares that she wants fullscreen in the manifest. In this case, the user agent will first check if it supports fullscreen (it doesn't), so it falls back to standalone (which it also doesn't support), and ultimately falls back to minimal-ui .
+
+The display modes values and their corresponding fallback display modes are as follows:
+
+fullscreen
+Opens the web application without any user agent chrome and takes up the entirety of the available display area.
+The fallback display mode for fullscreen is standalone .
+standalone
+Opens the web application to look and feel like a standalone native application. This can include the application having a different window, its own icon in the application launcher, etc. In this mode, the user agent will exclude standard browser UI elements such as an URL bar, but can include other system UI elements such as a status bar and/or system back button.
+The fallback display mode for standalone is minimal-ui .
+minimal-ui
+This mode is similar to fullscreen , but provides the end-user with some means to access a minimal set of UI elements for controlling navigation (i.e., back, forward, reload, and perhaps some way of viewing the document's address). A user agent can include other platform specific UI elements, such as "share" and "print" buttons or whatever is customary on the platform and user agent.
+The fallback display mode for minimal-ui is browser .
+browser
+Opens the web application using the platform-specific convention for opening hyperlinks in the user agent (e.g., in a browser tab or a new window).
+The browser display mode doesn't have a fallback display mode (conforming user agents are required to support the browser display mode ).
+Note
+The fullscreen display mode is orthogonal to, and works independently of, the [ WHATWG-FULLSCREEN ] API. The fullscreen display mode affects the fullscreen state of the browser window, while the [ WHATWG-FULLSCREEN ] API operates on an element contained within the viewport. As such, a web application can have its display mode set to fullscreen , while document.fullScreenElement returns null , and fullscreenEnabled returns false .
+
+5.1 Privacy and security considerations
+When the fullscreen display mode is applied, it is RECOMMENDED that the user agent provides the end-user a means to consult common information about the web application, such as the origin, start and/or current URL, granted permissions, and associated icon. How such information is exposed to end-users is left up to implementers.
+
+Additionally, when applying a manifest that sets the display mode to anything except " browser ", it is RECOMMENDED that the user agent clearly indicate to the end-user that their are leaving the normal browsing context of a web browser. Ideally, launching or switching to a web application is performed in a manner that is consistent with launching or switching to other applications in the host platform. For example, a long and obvious animated transition, or speaking the text "Launching application X".
+
+5.2 The 'display-mode' media feature
+The display-mode media feature represents, via a CSS media query [ MEDIAQ ], the display mode of the web application. This media feature applies to the top-level browsing context and any child browsing contexts. Child browsing contexts reflect the display mode of the top-level browsing context .
+
+A user agent MUST expose the ' display-mode ' media feature irrespective of whether a manifest is being applied to a browsing context. For example, if the end-user puts the whole user agent into fullscreen, then the user agent would reflect this change to CSS and scripts via the ' display-mode ' media feature.
+
+Note
+Please note that the fullscreen display mode is not directly related to the CSS :fullscreen pseudo-class specified in the [ WHATWG-FULLSCREEN ] API. The :fullscreen pseudo-class matches exclusively when a [ HTML ] element is put into the fullscreen element stack. However, a side effect of calling the requestFullscreen() method on an element using the [ WHATWG-FULLSCREEN ] API is that the browser window can enter a fullscreen mode at the OS -level. In such a case, both :fullscreen and (display-mode: fullscreen) will match.
+
+On some platforms, it is possible for a user to put a browser window into fullscreen without the aid of the [ WHATWG-FULLSCREEN ] API. When this happens, the :fullscreen pseudo class will not match, but (display-mode: fullscreen) will match. This is exemplified in CSS code below.
+
+Example 6
+/* applies when the window is fullscreen */
+@media all and (display-mode: fullscreen) {
+    ...
+}
+/* applies when an element goes fullscreen */
+#game:fullscreen {
+    ...
+}
+Value:
+fullscreen | standalone | minimal-ui | browser
+Applies to:
+visual media types
+Accepts min/max prefixes:
+No
+A user agent MUST reflect the applied display mode of the web application via a CSS media query [ MEDIAQ ].
+
+5.2.1 Examples
+An example in CSS:
+
+Example 7
+@media all and (display-mode: minimal-ui) {
+  /* ... */
+}
+@media all and (display-mode: standalone) {
+  /* ... */
+}
+Accessing the display-mode media feature in ECMAScript through matchMedia() of [ CSSOM-VIEW ]:
+
+Example 8
+const standalone = matchMedia( '(display-mode: standalone)' );
+standalone.onchange = (e) => {
+  /* handle changes to display mode */
+}
+if (standalone.matches) {
+  /* do standalone things */
+}
+5.2.2 Security and privacy considerations
+The 'display-mode' media feature allows an origin access to aspects of a user’s local computing environment and, together with the display member, allows an origin some measure of control over a user agent’s native UI: Through a CSS media query, a script can know the display mode of a web application. An attacker could, in such a case, exploit the fact that an application is being displayed in fullscreen to mimic the user interface of another application.
+
+Furthermore, by neglecting to define a scope member in the manifest, it's possible to put a web application into a display mode that persists cross-origin (for legacy reasons, this is the default behavior). In case where the navigation scope is unbounded, it is left to the user agent to either stop applying the manifest when a cross-origin navigation occurs or to show some sort of security warning to the user.
+
+6. Associating a resource with a manifest
+A resource is said to be associated with a manifest if the resource representation, an HTML document, has a manifest link relationship .
+
+6.1 Linking to a manifest
+The manifest keyword can be used with a [ HTML ] link element . This keyword creates an external resource link .
+
+Link type	Effect on...	Brief description
+link	a and area
+manifest	External Resource	not allowed	Imports or links to a manifest .
+The media type for a manifest serves as the default media type for resources associated with the manifest link type .
+
+Note
+In cases where more than one link element with a manifest link type appears in a Document , the user agent uses the first link element in tree order and ignores all subsequent link element with a manifest link type (even if the first element was erroneous). See the steps for obtaining a manifest .
+
+To obtain a manifest, the user agent MUST run the steps for obtaining a manifest . The appropriate time to obtain the manifest is left up to implementations. A user agent MAY opt to delay fetching a manifest until after the document and its other resources have been fully loaded (i.e., to not delay the availability of content and scripts required by the document ).
+
+A manifest is obtained and applied regardless of the media attribute of the link element matches the environment or not.
+
+7. Manifest life-cycle
+This section defines algorithms for obtaining , processing , and applying a manifest .
+
+7.1 Obtaining a manifest
+The steps for obtaining a manifest are given by the following algorithm. The algorithm, if successful, returns a processed manifest and the manifest URL ; otherwise, it terminates prematurely and returns nothing. In the case of nothing being returned, the user agent MUST ignore the manifest declaration. In running these steps, a user agent MUST NOT delay the load event .
+
+From the Document of the top-level browsing context , let manifest link be the first link element in tree order whose rel attribute contains the token manifest .
+If manifest link is null , terminate this algorithm.
+If manifest link 's href attribute's value is the empty string, then abort these steps.
+Let manifest URL be the result of parsing the value of the href attribute, relative to the element's base URL . If parsing fails, then abort these steps.
+Let request be a new [ FETCH ] request , whose URL is manifest URL , and whose context is " manifest ".
+If the manifest link 's crossOrigin attribute's value is ' use-credentials ', then set request 's credentials to ' include '.
+Await the result of performing a fetch with request , letting response be the result.
+If response is a network error , terminate this algorithm.
+Let text be the result of UTF-8 decoding response 's body .
+Let manifest be the result of running the steps for processing a manifest with text , manifest URL , and the URL that represents the address of the top-level browsing context .
+Return manifest and manifest URL .
+Note
+Authors are encouraged to use the HTTP cache directives to explicitly cache the manifest. For example, the following response would cause a cached manifest to be used 30 days from the time the response is sent:
+
+Example 9
+HTTP/1.1 200 OK
+Cache-Control: max-age=2592000
+Content-Type: application/manifest+json
+{
+  "lang": "en",
+  "name": "Resist",
+  "start_url": "/start.html",
+  "display": "fullscreen",
+  "orientation": "landscape"
+}
+7.1.1 Content security policy
+A user agent MUST support [ CSP3 ].
+
+The manifest-src and default-src directives govern the origins from which a user agent can fetch a manifest. As with other directives, by default the manifest-src directive is * , meaning that a user agent can, [ FETCH ]'s CORS permitting, fetch the manifest cross-domain. Remote origins (e.g., a CDN ) wanting to host manifests for various web applications will need to include the appropriate CORS response header in their HTTP response (e.g., Access-Control-Allow-Origin: https://example.com ).
+
+manifest-src directive example illustrated
+Figure 1 For a [ HTML ] document, [ CSP3 ]'s manifest-src directive controls the sources from which a [ HTML ] document can load a manifest from. The same CSP policy's img-src directive controls where the icon's images can be fetched from.
+7.2 Processing the manifest
+When instructed to issue a developer warning , the user agent MAY report the conformance violation to the developer in a user-agent-specific manner (e.g., report the problem in an error console), or MAY ignore the error and do nothing.
+
+When instructed to ignore , the user agent MUST act as if whatever manifest, member, or value caused the condition is absent.
+
+The following algorithm provides an extension point : other specifications that add new members to the manifest are encouraged to hook themselves into this specification at this point in the algorithm.
+
+Note
+The extension point is meant to help avoid issues related to monkey patching .
+
+The steps for processing a manifest are given by the following algorithm. The algorithm takes a text string as an argument, which represents a manifest , and a URL manifest URL , which represents the location of the manifest, and a URL document URL . The output from inputting an JSON document into this algorithm is a processed manifest .
+
+Let parsed manifest be an empty object.
+Let manifest be the result of parsing text . If parsing throws an error:
+Issue a developer warning with any details pertaining to the JSON parsing error.
+Set manifest to be the result of parsing the string "{}" .
+If Type ( manifest ) is not "object":
+Issue a developer warning that the manifest needs to be an object.
+Set manifest to be the result of parsing the string "{}" .
+Extension point : process any proprietary and/or other supported members at this point in the algorithm.
+Let the default direction of parsed manifest be the result of running the steps for processing the dir member with manifest as the argument.
+Let start URL of parsed manifest be the result of running the steps for processing the start_url member with manifest , manifest URL, and document URL as arguments.
+Let service worker registration of parsed manifest be the result of running the steps for processing the serviceworker member with manifest , manifest URL , and serviceworker as arguments.
+Let display mode of parsed manifest be the result of running the steps for processing the display member with manifest as the argument.
+Let orientation of parsed manifest be the result of running the steps for processing the orientation member with manifest and display mode as arguments.
+Let name of parsed manifest be the result of running the steps for processing the name member with manifest as the argument.
+Let description of parsed manifest be the result of running the steps for processing the description member with manifest as the argument.
+Let language of parsed manifest be the result of running the steps for processing the lang member with manifest as the argument.
+Let short name of parsed manifest be the result of running the steps for processing the short_name member with manifest as the argument.
+Let icons of parsed manifest be the result of running the steps for processing an array of images with manifest , manifest URL , and "icons" as arguments.
+Let scope of parsed manifest be the result of running the steps for processing the scope member with manifest , manifest URL , document URL , start URL as arguments.
+Let related applications of parsed manifest be the result of running the steps for processing the related_applications member with manifest as argument.
+Let prefer related applications of parsed manifest be the result of running the steps for processing the prefer_related_applications member with manifest as argument.
+Let theme color of parsed manifest be the result of running the steps for processing the theme_color member with manifest as argument.
+Let background_color of parsed manifest be the result of running the steps for processing the background_color member with manifest as argument.
+Let categories of parsed manifest be the result of running the steps for processing the categories member with manifest as argument.
+Let iarc_rating_id of parsed manifest be the result of running the steps for processing the iarc_rating_id member with manifest as argument.
+Let screenshots of parsed manifest be the result of running the steps for processing an array of images with manifest , manifest URL , and "screenshots" as arguments.
+Return parsed manifest .
+7.3 Applying the manifest
+A manifest is applied to a top-level browsing context , meaning that the members of the manifest are affecting the presentation or behavior of a browsing context.
+
+A top-level browsing context that has a manifest applied to it is referred to as an application context .
+
+If an application context is created as a result of the user agent being asked to navigate to a deep link , the user agent MUST immediately navigate to the deep link with replacement enabled . Otherwise, when the application context is created, the user agent MUST immediately navigate to the start URL with replacement enabled .
+
+Please note that the start URL is not necessarily the value of the start_url member : the user or user agent could have changed it when the application was added to home-screen or otherwise bookmarked.
+
+The appropriate time to apply a manifest is when the application context is created and before navigation to the start URL begins.
+
+7.4 Updating the manifest
+Issue 446 : Support a way to update explicitly
+Is there a reason that the spec only defines a declarative way to request that a user agent obtain and process a manifest?
+
+Likewise, it would be useful to have an explicit way to request that the user-agent update it's version of the manifest.
+
+8. Manifest and its members
+A manifest is a JSON document that contains startup parameters and application defaults for when a web application is launched. A manifest consists of a top-level object that contains zero or more members. Each of the members are defined below, as well as how their values are processed.
+
+Every manifest has an associated manifest URL , which is the [ URL ] from which the manifest was fetched.
+
+8.1 dir member
+The dir member specifies the base direction for the directionality-capable members of the manifest . The dir member's value can be set to one of the text-direction values .
+
+The directionality-capable members are:
+
+description member .
+name member .
+short_name member .
+The text-direction values are the following, implying that the value of the directionality-capable members is by default:
+
+ltr
+left-to-right text.
+rtl
+right-to-left text.
+auto
+programmatically determined from the value of the member.
+When displaying the directionality-capable members to an end-user, the user agent MUST use the base direction to compute directional runs and layout or position text correctly in text containing mixed-direction sequences [ BIDI ]. When the base direction is " auto " the user agent MUST run the steps to programmatically determine the directionality of a member - and use the resulting text-direction value to assist in displaying the value of the member.
+
+The steps to programmatically determine the directionality of a member are as follows. The algorithm takes the value of a member.
+
+Find the first character (in logical order) of the value that is of bidirectional character type L, AL, or R [ BIDI ].
+If such a character is found and it is of bidirectional character type AL or R, return "rtl".
+Otherwise, return "ltr".
+The steps for processing the dir member is given by the following algorithm. The algorithm takes a manifest as an argument. This algorithm returns one of the text-direction values .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " dir ".
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+If Type ( value ) is "undefined", return "auto".
+Otherwise, Trim ( value ), convert to lower-case, and let direction be the result.
+If direction not one one the text-direction values , then:
+Issue a developer warning that the value is invalid.
+Return "auto".
+Return direction .
+8.2 lang member
+The lang member is a language tag (string) that specifies the primary language for the values of the manifest's directionality-capable members (as knowing the language can also help with directionality).
+
+A language tag is a string that matches the production of a Language-Tag defined in the [ BCP47 ] specifications (see the IANA Language Subtag Registry for an authoritative list of possible values). That is, a language range is composed of one or more subtags that are delimited by a U+002D HYPHEN-MINUS ("-"). For example, the ' en-AU ' language range represents English as spoken in Australia, and ' fr-CA ' represents French as spoken in Canada. Language tags that meet the validity criteria of [ RFC5646 ] section 2.2.9 that can be verified without reference to the IANA Language Subtag Registry are considered structurally valid.
+
+The steps for processing the lang member is given by the following algorithm. The algorithm takes a manifest as an argument. This algorithm returns a string or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " lang ".
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return undefined .
+Otherwise, Trim ( value ) and let tag be the result.
+If calling IsStructurallyValidLanguageTag with tag as the argument returns false , then:
+Issue a developer warning that the value is invalid.
+Return undefined .
+Otherwise, return the result of calling the CanonicalizeLanguageTag abstract operation, passing tag as the argument.
+8.3 name member
+The name member is a string that represents the name of the web application as it is usually displayed to the user (e.g., amongst a list of other applications, or as a label for an icon).
+
+The steps for processing the name member is given by the following algorithm. The algorithm takes a manifest as an argument. This algorithm returns a string or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " name ".
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return undefined .
+Otherwise, Trim ( value ) and return the result.
+8.4 short_name member
+The short_name member is a string that represents a short version of the name of the web application. It is intended to be used where there is insufficient space to display the full name of the web application.
+
+The steps for processing the short_name member is given by the following algorithm. The algorithm takes a manifest as an argument. This algorithm returns a string or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " short_name ".
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return undefined .
+Otherwise, Trim ( value ) and return the result.
+8.5 description member
+The description member allows the developer to describe the purpose of the web application.
+
+The steps for processing the description member is given by the following algorithm. The algorithm takes a manifest as an argument. This algorithm returns a string or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " description ".
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return undefined .
+Otherwise, Trim ( value ) and return the result.
+8.6 scope member
+Issue 380 : Provide better examples of scope
+People are confused by the lack of examples relating to scope:
+manifoldjs/ManifoldJS#42 (comment)
+
+The scope member is a string that represents the navigation scope of this web application's application context .
+
+The steps for processing the scope member is given by the following algorithm. The algorithm takes a manifest manifest , a URL manifest URL , a URL document URL , and a URL start URL . This algorithm returns a URL or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of the manifest with argument " scope ".
+Let type be Type ( value ).
+If type is not "string" or value is the empty string, then:
+If type is not " undefined ", issue a developer warning that the type is unsupported.
+Return undefined .
+Let scope URL be a new URL using value as input and manifest URL as the base URL.
+If scope URL is failure:
+Issue a developer warning .
+Return undefined .
+If scope URL is not same origin as document URL :
+Issue a developer warning that the scope needs to be same-origin as Document of the application context .
+Return undefined .
+If start URL is not within scope of scope URL:
+Issue a developer warning that the start URL is not within scope of the navigation scope.
+Return undefined .
+Otherwise, return scope URL .
+8.7 icons member
+The icons member is an array of image objects that can serve as iconic representations of the web application in various contexts. For example, they can be used to represent the web application amongst a list of other applications, or to integrate the web application with an OS 's task switcher and/or system preferences.
+
+Note
+The icons member is processed using the steps for processing an array of images .
+
+If there are multiple equally appropriate icons in icons , a user agent MUST use the last one declared in order at the time that the user agent collected the list of icons . If the user agent tries to use an icon but that icon is determined, upon closer examination, to in fact be inappropriate (e.g. because its content type is unsupported), then the user agent MUST try the next-most-appropriate icon as determined by examining the image object's members.
+
+In the following example, the developer has made the following choices about the icons associated with the web application:
+
+The developer has included two icons at the same size, but in two different formats. One is explicitly marked as WebP through the type member. If the user agent doesn't support WebP, it falls back to the second icon of the same size. The media type of this icon can then be either determined via a HTTP header, or can be sniffed by the user agent once the first few bytes of the icon are received.
+The developer wants to use an SVG for greater than or equal to 257x257px. She has found that the SVG file looks too blurry at small sizes, even on high-density screens. To deal with this problem, she's included an SVG icon that is only used when the dimensions are at least 257px. Otherwise, the user agent uses the ICO file (hd_hi.ico), which includes a gamut of raster icons individually tailored for small display sizes.
+Example 10
+{
+  "icons": [
+    {
+      "src": "icon/lowres.webp",
+      "sizes": "48x48",
+      "type": "image/webp"
+    },{
+      "src": "icon/lowres",
+      "sizes": "48x48"
+    },{
+      "src": "icon/hd_hi.ico",
+      "sizes": "72x72 96x96 128x128 256x256"
+    },{
+      "src": "icon/hd_hi.svg",
+      "sizes": "257x257"
+    }]
+}
+8.8 display member
+The display member is a string , whose value is one of display modes values . The item represents the developer's preferred display mode for the web application. When the member is missing or erroneous, the user agent MUST use the fallback display mode .
+
+The steps for processing the display member are given by the following algorithm. The algorithm takes a manifest manifest as an argument, and returns a string.
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of manifest passing " display " as the argument.
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is unsupported.
+Return the fallback display mode 's value.
+Otherwise, Trim ( value ), convert to lower-case, and set value to be the result.
+If value does not match one of the display modes values :
+Issue a developer warning that the value is unsupported.
+Return the fallback display mode 's value.
+Return value .
+8.9 orientation member
+The orientation member is a string that serves as the default orientation for all top-level browsing contexts of the web application. The possible values are those of the OrientationLockType enum defined in [ SCREEN-ORIENTATION ].
+
+If the user agent honors the value of the orientation member as the default orientation , then that serves as the default orientation for the life of the web application (unless overridden by some other means at runtime). This means that the user agent MUST return the orientation to the default orientation any time the orientation is unlocked [ SCREEN-ORIENTATION ] or the top-level browsing context is navigated .
+
+Although the specification relies on the [ SCREEN-ORIENTATION ]'s OrientationLockType , it is OPTIONAL for a user agent to implement the [ SCREEN-ORIENTATION ] API. Supporting the [ SCREEN-ORIENTATION ] API is, of course, RECOMMENDED .
+
+Certain UI/UX concerns and/or platform conventions will mean that some screen orientations and display modes cannot be used together . Which orientations and display modes cannot be used together is left to the discretion of implementers. For example, for some user agents, it might not make sense to change the default orientation of an application while in browser display mode .
+
+Note
+Once the web application is running, other means can change the orientation of a top-level browsing context (such as via [ SCREEN-ORIENTATION ] API).
+
+The steps for processing the orientation member are given by the following algorithm. The algorithm takes a manifest manifest and display mode display mode as an argument, and returns a string.
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " orientation ".
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return undefined .
+Otherwise, Trim ( value ), convert to lower-case, and set value to be the result.
+If value is not one of the OrientationLockType enum values, or value is unsupported by the user agent, or the value cannot be used together with display mode:
+Issue a developer warning .
+Return undefined .
+Return value .
+8.10 start_url member
+The start_url member is a string that represents the start URL , which is URL that the developer would prefer the user agent load when the user launches the web application (e.g., when the user clicks on the icon of the web application from a device's application menu or homescreen).
+
+The start_url member is purely advisory, and a user agent MAY ignore it or provide the end-user the choice not to make use of it. A user agent MAY also allow the end-user to modify the URL when, for instance, a bookmark for the web application is being created or any time thereafter.
+
+The steps for processing the start_url member are given by the following algorithm. The algorithm takes a manifest manifest , a URL manifest URL , and a URL document URL . This algorithm returns a URL .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of the manifest with argument " start_url ".
+Let type be Type ( value ).
+If type is not "string" or value is the empty string:
+If type is not " undefined ", issue a developer warning that the type is unsupported.
+Return a new URL whose input is document URL .
+Let url be a new URL using value as input and manifest URL as the base URL.
+If url is failure:
+Issue a developer warning .
+Return a new URL whose input is document URL .
+If url is not same origin as document URL :
+Issue a developer warning that the start_url needs to be same-origin as Document of the top-level browsing context .
+Return a new URL whose input is document URL .
+Otherwise, return url .
+For example, if the value of start_url is ../start_point.html , and the manifest's URL is https://example.com/resources/manifest.webmanifest , then the result of URL parsing would be https://example.com/start_point.html .
+
+8.10.1 Privacy consideration: start_url tracking
+It's conceivable that the start_url could be crafted to indicate that the application was launched from outside the browser (e.g., "start_url": "index.html?launcher=homescreen" ). This can be useful for analytics and possibly other customizations. However, it is also conceivable that developers could encode strings into the start_url that uniquely identify the user (e.g., a server assigned UUID ). This is fingerprinting/privacy sensitive information that the user might not be aware of.
+
+Given the above, it is RECOMMENDED that, upon installation, or any time thereafter, a user agent allows the user to inspect and, if necessary, modify the start URL of an application.
+
+8.11 serviceworker member
+The serviceworker member describes a service worker as defined in [ SERVICE-WORKERS-1 ].
+
+The serviceworker member represents an intented service worker registration in form of a registration object
+
+Note
+Other service worker registrations can be done, for instance by a script; if these have different scopes they will be considered separate registrations. If they have the same scope and script URL, they coalesce. If they have different script URLs, last one wins.
+
+The steps for processing the serviceworker member are given by the following algorithm. The algorithm takes a manifest manifest . This algorithm returns a registration object registration , which can be undefined .
+
+Let unprocessed registration be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " serviceworker ".
+Let src be the result of running the steps for processing the src member of a service worker with unprocessed registration and manifest URL .
+If src is undefined , or if the result of running is origin potentially trustworthy with the origin of src is Not Trusted , issue a developer warning , abort these steps and return undefined .
+Otherwise, let registration be an object with properties src , scope , type and use_cache . All properties initially set to undefined .
+Set registration 's src property to be src .
+Let scope be the result of running the steps for processing the scope member of a service worker passing unprocessed registration .
+If scope is undefined , issue a developer warning , abort these steps and return undefined .
+Otherwise, set registration 's scope property to be scope .
+Let type be the result of running the steps for processing the type member of a service worker passing unprocessed registration .
+If type is undefined , issue a developer warning , abort these steps and return undefined .
+Otherwise, set registration 's type property to be type .
+Let use cache be the result of running the steps for processing the use_cache member of a service worker passing unprocessed registration .
+If use cache is undefined , issue a developer warning , abort these steps and return undefined .
+Otherwise, set registration 's use_cache property to be use cache .
+Return registration .
+In the following example, the web application is listing a service worker for the /foo scope, bypassing the user agent cache when fetching the "sw.js" source:
+Example 11
+"serviceworker": {
+  "src": "sw.js",
+  "scope": "/foo",
+  "use_cache": false
+}
+8.12 theme_color member
+The theme_color member serves as the default theme color for an application context. What constitutes a theme color is defined in [ HTML ].
+
+If the user agent honors the value of the theme_color member as the default theme color , then that color serves as the theme color for all browsing contexts to which the manifest is applied . However, a document may override the default theme color through the inclusion of a valid [ HTML ] meta element whose name attribute is "theme-color".
+
+The steps for processing the theme_color member are given by the following algorithm. The algorithm takes a manifest as an argument. This algorithm returns a string or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " theme_color ".
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return undefined .
+Otherwise, let potential color be the result of running [ CSS-SYNTAX-3 ]'s parse a component value algorithm with value as input. If parsing returns a syntax error, return undefined .
+Let color be the result of attempting to parse potential color as a CSS color, as per [ CSS-SYNTAX-3 ]. If parsing fails:
+Issue a developer warning .
+Return undefined .
+Return color .
+8.13 related_applications member
+A related application is an application accessible to the underlying application platform that has a relationship with the web application associated with a manifest .
+
+The related_applications member lists related applications and serves as an indication of such a relationship between web application and related applications . This relationship is unidirectional and unless a listed application claims the same relationship, the user agent MUST NOT assume a bi-directional endorsement.
+
+Example of usages of the related_applications could be a crawler that would use that information to gather more information about the web application or a browser that could suggest a listed application as an alternative if the user wants to install the web application.
+
+The steps for processing the related_applications member are given by the following algorithm. The algorithm takes a manifest as an argument. This algorithm returns a list of application objects applications , which can be empty.
+
+Let applications be an empty list.
+Let unprocessed applications be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " related_applications ".
+If unprocessed applications is an array , then:
+For each potential application in the array:
+Let platform be the result of running the steps for processing the platform member of an application with potential application .
+If platform is undefined , move onto the next item if any are left.
+Let id be the result of running the steps for processing the id member of an application with potential application .
+Let url be the result of running the steps for processing the url member of an application with potential application .
+If both id and url are undefined , move onto the next item if any are left.
+Let minVersion be the result of running the steps for processing the min_version member of an application with potential application .
+Let fingerprints be the result of running the steps for processing the fingerprints member of an application with potential application .
+Let application be an object with properties platform , id , url , min_version , and fingerprints respectively set to platform , id , url , minVersion , and fingerprints .
+Append application to applications .
+Otherwise, if unprocessed applications is not undefined :
+Issue a developer warning that the type is not supported.
+Return applications .
+8.14 prefer_related_applications member
+Issue 365
+The prefer_related_applications member is a boolean value that is used as a hint for the user agent to say that related applications should be preferred over the web application. The user agent MUST consider the missing value as equivalent to have it set to false . If the prefer_related_applications is set to true , and the user agent wants to suggest to install the web application, the user agent might want to suggest installing one of the related applications instead.
+
+The steps for processing the prefer_related_applications member are given by the following algorithm. The algorithm takes a manifest as an argument. This algorithm returns a boolean.
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " prefer_related_applications ".
+If Type ( value ) is not "boolean":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return false .
+Return value .
+8.15 background_color member
+The background_color member describes the expected background color of the web application. It repeats what is already available in the application stylesheet but can be used by the user agent to draw the background color of a web application for which the manifest is known before the files are actually available, whether they are fetched from the network or retrieved from disk.
+
+The background_color member is only meant to improve the user experience while a web application is loading and MUST NOT be used by the user agent as the background color when the web application's stylesheet is available.
+
+The steps for processing the background_color member are given by the following algorithm. The algorithm takes a manifest as an argument. This algorithm returns a string or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " background_color ".
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return undefined .
+Otherwise, let potential color be the result of running [ CSS-SYNTAX-3 ]'s parse a component value algorithm with value as input. If parsing returns a syntax error, return undefined .
+Let color be the result of attempting to parse potential color as a CSS color, as per [ CSS-SYNTAX-3 ]. If parsing fails:
+Issue a developer warning .
+Return undefined .
+Return color .
+8.16 categories member
+The categories member describes the expected application categories to which the web application belongs.
+
+The categories member is only meant as a hint to catalogs or stores listing web applications and it is expected that these will make a best effort to find appropriate categories (or category) under which to list the web application. Like search engines and meta keywords, catalogs and stores are not required to honor this hint.
+
+The steps for processing the categories member are given by the following algorithm. The algorithm takes a manifest as an argument. This algorithm returns an array of strings or undefined .
+
+Let categories be an empty list.
+Let unprocessed categories be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " categories ".
+If unprocessed categories is an array, then:
+For each potential category in the array:
+Trim ( value ) and convert to ASCII lowercase
+Append potential category to categories
+Otherwise, if unprocessed categories is not undefined
+Issue a developer warning that the type is not supported.
+Return categories
+The categories string array is case insensitive and converted to lower-case by following the processing algorithm. Thus, sports , Sports , SPORTS , and SpOrTs are all equivalent.
+
+Note
+Manifest authors are encouraged to use lower-case.
+
+Note
+This specification does not define the particular values for a the categories member . However, the working group maintains a list of known category values in our wiki.
+
+8.17 screenshots member
+The screenshots member is an array of image objects represent the web application in common usage scenarios.
+
+8.18 iarc_rating_id member
+The iarc_rating_id member is a string that represents an ID value of the IARC rating of the web application. It is intended to be used to determine which ages the web application is appropriate for.
+
+The steps for processing the iarc_rating_id member is given by the following algorithm. The algorithm takes a manifest as an argument. This algorithm returns a string or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of manifest with argument " iarc_rating_id ".
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return undefined .
+Otherwise, Trim ( value ) and return the result.
+The following shows a very simple manifest with the iarc_rating_id member.
+
+Example 12 : very simple manifest
+{
+  "name": "Donate App",
+  "description": "This app helps you donate to worthy causes.",
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+  "icons": [{
+    "src": "images/icon.png",
+    "sizes": "192x192"
+  }]
+}
+More information on the International Age Rating Coalition (IARC) can be found at: How IARC Works and How developers can get their games and apps rated with IARC .
+
+9. Image object and its members
+Issue 361
+Each image object represents an image that is used as part of a web application, suitable to use in various contexts depending on the semantics of the member that is using the object (e.g., an icon that is part of an application menu, etc.). For an image object, this specification provides developers with a means of specifying the dimensions, and media type of an image (i.e., a "responsive image" solution [ RESPIMG-USECASES ]). A user agent can use these values to select an image that is best suited to display on the end-user's device or most closely matches the end-user's preferences.
+
+User agents may modify an image object to better match the platform’s visual style before displaying it to the user, for example by rounding the corners or painting it in a specific color. It is recommended that developers prepare their image objects for such scenarios to avoid losing important information through, e.g., change of color or clipped corners.
+
+9.1 Fetching image objects
+To fetch an image object , the user agent MUST run the steps to fetch an image object . The algorithm takes an image object , the manifest URL , and the document ( Document ) from which the manifest was linked. It returns a Response :
+
+Let request be a new Request .
+Set the following properties of request :
+url is set to image object's URL.
+initiator is " manifest ".
+type is " image ".
+cors is " no-cors ".
+referrer is manifest URL .
+client is document .
+Perform a fetch using request and return the response .
+9.2 Content security policy of image objects
+The security policy that governs whether a user agent can fetch an icon image is governed by the img-src directive [ CSP3 ] associated with the manifest's owner Document .
+
+For example, given the following img-src directive in the Content-Security-Policy HTTP header of the manifest's owner Document :
+
+Example 13
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Security-Policy: img-src icons.example.com
+<!doctype>
+<html>
+<link rel="manifest" href="manifest.webmanifest">
+And given the following manifest.webmanifest :
+
+Example 14
+{
+  "name": "custom manifest",
+  "start_url": "https://boo",
+  "icons": [
+    {
+      "src": "//icons.example.com/lowres"
+    },
+    {
+      "src": "//other.com/hi-res"
+    }
+  ]
+}
+The fetching of icon resources from icons.example.com/lowres would succeed, while fetching from other.com/hi-res would fail.
+
+9.3 purpose member
+The purpose member is an unordered set of unique space-separated tokens that are ASCII case-insensitive . The allowed values are the icon purposes .
+
+When an image object is used as an icon , a developer can hint that the image is intended to serve some special purpose in the context of the host OS (i.e., for better integration).
+
+For example, as a badge or "pinned" icon that is visually distinct, in color or form, from an application's launch icon. The user agent uses the value of the purpose member as a hint to determine where and how an image object is displayed. Unless declared otherwise by the developer, a user agent can use an icon for any purpose .
+
+The icon purposes are as follows:
+
+badge :
+A user agent can present this icon where space constraints and/or color requirements differ from those of the application icon.
+any :
+The user agent is free to display the icon in any context.
+The steps for processing a purpose member of an image are given by the following algorithm. The algorithm takes an image object image . This algorithm will return a set.
+
+Let purpose be an empty set.
+Let value be the result of calling the [[GetOwnProperty]] internal method of image passing " purpose " as the argument.
+Let type be Type ( value ).
+If type is not "string", then:
+If type is not " undefined ", issue a developer warning that the type is unsupported.
+Add "any" to purpose .
+Return purpose .
+Let keywords be the result of splitting value on spaces.
+For each keyword in keywords :
+Convert keyword to ASCII lowercase .
+If keyword is not one of the icon purposes , or is already contained in keywords , issue a developer warning and continue to the next keyword skipping the sub-steps below.
+Otherwise, add keyword to purpose .
+if the size of purpose is 0, then add "any" to purpose .
+Return purpose .
+In the following example, the web application is listing two different related applications, one on Google Play Store and the other one on the iTunes Store:
+
+Example 15
+{
+  "name": "News",
+  "icons": [{
+    "platform": "android",
+    "purpose": "badge",
+    "sizes": "16x16",
+    "src": "icons/badges/android.png",
+    "type": "image/png"
+  }, {
+    "purpose": "badge",
+    "src": "icons/badges/safari.svg",
+    "type": "image/svg"
+  }],
+}
+9.4 sizes member
+The sizes member of an image object is a string consisting of an unordered set of unique space-separated tokens which are ASCII case-insensitive that represents the dimensions of an image. Each keyword is either an ASCII case-insensitive match for the string " any" , or a value that consists of two valid non-negative integers that do not have a leading U+0030 DIGIT ZERO (0) character and that are separated by a single U+0078 LATIN SMALL LETTER X or U+0058 LATIN CAPITAL LETTER X character. The keywords represent icon sizes in raw pixels (as opposed to CSS pixels). When multiple image objects are available, a user agent MAY use the value to decide which icon is most suitable for a display context (and ignore any that are inappropriate).
+
+The steps for processing a sizes member of an image are given by the following algorithm. The algorithm takes an image object image . This algorithm will return a set.
+
+Let sizes be an empty set.
+Let value be the result of calling the [[GetOwnProperty]] internal method of image passing " sizes " as the argument.
+Let type be Type ( value ).
+If type is not "string", then:
+If type is not " undefined ", issue a developer warning that the type is unsupported.
+Return undefined .
+Otherwise, parse value as if it was a [ HTML ] sizes attribute and let keywords be the result.
+For each keyword in keywords :
+Convert keyword to ASCII lowercase and add the resulting string to sizes .
+Return sizes .
+9.5 src member
+The src member of an image object is a URL from which a user agent can fetch the image's data.
+
+The steps for processing the src member of an image are given by the following algorithm. The algorithm takes a image object icon , and a URL manifest URL , which is the URL from which the manifest was fetched. This algorithm will return a URL or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of image passing " src " as the argument.
+Let type be Type ( value ).
+If type is not "string", then:
+If type is not " undefined ", issue a developer warning that the type is unsupported.
+Return undefined .
+If Trim (value) is the empty string, then return undefined .
+Otherwise, parse value using manifest URL as the base URL and return the result.
+9.6 type member
+The type member of an image object is a hint as to the media type of the image. The purpose of this member is to allow a user agent to ignore images of media types it does not support.
+
+There is no default MIME type for image objects. However, for the purposes of determining the type of the resource , user agents must expect the resource to be an image.
+
+The steps for processing the type member of an image are given by the following algorithm. The algorithm takes an image object as an argument, and returns either a string or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of potential image passing " type " as the argument.
+Let type be Type ( value ).
+If type is not "string", then:
+If type is not " undefined ", issue a developer warning that the type is unsupported.
+Return undefined .
+Trim( value ) and set value to be resulting string.
+If value is not a valid MIME type or the value of type is not a supported media format, issue a developer warning and return undefined .
+Return value .
+9.7 Processing an array of images
+The steps for processing an array of images are given by the following algorithm. The algorithm takes a manifest, a URL manifest URL , which is the URL from which the manifest was fetched, and a string that represents the member name of the member which contains the array of image objects . This algorithm returns a list of image objects , which can be empty.
+
+Let images be an empty list.
+Let unprocessed images be the result of calling the [[GetOwnProperty]] internal method of manifest with member name as the argument.
+If unprocessed images is an array , then:
+From unprocessed images, filter out any item where HasOwnProperty (item,"src") returns false .
+For each potential image in the array:
+Let src be the result of running the steps for processing the src member of an image with potential image and manifest URL .
+If src is undefined , move onto the next item in images (if any are left).
+Otherwise, let image be an object with properties src , type , and sizes . All properties initially set to undefined .
+Set image 's src property to be src .
+Let type be the result of running the steps for processing the type member of an image passing potential image .
+If type is not undefined , set image 's type property to be type .
+Let sizes be the list that result from running the steps for processing a sizes member of an image passing potential image .
+If sizes is not undefined , set image 's sizes property to be sizes .
+Set image 's purpose property to be the result of running the steps for processing a purpose member of an image passing potential image .
+Append image to images .
+Otherwise, if unprocessed images is not undefined :
+Issue a developer warning that the type is not supported.
+Return images .
+10. Multi-purpose members
+This section specifies members that can be used on multiple objects. Each member specifies which object a multi-purpose member can be used with.
+
+10.1 platform member
+The platform member represents the platform to which a containing object applies.
+
+The following object types can make use of this member:
+
+Application object
+Image object
+A platform represents a software distribution ecosystem or possibly an operating system.
+
+Note
+This specification does not define the particular values for a the platform member . However, the working group maintains a list of known platform values in our wiki.
+
+The steps for processing the platform member of an application are given by the following algorithm. The algorithm takes an application object application . This algorithm will return a string or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of application passing " platform " as the argument.
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return undefined .
+Otherwise, Trim ( value ) and return the result.
+11. The serviceworker object and its members
+A serviceworker object represents a service worker registration for the web application.
+
+11.1 src member
+The service worker src member of a serviceworker object is a URL representing a service worker.
+
+The steps for processing the src member of a service worker are given by the following algorithm. The algorithm takes a serviceworker object registration , and a URL manifest URL , which is the URL from which the manifest was fetched. This algorithm will return a URL or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of registration passing " src " as the argument.
+Let type be Type ( value ).
+If type is not "string", then:
+If type is not " undefined ", issue a developer warning that the type is unsupported.
+Return undefined .
+If Trim (value) is the empty string, then return undefined .
+Otherwise, parse value using manifest URL as the base URL and return the result.
+11.2 scope member
+The service worker scope member of a serviceworker object is the service worker's associated scope URL .
+
+The steps for processing the scope member of a service worker are given by the following algorithm. The algorithm takes a serviceworker object registration , and a URL manifest URL , which is the URL from which the manifest was fetched. This algorithm will return a URL or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of registration passing " scope " as the argument.
+Let type be Type ( value ).
+If type is not "string", then:
+If type is not " undefined ", issue a developer warning that the type is unsupported and return undefined .
+Return null .
+If Trim (value) is the empty string, then return undefined .
+Otherwise, parse value using manifest URL as the base URL and return the result.
+11.3 type member
+The service worker type member of a serviceworker object is the service worker's worker type .
+
+The steps for processing the type member of a service worker are given by the following algorithm. The algorithm takes a serviceworker object registration , and a URL manifest URL , which is the URL from which the manifest was fetched. This algorithm will return a string.
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of registration passing " type " as the argument.
+Let type be Type ( value ).
+If type is not "string", then:
+If type is not " undefined ", issue a developer warning that the type is unsupported and return undefined .
+Return "classic" .
+If Trim (value) is the empty string, then:
+Issue a developer warning that the type is unsupported.
+Return undefined .
+Otherwise, Trim ( value ) and return the result.
+11.4 use_cache member
+The service worker use_cache member of a serviceworker object determines whether the user agent cache should be used when fetching the service worker.
+
+The steps for processing the use_cache member of a service worker are given by the following algorithm. The algorithm takes a serviceworker object registration , and a URL manifest URL , which is the URL from which the manifest was fetched. This algorithm will return a boolean.
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of registration passing " use_cache " as the argument.
+Let type be Type ( value ).
+If type is not "boolean", then:
+If type is not " undefined ", issue a developer warning that the type is unsupported and return undefined .
+Otherwise, return false
+Otherwise, return value .
+12. Application object and its members
+Each application object represents an application related to the web application. An application object has the following properties:
+
+platform
+the platform it is associated to
+url
+the URL where the application can be found
+id
+information additional to the URL or instead of the URL, depending on the platform
+min_version
+information about the minimum version of an application related to this web app
+fingerprints
+an array of fingerprint objects used for verifying the application
+A valid application object MUST have platform and either an url or an id (or both).
+
+In the following example, the web application is listing two different related applications, one on Google Play Store and the other one on the iTunes Store. The one on the Google Play Store has an Android package name, a minimum version specifier, and cryptographic fingerprints used for verification, in a Play-Store-specific manner.
+
+Example 16
+{
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.example.app1",
+      "id": "com.example.app1",
+      "min_version": "2",
+      "fingerprints": [
+        {
+          "type": "sha256_cert",
+          "value": "92:5A:39:05:C5:B9:EA:BC:71:48:5F:F2"
+        }
+      ]
+    },
+    {
+      "platform": "itunes",
+      "url": "https://itunes.apple.com/app/example-app1/id123456789"
+    }
+  ]
+}
+Issue
+Where should the platform expected value be listed?
+
+12.1 url member
+The url member of an application object represents the URL at which the application can be found.
+
+The steps for processing the url member of an application are given by the following algorithm. The algorithm takes an application object application . This algorithm will return an URL or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of application passing " url " as the argument.
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return undefined .
+Trim( value ) and set value to be resulting string.
+Otherwise, parse value and if the result is not failure, return the result, otherwise return undefined .
+12.2 id member
+The id member of an application object represents the id which is used to represent the application on the platform.
+
+The steps for processing the id member of an application are given by the following algorithm. The algorithm takes an application object application . This algorithm will return a string or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of application passing " id " as the argument.
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return undefined .
+Otherwise, Trim ( value ) and return the result.
+12.3 min_version member
+The min_version member of an application object represents the minimum version of the application that is considered related to this web app. This version is a string with platform-specific syntax and semantics.
+
+The steps for processing the min_version member of an application are given by the following algorithm. The algorithm takes an application object application . This algorithm will return a string or undefined .
+
+Let value be the result of calling the [[GetOwnProperty]] internal method of application passing " min_version " as the argument.
+If Type ( value ) is not "string":
+If Type ( value ) is not "undefined", issue a developer warning that the type is not supported.
+Return undefined .
+Otherwise, Trim ( value ) and return the result.
+12.4 fingerprints member
+The fingerprints member of an application object represents a set of cryptographic fingerprints used for verifying the application. It is given as an array of fingerprint objects .
+
+A fingerprint object has two properties: type and value . Each of these are strings, but their syntax and semantics are platform-defined.
+
+The steps for processing the fingerprints member of an application are given by the following algorithm. The algorithm takes an application object application . This algorithm will return a list of fingerprint objects , possibly empty.
+
+Let fingerprints be an empty list.
+Let unprocessed fingerprints be the result of calling the [[GetOwnProperty]] internal method of application passing " fingerprints " as the argument.
+If unprocessed fingerprints is an array, then for each potential fingerprint in unprocessed fingerprints :
+Let type be the result of calling the [[GetOwnProperty]] internal method of potential fingerprint passing " type " as an argument.
+If Type( type ) is not "string", then issue a developer warning that the type is unsupported, and move on to the next item in unprocessed fingerprints (if any are left).
+Let value be the result of calling the [[GetOwnProperty]] internal method of potential fingerprint passing " value " as an argument.
+If Type( value ) is not "string", then issue a developer warning that the type is unsupported, and move on to the next item in unprocessed fingerprints (if any are left).
+Let fingerprint be a fingerprint object , with its type member set to type and its value member set to value .
+Append fingerprint to fingerprints .
+Otherwise, issue a developer warning that the type is unsupported.
+Return fingerprints .
+13. Common conventions and dependencies
+The [[GetOwnProperty]] operation and the abstract operation hasOwnProperty , parseFloat(string) function, and the Type ( x ) notation are defined in [ ECMASCRIPT ].
+
+When instructed to Trim ( x ), a user agent MUST behave as if [ ECMASCRIPT ]'s String.prototype.trim() function had been called on the string x .
+
+As the manifest uses the JSON format, this specification relies on the types defined in [ ECMA-404 ] specification: namely object , array , number , string , true , false , and null . Strict type checking is not enforced by this specification. Instead, each member's definition specifies the steps required to process a particular member and what to do when a type does not match what is expected.
+
+The URL concept and URL parser are defined in [ URL ].
+
+The default orientation concept and the OrientationLockType enum, are defined in [ SCREEN-ORIENTATION ].
+
+The algorithm to parse a component value is defined in [ CSS-SYNTAX-3 ].
+
+The manifest-src , img-src , and default-src directives are defined in [ CSP3 ].
+
+The Is origin potentially trustworthy is defined in [ SECURE-CONTEXTS ].
+
+The Start Register is defined in [ SERVICE-WORKERS-1 ].
+
+The scope URL is defined in [ SERVICE-WORKERS-1 ].
+
+The IsStructurallyValidLanguageTag and CanonicalizeLanguageTag abstract operations are defined in [ ECMAS-402 ].
+
+The following are defined in [ WEBIDL ]:
+
+create
+InvalidStateError
+NotAllowedError
+The following are defined in [ DOM ]:
+
+Event interface
+Fire an event
+The following are defined in [ FETCH ]:
+
+Fetch .
+Response .
+Request .
+Network error .
+Context
+The following are defined in [ HTML ]:
+
+completely loaded
+allowed to navigate
+external Resource link
+top-level browsing context
+same-origin
+unordered set of unique space-separated tokens
+navigate algorithm
+replacement enabled
+link element
+link type
+media
+delay the load event
+tree order
+rel attribute
+obtain a resource
+networking task source
+queue a task
+origin
+a element
+meta element
+area element
+name attribute
+application-name
+title element
+icon link type
+ASCII case-insensitive
+any link size
+valid non-negative integer
+sizes
+to ASCII lowercase
+determining the type of the resource
+valid MIME type
+same origin
+the element's base URL .
+queue a post-load task
+Event handler IDL attribute
+in parallel
+split a string on spaces
+The following are defined in [ ENCODING ]:
+
+UTF-8 decode
+14. IANA considerations
+The following registrations are for community review and will be submitted to the IESG for review, approval, and registration with IANA .
+
+14.1 Media type registration
+This section contains the required text for MIME media type registration with IANA .
+
+The media type for a manifest is application/manifest+json .
+
+If the protocol over which the manifest is transferred supports the [ MIME-TYPES ] specification (e.g. HTTP), it is RECOMMENDED that the manifest be labeled with the media type for a manifest .
+
+Type name:
+application
+Subtype name:
+manifest+json
+Required parameters:
+N/A
+Optional parameters:
+N/A
+Encoding considerations:
+Same as for application/json
+Security and privacy considerations:
+This specification does not directly deal with high-value data. However, installed web applications and their data could be seen as "high value" (particularly from a privacy perspective).
+
+As the manifest format is JSON and will commonly be encoded using [ UNICODE ], the security considerations described in [ ECMA-404 ] and [ UNICODE-SECURITY ] apply. In addition, because there is no way to prevent developers from including custom/unrestrained data in a manifest , implementors need to impose their own implementation-specific limits on the values of otherwise unconstrained member types, e.g. to prevent denial of service attacks, to guard against running out of memory, or to work around platform-specific limitations.
+
+Web applications will generally contain ECMAScript, HTML, CSS files, and other media, which are executed in a sand-boxed environment. As such, implementors need to be aware of the security implications for the types they support. Specifically, implementors need to consider the security implications outlined in at least the following specifications: [ CSS-MIME ], [ ECMAScript-MIME ], [ HTML ].
+
+As web applications can contain content that is able to simultaneously interact with the local device and a remote host, implementors need to consider the privacy implications resulting from exposing private information to a remote host. Mitigation and in-depth defensive measures are an implementation responsibility and not prescribed by this specification. However, in designing these measures, implementors are advised to enable user awareness of information sharing, and to provide easy access to interfaces that enable revocation of permissions.
+
+As this specification allows for the declaration of URLs within certain members of a manifest, implementors need to consider the security considerations discussed in the [ URL ] specification. Implementations intending to display IRIs and IDNA addresses found in the manifest are strongly encouraged to follow the security advice given in [ UNICODE-SECURITY ].
+
+Developers need to be aware of the security considerations discussed throughout the [ CSP3 ] specification, particularly in relation to making data: a valid source for the purpose of  inlining  a manifest. Doing so can enable XSS attacks by allowing a manifest to be included directly in the document itself; this is best avoided completely.
+
+Applications that use this media type:
+Web browsers
+Additional information:
+Magic number(s):
+N/A
+File extension(s):
+.webmanifest
+Macintosh file type code(s):
+TEXT
+Person & email address to contact for further information:
+The Web Platform Working Group can be contacted at public-webapps@w3.org .
+Intended usage:
+COMMON
+Restrictions on usage:
+none
+Author:
+W3C 's Web Platform Working Group.
+Change controller:
+W3C .
+14.2 Link relation type registration
+Note
+A request to register the manifest link relation type been submitted to IANA.
+
+Relation Name:
+manifest
+Description:
+Links to a manifest . A manifest provides developers with a centralized place to put metadata associated with a web application.
+Reference:
+https://www.w3.org/TR/appmanifest/
+Notes:
+Please refer to the steps for obtaining a manifest for details about how to fetch and apply a manifest .
+15. Conformance
+As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.
+
+The key words MAY , MUST , MUST NOT , OPTIONAL , RECOMMENDED , REQUIRED , and SHOULD are to be interpreted as described in [ RFC2119 ].
+
+There is only one class of product that can claim conformance to this specification: a user agent .
+
+Note
+Although this specification is primarily targeted at web browsers, it is feasible that other software could also implement this specification in a conforming manner. For instance, search engines, or crawlers, could find and process manifests to build up catalogs of sites that potentially work as installable web applications.
+
+15.1 Extensibility
+This section is non-normative.
+
+This specification is designed to be extensible. Other specifications are encouraged to define new members for the manifest. However, in doing so, please follow the conventions used in this specification. In particular, use the extension point to hook into the steps for processing a manifest . Also, be sure to specify the steps for processing your particular member in the manner set forth in this specification. This will help keep this part of the platform consistent.
+
+To allow the community can easily find extensions, please add your extensions to the Extensions Registry .
+
+When specifying a new member, don't override or monkey patch anything defined in this specification. Also, don't assume your member will be processed before or after any other member. Keep your new member, and its processing, atomic and self contained. Note also that implementations are free to ignore any member they do not recognize or support.
+
+If you are writing a specification and temporarily want to patch this specification to help implementations along, file a bug so the community is informed of what you are trying to do.
+
+15.1.1 Proprietary manifest members
+This section is non-normative.
+
+Although proprietary extensions are undesirable, they can't realistically be avoided. As such, the RECOMMENDED way to add a new proprietary manifest member as an extension is to use a vendor prefix.
+
+We encourage implementors to add proprietary extensions to our Extensions Registry . This allows the community to track what extensions vendors and/or the web community have defined and documented. Periodically, we will consider those extensions for standardization.
+
+The following is an example of two hypothetical vendor extensions.
+
+Example 17 : vendor extensions
+{
+  ...
+  "webkit_fancy_feature": "some/url/img",
+  "moz_awesome_thing": { ... },
+  "vendor_example_site_verification": "KEY_9864D0966935"
+  ...
+}
+A. Relationship to HTML's link and meta elements
+An extensive discussion of why we chose to use JSON instead of HTML meta / link tags for this specification is available on GitHub and on the www-tag list. Below is a short summary of the key points raised in those discussions.
+
+The document format defined in this specification provides a unified means of encapsulating metadata about a Web application in a way that we hope will avoid existing pitfalls with both proprietary and [ HTML ]'s meta / link tags. Those pitfalls include:
+
+Developers have to duplicate the icons and application name in each page of a web site, leading to significant redundancy across pages. This is compounded if that information never gets used by the user agent (e.g., the user never bookmarks the web application).
+Spreading metadata across multiple documents can cause data to fall out of sync.
+If the metadata for a web application lives in a HTML document, that significantly increases the cost to user agents (and users) of checking for updates to the metadata of a site. Since the HTML file is likely to change often, it means that a user agent will often have to download the whole HTML file in order to check if any of the relevant meta tags have changed. If this resource contains inlined resources like JavaScript, images, or stylesheets, this could be a non-trivial download.
+Although it would be unrealistic to think that this specification won't bring its own set of problems, externalizing this data in the form of a manifest solves the problems described above. These problems are solved by:
+
+Making the manifest externally linkable: External manifest files can be cached as external resources, saving both bytes and redundancy in the markup.
+Flexible value types: unlike HTML attributes, members of the manifest can represent data using complex types, such as objects and arrays, rather than just strings. This solves the problem of the awkward and highly inconsistent formats the values of proprietary meta tags are currently using, especially when a tag's value contains several sub-values.
+In addition, standardizing the functionality currently provided by the various meta tag-based solutions within the manifest solves the problem of having to declare large number of proprietary and standard [ HTML ] tags that all achieve the same thing. Of course, this hinges on the standard actually getting implemented by browsers and those browsers getting widely deployed to users: if this happens, the Web community might be able to retire many of the proprietary meta tags plaguing the Web at the time of writing. More information about the proprietary tags can be found in the Use Cases and Requirements for Installable Web Apps .
+
+Lastly, this specification does not make the standardized solutions found in [ HTML ] redundant. When members like the name or icons is missing from the manifest, user agents can search in a manifest's owner [ HTML ] document for things like icons and the application name (or a user agent might even fallback to proprietary tags/metadata, if they are present in a document).
+
+B. JSON Schema
+Developers interested in validating manifest documents can find an unofficial JSON schema for the manifest format at schemastore.org . It is licensed under Apache 2.0 . It is kindly maintained by Mads Kristensen . If you find any issues with the JSON schema, please file a bug at the SchemaStore repository on GitHub.
+
+C. Internationalization
+It is expected that authors will localize the content of a manifest by using one of the following options:
+
+Dynamically setting the language:
+This can include, for instance, asking the end-user what their preferred language is and dynamically adding or replacing the manifest link relationship to the document based on that language preference (e.g., using a URL like "manifest.php?lang=fr").
+Using content-negotiation, or geotargeting, etc. on the server:
+The server that hosts the web application could attempt to predetermine the end-user's language by using geotargeting or by using content negotiation (e.g., using [ RFC7540 ]'s " Accept-Language " header, or even a custom HTTP header).
+Given the options above, developers need to be mindful of the end-user's privacy with respect to their preferred language: When the end-user has explicitly indicated their language preference to a web application (i.e., when not just using the user-agent default language settings), sending the end-user's preferred language in the clear over the wire is generally not OK. Doing so would reveal personal information about an end-user. As such, developers are encouraged to use [ TLS ] to reduce the chances of pervasive monitoring of their Web applications [ RFC7258 ].
+
+D. Use Cases and Requirements
+This document attempts to address the Use Cases and Requirements for Installable Web Apps .
+
+E. Issue Summary
+Issue 363 : Deep linking - need proper use cases and requirements analysis
+Issue 446 : Support a way to update explicitly
+Issue 380 : Provide better examples of scope
+Issue 365
+Issue 361
+F. Acknowledgments
+This document reuses text from the [ HTML ] specification, edited by Ian Hickson, as permitted by the license of that specification.
+
+Dave Raggett and Dominique Hazael-Massieux contributed to this specification via the HTML5Apps project.
+
+G. References
+G.1 Normative references
+[BCP47]
+Tags for Identifying Languages . A. Phillips; M. Davis. IETF. September 2009. IETF Best Current Practice. URL: https://tools.ietf.org/html/bcp47
+[BIDI]
+Unicode Bidirectional Algorithm . Mark Davis; Aharon Lanin; Andrew Glass. Unicode Consortium. 18 May 2016. Unicode Standard Annex #9. URL: http://www.unicode.org/reports/tr9/tr9-35.html
+[CSP3]
+Content Security Policy Level 3 . Mike West. W3C. 13 September 2016. W3C Working Draft. URL: https://www.w3.org/TR/CSP3/
+[CSS-MIME]
+The text/css Media Type . H. Lie; B. Bos; C. Lilley. IETF. March 1998. Informational. URL: https://tools.ietf.org/html/rfc2318
+[CSS-SYNTAX-3]
+CSS Syntax Module Level 3 . Tab Atkins Jr.; Simon Sapin. W3C. 20 February 2014. W3C Candidate Recommendation. URL: https://www.w3.org/TR/css-syntax-3/
+[DOM]
+DOM Standard . Anne van Kesteren. WHATWG. Living Standard. URL: https://dom.spec.whatwg.org/
+[ECMA-404]
+The JSON Data Interchange Format . Ecma International. 1 October 2013. Standard. URL: https://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf
+[ECMAS-402]
+ECMAScript Internationalization API Specification . Ecma International. URL: https://tc39.github.io/ecma402/
+[ECMASCRIPT]
+ECMAScript Language Specification . Ecma International. URL: https://tc39.github.io/ecma262/
+[ECMAScript-MIME]
+Scripting Media Types . B. Hoehrmann. IETF. April 2006. Informational. URL: https://tools.ietf.org/html/rfc4329
+[ENCODING]
+Encoding Standard . Anne van Kesteren. WHATWG. Living Standard. URL: https://encoding.spec.whatwg.org/
+[FETCH]
+Fetch Standard . Anne van Kesteren. WHATWG. Living Standard. URL: https://fetch.spec.whatwg.org/
+[HTML]
+HTML Standard . Anne van Kesteren; Domenic Denicola; Ian Hickson; Philip Jägenstedt; Simon Pieters. WHATWG. Living Standard. URL: https://html.spec.whatwg.org/multipage/
+[MEDIAQ]
+Media Queries . Florian Rivoal et al. W3C. 19 June 2012. W3C Recommendation. URL: https://www.w3.org/TR/css3-mediaqueries/
+[MIME-TYPES]
+Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types . N. Freed; N. Borenstein. IETF. November 1996. Draft Standard. URL: https://tools.ietf.org/html/rfc2046
+[RFC2119]
+Key words for use in RFCs to Indicate Requirement Levels . S. Bradner. IETF. March 1997. Best Current Practice. URL: https://tools.ietf.org/html/rfc2119
+[RFC5646]
+Tags for Identifying Languages . A. Phillips, Ed.; M. Davis, Ed.. IETF. September 2009. Best Current Practice. URL: https://tools.ietf.org/html/rfc5646
+[SCREEN-ORIENTATION]
+The Screen Orientation API . Mounir Lamouri; Marcos Caceres. W3C. 31 October 2016. W3C Working Draft. URL: https://www.w3.org/TR/screen-orientation/
+[SECURE-CONTEXTS]
+Secure Contexts . Mike West. W3C. 15 September 2016. W3C Candidate Recommendation. URL: https://www.w3.org/TR/secure-contexts/
+[SERVICE-WORKERS-1]
+Service Workers 1 . Alex Russell; Jungkee Song; Jake Archibald; Marijn Kruisselbrink. W3C. 11 October 2016. W3C Working Draft. URL: https://www.w3.org/TR/service-workers-1/
+[UNICODE]
+The Unicode Standard . Unicode Consortium. URL: http://www.unicode.org/versions/latest/
+[UNICODE-SECURITY]
+Unicode Security Considerations . Mark Davis; Michel Suignard. Unicode Consortium. 19 September 2014. Unicode Technical Report #36. URL: http://www.unicode.org/reports/tr36/
+[URL]
+URL Standard . Anne van Kesteren. WHATWG. Living Standard. URL: https://url.spec.whatwg.org/
+[WEBIDL]
+Web IDL . Cameron McCormack; Boris Zbarsky; Tobie Langel. W3C. 15 December 2016. W3C Editor's Draft. URL: https://heycam.github.io/webidl/
+[fetch]
+Fetch Standard . Anne van Kesteren. WHATWG. Living Standard. URL: https://fetch.spec.whatwg.org/
+G.2 Informative references
+[CSSOM-VIEW]
+CSSOM View Module . Simon Pieters. W3C. 17 March 2016. W3C Working Draft. URL: https://www.w3.org/TR/cssom-view-1/
+[RESPIMG-USECASES]
+Use Cases and Requirements for Standardizing Responsive Images . Marcos Caceres; Mathew Marquis; Yoav Weiss; David Newton. W3C. 7 November 2013. W3C Note. URL: https://www.w3.org/TR/respimg-usecases/
+[RFC7258]
+Pervasive Monitoring Is an Attack . S. Farrell; H. Tschofenig. IETF. May 2014. Best Current Practice. URL: https://tools.ietf.org/html/rfc7258
+[RFC7540]
+Hypertext Transfer Protocol Version 2 (HTTP/2) . M. Belshe; R. Peon; M. Thomson, Ed.. IETF. May 2015. Proposed Standard. URL: https://tools.ietf.org/html/rfc7540
+[TLS]
+The Transport Layer Security (TLS) Protocol Version 1.2 . T. Dierks; E. Rescorla. IETF. August 2008. Proposed Standard. URL: https://tools.ietf.org/html/rfc5246
+[WHATWG-FULLSCREEN]
+Fullscreen API Standard . Anne van Kesteren. WHATWG. Living Standard. URL: https://fullscreen.spec.whatwg.org/
+↑
