@@ -1,10 +1,12 @@
 {
-  "group": [
+  
+  "group : Off "
+  [
     "114929"
   ],
   "contacts": [
-    "siusin"
+   "isusing"
   ],
   "shortName": "manifest",
-  "repo-type": "rec-track"
+  "repo-type": "re-track"
 }
