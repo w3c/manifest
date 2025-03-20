@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" dir="ltr"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 35.2.2">
+<meta name="generator" content="ReSpec 35.2.3">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -163,7 +163,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="5088e7b7b9c055e9479da2d82171de633ea1a36d">
+<meta name="revision" content="d8bb3368f0e59e86541320158044c8d88906d6ee">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -276,16 +276,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "5088e7b7b9c055e9479da2d82171de633ea1a36d",
-  "publishISODate": "2025-03-07T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 07 March 2025"
+  "gitRevision": "d8bb3368f0e59e86541320158044c8d88906d6ee",
+  "publishISODate": "2025-03-20T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 20 March 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5 IMAGE-RESOURCE MIMESNIFF HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-03-07">07 March 2025</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-03-20">20 March 2025</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -379,7 +379,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <section id="sotd" class="introductory"><h2>Status of This Document</h2><p><em>This section describes the status of this
       document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr>
       publications and the latest revision of this technical report can be found
-      in the <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at
+      in the
+      <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> standards and drafts index</a> at
       https://www.w3.org/TR/.</em></p>
       <div class="warning" id="issue-container-generatedID"><div role="heading" class="warning-title marker" id="h-warning" aria-level="3"><span>Warning</span></div><aside class="">
         <p>
@@ -554,23 +555,21 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           Extensibility
         </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#proprietary-extensions"><bdi class="secno">B.1.1 </bdi>
             Proprietary manifest members
-          </a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#incubations"><bdi class="secno">C. </bdi>
-        Incubations
-      </a></li><li class="tocline"><a class="tocxref" href="#application-information"><bdi class="secno">D. </bdi>
+          </a></li></ol></li></ol></li><li class="tocline"><a class="tocxref" href="#application-information"><bdi class="secno">C. </bdi>
         Application Information
-      </a></li><li class="tocline"><a class="tocxref" href="#relationship-to-html-s-link-and-meta-elements"><bdi class="secno">E. </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#relationship-to-html-s-link-and-meta-elements"><bdi class="secno">D. </bdi>
         Relationship to HTML's <code>link</code> and <code>meta</code> elements
-      </a></li><li class="tocline"><a class="tocxref" href="#json-schema"><bdi class="secno">F. </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#json-schema"><bdi class="secno">E. </bdi>
         JSON Schema
-      </a></li><li class="tocline"><a class="tocxref" href="#internationalization"><bdi class="secno">G. </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#internationalization"><bdi class="secno">F. </bdi>
         Internationalization
-      </a></li><li class="tocline"><a class="tocxref" href="#use-cases-and-requirements"><bdi class="secno">H. </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#use-cases-and-requirements"><bdi class="secno">G. </bdi>
         Use Cases and Requirements
-      </a></li><li class="tocline"><a class="tocxref" href="#issue-summary"><bdi class="secno">I. </bdi>Issue summary</a></li><li class="tocline"><a class="tocxref" href="#change-log"><bdi class="secno">J. </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#issue-summary"><bdi class="secno">H. </bdi>Issue summary</a></li><li class="tocline"><a class="tocxref" href="#change-log"><bdi class="secno">I. </bdi>
         Change log
-      </a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">K. </bdi>
+      </a></li><li class="tocline"><a class="tocxref" href="#acknowledgements"><bdi class="secno">J. </bdi>
         Acknowledgements
-      </a></li><li class="tocline"><a class="tocxref" href="#index"><bdi class="secno">L. </bdi>Index</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#index-defined-here"><bdi class="secno">L.1 </bdi>Terms defined by this specification</a></li><li class="tocline"><a class="tocxref" href="#index-defined-elsewhere"><bdi class="secno">L.2 </bdi>Terms defined by reference</a></li></ol></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">M. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">M.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">M.2 </bdi>Informative references</a></li></ol></li></ol></nav>
+      </a></li><li class="tocline"><a class="tocxref" href="#index"><bdi class="secno">K. </bdi>Index</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#index-defined-here"><bdi class="secno">K.1 </bdi>Terms defined by this specification</a></li><li class="tocline"><a class="tocxref" href="#index-defined-elsewhere"><bdi class="secno">K.2 </bdi>Terms defined by reference</a></li></ol></li><li class="tocline"><a class="tocxref" href="#references"><bdi class="secno">L. </bdi>References</a><ol class="toc"><li class="tocline"><a class="tocxref" href="#normative-references"><bdi class="secno">L.1 </bdi>Normative references</a></li><li class="tocline"><a class="tocxref" href="#informative-references"><bdi class="secno">L.2 </bdi>Informative references</a></li></ol></li></ol></nav>
     <section id="web-application-manifest"><div class="header-wrapper"><h2 id="x1-web-application-manifest"><bdi class="secno">1. </bdi>
         Web Application Manifest
       </h2><a class="self-link" href="#web-application-manifest" aria-label="Permalink for Section 1."></a></div>
@@ -3967,7 +3966,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <section id="conformance" class="appendix"><div class="header-wrapper"><h2 id="b-conformance"><bdi class="secno">B. </bdi>Conformance</h2><a class="self-link" href="#conformance" aria-label="Permalink for Appendix B."></a></div><p>As well as sections marked as non-normative, all authoring guidelines, diagrams, examples, and notes in this specification are non-normative. Everything else in this specification is normative.</p><p>
         The key words <em class="rfc2119">MAY</em>, <em class="rfc2119">MUST</em>, <em class="rfc2119">MUST NOT</em>, <em class="rfc2119">OPTIONAL</em>, <em class="rfc2119">RECOMMENDED</em>, <em class="rfc2119">SHOULD</em>, and <em class="rfc2119">SHOULD NOT</em> in this document
         are to be interpreted as described in
-        <a href="https://datatracker.ietf.org/doc/html/bcp14">BCP 14</a>
+        <a href="https://www.rfc-editor.org/info/bcp14">BCP 14</a>
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174</a></cite>]
         when, and only when, they appear in all capitals, as shown here.
       </p>
@@ -4029,12 +4028,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             for a second user agent on a different platform to make use of that
             member, even if no other user agent has expressed interest right
             now). If so, we ask authors to design the API in a vendor-neutral
-            way, and propose it as a standard (see <a href="#incubations" data-matched-text="[[[#incubations]]]" class="sec-ref"><bdi class="secno">C. </bdi>
-        Incubations</a>). If the
-            new member is truly proprietary (i.e. will only ever make sense in
-            the context of a proprietary ecosystem), use this process, and
-            prefix it with the short name of that proprietary ecosystem to
-            avoid name collisions.
+            way, and propose it as a standard. If the new member is truly
+            proprietary (i.e. will only ever make sense in the context of a
+            proprietary ecosystem), use this process, and prefix it with the
+            short name of that proprietary ecosystem to avoid name collisions.
           </p>
           <p>
             Do not use vendor prefixes that you intend to later remove once it
@@ -4074,43 +4071,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </section>
       </section>
     </section>
-    <section class="appendix informative" id="incubations-0"><div class="header-wrapper"><h2 id="incubations"><bdi class="secno">C. </bdi>
-        Incubations
-      </h2><a class="self-link" href="#incubations" aria-label="Permalink for Appendix C."></a></div><p><em>This section is non-normative.</em></p>
-      
-      <p>
-        Extensions to this specification are being incubated in parallel by the
-        Web Community, some of which are shipping in multiple browsers. If two
-        or more browser engines end up supporting an incubated feature, then
-        those features will become part of this specification in the future -
-        allowing them to become a standard the Web Platform:
-      </p>
-      <dl>
-        <dt>
-          <code>BeforeInstallPrompt</code> and <code>window.onappinstalled</code> event
-        </dt>
-        <dd>
-          The <code>BeforeInstallPrompt</code> event and <code>window.onappinstalled</code> event
-          were originally part of this specification. However, they were
-          <a href="https://github.com/w3c/manifest/pull/836">removed from the
-          specification</a> because they did not have support from two or more
-          implementers. You can now find them in the <a href="https://github.com/WICG/manifest-incubations"><code>BeforeInstallPrompt</code>
-          event and <code>window.onappinstalled</code> repository</a> at the <a href="https://wicg.io"><abbr title="Web Incubator Community Group">WICG</abbr></a>.
-        </dd>
-        <dt>
-          <code>share_target</code> member
-        </dt>
-        <dd>
-          The <code>share_target</code> member registers a web application as "target" for
-          share actions (e.g., for sharing a text, a URL, or a file). The
-          <code>share_target</code> member is part of the <a href="https://wicg.github.io/web-share-target/">Web Share Target</a>
-          specification, being incubated at the <a href="https://wicg.io"><abbr title="Web Incubator Community Group">WICG</abbr></a>.
-        </dd>
-      </dl>
-    </section>
-    <section class="appendix informative" id="application-information"><div class="header-wrapper"><h2 id="d-application-information"><bdi class="secno">D. </bdi>
+    <section class="appendix informative" id="application-information"><div class="header-wrapper"><h2 id="c-application-information"><bdi class="secno">C. </bdi>
         Application Information
-      </h2><a class="self-link" href="#application-information" aria-label="Permalink for Appendix D."></a></div><p><em>This section is non-normative.</em></p>
+      </h2><a class="self-link" href="#application-information" aria-label="Permalink for Appendix C."></a></div><p><em>This section is non-normative.</em></p>
       
       <p>
         Several members of the Web Application Manifest provide additional
@@ -4131,9 +4094,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </li>
       </ul>
     </section>
-    <section class="appendix informative" id="relationship-to-html-s-link-and-meta-elements"><div class="header-wrapper"><h2 id="e-relationship-to-html-s-link-and-meta-elements"><bdi class="secno">E. </bdi>
+    <section class="appendix informative" id="relationship-to-html-s-link-and-meta-elements"><div class="header-wrapper"><h2 id="d-relationship-to-html-s-link-and-meta-elements"><bdi class="secno">D. </bdi>
         Relationship to HTML's <code>link</code> and <code>meta</code> elements
-      </h2><a class="self-link" href="#relationship-to-html-s-link-and-meta-elements" aria-label="Permalink for Appendix E."></a></div><p><em>This section is non-normative.</em></p>
+      </h2><a class="self-link" href="#relationship-to-html-s-link-and-meta-elements" aria-label="Permalink for Appendix D."></a></div><p><em>This section is non-normative.</em></p>
       
       <p>
         An extensive discussion of why we chose to use JSON instead of HTML
@@ -4207,9 +4170,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         are present in a document).
       </p>
     </section>
-    <section class="appendix informative" id="json-schema"><div class="header-wrapper"><h2 id="f-json-schema"><bdi class="secno">F. </bdi>
+    <section class="appendix informative" id="json-schema"><div class="header-wrapper"><h2 id="e-json-schema"><bdi class="secno">E. </bdi>
         JSON Schema
-      </h2><a class="self-link" href="#json-schema" aria-label="Permalink for Appendix F."></a></div><p><em>This section is non-normative.</em></p>
+      </h2><a class="self-link" href="#json-schema" aria-label="Permalink for Appendix E."></a></div><p><em>This section is non-normative.</em></p>
       
       <p>
         Developers interested in validating <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-31">manifest</a> documents can find
@@ -4230,9 +4193,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </details>
       </aside></div>
     </section>
-    <section id="internationalization" class="appendix informative" data-cite="i18n-glossary"><div class="header-wrapper"><h2 id="g-internationalization"><bdi class="secno">G. </bdi>
+    <section id="internationalization" class="appendix informative" data-cite="i18n-glossary"><div class="header-wrapper"><h2 id="f-internationalization"><bdi class="secno">F. </bdi>
         Internationalization
-      </h2><a class="self-link" href="#internationalization" aria-label="Permalink for Appendix G."></a></div><p><em>This section is non-normative.</em></p>
+      </h2><a class="self-link" href="#internationalization" aria-label="Permalink for Appendix F."></a></div><p><em>This section is non-normative.</em></p>
       
       <p>
         It is expected that authors will localize the content of a manifest by
@@ -4279,19 +4242,19 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         applications [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc7258" title="Pervasive Monitoring Is an Attack">RFC7258</a></cite>].
       </p>
     </section>
-    <section id="use-cases-and-requirements"><div class="header-wrapper"><h2 id="h-use-cases-and-requirements"><bdi class="secno">H. </bdi>
+    <section id="use-cases-and-requirements"><div class="header-wrapper"><h2 id="g-use-cases-and-requirements"><bdi class="secno">G. </bdi>
         Use Cases and Requirements
-      </h2><a class="self-link" href="#use-cases-and-requirements" aria-label="Permalink for Section H."></a></div>
+      </h2><a class="self-link" href="#use-cases-and-requirements" aria-label="Permalink for Section G."></a></div>
       
       <p>
         This document attempts to address the <cite><a href="https://w3c-webmob.github.io/installable-webapps/">Use Cases and
         Requirements for Installable Web Apps</a></cite>.
       </p>
     </section>
-    <section id="issue-summary"><div class="header-wrapper"><h2 id="i-issue-summary"><bdi class="secno">I. </bdi>Issue summary</h2><a class="self-link" href="#issue-summary" aria-label="Permalink for Section I."></a></div><p>There are no issues listed in this specification.</p></section>
-    <section class="informative" id="change-log"><div class="header-wrapper"><h2 id="j-change-log"><bdi class="secno">J. </bdi>
+    <section id="issue-summary"><div class="header-wrapper"><h2 id="h-issue-summary"><bdi class="secno">H. </bdi>Issue summary</h2><a class="self-link" href="#issue-summary" aria-label="Permalink for Section H."></a></div><p>There are no issues listed in this specification.</p></section>
+    <section class="informative" id="change-log"><div class="header-wrapper"><h2 id="i-change-log"><bdi class="secno">I. </bdi>
         Change log
-      </h2><a class="self-link" href="#change-log" aria-label="Permalink for Section J."></a></div><p><em>This section is non-normative.</em></p>
+      </h2><a class="self-link" href="#change-log" aria-label="Permalink for Section I."></a></div><p><em>This section is non-normative.</em></p>
       
       <p>
         The following are some significant changes that were made since First
@@ -4301,9 +4264,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <li><a href="https://github.com/w3c/manifest/commit/ec8a23b">clarify the definition of "navigation scope", "applied", and off-scop…</a></li><li><a href="https://github.com/w3c/manifest/commit/40cf2c7">Make enums case-insensitive</a> (<a href="https://github.com/w3c/manifest/pull/1149">#1149</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1a06ac7">Move `prefer_related_applications` and `related_applications` to mani…</a></li><li><a href="https://github.com/w3c/manifest/commit/75ae2b4">Add members for localization</a> (<a href="https://github.com/w3c/manifest/pull/1101">#1101</a>)</li><li><a href="https://github.com/w3c/manifest/commit/3e1fd57">Trim `dir`, `lang`, `display`, `orientation`, text and color values (…</a></li><li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li>
       </ul></rs-changelog>
     </section>
-    <section class="appendix informative" id="acknowledgements"><div class="header-wrapper"><h2 id="k-acknowledgements"><bdi class="secno">K. </bdi>
+    <section class="appendix informative" id="acknowledgements"><div class="header-wrapper"><h2 id="j-acknowledgements"><bdi class="secno">J. </bdi>
         Acknowledgements
-      </h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix K."></a></div><p><em>This section is non-normative.</em></p>
+      </h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix J."></a></div><p><em>This section is non-normative.</em></p>
       
       <p>
         This document reuses text from the [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>] specification, as permitted
@@ -4322,7 +4285,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         navigation.
       </p>
     </section>
-    <section id="index" class="appendix"><div class="header-wrapper"><h2 id="l-index"><bdi class="secno">L. </bdi>Index</h2><a class="self-link" href="#index" aria-label="Permalink for Appendix L."></a></div><section id="index-defined-here"><div class="header-wrapper"><h3 id="l-1-terms-defined-by-this-specification"><bdi class="secno">L.1 </bdi>Terms defined by this specification</h3><a class="self-link" href="#index-defined-here" aria-label="Permalink for Appendix L.1"></a></div>
+    <section id="index" class="appendix"><div class="header-wrapper"><h2 id="k-index"><bdi class="secno">K. </bdi>Index</h2><a class="self-link" href="#index" aria-label="Permalink for Appendix K."></a></div><section id="index-defined-here"><div class="header-wrapper"><h3 id="k-1-terms-defined-by-this-specification"><bdi class="secno">K.1 </bdi>Terms defined by this specification</h3><a class="self-link" href="#index-defined-here" aria-label="Permalink for Appendix K.1"></a></div>
     
     <ul class="index">
     <li>
@@ -4551,7 +4514,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </ul>
   </li>
   </ul>
-  </section><section id="index-defined-elsewhere"><div class="header-wrapper"><h3 id="l-2-terms-defined-by-reference"><bdi class="secno">L.2 </bdi>Terms defined by reference</h3><a class="self-link" href="#index-defined-elsewhere" aria-label="Permalink for Appendix L.2"></a></div>
+  </section><section id="index-defined-elsewhere"><div class="header-wrapper"><h3 id="k-2-terms-defined-by-reference"><bdi class="secno">K.2 </bdi>Terms defined by reference</h3><a class="self-link" href="#index-defined-elsewhere" aria-label="Permalink for Appendix K.2"></a></div>
     
     <ul class="index">
     <li>
@@ -4792,14 +4755,14 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </section></section>
   
 
-<section id="references" class="appendix"><div class="header-wrapper"><h2 id="m-references"><bdi class="secno">M. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix M."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="m-1-normative-references"><bdi class="secno">M.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix M.1"></a></div>
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="l-references"><bdi class="secno">L. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix L."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="l-1-normative-references"><bdi class="secno">L.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix L.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-accname-1.2">[accname-1.2]</dt><dd>
-      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 1 March 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
+      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 12 March 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
     </dd><dt id="bib-bcp47">[BCP47]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc5646"><cite>Tags for Identifying Languages</cite></a>. A. Phillips, Ed.; M. Davis, Ed. IETF. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc5646">https://www.rfc-editor.org/rfc/rfc5646</a>
     </dd><dt id="bib-csp3">[CSP3]</dt><dd>
-      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 6 February 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
+      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 12 March 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
     </dd><dt id="bib-css-color-4">[css-color-4]</dt><dd>
       <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Chris Lilley; Tab Atkins Jr.; Lea Verou.  W3C. 13 February 2024. CRD. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
     </dd><dt id="bib-css-mime">[CSS-MIME]</dt><dd>
@@ -4847,7 +4810,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-uts55">[UTS55]</dt><dd>
       <a href="https://www.unicode.org/reports/tr55/tr55-5.html"><cite>Unicode Source Code Handling</cite></a>. Robin Leroy; Mark Davis.  Unicode Consortium. 29 January 2024. Unicode Technical Standard #55. URL: <a href="https://www.unicode.org/reports/tr55/tr55-5.html">https://www.unicode.org/reports/tr55/tr55-5.html</a>
     </dd></dl>
-  </section><section id="informative-references"><div class="header-wrapper"><h3 id="m-2-informative-references"><bdi class="secno">M.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix M.2"></a></div>
+  </section><section id="informative-references"><div class="header-wrapper"><h3 id="l-2-informative-references"><bdi class="secno">L.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix L.2"></a></div>
     
     <dl class="bibliography"><dt id="bib-fullscreen">[FULLSCREEN]</dt><dd>
       <a href="https://fullscreen.spec.whatwg.org/"><cite>Fullscreen API Standard</cite></a>. Philip Jägenstedt.  WHATWG. Living Standard. URL: <a href="https://fullscreen.spec.whatwg.org/">https://fullscreen.spec.whatwg.org/</a>
@@ -4929,9 +4892,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-manifest-30" title="§ A.2 Link relation type registration">§ A.2 Link relation type registration</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-31" title="§ F. JSON Schema">§ F. JSON Schema</a> 
+      <a href="#ref-for-dfn-manifest-31" title="§ E. JSON Schema">§ E. JSON Schema</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-32" title="§ G. Internationalization">§ G. Internationalization</a> 
+      <a href="#ref-for-dfn-manifest-32" title="§ F. Internationalization">§ F. Internationalization</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-manifest-url" aria-label="Links in this document to definition: manifest URL">
@@ -5459,7 +5422,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-localizable-member-16" title="§ 3.5 icons member">§ 3.5 icons member</a> 
     </li><li>
-      <a href="#ref-for-dfn-localizable-member-17" title="§ G. Internationalization">§ G. Internationalization</a> 
+      <a href="#ref-for-dfn-localizable-member-17" title="§ F. Internationalization">§ F. Internationalization</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-_localized" aria-label="Links in this document to definition: *_localized">
@@ -5513,7 +5476,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-localized-value-7" title="§ 1.15.2 Localizing image resources">§ 1.15.2 Localizing image resources</a> 
     </li><li>
-      <a href="#ref-for-dfn-localized-value-8" title="§ G. Internationalization">§ G. Internationalization</a> 
+      <a href="#ref-for-dfn-localized-value-8" title="§ F. Internationalization">§ F. Internationalization</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-default-representation" aria-label="Links in this document to definition: default representation">
@@ -6111,7 +6074,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-installed-web-application-6" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> 
     </li><li>
-      <a href="#ref-for-dfn-installed-web-application-7" title="§ G. Internationalization">§ G. Internationalization</a> 
+      <a href="#ref-for-dfn-installed-web-application-7" title="§ F. Internationalization">§ F. Internationalization</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-application-s-name" aria-label="Links in this document to definition: application's name">
@@ -6803,7 +6766,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-locale-1" title="§ G. Internationalization">§ G. Internationalization</a> 
+      <a href="#ref-for-index-term-locale-1" title="§ F. Internationalization">§ F. Internationalization</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-image-resources" aria-label="Links in this document to definition: image resources">
