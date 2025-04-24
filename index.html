@@ -1823,23 +1823,31 @@
         Manifest image resources
       </h2>
       <p>
-        Each <dfn>manifest image resource</dfn> is an [=image resource=] that
-        is conceptually part of a web application, suitable to use in various
-        contexts depending on the semantics of the member that is using the
-        object (e.g., an icon that is part of an application menu, etc.).
+        Each <dfn>manifest image resource</dfn> is an [=image resource=]. The
+        context in which an manifest image resource is presented is determnined
+        by the semantics of the associated manifest member (e.g., an
+        [=manifest/icons=] member is generally used to represent the
+        application icon).
       </p>
       <p>
         A [=manifest image resource=] differs from a [=image resource=] in that
         it can have an additional [=manifest image resource/purpose=] member.
       </p>
       <p>
-        User agents MAY modify the images associated with an [=manifest image
-        resource=] to better match the platform’s visual style before
+        User agents MAY modify the images associated with a [=manifest image
+        resource=] to better match the platform's visual style before
         displaying it to the user, for example by rounding the corners or
         painting it in a specific color. It is recommended that developers
         prepare their image resources for such scenarios to avoid losing
         important information through, e.g., change of color or clipped
         corners.
+      </p>
+      <p>
+        User agents MAY [=fetch=] an [=manifest image resource=] by running the
+        [=fetching an image resource=] algorithm. Alternatively, the user agent
+        MAY delegate [=fetch|fetching=] [=manifest image resources=] to the
+        underlying platform. How the underlying platform fetches a manifest
+        image resource is outside the scope of this specification.
       </p>
       <section>
         <h3>
@@ -1945,53 +1953,6 @@
           <li>Return |purposes|.
           </li>
         </ol>
-      </section>
-      <section>
-        <h3>
-          Content security policy
-        </h3>
-        <p>
-          The security policy that governs whether a <a>user agent</a> can
-          fetch an icon image is governed by the `img-src` directive [[CSP3]]
-          associated with the manifest's owner {{Document}}.
-        </p>
-        <aside class="example" title="Content security policy of icons">
-          <p>
-            For example, given the following `img-src` directive in the
-            `Content-Security-Policy` HTTP header of the manifest's owner
-            {{Document}}:
-          </p>
-          <pre class="http">
-            HTTP/1.1 200 OK
-            Content-Type: text/html
-            Content-Security-Policy: img-src icons.example.com
-
-            &lt;!doctype&gt;
-            &lt;html&gt;
-            &lt;link rel="manifest" href="manifest.webmanifest"&gt;
-          </pre>
-          <p>
-            And given the following `manifest.webmanifest`:
-          </p>
-          <pre class="json">
-            {
-              "name": "custom manifest",
-              "start_url": "https://boo",
-              "icons": [
-                {
-                  "src": "//icons.example.com/lowres"
-                },
-                {
-                  "src": "//other.com/hi-res"
-                }
-              ]
-            }
-          </pre>
-          <p>
-            The fetching of icon resources from `icons.example.com/lowres`
-            would succeed, while fetching from `other.com/hi-res` would fail.
-          </p>
-        </aside>
       </section>
       <section id="icon-masks">
         <h2>
