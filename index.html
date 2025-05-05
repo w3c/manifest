@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" dir="ltr"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 35.2.3">
+<meta name="generator" content="ReSpec 35.3.1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -62,7 +62,7 @@ a.bibref{text-decoration:none}
 .respec-offending-element{background:url(data:image/gif;base64,R0lGODdhBAADAPEAANv///8AAP///wAAACwAAAAABAADAEACBZQjmIAFADs=) bottom repeat-x}
 }
 #references :target{background:#eaf3ff;animation:pop .4s ease-in-out 0s 1}
-cite .bibref{font-style:normal}
+cite .bibref{font-style:italic}
 a[href].orcid{padding-left:4px;padding-right:4px}
 a[href].orcid>svg{margin-bottom:-2px}
 ol.tof,ul.tof{list-style:none outside none}
@@ -163,7 +163,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="d8bb3368f0e59e86541320158044c8d88906d6ee">
+<meta name="revision" content="8ff396e78636b370a4137f2f490738812ae6348e">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -192,6 +192,23 @@ ul.index code{color:inherit}
 .hljs-emphasis{font-style:italic}
 .hljs-strong{font-weight:700}
 .hljs-link{text-decoration:underline}
+</style>
+<style>
+var:hover{text-decoration:underline;cursor:pointer}
+var.respec-hl{color:var(--color,#000);background-color:var(--bg-color);box-shadow:0 0 0 2px var(--bg-color)}
+@media (prefers-color-scheme:dark){
+var.respec-hl{filter:saturate(.9) brightness(.9)}
+}
+var.respec-hl-c1{--bg-color:#f4d200}
+var.respec-hl-c2{--bg-color:#ff87a2}
+var.respec-hl-c3{--bg-color:#96e885}
+var.respec-hl-c4{--bg-color:#3eeed2}
+var.respec-hl-c5{--bg-color:#eacfb6}
+var.respec-hl-c6{--bg-color:#82ddff}
+var.respec-hl-c7{--bg-color:#ffbcf2}
+@media print{
+var.respec-hl{background:0 0;color:#000;box-shadow:unset}
+}
 </style>
 <style>
 var{position:relative;cursor:pointer}
@@ -276,16 +293,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "d8bb3368f0e59e86541320158044c8d88906d6ee",
-  "publishISODate": "2025-03-20T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 20 March 2025"
+  "gitRevision": "8ff396e78636b370a4137f2f490738812ae6348e",
+  "publishISODate": "2025-05-05T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 05 May 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5 IMAGE-RESOURCE MIMESNIFF HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-03-20">20 March 2025</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-05-05">05 May 2025</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -400,7 +417,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     an Editor's Draft. 
   </p><p>Publication as an Editor's Draft does not
   imply endorsement by <abbr title="World Wide Web Consortium">W3C</abbr> and its Members. </p><p>
-    This is a draft document and may be updated, replaced or obsoleted by other
+    This is a draft document and may be updated, replaced, or obsoleted by other
     documents at any time. It is inappropriate to cite this document as other
     than work in progress.
     
@@ -707,27 +724,41 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </h4><a class="self-link" href="#declaring-multiple-icons" aria-label="Permalink for Section 1.1.3"></a></div><p><em>This section is non-normative.</em></p>
           
           <p>
-            In the following example, the developer has made the following
-            choices about the icons associated with the web application:
+            This section illustrates how to declare multiple icons using the
+            <a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-2"><code>icons</code></a> member to declare a set of icons for a web
+            application. In the following example, the developer has made the
+            following choices about the icons associated with the web
+            application:
           </p>
           <ul>
             <li>The developer has included two icons at the same size, but in
             two different formats. One is explicitly marked as WebP through the
-            <code>type</code> member. If the user agent doesn't support WebP, it falls
+            <code>type</code> member. If the user agent doesn't support WebP, it can fall
             back to the second icon of the same size. The <a data-link-type="dfn" href="https://mimesniff.spec.whatwg.org/#mime-type" id="ref-for-index-term-mime-type-2">MIME type</a> of
             this icon can then be either determined via a HTTP header, or can
             be <a data-lt="computed mime type" data-link-type="dfn" href="https://mimesniff.spec.whatwg.org/#computed-mime-type" id="ref-for-index-term-computed-mime-type-1">sniffed</a> by the user agent
             once the first few bytes of the icon are received.
             </li>
-            <li>The developer wants to use an SVG for greater than or equal to
-            257x257px. They've found that the SVG file looks too blurry at
-            small sizes, even on high-density screens. To deal with this
-            problem, the developer includes an SVG icon that is only used when
-            the dimensions are at least 257px. Otherwise, the user agent uses
-            the ICO file (hd_hi.ico), which includes a gamut of raster icons
-            individually tailored for small display sizes.
+            <li>The developer specifies various sizes for the pixel-based icon
+            formats (e.g., a PNG file). These sizes serve as hints for the user
+            agent to determine a suitable icon to use in a particular context
+            (e.g., on the home screen of a device). The developer has also
+            included an ICO file (e.g., hd_hi.ico), which includes a range of
+            raster icons individually tailored for particular display sizes.
+            For example, it's often not suitable to simply downscale a 256x256
+            image to display in a 16x16 context, as the image will lose
+            significant detail. Instead, an entirely different image
+            specifically tailored for a 16x16 pixel context will often be used.
+            Additionally, they added an SVG icon that can be resized
+            dynamically to fit any icon size needed, but the tradeoff being
+            that it can become unsuitable in some context (e.g., it becomes too
+            small and blurry).
             </li>
           </ul>
+          <p>
+            The list of icons is provided to the user agent, which will choose
+            the most suitable icons for different contexts and placements.
+          </p>
           <div class="example" id="example-multiple-icons">
         <div class="marker">
     <a class="self-link" href="#example-multiple-icons">Example<bdi> 3</bdi></a><span class="example-title">: Multiple icons</span>
@@ -744,8 +775,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <span class="hljs-attr">"src"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"icon/hd_hi.ico"</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"sizes"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"72x72 96x96 128x128 256x256"</span>
     <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">{</span>
-      <span class="hljs-attr">"src"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"icon/hd_hi.svg"</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"sizes"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"257x257"</span>
+      <span class="hljs-attr">"src"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"icon/hd_hi.svg"</span>
     <span class="hljs-punctuation">}</span><span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span></code></pre>
       </div>
@@ -844,9 +874,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             path of the <a data-link-type="dfn|abstract-op" href="#dfn-start_url" class="internalDFN" id="ref-for-dfn-start_url-2"><code>start_url</code></a> member is used as a fallback.
             And if the <a data-link-type="dfn|abstract-op" href="#dfn-start_url" class="internalDFN" id="ref-for-dfn-start_url-3"><code>start_url</code></a> member is also missing, then the
             document URL from which the web application is installed gets used
-            as the scope. To be sure you don't get any unexpected navigation
-            behavior, always include a <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-5"><code>scope</code></a> member preferably set
-            to <code>"/"</code>.
+            as the scope. To avoid any unexpected navigation behavior, authors
+            should always include a <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-5"><code>scope</code></a> member preferably set to
+            <code>"/"</code>.
           </p>
         </section>
       </section>
@@ -1224,12 +1254,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           system preferences.
         </p>
         <p>
-          The <a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-2"><code>icons</code></a> member is a <a data-link-type="dfn|abstract-op" href="#dfn-localizable-member" class="internalDFN" id="ref-for-dfn-localizable-member-6">localizable member</a>.
+          The <a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-3"><code>icons</code></a> member is a <a data-link-type="dfn|abstract-op" href="#dfn-localizable-member" class="internalDFN" id="ref-for-dfn-localizable-member-6">localizable member</a>.
         </p>
         <div class="note" role="note" id="issue-container-generatedID-7"><div role="heading" class="note-title marker" id="h-note-6" aria-level="4"><span>Note</span></div><aside class="">
           <p>
             When <a data-link-type="dfn|abstract-op" href="#dfn-processing-a-manifest" class="internalDFN" id="ref-for-dfn-processing-a-manifest-3">processing a manifest</a>, the <a data-link-type="dfn|abstract-op" href="#dfn-process-image-resources" class="internalDFN" id="ref-for-dfn-process-image-resources-1">process image resources</a>
-            algorithm is used to process the <a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-3"><code>icons</code></a> member.
+            algorithm is used to process the <a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-4"><code>icons</code></a> member.
           </p>
         </aside></div>
       </section>
@@ -2611,7 +2641,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             <li><a data-link-type="dfn|abstract-op" href="#dfn-short_name" class="internalDFN" id="ref-for-dfn-short_name-4"><code>short_name</code></a> and localized representations in
             <code>short_name_localized</code>,
             </li>
-            <li><a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-4"><code>icons</code></a> and localized representations in
+            <li><a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-5"><code>icons</code></a> and localized representations in
             <code>icons_localized</code>,
             </li>
             <li><a data-link-type="dfn|abstract-op" href="#dfn-name" class="internalDFN" id="ref-for-dfn-name-6"><code>name</code></a> and localized representations in
@@ -3968,7 +3998,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         are to be interpreted as described in
         <a href="https://www.rfc-editor.org/info/bcp14">BCP 14</a>
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">RFC2119</a></cite>] [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8174" title="Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words">RFC8174</a></cite>]
-        when, and only when, they appear in all capitals, as shown here.
+        when, and only when, they appear in all
+        capitals, as shown here.
       </p>
       <p>
         There is only one class of product that can claim conformance to this
@@ -4008,9 +4039,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           recognize or support.
         </p>
         <p>
-          If you are writing a specification and temporarily want to patch this
-          specification to help implementations along, <a href="https://github.com/w3c/manifest/issues">file a bug</a> so the
-          community is informed of what you are trying to do.
+          If editors are writing a specification and temporarily want to patch
+          this specification to help implementations along, <a href="https://github.com/w3c/manifest/issues">file a bug</a> so the
+          community is informed of what editors are trying to do.
         </p>
         <section id="proprietary-extensions" class="informative"><div class="header-wrapper"><h4 id="b-1-1-proprietary-manifest-members"><bdi class="secno">B.1.1 </bdi>
             Proprietary manifest members
@@ -4034,8 +4065,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             short name of that proprietary ecosystem to avoid name collisions.
           </p>
           <p>
-            Do not use vendor prefixes that you intend to later remove once it
-            becomes a standard (those tend to stick around forever). Only use
+            Do not use vendor prefixes that are intended for later removal once
+            they become standard (those tend to stick around forever). Only use
             prefixes that will make sense now and into the future.
           </p>
           <p>
@@ -4179,8 +4210,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         an unofficial <a href="https://json.schemastore.org/web-manifest">JSON
         schema for the manifest format</a> at <a href="https://schemastore.org/json/">schemastore.org</a>. It is licensed
         under <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache
-        2.0</a>. It is kindly maintained by <a href="https://github.com/madskristensen">Mads Kristensen</a>. If you find
-        any issues with the JSON schema, please <a href="https://github.com/SchemaStore/schemastore/issues/">file a bug</a> at
+        2.0</a>. It is kindly maintained by <a href="https://github.com/madskristensen">Mads Kristensen</a>. If developers
+        find any issues with the JSON schema, please <a href="https://github.com/SchemaStore/schemastore/issues/">file a bug</a> at
         the <a href="https://github.com/SchemaStore/schemastore">SchemaStore
         repository</a> on GitHub.
       </p>
@@ -4260,580 +4291,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         The following are some significant changes that were made since First
         Public Working Draft:
       </p>
-       <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483" filter="removeCommits"><ul>
-      <li><a href="https://github.com/w3c/manifest/commit/ec8a23b">clarify the definition of "navigation scope", "applied", and off-scop…</a></li><li><a href="https://github.com/w3c/manifest/commit/40cf2c7">Make enums case-insensitive</a> (<a href="https://github.com/w3c/manifest/pull/1149">#1149</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1a06ac7">Move `prefer_related_applications` and `related_applications` to mani…</a></li><li><a href="https://github.com/w3c/manifest/commit/75ae2b4">Add members for localization</a> (<a href="https://github.com/w3c/manifest/pull/1101">#1101</a>)</li><li><a href="https://github.com/w3c/manifest/commit/3e1fd57">Trim `dir`, `lang`, `display`, `orientation`, text and color values (…</a></li><li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li>
-      </ul></rs-changelog>
-    </section>
-    <section class="appendix informative" id="acknowledgements"><div class="header-wrapper"><h2 id="j-acknowledgements"><bdi class="secno">J. </bdi>
-        Acknowledgements
-      </h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix J."></a></div><p><em>This section is non-normative.</em></p>
-      
-      <p>
-        This document reuses text from the [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>] specification, as permitted
-        by the license of that specification.
-      </p>
-      <p>
-        Dave Raggett and Dominique Hazael-Massieux contributed to this
-        specification via the HTML5Apps project.
-      </p>
-      <p>
-        Claudio Gomboli for icon example images.
-      </p>
-      <p>
-        Indiana University Bloomington security researchers have contributed to
-        this specification by reporting potential risks related to out-of-scope
-        navigation.
-      </p>
-    </section>
-    <section id="index" class="appendix"><div class="header-wrapper"><h2 id="k-index"><bdi class="secno">K. </bdi>Index</h2><a class="self-link" href="#index" aria-label="Permalink for Appendix K."></a></div><section id="index-defined-here"><div class="header-wrapper"><h3 id="k-1-terms-defined-by-this-specification"><bdi class="secno">K.1 </bdi>Terms defined by this specification</h3><a class="self-link" href="#index-defined-here" aria-label="Permalink for Appendix K.1"></a></div>
-    
-    <ul class="index">
-    <li>
-      <a class="index-term" href="#dfn-_localized"><code>*_localized</code></a> 
-    <span class="print-only">§1.15</span></li><li>
-      <a class="index-term" href="#dfn-any">any</a> 
-    <span class="print-only">§2.1</span></li><li>
-      <a class="index-term" href="#dfn-application-context">application context</a> 
-    <span class="print-only">§1.16.5</span></li><li>
-      <a class="index-term" href="#dfn-manifest">application manifest</a> 
-    <span class="print-only">§1.</span></li><li>
-      <a class="index-term" href="#dfn-application-manifest-media-type">application manifest media type</a> 
-    <span class="print-only">§A.</span></li><li>
-      <a class="index-term" href="#dfn-application-s-name">application's name</a> 
-    <span class="print-only">§4.1</span></li><li>
-      <a class="index-term" href="#dfn-application-manifest-json"><code>application/manifest+json</code></a> 
-    <span class="print-only">§A.</span></li><li>
-      <a class="index-term" href="#dfn-apply">applied</a> 
-    <span class="print-only">§1.16.5</span></li><li>
-      <a class="index-term" href="#dfn-auto">auto</a> 
-    <span class="print-only">§1.2</span></li><li>
-      <a class="index-term" href="#dfn-background_color"><code>background_color</code></a> 
-    <span class="print-only">§1.13</span></li><li>
-      <a class="index-term" href="#dfn-browser">browser</a> 
-    <span class="print-only">§6.</span></li><li>
-      <a class="index-term" href="#dfn-cannot-be-used-together">cannot be used together</a> 
-    <span class="print-only">§1.9</span></li><li>
-      <a class="index-term" href="#dfn-create-a-new-application-context">create a new application context</a> 
-    <span class="print-only">§4.2</span></li><li>
-      <a class="index-term" href="#dfn-deep-link">deep link</a> 
-    <span class="print-only">§5.2</span></li><li>
-      <a class="index-term" href="#dfn-default-direction">default direction</a> 
-    <span class="print-only">§1.2</span></li><li>
-      <a class="index-term" href="#dfn-default-display-mode">default display mode</a> 
-    <span class="print-only">§6.</span></li><li>
-      <a class="index-term" href="#dfn-default-representation">default representation</a> 
-    <span class="print-only">§1.15</span></li><li>
-      <a class="index-term" href="#dfn-default-theme-color">default theme color</a> 
-    <span class="print-only">§1.12</span></li><li>
-      <a class="index-term" href="#dfn-description"><code>description</code></a> 
-    <span class="print-only">§3.3</span></li><li>
-      <a class="index-term" href="#dfn-determine-the-purpose-of-an-image">determine the purpose of an image</a> 
-    <span class="print-only">§2.1</span></li><li>
-    dir
-    <ul>
-      <li>
-      <a class="index-term" href="#dfn-dir">definition of</a> 
-    <span class="print-only">§1.2</span></li><li>
-      <a class="index-term" href="#dfn-dir-0">definition of</a> 
-    <span class="print-only">§1.15.1</span></li>
-    </ul>
-  </li><li>
-      <a class="index-term" href="#dfn-display"><code>display</code></a> 
-    <span class="print-only">§1.8</span></li><li>
-      <a class="index-term" href="#dfn-display-mode">display mode</a> 
-    <span class="print-only">§6.</span></li><li>
-      <a class="index-term" href="#dfn-display-modes-list">display modes list</a> 
-    <span class="print-only">§6.</span></li><li>
-      <a class="index-term" href="#dfn-fallback-chain">fallback chain</a> 
-    <span class="print-only">§6.</span></li><li>
-      <a class="index-term" href="#dfn-fullscreen">fullscreen</a> 
-    <span class="print-only">§6.</span></li><li>
-      <a class="index-term" href="#dfn-icon">icon</a> 
-    <span class="print-only">§2.1</span></li><li>
-      <a class="index-term" href="#dfn-icon-purposes">icon purposes</a> 
-    <span class="print-only">§2.1</span></li><li>
-      <a class="index-term" href="#dfn-icon-purposes-list">icon purposes list</a> 
-    <span class="print-only">§2.1</span></li><li>
-    icons
-    <ul>
-      <li>
-      <a class="index-term" href="#dfn-icons">definition of</a> 
-    <span class="print-only">§1.7</span></li><li>
-      <a class="index-term" href="#dfn-icons-0">definition of</a> 
-    <span class="print-only">§3.5</span></li>
-    </ul>
-  </li><li>
-      <a class="index-term" href="#dfn-id"><code>id</code></a> 
-    <span class="print-only">§1.11</span></li><li>
-      <a class="index-term" href="#dfn-identity">identity</a> 
-    <span class="print-only">§1.11</span></li><li>
-      <a class="index-term" href="#dfn-ignore">ignore</a> 
-    <span class="print-only">§1.16.1</span></li><li>
-      <a class="index-term" href="#dfn-installed">install</a> 
-    <span class="print-only">§4.</span></li><li>
-      <a class="index-term" href="#dfn-installed-web-application">installed web application</a> 
-    <span class="print-only">§4.</span></li><li>
-    lang
-    <ul>
-      <li>
-      <a class="index-term" href="#dfn-lang">definition of</a> 
-    <span class="print-only">§1.3</span></li><li>
-      <a class="index-term" href="#dfn-lang-0">definition of</a> 
-    <span class="print-only">§1.15.1</span></li>
-    </ul>
-  </li><li>
-      <a class="index-term" href="#dfn-language-map">language map</a> 
-    <span class="print-only">§1.15</span></li><li>
-      <a class="index-term" href="#dfn-language-tag">language tag</a> 
-    <span class="print-only">§1.3</span></li><li>
-      <a class="index-term" href="#dfn-launching-a-web-application">launch a web application</a> 
-    <span class="print-only">§4.2</span></li><li>
-      <a class="index-term" href="#dfn-launching-a-shortcut">Launching a shortcut</a> 
-    <span class="print-only">§3.6</span></li><li>
-      <a class="index-term" href="#dfn-localizable-member">localizable member</a> 
-    <span class="print-only">§1.15</span></li><li>
-      <a class="index-term" href="#dfn-localized-text-object">localized text object</a> 
-    <span class="print-only">§1.15.1</span></li><li>
-      <a class="index-term" href="#dfn-localized-value">localized value</a> 
-    <span class="print-only">§1.15</span></li><li>
-      <a class="index-term" href="#dfn-ltr">ltr</a> 
-    <span class="print-only">§1.2</span></li><li>
-      <a class="index-term" href="#dfn-manifest-image-resource">manifest image resource</a> 
-    <span class="print-only">§2.</span></li><li>
-      <a class="index-term" href="#dfn-manifest-url">manifest URL</a> 
-    <span class="print-only">§1.</span></li><li>
-      <a class="index-term" href="#dfn-maskable">maskable</a> 
-    <span class="print-only">§2.1</span></li><li>
-      <a class="index-term" href="#dfn-minimal-ui">minimal-ui</a> 
-    <span class="print-only">§6.</span></li><li>
-      <a class="index-term" href="#dfn-monochrome">monochrome</a> 
-    <span class="print-only">§2.1</span></li><li>
-    name
-    <ul>
-      <li>
-      <a class="index-term" href="#dfn-name">definition of</a> 
-    <span class="print-only">§1.4</span></li><li>
-      <a class="index-term" href="#dfn-name-0">definition of</a> 
-    <span class="print-only">§3.1</span></li>
-    </ul>
-  </li><li>
-      <a class="index-term" href="#dfn-navigation-scope">navigation scope of a manifest</a> 
-    <span class="print-only">§5.</span></li><li>
-      <a class="index-term" href="#dfn-orientation"><code>orientation</code></a> 
-    <span class="print-only">§1.9</span></li><li>
-      <a class="index-term" href="#dfn-orientation-values">orientation values</a> 
-    <span class="print-only">§1.9</span></li><li>
-      <a class="index-term" href="#dfn-process-a-_localized-image-resource-member">process a *_localized image resource member</a> 
-    <span class="print-only">§1.15.2</span></li><li>
-      <a class="index-term" href="#dfn-process-a-_localized-text-member">process a *_localized text member</a> 
-    <span class="print-only">§1.15.1</span></li><li>
-      <a class="index-term" href="#dfn-process-a-color-member">process a color member</a> 
-    <span class="print-only">§1.16.2</span></li><li>
-      <a class="index-term" href="#dfn-process-a-localized-text-object">process a localized text object</a> 
-    <span class="print-only">§1.15.1</span></li><li>
-      <a class="index-term" href="#dfn-process-a-shortcut">process a shortcut</a> 
-    <span class="print-only">§3.7</span></li><li>
-      <a class="index-term" href="#dfn-process-a-text-member">process a text member</a> 
-    <span class="print-only">§1.16.3</span></li><li>
-      <a class="index-term" href="#dfn-process-image-resources">process image resources</a> 
-    <span class="print-only">§2.5</span></li><li>
-      <a class="index-term" href="#dfn-process-the-dir-member">process the dir member</a> 
-    <span class="print-only">§1.2</span></li><li>
-      <a class="index-term" href="#dfn-process-the-display-member">process the display member</a> 
-    <span class="print-only">§1.8</span></li><li>
-      <a class="index-term" href="#dfn-process-the-id-member">process the id member</a> 
-    <span class="print-only">§1.11</span></li><li>
-      <a class="index-term" href="#dfn-process-the-lang-member">process the lang member</a> 
-    <span class="print-only">§1.3</span></li><li>
-      <a class="index-term" href="#dfn-process-the-orientation-member">process the orientation member</a> 
-    <span class="print-only">§1.9</span></li><li>
-      <a class="index-term" href="#dfn-process-the-scope-member">process the scope member</a> 
-    <span class="print-only">§1.6</span></li><li>
-      <a class="index-term" href="#dfn-process-the-shortcuts-member">process the shortcuts member</a> 
-    <span class="print-only">§1.14</span></li><li>
-      <a class="index-term" href="#dfn-process-the-start_url-member">process the start_url member</a> 
-    <span class="print-only">§1.10</span></li><li>
-      <a class="index-term" href="#dfn-processed-manifest">processed manifest</a> 
-    <span class="print-only">§1.16.1</span></li><li>
-      <a class="index-term" href="#dfn-processing-a-manifest">processing a manifest</a> 
-    <span class="print-only">§1.16.1</span></li><li>
-      <a class="index-term" href="#dfn-processing-extension-point">processing extension-point</a> 
-    <span class="print-only">§1.16.1</span></li><li>
-      <a class="index-term" href="#dfn-purpose"><code>purpose</code></a> 
-    <span class="print-only">§2.1</span></li><li>
-      <a class="index-term" href="#dfn-rtl">rtl</a> 
-    <span class="print-only">§1.2</span></li><li>
-      <a class="index-term" href="#dfn-safe-zone">safe zone</a> 
-    <span class="print-only">§2.3</span></li><li>
-      <a class="index-term" href="#dfn-scope"><code>scope</code></a> 
-    <span class="print-only">§1.6</span></li><li>
-      <a class="index-term" href="#dfn-security-sensitive-members">security-sensitive members</a> 
-    <span class="print-only">§1.16.6</span></li><li>
-    short_name
-    <ul>
-      <li>
-      <a class="index-term" href="#dfn-short_name">definition of</a> 
-    <span class="print-only">§1.5</span></li><li>
-      <a class="index-term" href="#dfn-short_name-0">definition of</a> 
-    <span class="print-only">§3.2</span></li>
-    </ul>
-  </li><li>
-      <a class="index-term" href="#dfn-shortcut-item">shortcut item</a> 
-    <span class="print-only">§3.</span></li><li>
-      <a class="index-term" href="#dfn-shortcuts"><code>shortcuts</code></a> 
-    <span class="print-only">§1.14</span></li><li>
-      <a class="index-term" href="#dfn-solid-fill">solid fill</a> 
-    <span class="print-only">§2.4</span></li><li>
-      <a class="index-term" href="#dfn-standalone">standalone</a> 
-    <span class="print-only">§6.</span></li><li>
-      <a class="index-term" href="#dfn-start-url">start URL</a> 
-    <span class="print-only">§1.10</span></li><li>
-      <a class="index-term" href="#dfn-start_url"><code>start_url</code></a> 
-    <span class="print-only">§1.10</span></li><li>
-      <a class="index-term" href="#dfn-steps-for-determining-the-web-app-s-chosen-display-mode">steps for determining the web app's chosen display mode</a> 
-    <span class="print-only">§6.</span></li><li>
-      <a class="index-term" href="#dfn-text-direction-list">text-direction list</a> 
-    <span class="print-only">§1.2</span></li><li>
-      <a class="index-term" href="#dfn-text-directions">text-directions</a> 
-    <span class="print-only">§1.2</span></li><li>
-      <a class="index-term" href="#dfn-theme-color">theme color</a> 
-    <span class="print-only">§1.12</span></li><li>
-      <a class="index-term" href="#dfn-theme_color"><code>theme_color</code></a> 
-    <span class="print-only">§1.12</span></li><li>
-      <a class="index-term" href="#dfn-url"><code>url</code></a> 
-    <span class="print-only">§3.4</span></li><li>
-      <a class="index-term" href="#dfn-value"><code>value</code></a> 
-    <span class="print-only">§1.15.1</span></li><li>
-    within scope
-    <ul>
-      <li>
-      <a class="index-term" href="#dfn-within-scope">definition of</a> 
-    <span class="print-only">§5.</span></li><li>
-      <a class="index-term" href="#dfn-within-scope-0">definition of</a> 
-    <span class="print-only">§5.</span></li>
-    </ul>
-  </li>
-  </ul>
-  </section><section id="index-defined-elsewhere"><div class="header-wrapper"><h3 id="k-2-terms-defined-by-reference"><bdi class="secno">K.2 </bdi>Terms defined by reference</h3><a class="self-link" href="#index-defined-elsewhere" aria-label="Permalink for Appendix K.2"></a></div>
-    
-    <ul class="index">
-    <li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-accname-1.2">ACCNAME-1.2</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://www.w3.org/TR/accname-1.2/#dfn-accessible-name" id="index-term-accessible-name" tabindex="0" aria-haspopup="dialog">accessible name</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-css-color-4">CSS-COLOR-4</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://www.w3.org/TR/css-color-4/#alpha-channel" id="index-term-alpha-component" tabindex="0" aria-haspopup="dialog">alpha component</span>
-  </li><li>
-    <span class="index-term" data-href="https://www.w3.org/TR/css-color-4/#sRGB-space" id="index-term-srgb" tabindex="0" aria-haspopup="dialog">sRGB</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-css-syntax-3">CSS-SYNTAX-3</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://www.w3.org/TR/css-syntax-3/#css-parse-something-according-to-a-css-grammar" id="index-term-parsing-for-css" tabindex="0" aria-haspopup="dialog">parsing (for <code>CSS</code>)</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-dom">DOM</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://dom.spec.whatwg.org/#concept-document" id="index-term-document" tabindex="0" aria-haspopup="dialog">document</span>
-  </li><li>
-    <span class="index-term" data-href="https://dom.spec.whatwg.org/#document" id="index-term-document-interface" tabindex="0" aria-haspopup="dialog"><code>Document</code> interface</span>
-  </li><li>
-    <span class="index-term" data-href="https://dom.spec.whatwg.org/#concept-document-url" id="index-term-url-for-document" tabindex="0" aria-haspopup="dialog">URL (for <code>Document</code>)</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-ecma-402">ECMA-402</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://tc39.es/ecma402/#sec-canonicalizeunicodelocaleid" id="index-term-canonicalizeunicodelocaleid" tabindex="0" aria-haspopup="dialog">CanonicalizeUnicodeLocaleId</span>
-  </li><li>
-    <span class="index-term" data-href="https://tc39.es/ecma402/#sec-isstructurallyvalidlanguagetag" id="index-term-isstructurallyvalidlanguagetag" tabindex="0" aria-haspopup="dialog">IsStructurallyValidLanguageTag</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-fetch">FETCH</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://fetch.spec.whatwg.org/#cors-protocol" id="index-term-cors-protocol" tabindex="0" aria-haspopup="dialog">CORS protocol</span>
-  </li><li>
-    <span class="index-term" data-href="https://fetch.spec.whatwg.org/#cors-request" id="index-term-cors-request" tabindex="0" aria-haspopup="dialog">CORS Request</span>
-  </li><li>
-    <span class="index-term" data-href="https://fetch.spec.whatwg.org/#concept-request-credentials-mode" id="index-term-credentials-mode-for-request" tabindex="0" aria-haspopup="dialog">credentials mode (for <code>request</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://fetch.spec.whatwg.org/#concept-fetch" id="index-term-fetch" tabindex="0" aria-haspopup="dialog">fetch</span>
-  </li><li>
-    <span class="index-term" data-href="https://fetch.spec.whatwg.org/#http-origin" id="index-term-origin" tabindex="0" aria-haspopup="dialog">Origin</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-html">HTML</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/#nav-bc" id="index-term-active-browsing-context" tabindex="0" aria-haspopup="dialog">active browsing context</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="index-term-active-document-for-navigable" tabindex="0" aria-haspopup="dialog">active document (for <code>navigable</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" id="index-term-browsing-contexts" tabindex="0" aria-haspopup="dialog">browsing contexts</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute-credentials-mode" id="index-term-cors-settings-attribute-credentials-mode" tabindex="0" aria-haspopup="dialog">CORS settings attribute credentials mode</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#create-a-fresh-top-level-traversable" id="index-term-create-a-fresh-top-level-traversable" tabindex="0" aria-haspopup="dialog">create a fresh top-level traversable</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#attr-link-crossorigin" id="index-term-crossorigin-attribute-for-link-element" tabindex="0" aria-haspopup="dialog"><code>crossorigin</code> attribute (for <code>link</code> element)</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#attr-link-href" id="index-term-href-attribute-for-link-element" tabindex="0" aria-haspopup="dialog"><code>href</code> attribute (for <code>link</code> element)</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#the-link-element" id="index-term-link-element" tabindex="0" aria-haspopup="dialog"><code>link</code> element</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="index-term-meta-element" tabindex="0" aria-haspopup="dialog"><code>meta</code> element</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name" id="index-term-name-attribute-for-meta-element" tabindex="0" aria-haspopup="dialog"><code>name</code> attribute (for <code>meta</code> element)</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="index-term-navigated" tabindex="0" aria-haspopup="dialog">navigated</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="index-term-origin-0" tabindex="0" aria-haspopup="dialog">origin</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#post-resource" id="index-term-post-resource" tabindex="0" aria-haspopup="dialog">POST resource</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#attr-link-rel" id="index-term-rel-attribute-for-link-element" tabindex="0" aria-haspopup="dialog"><code>rel</code> attribute (for <code>link</code> element)</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" id="index-term-same-origin" tabindex="0" aria-haspopup="dialog">same origin</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#meta-theme-color" id="index-term-theme-color-for-meta-name" tabindex="0" aria-haspopup="dialog">theme-color (for <code>meta/name</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="index-term-top-level-browsing-context" tabindex="0" aria-haspopup="dialog">top-level browsing context</span>
-  </li><li>
-    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens" id="index-term-unordered-set-of-unique-space-separated-tokens" tabindex="0" aria-haspopup="dialog">unordered set of unique space-separated tokens</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-i18n-glossary">I18N-GLOSSARY</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://www.w3.org/TR/i18n-glossary/#dfn-locale" id="index-term-locale" tabindex="0" aria-haspopup="dialog">locale</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-image-resource">IMAGE-RESOURCE</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://www.w3.org/TR/image-resource/#dfn-image-resource" id="index-term-image-resources" tabindex="0" aria-haspopup="dialog">image resources</span>
-  </li><li>
-    <span class="index-term" data-href="https://www.w3.org/TR/image-resource/#dfn-process-an-image-resource-from-json" id="index-term-process-an-image-resource-from-json" tabindex="0" aria-haspopup="dialog">process an image resource from JSON</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-infra">INFRA</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#set-append" id="index-term-append-for-set" tabindex="0" aria-haspopup="dialog">append (for <code>set</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#list-append" id="index-term-append-for-list" tabindex="0" aria-haspopup="dialog">Append (for <code>list</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#ascii-lowercase" id="index-term-ascii-lowercase" tabindex="0" aria-haspopup="dialog">ASCII lowercase</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#boolean" id="index-term-boolean-type" tabindex="0" aria-haspopup="dialog">boolean type</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#byte-sequence" id="index-term-byte-sequence" tabindex="0" aria-haspopup="dialog">byte sequence</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#string-concatenate" id="index-term-concatenation-for-string" tabindex="0" aria-haspopup="dialog">concatenation (for <code>string</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#list-contain" id="index-term-contain-for-list" tabindex="0" aria-haspopup="dialog">contain (for <code>list</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#iteration-continue" id="index-term-continue-for-iteration" tabindex="0" aria-haspopup="dialog">continue (for <code>iteration</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#map-exists" id="index-term-exist-for-map" tabindex="0" aria-haspopup="dialog">exist (for <code>map</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#list-iterate" id="index-term-for-each-for-list" tabindex="0" aria-haspopup="dialog">For each (for <code>list</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#list-is-empty" id="index-term-is-empty-for-list" tabindex="0" aria-haspopup="dialog">is empty (for <code>list</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#map-getting-the-keys" id="index-term-keys-for-map" tabindex="0" aria-haspopup="dialog">keys (for <code>map</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#list" id="index-term-list" tabindex="0" aria-haspopup="dialog">list</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#ordered-map" id="index-term-ordered-map" tabindex="0" aria-haspopup="dialog">ordered map</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#parse-json-bytes-to-an-infra-value" id="index-term-parse-json-bytes-to-an-infra-value" tabindex="0" aria-haspopup="dialog">parse JSON bytes to an Infra value</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#ordered-set" id="index-term-set" tabindex="0" aria-haspopup="dialog">set</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#map-set" id="index-term-set-for-map" tabindex="0" aria-haspopup="dialog">Set (for <code>map</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#split-on-ascii-whitespace" id="index-term-split-on-ascii-whitespace" tabindex="0" aria-haspopup="dialog">split on ASCII whitespace</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#string" id="index-term-string" tabindex="0" aria-haspopup="dialog">string</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" id="index-term-strip-leading-and-trailing-ascii-whitespace" tabindex="0" aria-haspopup="dialog">Strip leading and trailing ASCII whitespace</span>
-  </li><li>
-    <span class="index-term" data-href="https://infra.spec.whatwg.org/#user-agent" id="index-term-user-agent" tabindex="0" aria-haspopup="dialog">user agent</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5">MEDIAQUERIES-5</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="index-term-display-mode-for-media" tabindex="0" aria-haspopup="dialog">display-mode (for <code>@media</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-prefers-color-scheme" id="index-term-prefers-color-scheme-for-media" tabindex="0" aria-haspopup="dialog">prefers-color-scheme (for <code>@media</code>)</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-mimesniff">MIMESNIFF</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://mimesniff.spec.whatwg.org/#computed-mime-type" id="index-term-computed-mime-type" tabindex="0" aria-haspopup="dialog">computed mime type</span>
-  </li><li>
-    <span class="index-term" data-href="https://mimesniff.spec.whatwg.org/#json-mime-type" id="index-term-json-mime-type" tabindex="0" aria-haspopup="dialog">JSON MIME type</span>
-  </li><li>
-    <span class="index-term" data-href="https://mimesniff.spec.whatwg.org/#mime-type" id="index-term-mime-type" tabindex="0" aria-haspopup="dialog">MIME type</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-permissions">PERMISSIONS</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://www.w3.org/TR/permissions/#dfn-express-permission" id="index-term-express-permission" tabindex="0" aria-haspopup="dialog">express permission</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation">SCREEN-ORIENTATION</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://www.w3.org/TR/screen-orientation/#dfn-default-screen-orientation" id="index-term-default-screen-orientation" tabindex="0" aria-haspopup="dialog">default screen orientation</span>
-  </li><li>
-    <span class="index-term" data-href="https://www.w3.org/TR/screen-orientation/#dom-orientationlocktype" id="index-term-orientationlocktype-enum" tabindex="0" aria-haspopup="dialog"><code>OrientationLockType</code> enum</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-service-workers-1">SERVICE-WORKERS-1</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://www.w3.org/TR/service-workers/#scope-match-algorithm" id="index-term-service-workers" tabindex="0" aria-haspopup="dialog">Service Workers</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-url">URL</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url-equals" id="index-term-equal-for-url" tabindex="0" aria-haspopup="dialog">equal (for <code>url</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://url.spec.whatwg.org/#url-equals-exclude-fragments" id="index-term-exclude-fragments-for-url-equals" tabindex="0" aria-haspopup="dialog">exclude fragments (for <code>url/equals</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url-fragment" id="index-term-fragment-for-url" tabindex="0" aria-haspopup="dialog">fragment (for <code>url</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url-origin" id="index-term-origin-for-url" tabindex="0" aria-haspopup="dialog">origin (for <code>url</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url-path" id="index-term-path-for-url" tabindex="0" aria-haspopup="dialog">path (for <code>url</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url-query" id="index-term-query-for-url" tabindex="0" aria-haspopup="dialog">query (for <code>url</code>)</span>
-  </li><li>
-    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url" id="index-term-url" tabindex="0" aria-haspopup="dialog">URL</span>
-  </li><li>
-    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url-parser" id="index-term-url-parser" tabindex="0" aria-haspopup="dialog">URL Parser</span>
-  </li>
-        </ul>
-      </li><li>
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-webidl">WEBIDL</a></cite>] defines the following:
-        <ul>
-          <li>
-    <span class="index-term" data-href="https://webidl.spec.whatwg.org/#dfn-identifier" id="index-term-identifier" tabindex="0" aria-haspopup="dialog">identifier</span>
-  </li>
-        </ul>
-      </li>
-  </ul>
-  </section></section>
-  
-
-<section id="references" class="appendix"><div class="header-wrapper"><h2 id="l-references"><bdi class="secno">L. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix L."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="l-1-normative-references"><bdi class="secno">L.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix L.1"></a></div>
-    
-    <dl class="bibliography"><dt id="bib-accname-1.2">[accname-1.2]</dt><dd>
-      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 12 March 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
-    </dd><dt id="bib-bcp47">[BCP47]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc5646"><cite>Tags for Identifying Languages</cite></a>. A. Phillips, Ed.; M. Davis, Ed. IETF. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc5646">https://www.rfc-editor.org/rfc/rfc5646</a>
-    </dd><dt id="bib-csp3">[CSP3]</dt><dd>
-      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 12 March 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
-    </dd><dt id="bib-css-color-4">[css-color-4]</dt><dd>
-      <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Chris Lilley; Tab Atkins Jr.; Lea Verou.  W3C. 13 February 2024. CRD. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
-    </dd><dt id="bib-css-mime">[CSS-MIME]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc2318"><cite>The text/css Media Type</cite></a>. H. Lie; B. Bos; C. Lilley.  IETF. March 1998. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc2318">https://www.rfc-editor.org/rfc/rfc2318</a>
-    </dd><dt id="bib-css-syntax-3">[css-syntax-3]</dt><dd>
-      <a href="https://www.w3.org/TR/css-syntax-3/"><cite>CSS Syntax Module Level 3</cite></a>. Tab Atkins Jr.; Simon Sapin.  W3C. 24 December 2021. CRD. URL: <a href="https://www.w3.org/TR/css-syntax-3/">https://www.w3.org/TR/css-syntax-3/</a>
-    </dd><dt id="bib-dom">[dom]</dt><dd>
-      <a href="https://dom.spec.whatwg.org/"><cite>DOM Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
-    </dd><dt id="bib-ecma-402">[ECMA-402]</dt><dd>
-      <a href="https://tc39.es/ecma402/"><cite>ECMAScript Internationalization API Specification</cite></a>.  Ecma International. URL: <a href="https://tc39.es/ecma402/">https://tc39.es/ecma402/</a>
-    </dd><dt id="bib-ecmascript-mime">[ECMAScript-MIME]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc4329"><cite>Scripting Media Types</cite></a>. B. Hoehrmann.  IETF. April 2006. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc4329">https://www.rfc-editor.org/rfc/rfc4329</a>
-    </dd><dt id="bib-fetch">[fetch]</dt><dd>
-      <a href="https://fetch.spec.whatwg.org/"><cite>Fetch Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://fetch.spec.whatwg.org/">https://fetch.spec.whatwg.org/</a>
-    </dd><dt id="bib-html">[HTML]</dt><dd>
-      <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Anne van Kesteren; Domenic Denicola; Dominic Farolino; Ian Hickson; Philip Jägenstedt; Simon Pieters.  WHATWG. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
-    </dd><dt id="bib-image-resource">[image-resource]</dt><dd>
-      <a href="https://www.w3.org/TR/image-resource/"><cite>Image Resource</cite></a>. Aaron Gustafson; Rayan Kanso; Marcos Caceres.  W3C. 4 June 2021. W3C Working Draft. URL: <a href="https://www.w3.org/TR/image-resource/">https://www.w3.org/TR/image-resource/</a>
-    </dd><dt id="bib-infra">[infra]</dt><dd>
-      <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Anne van Kesteren; Domenic Denicola.  WHATWG. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
-    </dd><dt id="bib-json">[JSON]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc8259"><cite>The JavaScript Object Notation (JSON) Data Interchange Format</cite></a>. T. Bray, Ed. IETF. December 2017. Internet Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc8259">https://www.rfc-editor.org/rfc/rfc8259</a>
-    </dd><dt id="bib-mediaqueries-5">[MEDIAQUERIES-5]</dt><dd>
-      <a href="https://www.w3.org/TR/mediaqueries-5/"><cite>Media Queries Level 5</cite></a>. Dean Jackson; Florian Rivoal; Tab Atkins Jr.; Daniel Libby.  W3C. 18 December 2021. W3C Working Draft. URL: <a href="https://www.w3.org/TR/mediaqueries-5/">https://www.w3.org/TR/mediaqueries-5/</a>
-    </dd><dt id="bib-mime-types">[MIME-TYPES]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc2046"><cite>Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</cite></a>. N. Freed; N. Borenstein.  IETF. November 1996. Draft Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc2046">https://www.rfc-editor.org/rfc/rfc2046</a>
-    </dd><dt id="bib-permissions">[permissions]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 20 December 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
-    </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
-    </dd><dt id="bib-rfc7159">[RFC7159]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc7159"><cite>The JavaScript Object Notation (JSON) Data Interchange Format</cite></a>. T. Bray, Ed. IETF. March 2014. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc7159">https://www.rfc-editor.org/rfc/rfc7159</a>
-    </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
-    </dd><dt id="bib-screen-orientation">[SCREEN-ORIENTATION]</dt><dd>
-      <a href="https://www.w3.org/TR/screen-orientation/"><cite>Screen Orientation</cite></a>. Marcos Caceres.  W3C. 9 August 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/screen-orientation/">https://www.w3.org/TR/screen-orientation/</a>
-    </dd><dt id="bib-uax9">[UAX9]</dt><dd>
-      <a href="https://www.unicode.org/reports/tr9/tr9-50.html"><cite>Unicode Bidirectional Algorithm</cite></a>. Manish Goregaokar मनीष गोरेगांवकर; Robin Leroy.  Unicode Consortium. 2 September 2024. Unicode Standard Annex #9. URL: <a href="https://www.unicode.org/reports/tr9/tr9-50.html">https://www.unicode.org/reports/tr9/tr9-50.html</a>
-    </dd><dt id="bib-unicode">[UNICODE]</dt><dd>
-      <a href="https://www.unicode.org/versions/latest/"><cite>The Unicode Standard</cite></a>.  Unicode Consortium. URL: <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
-    </dd><dt id="bib-unicode-security">[UNICODE-SECURITY]</dt><dd>
-      <a href="https://www.unicode.org/reports/tr36/tr36-15.html"><cite>Unicode Security Considerations</cite></a>. Mark Davis; Michel Suignard.  Unicode Consortium. 19 September 2014. Unicode Technical Report #36. URL: <a href="https://www.unicode.org/reports/tr36/tr36-15.html">https://www.unicode.org/reports/tr36/tr36-15.html</a>
-    </dd><dt id="bib-url">[URL]</dt><dd>
-      <a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
-    </dd><dt id="bib-uts55">[UTS55]</dt><dd>
-      <a href="https://www.unicode.org/reports/tr55/tr55-5.html"><cite>Unicode Source Code Handling</cite></a>. Robin Leroy; Mark Davis.  Unicode Consortium. 29 January 2024. Unicode Technical Standard #55. URL: <a href="https://www.unicode.org/reports/tr55/tr55-5.html">https://www.unicode.org/reports/tr55/tr55-5.html</a>
-    </dd></dl>
-  </section><section id="informative-references"><div class="header-wrapper"><h3 id="l-2-informative-references"><bdi class="secno">L.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix L.2"></a></div>
-    
-    <dl class="bibliography"><dt id="bib-fullscreen">[FULLSCREEN]</dt><dd>
-      <a href="https://fullscreen.spec.whatwg.org/"><cite>Fullscreen API Standard</cite></a>. Philip Jägenstedt.  WHATWG. Living Standard. URL: <a href="https://fullscreen.spec.whatwg.org/">https://fullscreen.spec.whatwg.org/</a>
-    </dd><dt id="bib-i18n-glossary">[i18n-glossary]</dt><dd>
-      <a href="https://www.w3.org/TR/i18n-glossary/"><cite>Internationalization Glossary</cite></a>. Richard Ishida; Addison Phillips.  W3C. 17 October 2024. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/i18n-glossary/">https://www.w3.org/TR/i18n-glossary/</a>
-    </dd><dt id="bib-manifest-app-info">[manifest-app-info]</dt><dd>
-      <a href="https://www.w3.org/TR/manifest-app-info/"><cite>Web App Manifest - Application Information</cite></a>. Aaron Gustafson.  W3C. 21 August 2023. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/manifest-app-info/">https://www.w3.org/TR/manifest-app-info/</a>
-    </dd><dt id="bib-mimesniff">[mimesniff]</dt><dd>
-      <a href="https://mimesniff.spec.whatwg.org/"><cite>MIME Sniffing Standard</cite></a>. Gordon P. Hemsley.  WHATWG. Living Standard. URL: <a href="https://mimesniff.spec.whatwg.org/">https://mimesniff.spec.whatwg.org/</a>
-    </dd><dt id="bib-rfc7258">[RFC7258]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc7258"><cite>Pervasive Monitoring Is an Attack</cite></a>. S. Farrell; H. Tschofenig.  IETF. May 2014. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc7258">https://www.rfc-editor.org/rfc/rfc7258</a>
-    </dd><dt id="bib-rfc9110">[RFC9110]</dt><dd>
-      <a href="https://httpwg.org/specs/rfc9110.html"><cite>HTTP Semantics</cite></a>. R. Fielding, Ed.; M. Nottingham, Ed.; J. Reschke, Ed. IETF. June 2022. Internet Standard. URL: <a href="https://httpwg.org/specs/rfc9110.html">https://httpwg.org/specs/rfc9110.html</a>
-    </dd><dt id="bib-service-workers-1">[SERVICE-WORKERS-1]</dt><dd>
-      <a href="https://www.w3.org/TR/service-workers/"><cite>Service Workers</cite></a>. Yoshisato Yanagisawa; Monica CHINTALA.  W3C. 6 March 2025. CRD. URL: <a href="https://www.w3.org/TR/service-workers/">https://www.w3.org/TR/service-workers/</a>
-    </dd><dt id="bib-tls">[TLS]</dt><dd>
-      <a href="https://www.rfc-editor.org/rfc/rfc5246"><cite>The Transport Layer Security (TLS) Protocol Version 1.2</cite></a>. T. Dierks; E. Rescorla.  IETF. August 2008. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc5246">https://www.rfc-editor.org/rfc/rfc5246</a>
-    </dd><dt id="bib-webidl">[webidl]</dt><dd>
-      <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
-    </dd></dl>
-  </section></section><p role="navigation" id="back-to-top">
-    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
-  </p><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-manifest" aria-label="Links in this document to definition: application manifest">
+      <div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-manifest" aria-label="Links in this document to definition: application manifest">
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-manifest" aria-label="Permalink for definition: application manifest. Activate to close this dialog.">Permalink</a>
@@ -5132,9 +4590,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <li>
       <a href="#ref-for-dfn-icons-1" title="§ 1. Web Application Manifest">§ 1. Web Application Manifest</a> 
     </li><li>
-      <a href="#ref-for-dfn-icons-2" title="§ 1.7 icons member">§ 1.7 icons member</a> <a href="#ref-for-dfn-icons-3" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-icons-2" title="§ 1.1.3 Declaring multiple icons">§ 1.1.3 Declaring multiple icons</a> 
     </li><li>
-      <a href="#ref-for-dfn-icons-4" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> 
+      <a href="#ref-for-dfn-icons-3" title="§ 1.7 icons member">§ 1.7 icons member</a> <a href="#ref-for-dfn-icons-4" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-icons-5" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-display" aria-label="Links in this document to definition: display">
@@ -7451,7 +6911,677 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-index-term-identifier-1" title="§ 1.11 id member">§ 1.11 id member</a> 
     </li>
   </ul>
-    </div><script id="respec-dfn-panel">(() => {
+    </div> <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483" filter="removeCommits"><ul>
+      <li><a href="https://github.com/w3c/manifest/commit/ec8a23b">clarify the definition of "navigation scope", "applied", and off-scop…</a></li><li><a href="https://github.com/w3c/manifest/commit/40cf2c7">Make enums case-insensitive</a> (<a href="https://github.com/w3c/manifest/pull/1149">#1149</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1a06ac7">Move `prefer_related_applications` and `related_applications` to mani…</a></li><li><a href="https://github.com/w3c/manifest/commit/75ae2b4">Add members for localization</a> (<a href="https://github.com/w3c/manifest/pull/1101">#1101</a>)</li><li><a href="https://github.com/w3c/manifest/commit/3e1fd57">Trim `dir`, `lang`, `display`, `orientation`, text and color values (…</a></li><li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li>
+      </ul></rs-changelog>
+    </section>
+    <section class="appendix informative" id="acknowledgements"><div class="header-wrapper"><h2 id="j-acknowledgements"><bdi class="secno">J. </bdi>
+        Acknowledgements
+      </h2><a class="self-link" href="#acknowledgements" aria-label="Permalink for Appendix J."></a></div><p><em>This section is non-normative.</em></p>
+      
+      <p>
+        This document reuses text from the [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>] specification, as permitted
+        by the license of that specification.
+      </p>
+      <p>
+        Dave Raggett and Dominique Hazael-Massieux contributed to this
+        specification via the HTML5Apps project.
+      </p>
+      <p>
+        Claudio Gomboli for icon example images.
+      </p>
+      <p>
+        Indiana University Bloomington security researchers have contributed to
+        this specification by reporting potential risks related to out-of-scope
+        navigation.
+      </p>
+    </section>
+    <section id="index" class="appendix"><div class="header-wrapper"><h2 id="k-index"><bdi class="secno">K. </bdi>Index</h2><a class="self-link" href="#index" aria-label="Permalink for Appendix K."></a></div><section id="index-defined-here"><div class="header-wrapper"><h3 id="k-1-terms-defined-by-this-specification"><bdi class="secno">K.1 </bdi>Terms defined by this specification</h3><a class="self-link" href="#index-defined-here" aria-label="Permalink for Appendix K.1"></a></div>
+    
+    <ul class="index">
+    <li>
+      <a class="index-term" href="#dfn-_localized"><code>*_localized</code></a> 
+    <span class="print-only">§1.15</span></li><li>
+      <a class="index-term" href="#dfn-any">any</a> 
+    <span class="print-only">§2.1</span></li><li>
+      <a class="index-term" href="#dfn-application-context">application context</a> 
+    <span class="print-only">§1.16.5</span></li><li>
+      <a class="index-term" href="#dfn-manifest">application manifest</a> 
+    <span class="print-only">§1.</span></li><li>
+      <a class="index-term" href="#dfn-application-manifest-media-type">application manifest media type</a> 
+    <span class="print-only">§A.</span></li><li>
+      <a class="index-term" href="#dfn-application-s-name">application's name</a> 
+    <span class="print-only">§4.1</span></li><li>
+      <a class="index-term" href="#dfn-application-manifest-json"><code>application/manifest+json</code></a> 
+    <span class="print-only">§A.</span></li><li>
+      <a class="index-term" href="#dfn-apply">applied</a> 
+    <span class="print-only">§1.16.5</span></li><li>
+      <a class="index-term" href="#dfn-auto">auto</a> 
+    <span class="print-only">§1.2</span></li><li>
+      <a class="index-term" href="#dfn-background_color"><code>background_color</code></a> 
+    <span class="print-only">§1.13</span></li><li>
+      <a class="index-term" href="#dfn-browser">browser</a> 
+    <span class="print-only">§6.</span></li><li>
+      <a class="index-term" href="#dfn-cannot-be-used-together">cannot be used together</a> 
+    <span class="print-only">§1.9</span></li><li>
+      <a class="index-term" href="#dfn-create-a-new-application-context">create a new application context</a> 
+    <span class="print-only">§4.2</span></li><li>
+      <a class="index-term" href="#dfn-deep-link">deep link</a> 
+    <span class="print-only">§5.2</span></li><li>
+      <a class="index-term" href="#dfn-default-direction">default direction</a> 
+    <span class="print-only">§1.2</span></li><li>
+      <a class="index-term" href="#dfn-default-display-mode">default display mode</a> 
+    <span class="print-only">§6.</span></li><li>
+      <a class="index-term" href="#dfn-default-representation">default representation</a> 
+    <span class="print-only">§1.15</span></li><li>
+      <a class="index-term" href="#dfn-default-theme-color">default theme color</a> 
+    <span class="print-only">§1.12</span></li><li>
+      <a class="index-term" href="#dfn-description"><code>description</code></a> 
+    <span class="print-only">§3.3</span></li><li>
+      <a class="index-term" href="#dfn-determine-the-purpose-of-an-image">determine the purpose of an image</a> 
+    <span class="print-only">§2.1</span></li><li>
+    dir
+    <ul>
+      <li>
+      <a class="index-term" href="#dfn-dir">definition of</a> 
+    <span class="print-only">§1.2</span></li><li>
+      <a class="index-term" href="#dfn-dir-0">definition of</a> 
+    <span class="print-only">§1.15.1</span></li>
+    </ul>
+  </li><li>
+      <a class="index-term" href="#dfn-display"><code>display</code></a> 
+    <span class="print-only">§1.8</span></li><li>
+      <a class="index-term" href="#dfn-display-mode">display mode</a> 
+    <span class="print-only">§6.</span></li><li>
+      <a class="index-term" href="#dfn-display-modes-list">display modes list</a> 
+    <span class="print-only">§6.</span></li><li>
+      <a class="index-term" href="#dfn-fallback-chain">fallback chain</a> 
+    <span class="print-only">§6.</span></li><li>
+      <a class="index-term" href="#dfn-fullscreen">fullscreen</a> 
+    <span class="print-only">§6.</span></li><li>
+      <a class="index-term" href="#dfn-icon">icon</a> 
+    <span class="print-only">§2.1</span></li><li>
+      <a class="index-term" href="#dfn-icon-purposes">icon purposes</a> 
+    <span class="print-only">§2.1</span></li><li>
+      <a class="index-term" href="#dfn-icon-purposes-list">icon purposes list</a> 
+    <span class="print-only">§2.1</span></li><li>
+    icons
+    <ul>
+      <li>
+      <a class="index-term" href="#dfn-icons">definition of</a> 
+    <span class="print-only">§1.7</span></li><li>
+      <a class="index-term" href="#dfn-icons-0">definition of</a> 
+    <span class="print-only">§3.5</span></li>
+    </ul>
+  </li><li>
+      <a class="index-term" href="#dfn-id"><code>id</code></a> 
+    <span class="print-only">§1.11</span></li><li>
+      <a class="index-term" href="#dfn-identity">identity</a> 
+    <span class="print-only">§1.11</span></li><li>
+      <a class="index-term" href="#dfn-ignore">ignore</a> 
+    <span class="print-only">§1.16.1</span></li><li>
+      <a class="index-term" href="#dfn-installed">install</a> 
+    <span class="print-only">§4.</span></li><li>
+      <a class="index-term" href="#dfn-installed-web-application">installed web application</a> 
+    <span class="print-only">§4.</span></li><li>
+    lang
+    <ul>
+      <li>
+      <a class="index-term" href="#dfn-lang">definition of</a> 
+    <span class="print-only">§1.3</span></li><li>
+      <a class="index-term" href="#dfn-lang-0">definition of</a> 
+    <span class="print-only">§1.15.1</span></li>
+    </ul>
+  </li><li>
+      <a class="index-term" href="#dfn-language-map">language map</a> 
+    <span class="print-only">§1.15</span></li><li>
+      <a class="index-term" href="#dfn-language-tag">language tag</a> 
+    <span class="print-only">§1.3</span></li><li>
+      <a class="index-term" href="#dfn-launching-a-web-application">launch a web application</a> 
+    <span class="print-only">§4.2</span></li><li>
+      <a class="index-term" href="#dfn-launching-a-shortcut">Launching a shortcut</a> 
+    <span class="print-only">§3.6</span></li><li>
+      <a class="index-term" href="#dfn-localizable-member">localizable member</a> 
+    <span class="print-only">§1.15</span></li><li>
+      <a class="index-term" href="#dfn-localized-text-object">localized text object</a> 
+    <span class="print-only">§1.15.1</span></li><li>
+      <a class="index-term" href="#dfn-localized-value">localized value</a> 
+    <span class="print-only">§1.15</span></li><li>
+      <a class="index-term" href="#dfn-ltr">ltr</a> 
+    <span class="print-only">§1.2</span></li><li>
+      <a class="index-term" href="#dfn-manifest-image-resource">manifest image resource</a> 
+    <span class="print-only">§2.</span></li><li>
+      <a class="index-term" href="#dfn-manifest-url">manifest URL</a> 
+    <span class="print-only">§1.</span></li><li>
+      <a class="index-term" href="#dfn-maskable">maskable</a> 
+    <span class="print-only">§2.1</span></li><li>
+      <a class="index-term" href="#dfn-minimal-ui">minimal-ui</a> 
+    <span class="print-only">§6.</span></li><li>
+      <a class="index-term" href="#dfn-monochrome">monochrome</a> 
+    <span class="print-only">§2.1</span></li><li>
+    name
+    <ul>
+      <li>
+      <a class="index-term" href="#dfn-name">definition of</a> 
+    <span class="print-only">§1.4</span></li><li>
+      <a class="index-term" href="#dfn-name-0">definition of</a> 
+    <span class="print-only">§3.1</span></li>
+    </ul>
+  </li><li>
+      <a class="index-term" href="#dfn-navigation-scope">navigation scope of a manifest</a> 
+    <span class="print-only">§5.</span></li><li>
+      <a class="index-term" href="#dfn-orientation"><code>orientation</code></a> 
+    <span class="print-only">§1.9</span></li><li>
+      <a class="index-term" href="#dfn-orientation-values">orientation values</a> 
+    <span class="print-only">§1.9</span></li><li>
+      <a class="index-term" href="#dfn-process-a-_localized-image-resource-member">process a *_localized image resource member</a> 
+    <span class="print-only">§1.15.2</span></li><li>
+      <a class="index-term" href="#dfn-process-a-_localized-text-member">process a *_localized text member</a> 
+    <span class="print-only">§1.15.1</span></li><li>
+      <a class="index-term" href="#dfn-process-a-color-member">process a color member</a> 
+    <span class="print-only">§1.16.2</span></li><li>
+      <a class="index-term" href="#dfn-process-a-localized-text-object">process a localized text object</a> 
+    <span class="print-only">§1.15.1</span></li><li>
+      <a class="index-term" href="#dfn-process-a-shortcut">process a shortcut</a> 
+    <span class="print-only">§3.7</span></li><li>
+      <a class="index-term" href="#dfn-process-a-text-member">process a text member</a> 
+    <span class="print-only">§1.16.3</span></li><li>
+      <a class="index-term" href="#dfn-process-image-resources">process image resources</a> 
+    <span class="print-only">§2.5</span></li><li>
+      <a class="index-term" href="#dfn-process-the-dir-member">process the dir member</a> 
+    <span class="print-only">§1.2</span></li><li>
+      <a class="index-term" href="#dfn-process-the-display-member">process the display member</a> 
+    <span class="print-only">§1.8</span></li><li>
+      <a class="index-term" href="#dfn-process-the-id-member">process the id member</a> 
+    <span class="print-only">§1.11</span></li><li>
+      <a class="index-term" href="#dfn-process-the-lang-member">process the lang member</a> 
+    <span class="print-only">§1.3</span></li><li>
+      <a class="index-term" href="#dfn-process-the-orientation-member">process the orientation member</a> 
+    <span class="print-only">§1.9</span></li><li>
+      <a class="index-term" href="#dfn-process-the-scope-member">process the scope member</a> 
+    <span class="print-only">§1.6</span></li><li>
+      <a class="index-term" href="#dfn-process-the-shortcuts-member">process the shortcuts member</a> 
+    <span class="print-only">§1.14</span></li><li>
+      <a class="index-term" href="#dfn-process-the-start_url-member">process the start_url member</a> 
+    <span class="print-only">§1.10</span></li><li>
+      <a class="index-term" href="#dfn-processed-manifest">processed manifest</a> 
+    <span class="print-only">§1.16.1</span></li><li>
+      <a class="index-term" href="#dfn-processing-a-manifest">processing a manifest</a> 
+    <span class="print-only">§1.16.1</span></li><li>
+      <a class="index-term" href="#dfn-processing-extension-point">processing extension-point</a> 
+    <span class="print-only">§1.16.1</span></li><li>
+      <a class="index-term" href="#dfn-purpose"><code>purpose</code></a> 
+    <span class="print-only">§2.1</span></li><li>
+      <a class="index-term" href="#dfn-rtl">rtl</a> 
+    <span class="print-only">§1.2</span></li><li>
+      <a class="index-term" href="#dfn-safe-zone">safe zone</a> 
+    <span class="print-only">§2.3</span></li><li>
+      <a class="index-term" href="#dfn-scope"><code>scope</code></a> 
+    <span class="print-only">§1.6</span></li><li>
+      <a class="index-term" href="#dfn-security-sensitive-members">security-sensitive members</a> 
+    <span class="print-only">§1.16.6</span></li><li>
+    short_name
+    <ul>
+      <li>
+      <a class="index-term" href="#dfn-short_name">definition of</a> 
+    <span class="print-only">§1.5</span></li><li>
+      <a class="index-term" href="#dfn-short_name-0">definition of</a> 
+    <span class="print-only">§3.2</span></li>
+    </ul>
+  </li><li>
+      <a class="index-term" href="#dfn-shortcut-item">shortcut item</a> 
+    <span class="print-only">§3.</span></li><li>
+      <a class="index-term" href="#dfn-shortcuts"><code>shortcuts</code></a> 
+    <span class="print-only">§1.14</span></li><li>
+      <a class="index-term" href="#dfn-solid-fill">solid fill</a> 
+    <span class="print-only">§2.4</span></li><li>
+      <a class="index-term" href="#dfn-standalone">standalone</a> 
+    <span class="print-only">§6.</span></li><li>
+      <a class="index-term" href="#dfn-start-url">start URL</a> 
+    <span class="print-only">§1.10</span></li><li>
+      <a class="index-term" href="#dfn-start_url"><code>start_url</code></a> 
+    <span class="print-only">§1.10</span></li><li>
+      <a class="index-term" href="#dfn-steps-for-determining-the-web-app-s-chosen-display-mode">steps for determining the web app's chosen display mode</a> 
+    <span class="print-only">§6.</span></li><li>
+      <a class="index-term" href="#dfn-text-direction-list">text-direction list</a> 
+    <span class="print-only">§1.2</span></li><li>
+      <a class="index-term" href="#dfn-text-directions">text-directions</a> 
+    <span class="print-only">§1.2</span></li><li>
+      <a class="index-term" href="#dfn-theme-color">theme color</a> 
+    <span class="print-only">§1.12</span></li><li>
+      <a class="index-term" href="#dfn-theme_color"><code>theme_color</code></a> 
+    <span class="print-only">§1.12</span></li><li>
+      <a class="index-term" href="#dfn-url"><code>url</code></a> 
+    <span class="print-only">§3.4</span></li><li>
+      <a class="index-term" href="#dfn-value"><code>value</code></a> 
+    <span class="print-only">§1.15.1</span></li><li>
+    within scope
+    <ul>
+      <li>
+      <a class="index-term" href="#dfn-within-scope">definition of</a> 
+    <span class="print-only">§5.</span></li><li>
+      <a class="index-term" href="#dfn-within-scope-0">definition of</a> 
+    <span class="print-only">§5.</span></li>
+    </ul>
+  </li>
+  </ul>
+  </section><section id="index-defined-elsewhere"><div class="header-wrapper"><h3 id="k-2-terms-defined-by-reference"><bdi class="secno">K.2 </bdi>Terms defined by reference</h3><a class="self-link" href="#index-defined-elsewhere" aria-label="Permalink for Appendix K.2"></a></div>
+    
+    <ul class="index">
+    <li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-accname-1.2">ACCNAME-1.2</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://www.w3.org/TR/accname-1.2/#dfn-accessible-name" id="index-term-accessible-name" tabindex="0" aria-haspopup="dialog">accessible name</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-css-color-4">CSS-COLOR-4</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://www.w3.org/TR/css-color-4/#alpha-channel" id="index-term-alpha-component" tabindex="0" aria-haspopup="dialog">alpha component</span>
+  </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/css-color-4/#sRGB-space" id="index-term-srgb" tabindex="0" aria-haspopup="dialog">sRGB</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-css-syntax-3">CSS-SYNTAX-3</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://www.w3.org/TR/css-syntax-3/#css-parse-something-according-to-a-css-grammar" id="index-term-parsing-for-css" tabindex="0" aria-haspopup="dialog">parsing (for <code>CSS</code>)</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-dom">DOM</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://dom.spec.whatwg.org/#concept-document" id="index-term-document" tabindex="0" aria-haspopup="dialog">document</span>
+  </li><li>
+    <span class="index-term" data-href="https://dom.spec.whatwg.org/#document" id="index-term-document-interface" tabindex="0" aria-haspopup="dialog"><code>Document</code> interface</span>
+  </li><li>
+    <span class="index-term" data-href="https://dom.spec.whatwg.org/#concept-document-url" id="index-term-url-for-document" tabindex="0" aria-haspopup="dialog">URL (for <code>Document</code>)</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-ecma-402">ECMA-402</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://tc39.es/ecma402/#sec-canonicalizeunicodelocaleid" id="index-term-canonicalizeunicodelocaleid" tabindex="0" aria-haspopup="dialog">CanonicalizeUnicodeLocaleId</span>
+  </li><li>
+    <span class="index-term" data-href="https://tc39.es/ecma402/#sec-isstructurallyvalidlanguagetag" id="index-term-isstructurallyvalidlanguagetag" tabindex="0" aria-haspopup="dialog">IsStructurallyValidLanguageTag</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-fetch">FETCH</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://fetch.spec.whatwg.org/#cors-protocol" id="index-term-cors-protocol" tabindex="0" aria-haspopup="dialog">CORS protocol</span>
+  </li><li>
+    <span class="index-term" data-href="https://fetch.spec.whatwg.org/#cors-request" id="index-term-cors-request" tabindex="0" aria-haspopup="dialog">CORS Request</span>
+  </li><li>
+    <span class="index-term" data-href="https://fetch.spec.whatwg.org/#concept-request-credentials-mode" id="index-term-credentials-mode-for-request" tabindex="0" aria-haspopup="dialog">credentials mode (for <code>request</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://fetch.spec.whatwg.org/#concept-fetch" id="index-term-fetch" tabindex="0" aria-haspopup="dialog">fetch</span>
+  </li><li>
+    <span class="index-term" data-href="https://fetch.spec.whatwg.org/#http-origin" id="index-term-origin" tabindex="0" aria-haspopup="dialog">Origin</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-html">HTML</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/#nav-bc" id="index-term-active-browsing-context" tabindex="0" aria-haspopup="dialog">active browsing context</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="index-term-active-document-for-navigable" tabindex="0" aria-haspopup="dialog">active document (for <code>navigable</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#browsing-context" id="index-term-browsing-contexts" tabindex="0" aria-haspopup="dialog">browsing contexts</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/urls-and-fetching.html#cors-settings-attribute-credentials-mode" id="index-term-cors-settings-attribute-credentials-mode" tabindex="0" aria-haspopup="dialog">CORS settings attribute credentials mode</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#create-a-fresh-top-level-traversable" id="index-term-create-a-fresh-top-level-traversable" tabindex="0" aria-haspopup="dialog">create a fresh top-level traversable</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#attr-link-crossorigin" id="index-term-crossorigin-attribute-for-link-element" tabindex="0" aria-haspopup="dialog"><code>crossorigin</code> attribute (for <code>link</code> element)</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#attr-link-href" id="index-term-href-attribute-for-link-element" tabindex="0" aria-haspopup="dialog"><code>href</code> attribute (for <code>link</code> element)</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#the-link-element" id="index-term-link-element" tabindex="0" aria-haspopup="dialog"><code>link</code> element</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#meta" id="index-term-meta-element" tabindex="0" aria-haspopup="dialog"><code>meta</code> element</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#attr-meta-name" id="index-term-name-attribute-for-meta-element" tabindex="0" aria-haspopup="dialog"><code>name</code> attribute (for <code>meta</code> element)</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="index-term-navigated" tabindex="0" aria-haspopup="dialog">navigated</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="index-term-origin-0" tabindex="0" aria-haspopup="dialog">origin</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#post-resource" id="index-term-post-resource" tabindex="0" aria-haspopup="dialog">POST resource</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#attr-link-rel" id="index-term-rel-attribute-for-link-element" tabindex="0" aria-haspopup="dialog"><code>rel</code> attribute (for <code>link</code> element)</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/browsers.html#same-origin" id="index-term-same-origin" tabindex="0" aria-haspopup="dialog">same origin</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/semantics.html#meta-theme-color" id="index-term-theme-color-for-meta-name" tabindex="0" aria-haspopup="dialog">theme-color (for <code>meta/name</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="index-term-top-level-browsing-context" tabindex="0" aria-haspopup="dialog">top-level browsing context</span>
+  </li><li>
+    <span class="index-term" data-href="https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#unordered-set-of-unique-space-separated-tokens" id="index-term-unordered-set-of-unique-space-separated-tokens" tabindex="0" aria-haspopup="dialog">unordered set of unique space-separated tokens</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-i18n-glossary">I18N-GLOSSARY</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://www.w3.org/TR/i18n-glossary/#dfn-locale" id="index-term-locale" tabindex="0" aria-haspopup="dialog">locale</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-image-resource">IMAGE-RESOURCE</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://www.w3.org/TR/image-resource/#dfn-image-resource" id="index-term-image-resources" tabindex="0" aria-haspopup="dialog">image resources</span>
+  </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/image-resource/#dfn-process-an-image-resource-from-json" id="index-term-process-an-image-resource-from-json" tabindex="0" aria-haspopup="dialog">process an image resource from JSON</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-infra">INFRA</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#set-append" id="index-term-append-for-set" tabindex="0" aria-haspopup="dialog">append (for <code>set</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#list-append" id="index-term-append-for-list" tabindex="0" aria-haspopup="dialog">Append (for <code>list</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#ascii-lowercase" id="index-term-ascii-lowercase" tabindex="0" aria-haspopup="dialog">ASCII lowercase</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#boolean" id="index-term-boolean-type" tabindex="0" aria-haspopup="dialog">boolean type</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#byte-sequence" id="index-term-byte-sequence" tabindex="0" aria-haspopup="dialog">byte sequence</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#string-concatenate" id="index-term-concatenation-for-string" tabindex="0" aria-haspopup="dialog">concatenation (for <code>string</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#list-contain" id="index-term-contain-for-list" tabindex="0" aria-haspopup="dialog">contain (for <code>list</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#iteration-continue" id="index-term-continue-for-iteration" tabindex="0" aria-haspopup="dialog">continue (for <code>iteration</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#map-exists" id="index-term-exist-for-map" tabindex="0" aria-haspopup="dialog">exist (for <code>map</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#list-iterate" id="index-term-for-each-for-list" tabindex="0" aria-haspopup="dialog">For each (for <code>list</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#list-is-empty" id="index-term-is-empty-for-list" tabindex="0" aria-haspopup="dialog">is empty (for <code>list</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#map-getting-the-keys" id="index-term-keys-for-map" tabindex="0" aria-haspopup="dialog">keys (for <code>map</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#list" id="index-term-list" tabindex="0" aria-haspopup="dialog">list</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#ordered-map" id="index-term-ordered-map" tabindex="0" aria-haspopup="dialog">ordered map</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#parse-json-bytes-to-an-infra-value" id="index-term-parse-json-bytes-to-an-infra-value" tabindex="0" aria-haspopup="dialog">parse JSON bytes to an Infra value</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#ordered-set" id="index-term-set" tabindex="0" aria-haspopup="dialog">set</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#map-set" id="index-term-set-for-map" tabindex="0" aria-haspopup="dialog">Set (for <code>map</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#split-on-ascii-whitespace" id="index-term-split-on-ascii-whitespace" tabindex="0" aria-haspopup="dialog">split on ASCII whitespace</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#string" id="index-term-string" tabindex="0" aria-haspopup="dialog">string</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#strip-leading-and-trailing-ascii-whitespace" id="index-term-strip-leading-and-trailing-ascii-whitespace" tabindex="0" aria-haspopup="dialog">Strip leading and trailing ASCII whitespace</span>
+  </li><li>
+    <span class="index-term" data-href="https://infra.spec.whatwg.org/#user-agent" id="index-term-user-agent" tabindex="0" aria-haspopup="dialog">user agent</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5">MEDIAQUERIES-5</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="index-term-display-mode-for-media" tabindex="0" aria-haspopup="dialog">display-mode (for <code>@media</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-prefers-color-scheme" id="index-term-prefers-color-scheme-for-media" tabindex="0" aria-haspopup="dialog">prefers-color-scheme (for <code>@media</code>)</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-mimesniff">MIMESNIFF</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://mimesniff.spec.whatwg.org/#computed-mime-type" id="index-term-computed-mime-type" tabindex="0" aria-haspopup="dialog">computed mime type</span>
+  </li><li>
+    <span class="index-term" data-href="https://mimesniff.spec.whatwg.org/#json-mime-type" id="index-term-json-mime-type" tabindex="0" aria-haspopup="dialog">JSON MIME type</span>
+  </li><li>
+    <span class="index-term" data-href="https://mimesniff.spec.whatwg.org/#mime-type" id="index-term-mime-type" tabindex="0" aria-haspopup="dialog">MIME type</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-permissions">PERMISSIONS</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://www.w3.org/TR/permissions/#dfn-express-permission" id="index-term-express-permission" tabindex="0" aria-haspopup="dialog">express permission</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-screen-orientation">SCREEN-ORIENTATION</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://www.w3.org/TR/screen-orientation/#dfn-default-screen-orientation" id="index-term-default-screen-orientation" tabindex="0" aria-haspopup="dialog">default screen orientation</span>
+  </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/screen-orientation/#dom-orientationlocktype" id="index-term-orientationlocktype-enum" tabindex="0" aria-haspopup="dialog"><code>OrientationLockType</code> enum</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-service-workers-1">SERVICE-WORKERS-1</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://www.w3.org/TR/service-workers/#scope-match-algorithm" id="index-term-service-workers" tabindex="0" aria-haspopup="dialog">Service Workers</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-url">URL</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url-equals" id="index-term-equal-for-url" tabindex="0" aria-haspopup="dialog">equal (for <code>url</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://url.spec.whatwg.org/#url-equals-exclude-fragments" id="index-term-exclude-fragments-for-url-equals" tabindex="0" aria-haspopup="dialog">exclude fragments (for <code>url/equals</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url-fragment" id="index-term-fragment-for-url" tabindex="0" aria-haspopup="dialog">fragment (for <code>url</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url-origin" id="index-term-origin-for-url" tabindex="0" aria-haspopup="dialog">origin (for <code>url</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url-path" id="index-term-path-for-url" tabindex="0" aria-haspopup="dialog">path (for <code>url</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url-query" id="index-term-query-for-url" tabindex="0" aria-haspopup="dialog">query (for <code>url</code>)</span>
+  </li><li>
+    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url" id="index-term-url" tabindex="0" aria-haspopup="dialog">URL</span>
+  </li><li>
+    <span class="index-term" data-href="https://url.spec.whatwg.org/#concept-url-parser" id="index-term-url-parser" tabindex="0" aria-haspopup="dialog">URL Parser</span>
+  </li>
+        </ul>
+      </li><li>
+        [<cite><a class="bibref" data-link-type="biblio" href="#bib-webidl">WEBIDL</a></cite>] defines the following:
+        <ul>
+          <li>
+    <span class="index-term" data-href="https://webidl.spec.whatwg.org/#dfn-identifier" id="index-term-identifier" tabindex="0" aria-haspopup="dialog">identifier</span>
+  </li>
+        </ul>
+      </li>
+  </ul>
+  </section></section>
+  
+
+<section id="references" class="appendix"><div class="header-wrapper"><h2 id="l-references"><bdi class="secno">L. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix L."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="l-1-normative-references"><bdi class="secno">L.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix L.1"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-accname-1.2">[accname-1.2]</dt><dd>
+      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 3 April 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
+    </dd><dt id="bib-bcp47">[BCP47]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc5646"><cite>Tags for Identifying Languages</cite></a>. A. Phillips, Ed.; M. Davis, Ed. IETF. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc5646">https://www.rfc-editor.org/rfc/rfc5646</a>
+    </dd><dt id="bib-csp3">[CSP3]</dt><dd>
+      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 30 April 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
+    </dd><dt id="bib-css-color-4">[css-color-4]</dt><dd>
+      <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Chris Lilley; Tab Atkins Jr.; Lea Verou.  W3C. 24 April 2025. CRD. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
+    </dd><dt id="bib-css-mime">[CSS-MIME]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc2318"><cite>The text/css Media Type</cite></a>. H. Lie; B. Bos; C. Lilley.  IETF. March 1998. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc2318">https://www.rfc-editor.org/rfc/rfc2318</a>
+    </dd><dt id="bib-css-syntax-3">[css-syntax-3]</dt><dd>
+      <a href="https://www.w3.org/TR/css-syntax-3/"><cite>CSS Syntax Module Level 3</cite></a>. Tab Atkins Jr.; Simon Sapin.  W3C. 24 December 2021. CRD. URL: <a href="https://www.w3.org/TR/css-syntax-3/">https://www.w3.org/TR/css-syntax-3/</a>
+    </dd><dt id="bib-dom">[dom]</dt><dd>
+      <a href="https://dom.spec.whatwg.org/"><cite>DOM Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
+    </dd><dt id="bib-ecma-402">[ECMA-402]</dt><dd>
+      <a href="https://tc39.es/ecma402/"><cite>ECMAScript Internationalization API Specification</cite></a>.  Ecma International. URL: <a href="https://tc39.es/ecma402/">https://tc39.es/ecma402/</a>
+    </dd><dt id="bib-ecmascript-mime">[ECMAScript-MIME]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc4329"><cite>Scripting Media Types</cite></a>. B. Hoehrmann.  IETF. April 2006. Informational. URL: <a href="https://www.rfc-editor.org/rfc/rfc4329">https://www.rfc-editor.org/rfc/rfc4329</a>
+    </dd><dt id="bib-fetch">[fetch]</dt><dd>
+      <a href="https://fetch.spec.whatwg.org/"><cite>Fetch Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://fetch.spec.whatwg.org/">https://fetch.spec.whatwg.org/</a>
+    </dd><dt id="bib-html">[HTML]</dt><dd>
+      <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Anne van Kesteren; Domenic Denicola; Dominic Farolino; Ian Hickson; Philip Jägenstedt; Simon Pieters.  WHATWG. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+    </dd><dt id="bib-image-resource">[image-resource]</dt><dd>
+      <a href="https://www.w3.org/TR/image-resource/"><cite>Image Resource</cite></a>. Aaron Gustafson; Rayan Kanso; Marcos Caceres.  W3C. 4 June 2021. W3C Working Draft. URL: <a href="https://www.w3.org/TR/image-resource/">https://www.w3.org/TR/image-resource/</a>
+    </dd><dt id="bib-infra">[infra]</dt><dd>
+      <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Anne van Kesteren; Domenic Denicola.  WHATWG. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
+    </dd><dt id="bib-json">[JSON]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc8259"><cite>The JavaScript Object Notation (JSON) Data Interchange Format</cite></a>. T. Bray, Ed. IETF. December 2017. Internet Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc8259">https://www.rfc-editor.org/rfc/rfc8259</a>
+    </dd><dt id="bib-mediaqueries-5">[MEDIAQUERIES-5]</dt><dd>
+      <a href="https://www.w3.org/TR/mediaqueries-5/"><cite>Media Queries Level 5</cite></a>. Dean Jackson; Florian Rivoal; Tab Atkins Jr.; Daniel Libby.  W3C. 18 December 2021. W3C Working Draft. URL: <a href="https://www.w3.org/TR/mediaqueries-5/">https://www.w3.org/TR/mediaqueries-5/</a>
+    </dd><dt id="bib-mime-types">[MIME-TYPES]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc2046"><cite>Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</cite></a>. N. Freed; N. Borenstein.  IETF. November 1996. Draft Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc2046">https://www.rfc-editor.org/rfc/rfc2046</a>
+    </dd><dt id="bib-permissions">[permissions]</dt><dd>
+      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 20 December 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+    </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
+    </dd><dt id="bib-rfc7159">[RFC7159]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc7159"><cite>The JavaScript Object Notation (JSON) Data Interchange Format</cite></a>. T. Bray, Ed. IETF. March 2014. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc7159">https://www.rfc-editor.org/rfc/rfc7159</a>
+    </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
+    </dd><dt id="bib-screen-orientation">[SCREEN-ORIENTATION]</dt><dd>
+      <a href="https://www.w3.org/TR/screen-orientation/"><cite>Screen Orientation</cite></a>. Marcos Caceres.  W3C. 9 August 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/screen-orientation/">https://www.w3.org/TR/screen-orientation/</a>
+    </dd><dt id="bib-uax9">[UAX9]</dt><dd>
+      <a href="https://www.unicode.org/reports/tr9/tr9-50.html"><cite>Unicode Bidirectional Algorithm</cite></a>. Manish Goregaokar मनीष गोरेगांवकर; Robin Leroy.  Unicode Consortium. 2 September 2024. Unicode Standard Annex #9. URL: <a href="https://www.unicode.org/reports/tr9/tr9-50.html">https://www.unicode.org/reports/tr9/tr9-50.html</a>
+    </dd><dt id="bib-unicode">[UNICODE]</dt><dd>
+      <a href="https://www.unicode.org/versions/latest/"><cite>The Unicode Standard</cite></a>.  Unicode Consortium. URL: <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
+    </dd><dt id="bib-unicode-security">[UNICODE-SECURITY]</dt><dd>
+      <a href="https://www.unicode.org/reports/tr36/tr36-15.html"><cite>Unicode Security Considerations</cite></a>. Mark Davis; Michel Suignard.  Unicode Consortium. 19 September 2014. Unicode Technical Report #36. URL: <a href="https://www.unicode.org/reports/tr36/tr36-15.html">https://www.unicode.org/reports/tr36/tr36-15.html</a>
+    </dd><dt id="bib-url">[URL]</dt><dd>
+      <a href="https://url.spec.whatwg.org/"><cite>URL Standard</cite></a>. Anne van Kesteren.  WHATWG. Living Standard. URL: <a href="https://url.spec.whatwg.org/">https://url.spec.whatwg.org/</a>
+    </dd><dt id="bib-uts55">[UTS55]</dt><dd>
+      <a href="https://www.unicode.org/reports/tr55/tr55-5.html"><cite>Unicode Source Code Handling</cite></a>. Robin Leroy; Mark Davis.  Unicode Consortium. 29 January 2024. Unicode Technical Standard #55. URL: <a href="https://www.unicode.org/reports/tr55/tr55-5.html">https://www.unicode.org/reports/tr55/tr55-5.html</a>
+    </dd></dl>
+  </section><section id="informative-references"><div class="header-wrapper"><h3 id="l-2-informative-references"><bdi class="secno">L.2 </bdi>Informative references</h3><a class="self-link" href="#informative-references" aria-label="Permalink for Appendix L.2"></a></div>
+    
+    <dl class="bibliography"><dt id="bib-fullscreen">[FULLSCREEN]</dt><dd>
+      <a href="https://fullscreen.spec.whatwg.org/"><cite>Fullscreen API Standard</cite></a>. Philip Jägenstedt.  WHATWG. Living Standard. URL: <a href="https://fullscreen.spec.whatwg.org/">https://fullscreen.spec.whatwg.org/</a>
+    </dd><dt id="bib-i18n-glossary">[i18n-glossary]</dt><dd>
+      <a href="https://www.w3.org/TR/i18n-glossary/"><cite>Internationalization Glossary</cite></a>. Richard Ishida; Addison Phillips.  W3C. 17 October 2024. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/i18n-glossary/">https://www.w3.org/TR/i18n-glossary/</a>
+    </dd><dt id="bib-manifest-app-info">[manifest-app-info]</dt><dd>
+      <a href="https://www.w3.org/TR/manifest-app-info/"><cite>Web App Manifest - Application Information</cite></a>. Aaron Gustafson.  W3C. 21 August 2023. W3C Working Group Note. URL: <a href="https://www.w3.org/TR/manifest-app-info/">https://www.w3.org/TR/manifest-app-info/</a>
+    </dd><dt id="bib-mimesniff">[mimesniff]</dt><dd>
+      <a href="https://mimesniff.spec.whatwg.org/"><cite>MIME Sniffing Standard</cite></a>. Gordon P. Hemsley.  WHATWG. Living Standard. URL: <a href="https://mimesniff.spec.whatwg.org/">https://mimesniff.spec.whatwg.org/</a>
+    </dd><dt id="bib-rfc7258">[RFC7258]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc7258"><cite>Pervasive Monitoring Is an Attack</cite></a>. S. Farrell; H. Tschofenig.  IETF. May 2014. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc7258">https://www.rfc-editor.org/rfc/rfc7258</a>
+    </dd><dt id="bib-rfc9110">[RFC9110]</dt><dd>
+      <a href="https://httpwg.org/specs/rfc9110.html"><cite>HTTP Semantics</cite></a>. R. Fielding, Ed.; M. Nottingham, Ed.; J. Reschke, Ed. IETF. June 2022. Internet Standard. URL: <a href="https://httpwg.org/specs/rfc9110.html">https://httpwg.org/specs/rfc9110.html</a>
+    </dd><dt id="bib-service-workers-1">[SERVICE-WORKERS-1]</dt><dd>
+      <a href="https://www.w3.org/TR/service-workers/"><cite>Service Workers</cite></a>. Yoshisato Yanagisawa; Monica CHINTALA.  W3C. 6 March 2025. CRD. URL: <a href="https://www.w3.org/TR/service-workers/">https://www.w3.org/TR/service-workers/</a>
+    </dd><dt id="bib-tls">[TLS]</dt><dd>
+      <a href="https://www.rfc-editor.org/rfc/rfc5246"><cite>The Transport Layer Security (TLS) Protocol Version 1.2</cite></a>. T. Dierks; E. Rescorla.  IETF. August 2008. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc5246">https://www.rfc-editor.org/rfc/rfc5246</a>
+    </dd><dt id="bib-webidl">[webidl]</dt><dd>
+      <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Edgar Chen; Timothy Gu.  WHATWG. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
+    </dd></dl>
+  </section></section><p role="navigation" id="back-to-top">
+    <a href="#title"><abbr title="Back to Top">↑</abbr></a>
+  </p><script id="respec-highlight-vars">(() => {
+// @ts-check
+
+if (document.respec) {
+  document.respec.ready.then(setupVarHighlighter);
+} else {
+  setupVarHighlighter();
+}
+
+function setupVarHighlighter() {
+  document
+    .querySelectorAll("var")
+    .forEach(varElem => varElem.addEventListener("click", highlightListener));
+}
+
+function highlightListener(ev) {
+  ev.stopPropagation();
+  const { target: varElem } = ev;
+  const hightligtedElems = highlightVars(varElem);
+  const resetListener = () => {
+    const hlColor = getHighlightColor(varElem);
+    hightligtedElems.forEach(el => removeHighlight(el, hlColor));
+    [...HL_COLORS.keys()].forEach(key => HL_COLORS.set(key, true));
+  };
+  if (hightligtedElems.length) {
+    document.body.addEventListener("click", resetListener, { once: true });
+  }
+}
+
+// availability of highlight colors. colors from var.css
+const HL_COLORS = new Map([
+  ["respec-hl-c1", true],
+  ["respec-hl-c2", true],
+  ["respec-hl-c3", true],
+  ["respec-hl-c4", true],
+  ["respec-hl-c5", true],
+  ["respec-hl-c6", true],
+  ["respec-hl-c7", true],
+]);
+
+function getHighlightColor(target) {
+  // return current colors if applicable
+  const { value } = target.classList;
+  const re = /respec-hl-\w+/;
+  const activeClass = re.test(value) && value.match(re);
+  if (activeClass) return activeClass[0];
+
+  // first color preference
+  if (HL_COLORS.get("respec-hl-c1") === true) return "respec-hl-c1";
+
+  // otherwise get some other available color
+  return [...HL_COLORS.keys()].find(c => HL_COLORS.get(c)) || "respec-hl-c1";
+}
+
+function highlightVars(varElem) {
+  const textContent = norm(varElem.textContent);
+  const parent = varElem.closest(".algorithm, section");
+  const highlightColor = getHighlightColor(varElem);
+
+  const varsToHighlight = [...parent.querySelectorAll("var")].filter(
+    el =>
+      norm(el.textContent) === textContent &&
+      el.closest(".algorithm, section") === parent
+  );
+
+  // update availability of highlight color
+  const colorStatus = varsToHighlight[0].classList.contains("respec-hl");
+  HL_COLORS.set(highlightColor, colorStatus);
+
+  // highlight vars
+  if (colorStatus) {
+    varsToHighlight.forEach(el => removeHighlight(el, highlightColor));
+    return [];
+  } else {
+    varsToHighlight.forEach(el => addHighlight(el, highlightColor));
+  }
+  return varsToHighlight;
+}
+
+function removeHighlight(el, highlightColor) {
+  el.classList.remove("respec-hl", highlightColor);
+  // clean up empty class attributes so they don't come in export
+  if (!el.classList.length) el.removeAttribute("class");
+}
+
+function addHighlight(elem, highlightColor) {
+  elem.classList.add("respec-hl", highlightColor);
+}
+
+/**
+ * Same as `norm` from src/core/utils, but our build process doesn't allow
+ * imports in runtime scripts, so duplicated here.
+ * @param {string} str
+ */
+function norm(str) {
+  return str.trim().replace(/\s+/g, " ");
+}
+})()</script><script id="respec-dfn-panel">(() => {
 // @ts-check
 if (document.respec) {
   document.respec.ready.then(setupPanel);
