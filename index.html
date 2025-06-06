@@ -2434,6 +2434,15 @@
         [=applied=].
       </p>
       <p>
+        At the discretion of the operating system or user agent, web
+        applications may be [=installed=] once or multiple times.
+      </p>
+      <aside class="note" title="Multiple installations">
+        User agents may allow multiple installations of the same web
+        application, for example, so they can be used with different profiles,
+        such as "work" or "private" profiles.
+      </aside>
+      <p>
         Once a web application is [=installed=] it is known as a <dfn class=
         "export">installed web application</dfn>: That is, the manifest's
         members, or their defaults, are [=applied=] to the <a>top-level
@@ -2597,6 +2606,124 @@
           and settings associated with the application, such as permissions and
           persistent storage.
         </p>
+      </section>
+    </section>
+    <section>
+      <h2>
+        API Definition
+      </h2>
+      <section data-dfn-for="Navigator">
+        <h3>
+          Extensions to the `Navigator` interface
+        </h3><!-- todo: parameters -->
+        <!-- todo: options bag -->
+        <!-- todo: return value -->
+        <pre class="idl">
+          partial interface Navigator {
+              [SecureContext, NewObject] Promise&lt;undefined&gt; install();
+          };
+        </pre>
+        <h3>
+          Internal Slots
+        </h3>
+        <p>
+          This API adds the following internal slot to the {{Navigator}}
+          interface.
+        </p>
+        <dl>
+          <dt>
+            {{Promise}}? <dfn>[[\installPromise]]</dfn>
+          </dt>
+          <dd>
+            The [=this=].{{Navigator/[[installPromise]]}} is a promise that
+            represents a user's current intent to install an application. It is
+            initialized to `null`.
+          </dd>
+        </dl>
+        <h3>
+          <dfn>install()</dfn> method
+        </h3>
+        <p>
+          When the {{Navigator/install()}} method is called, run the following
+          steps to [=install=] the website.
+        </p>
+        <ol class="algorithm">
+          <li>Let |global:Window| be [=this=]'s [=relevant global object=].
+          </li>
+          <li>Let |document:Document| be |global|'s [=associated Document=].
+          </li>
+          <li>If |document| is not [=Document/fully active=], return [=a
+          promise rejected with=] an {{"InvalidStateError"}} {{DOMException}}.
+          </li><!-- todo: permission policy? -->
+          <li>If [=this=].{{Navigator/[[installPromise]]}} is not `null`,
+          return [=a promise rejected with=] an {{"InvalidStateError"}}
+          {{DOMException}}.
+          </li>
+          <li>If |global| does not have [=transient activation=], return [=a
+          promise rejected with=] a {{"NotAllowedError"}} {{DOMException}}.
+          </li>
+          <li>[=Consume user activation=] of |global|.
+          </li>
+          <li>Set [=this=].{{Navigator/[[installPromise]]}} to be <a>a new
+          promise</a>.
+          </li>
+          <li>Return [=this=].{{Navigator/[[installPromise]]}} and <a>in
+          parallel</a>:
+            <ol>
+              <li>[=Processing|Process=] the |document|'s [=manifest=].
+              </li>
+              <li>If the |document|'s [=Document/processed manifest=] is null,
+              [=queue a global task=] on the [=user interaction task source=]
+              using |global| to:
+                <ol>
+                  <li>[=Reject=] [=this=].{{Navigator/[[installPromise]]}} with
+                  an {{"DataError"}} {{DOMException}}.
+                  </li>
+                  <li>Set [=this=].{{Navigator/[[installPromise]]}} to `null`.
+                  </li>
+                  <li>Terminate this algorithm.
+                  </li>
+                </ol>
+              </li>
+              <li>Present an installation UI for the |document|'s
+              [=Document/processed manifest=].
+                <aside class="note">
+                  If a user agent only allows one instance of the application
+                  to be [=installed=], it may show a launch UI instead. In this
+                  case, the user agent should return the result of the launch
+                  prompt. For privacy reasons, this API should not reveal
+                  signals indicating that an application was already
+                  [=installed=].
+                </aside>
+              </li>
+              <li>Wait for the user's choice.
+              </li>
+              <li>If the user chose to abort the install operation, or if
+              installing the application has failed, [=queue a global task=] on
+              the [=user interaction task source=] using |global| to:
+                <ol>
+                  <li>[=Reject=] [=this=].{{Navigator/[[installPromise]]}} with
+                  an {{"AbortError"}} {{DOMException}}.
+                  </li>
+                  <li>Set [=this=].{{Navigator/[[installPromise]]}} to `null`.
+                  </li>
+                  <li>Terminate this algorithm.
+                  </li>
+                </ol>
+              </li>
+              <li>Otherwise, [=queue a global task=] on the [=user interaction
+              task source=] using |global| to:
+                <ol>
+                  <li>[=Resolve=] [=this=].{{Navigator/[[installPromise]]}}
+                  with `undefined`.
+                  </li>
+                  <li>Set [=this=].{{Navigator/[[installPromise]]}} to `null`.
+                  </li>
+                </ol>
+              </li>
+            </ol>
+          </li>
+        </ol>
       </section>
     </section>
     <section id="nav-scope">
@@ -3519,6 +3646,7 @@
         navigation.
       </p>
     </section>
+    <section id="idl-index" class="appendix"></section>
     <section id="index"></section>
   </body>
 </html>
