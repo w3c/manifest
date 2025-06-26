@@ -2645,7 +2645,7 @@
         </h3>
         <p>
           When the {{Navigator/install()}} method is called, run the following
-          steps to [=install=] the website.
+          steps:
         </p>
         <ol class="algorithm">
           <li>Let |global:Window| be [=this=]'s [=relevant global object=].
@@ -2654,7 +2654,11 @@
           </li>
           <li>If |document| is not [=Document/fully active=], return [=a
           promise rejected with=] an {{"InvalidStateError"}} {{DOMException}}.
-          </li><!-- todo: permission policy? -->
+          </li>
+          <li>If the |document| is not the [=top-level traversable=], return
+          [=a promise rejected with=] an {{"NotAllowedError"}}
+          {{DOMException}}.
+          </li>
           <li>If [=this=].{{Navigator/[[installPromise]]}} is not `null`,
           return [=a promise rejected with=] an {{"InvalidStateError"}}
           {{DOMException}}.
@@ -2670,31 +2674,7 @@
           <li>Return [=this=].{{Navigator/[[installPromise]]}} and <a>in
           parallel</a>:
             <ol>
-              <li>[=Processing|Process=] the |document|'s [=manifest=].
-              </li>
-              <li>If the |document|'s [=Document/processed manifest=] is null,
-              [=queue a global task=] on the [=user interaction task source=]
-              using |global| to:
-                <ol>
-                  <li>[=Reject=] [=this=].{{Navigator/[[installPromise]]}} with
-                  an {{"DataError"}} {{DOMException}}.
-                  </li>
-                  <li>Set [=this=].{{Navigator/[[installPromise]]}} to `null`.
-                  </li>
-                  <li>Terminate this algorithm.
-                  </li>
-                </ol>
-              </li>
-              <li>Present an installation UI for the |document|'s
-              [=Document/processed manifest=].
-                <aside class="note">
-                  If a user agent only allows one instance of the application
-                  to be [=installed=], it may show a launch UI instead. In this
-                  case, the user agent should return the result of the launch
-                  prompt. For privacy reasons, this API should not reveal
-                  signals indicating that an application was already
-                  [=installed=].
-                </aside>
+              <li>Present an installation UI for the |document|'s [=manifest=].
               </li>
               <li>Wait for the user's choice.
               </li>
