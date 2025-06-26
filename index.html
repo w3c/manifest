@@ -300,27 +300,41 @@
             Declaring multiple icons
           </h3>
           <p>
-            In the following example, the developer has made the following
-            choices about the icons associated with the web application:
+            This section illustrates how to declare multiple icons using the
+            [=manifest/icons=] member to declare a set of icons for a web
+            application. In the following example, the developer has made the
+            following choices about the icons associated with the web
+            application:
           </p>
           <ul>
             <li>The developer has included two icons at the same size, but in
             two different formats. One is explicitly marked as WebP through the
-            `type` member. If the user agent doesn't support WebP, it falls
+            `type` member. If the user agent doesn't support WebP, it can fall
             back to the second icon of the same size. The <a>MIME type</a> of
             this icon can then be either determined via a HTTP header, or can
             be <a data-lt="computed mime type">sniffed</a> by the user agent
             once the first few bytes of the icon are received.
             </li>
-            <li>The developer wants to use an SVG for greater than or equal to
-            257x257px. They've found that the SVG file looks too blurry at
-            small sizes, even on high-density screens. To deal with this
-            problem, the developer includes an SVG icon that is only used when
-            the dimensions are at least 257px. Otherwise, the user agent uses
-            the ICO file (hd_hi.ico), which includes a gamut of raster icons
-            individually tailored for small display sizes.
+            <li>The developer specifies various sizes for the pixel-based icon
+            formats (e.g., a PNG file). These sizes serve as hints for the user
+            agent to determine a suitable icon to use in a particular context
+            (e.g., on the home screen of a device). The developer has also
+            included an ICO file (e.g., hd_hi.ico), which includes a range of
+            raster icons individually tailored for particular display sizes.
+            For example, it's often not suitable to simply downscale a 256x256
+            image to display in a 16x16 context, as the image will lose
+            significant detail. Instead, an entirely different image
+            specifically tailored for a 16x16 pixel context will often be used.
+            Additionally, they added an SVG icon that can be resized
+            dynamically to fit any icon size needed, but the tradeoff being
+            that it can become unsuitable in some context (e.g., it becomes too
+            small and blurry).
             </li>
           </ul>
+          <p>
+            The list of icons is provided to the user agent, which will choose
+            the most suitable icons for different contexts and placements.
+          </p>
           <pre class="example json" title="Multiple icons">
             {
               "icons": [
@@ -335,8 +349,7 @@
                   "src": "icon/hd_hi.ico",
                   "sizes": "72x72 96x96 128x128 256x256"
                 },{
-                  "src": "icon/hd_hi.svg",
-                  "sizes": "257x257"
+                  "src": "icon/hd_hi.svg"
                 }]
             }
           </pre>
@@ -431,9 +444,9 @@
             path of the [=manifest/start_url=] member is used as a fallback.
             And if the [=manifest/start_url=] member is also missing, then the
             document URL from which the web application is installed gets used
-            as the scope. To be sure you don't get any unexpected navigation
-            behavior, always include a [=manifest/scope=] member preferably set
-            to `"/"`.
+            as the scope. To avoid any unexpected navigation behavior, authors
+            should always include a [=manifest/scope=] member preferably set to
+            `"/"`.
           </p>
         </section>
       </section>
@@ -3167,10 +3180,10 @@
           recognize or support.
         </p>
         <p>
-          If you are writing a specification and temporarily want to patch this
-          specification to help implementations along, <a href=
+          If editors are writing a specification and temporarily want to patch
+          this specification to help implementations along, <a href=
           "https://github.com/w3c/manifest/issues">file a bug</a> so the
-          community is informed of what you are trying to do.
+          community is informed of what editors are trying to do.
         </p>
         <section id="proprietary-extensions" class="informative">
           <h3>
@@ -3194,8 +3207,8 @@
             short name of that proprietary ecosystem to avoid name collisions.
           </p>
           <p>
-            Do not use vendor prefixes that you intend to later remove once it
-            becomes a standard (those tend to stick around forever). Only use
+            Do not use vendor prefixes that are intended for later removal once
+            they become standard (those tend to stick around forever). Only use
             prefixes that will make sense now and into the future.
           </p>
           <p>
@@ -3343,8 +3356,8 @@
         "https://schemastore.org/json/">schemastore.org</a>. It is licensed
         under <a href="https://www.apache.org/licenses/LICENSE-2.0.html">Apache
         2.0</a>. It is kindly maintained by <a href=
-        "https://github.com/madskristensen">Mads Kristensen</a>. If you find
-        any issues with the JSON schema, please <a href=
+        "https://github.com/madskristensen">Mads Kristensen</a>. If developers
+        find any issues with the JSON schema, please <a href=
         "https://github.com/SchemaStore/schemastore/issues/">file a bug</a> at
         the <a href="https://github.com/SchemaStore/schemastore">SchemaStore
         repository</a> on GitHub.
