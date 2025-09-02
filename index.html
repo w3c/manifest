@@ -192,7 +192,7 @@
         </li>
         <li>[=manifest/icons=]
         </li>
-        <li>[=manifest/identity=]
+        <li>[=manifest/id=]
         </li>
         <li>[=manifest/lang=]
         </li>
@@ -865,18 +865,19 @@
           "manifest">id</dfn></code> member is a <a>string</a> that represents
           the <dfn class="export" data-dfn-for=
           "installed web application">identity</dfn> for the application. The
-          [=identity=] takes the form of a URL, which is same origin as the
-          [=start URL=].
+          [=installed web application/identity=] takes the form of a URL, which
+          is same origin as the [=start URL=].
         </p>
         <p>
-          The [=identity=] is used by user agents to uniquely identify the
-          application universally. When the user agent sees a manifest with an
-          [=identity=] that does not correspond to an already-installed
-          application, it SHOULD treat that manifest as a description of a
-          distinct application, even if it is served from the same URL as that
-          of another application. When the user agent sees a manifest where
-          |manifest|["id"] is [=url/equal=] (with [=URL/equals/exclude
-          fragments=] OPTIONALLY set to true) to the [=identity=] of an
+          The [=installed web application/identity=] is used by user agents to
+          uniquely identify the application universally. When the user agent
+          sees a manifest with an [=installed web application/identity=] that
+          does not correspond to an already-installed application, it SHOULD
+          treat that manifest as a description of a distinct application, even
+          if it is served from the same URL as that of another application.
+          When the user agent sees a manifest where |manifest|["id"] is
+          [=url/equal=] (with [=URL/equals/exclude fragments=] OPTIONALLY set
+          to true) to the [=installed web application/identity=] of an
           already-installed application, it SHOULD be used as a signal that
           this manifest is a replacement for the already-installed
           application's manifest, and not a distinct application, even if it is
@@ -896,13 +897,14 @@
           two [=URLs=] that ought not to have fragments.
         </aside>
         <p class="note">
-          The [=identity=] can be used by a service that collects lists of web
-          applications to uniquely identify applications.
+          The [=installed web application/identity=] can be used by a service
+          that collects lists of web applications to uniquely identify
+          applications.
         </p>
         <p class="note">
-          The [=identity=] is processed like a URL but it doesn't point to a
-          resource that can be navigated to, so it's not required to be
-          [=URL/within scope=].
+          The [=installed web application/identity=] is processed like a URL
+          but it doesn't point to a resource that can be navigated to, so it's
+          not required to be [=URL/within scope=].
         </p>
         <p>
           To <dfn>process the `id` member</dfn>, given [=ordered map=]
