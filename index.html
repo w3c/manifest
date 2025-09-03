@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" dir="ltr"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 35.3.1">
+<meta name="generator" content="ReSpec 35.5.1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -163,7 +163,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="8ff396e78636b370a4137f2f490738812ae6348e">
+<meta name="revision" content="2d457e2c92df0ff33bd65dc24c5aa55d5a744e91">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -293,16 +293,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "8ff396e78636b370a4137f2f490738812ae6348e",
-  "publishISODate": "2025-05-05T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 05 May 2025"
+  "gitRevision": "2d457e2c92df0ff33bd65dc24c5aa55d5a744e91",
+  "publishISODate": "2025-09-03T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 03 September 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5 IMAGE-RESOURCE MIMESNIFF HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-05-05">05 May 2025</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-09-03">03 September 2025</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -397,8 +397,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       document at the time of its publication. A list of current <abbr title="World Wide Web Consortium">W3C</abbr>
       publications and the latest revision of this technical report can be found
       in the
-      <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> standards and drafts index</a> at
-      https://www.w3.org/TR/.</em></p>
+      <a href="https://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> standards and drafts index</a>.</em></p>
       <div class="warning" id="issue-container-generatedID"><div role="heading" class="warning-title marker" id="h-warning" aria-level="3"><span>Warning</span></div><aside class="">
         <p>
           Implementors need to be aware that this specification is not stable.
@@ -419,7 +418,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   imply endorsement by <abbr title="World Wide Web Consortium">W3C</abbr> and its Members. </p><p>
     This is a draft document and may be updated, replaced, or obsoleted by other
     documents at any time. It is inappropriate to cite this document as other
-    than work in progress.
+    than a work in progress.
     
   </p><p>
     
@@ -434,14 +433,14 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           made in connection with the deliverables of
           the group; that page also includes
           instructions for disclosing a patent. An individual who has actual
-          knowledge of a patent which the individual believes contains
+          knowledge of a patent that the individual believes contains
           <a href="https://www.w3.org/policies/patent-policy/#def-essential">Essential Claim(s)</a>
           must disclose the information in accordance with
           <a href="https://www.w3.org/policies/patent-policy/#sec-Disclosure">section 6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
         
   </p><p>
                       This document is governed by the
-                      <a id="w3c_process_revision" href="https://www.w3.org/policies/process/20231103/">03 November 2023 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
+                      <a id="w3c_process_revision" href="https://www.w3.org/policies/process/20250818/">18 August 2025 <abbr title="World Wide Web Consortium">W3C</abbr> Process Document</a>.
                     </p></section><nav id="toc"><h2 class="introductory" id="table-of-contents">Table of Contents</h2><ol class="toc"><li class="tocline"><a class="tocxref" href="#abstract">Abstract</a></li><li class="tocline"><a class="tocxref" href="#sotd">Status of This Document</a></li><li class="tocline"><a class="tocxref" href="#web-application-manifest"><bdi class="secno">1. </bdi>
         Web Application Manifest
       </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#examples"><bdi class="secno">1.1 </bdi>
@@ -592,7 +591,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </h2><a class="self-link" href="#web-application-manifest" aria-label="Permalink for Section 1."></a></div>
       
       <p>
-        An <dfn data-export="" data-lt="manifest|application manifest|manifest's" data-local-lt="manifest's" id="dfn-manifest" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">application manifest</dfn> is a [<cite><a class="bibref" data-link-type="biblio" href="#bib-json" title="The JavaScript Object Notation (JSON) Data Interchange Format">JSON</a></cite>] document that
+        An <dfn data-export="" data-lt="manifest|application manifest" data-local-lt="manifest's" id="dfn-manifest" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">application manifest</dfn> is a [<cite><a class="bibref" data-link-type="biblio" href="#bib-json" title="The JavaScript Object Notation (JSON) Data Interchange Format">JSON</a></cite>] document that
         contains startup parameters and application defaults for when a web
         application is launched.
       </p>
@@ -613,7 +612,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </li>
         <li><a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-1"><code>icons</code></a>
         </li>
-        <li><a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-1">identity</a>
+        <li><a data-link-type="dfn|abstract-op" href="#dfn-id" class="internalDFN" id="ref-for-dfn-id-1"><code>id</code></a>
         </li>
         <li><a data-link-type="dfn|abstract-op" href="#dfn-lang" class="internalDFN" id="ref-for-dfn-lang-1"><code>lang</code></a>
         </li>
@@ -1626,17 +1625,20 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         <p>
           The <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-14">manifest's</a> <code><dfn data-export="" data-dfn-for="manifest" id="dfn-id" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">id</dfn></code> member is a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-14">string</a> that represents
-          the <dfn id="dfn-identity" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">identity</dfn> for the application. The <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-2">identity</a> takes
-          the form of a URL, which is same origin as the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-4">start URL</a>.
+          the <dfn class="export" data-dfn-for="installed web application" data-export="" id="dfn-identity" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">identity</dfn> for the application. The
+          <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-1">identity</a> takes the form of a URL, which
+          is same origin as the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-4">start URL</a>.
         </p>
         <p>
-          The <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-3">identity</a> is used by user agents to uniquely identify the
-          application universally. When the user agent sees a manifest with an
-          <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-4">identity</a> that does not correspond to an already-installed
-          application, it <em class="rfc2119">SHOULD</em> treat that manifest as a description of a
-          distinct application, even if it is served from the same URL as that
-          of another application. When the user agent sees a manifest where
-          <var>manifest</var>["id"] is <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-equals" id="ref-for-index-term-equal-for-url-1">equal</a> (with <a data-link-type="dfn" href="https://url.spec.whatwg.org/#url-equals-exclude-fragments" id="ref-for-index-term-exclude-fragments-for-url-equals-1">exclude fragments</a> OPTIONALLY set to true) to the <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-5">identity</a> of an
+          The <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-2">identity</a> is used by user agents to
+          uniquely identify the application universally. When the user agent
+          sees a manifest with an <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-3">identity</a> that
+          does not correspond to an already-installed application, it <em class="rfc2119">SHOULD</em>
+          treat that manifest as a description of a distinct application, even
+          if it is served from the same URL as that of another application.
+          When the user agent sees a manifest where <var>manifest</var>["id"] is
+          <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-equals" id="ref-for-index-term-equal-for-url-1">equal</a> (with <a data-link-type="dfn" href="https://url.spec.whatwg.org/#url-equals-exclude-fragments" id="ref-for-index-term-exclude-fragments-for-url-equals-1">exclude fragments</a> OPTIONALLY set
+          to true) to the <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-4">identity</a> of an
           already-installed application, it <em class="rfc2119">SHOULD</em> be used as a signal that
           this manifest is a replacement for the already-installed
           application's manifest, and not a distinct application, even if it is
@@ -1644,25 +1646,26 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </p>
         <div class="note" role="note" id="issue-container-generatedID-11"><div role="heading" class="note-title marker" id="h-note-10" aria-level="4"><span>Note</span><span class="issue-label">: Excluding fragments is best practice</span></div><aside class="">
           Since the <a data-link-type="dfn|abstract-op" data-lt="process the id member" href="#dfn-process-the-id-member" class="internalDFN" id="ref-for-dfn-process-the-id-member-1">processing algorithm</a> removes the
-          <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-fragment" id="ref-for-index-term-fragment-for-url-2">fragment</a> from the <code><a data-link-type="dfn|abstract-op" href="#dfn-id" class="internalDFN" id="ref-for-dfn-id-1"><code>id</code></a></code> member, it is
+          <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-fragment" id="ref-for-index-term-fragment-for-url-2">fragment</a> from the <code><a data-link-type="dfn|abstract-op" href="#dfn-id" class="internalDFN" id="ref-for-dfn-id-2"><code>id</code></a></code> member, it is
           not strictly necessary to <a data-link-type="dfn" href="https://url.spec.whatwg.org/#url-equals-exclude-fragments" id="ref-for-index-term-exclude-fragments-for-url-equals-2">exclude fragments</a> when
           checking for a matching application. However, since old versions of
           this spec (and, possibly, old user agents) did not remove the
           <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-fragment" id="ref-for-index-term-fragment-for-url-3">fragment</a> from the <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-4">URL</a> at parse time, and relied only on
           <a data-link-type="dfn" data-lt="exclude fragments" href="https://url.spec.whatwg.org/#url-equals-exclude-fragments" id="ref-for-index-term-exclude-fragments-for-url-equals-3">excluding fragments</a> during
           comparisons, historical app data could contain <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-fragment" id="ref-for-index-term-fragment-for-url-4">fragments</a> in
-          the <code><a data-link-type="dfn|abstract-op" href="#dfn-id" class="internalDFN" id="ref-for-dfn-id-2"><code>id</code></a></code>. Therefore, it is best practice for
+          the <code><a data-link-type="dfn|abstract-op" href="#dfn-id" class="internalDFN" id="ref-for-dfn-id-3"><code>id</code></a></code>. Therefore, it is best practice for
           user agents to <a data-link-type="dfn" href="https://url.spec.whatwg.org/#url-equals-exclude-fragments" id="ref-for-index-term-exclude-fragments-for-url-equals-4">exclude fragments</a> even when comparing
           two <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-5">URLs</a> that ought not to have fragments.
         </aside></div>
         <div class="note" role="note" id="issue-container-generatedID-12"><div role="heading" class="note-title marker" id="h-note-11" aria-level="4"><span>Note</span></div><p class="">
-          The <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-6">identity</a> can be used by a service that collects lists of web
-          applications to uniquely identify applications.
+          The <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-5">identity</a> can be used by a service
+          that collects lists of web applications to uniquely identify
+          applications.
         </p></div>
         <div class="note" role="note" id="issue-container-generatedID-13"><div role="heading" class="note-title marker" id="h-note-12" aria-level="4"><span>Note</span></div><p class="">
-          The <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-7">identity</a> is processed like a URL but it doesn't point to a
-          resource that can be navigated to, so it's not required to be
-          <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-5">within scope</a>.
+          The <a data-link-type="dfn|abstract-op" href="#dfn-identity" class="internalDFN" id="ref-for-dfn-identity-6">identity</a> is processed like a URL
+          but it doesn't point to a resource that can be navigated to, so it's
+          not required to be <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-5">within scope</a>.
         </p></div>
         <p>
           To <dfn id="dfn-process-the-id-member" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">process the <code>id</code> member</dfn>, given <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-13">ordered map</a>
@@ -1832,7 +1835,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             </tr>
           </tbody></table>
           <p>
-            Since <a data-link-type="dfn|abstract-op" href="#dfn-id" class="internalDFN" id="ref-for-dfn-id-3"><code>id</code></a> is resolved against <a data-link-type="dfn|abstract-op" href="#dfn-start_url" class="internalDFN" id="ref-for-dfn-start_url-8"><code>start_url</code></a>'s
+            Since <a data-link-type="dfn|abstract-op" href="#dfn-id" class="internalDFN" id="ref-for-dfn-id-4"><code>id</code></a> is resolved against <a data-link-type="dfn|abstract-op" href="#dfn-start_url" class="internalDFN" id="ref-for-dfn-start_url-8"><code>start_url</code></a>'s
             <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url-origin" id="ref-for-index-term-origin-for-url-2">origin</a>, providing "../foo", "foo", "/foo", "./foo" all
             resolves to the same <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#dfn-identifier" id="ref-for-index-term-identifier-1">identifier</a>. As such, best practice is to
             use a leading "/" to be explicit that the id is a root-relative URL
@@ -2396,7 +2399,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             monkey patching</a>.
           </p></div>
           <p>
-            The steps for <dfn data-export="" data-local-lt="processing" data-lt="processing a manifest|processing" id="dfn-processing-a-manifest" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">processing a manifest</dfn> are given by the following
+            The steps for <dfn data-export="" data-local-lt="processing" id="dfn-processing-a-manifest" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">processing a manifest</dfn> are given by the following
             algorithm. The algorithm takes a <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-8">URL</a> <var data-type="URL">document URL</var>, a
             <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-9">URL</a> <var data-type="URL">manifest URL</var>, and a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#byte-sequence" id="ref-for-index-term-byte-sequence-1">byte sequence</a> <var>bodyBytes</var>.
           </p>
@@ -2787,11 +2790,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
               </li>
             </ol>
           </li>
-          <li>Let <var data-type="list<string>">keywords</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#split-on-ascii-whitespace" id="ref-for-index-term-split-on-ascii-whitespace-1">split on ASCII whitespace</a> <var data-type="image">json</var>["purpose"].
+          <li>Let <var data-type="list&lt;string&gt;">keywords</var> be the result of <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#split-on-ascii-whitespace" id="ref-for-index-term-split-on-ascii-whitespace-1">split on ASCII whitespace</a> <var data-type="image">json</var>["purpose"].
           </li>
           <li>Let <var data-type="set">purposes</var> be new <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-set" id="ref-for-index-term-set-2">set</a>.
           </li>
-          <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-4">For each</a> <var data-type="string">keyword</var> of <var data-type="list<string>">keywords</var>:
+          <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-iterate" id="ref-for-index-term-for-each-for-list-4">For each</a> <var data-type="string">keyword</var> of <var data-type="list&lt;string&gt;">keywords</var>:
             <ol>
               <li>If <a data-link-type="dfn|abstract-op" href="#dfn-icon-purposes-list" class="internalDFN" id="ref-for-dfn-icon-purposes-list-1">icon purposes list</a> doesn't <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-contain" id="ref-for-index-term-contain-for-list-5">contain</a> <var data-type="string">keyword</var>,
               then <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#iteration-continue" id="ref-for-index-term-continue-for-iteration-2">continue</a>.
@@ -3055,10 +3058,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <var data-type="string">member</var>:
         </p>
         <ol class="algorithm">
-          <li>Let <var data-type="List<Image&nbsp;Resources>">imageResources</var> be a new
+          <li>Let <var data-type="List&lt;Image&nbsp;Resources&gt;">imageResources</var> be a new
           <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-10">list</a>.
           </li>
-          <li>Set <var data-type="ordered map">map</var>[member] to <var data-type="List<Image&nbsp;Resources>">imageResources</var>.
+          <li>Set <var data-type="ordered map">map</var>[member] to <var data-type="List&lt;Image&nbsp;Resources&gt;">imageResources</var>.
           </li>
           <li>If <var data-type="list">images</var> is not <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-11">list</a>, return.
           </li>
@@ -3077,7 +3080,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
               </li>
               <li>Set <var data-type="ordered map">image</var>["purpose"] to <var data-type="set">purposes</var>.
               </li>
-              <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-append" id="ref-for-index-term-append-for-list-2">Append</a> <var data-type="ordered map">image</var> to <var data-type="List<Image&nbsp;Resources>">imageResources</var>.
+              <li><a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list-append" id="ref-for-index-term-append-for-list-2">Append</a> <var data-type="ordered map">image</var> to <var data-type="List&lt;Image&nbsp;Resources&gt;">imageResources</var>.
               </li>
             </ol>
           </li>
@@ -3089,7 +3092,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </h2><a class="self-link" href="#shortcut-items" aria-label="Permalink for Section 3."></a></div>
       
       <p>
-        Each <dfn data-local-lt="Shortcut item's" data-lt="shortcut item|Shortcut item's" id="dfn-shortcut-item" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">shortcut item</dfn> is an
+        Each <dfn data-local-lt="Shortcut item's" id="dfn-shortcut-item" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">shortcut item</dfn> is an
         <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#ordered-map" id="ref-for-index-term-ordered-map-40">ordered map</a> that represents a link to a key task or page within a
         web app. It has the following members:
       </p>
@@ -3270,7 +3273,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Any website is an <strong>installable web application</strong>.
       </p>
       <p>
-        A user agent can provide a way for the end-user to <dfn data-local-lt="installing|installation" data-lt="installed|install|installing|installation" id="dfn-installed" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">install</dfn> a web
+        A user agent can provide a way for the end-user to <dfn data-local-lt="installing|installation" data-lt="installed|install" id="dfn-installed" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">install</dfn> a web
         application on the end-user's device, allowing the user to instantiate
         a new <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-10">top-level browsing context</a> with the manifest's members
         <a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-8">applied</a>.
@@ -4742,21 +4745,21 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-id-1" title="§ 1.11 id member">§ 1.11 id member</a> <a href="#ref-for-dfn-id-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-id-3" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-id-1" title="§ 1. Web Application Manifest">§ 1. Web Application Manifest</a> 
+    </li><li>
+      <a href="#ref-for-dfn-id-2" title="§ 1.11 id member">§ 1.11 id member</a> <a href="#ref-for-dfn-id-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-id-4" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-identity" aria-label="Links in this document to definition: identity">
       <span class="caret"></span>
       <div>
         <a class="self-link" href="#dfn-identity" aria-label="Permalink for definition: identity. Activate to close this dialog.">Permalink</a>
-         
+        <span class="marker dfn-exported" title="Definition can be referenced by other specifications">exported</span> 
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-identity-1" title="§ 1. Web Application Manifest">§ 1. Web Application Manifest</a> 
-    </li><li>
-      <a href="#ref-for-dfn-identity-2" title="§ 1.11 id member">§ 1.11 id member</a> <a href="#ref-for-dfn-identity-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-identity-4" title="Reference 3">(3)</a> <a href="#ref-for-dfn-identity-5" title="Reference 4">(4)</a> <a href="#ref-for-dfn-identity-6" title="Reference 5">(5)</a> <a href="#ref-for-dfn-identity-7" title="Reference 6">(6)</a> 
+      <a href="#ref-for-dfn-identity-1" title="§ 1.11 id member">§ 1.11 id member</a> <a href="#ref-for-dfn-identity-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-identity-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-identity-4" title="Reference 4">(4)</a> <a href="#ref-for-dfn-identity-5" title="Reference 5">(5)</a> <a href="#ref-for-dfn-identity-6" title="Reference 6">(6)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-the-id-member" aria-label="Links in this document to definition: process the id member">
@@ -7409,11 +7412,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 <section id="references" class="appendix"><div class="header-wrapper"><h2 id="l-references"><bdi class="secno">L. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix L."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="l-1-normative-references"><bdi class="secno">L.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix L.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-accname-1.2">[accname-1.2]</dt><dd>
-      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 3 April 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
+      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 17 June 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
     </dd><dt id="bib-bcp47">[BCP47]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc5646"><cite>Tags for Identifying Languages</cite></a>. A. Phillips, Ed.; M. Davis, Ed. IETF. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc5646">https://www.rfc-editor.org/rfc/rfc5646</a>
     </dd><dt id="bib-csp3">[CSP3]</dt><dd>
-      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 30 April 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
+      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 11 July 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
     </dd><dt id="bib-css-color-4">[css-color-4]</dt><dd>
       <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Chris Lilley; Tab Atkins Jr.; Lea Verou.  W3C. 24 April 2025. CRD. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
     </dd><dt id="bib-css-mime">[CSS-MIME]</dt><dd>
@@ -7441,7 +7444,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-mime-types">[MIME-TYPES]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2046"><cite>Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</cite></a>. N. Freed; N. Borenstein.  IETF. November 1996. Draft Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc2046">https://www.rfc-editor.org/rfc/rfc2046</a>
     </dd><dt id="bib-permissions">[permissions]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 20 December 2024. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 24 June 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
     </dd><dt id="bib-rfc7159">[RFC7159]</dt><dd>
