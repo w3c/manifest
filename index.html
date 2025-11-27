@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" dir="ltr"><head>
 <meta charset="utf-8">
-<meta name="generator" content="ReSpec 35.5.1">
+<meta name="generator" content="ReSpec 35.6.1">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
 span.example-title{text-transform:none}
@@ -163,7 +163,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="2d457e2c92df0ff33bd65dc24c5aa55d5a744e91">
+<meta name="revision" content="6d104beb1e1f1c8d55203ce22b3821b02edd8efc">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -255,6 +255,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       "name": "Rob Dolin",
       "company": "Microsoft Corporation",
       "companyURL": "https://www.microsoft.com/"
+    },
+    {
+      "name": "Kenneth Rohde Christiansen",
+      "company": "Intel Corporation",
+      "companyURL": "https://intel.com/",
+      "w3cid": 57705,
+      "retiredDate": "2025-10-31"
     }
   ],
   "editors": [
@@ -263,12 +270,6 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       "company": "Apple",
       "companyURL": "https://apple.com",
       "w3cid": 39125
-    },
-    {
-      "name": "Kenneth Rohde Christiansen",
-      "company": "Intel Corporation",
-      "companyURL": "https://intel.com/",
-      "w3cid": 57705
     },
     {
       "name": "Diego González",
@@ -293,16 +294,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "2d457e2c92df0ff33bd65dc24c5aa55d5a744e91",
-  "publishISODate": "2025-09-03T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 03 September 2025"
+  "gitRevision": "6d104beb1e1f1c8d55203ce22b3821b02edd8efc",
+  "publishISODate": "2025-11-27T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 27 November 2025"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5 IMAGE-RESOURCE MIMESNIFF HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-09-03">03 September 2025</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-11-27">27 November 2025</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -325,8 +326,6 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         <dt>Editors:</dt><dd class="editor p-author h-card vcard" data-editor-id="39125">
     <span class="p-name fn">Marcos Cáceres</span> (<a class="p-org org h-org" href="https://apple.com">Apple</a>)
-  </dd><dd class="editor p-author h-card vcard" data-editor-id="57705">
-    <span class="p-name fn">Kenneth Rohde Christiansen</span> (<a class="p-org org h-org" href="https://intel.com/">Intel Corporation</a>)
   </dd><dd class="editor p-author h-card vcard" data-editor-id="66757">
     <span class="p-name fn">Diego González</span> (<a class="p-org org h-org" href="https://microsoft.com/">Microsoft Corporation</a>)
   </dd><dd class="editor p-author h-card vcard" data-editor-id="90918">
@@ -346,6 +345,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <span class="p-name fn">Mounir Lamouri</span> (<a class="p-org org h-org" href="https://www.google.com/">Google Inc.</a>)
   </dd><dd class="editor p-author h-card vcard">
     <span class="p-name fn">Rob Dolin</span> (<a class="p-org org h-org" href="https://www.microsoft.com/">Microsoft Corporation</a>)
+  </dd><dd class="editor p-author h-card vcard" data-editor-id="57705">
+    <span class="p-name fn">Kenneth Rohde Christiansen</span> (<a class="p-org org h-org" href="https://intel.com/">Intel Corporation</a>) -  Until <time datetime="2025-10-31">31 October 2025</time>
   </dd>
         
         <dt>Feedback:</dt><dd>
@@ -6915,7 +6916,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li>
   </ul>
     </div> <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483" filter="removeCommits"><ul>
-      <li><a href="https://github.com/w3c/manifest/commit/ec8a23b">clarify the definition of "navigation scope", "applied", and off-scop…</a></li><li><a href="https://github.com/w3c/manifest/commit/40cf2c7">Make enums case-insensitive</a> (<a href="https://github.com/w3c/manifest/pull/1149">#1149</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1a06ac7">Move `prefer_related_applications` and `related_applications` to mani…</a></li><li><a href="https://github.com/w3c/manifest/commit/75ae2b4">Add members for localization</a> (<a href="https://github.com/w3c/manifest/pull/1101">#1101</a>)</li><li><a href="https://github.com/w3c/manifest/commit/3e1fd57">Trim `dir`, `lang`, `display`, `orientation`, text and color values (…</a></li><li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li>
+      <li><a href="https://github.com/w3c/manifest/commit/ec8a23b">clarify the definition of "navigation scope", "applied", and off-scop…</a></li><li><a href="https://github.com/w3c/manifest/commit/40cf2c7">Make enums case-insensitive</a> (<a href="https://github.com/w3c/manifest/pull/1149">#1149</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1a06ac7">Move `prefer_related_applications` and `related_applications` to mani…</a></li><li><a href="https://github.com/w3c/manifest/commit/75ae2b4">Add members for localization</a> (<a href="https://github.com/w3c/manifest/pull/1101">#1101</a>)</li><li><a href="https://github.com/w3c/manifest/commit/3e1fd57">Trim `dir`, `lang`, `display`, `orientation`, text and color values (…</a></li><li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6d104be">Add retiredDate for Kenneth Rohde Christiansen</a> (<a href="https://github.com/w3c/manifest/pull/1192">#1192</a>)</li>
       </ul></rs-changelog>
     </section>
     <section class="appendix informative" id="acknowledgements"><div class="header-wrapper"><h2 id="j-acknowledgements"><bdi class="secno">J. </bdi>
@@ -7412,11 +7413,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 <section id="references" class="appendix"><div class="header-wrapper"><h2 id="l-references"><bdi class="secno">L. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix L."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="l-1-normative-references"><bdi class="secno">L.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix L.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-accname-1.2">[accname-1.2]</dt><dd>
-      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 17 June 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
+      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 23 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
     </dd><dt id="bib-bcp47">[BCP47]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc5646"><cite>Tags for Identifying Languages</cite></a>. A. Phillips, Ed.; M. Davis, Ed. IETF. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc5646">https://www.rfc-editor.org/rfc/rfc5646</a>
     </dd><dt id="bib-csp3">[CSP3]</dt><dd>
-      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 11 July 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
+      <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 6 November 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
     </dd><dt id="bib-css-color-4">[css-color-4]</dt><dd>
       <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Chris Lilley; Tab Atkins Jr.; Lea Verou.  W3C. 24 April 2025. CRD. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
     </dd><dt id="bib-css-mime">[CSS-MIME]</dt><dd>
@@ -7444,7 +7445,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-mime-types">[MIME-TYPES]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2046"><cite>Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</cite></a>. N. Freed; N. Borenstein.  IETF. November 1996. Draft Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc2046">https://www.rfc-editor.org/rfc/rfc2046</a>
     </dd><dt id="bib-permissions">[permissions]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 24 June 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 6 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>
     </dd><dt id="bib-rfc7159">[RFC7159]</dt><dd>
@@ -7452,9 +7453,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-rfc8174">[RFC8174]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc8174"><cite>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</cite></a>. B. Leiba.  IETF. May 2017. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>
     </dd><dt id="bib-screen-orientation">[SCREEN-ORIENTATION]</dt><dd>
-      <a href="https://www.w3.org/TR/screen-orientation/"><cite>Screen Orientation</cite></a>. Marcos Caceres.  W3C. 9 August 2023. W3C Working Draft. URL: <a href="https://www.w3.org/TR/screen-orientation/">https://www.w3.org/TR/screen-orientation/</a>
+      <a href="https://www.w3.org/TR/screen-orientation/"><cite>Screen Orientation</cite></a>. Marcos Caceres.  W3C. 21 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/screen-orientation/">https://www.w3.org/TR/screen-orientation/</a>
     </dd><dt id="bib-uax9">[UAX9]</dt><dd>
-      <a href="https://www.unicode.org/reports/tr9/tr9-50.html"><cite>Unicode Bidirectional Algorithm</cite></a>. Manish Goregaokar मनीष गोरेगांवकर; Robin Leroy.  Unicode Consortium. 2 September 2024. Unicode Standard Annex #9. URL: <a href="https://www.unicode.org/reports/tr9/tr9-50.html">https://www.unicode.org/reports/tr9/tr9-50.html</a>
+      <a href="https://www.unicode.org/reports/tr9/tr9-51.html"><cite>Unicode Bidirectional Algorithm</cite></a>. Manish Goregaokar मनीष गोरेगांवकर; Robin Leroy.  Unicode Consortium. 13 August 2025. Unicode Standard Annex #9. URL: <a href="https://www.unicode.org/reports/tr9/tr9-51.html">https://www.unicode.org/reports/tr9/tr9-51.html</a>
     </dd><dt id="bib-unicode">[UNICODE]</dt><dd>
       <a href="https://www.unicode.org/versions/latest/"><cite>The Unicode Standard</cite></a>.  Unicode Consortium. URL: <a href="https://www.unicode.org/versions/latest/">https://www.unicode.org/versions/latest/</a>
     </dd><dt id="bib-unicode-security">[UNICODE-SECURITY]</dt><dd>
@@ -7479,7 +7480,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-rfc9110">[RFC9110]</dt><dd>
       <a href="https://httpwg.org/specs/rfc9110.html"><cite>HTTP Semantics</cite></a>. R. Fielding, Ed.; M. Nottingham, Ed.; J. Reschke, Ed. IETF. June 2022. Internet Standard. URL: <a href="https://httpwg.org/specs/rfc9110.html">https://httpwg.org/specs/rfc9110.html</a>
     </dd><dt id="bib-service-workers-1">[SERVICE-WORKERS-1]</dt><dd>
-      <a href="https://www.w3.org/TR/service-workers/"><cite>Service Workers</cite></a>. Yoshisato Yanagisawa; Monica CHINTALA.  W3C. 6 March 2025. CRD. URL: <a href="https://www.w3.org/TR/service-workers/">https://www.w3.org/TR/service-workers/</a>
+      <a href="https://www.w3.org/TR/service-workers/"><cite>Service Workers Nightly</cite></a>. Monica CHINTALA; Yoshisato Yanagisawa.  W3C. 26 November 2025. CRD. URL: <a href="https://www.w3.org/TR/service-workers/">https://www.w3.org/TR/service-workers/</a>
     </dd><dt id="bib-tls">[TLS]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc5246"><cite>The Transport Layer Security (TLS) Protocol Version 1.2</cite></a>. T. Dierks; E. Rescorla.  IETF. August 2008. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc5246">https://www.rfc-editor.org/rfc/rfc5246</a>
     </dd><dt id="bib-webidl">[webidl]</dt><dd>
