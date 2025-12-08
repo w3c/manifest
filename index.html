@@ -1793,6 +1793,14 @@
             </li>
           </ol>
           <p>
+            The user agent SHOULD consider a [=manifest image resource=] updated
+            if the {{ImageResource/src}} member has changed. If the
+            {{ImageResource/src}} has not changed, the user agent MAY download the
+            image and check for visual differences in some cases, like when other
+            [=manifest image resources=] have changed. This is similar to
+            the `Cache-Control::Immutable` behavior, as described in [[RFC8246]].
+          </p>
+          <p>
             [=Security-sensitive members=] SHOULD be displayed in a
             bidirectionally isolated way as described in [[UTS55]], regardless
             of their direction.
@@ -1800,7 +1808,8 @@
           <p data-cite="permissions">
             User agents SHOULD NOT automatically apply changes to
             [=security-sensitive members=] without [=express permission=] from
-            the user.
+            the user. User agents MAY consider an icon unchanged if
+            the user agent determines the visual difference is insignificant.
           </p>
           <p>
             Instead, user agents SHOULD present changes to [=security-sensitive
@@ -1830,6 +1839,8 @@
               <li>Accept the update
               </li>
               <li>Uninstall the web app
+              </li>
+              <li>Ignore the update
               </li>
             </ol>
           </aside>
