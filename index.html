@@ -1793,12 +1793,27 @@
             </li>
           </ol>
           <p>
+            All other members are determined as <dfn>non security-sensitive members</dfn>
+            for the purpose of updates.
+          </p>
+          <p>
             The user agent SHOULD consider a [=manifest image resource=] updated
             if the {{ImageResource/src}} member has changed. If the
             {{ImageResource/src}} has not changed, the user agent MAY download the
             image and check for visual differences in some cases, like when other
-            [=manifest image resources=] have changed. This is similar to
-            the `Cache-Control::Immutable` behavior, as described in [[RFC8246]].
+            [=manifest image resources=] have changed.
+          </p>
+          <aside class="note" title="Icon metadata changes">
+            <p>
+              The way a [=manifest image resource=] is parsed for updates is similar
+              to the `Cache-Control:immutable` behavior outlined in [[RFC8246]].
+            </p>
+          </aside>
+          <p>
+            If there are changes to both [=security-sensitive members=] and 
+            [=non security-sensitive members=] in the manifest, user agents MAY
+            partially apply the update to fields that are
+            [=non security-sensitive members=].
           </p>
           <p>
             [=Security-sensitive members=] SHOULD be displayed in a
@@ -1808,33 +1823,10 @@
           <p data-cite="permissions">
             User agents SHOULD NOT automatically apply changes to
             [=security-sensitive members=] without [=express permission=] from
-            the user. User agents MAY consider an icon unchanged if
-            the user agent determines the visual difference is insignificant.
-          </p>
-          <p>
-            Instead, user agents SHOULD present changes to [=security-sensitive
+            the user. Instead, user agents SHOULD present changes to [=security-sensitive
             members=] with appropriate management options, so the user can make
-            an informed decision about updating the web application.
-          </p>
-          <p>
-            The user agent MAY automatically apply the changes if the update
-            does not contain changes to [=security-sensitive members=].
-          </p>
-          <p>
-            If a user changes localization settings, the user agent MAY
-            automatically adjust the [=security-sensitive members=] visible on
-            launch surfaces to their localized representations specified in the
-            [=manifest/`*_localized`=] members. These changes SHOULD be
-            presented to users the next time they open the web application.
-          </p>
-          <aside class="note" title=
-          "A user agent will not apply a partial update">
-            <p>
-              When the update contains changes both to [=security-sensitive
-              members=] and other members, a user agent won't automatically
-              partially update. For example, the user agent could present
-              options to the user:
-            </p>
+            an informed decision about updating the web application. The user
+            should be given the option to either:
             <ol>
               <li>Accept the update
               </li>
@@ -1843,7 +1835,14 @@
               <li>Ignore the update
               </li>
             </ol>
-          </aside>
+          </p>
+          <p>
+            If a user changes localization settings, the user agent MAY
+            automatically adjust the [=security-sensitive members=] visible on
+            launch surfaces to their localized representations specified in the
+            [=manifest/`*_localized`=] members. These changes SHOULD be
+            presented to users the next time they open the web application.
+          </p>
         </section>
       </section>
     </section>
