@@ -1823,8 +1823,13 @@
           <p data-cite="permissions">
             User agents SHOULD NOT automatically apply changes to
             [=security-sensitive members=] without [=express permission=] from
-            the user. Instead, user agents SHOULD present changes to [=security-sensitive
-            members=] with appropriate management options, so the user can make
+            the user. User agents MAY consider an icon unchanged if the user
+            agent determines the visual difference is insignificant.
+          </p>
+          <p>
+            If the user agent identifies changes to [=security-sensitive
+            members=] to be significant, it SHOULD present those changes to the user
+            with appropriate management options, so the user can make
             an informed decision about updating the web application. The user
             should be given the option to either:
             <ol>
