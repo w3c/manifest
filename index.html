@@ -1793,15 +1793,24 @@
             </li>
           </ol>
           <p>
-            All other members are determined as <dfn>non security-sensitive members</dfn>
-            for the purpose of updates.
+            All other members of the manifest are considered as a
+            <dfn>non security-sensitive member</dfn>.
           </p>
           <p>
-            The user agent SHOULD consider a [=manifest image resource=] updated
+            A <dfn>security-sensitive update</dfn> is a significant change in one of the
+            [=security-sensitive members=], determined by the user agent. Respectively,
+            an update to a [=non security-sensitive member=] is a
+            <dfn>non security-sensitive update</dfn>.
+          </p>
+          <p>
+            When considering a [=security-sensitive update=] for a [=manifest image resource=], 
+            the user agent SHOULD consider a [=manifest image resource=] updated
             if the {{ImageResource/src}} member has changed. If the
             {{ImageResource/src}} has not changed, the user agent MAY download the
-            image and check for visual differences in some cases, like when other
-            [=manifest image resources=] have changed.
+            image and check for visual differences in some cases. Finally, the user agent
+            MAY change a [=security-sensitive update=] in a [=manifest image resource=] to a
+            [=non security-sensitive update=] if the images are not significantly
+            visually different.
           </p>
           <aside class="note" title="Icon metadata changes">
             <p>
@@ -1810,28 +1819,13 @@
             </p>
           </aside>
           <p>
-            If there are changes to both [=security-sensitive members=] and 
-            [=non security-sensitive members=] in the manifest, user agents MAY
-            partially apply the update to fields that are
-            [=non security-sensitive members=].
-          </p>
-          <p>
-            [=Security-sensitive members=] SHOULD be displayed in a
-            bidirectionally isolated way as described in [[UTS55]], regardless
-            of their direction.
+            The user agent SHOULD apply all [=non security-sensitive updates=]
+            immediately.
           </p>
           <p data-cite="permissions">
-            User agents SHOULD NOT automatically apply changes to
-            [=security-sensitive members=] without [=express permission=] from
-            the user. User agents MAY consider an icon unchanged if the user
-            agent determines the visual difference is insignificant.
-          </p>
-          <p>
-            If the user agent identifies changes to [=security-sensitive
-            members=] to be significant, it SHOULD present those changes to the user
-            with appropriate management options, so the user can make
-            an informed decision about updating the web application. The user
-            should be given the option to either:
+            The user agent SHOULD present all [=security-sensitive updates=]
+            to the user and require [=express permission=] before applying the
+            changes. The user should be given the option to either:
             <ol>
               <li>Accept the update
               </li>
@@ -1840,6 +1834,11 @@
               <li>Ignore the update
               </li>
             </ol>
+          </p>
+          <p>
+            [=Security-sensitive members=] SHOULD be displayed in a
+            bidirectionally isolated way as described in [[UTS55]], regardless
+            of their direction.
           </p>
           <p>
             If a user changes localization settings, the user agent MAY
