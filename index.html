@@ -1771,11 +1771,23 @@
           </h3>
           <p>
             As specified for [^link/rel/manifest^] link relation, the manifest
-            is fetched and processed on every page load. When the [=processing
-            a manifest=] is successful, user agents MAY apply updated manifest
+            is fetched and processed on every page load. When [=processing
+            a manifest=] is successful, user agents MAY apply the updated manifest
             to any current and future <a>application contexts</a> associated
             with the application.
           </p>
+          <p>
+            The user agent SHOULD consider a [=manifest image resource=] updated
+            if the {{ImageResource/src}} member has changed. If the
+            {{ImageResource/src}} has not changed, the user agent MAY download the
+            image and check for visual differences in some cases.
+          </p>
+          <aside class="note" title="Icon metadata changes">
+            <p>
+              The way a [=manifest image resource=] is parsed for updates is similar
+              to the `Cache-Control:immutable` behavior outlined in [[RFC8246]].
+            </p>
+          </aside>
           <p>
             For the purpose of updating, the following member are
             <dfn>security-sensitive members</dfn>, as they are presented during
@@ -1793,39 +1805,34 @@
             </li>
           </ol>
           <p>
-            All other members of the manifest are considered as a
-            <dfn>non security-sensitive member</dfn>.
+            All other members of the manifest are considered as
+            <dfn data-lt="non-security-sensitive member" data-lt-noDefault>non-security-sensitive members</dfn>.
           </p>
           <p>
-            A <dfn>security-sensitive update</dfn> is a significant change in one of the
-            [=security-sensitive members=], determined by the user agent. Respectively,
-            an update to a [=non security-sensitive member=] is a
-            <dfn>non security-sensitive update</dfn>.
+            A <dfn>security-sensitive update</dfn> is a update to a [=security-sensitive
+            member=]. Respectively, a <dfn>non-security-sensitive update</dfn> is a
+            update to a [=non-security-sensitive member=].
           </p>
           <p>
-            When considering a [=security-sensitive update=] for a [=manifest image resource=], 
-            the user agent SHOULD consider a [=manifest image resource=] updated
-            if the {{ImageResource/src}} member has changed. If the
-            {{ImageResource/src}} has not changed, the user agent MAY download the
-            image and check for visual differences in some cases. Finally, the user agent
-            MAY change a [=security-sensitive update=] in a [=manifest image resource=] to a
-            [=non security-sensitive update=] if the images are not significantly
-            visually different.
+            When considering an updated [=security-sensitive member=] of type [=manifest image resource=]
+            (e.g. [=manifest/icons=]), the user agent MAY consider it a [=non-security-sensitive
+            update=] if the user agent finds the image not significantly visually
+            different.
           </p>
-          <aside class="note" title="Icon metadata changes">
-            <p>
-              The way a [=manifest image resource=] is parsed for updates is similar
-              to the `Cache-Control:immutable` behavior outlined in [[RFC8246]].
-            </p>
-          </aside>
           <p>
-            The user agent SHOULD apply all [=non security-sensitive updates=]
+            The user agent SHOULD apply all [=non-security-sensitive updates=]
             immediately.
           </p>
           <p data-cite="permissions">
             The user agent SHOULD present all [=security-sensitive updates=]
             to the user and require [=express permission=] before applying the
-            changes. The user should be given the option to either:
+            changes. 
+          </p>
+          <aside class="note" title="Example user options displayed when presented with the update">
+            <p>
+            The user may be presented with the following options when shown
+                  [=security-sensitive updates=]:
+            </p>
             <ol>
               <li>Accept the update
               </li>
@@ -1834,7 +1841,7 @@
               <li>Ignore the update
               </li>
             </ol>
-          </p>
+          </aside>
           <p>
             [=Security-sensitive members=] SHOULD be displayed in a
             bidirectionally isolated way as described in [[UTS55]], regardless
