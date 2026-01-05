@@ -163,7 +163,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="6d104beb1e1f1c8d55203ce22b3821b02edd8efc">
+<meta name="revision" content="d79d9cacf951f38a728b748846e84a29e196ba8b">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -294,16 +294,16 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "6d104beb1e1f1c8d55203ce22b3821b02edd8efc",
-  "publishISODate": "2025-11-27T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 27 November 2025"
+  "gitRevision": "d79d9cacf951f38a728b748846e84a29e196ba8b",
+  "publishISODate": "2026-01-05T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 05 January 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED"></head>
   <body data-cite="ENCODING SCREEN-ORIENTATION MEDIAQUERIES-5 IMAGE-RESOURCE MIMESNIFF HTML INFRA URL WEBIDL DOM FETCH" class="h-entry"><div class="head">
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2025-11-27">27 November 2025</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-01-05">05 January 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -364,7 +364,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p class="copyright">
     <a href="https://www.w3.org/policies/#copyright">Copyright</a>
     ©
-    2025
+    2026
     
     <a href="https://www.w3.org/">World Wide Web Consortium</a>.
     <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup>
@@ -2632,13 +2632,25 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           
           <p>
             As specified for <code><a data-link-type="attr-value" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-26">manifest</a></code> link relation, the manifest
-            is fetched and processed on every page load. When the <a data-link-type="dfn|abstract-op" href="#dfn-processing-a-manifest" class="internalDFN" id="ref-for-dfn-processing-a-manifest-8">processing a manifest</a> is successful, user agents <em class="rfc2119">MAY</em> apply updated manifest
+            is fetched and processed on every page load. When <a data-link-type="dfn|abstract-op" href="#dfn-processing-a-manifest" class="internalDFN" id="ref-for-dfn-processing-a-manifest-8">processing a manifest</a> is successful, user agents <em class="rfc2119">MAY</em> apply the updated manifest
             to any current and future <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-5">application contexts</a> associated
             with the application.
           </p>
           <p>
+            The user agent <em class="rfc2119">SHOULD</em> consider a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-1">manifest image resource</a> updated
+            if the <a data-link-type="dict-member" href="https://www.w3.org/TR/image-resource/#dom-imageresource-src" id="ref-for-index-term-src-for-imageresource-1"><code>src</code></a> member has changed. If the
+            <a data-link-type="dict-member" href="https://www.w3.org/TR/image-resource/#dom-imageresource-src" id="ref-for-index-term-src-for-imageresource-2"><code>src</code></a> has not changed, the user agent <em class="rfc2119">MAY</em> download the
+            image and check for visual differences in some cases.
+          </p>
+          <div class="note" role="note" id="issue-container-generatedID-25"><div role="heading" class="note-title marker" id="h-note-24" aria-level="5"><span>Note</span><span class="issue-label">: Icon metadata changes</span></div><aside class="">
+            <p>
+              The way a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-2">manifest image resource</a> is parsed for updates is similar
+              to the <code>Cache-Control:immutable</code> behavior outlined in [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc8246" title="HTTP Immutable Responses">RFC8246</a></cite>].
+            </p>
+          </aside></div>
+          <p>
             For the purpose of updating, the following member are
-            <dfn id="dfn-security-sensitive-members" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">security-sensitive members</dfn>, as they are presented during
+            <dfn data-plurals="security-sensitive member" id="dfn-security-sensitive-members" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">security-sensitive members</dfn>, as they are presented during
             installation and on launch surfaces:
           </p>
           <ol>
@@ -2653,43 +2665,53 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             </li>
           </ol>
           <p>
-            <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-members" class="internalDFN" id="ref-for-dfn-security-sensitive-members-1">Security-sensitive members</a> <em class="rfc2119">SHOULD</em> be displayed in a
-            bidirectionally isolated way as described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-uts55" title="Unicode Source Code Handling">UTS55</a></cite>], regardless
-            of their direction.
+            All other members of the manifest are considered as
+            <dfn data-lt="non-security-sensitive member" data-lt-nodefault="" id="dfn-non-security-sensitive-member" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">non-security-sensitive members</dfn>.
+          </p>
+          <p>
+            A <dfn data-plurals="security-sensitive updates" id="dfn-security-sensitive-update" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">security-sensitive update</dfn> is a update to a <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-members" class="internalDFN" id="ref-for-dfn-security-sensitive-members-1">security-sensitive member</a>. Respectively, a <dfn data-plurals="non-security-sensitive updates" id="dfn-non-security-sensitive-update" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">non-security-sensitive update</dfn> is a
+            update to a <a data-link-type="dfn|abstract-op" href="#dfn-non-security-sensitive-member" class="internalDFN" id="ref-for-dfn-non-security-sensitive-member-1">non-security-sensitive member</a>.
+          </p>
+          <p>
+            When considering an updated <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-members" class="internalDFN" id="ref-for-dfn-security-sensitive-members-2">security-sensitive member</a> of type <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-3">manifest image resource</a>
+            (e.g. <a data-link-type="dfn|abstract-op" href="#dfn-icons" class="internalDFN" id="ref-for-dfn-icons-6"><code>icons</code></a>), the user agent <em class="rfc2119">MAY</em> consider it a <a data-link-type="dfn|abstract-op" href="#dfn-non-security-sensitive-update" class="internalDFN" id="ref-for-dfn-non-security-sensitive-update-1">non-security-sensitive update</a> if the user agent finds the image not significantly visually
+            different.
+          </p>
+          <p>
+            The user agent <em class="rfc2119">SHOULD</em> apply all <a data-link-type="dfn|abstract-op" href="#dfn-non-security-sensitive-update" class="internalDFN" id="ref-for-dfn-non-security-sensitive-update-2">non-security-sensitive updates</a>
+            immediately.
           </p>
           <p data-cite="permissions">
-            User agents <em class="rfc2119">SHOULD NOT</em> automatically apply changes to
-            <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-members" class="internalDFN" id="ref-for-dfn-security-sensitive-members-2">security-sensitive members</a> without <a data-link-type="dfn" href="https://www.w3.org/TR/permissions/#dfn-express-permission" id="ref-for-index-term-express-permission-1">express permission</a> from
-            the user.
+            The user agent <em class="rfc2119">SHOULD</em> present all <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-update" class="internalDFN" id="ref-for-dfn-security-sensitive-update-1">security-sensitive updates</a>
+            to the user and require <a data-link-type="dfn" href="https://www.w3.org/TR/permissions/#dfn-express-permission" id="ref-for-index-term-express-permission-1">express permission</a> before applying the
+            changes. 
           </p>
-          <p>
-            Instead, user agents <em class="rfc2119">SHOULD</em> present changes to <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-members" class="internalDFN" id="ref-for-dfn-security-sensitive-members-3">security-sensitive members</a> with appropriate management options, so the user can make
-            an informed decision about updating the web application.
-          </p>
-          <p>
-            The user agent <em class="rfc2119">MAY</em> automatically apply the changes if the update
-            does not contain changes to <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-members" class="internalDFN" id="ref-for-dfn-security-sensitive-members-4">security-sensitive members</a>.
-          </p>
-          <p>
-            If a user changes localization settings, the user agent <em class="rfc2119">MAY</em>
-            automatically adjust the <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-members" class="internalDFN" id="ref-for-dfn-security-sensitive-members-5">security-sensitive members</a> visible on
-            launch surfaces to their localized representations specified in the
-            <a data-link-type="dfn|abstract-op" href="#dfn-_localized" class="internalDFN" id="ref-for-dfn-_localized-5"><code><code>*_localized</code></code></a> members. These changes <em class="rfc2119">SHOULD</em> be
-            presented to users the next time they open the web application.
-          </p>
-          <div class="note" role="note" id="issue-container-generatedID-25"><div role="heading" class="note-title marker" id="h-note-24" aria-level="5"><span>Note</span><span class="issue-label">: A user agent will not apply a partial update</span></div><aside class="">
+          <div class="note" role="note" id="issue-container-generatedID-26"><div role="heading" class="note-title marker" id="h-note-25" aria-level="5"><span>Note</span><span class="issue-label">: Example user options displayed when presented with the update</span></div><aside class="">
             <p>
-              When the update contains changes both to <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-members" class="internalDFN" id="ref-for-dfn-security-sensitive-members-6">security-sensitive members</a> and other members, a user agent won't automatically
-              partially update. For example, the user agent could present
-              options to the user:
+            The user may be presented with the following options when shown
+                  <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-update" class="internalDFN" id="ref-for-dfn-security-sensitive-update-2">security-sensitive updates</a>:
             </p>
             <ol>
               <li>Accept the update
               </li>
               <li>Uninstall the web app
               </li>
+              <li>Ignore the update
+              </li>
             </ol>
           </aside></div>
+          <p>
+            <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-members" class="internalDFN" id="ref-for-dfn-security-sensitive-members-3">Security-sensitive members</a> <em class="rfc2119">SHOULD</em> be displayed in a
+            bidirectionally isolated way as described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-uts55" title="Unicode Source Code Handling">UTS55</a></cite>], regardless
+            of their direction.
+          </p>
+          <p>
+            If a user changes localization settings, the user agent <em class="rfc2119">MAY</em>
+            automatically adjust the <a data-link-type="dfn|abstract-op" href="#dfn-security-sensitive-members" class="internalDFN" id="ref-for-dfn-security-sensitive-members-4">security-sensitive members</a> visible on
+            launch surfaces to their localized representations specified in the
+            <a data-link-type="dfn|abstract-op" href="#dfn-_localized" class="internalDFN" id="ref-for-dfn-_localized-5"><code><code>*_localized</code></code></a> members. These changes <em class="rfc2119">SHOULD</em> be
+            presented to users the next time they open the web application.
+          </p>
         </section>
       </section>
     </section>
@@ -2704,11 +2726,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         object (e.g., an icon that is part of an application menu, etc.).
       </p>
       <p>
-        A <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-1">manifest image resource</a> differs from a <a data-link-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-image-resource" id="ref-for-index-term-image-resources-5">image resource</a> in that
+        A <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-4">manifest image resource</a> differs from a <a data-link-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-image-resource" id="ref-for-index-term-image-resources-5">image resource</a> in that
         it can have an additional <a data-link-type="dfn|abstract-op" href="#dfn-purpose" class="internalDFN" id="ref-for-dfn-purpose-1"><code>purpose</code></a> member.
       </p>
       <p>
-        User agents <em class="rfc2119">MAY</em> modify the images associated with an <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-2">manifest image resource</a> to better match the platform’s visual style before
+        User agents <em class="rfc2119">MAY</em> modify the images associated with an <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-5">manifest image resource</a> to better match the platform’s visual style before
         displaying it to the user, for example by rounding the corners or
         painting it in a specific color. It is recommended that developers
         prepare their image resources for such scenarios to avoid losing
@@ -2725,13 +2747,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           values are the <a href="#dfn-icon-purposes" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-icon-purposes-1">icon purposes</a>.
         </p>
         <p>
-          When a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-3">manifest image resource</a> is used as an <dfn id="dfn-icon" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;icon&quot;, but nothing links to it. This is usually a spec bug!">icon</dfn>, a
+          When a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-6">manifest image resource</a> is used as an <dfn id="dfn-icon" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;icon&quot;, but nothing links to it. This is usually a spec bug!">icon</dfn>, a
           developer can hint that the image is intended to serve some special
           purpose in the context of the host <abbr title="Operating system">OS</abbr> (i.e., for better integration).
           User agents <em class="rfc2119">SHOULD NOT</em> use an icon other than for its stated <a href="#dfn-icon-purposes" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-icon-purposes-2">icon
           purpose</a>.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-26"><div role="heading" class="note-title marker" id="h-note-25" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-27"><div role="heading" class="note-title marker" id="h-note-26" aria-level="4"><span>Note</span></div><p class="">
           For example, an icon with purpose "<a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-1">monochrome</a>" could
           be used as a badge or pinned icon with a solid fill, visually
           distinct from an application's full color launch icon. The user agent
@@ -2765,14 +2787,14 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             <dfn data-dfn-for="icon purpose" id="dfn-any" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">any</dfn> (default)
           </dt>
           <dd>
-            The user agent is free to display the icon where no <a data-link-type="dfn|abstract-op" href="#dfn-purpose" class="internalDFN" id="ref-for-dfn-purpose-4"><code>purpose</code></a> is required. For example, a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-4">manifest image resource</a> with a "any" purpose wouldn't be used in a context
+            The user agent is free to display the icon where no <a data-link-type="dfn|abstract-op" href="#dfn-purpose" class="internalDFN" id="ref-for-dfn-purpose-4"><code>purpose</code></a> is required. For example, a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-7">manifest image resource</a> with a "any" purpose wouldn't be used in a context
             where "<a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-2">monochrome</a>" is required.
           </dd>
         </dl>
         <p>
           The <dfn id="dfn-icon-purposes-list" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">icon purposes list</dfn> is the <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#list" id="ref-for-index-term-list-8">list</a> « "<a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-3">monochrome</a>", "<a data-link-type="dfn|abstract-op" href="#dfn-maskable" class="internalDFN" id="ref-for-dfn-maskable-1">maskable</a>", "<a data-link-type="dfn|abstract-op" href="#dfn-any" class="internalDFN" id="ref-for-dfn-any-2">any</a>" ».
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-27"><div role="heading" class="note-title marker" id="h-note-26" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-28"><div role="heading" class="note-title marker" id="h-note-27" aria-level="4"><span>Note</span></div><p class="">
           If an icon contains multiple purposes, it could be used for any of
           those purposes. If none of the stated purposes are recognized, the
           icon is totally ignored. For example, if an icon has purpose
@@ -2875,7 +2897,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           of the icon size, which means the smaller of the icon width and
           height, in case the icon is not square.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-28"><div role="heading" class="note-title marker" id="h-note-27" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-29"><div role="heading" class="note-title marker" id="h-note-28" aria-level="4"><span>Note</span></div><p class="">
           Designers of <a data-link-type="dfn|abstract-op" href="#dfn-maskable" class="internalDFN" id="ref-for-dfn-maskable-4">maskable</a> icons will want to make sure
           that all important parts are within the <a href="#dfn-safe-zone" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-safe-zone-2">safe zone</a>.
         </p></div>
@@ -2909,7 +2931,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           composite the icon onto a solid fill (e.g., white) of the user
           agent's choice.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-29"><div role="heading" class="note-title marker" id="h-note-28" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-30"><div role="heading" class="note-title marker" id="h-note-29" aria-level="4"><span>Note</span></div><p class="">
           It is suggested that designers avoid using transparent pixels in
           maskable icons.
         </p></div>
@@ -2917,7 +2939,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             Examples of masks
           </h4><a class="self-link" href="#examples-of-masks" aria-label="Permalink for Section 2.3.1"></a></div>
           
-          <div class="note" role="note" id="issue-container-generatedID-30"><div role="heading" class="note-title marker" id="h-note-29" aria-level="5"><span>Note</span></div><p class="">
+          <div class="note" role="note" id="issue-container-generatedID-31"><div role="heading" class="note-title marker" id="h-note-30" aria-level="5"><span>Note</span></div><p class="">
             By staying inside the <a href="#dfn-safe-zone" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-safe-zone-4">safe zone</a>, most icons will have around
             10% padding on the top, bottom, right and left with no content or
             non-essential content, such as an icon background. It is suggested
@@ -3004,7 +3026,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           of the user agent's choosing. It is <em class="rfc2119">RECOMMENDED</em> that the user agent
           use the same color value for all pixels.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-31"><div role="heading" class="note-title marker" id="h-note-30" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-32"><div role="heading" class="note-title marker" id="h-note-31" aria-level="4"><span>Note</span></div><p class="">
           Designers of <a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-6">monochrome</a> icons could set all pixels
           to black and only use transparency to create a silhouette of their
           icon.
@@ -3287,7 +3309,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         page from a traditional bookmark will not have the manifest's
         properties <a href="#dfn-apply" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-apply-10">applied</a> to it.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-32"><div role="heading" class="note-title marker" id="h-note-31" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-33"><div role="heading" class="note-title marker" id="h-note-32" aria-level="3"><span>Note</span></div><p class="">
         For example, on user agents that support installation, a web
         application could be presented and launched in a way that, to the
         end-user, is indistinguishable from native applications: such as
@@ -3344,7 +3366,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           At the discretion of the operating system or user agent, run the
           steps to <a data-link-type="dfn|abstract-op" href="#dfn-launching-a-web-application" class="internalDFN" id="ref-for-dfn-launching-a-web-application-3">launch a web application</a> with a <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-3">processed manifest</a>.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-33"><div role="heading" class="note-title marker" id="h-note-32" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-34"><div role="heading" class="note-title marker" id="h-note-33" aria-level="4"><span>Note</span></div><p class="">
           This would typically take place when the user selects an
           <a data-link-type="dfn|abstract-op" href="#dfn-installed" class="internalDFN" id="ref-for-dfn-installed-4">installed</a> web app from an app launching UI surface e.g., a home
           screen, launcher or start menu.
@@ -3365,7 +3387,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           own steps. This replacement will take effect for all invocations of
           <a data-link-type="dfn|abstract-op" href="#dfn-launching-a-web-application" class="internalDFN" id="ref-for-dfn-launching-a-web-application-4">launch a web application</a>.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-34"><div role="heading" class="note-title marker" id="h-note-33" aria-level="4"><span>Note</span></div><p class="">
+        <div class="note" role="note" id="issue-container-generatedID-35"><div role="heading" class="note-title marker" id="h-note-34" aria-level="4"><span>Note</span></div><p class="">
           This algorithm is replaceable to allow an experimental <a href="https://github.com/WICG/web-app-launch">launch_handler</a> manifest
           field to configure the behavior of all web application launches. The
           replacement algorithm invokes <a data-link-type="dfn|abstract-op" href="#dfn-create-a-new-application-context" class="internalDFN" id="ref-for-dfn-create-a-new-application-context-1">create a new application context</a> by
@@ -3448,7 +3470,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         navigation scope is the URLs to which an <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-8">application context</a> can be
         <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-6">navigated</a> while the manifest is <a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-13">applied</a>.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-35"><div role="heading" class="note-title marker" id="h-note-34" aria-level="3"><span>Note</span></div><div class="">
+      <div class="note" role="note" id="issue-container-generatedID-36"><div role="heading" class="note-title marker" id="h-note-35" aria-level="3"><span>Note</span></div><div class="">
         <p>
           If the <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-8"><code>scope</code></a> member is not present in the manifest, it
           defaults to the parent path of the <a data-link-type="dfn|abstract-op" href="#dfn-start_url" class="internalDFN" id="ref-for-dfn-start_url-10"><code>start_url</code></a> member. For
@@ -3486,7 +3508,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <var data-type="processed manifest">manifest</var> if the <var data-type="URL">target</var> is <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-8">within scope</a>
         of <var data-type="processed manifest">manifest</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-navigation-scope" class="internalDFN" id="ref-for-dfn-navigation-scope-3">navigation scope</a> (i.e., <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-9">within scope</a> of <var data-type="processed manifest">manifest</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-11"><code>scope</code></a> member).
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-36"><div role="heading" class="note-title marker" id="h-note-35" aria-level="3"><span>Note</span><span class="issue-label">: Scope is a simple string match</span></div><aside class="">
+      <div class="note" role="note" id="issue-container-generatedID-37"><div role="heading" class="note-title marker" id="h-note-36" aria-level="3"><span>Note</span><span class="issue-label">: Scope is a simple string match</span></div><aside class="">
         <p>
           The URL string matching in this algorithm is prefix-based rather than
           path-structural (e.g. a target URL string <code>/prefix-of/resource.html</code>
@@ -3507,7 +3529,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-8">processed manifest</a>, in order to make it obvious that the
         user is navigating off scope.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-37"><div role="heading" class="note-title marker" id="h-note-36" aria-level="3"><span>Note</span></div><aside class="">
+      <div class="note" role="note" id="issue-container-generatedID-38"><div role="heading" class="note-title marker" id="h-note-37" aria-level="3"><span>Note</span></div><aside class="">
         <p>
           Nothing prevents an <a href="#dfn-application-context" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-application-context-12">application context</a> from navigating to a
           <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-17">URL</a> that is outside of the manifest's <a data-link-type="dfn|abstract-op" href="#dfn-navigation-scope" class="internalDFN" id="ref-for-dfn-navigation-scope-4">navigation scope</a>, while still having the <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-28">manifest</a> <a href="#dfn-apply" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-apply-14">applied</a> to it.
@@ -3556,7 +3578,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           link</a>, in which case, the manifest is applied and the <a href="#dfn-deep-link" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-deep-link-4">deep
           link</a> is loaded within the context of a web application.
         </p>
-        <div class="note" role="note" id="issue-container-generatedID-38"><div role="heading" class="note-title marker" id="h-note-37" aria-level="4"><span>Note</span></div><aside class="">
+        <div class="note" role="note" id="issue-container-generatedID-39"><div role="heading" class="note-title marker" id="h-note-38" aria-level="4"><span>Note</span></div><aside class="">
           <p>
             The concept of a <a href="#dfn-deep-link" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-deep-link-5">deep link</a> is useful in that it allows
             hyperlinking from one <a href="#dfn-installed-web-application" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-web-application-4">installed web application</a> to another.
@@ -3631,7 +3653,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           window).
         </dd>
       </dl>
-      <div class="note" role="note" id="issue-container-generatedID-39"><div role="heading" class="note-title marker" id="h-note-38" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-40"><div role="heading" class="note-title marker" id="h-note-39" aria-level="3"><span>Note</span></div><p class="">
         The <a data-link-type="dfn|abstract-op" href="#dfn-fullscreen" class="internalDFN" id="ref-for-dfn-fullscreen-1">fullscreen</a> <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-6">display mode</a> is orthogonal to,
         and works independently of, the <cite><a data-matched-text="[[[FULLSCREEN]]]" href="https://fullscreen.spec.whatwg.org/">Fullscreen API Standard</a></cite>. The <a data-link-type="dfn|abstract-op" href="#dfn-fullscreen" class="internalDFN" id="ref-for-dfn-fullscreen-2">fullscreen</a> <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-7">display mode</a> affects the fullscreen state of
         the browser window, while the [<cite><a class="bibref" data-link-type="biblio" href="#bib-fullscreen" title="Fullscreen API Standard">FULLSCREEN</a></cite>] API operates on an element
@@ -3695,7 +3717,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </ol>
         </li>
       </ol>
-      <div class="note" role="note" id="issue-container-generatedID-40"><div role="heading" class="note-title marker" id="h-note-39" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-41"><div role="heading" class="note-title marker" id="h-note-40" aria-level="3"><span>Note</span></div><p class="">
         The above loop is guaranteed to return a value before the assertion,
         due to the fact that <a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-7">browser</a> is in every mode's
         <a data-link-type="dfn|abstract-op" href="#dfn-fallback-chain" class="internalDFN" id="ref-for-dfn-fallback-chain-3">fallback chain</a>, and the requirement that all user agents support
@@ -3721,7 +3743,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         A user agent <em class="rfc2119">MUST</em> reflect the applied <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-17">display mode</a> of the web
         application in the <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-1"><code>display-mode</code></a> media feature [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5" title="Media Queries Level 5">MEDIAQUERIES-5</a></cite>].
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-41"><div role="heading" class="note-title marker" id="h-note-40" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-42"><div role="heading" class="note-title marker" id="h-note-41" aria-level="3"><span>Note</span></div><p class="">
         A user agent will expose the actual display mode being applied — not
         necessarily the one declared in the manifest — via the
         <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-2"><code>display-mode</code></a> media feature, accessible through CSS or
@@ -4009,7 +4031,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         There is only one class of product that can claim conformance to this
         specification: a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agent-4">user agent</a>.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-42"><div role="heading" class="note-title marker" id="h-note-41" aria-level="3"><span>Note</span></div><p class="">
+      <div class="note" role="note" id="issue-container-generatedID-43"><div role="heading" class="note-title marker" id="h-note-42" aria-level="3"><span>Note</span></div><p class="">
         Although this specification is primarily targeted at web browsers, it
         is feasible that other software could also implement this specification
         in a conforming manner. For instance, search engines, or crawlers,
@@ -4096,7 +4118,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   ...
 }</code></pre>
       </div>
-          <div class="note" role="note" id="issue-container-generatedID-43"><div role="heading" class="note-title marker" id="h-note-42" aria-level="5"><span>Note</span></div><p class="">
+          <div class="note" role="note" id="issue-container-generatedID-44"><div role="heading" class="note-title marker" id="h-note-43" aria-level="5"><span>Note</span></div><p class="">
             In this example, we have deliberately chosen (made-up) names of
             things that could be external sites or services, <em>not</em> names
             of browsers or browser vendors. These are not vendor prefixes
@@ -4219,7 +4241,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         the <a href="https://github.com/SchemaStore/schemastore">SchemaStore
         repository</a> on GitHub.
       </p>
-      <div class="note" role="note" id="issue-container-generatedID-44"><div role="heading" class="note-title marker" id="h-note-43" aria-level="3"><span>Note</span><span class="issue-label">: Web Manifest JSON Schema</span></div><aside class="">
+      <div class="note" role="note" id="issue-container-generatedID-45"><div role="heading" class="note-title marker" id="h-note-44" aria-level="3"><span>Note</span><span class="issue-label">: Web Manifest JSON Schema</span></div><aside class="">
         <details>
           <summary>
             Click to view schema.
@@ -4598,7 +4620,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-icons-3" title="§ 1.7 icons member">§ 1.7 icons member</a> <a href="#ref-for-dfn-icons-4" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-icons-5" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> 
+      <a href="#ref-for-dfn-icons-5" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> <a href="#ref-for-dfn-icons-6" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-display" aria-label="Links in this document to definition: display">
@@ -5218,7 +5240,43 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-security-sensitive-members-1" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> <a href="#ref-for-dfn-security-sensitive-members-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-security-sensitive-members-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-security-sensitive-members-4" title="Reference 4">(4)</a> <a href="#ref-for-dfn-security-sensitive-members-5" title="Reference 5">(5)</a> <a href="#ref-for-dfn-security-sensitive-members-6" title="Reference 6">(6)</a> 
+      <a href="#ref-for-dfn-security-sensitive-members-1" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> <a href="#ref-for-dfn-security-sensitive-members-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-security-sensitive-members-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-security-sensitive-members-4" title="Reference 4">(4)</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-non-security-sensitive-member" aria-label="Links in this document to definition: non-security-sensitive members">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-non-security-sensitive-member" aria-label="Permalink for definition: non-security-sensitive members. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-non-security-sensitive-member-1" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-security-sensitive-update" aria-label="Links in this document to definition: security-sensitive update">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-security-sensitive-update" aria-label="Permalink for definition: security-sensitive update. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-security-sensitive-update-1" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> <a href="#ref-for-dfn-security-sensitive-update-2" title="Reference 2">(2)</a> 
+    </li>
+  </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-non-security-sensitive-update" aria-label="Links in this document to definition: non-security-sensitive update">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="#dfn-non-security-sensitive-update" aria-label="Permalink for definition: non-security-sensitive update. Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-dfn-non-security-sensitive-update-1" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> <a href="#ref-for-dfn-non-security-sensitive-update-2" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-manifest-image-resource" aria-label="Links in this document to definition: manifest image resource">
@@ -5230,9 +5288,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-dfn-manifest-image-resource-1" title="§ 2. Manifest image resources">§ 2. Manifest image resources</a> <a href="#ref-for-dfn-manifest-image-resource-2" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-manifest-image-resource-1" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> <a href="#ref-for-dfn-manifest-image-resource-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-manifest-image-resource-3" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-image-resource-3" title="§ 2.1 purpose member">§ 2.1 purpose member</a> <a href="#ref-for-dfn-manifest-image-resource-4" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-manifest-image-resource-4" title="§ 2. Manifest image resources">§ 2. Manifest image resources</a> <a href="#ref-for-dfn-manifest-image-resource-5" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-manifest-image-resource-6" title="§ 2.1 purpose member">§ 2.1 purpose member</a> <a href="#ref-for-dfn-manifest-image-resource-7" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-purpose" aria-label="Links in this document to definition: purpose">
@@ -6259,6 +6319,18 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-index-term-process-an-image-resource-from-json-1" title="§ 2.5 Processing image resources">§ 2.5 Processing image resources</a> 
     </li>
   </ul>
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-src-for-imageresource" aria-label="Links in this document to definition: src (for ImageResource)">
+      <span class="caret"></span>
+      <div>
+        <a class="self-link" href="https://www.w3.org/TR/image-resource/#dom-imageresource-src" aria-label="Permalink for definition: src (for ImageResource). Activate to close this dialog.">Permalink</a>
+         
+      </div>
+      <p><b>Referenced in:</b></p>
+      <ul>
+    <li>
+      <a href="#ref-for-index-term-src-for-imageresource-1" title="§ 1.16.6 Updating the manifest">§ 1.16.6 Updating the manifest</a> <a href="#ref-for-index-term-src-for-imageresource-2" title="Reference 2">(2)</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-append-for-set" aria-label="Links in this document to definition: append (for set)">
       <span class="caret"></span>
       <div>
@@ -6916,7 +6988,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li>
   </ul>
     </div> <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483" filter="removeCommits"><ul>
-      <li><a href="https://github.com/w3c/manifest/commit/ec8a23b">clarify the definition of "navigation scope", "applied", and off-scop…</a></li><li><a href="https://github.com/w3c/manifest/commit/40cf2c7">Make enums case-insensitive</a> (<a href="https://github.com/w3c/manifest/pull/1149">#1149</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1a06ac7">Move `prefer_related_applications` and `related_applications` to mani…</a></li><li><a href="https://github.com/w3c/manifest/commit/75ae2b4">Add members for localization</a> (<a href="https://github.com/w3c/manifest/pull/1101">#1101</a>)</li><li><a href="https://github.com/w3c/manifest/commit/3e1fd57">Trim `dir`, `lang`, `display`, `orientation`, text and color values (…</a></li><li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6d104be">Add retiredDate for Kenneth Rohde Christiansen</a> (<a href="https://github.com/w3c/manifest/pull/1192">#1192</a>)</li>
+      <li><a href="https://github.com/w3c/manifest/commit/6d104be">Add retiredDate for Kenneth Rohde Christiansen</a> (<a href="https://github.com/w3c/manifest/pull/1192">#1192</a>)</li><li><a href="https://github.com/w3c/manifest/commit/ec8a23b">clarify the definition of "navigation scope", "applied", and off-scop…</a></li><li><a href="https://github.com/w3c/manifest/commit/40cf2c7">Make enums case-insensitive</a> (<a href="https://github.com/w3c/manifest/pull/1149">#1149</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1a06ac7">Move `prefer_related_applications` and `related_applications` to mani…</a></li><li><a href="https://github.com/w3c/manifest/commit/75ae2b4">Add members for localization</a> (<a href="https://github.com/w3c/manifest/pull/1101">#1101</a>)</li><li><a href="https://github.com/w3c/manifest/commit/3e1fd57">Trim `dir`, `lang`, `display`, `orientation`, text and color values (…</a></li><li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d79d9ca">Specify when an icon might be updated (editorial), and loosen sec-sen…</a></li>
       </ul></rs-changelog>
     </section>
     <section class="appendix informative" id="acknowledgements"><div class="header-wrapper"><h2 id="j-acknowledgements"><bdi class="secno">J. </bdi>
@@ -7074,6 +7146,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   </li><li>
       <a class="index-term" href="#dfn-navigation-scope">navigation scope of a manifest</a> 
     <span class="print-only">§5.</span></li><li>
+      <a class="index-term" href="#dfn-non-security-sensitive-member">non-security-sensitive members</a> 
+    <span class="print-only">§1.16.6</span></li><li>
+      <a class="index-term" href="#dfn-non-security-sensitive-update">non-security-sensitive update</a> 
+    <span class="print-only">§1.16.6</span></li><li>
       <a class="index-term" href="#dfn-orientation"><code>orientation</code></a> 
     <span class="print-only">§1.9</span></li><li>
       <a class="index-term" href="#dfn-orientation-values">orientation values</a> 
@@ -7123,6 +7199,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a class="index-term" href="#dfn-scope"><code>scope</code></a> 
     <span class="print-only">§1.6</span></li><li>
       <a class="index-term" href="#dfn-security-sensitive-members">security-sensitive members</a> 
+    <span class="print-only">§1.16.6</span></li><li>
+      <a class="index-term" href="#dfn-security-sensitive-update">security-sensitive update</a> 
     <span class="print-only">§1.16.6</span></li><li>
     short_name
     <ul>
@@ -7285,6 +7363,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <span class="index-term" data-href="https://www.w3.org/TR/image-resource/#dfn-image-resource" id="index-term-image-resources" tabindex="0" aria-haspopup="dialog">image resources</span>
   </li><li>
     <span class="index-term" data-href="https://www.w3.org/TR/image-resource/#dfn-process-an-image-resource-from-json" id="index-term-process-an-image-resource-from-json" tabindex="0" aria-haspopup="dialog">process an image resource from JSON</span>
+  </li><li>
+    <span class="index-term" data-href="https://www.w3.org/TR/image-resource/#dom-imageresource-src" id="index-term-src-for-imageresource" tabindex="0" aria-haspopup="dialog"><code>src</code> (for <code>ImageResource</code>)</span>
   </li>
         </ul>
       </li><li>
@@ -7413,7 +7493,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 <section id="references" class="appendix"><div class="header-wrapper"><h2 id="l-references"><bdi class="secno">L. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix L."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="l-1-normative-references"><bdi class="secno">L.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix L.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-accname-1.2">[accname-1.2]</dt><dd>
-      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 23 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
+      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 16 December 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
     </dd><dt id="bib-bcp47">[BCP47]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc5646"><cite>Tags for Identifying Languages</cite></a>. A. Phillips, Ed.; M. Davis, Ed. IETF. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc5646">https://www.rfc-editor.org/rfc/rfc5646</a>
     </dd><dt id="bib-csp3">[CSP3]</dt><dd>
@@ -7477,10 +7557,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="https://mimesniff.spec.whatwg.org/"><cite>MIME Sniffing Standard</cite></a>. Gordon P. Hemsley.  WHATWG. Living Standard. URL: <a href="https://mimesniff.spec.whatwg.org/">https://mimesniff.spec.whatwg.org/</a>
     </dd><dt id="bib-rfc7258">[RFC7258]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc7258"><cite>Pervasive Monitoring Is an Attack</cite></a>. S. Farrell; H. Tschofenig.  IETF. May 2014. Best Current Practice. URL: <a href="https://www.rfc-editor.org/rfc/rfc7258">https://www.rfc-editor.org/rfc/rfc7258</a>
+    </dd><dt id="bib-rfc8246">[RFC8246]</dt><dd>
+      <a href="https://httpwg.org/specs/rfc8246.html"><cite>HTTP Immutable Responses</cite></a>. P. McManus.  IETF. September 2017. Proposed Standard. URL: <a href="https://httpwg.org/specs/rfc8246.html">https://httpwg.org/specs/rfc8246.html</a>
     </dd><dt id="bib-rfc9110">[RFC9110]</dt><dd>
       <a href="https://httpwg.org/specs/rfc9110.html"><cite>HTTP Semantics</cite></a>. R. Fielding, Ed.; M. Nottingham, Ed.; J. Reschke, Ed. IETF. June 2022. Internet Standard. URL: <a href="https://httpwg.org/specs/rfc9110.html">https://httpwg.org/specs/rfc9110.html</a>
     </dd><dt id="bib-service-workers-1">[SERVICE-WORKERS-1]</dt><dd>
-      <a href="https://www.w3.org/TR/service-workers/"><cite>Service Workers Nightly</cite></a>. Monica CHINTALA; Yoshisato Yanagisawa.  W3C. 26 November 2025. CRD. URL: <a href="https://www.w3.org/TR/service-workers/">https://www.w3.org/TR/service-workers/</a>
+      <a href="https://www.w3.org/TR/service-workers/"><cite>Service Workers Nightly</cite></a>. Monica CHINTALA; Yoshisato Yanagisawa.  W3C. 12 December 2025. CRD. URL: <a href="https://www.w3.org/TR/service-workers/">https://www.w3.org/TR/service-workers/</a>
     </dd><dt id="bib-tls">[TLS]</dt><dd>
       <a href="https://www.rfc-editor.org/rfc/rfc5246"><cite>The Transport Layer Security (TLS) Protocol Version 1.2</cite></a>. T. Dierks; E. Rescorla.  IETF. August 2008. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc5246">https://www.rfc-editor.org/rfc/rfc5246</a>
     </dd><dt id="bib-webidl">[webidl]</dt><dd>
