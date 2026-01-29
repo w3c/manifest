@@ -2717,6 +2717,14 @@
           third-party authentication). See <a href=
           "https://github.com/w3c/manifest/issues/646">Issue 646</a>.
         </p>
+        <p>
+          Some user agents may directly [=launch a web application|launch=] the
+          [=installed web application=] using the [=Document/URL=] of the
+          [=browsing context=] that initiated the installation. If the
+          [=Document/URL=] of this page is not [=manifest/within scope=] of the
+          manifest's [=manifest/navigation scope=], the [=application context=]
+          is initially instantiated with an out-of-scope [=Document/URL=].
+        </p>
       </aside>
       <section class="informative">
         <h3 id="navigation-scope-security-considerations">
