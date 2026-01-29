@@ -662,7 +662,8 @@
           system preferences.
         </p>
         <p>
-          The [=manifest/icons=] member is a [=localizable member=].
+          The [=manifest/icons=] member is a [=localizable member=] and a
+          [=themeable member=].
         </p>
         <aside class="note">
           <p>
@@ -1093,6 +1094,9 @@
           <dfn>theme color</dfn> is defined in [[HTML]].
         </p>
         <p>
+          The [=manifest/theme_color=] member is a [=themeable member=].
+        </p>
+        <p>
           If the user agent honors the value of the [=manifest/theme_color=]
           member as the [=default theme color=], then that color serves as the
           [=theme color=] for all [=browsing contexts=] to which the manifest
@@ -1134,6 +1138,9 @@
           application for which the manifest is known before the files are
           actually available, whether they are fetched from the network or
           retrieved from disk.
+        </p>
+        <p>
+          The [=manifest/background_color=] member is a [=themeable member=].
         </p>
         <p>
           The [=manifest/background_color=] member is only meant to improve the
@@ -1498,6 +1505,105 @@
         </section>
       </section>
       <section>
+        <h3>
+          `color_scheme_dark` member
+        </h3>
+        <p>
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
+          "manifest">color_scheme_dark</dfn></code> member is an [=ordered
+          map=] whose keys are the names of [=themeable members=] and their
+          corresponding [=localizable members=], while the values are their
+          corresponding theme overrides.
+        </p>
+        <p>
+          A <dfn>themeable member</dfn> is a [=manifest=] member that can be
+          themed.
+        </p>
+        <aside class="example" title=
+        "Example manifest with a dark theme and localizations">
+          <pre class="json">
+            { 
+              "lang": "en",
+              "name": "Cool App",
+              "name_localized": { "de": "Coole App" },
+              "background_color": "#fff",
+              "theme_color": "red",
+              "shortcuts": [{
+                "name": "Cool Shortcut",
+                "name_localized": { "de": "Cooler Shortcut" },
+                "url": "/",
+                "icons": [{ "src": "shortcut.png" }],
+                "icons_localized": { "de": [{ "src": "shortcut-de.png" }] },
+                "color_scheme_dark": {
+                  "icons": [{ "src": "shortcut-dark.png" }],
+                  "icons_localized": { "de": [{ "src": "shortcut-dark-de.png" }] }
+                }
+              }],
+              "icons": [{ "src": "icon.png" }],
+              "icons_localized": { "de": [{ "src": "icon-de.png" }] },
+              "color_scheme_dark": {
+                "background_color": "#000",
+                "theme_color": "hotpink",
+                "icons": [{ "src": "icon-dark.png" }],
+                "icons_localized": { "de": [{ "src": "icon-dark-de.png" }] }
+              }
+            }
+        </pre>
+        </aside>
+        <p>
+          The user agent SHOULD use the user's system theme preference (e.g.,
+          dark mode) to apply the values from [=manifest/color_scheme_dark=]
+          when appropriate.
+        </p>
+        <aside class="note">
+          Because the [=themeable members=] were defined prior to the
+          introduction of dark mode, they are implicitly treated as the light
+          theme representation.
+        </aside>
+        <section>
+          <h3>
+            Theming themeable members
+          </h3>
+          <p>
+            The [=manifest/color_scheme_dark=] member's [=ordered map=] accepts
+            [=themeable members=] as keys, and their values as the theme
+            overrides.
+          </p>
+          <p>
+            To <dfn>process the `color_scheme_dark` member</dfn>, given
+            [=ordered map=] |json:ordered map|, [=ordered map=]
+            |manifest:ordered map|, and [=URL=] |manifest URL:URL|:
+          </p>
+          <ol class="algorithm">
+            <li>If |json|["color_scheme_dark"] does not [=map/exist=], return.
+            </li>
+            <li>Let |colorScheme| be |json|["color_scheme_dark"].
+            </li>
+            <li>If |colorScheme| is not an [=ordered map=], return.
+            </li>
+            <li>Let |processedColorScheme:ordered map| be a new [=ordered
+            map=].
+            </li>
+            <li>[=Map/Set=] |manifest|["color_scheme_dark"] to
+            |processedColorScheme|.
+            </li>
+            <li>[=Process a color member=] passing |colorScheme|,
+            |processedColorScheme|, "theme_color".
+            </li>
+            <li>[=Process a color member=] passing |colorScheme|,
+            |processedColorScheme|, "background_color".
+            </li>
+            <li>[=Process image resources=] passing |colorScheme|["icons"],
+            |processedColorScheme|, |manifest URL|, and "icons".
+            </li>
+            <li>[=Process a `*_localized` image resource member=] passing
+            |colorScheme|, |processedColorScheme|, "icons_localized", and
+            |manifest URL|.
+            </li>
+          </ol>
+        </section>
+      </section>
+      <section>
         <h2>
           Manifest life-cycle
         </h2>
@@ -1592,6 +1698,9 @@
             </li>
             <li>[=Process a `*_localized` image resource member=] passing
             |json|, |manifest|, "icons_localized", and |manifest URL|.
+            </li>
+            <li>[=Process the `color_scheme_dark` member=] passing |json|,
+            |manifest|, and |manifest URL|.
             </li>
             <li>[=Process the `orientation` member=] passing |json|,
             |manifest|.
@@ -2302,6 +2411,8 @@
         </li>
         <li>[=shortcut item/icons=]
         </li>
+        <li>[=shortcut item/color_scheme_dark=]
+        </li>
       </ul>
       <p>
         A user agent can use these members to assemble a context menu to be
@@ -2373,7 +2484,25 @@
           iconic representations of the shortcut in various contexts.
         </p>
         <p>
-          The [=shortcut item/icons=] member is a [=localizable member=].
+          The [=shortcut item/icons=] member is a [=localizable member=] and a
+          [=themeable member=].
+        </p>
+      </section>
+      <section>
+        <h3>
+          `color_scheme_dark` member
+        </h3>
+        <p>
+          The [=shortcut item's=] <code><dfn data-dfn-for=
+          "shortcut item">color_scheme_dark</dfn></code> member is an [=ordered
+          map=] whose keys are the names of [=themeable members=] and their
+          corresponding [=localizable members=], while the values are their
+          corresponding theme overrides.
+        </p>
+        <p>
+          The user agent SHOULD use the user's system theme preference (e.g.,
+          dark mode) to apply the values from [=shortcut
+          item/color_scheme_dark=] when appropriate.
         </p>
       </section>
       <section>
@@ -2443,6 +2572,26 @@
           </li>
           <li>[=Process a `*_localized` image resource member=] passing |item|,
           |shortcut|, "icons_localized", and |manifest URL|.
+          </li>
+          <li>If "color_scheme_dark" [=map/exists=] in |item| and
+          |item|["color_scheme_dark"] is an [=ordered map=]:
+            <ol>
+              <li>Let |colorScheme| be |item|["color_scheme_dark"].
+              </li>
+              <li>Let |processedColorScheme:ordered map| be a new [=ordered
+              map=].
+              </li>
+              <li>[=Map/Set=] |shortcut|["color_scheme_dark"] to
+              |processedColorScheme|.
+              </li>
+              <li>[=Process image resources=] passing |colorScheme|["icons"],
+              |processedColorScheme|, |manifest URL|, and "icons".
+              </li>
+              <li>[=Process a `*_localized` image resource member=] passing
+              |colorScheme|, |processedColorScheme|, "icons_localized", and
+              |manifest URL|.
+              </li>
+            </ol>
           </li>
           <li>Return |shortcut|.
           </li>
