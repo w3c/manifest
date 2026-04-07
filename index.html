@@ -1510,12 +1510,17 @@
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">color_scheme_dark</dfn></code> member is an [=ordered
-          map=] whose keys are the names of [=manifest/themeable members=], while the
-          values are their corresponding theme overrides.
+          map=] whose keys are [=manifest/themeable members=] and whose
+          values are the overriding color values for those members when the
+          operating system uses a dark color theme.
         </p>
         <p>
-          A <dfn data-dfn-for="manifest">themeable member</dfn> is a [=manifest=] member that can be
-          themed.
+          A <dfn data-dfn-for="manifest">themeable member</dfn> is one of the
+          following [=manifest=] members:
+          <ul>
+            <li>[=manifest/theme_color=]</li>
+            <li>[=manifest/background_color=]</li>
+          </ul>
         </p>
         <aside class="example" title="Example manifest with a dark theme">
           <pre class="json">
@@ -1530,24 +1535,21 @@
         </pre>
         </aside>
         <p>
-          The user agent SHOULD use the user's system theme preference (e.g.,
-          dark mode) to apply the values from [=manifest/color_scheme_dark=]
-          when appropriate.
+          When [=applying=] a manifest whose operating system uses a dark color
+          theme, for each [=manifest/themeable member=] |member| that
+          [=map/exists=] in [=manifest/color_scheme_dark=], the user agent SHOULD
+          use the value of [=manifest/color_scheme_dark=][|member|] in place of
+          |member|'s value.
         </p>
         <aside class="note">
-          Because the [=manifest/themeable members=] were defined prior to the
-          introduction of dark mode, they are implicitly treated as the light
-          theme representation.
+          Because the [=manifest/themeable members=] were defined before
+          operating systems supported dark color themes, they are implicitly
+          treated as the light color theme values.
         </aside>
         <section>
           <h3>
             Theming themeable members
           </h3>
-          <p>
-            The [=manifest/color_scheme_dark=] member's [=ordered map=] accepts
-            [=manifest/themeable members=] as keys, and their values as the theme
-            overrides.
-          </p>
           <p>
             To <dfn>process the `color_scheme_dark` member</dfn>, given
             [=ordered map=] |json:ordered map|, [=ordered map=]
@@ -1566,11 +1568,13 @@
             <li>[=Map/Set=] |manifest|["color_scheme_dark"] to
             |processedColorScheme|.
             </li>
-            <li>[=Process a color member=] passing |colorScheme|,
-            |processedColorScheme|, "theme_color".
-            </li>
-            <li>[=Process a color member=] passing |colorScheme|,
-            |processedColorScheme|, "background_color".
+            <li>[=List/For each=] |member:string| of
+            « "theme_color", "background_color" »:
+              <ol>
+                <li>[=Process a color member=] passing |colorScheme|,
+                |processedColorScheme|, |member|.
+                </li>
+              </ol>
             </li>
           </ol>
         </section>
