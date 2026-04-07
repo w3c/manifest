@@ -1088,12 +1088,10 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">theme_color</dfn></code> member serves as the <dfn>default
-          theme color</dfn> for an application context. What constitutes a
-          <dfn>theme color</dfn> is defined in [[HTML]].
-        </p>
-        <p>
-          The [=manifest/theme_color=] member is a [=manifest/themeable member=].
+          "manifest">theme_color</dfn></code> member is a [=manifest/themeable
+          member=] that serves as the <dfn>default theme color</dfn> for an
+          application context. What constitutes a <dfn>theme color</dfn> is
+          defined in [[HTML]].
         </p>
         <p>
           If the user agent honors the value of the [=manifest/theme_color=]
@@ -1130,16 +1128,14 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">`background_color`</dfn></code> member describes the
-          expected background color of the web application. It repeats what is
+          "manifest">`background_color`</dfn></code> member is a
+          [=manifest/themeable member=] that describes the expected background
+          color of the web application. It repeats what is
           already available in the application stylesheet but can be used by
           the <a>user agent</a> to draw the background color of a web
           application for which the manifest is known before the files are
           actually available, whether they are fetched from the network or
           retrieved from disk.
-        </p>
-        <p>
-          The [=manifest/background_color=] member is a [=manifest/themeable member=].
         </p>
         <p>
           The [=manifest/background_color=] member is only meant to improve the
@@ -1522,6 +1518,14 @@
             <li>[=manifest/background_color=]</li>
           </ul>
         </p>
+        <p>
+          When [=applying=] a manifest and the operating system uses a dark
+          color theme, for each [=manifest/themeable member=] |member| that
+          [=map/exists=] in [=manifest/color_scheme_dark=], the user agent
+          SHOULD use the value of [=manifest/color_scheme_dark=][|member|] in
+          place of |member|'s value, unless the user's preferences, such as
+          accessibility settings, take precedence.
+        </p>
         <aside class="example" title="Example manifest with a dark theme">
           <pre class="json">
             {
@@ -1533,18 +1537,6 @@
               }
             }
         </pre>
-        </aside>
-        <p>
-          When [=applying=] a manifest whose operating system uses a dark color
-          theme, for each [=manifest/themeable member=] |member| that
-          [=map/exists=] in [=manifest/color_scheme_dark=], the user agent SHOULD
-          use the value of [=manifest/color_scheme_dark=][|member|] in place of
-          |member|'s value.
-        </p>
-        <aside class="note">
-          Because the [=manifest/themeable members=] were defined before
-          operating systems supported dark color themes, they are implicitly
-          treated as the light color theme values.
         </aside>
         <section>
           <h3>
