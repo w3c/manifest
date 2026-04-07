@@ -1093,7 +1093,7 @@
           <dfn>theme color</dfn> is defined in [[HTML]].
         </p>
         <p>
-          The [=manifest/theme_color=] member is a [=themeable member=].
+          The [=manifest/theme_color=] member is a [=manifest/themeable member=].
         </p>
         <p>
           If the user agent honors the value of the [=manifest/theme_color=]
@@ -1139,7 +1139,7 @@
           retrieved from disk.
         </p>
         <p>
-          The [=manifest/background_color=] member is a [=themeable member=].
+          The [=manifest/background_color=] member is a [=manifest/themeable member=].
         </p>
         <p>
           The [=manifest/background_color=] member is only meant to improve the
@@ -1510,16 +1510,16 @@
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">color_scheme_dark</dfn></code> member is an [=ordered
-          map=] whose keys are the names of [=themeable members=], while the
+          map=] whose keys are the names of [=manifest/themeable members=], while the
           values are their corresponding theme overrides.
         </p>
         <p>
-          A <dfn>themeable member</dfn> is a [=manifest=] member that can be
+          A <dfn data-dfn-for="manifest">themeable member</dfn> is a [=manifest=] member that can be
           themed.
         </p>
         <aside class="example" title="Example manifest with a dark theme">
           <pre class="json">
-            { 
+            {
               "background_color": "#fff",
               "theme_color": "red",
               "color_scheme_dark": {
@@ -1535,7 +1535,7 @@
           when appropriate.
         </p>
         <aside class="note">
-          Because the [=themeable members=] were defined prior to the
+          Because the [=manifest/themeable members=] were defined prior to the
           introduction of dark mode, they are implicitly treated as the light
           theme representation.
         </aside>
@@ -1545,7 +1545,7 @@
           </h3>
           <p>
             The [=manifest/color_scheme_dark=] member's [=ordered map=] accepts
-            [=themeable members=] as keys, and their values as the theme
+            [=manifest/themeable members=] as keys, and their values as the theme
             overrides.
           </p>
           <p>
