@@ -1964,7 +1964,7 @@
       </h2>
       <p>
         Each <dfn>manifest image resource</dfn> is an [=image resource=]. The
-        context in which an manifest image resource is presented is determnined
+        context in which a manifest image resource is presented is determined
         by the semantics of the associated manifest member (e.g., an
         [=manifest/icons=] member is generally used to represent the
         application icon).
@@ -1983,7 +1983,7 @@
         corners.
       </p>
       <p>
-        User agents MUST [=fetch=] an [=manifest image resource=] by running the
+        User agents MUST [=fetch=] a [=manifest image resource=] by running the
         [=fetching an image resource=] algorithm.
       </p>
       <section>
@@ -2090,6 +2090,53 @@
           <li>Return |purposes|.
           </li>
         </ol>
+      </section>
+      <section>
+        <h3>
+          Content security policy
+        </h3>
+        <p>
+          The security policy that governs whether a <a>user agent</a> can
+          fetch an icon image is governed by the `img-src` directive [[CSP3]]
+          associated with the manifest's owner {{Document}}.
+        </p>
+        <aside class="example" title="Content security policy of icons">
+          <p>
+            For example, given the following `img-src` directive in the
+            `Content-Security-Policy` HTTP header of the manifest's owner
+            {{Document}}:
+          </p>
+          <pre class="http">
+            HTTP/1.1 200 OK
+            Content-Type: text/html
+            Content-Security-Policy: img-src icons.example.com
+
+            &lt;!doctype&gt;
+            &lt;html&gt;
+            &lt;link rel="manifest" href="manifest.webmanifest"&gt;
+          </pre>
+          <p>
+            And given the following `manifest.webmanifest`:
+          </p>
+          <pre class="json">
+            {
+              "name": "custom manifest",
+              "start_url": "https://boo",
+              "icons": [
+                {
+                  "src": "//icons.example.com/lowres"
+                },
+                {
+                  "src": "//other.com/hi-res"
+                }
+              ]
+            }
+          </pre>
+          <p>
+            The fetching of icon resources from `icons.example.com/lowres`
+            would succeed, while fetching from `other.com/hi-res` would fail.
+          </p>
+        </aside>
       </section>
       <section id="icon-masks">
         <h2>
