@@ -1088,9 +1088,10 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">theme_color</dfn></code> member serves as the <dfn>default
-          theme color</dfn> for an application context. What constitutes a
-          <dfn>theme color</dfn> is defined in [[HTML]].
+          "manifest">theme_color</dfn></code> member is a [=manifest/themeable
+          member=] that serves as the <dfn>default theme color</dfn> for an
+          application context. What constitutes a <dfn>theme color</dfn> is
+          defined in [[HTML]].
         </p>
         <p>
           If the user agent honors the value of the [=manifest/theme_color=]
@@ -1127,8 +1128,9 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">`background_color`</dfn></code> member describes the
-          expected background color of the web application. It repeats what is
+          "manifest">`background_color`</dfn></code> member is a
+          [=manifest/themeable member=] that describes the expected background
+          color of the web application. It repeats what is
           already available in the application stylesheet but can be used by
           the <a>user agent</a> to draw the background color of a web
           application for which the manifest is known before the files are
@@ -1498,6 +1500,78 @@
         </section>
       </section>
       <section>
+        <h3>
+          `color_scheme_dark` member
+        </h3>
+        <p>
+          The [=manifest's=] <code><dfn data-export="" data-dfn-for=
+          "manifest">color_scheme_dark</dfn></code> member is an [=ordered
+          map=] whose keys are [=manifest/themeable members=] and whose
+          values are the overriding color values for those members when the
+          operating system uses a dark color theme.
+        </p>
+        <p>
+          A <dfn data-dfn-for="manifest">themeable member</dfn> is one of the
+          following [=manifest=] members:
+          <ul>
+            <li>[=manifest/theme_color=]</li>
+            <li>[=manifest/background_color=]</li>
+          </ul>
+        </p>
+        <p>
+          When [=applying=] a manifest and the operating system uses a dark
+          color theme, for each [=manifest/themeable member=] |member| that
+          [=map/exists=] in [=manifest/color_scheme_dark=], the user agent
+          SHOULD use the value of [=manifest/color_scheme_dark=][|member|] in
+          place of |member|'s value, unless the user's preferences, such as
+          accessibility settings, take precedence.
+        </p>
+        <aside class="example" title="Example manifest with a dark theme">
+          <pre class="json">
+            {
+              "background_color": "#fff",
+              "theme_color": "red",
+              "color_scheme_dark": {
+                "background_color": "#000",
+                "theme_color": "hotpink"
+              }
+            }
+        </pre>
+        </aside>
+        <section>
+          <h3>
+            Theming themeable members
+          </h3>
+          <p>
+            To <dfn>process the `color_scheme_dark` member</dfn>, given
+            [=ordered map=] |json:ordered map|, [=ordered map=]
+            |manifest:ordered map|, and [=URL=] |manifest URL:URL|:
+          </p>
+          <ol class="algorithm">
+            <li>If |json|["color_scheme_dark"] does not [=map/exist=], return.
+            </li>
+            <li>Let |colorScheme| be |json|["color_scheme_dark"].
+            </li>
+            <li>If |colorScheme| is not an [=ordered map=], return.
+            </li>
+            <li>Let |processedColorScheme:ordered map| be a new [=ordered
+            map=].
+            </li>
+            <li>[=Map/Set=] |manifest|["color_scheme_dark"] to
+            |processedColorScheme|.
+            </li>
+            <li>[=List/For each=] |member:string| of
+            « "theme_color", "background_color" »:
+              <ol>
+                <li>[=Process a color member=] passing |colorScheme|,
+                |processedColorScheme|, |member|.
+                </li>
+              </ol>
+            </li>
+          </ol>
+        </section>
+      </section>
+      <section>
         <h2>
           Manifest life-cycle
         </h2>
@@ -1592,6 +1666,9 @@
             </li>
             <li>[=Process a `*_localized` image resource member=] passing
             |json|, |manifest|, "icons_localized", and |manifest URL|.
+            </li>
+            <li>[=Process the `color_scheme_dark` member=] passing |json|,
+            |manifest|, and |manifest URL|.
             </li>
             <li>[=Process the `orientation` member=] passing |json|,
             |manifest|.
