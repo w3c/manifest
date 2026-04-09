@@ -1811,6 +1811,25 @@
             [=top-level browsing context=] is created, the user agent MAY
             [=apply=] a manifest to it before [=navigate|navigation=] begins.
           </p>
+          <p>
+            A user agent MAY also [=apply=] a manifest to an existing [=top-level
+            browsing context=]. If the [=navigable/active document=]'s
+            [=Document/URL=] is [=manifest/within scope=] of the manifest, the
+            existing [=top-level browsing context=] becomes an [=application
+            context=]. If the [=Document/URL=] is not [=manifest/within scope=],
+            the resulting behavior is implementation-defined.
+          </p>
+          <aside class="note">
+            <p>
+              Some user agents might [=apply=] a manifest to the existing
+              [=top-level browsing context=] from which installation was
+              initiated. If the [=navigable/active document=]'s [=Document/URL=]
+              is not [=manifest/within scope=] of the manifest's
+              [=manifest/navigation scope=], one possible behavior is that the
+              [=application context=] initially exists at an out-of-scope
+              [=Document/URL=].
+            </p>
+          </aside>
           <aside class="note">
             Whether to [=apply=] a manifest, and which manifest to apply, is at
             the discretion of the user agent, based on the user's actions. For
