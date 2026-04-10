@@ -1611,7 +1611,8 @@
             The steps for <dfn data-export="" data-local-lt=
             "processing">processing a manifest</dfn> are given by the following
             algorithm. The algorithm takes a [=URL=] |document URL:URL|, a
-            [=URL=] |manifest URL:URL|, and a [=byte sequence=] |bodyBytes|.
+            [=URL=] |manifest URL:URL|, a [=byte sequence=] |bodyBytes|, and an
+            optional [=environment settings object=] |client|.
           </p>
           <ol class="algorithm">
             <li>Let |json| be the result of [=parse JSON bytes to an Infra
@@ -1680,6 +1681,9 @@
             <li>[=application manifest/Processing extension-point=]: process
             any proprietary and/or other supported members at this point in the
             algorithm.
+            </li>
+            <li>Set |manifest|'s <dfn data-dfn-for="application manifest"
+            data-export="">client</dfn> to |client|.
             </li>
             <li>Let [=document=]'s <dfn data-export="" data-dfn-for="Document">
               processed manifest</dfn> be |manifest|.
@@ -1983,9 +1987,25 @@
         corners.
       </p>
       <p>
-        User agents MUST [=fetch=] a [=manifest image resource=] by running the
-        [=fetching an image resource=] algorithm.
+        To <dfn>fetch a manifest image resource</dfn> given a [=manifest image
+        resource=] |image| and an [=application manifest=] |manifest|:
       </p>
+      <ol class="algorithm">
+        <li>If |manifest|'s [=application manifest/client=] is null, return.
+        </li>
+        <li>Let |request| be a new [=Request=].
+        </li>
+        <li>Set |request|'s [=request/URL=] to |image|'s {{ImageResource/src}}.
+        </li>
+        <li>Set |request|'s [=request/Destination=] to "`image`".
+        </li>
+        <li>Set |request|'s [=request/Client=] to |manifest|'s [=application
+        manifest/client=].
+        </li>
+        <li>Return the result of [=fetching an image resource=] with |image|
+        and |request|.
+        </li>
+      </ol>
       <section>
         <h3>
           `purpose` member
