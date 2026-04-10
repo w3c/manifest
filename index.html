@@ -2937,21 +2937,21 @@
         returns `false`.
       </p>
       <p>
-        Once a user agent [=applies=] a particular <a>display mode</a> to an
-        <a>application context</a>, it becomes the <dfn>default display
-        mode</dfn> for the <a>top-level browsing context</a> (i.e., it is used
-        as the display mode when the window is <a>navigated</a>). The user
-        agent MAY override the <a>default display mode</a> for security reasons
-        (e.g., the <a>top-level browsing context</a> is <a>navigated</a> to
-        another origin) and/or the user agent MAY provide the user with a means
-        of switching to another <a>display mode</a>.
+        Once a manifest is [=applied=] to an <a>application context</a>, the
+        resulting <a>display mode</a> becomes the <dfn>applied display
+        mode</dfn> for the <a>top-level browsing context</a> (i.e., it is
+        the display mode used when the window is <a>navigated</a>). The user
+        agent MAY override the <a>applied display mode</a> for security
+        reasons (e.g., the <a>top-level browsing context</a> is
+        <a>navigated</a> out of scope) and/or the user agent MAY provide the
+        user with a means of switching to another <a>display mode</a>.
       </p>
       <p>
         When the [=manifest/display=] member is missing, or if there is no
         valid [=manifest/display=] member, the user agent uses the [=display
-        mode/browser=] <a>display mode</a> as the <a>default display mode</a>.
-        As such, the user agent MUST support the [=display mode/browser=]
-        <a>display mode</a>.
+        mode/browser=] <a>display mode</a> as the <a>applied display
+        mode</a>. As such, the user agent MUST support the [=display
+        mode/browser=] <a>display mode</a>.
       </p>
       <p>
         Every [=display mode=] has a <dfn>fallback chain</dfn>, which is a list
@@ -3015,7 +3015,7 @@
         mode/minimal-ui=]", "[=display mode/browser=]" ».
       </p>
       <p>
-        A user agent MUST reflect the applied <a>display mode</a> of the web
+        A user agent MUST reflect the <a>applied display mode</a> of the web
         application in the <a data-xref-type="css-descriptor" data-xref-for=
         "@media">`display-mode`</a> media feature [[MEDIAQUERIES-5]].
       </p>
