@@ -1755,9 +1755,11 @@
           </h3>
           <p>
             The [=processing a manifest=] steps are invoked by [[HTML]]'s
-            processing steps for the [^link^] element, but MAY also be invoked
-            by the user agent to process a manifest without an associated
-            [=document=].
+            processing steps for the [^link^] element, in which case
+            |client| is the [=document=]'s [=relevant settings object=].
+            The steps MAY also be invoked by the user agent to process a
+            manifest without an associated [=document=], in which case
+            |client| is null.
           </p>
           <p>
             In this case, to match the guarantees made by the corresponding
