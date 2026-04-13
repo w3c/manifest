@@ -1611,8 +1611,8 @@
             The steps for <dfn data-export="" data-local-lt=
             "processing">processing a manifest</dfn> are given by the following
             algorithm. The algorithm takes a [=URL=] |document URL:URL|, a
-            [=URL=] |manifest URL:URL|, a [=byte sequence=] |bodyBytes|, and an
-            optional [=environment settings object=] |client|.
+            [=URL=] |manifest URL:URL|, a [=byte sequence=] |bodyBytes|, and
+            |client| (an [=environment settings object=] or null).
           </p>
           <ol class="algorithm">
             <li>Let |json| be the result of [=parse JSON bytes to an Infra
@@ -1682,8 +1682,7 @@
             any proprietary and/or other supported members at this point in the
             algorithm.
             </li>
-            <li>Set |manifest|'s <dfn data-dfn-for="application manifest"
-            data-export="">client</dfn> to |client|.
+            <li>Set |manifest|'s <dfn data-dfn-for="application manifest">client</dfn> to |client|.
             </li>
             <li>Let [=document=]'s <dfn data-export="" data-dfn-for="Document">
               processed manifest</dfn> be |manifest|.
@@ -1995,13 +1994,13 @@
       <ol class="algorithm">
         <li>If |manifest|'s [=application manifest/client=] is null, return.
         </li>
-        <li>Let |request| be a new [=Request=].
+        <li>Let |request| be a new [=request=].
         </li>
         <li>Set |request|'s [=request/URL=] to |image|'s {{ImageResource/src}}.
         </li>
-        <li>Set |request|'s [=request/Destination=] to "`image`".
+        <li>Set |request|'s [=request/destination=] to "`image`".
         </li>
-        <li>Set |request|'s [=request/Client=] to |manifest|'s [=application
+        <li>Set |request|'s [=request/client=] to |manifest|'s [=application
         manifest/client=].
         </li>
         <li>Return the result of [=fetching an image resource=] with |image|
