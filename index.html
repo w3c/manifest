@@ -1993,6 +1993,13 @@
       </p>
       <ol class="algorithm">
         <li>If |manifest|'s [=application manifest/client=] is null, return.
+          <aside class="note">
+            When a manifest is processed without an associated [=document=],
+            |client| is null and no image fetch is performed. This ensures
+            that [=enforced|enforcement=] of CSP and [=service worker=] fetch
+            interception, which depend on the [=document=]'s [=relevant
+            settings object=], remain in effect.
+          </aside>
         </li>
         <li>Let |request| be a new [=request=].
         </li>
