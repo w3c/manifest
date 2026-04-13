@@ -1993,9 +1993,9 @@
       </p>
       <ol class="algorithm">
         <li>If |manifest|'s [=application manifest/client=] is null, return.
-          <aside class="note">
+          <aside class="note" data-cite="service-workers">
             When a manifest is processed without an associated [=document=],
-            |client| is null and no image fetch is performed. This ensures
+            |manifest|'s [=application manifest/client=] is null and no image fetch is performed. This ensures
             that [=enforced|enforcement=] of CSP and [=service worker=] fetch
             interception, which depend on the [=document=]'s [=relevant
             settings object=], remain in effect.
@@ -2014,6 +2014,18 @@
         and |request|.
         </li>
       </ol>
+      <aside class="note">
+        This algorithm is intended to be called when a user agent prepares to
+        present an installation prompt or creates an [=application context=].
+        User agents do not typically call this algorithm during regular page
+        loads. Calling this algorithm requires that the [=application
+        manifest/client=] be set (i.e., the manifest was [=processing a
+        manifest|processed=] in the context of a [=document=]), which ensures
+        that [=Content Security Policy=] and [=service worker=] fetch
+        interception remain in effect. A normative algorithm for when to call
+        this is tracked in issue <a href=
+        "https://github.com/w3c/manifest/issues/1216">#1216</a>.
+      </aside>
       <section>
         <h3>
           `purpose` member
