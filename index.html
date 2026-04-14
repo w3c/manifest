@@ -1992,7 +1992,7 @@
         resource=] |image| and an [=application manifest=] |manifest|:
       </p>
       <ol class="algorithm">
-        <li>If |manifest|'s [=application manifest/client=] is null, return.
+        <li>If |manifest|'s [=application manifest/client=] is null, return null.
           <aside class="note" data-cite="service-workers">
             When a manifest is processed without an associated [=document=],
             |manifest|'s [=application manifest/client=] is null and no image fetch is performed. This ensures
