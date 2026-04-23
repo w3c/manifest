@@ -2938,12 +2938,11 @@
       </p>
       <p>
         Once a manifest is [=applied=] to a <a>top-level browsing context</a>,
-        the resulting <a>display mode</a> becomes the <dfn>applied display
-        mode</dfn> for that <a>top-level browsing context</a> (i.e., it is the
-        display mode used when the window is <a>navigated</a>). The user agent
-        MAY override the <a>applied display mode</a> for security reasons
-        (e.g., the <a>top-level browsing context</a> is <a>navigated</a> out
-        of scope) and/or the user agent MAY provide the user with a means of
+        the <a>display mode</a> in effect is the <dfn>applied display
+        mode</dfn> for that <a>top-level browsing context</a>. The user agent
+        MAY change the <a>applied display mode</a> for security reasons (e.g.,
+        the <a>top-level browsing context</a> is <a>navigated</a> out of
+        scope) and/or the user agent MAY provide the user with a means of
         switching to another <a>display mode</a>.
       </p>
       <p>
@@ -3020,7 +3019,7 @@
         "@media">`display-mode`</a> media feature [[MEDIAQUERIES-5]].
       </p>
       <p class="note">
-        A user agent will expose the actual display mode being applied — not
+        A user agent will expose the <a>applied display mode</a> — not
         necessarily the one declared in the manifest — via the
         <a data-xref-type="css-descriptor" data-xref-for=
         "@media">`display-mode`</a> media feature, accessible through CSS or
