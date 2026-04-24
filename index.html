@@ -2938,19 +2938,19 @@
       </p>
       <p>
         Once a manifest is [=applied=] to a <a>top-level browsing context</a>,
-        the <a>display mode</a> in effect is the <dfn>applied display
+        the [=display mode=] in effect is the <dfn>applied display
         mode</dfn> for that <a>top-level browsing context</a>. The user agent
-        MAY change the <a>applied display mode</a> for security reasons (e.g.,
+        MAY change the [=applied display mode=] for security reasons (e.g.,
         the <a>top-level browsing context</a> is <a>navigated</a> out of
         scope) and/or the user agent MAY provide the user with a means of
-        switching to another <a>display mode</a>.
+        switching to another [=display mode=].
       </p>
       <p>
         When the [=manifest/display=] member is missing, or if there is no
         valid [=manifest/display=] member, the user agent uses the [=display
-        mode/browser=] <a>display mode</a> as the <a>applied display
-        mode</a>. As such, the user agent MUST support the [=display
-        mode/browser=] <a>display mode</a>.
+        mode/browser=] [=display mode=] as the [=applied display mode=]. As
+        such, the user agent MUST support the [=display mode/browser=]
+        [=display mode=].
       </p>
       <p>
         Every [=display mode=] has a <dfn>fallback chain</dfn>, which is a list
@@ -3014,12 +3014,12 @@
         mode/minimal-ui=]", "[=display mode/browser=]" ».
       </p>
       <p>
-        A user agent MUST reflect the <a>applied display mode</a> of the web
+        A user agent MUST reflect the [=applied display mode=] of the web
         application in the <a data-xref-type="css-descriptor" data-xref-for=
         "@media">`display-mode`</a> media feature [[MEDIAQUERIES-5]].
       </p>
       <p class="note">
-        A user agent will expose the <a>applied display mode</a> — not
+        A user agent will expose the [=applied display mode=] — not
         necessarily the one declared in the manifest — via the
         <a data-xref-type="css-descriptor" data-xref-for=
         "@media">`display-mode`</a> media feature, accessible through CSS or
