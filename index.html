@@ -2987,12 +2987,12 @@
       </p>
       <p>
         Once a manifest is [=applied=] to a <a>top-level browsing context</a>,
-        the [=display mode=] in effect is the <dfn>applied display
-        mode</dfn> for that <a>top-level browsing context</a>. The user agent
-        MAY change the [=applied display mode=] for security reasons (e.g.,
-        the <a>top-level browsing context</a> is <a>navigated</a> out of
-        scope) and/or the user agent MAY provide the user with a means of
-        switching to another [=display mode=].
+        the [=display mode=] in effect is the <dfn>applied display mode</dfn>
+        for that <a>top-level browsing context</a>. The user agent MAY change
+        the [=applied display mode=] for security reasons (e.g., the
+        <a>top-level browsing context</a> is <a>navigated</a> out of scope)
+        and/or the user agent MAY provide the user with a means of switching to
+        another [=display mode=].
       </p>
       <p>
         When the [=manifest/display=] member is missing, or if there is no
@@ -3068,16 +3068,15 @@
         "@media">`display-mode`</a> media feature [[MEDIAQUERIES-5]].
       </p>
       <p class="note">
-        A user agent will expose the [=applied display mode=] — not
-        necessarily the one declared in the manifest — via the
-        <a data-xref-type="css-descriptor" data-xref-for=
-        "@media">`display-mode`</a> media feature, accessible through CSS or
-        JavaScript. Note that this media feature will also reflect other
-        display modes for a web page when a manifest is not being applied. For
-        example, if the end-user puts the page into fullscreen, then the user
-        agent would reflect this change to CSS and scripts via the
-        <a data-xref-type="css-descriptor" data-xref-for=
-        "@media">`display-mode`</a> media feature.
+        A user agent will expose the [=applied display mode=] — not necessarily
+        the one declared in the manifest — via the <a data-xref-type=
+        "css-descriptor" data-xref-for="@media">`display-mode`</a> media
+        feature, accessible through CSS or JavaScript. Note that this media
+        feature will also reflect other display modes for a web page when a
+        manifest is not being applied. For example, if the end-user puts the
+        page into fullscreen, then the user agent would reflect this change to
+        CSS and scripts via the <a data-xref-type="css-descriptor"
+        data-xref-for="@media">`display-mode`</a> media feature.
       </p>
     </section>
     <section id="priv-sec">
