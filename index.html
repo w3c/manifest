@@ -1131,12 +1131,11 @@
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">`background_color`</dfn></code> member is a
           [=manifest/themeable member=] that describes the expected background
-          color of the web application. It repeats what is
-          already available in the application stylesheet but can be used by
-          the <a>user agent</a> to draw the background color of a web
-          application for which the manifest is known before the files are
-          actually available, whether they are fetched from the network or
-          retrieved from disk.
+          color of the web application. It repeats what is already available in
+          the application stylesheet but can be used by the <a>user agent</a>
+          to draw the background color of a web application for which the
+          manifest is known before the files are actually available, whether
+          they are fetched from the network or retrieved from disk.
         </p>
         <p>
           The [=manifest/background_color=] member is only meant to improve the
@@ -1507,18 +1506,20 @@
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">color_scheme_dark</dfn></code> member is an [=ordered
-          map=] whose keys are [=manifest/themeable members=] and whose
-          values are the overriding color values for those members when the
-          operating system uses a dark color theme.
+          map=] whose keys are [=manifest/themeable members=] and whose values
+          are the overriding color values for those members when the operating
+          system uses a dark color theme.
         </p>
         <p>
           A <dfn data-dfn-for="manifest">themeable member</dfn> is one of the
           following [=manifest=] members:
-          <ul>
-            <li>[=manifest/theme_color=]</li>
-            <li>[=manifest/background_color=]</li>
-          </ul>
         </p>
+        <ul>
+          <li>[=manifest/theme_color=]
+          </li>
+          <li>[=manifest/background_color=]
+          </li>
+        </ul>
         <p>
           When [=applying=] a manifest and the operating system uses a dark
           color theme, for each [=manifest/themeable member=] |member| that
@@ -1561,8 +1562,8 @@
             <li>[=Map/Set=] |manifest|["color_scheme_dark"] to
             |processedColorScheme|.
             </li>
-            <li>[=List/For each=] |member:string| of
-            « "theme_color", "background_color" »:
+            <li>[=List/For each=] |member:string| of « "theme_color",
+            "background_color" »:
               <ol>
                 <li>[=Process a color member=] passing |colorScheme|,
                 |processedColorScheme|, |member|.
@@ -1611,7 +1612,8 @@
             The steps for <dfn data-export="" data-local-lt=
             "processing">processing a manifest</dfn> are given by the following
             algorithm. The algorithm takes a [=URL=] |document URL:URL|, a
-            [=URL=] |manifest URL:URL|, and a [=byte sequence=] |bodyBytes|.
+            [=URL=] |manifest URL:URL|, a [=byte sequence=] |bodyBytes|, and
+            |client| (an [=environment settings object=] or null).
           </p>
           <ol class="algorithm">
             <li>Let |json| be the result of [=parse JSON bytes to an Infra
@@ -1680,6 +1682,9 @@
             <li>[=application manifest/Processing extension-point=]: process
             any proprietary and/or other supported members at this point in the
             algorithm.
+            </li>
+            <li>Set |manifest|'s <dfn data-dfn-for=
+            "application manifest">client</dfn> to |client|.
             </li>
             <li>Let [=document=]'s <dfn data-export="" data-dfn-for="Document">
               processed manifest</dfn> be |manifest|.
@@ -1751,9 +1756,10 @@
           </h3>
           <p>
             The [=processing a manifest=] steps are invoked by [[HTML]]'s
-            processing steps for the [^link^] element, but MAY also be invoked
-            by the user agent to process a manifest without an associated
-            [=document=].
+            processing steps for the [^link^] element, in which case |client|
+            is the [=document=]'s [=relevant settings object=]. The steps MAY
+            also be invoked by the user agent to process a manifest without an
+            associated [=document=], in which case |client| is null.
           </p>
           <p>
             In this case, to match the guarantees made by the corresponding
@@ -1812,22 +1818,23 @@
             [=apply=] a manifest to it before [=navigate|navigation=] begins.
           </p>
           <p>
-            A user agent MAY also [=apply=] a manifest to an existing [=top-level
-            browsing context=]. If the [=navigable/active document=]'s
-            [=Document/URL=] is [=manifest/within scope=] of the manifest, the
-            existing [=top-level browsing context=] becomes an [=application
-            context=]. If the [=Document/URL=] is not [=manifest/within scope=],
-            the resulting behavior is implementation-defined.
+            A user agent MAY also [=apply=] a manifest to an existing
+            [=top-level browsing context=]. If the [=navigable/active
+            document=]'s [=Document/URL=] is [=manifest/within scope=] of the
+            manifest, the existing [=top-level browsing context=] becomes an
+            [=application context=]. If the [=Document/URL=] is not
+            [=manifest/within scope=], the resulting behavior is
+            implementation-defined.
           </p>
           <aside class="note">
             <p>
               Some user agents might [=apply=] a manifest to the existing
               [=top-level browsing context=] from which installation was
-              initiated. If the [=navigable/active document=]'s [=Document/URL=]
-              is not [=manifest/within scope=] of the manifest's
-              [=manifest/navigation scope=], one possible behavior is that the
-              [=application context=] initially exists at an out-of-scope
-              [=Document/URL=].
+              initiated. If the [=navigable/active document=]'s
+              [=Document/URL=] is not [=manifest/within scope=] of the
+              manifest's [=manifest/navigation scope=], one possible behavior
+              is that the [=application context=] initially exists at an
+              out-of-scope [=Document/URL=].
             </p>
           </aside>
           <aside class="note">
@@ -1963,24 +1970,66 @@
         Manifest image resources
       </h2>
       <p>
-        Each <dfn>manifest image resource</dfn> is an [=image resource=] that
-        is conceptually part of a web application, suitable to use in various
-        contexts depending on the semantics of the member that is using the
-        object (e.g., an icon that is part of an application menu, etc.).
+        Each <dfn>manifest image resource</dfn> is an [=image resource=]. The
+        context in which a manifest image resource is presented is determined
+        by the semantics of the associated manifest member (e.g., an
+        [=manifest/icons=] member is generally used to represent the
+        application icon).
       </p>
       <p>
         A [=manifest image resource=] differs from a [=image resource=] in that
         it can have an additional [=manifest image resource/purpose=] member.
       </p>
       <p>
-        User agents MAY modify the images associated with an [=manifest image
-        resource=] to better match the platform’s visual style before
+        User agents MAY modify the images associated with a [=manifest image
+        resource=] to better match the platform's visual style before
         displaying it to the user, for example by rounding the corners or
         painting it in a specific color. It is recommended that developers
         prepare their image resources for such scenarios to avoid losing
         important information through, e.g., change of color or clipped
         corners.
       </p>
+      <p>
+        To <dfn>fetch a manifest image resource</dfn> given a [=manifest image
+        resource=] |image| and an [=application manifest=] |manifest|, return
+        either the result of [=fetching an image resource=] or null:
+      </p>
+      <ol class="algorithm">
+        <li>If |manifest|'s [=application manifest/client=] is null, return
+        null.
+          <aside class="note" data-cite="SERVICE-WORKERS">
+            When a manifest is processed without an associated [=document=],
+            |manifest|'s [=application manifest/client=] is null and no image
+            fetch is performed. This ensures that [=enforced|enforcement=] of
+            CSP and [=service worker=] fetch interception, which depend on the
+            [=document=]'s [=relevant settings object=], remain in effect.
+          </aside>
+        </li>
+        <li>Let |request| be a new [=request=].
+        </li>
+        <li>Set |request|'s [=request/URL=] to |image|'s {{ImageResource/src}}.
+        </li>
+        <li>Set |request|'s [=request/destination=] to "`image`".
+        </li>
+        <li>Set |request|'s [=request/client=] to |manifest|'s [=application
+        manifest/client=].
+        </li>
+        <li>Return the result of [=fetching an image resource=] with |image|
+        and |request|.
+        </li>
+      </ol>
+      <aside class="note" data-cite="SERVICE-WORKERS">
+        This algorithm is intended to be called when a user agent prepares to
+        present an installation prompt or creates an [=application context=].
+        User agents do not typically call this algorithm during regular page
+        loads. Calling this algorithm requires that the [=application
+        manifest/client=] be set (i.e., the manifest was [=processing a
+        manifest|processed=] in the context of a [=document=]), which ensures
+        that [=Content Security Policy=] and [=service worker=] fetch
+        interception remain in effect. A normative algorithm for when to call
+        this is tracked in issue <a href=
+        "https://github.com/w3c/manifest/issues/1216">#1216</a>.
+      </aside>
       <section>
         <h3>
           `purpose` member
@@ -2784,7 +2833,7 @@
           path-structural (e.g. a target URL string `/prefix-of/resource.html`
           will match an app with scope `/prefix`, even though the path segment
           name is not an exact match). This is intentional for consistency with
-          <a data-cite="SERVICE-WORKERS-1#scope-match-algorithm">Service
+          <a data-cite="SERVICE-WORKERS#scope-match-algorithm">Service
           Workers</a>. To avoid unexpected behavior, use a scope ending in a
           `/`.
         </p>
