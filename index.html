@@ -170,7 +170,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="5cd886af9a0599e766539145ef450e56b17aa9fd">
+<meta name="revision" content="d5e2eeb1b48de8a0ee581c48f3f083730723d29e">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -329,7 +329,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "5cd886af9a0599e766539145ef450e56b17aa9fd",
+  "gitRevision": "d5e2eeb1b48de8a0ee581c48f3f083730723d29e",
   "publishISODate": "2026-05-07T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 07 May 2026"
 }</script>
@@ -3843,12 +3843,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </p></div>
       <p>
         Once a manifest is <a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-18">applied</a> to a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-17">top-level browsing context</a>,
-        the <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-9">display mode</a> in effect is the <dfn id="dfn-applied-display-mode" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">applied display
-        mode</dfn> for that <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-18">top-level browsing context</a>. The user agent
-        <em class="rfc2119">MAY</em> change the <a data-link-type="dfn|abstract-op" href="#dfn-applied-display-mode" class="internalDFN" id="ref-for-dfn-applied-display-mode-1">applied display mode</a> for security reasons (e.g.,
-        the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-19">top-level browsing context</a> is <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-7">navigated</a> out of
-        scope) and/or the user agent <em class="rfc2119">MAY</em> provide the user with a means of
-        switching to another <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-10">display mode</a>.
+        the <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-9">display mode</a> in effect is the <dfn id="dfn-applied-display-mode" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">applied display mode</dfn>
+        for that <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-18">top-level browsing context</a>. The user agent <em class="rfc2119">MAY</em> change
+        the <a data-link-type="dfn|abstract-op" href="#dfn-applied-display-mode" class="internalDFN" id="ref-for-dfn-applied-display-mode-1">applied display mode</a> for security reasons (e.g., the
+        <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-browsing-context" id="ref-for-index-term-top-level-browsing-context-19">top-level browsing context</a> is <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-7">navigated</a> out of scope)
+        and/or the user agent <em class="rfc2119">MAY</em> provide the user with a means of switching to
+        another <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-10">display mode</a>.
       </p>
       <p>
         When the <a data-link-type="dfn|abstract-op" href="#dfn-display" class="internalDFN" id="ref-for-dfn-display-2"><code>display</code></a> member is missing, or if there is no
@@ -3922,14 +3922,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         application in the <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-1"><code>display-mode</code></a> media feature [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5" title="Media Queries Level 5">MEDIAQUERIES-5</a></cite>].
       </p>
       <div class="note" role="note" id="issue-container-generatedID-45"><div class="note-title marker" id="h-note-44"><span>Note</span></div><p class="">
-        A user agent will expose the <a data-link-type="dfn|abstract-op" href="#dfn-applied-display-mode" class="internalDFN" id="ref-for-dfn-applied-display-mode-4">applied display mode</a> — not
-        necessarily the one declared in the manifest — via the
-        <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-2"><code>display-mode</code></a> media feature, accessible through CSS or
-        JavaScript. Note that this media feature will also reflect other
-        display modes for a web page when a manifest is not being applied. For
-        example, if the end-user puts the page into fullscreen, then the user
-        agent would reflect this change to CSS and scripts via the
-        <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-3"><code>display-mode</code></a> media feature.
+        A user agent will expose the <a data-link-type="dfn|abstract-op" href="#dfn-applied-display-mode" class="internalDFN" id="ref-for-dfn-applied-display-mode-4">applied display mode</a> — not necessarily
+        the one declared in the manifest — via the <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-2"><code>display-mode</code></a> media
+        feature, accessible through CSS or JavaScript. Note that this media
+        feature will also reflect other display modes for a web page when a
+        manifest is not being applied. For example, if the end-user puts the
+        page into fullscreen, then the user agent would reflect this change to
+        CSS and scripts via the <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-3"><code>display-mode</code></a> media feature.
       </p></div>
     </section>
     <section id="priv-sec"><div class="header-wrapper"><h2 id="x7-privacy-and-security-considerations"><bdi class="secno">7. </bdi>
