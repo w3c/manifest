@@ -3079,6 +3079,184 @@
         data-xref-for="@media">`display-mode`</a> media feature.
       </p>
     </section>
+    <section id="installed-media-feature">
+      <h2>
+        Installed context: the `installed` media feature
+      </h2>
+      <p>
+        The <dfn id="mf-installed" data-dfn-type="css-descriptor" data-dfn-for=
+        "@media" class="export">`installed`</dfn> media feature reflects
+        whether the current [=browsing context=] is running as an [=installed
+        web application=].
+      </p>
+      <table class="data">
+        <thead>
+          <tr>
+            <th>
+              Value
+            </th>
+            <th>
+              Description
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <dfn id="mf-installed-none" class="export" data-dfn-type="value"
+              data-dfn-for="@media/installed">none</dfn>
+            </td>
+            <td>
+              The document is not running as an [=installed web application=].
+              This is the value in a regular browser tab, inside an embedded
+              browser in a third-party application, or in any context where the
+              manifest is not [=applied=].
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <dfn id="mf-installed-installed" class="export" data-dfn-type=
+              "value" data-dfn-for="@media/installed">installed</dfn>
+            </td>
+            <td>
+              The document is running as an [=installed web application=]. The
+              user agent launched the document from an operating system
+              integration surface (such as a home screen, dock, or taskbar) and
+              the document is running in an [=application context=].
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        The <a href="#mf-installed">`installed`</a> media feature matches
+        <a href="#mf-installed-installed">`installed`</a> when the [=browsing
+        context=] is an [=application context=] with a manifest [=applied=].
+        Otherwise, it matches <a href="#mf-installed-none">`none`</a>.
+      </p>
+      <p>
+        In cross-origin child [=browsing contexts=] (e.g., cross-origin iframes
+        and fenced frames), the value MUST be <a href=
+        "#mf-installed-none">`none`</a>, regardless of the value in the
+        [=top-level browsing context=].
+      </p>
+      <p class="note">
+        Same-origin child [=browsing contexts=] inherit the value from their
+        parent, since they can already access this information via
+        <code>window.top.matchMedia("(installed)")</code>.
+      </p>
+      <p>
+        The <a href="#mf-installed">`installed`</a> media feature is orthogonal
+        to the <a data-xref-type="css-descriptor" data-xref-for=
+        "@media">`display-mode`</a> media feature. An [=installed web
+        application=] can use any [=display mode=], including [=display
+        mode/fullscreen=], [=display mode/standalone=], [=display
+        mode/minimal-ui=], or [=display mode/browser=]. The <a href=
+        "#mf-installed">`installed`</a> media feature answers "is this document
+        running as an installed application?" while `display-mode` answers
+        "what presentation mode is the browsing context using?"
+      </p>
+      <p>
+        If the user agent transitions a [=browsing context=] into an
+        [=application context=] (for example, by [=applying=] a manifest after
+        the user [=installs=] the application while the document is already
+        open), the value of <a href="#mf-installed">`installed`</a> MUST update
+        accordingly and the user agent MUST [=fire an event=] named
+        <code>change</code> at the corresponding <code>MediaQueryList</code>.
+      </p>
+      <p>
+        The value of <a href="#mf-installed">`installed`</a> in a print context
+        MUST be <a href="#mf-installed-none">`none`</a>. Installation launch
+        context is not meaningful in print output.
+      </p>
+      <p class="note">
+        The <a href="#mf-installed">`installed`</a> media feature is designed
+        to be used in a boolean context. <code>@media (installed)</code>
+        evaluates to true when the value is <a href=
+        "#mf-installed-installed">`installed`</a> and false when the value is
+        <a href="#mf-installed-none">`none`</a>. The explicit form <code>@media
+        (installed: installed)</code> is valid but the idiomatic form is the
+        boolean shorthand <code>@media (installed)</code>.
+      </p>
+      <aside class="example">
+        <p>
+          Suppress install prompts when the app is already running as
+          installed:
+        </p>
+        <pre class="css">
+@media (installed) {
+  .install-banner { display: none; }
+}
+</pre>
+        <p>
+          Adapt UI for the installed app context:
+        </p>
+        <pre class="css">
+@media (installed) {
+  .browser-nav { display: none; }
+  .share-via-os { display: block; }
+}
+</pre>
+        <p>
+          JavaScript access via <code>matchMedia()</code>:
+        </p>
+        <pre class="js">
+const installed = window.matchMedia("(installed)").matches;
+if (installed) {
+  // Running as an installed app - suppress install UI
+  document.querySelector(".install-banner")?.remove();
+}
+</pre>
+      </aside>
+      <p class="note">
+        Conformance testing for the <a href=
+        "#mf-installed-installed">`installed`</a> value requires launching the
+        document from an OS integration surface, which may not be automatable
+        in all testing environments. User agents SHOULD provide a WebDriver
+        extension or testing mode that allows setting the <a href=
+        "#mf-installed">`installed`</a> value for conformance testing purposes.
+        The <a href="#mf-installed-none">`none`</a> value can be verified
+        automatically in any regular browsing context.
+      </p>
+      <section>
+        <h3>
+          Privacy considerations for the `installed` media feature
+        </h3>
+        <p>
+          The <a href="#mf-installed">`installed`</a> media feature exposes one
+          bit of information: whether the current document is running as an
+          [=installed web application=]. A document running in a regular
+          browser tab sees <a href="#mf-installed-none">`none`</a>, even if the
+          user previously [=installed=] the application on the same device.
+        </p>
+        <p>
+          The media feature does not reveal:
+        </p>
+        <ul>
+          <li>Whether the user has previously [=installed=] this or any other
+          web application.
+          </li>
+          <li>Any user history, preferences, or OS-level state.
+          </li>
+          <li>Whether this specific document meets any user-agent-specific
+          [=installation=] criteria.
+          </li>
+        </ul>
+        <p>
+          In cross-origin child [=browsing contexts=], the value is always
+          <a href="#mf-installed-none">`none`</a>, preventing cross-origin
+          iframes from learning the [=top-level browsing context=]'s
+          installation state.
+        </p>
+        <p>
+          As with all CSS media features, a document's own stylesheets may use
+          conditional <code>@import</code> rules or resource URLs within
+          <code>@media (installed)</code> blocks, causing network requests that
+          reveal the media feature's value to third-party servers. This is a
+          general property of the CSS media query mechanism and is not unique
+          to this feature.
+        </p>
+      </section>
+    </section>
     <section id="priv-sec">
       <h2>
         Privacy and security considerations
