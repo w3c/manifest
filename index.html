@@ -3079,7 +3079,6 @@
         data-xref-for="@media">`display-mode`</a> media feature.
       </p>
     </section>
-
     <h2 id="installed-media-feature">
       Installed context: the `installed` media feature
     </h2>
@@ -3129,8 +3128,8 @@
     </table>
     <p>
       The <a href="#mf-installed">`installed`</a> media feature matches
-      <a href="#mf-installed-installed">`installed`</a> when the
-      [=top-level browsing context=] of the current [=browsing context=] is an
+      <a href="#mf-installed-installed">`installed`</a> when the [=top-level
+      browsing context=] of the current [=browsing context=] is an
       [=application context=]. Otherwise, it matches <a href=
       "#mf-installed-none">`none`</a>.
     </p>
@@ -3143,7 +3142,7 @@
     <p class="note">
       Same-origin child [=browsing contexts=] inherit the value from their
       parent, since they can already access this information via
-      <code>window.parent.matchMedia("(installed)")</code>.
+      `window.parent.matchMedia("(installed)")`.
     </p>
     <p>
       The <a href="#mf-installed">`installed`</a> media feature is orthogonal
@@ -3156,13 +3155,13 @@
       running as an installed application?" while `display-mode` answers "what
       presentation mode is the browsing context using?"
     </p>
-    <p>
+    <p data-cite="CSSOM-VIEW-1">
       If the user agent transitions a [=browsing context=] into an
       [=application context=] (for example, by [=applying=] a manifest after
       the user [=installs=] the application while the document is already
       open), the value of <a href="#mf-installed">`installed`</a> MUST update
-      accordingly and the user agent MUST [=fire an event=] named
-      <code>change</code> at the corresponding <code>MediaQueryList</code>.
+      accordingly and the user agent MUST [=fire an event=] named `change` at
+      the corresponding {{MediaQueryList}}.
     </p>
     <p>
       The value of <a href="#mf-installed">`installed`</a> in a print context
@@ -3171,12 +3170,11 @@
     </p>
     <p class="note">
       The <a href="#mf-installed">`installed`</a> media feature is designed to
-      be used in a boolean context. <code>@media (installed)</code> evaluates
-      to true when the value is <a href=
-      "#mf-installed-installed">`installed`</a> and false when the value is
-      <a href="#mf-installed-none">`none`</a>. The explicit form <code>@media
-      (installed: installed)</code> is valid but the idiomatic form is the
-      boolean shorthand <code>@media (installed)</code>.
+      be used in a boolean context. `@media (installed)` evaluates to true when
+      the value is <a href="#mf-installed-installed">`installed`</a> and false
+      when the value is <a href="#mf-installed-none">`none`</a>. The explicit
+      form `@media (installed: installed)` is valid but the idiomatic form is
+      the boolean shorthand `@media (installed)`.
     </p>
     <aside class="example">
       <p>
@@ -3197,7 +3195,7 @@
         }
       </pre>
       <p>
-        JavaScript access via <code>matchMedia()</code>:
+        JavaScript access via `matchMedia()`:
       </p>
       <pre class="js">
         const installed = window.matchMedia("(installed)").matches;
@@ -3249,13 +3247,11 @@
       </p>
       <p>
         As with all CSS media features, a document's own stylesheets may use
-        conditional <code>@import</code> rules or resource URLs within
-        <code>@media (installed)</code> blocks, causing network requests that
-        reveal the media feature's value to third-party servers. This is a
-        general property of the CSS media query mechanism and is not unique to
-        this feature.
+        conditional `@import` rules or resource URLs within `@media
+        (installed)` blocks, causing network requests that reveal the media
+        feature's value to third-party servers. This is a general property of
+        the CSS media query mechanism and is not unique to this feature.
       </p>
-
     </section>
     <section id="priv-sec">
       <h2>
