@@ -3085,8 +3085,9 @@
     <p>
       The <dfn id="mf-installed" data-dfn-type="css-descriptor" data-dfn-for=
       "@media" class="export">`installed`</dfn> media feature reflects whether
-      the [=document=]'s [=top-level browsing context=] is an [=application
-      context=]. It takes one of the following values:
+      the [=document=]'s [=node navigable=]'s [=navigable/top-level
+      traversable=] is an [=application context=]. It takes one of the
+      following values:
     </p>
     <dl>
       <dt>
@@ -3094,8 +3095,8 @@
         data-dfn-for="@media/installed">installed</dfn>
       </dt>
       <dd>
-        The [=document=]'s [=top-level browsing context=] is an [=application
-        context=].
+        The [=document=]'s [=node navigable=]'s [=navigable/top-level
+        traversable=] is an [=application context=].
       </dd>
       <dt>
         <dfn id="mf-installed-none" class="export" data-dfn-type="value"
@@ -3139,10 +3140,11 @@
       mode is being used?"
     </p>
     <p data-cite="CSSOM-VIEW-1">
-      When a [=top-level browsing context=] becomes, or ceases to be, an
-      [=application context=], for each [=document=] in that context the user
-      agent MUST run the steps to [=evaluate media queries and report changes=]
-      for that [=document=].
+      When a [=top-level traversable=] becomes, or ceases to be, an
+      [=application context=], the user agent MUST run the steps to [=evaluate
+      media queries and report changes=] for each [=document=] whose [=node
+      navigable=]'s [=navigable/top-level traversable=] is that [=top-level
+      traversable=].
     </p>
     <p>
       The value of <a href="#mf-installed">`installed`</a> MUST be <a href=
@@ -3185,9 +3187,10 @@
     </h3>
     <p>
       The <a href="#mf-installed">`installed`</a> media feature exposes one bit
-      of information: whether the [=document=]'s [=top-level browsing context=]
-      is an [=application context=]. In a regular browser tab, the value is
-      <a href="#mf-installed-none">`none`</a>, even if the user previously
+      of information: whether the [=document=]'s [=node navigable=]'s
+      [=navigable/top-level traversable=] is an [=application context=]. In a
+      regular browser tab, the value is <a href=
+      "#mf-installed-none">`none`</a>, even if the user previously
       [=installed=] the application on the same device.
     </p>
     <p>
