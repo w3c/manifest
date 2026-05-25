@@ -3113,12 +3113,16 @@
       [=navigable/top-level traversable=]'s [=navigable/active document=]'s
       [=Document/origin=].
     </p>
+    <p>
+      In a [=child navigable=] whose [=navigable/active document=] is [=same
+      origin=] with its [=navigable/top-level traversable=]'s
+      [=navigable/active document=], the value of <a href=
+      "#mf-installed">`installed`</a> MUST be the same as the value for the
+      [=navigable/top-level traversable=]'s [=navigable/active document=].
+    </p>
     <p class="note">
-      In a [=child navigable=] that is [=same origin=] with its
-      [=navigable/top-level traversable=]'s [=navigable/active document=],
-      <a href="#mf-installed">`installed`</a> reflects the same value as the
-      [=navigable/top-level traversable=], since same-origin script can already
-      observe it via `window.top.matchMedia("(installed)")`.
+      This is consistent with same-origin script's existing access via
+      `window.top.matchMedia("(installed)")`.
     </p>
     <p class="note">
       The <a href="#mf-installed">`installed`</a> media feature is designed to
@@ -3127,6 +3131,14 @@
       value is <a href="#mf-installed-none">`none`</a>. The explicit form
       `@media (installed: installed)` is valid but the boolean shorthand
       `@media (installed)` is the idiomatic form.
+    </p>
+    <p class="note">
+      This specification defines two values for <a href=
+      "#mf-installed">`installed`</a>. Future specifications adding new values
+      should ensure that any new value either semantically denotes an installed
+      launch context (and thus matches `@media (installed)` in boolean context)
+      or evaluates as `false` in boolean context, so that content authored
+      against this version of the specification continues to work as intended.
     </p>
     <p class="note">
       The <a href="#mf-installed">`installed`</a> media feature is orthogonal
@@ -3212,11 +3224,22 @@
       </li>
     </ul>
     <p>
-      As with all CSS media features, a document's own stylesheets may use
-      conditional `@import` rules or resource URLs within `@media (installed)`
-      blocks, causing network requests that reveal the media feature's value to
-      third-party servers. This is a general property of the CSS media query
-      mechanism and is not unique to this feature.
+      However, as with any CSS media feature, the value of <a href=
+      "#mf-installed">`installed`</a> can be inferred through:
+    </p>
+    <ul>
+      <li>Conditional `@import` rules or resource URLs within `@media
+      (installed)` blocks, where the resulting network requests reveal the
+      media feature's value to third-party servers.
+      </li>
+      <li>The timing of transitions between values (for example, during install
+      or uninstall flows), observable to same-origin script via the `change`
+      event on `MediaQueryList`.
+      </li>
+    </ul>
+    <p class="note">
+      These are intrinsic properties of the CSS media query mechanism and are
+      not unique to this feature.
     </p>
     <section id="priv-sec">
       <h2>
