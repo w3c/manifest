@@ -3087,7 +3087,24 @@
       data-dfn-for="@media" class="export">application-context</dfn></code>
       media feature reflects the application context in which the
       [=document=]'s [=node navigable=]'s [=navigable/top-level traversable=]
-      is running. It takes one of the following values:
+      is running.
+    </p>
+    <aside class="note" title="Independent of `display-mode`">
+      <p>
+        The <a data-link-for="@media">application-context</a> media feature is
+        orthogonal to the <a data-xref-type="css-descriptor" data-xref-for=
+        "@media">`display-mode`</a> media feature. An [=installed web
+        application=] can use any [=display mode=], including [=display
+        mode/fullscreen=], [=display mode/standalone=], [=display
+        mode/minimal-ui=], or [=display mode/browser=]. The <a data-link-for=
+        "@media">application-context</a> media feature answers "what
+        application context is this running in?" while `display-mode` answers
+        "what presentation mode is being used?"
+      </p>
+    </aside>
+    <p>
+      The <a data-link-for="@media">application-context</a> media feature
+      takes one of the following values:
     </p>
     <dl>
       <dt>
@@ -3108,6 +3125,16 @@
         Otherwise.
       </dd>
     </dl>
+    <aside class="note" title="Extensibility">
+      <p>
+        This specification defines two values for <a data-link-for=
+        "@media">application-context</a>. Future specifications may add new
+        values to describe additional application contexts. Content authored
+        against this version of the specification should continue to identify
+        [=installed web application=] contexts using `(application-context:
+        installed)`.
+      </p>
+    </aside>
     <p>
       The value of <a data-link-for="@media">application-context</a> MUST be
       <a data-link-for="@media/application-context">browser</a> in a
@@ -3122,29 +3149,12 @@
       "@media">application-context</a> MUST be the same as the value for the
       [=navigable/top-level traversable=]'s [=navigable/active document=].
     </p>
-    <p class="note">
-      This is consistent with same-origin script's existing access via
-      `window.top.matchMedia("(application-context: installed)")`.
-    </p>
-    <p class="note">
-      This specification defines two values for <a data-link-for=
-      "@media">application-context</a>. Future specifications may add new
-      values to describe additional application contexts. Content authored
-      against this version of the specification should continue to identify
-      [=installed web application=] contexts using `(application-context:
-      installed)`.
-    </p>
-    <p class="note">
-      The <a data-link-for="@media">application-context</a> media feature is
-      orthogonal to the <a data-xref-type="css-descriptor" data-xref-for=
-      "@media">`display-mode`</a> media feature. An [=installed web
-      application=] can use any [=display mode=], including [=display
-      mode/fullscreen=], [=display mode/standalone=], [=display
-      mode/minimal-ui=], or [=display mode/browser=]. The <a data-link-for=
-      "@media">application-context</a> media feature answers "what application
-      context is this running in?" while `display-mode` answers "what
-      presentation mode is being used?"
-    </p>
+    <aside class="note" title="Same-origin access">
+      <p>
+        This is consistent with same-origin script's existing access via
+        `window.top.matchMedia("(application-context: installed)")`.
+      </p>
+    </aside>
     <p data-cite="CSSOM-VIEW-1">
       When a [=top-level traversable=] becomes, or ceases to be, an
       [=application context=], the user agent MUST run the steps to [=evaluate
