@@ -3092,118 +3092,130 @@
       <h2>
         Privacy and security considerations
       </h2>
-      <p>
-        This specification does not directly deal with high-value data.
-        However, <a>installed web applications</a> and their data could be seen
-        as "high value" (particularly from a privacy perspective).
-      </p>
-      <p>
-        As the manifest format is JSON and will be encoded using [[UNICODE]],
-        the security considerations described in [[JSON]] and
-        [[UNICODE-SECURITY]] apply. In addition, because there is no way to
-        prevent developers from including custom/unrestrained data in a
-        <a>manifest</a>, implementors need to impose their own
-        implementation-specific limits on the values of otherwise unconstrained
-        member types, e.g. to prevent denial of service attacks, to guard
-        against running out of memory, or to work around platform-specific
-        limitations.
-      </p>
-      <p>
-        Web applications will generally contain ECMAScript, HTML, CSS files,
-        and other media, which are executed in a sand-boxed environment. As
-        such, implementors need to be aware of the security implications for
-        the types they support. Specifically, implementors need to consider the
-        security implications outlined in at least the following
-        specifications: [[CSS-MIME]], [[ECMAScript-MIME]], [[HTML]].
-      </p>
-      <p>
-        As web applications can contain content that is able to simultaneously
-        interact with the local device and a remote host, implementors need to
-        consider the privacy implications resulting from exposing private
-        information to a remote host. Mitigation and in-depth defensive
-        measures are an implementation responsibility and not prescribed by
-        this specification. However, in designing these measures, implementors
-        are advised to enable user awareness of information sharing, and to
-        provide easy access to interfaces that enable revocation of
-        permissions.
-      </p>
-      <p>
-        As this specification allows for the declaration of URLs within certain
-        members of a manifest, implementors need to consider the security
-        considerations discussed in the [[URL]] specification. Implementations
-        intending to display <abbr title=
-        "Internationalized Resource Identifiers">IRIs</abbr> and <abbr title=
-        "Internationalized domain name">IDNA</abbr> addresses found in the
-        manifest are strongly encouraged to follow the security advice given in
-        [[UNICODE-SECURITY]].
-      </p>
-      <p>
-        Developers need to be aware of the security considerations discussed
-        throughout the [[CSP3]] specification, particularly in relation to
-        making `data:` a valid source for the purpose of <q>inlining</q> a
-        manifest. Doing so can enable XSS attacks by allowing a manifest to be
-        included directly in the document itself; this is best avoided
-        completely.
-      </p>
-      <p>
-        It is RECOMMENDED that UI that affords the end user the ability to
-        <a>install</a> a web application also allows inspecting the icon, name,
-        <a>start URL</a>, origin, etc. pertaining to a web application. This is
-        to give an end-user an opportunity to make a conscious decision to
-        approve, and possibly modify, the information pertaining to the web
-        application before installing it. This also gives the end-user an
-        opportunity to discern if the web application is spoofing another web
-        application, by, for example, using an unexpected icon or name.
-      </p>
-      <p>
-        It is RECOMMENDED that user agents prevent other applications from
-        determining which applications are installed on the system (e.g., via a
-        timing attack on the user agent's cache). This could be done by, for
-        example, invalidating from the user agent's cache the resources linked
-        to from the manifest (for example, icons) after a web application is
-        <a>installed</a> - or by using an entirely different cache from that
-        used for regular web browsing.
-      </p>
-      <p>
-        It's conceivable that a shortcut [=shortcut item/url=] could be crafted
-        to indicate that the application was launched from outside the browser
-        (e.g., `"url": "/task/?from=homescreen"`). It is also conceivable that
-        developers could encode strings into the [=shortcut item/url=] that
-        uniquely identify the user (e.g., a server assigned <abbr>UUID</abbr>).
-        This is fingerprinting/privacy sensitive information that the user
-        might not be aware of, and, like an identifier encoded into the [=start
-        URL=], it is not cleared when the user clears site data.
-      </p>
-      <p>
-        As with the [=start URL=], it is RECOMMENDED that a user agent allows
-        the user to inspect and, if necessary, modify the [=shortcut item/url=]
-        of a shortcut, upon installation, or any time thereafter.
-      </p>
-      <p>
-        When the web application is running, it is RECOMMENDED that the user
-        agent provides the end-user a means to access common information about
-        the web application, such as the origin, start and/or current URL,
-        granted permissions, and associated icon. How such information is
-        exposed to end-users is left up to implementers.
-      </p>
-      <p>
-        Additionally, when applying a manifest that sets the <a>display
-        mode</a> to anything except "[=display mode/browser=]", it is
-        RECOMMENDED that the user agent clearly indicate to the end-user that
-        they are leaving the normal browsing context of a web browser. Ideally,
-        launching or switching to a web application is performed in a manner
-        that is consistent with launching or switching to other applications in
-        the host platform. For example, a long and obvious animated transition,
-        or speaking the text "Launching application X".
-      </p>
-      <p>
-        The `display` member allows an origin some measure of control over a
-        user agent’s native UI. After taking over the full screen, it could
-        attempt to mimic the user interface of another application. This is
-        also facilitated by the `'display-mode'` media feature
-        [[MEDIAQUERIES-5]], through which a script can know the display mode of
-        a web application.
-      </p>
+      <section>
+        <h3>
+          Privacy considerations
+        </h3>
+        <p>
+          This specification does not directly deal with high-value data.
+          However, <a>installed web applications</a> and their data could be
+          seen as "high value" (particularly from a privacy perspective).
+        </p>
+        <p>
+          As web applications can contain content that is able to
+          simultaneously interact with the local device and a remote host,
+          implementors need to consider the privacy implications resulting from
+          exposing private information to a remote host. Mitigation and
+          in-depth defensive measures are an implementation responsibility and
+          not prescribed by this specification. However, in designing these
+          measures, implementors are advised to enable user awareness of
+          information sharing, and to provide easy access to interfaces that
+          enable revocation of permissions.
+        </p>
+        <p>
+          It is RECOMMENDED that user agents prevent other applications from
+          determining which applications are installed on the system (e.g., via
+          a timing attack on the user agent's cache). This could be done by,
+          for example, invalidating from the user agent's cache the resources
+          linked to from the manifest (for example, icons) after a web
+          application is <a>installed</a> - or by using an entirely different
+          cache from that used for regular web browsing.
+        </p>
+        <p>
+          It's conceivable that a shortcut [=shortcut item/url=] could be
+          crafted to indicate that the application was launched from outside
+          the browser (e.g., `"url": "/task/?from=homescreen"`). It is also
+          conceivable that developers could encode strings into the [=shortcut
+          item/url=] that uniquely identify the user (e.g., a server assigned
+          <abbr>UUID</abbr>). This is fingerprinting/privacy sensitive
+          information that the user might not be aware of, and, like an
+          identifier encoded into the [=start URL=], it is not cleared when the
+          user clears site data.
+        </p>
+        <p>
+          As with the [=start URL=], it is RECOMMENDED that a user agent allows
+          the user to inspect and, if necessary, modify the [=shortcut
+          item/url=] of a shortcut, upon installation, or any time thereafter.
+        </p>
+      </section>
+      <section>
+        <h3>
+          Security considerations
+        </h3>
+        <p>
+          As the manifest format is JSON and will be encoded using [[UNICODE]],
+          the security considerations described in [[JSON]] and
+          [[UNICODE-SECURITY]] apply. In addition, because there is no way to
+          prevent developers from including custom/unrestrained data in a
+          <a>manifest</a>, implementors need to impose their own
+          implementation-specific limits on the values of otherwise
+          unconstrained member types, e.g. to prevent denial of service
+          attacks, to guard against running out of memory, or to work around
+          platform-specific limitations.
+        </p>
+        <p>
+          Web applications will generally contain ECMAScript, HTML, CSS files,
+          and other media, which are executed in a sand-boxed environment. As
+          such, implementors need to be aware of the security implications for
+          the types they support. Specifically, implementors need to consider
+          the security implications outlined in at least the following
+          specifications: [[CSS-MIME]], [[ECMAScript-MIME]], [[HTML]].
+        </p>
+        <p>
+          As this specification allows for the declaration of URLs within
+          certain members of a manifest, implementors need to consider the
+          security considerations discussed in the [[URL]] specification.
+          Implementations intending to display <abbr title=
+          "Internationalized Resource Identifiers">IRIs</abbr> and <abbr title=
+          "Internationalized domain name">IDNA</abbr> addresses found in the
+          manifest are strongly encouraged to follow the security advice given
+          in [[UNICODE-SECURITY]].
+        </p>
+        <p>
+          Developers need to be aware of the security considerations discussed
+          throughout the [[CSP3]] specification, particularly in relation to
+          making `data:` a valid source for the purpose of <q>inlining</q> a
+          manifest. Doing so can enable XSS attacks by allowing a manifest to
+          be included directly in the document itself; this is best avoided
+          completely.
+        </p>
+        <p>
+          It is RECOMMENDED that UI that affords the end user the ability to
+          <a>install</a> a web application also allows inspecting the icon,
+          name, <a>start URL</a>, origin, etc. pertaining to a web application.
+          This is to give an end-user an opportunity to make a conscious
+          decision to approve, and possibly modify, the information pertaining
+          to the web application before installing it. This also gives the
+          end-user an opportunity to discern if the web application is spoofing
+          another web application, by, for example, using an unexpected icon or
+          name.
+        </p>
+        <p>
+          When the web application is running, it is RECOMMENDED that the user
+          agent provides the end-user a means to access common information
+          about the web application, such as the origin, start and/or current
+          URL, granted permissions, and associated icon. How such information
+          is exposed to end-users is left up to implementers.
+        </p>
+        <p>
+          Additionally, when applying a manifest that sets the <a>display
+          mode</a> to anything except "[=display mode/browser=]", it is
+          RECOMMENDED that the user agent clearly indicate to the end-user that
+          they are leaving the normal browsing context of a web browser.
+          Ideally, launching or switching to a web application is performed in
+          a manner that is consistent with launching or switching to other
+          applications in the host platform. For example, a long and obvious
+          animated transition, or speaking the text "Launching application X".
+        </p>
+        <p>
+          The `display` member allows an origin some measure of control over a
+          user agent’s native UI. After taking over the full screen, it could
+          attempt to mimic the user interface of another application. This is
+          also facilitated by the `'display-mode'` media feature
+          [[MEDIAQUERIES-5]], through which a script can know the display mode
+          of a web application.
+        </p>
+      </section>
     </section>
     <section class="appendix">
       <h2>
