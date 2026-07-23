@@ -170,7 +170,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="af03eb3099b6574281422d61ec33d1b22e2fdac1">
+<meta name="revision" content="c472e7608700e177eeeb67a9e07526cae03c4a72">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -329,7 +329,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "af03eb3099b6574281422d61ec33d1b22e2fdac1",
+  "gitRevision": "c472e7608700e177eeeb67a9e07526cae03c4a72",
   "publishISODate": "2026-07-23T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 23 July 2026"
 }</script>
@@ -4018,7 +4018,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         developers could encode strings into the <a data-link-type="dfn|abstract-op" href="#dfn-url" class="internalDFN" id="ref-for-dfn-url-3"><code>url</code></a> that
         uniquely identify the user (e.g., a server assigned <abbr>UUID</abbr>).
         This is fingerprinting/privacy sensitive information that the user
-        might not be aware of.
+        might not be aware of, and, like an identifier encoded into the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-11">start URL</a>, it is not cleared when the user clears site data.
+      </p>
+      <p>
+        As with the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-12">start URL</a>, it is <em class="rfc2119">RECOMMENDED</em> that a user agent allows
+        the user to inspect and, if necessary, modify the <a data-link-type="dfn|abstract-op" href="#dfn-url" class="internalDFN" id="ref-for-dfn-url-4"><code>url</code></a>
+        of a shortcut, upon installation, or any time thereafter.
       </p>
       <p>
         When the web application is running, it is <em class="rfc2119">RECOMMENDED</em> that the user
@@ -4951,7 +4956,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-start-url-9" title="§ 4.3 Privacy and security considerations">§ 4.3 Privacy and security considerations</a> 
     </li><li>
-      <a href="#ref-for-dfn-start-url-10" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> 
+      <a href="#ref-for-dfn-start-url-10" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> <a href="#ref-for-dfn-start-url-11" title="Reference 2">(2)</a> <a href="#ref-for-dfn-start-url-12" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-the-start_url-member" aria-label="Links in this document to definition: process the start_url member">
@@ -5864,7 +5869,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <li>
       <a href="#ref-for-dfn-url-1" title="§ 3. Shortcut items">§ 3. Shortcut items</a> 
     </li><li>
-      <a href="#ref-for-dfn-url-2" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> <a href="#ref-for-dfn-url-3" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-url-2" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> <a href="#ref-for-dfn-url-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-url-4" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-icons-0" aria-label="Links in this document to definition: icons">
