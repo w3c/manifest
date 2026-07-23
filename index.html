@@ -655,12 +655,12 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">icons</dfn></code> member are images that serve as iconic
-          representations of the web application in various contexts. For
-          example, they can be used to represent the web application amongst a
-          list of other applications, or to integrate the web application with
-          an <abbr title="Operating system">OS</abbr>'s task switcher and/or
-          system preferences.
+          "manifest">icons</dfn></code> member specifies images that serve as
+          iconic representations of the web application in various contexts.
+          For example, they can be used to represent the web application
+          amongst a list of other applications, or to integrate the web
+          application with an <abbr title="Operating system">OS</abbr>'s task
+          switcher and/or system preferences.
         </p>
         <p>
           The [=manifest/icons=] member is a [=localizable member=].
@@ -690,7 +690,7 @@
           <li>Set |manifest|["display"] to "browser".
           </li>
           <li>If |json|["display"] doesn't [=map/exist=] or |json|["display"]
-          is not a a [=string=], return.
+          is not a [=string=], return.
           </li>
           <li>[=Strip leading and trailing ASCII whitespace=] from
           |json|["display"].
@@ -736,12 +736,11 @@
         </p>
         <p>
           Certain UI/UX concerns and/or platform conventions will mean that
-          some screen orientations and <dfn>cannot be used together</dfn>.
-          Which orientations and display modes cannot be used together is left
-          to the discretion of implementers. For example, for some user agents,
-          it might not make sense to change the <a>default screen
-          orientation</a> of an application while in `browser` <a>display
-          mode</a>.
+          some screen orientations cannot be used together. Which orientations
+          and display modes cannot be used together is left to the discretion
+          of implementers. For example, for some user agents, it might not make
+          sense to change the <a>default screen orientation</a> of an
+          application while in `browser` <a>display mode</a>.
         </p>
         <p class="note">
           Once the web application is running, other means can change the
@@ -1907,7 +1906,7 @@
             </p>
           </aside>
           <p>
-            For the purpose of updating, the following member are
+            For the purpose of updating, the following members are
             <dfn>security-sensitive members</dfn>, as they are presented during
             installation and on launch surfaces:
           </p>
@@ -1928,9 +1927,9 @@
             "">non-security-sensitive members</dfn>.
           </p>
           <p>
-            A <dfn>security-sensitive update</dfn> is a update to a
+            A <dfn>security-sensitive update</dfn> is an update to a
             [=security-sensitive member=]. Respectively, a
-            <dfn>non-security-sensitive update</dfn> is a update to a
+            <dfn>non-security-sensitive update</dfn> is an update to a
             [=non-security-sensitive member=].
           </p>
           <p>
@@ -2339,7 +2338,7 @@
           fill</dfn> such as a single color, where only the transparency of the
           icon can be declared in a [=manifest=]. As web applications need to
           work across multiple platforms, it is possible to indicate that an
-          icon can have an user-agent-specified color applied by adding the
+          icon can have a user-agent-specified color applied by adding the
           [=icon purpose/monochrome=] purpose. This allows the platform to
           ensure that the icon looks well integrated with the platform, and
           even apply different colors and padding in different places
@@ -2922,8 +2921,8 @@
             in the user's preferred web browser.
           </p>
           <p>
-            Implementers are encouraged make such context switching obvious to
-            the user, for example, by adhering to the human interface
+            Implementers are encouraged to make such context switching obvious
+            to the user, for example, by adhering to the human interface
             guidelines of the underlying platform with respect to application
             switching.
           </p>
@@ -3060,7 +3059,7 @@
         <p>
           SuperSecure Browser (a fictitious browser) only supports the
           `minimal-ui` and `browser` display modes, but a developer declares
-          that they wants `fullscreen` in the manifest by using the
+          that they want `fullscreen` in the manifest by using the
           [=manifest/display=] property. In this case, the user agent will
           first check if it supports `fullscreen` (it doesn't), so it falls
           back to `standalone` (which it also doesn't support), and ultimately
@@ -3373,11 +3372,11 @@
         Additionally, when applying a manifest that sets the <a>display
         mode</a> to anything except "[=display mode/browser=]", it is
         RECOMMENDED that the user agent clearly indicate to the end-user that
-        their are leaving the normal browsing context of a web browser.
-        Ideally, launching or switching to a web application is performed in a
-        manner that is consistent with launching or switching to other
-        applications in the host platform. For example, a long and obvious
-        animated transition, or speaking the text "Launching application X".
+        they are leaving the normal browsing context of a web browser. Ideally,
+        launching or switching to a web application is performed in a manner
+        that is consistent with launching or switching to other applications in
+        the host platform. For example, a long and obvious animated transition,
+        or speaking the text "Launching application X".
       </p>
       <p>
         The `display` member allows an origin some measure of control over a
@@ -3737,7 +3736,7 @@
       <p>
         In addition, standardizing the functionality currently provided by the
         various `meta` tag-based solutions within the manifest solves the
-        problem of having tproprietary and standard [[HTML]] tags that all
+        problem of having proprietary and standard [[HTML]] tags that all
         achieve the same thing. Of course, this hinges on the standard actually
         getting implemented by browsers and those browsers getting widely
         deployed to users: if this happens, the Web community might be able to
