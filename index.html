@@ -372,12 +372,12 @@
             agent would present
             <samp>https://example.com/icons/play-later.svg</samp> next to the
             text. When launched, the user agent would instantiate a new
-            <a>top-level browsing context</a> and navigate to
+            <a>top-level traversable</a> and navigate to
             <samp>https://example.com/play-later</samp>.
             </li>
             <li>The second shortcut would be displayed with the text
             "Subscriptions". When launched, the user agent would instantiate a
-            new <a>top-level browsing context</a> and navigate to
+            new <a>top-level traversable</a> and navigate to
             <samp>https://example.com/subscriptions?sort=desc</samp>.
             </li>
           </ul>
@@ -712,7 +712,7 @@
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">orientation</dfn></code> member is a <a>string</a> that
           serves as the <a>default screen orientation</a> for all <a>top-level
-          browsing contexts</a> of the web application. The possible values are
+          traversables</a> of the web application. The possible values are
           those of the {{OrientationLockType}} enum, which in this
           specification are referred to as the <dfn>orientation values</dfn>
           (i.e., "any", "natural", "landscape", "portrait", "portrait-primary",
@@ -725,8 +725,8 @@
           application (unless overridden by some other means at runtime). This
           means that the user agent MUST return the orientation to the
           <a>default screen orientation</a> any time the orientation is
-          unlocked [[SCREEN-ORIENTATION]] or the <a>top-level browsing
-          context</a> is <a>navigated</a>.
+          unlocked [[SCREEN-ORIENTATION]] or the <a>top-level
+          traversable</a> is <a>navigated</a>.
         </p>
         <p class="note">
           Although the specification relies on the [[SCREEN-ORIENTATION]]'s
@@ -745,7 +745,7 @@
         </p>
         <p class="note">
           Once the web application is running, other means can change the
-          orientation of a <a>top-level browsing context</a> (such as via
+          orientation of a <a>top-level traversable</a> (such as via
           [[SCREEN-ORIENTATION]] API).
         </p>
         <p>
@@ -1097,9 +1097,9 @@
         <p>
           If the user agent honors the value of the [=manifest/theme_color=]
           member as the [=default theme color=], then that color serves as the
-          [=theme color=] for all [=browsing contexts=] to which the manifest
-          is [=applied=]. However, the user agent MAY override the [=default
-          theme color=] if a [=document=] whose [=Document/URL=] is
+          [=theme color=] for all [=top-level traversables=] to which the
+          manifest is [=applied=]. However, the user agent MAY override the
+          [=default theme color=] if a [=document=] whose [=Document/URL=] is
           [=URL/within scope=] of the [=application context=]'s [=manifest=]
           includes a [^meta^] element whose [^meta/name^] attribute is
           "[^meta/name/theme-color^]". However, the user agent SHOULD NOT
@@ -1811,30 +1811,28 @@
           </h3>
           <p>
             A [=Document/processed manifest=] is <dfn data-lt=
-            "apply|applying">applied</dfn> to a [=top-level browsing context=],
+            "apply|applying">applied</dfn> to a [=top-level traversable=],
             meaning that the members of the [=manifest=] are affecting the
-            presentation and/or behavior of the browsing context. Whenever a
-            [=top-level browsing context=] is created, the user agent MAY
+            presentation and/or behavior of the [=top-level traversable=].
+            Whenever a [=top-level traversable=] is created, the user agent MAY
             [=apply=] a manifest to it before [=navigate|navigation=] begins.
           </p>
           <p>
             A user agent MAY also [=apply=] a manifest to an existing
-            [=top-level browsing context=]. If the [=navigable/active
-            document=]'s [=Document/URL=] is [=manifest/within scope=] of the
-            manifest, the existing [=top-level browsing context=] becomes an
-            [=application context=]. If the [=Document/URL=] is not
-            [=manifest/within scope=], the resulting behavior is
-            implementation-defined.
+            [=top-level traversable=]. If the [=navigable/active document=]'s
+            [=Document/URL=] is [=manifest/within scope=] of the manifest, the
+            existing [=top-level traversable=] becomes an [=application
+            context=]. If the [=Document/URL=] is not [=manifest/within
+            scope=], the resulting behavior is implementation-defined.
           </p>
           <aside class="note">
             <p>
               Some user agents might [=apply=] a manifest to the existing
-              [=top-level browsing context=] from which installation was
-              initiated. If the [=navigable/active document=]'s
-              [=Document/URL=] is not [=manifest/within scope=] of the
-              manifest's [=manifest/navigation scope=], one possible behavior
-              is that the [=application context=] initially exists at an
-              out-of-scope [=Document/URL=].
+              [=top-level traversable=] from which installation was initiated.
+              If the [=navigable/active document=]'s [=Document/URL=] is not
+              [=manifest/within scope=] of the manifest's [=manifest/navigation
+              scope=], one possible behavior is that the [=application
+              context=] initially exists at an out-of-scope [=Document/URL=].
             </p>
           </aside>
           <aside class="note">
@@ -1842,24 +1840,39 @@
             the discretion of the user agent, based on the user's actions. For
             example, if the user launched an application from the system menu
             or from a [=launching a shortcut|shortcut=], the user agent might
-            create a new [=top-level browsing context=] with that application's
+            create a new [=top-level traversable=] with that application's
             [=manifest=] [=applied=], but it might not do so if the user simply
             clicked a bookmark to a URL within the application's
             [=manifest/navigation scope=].
           </aside>
           <p>
-            A <a>top-level browsing context</a> that has a manifest applied to
-            it is referred to as an <dfn data-export="">application
-            context</dfn>.
+            A [=top-level traversable=] that has a manifest applied to it is
+            referred to as an <dfn data-export="">application context</dfn>.
           </p>
           <p>
-            If an <a>application context</a> is created as a result of the user
-            agent being asked to <a>navigate</a> to a <a>deep link</a>, the
-            user agent MUST immediately <a>navigate</a> to the <a>deep link</a>
-            with <var>historyHandling</var> set to "`replace`". Otherwise, when
-            the <a>application context</a> is created, the user agent MUST
-            immediately <a>navigate</a> to the <a>start URL</a> with
-            <var>historyHandling</var> set to "`replace`".
+            A processed manifest can also be <dfn data-lt=
+            "unapply|unapplying">unapplied</dfn> from a [=top-level
+            traversable=]. When this happens, the [=top-level traversable=]
+            ceases to be an [=application context=].
+          </p>
+          <aside class="note">
+            <p>
+              A user agent might [=unapply=] a manifest, for example, when the
+              user removes the web application from their device while a
+              document associated with the [=application context=] is still
+              open. The [=top-level traversable=]'s subsequent behavior (e.g.,
+              whether it closes, reverts to a regular browser tab, etc.) is
+              implementation-defined.
+            </p>
+          </aside>
+          <p>
+            If an [=application context=] is created as a result of the user
+            agent being asked to [=navigate=] to a [=deep link=], the user
+            agent MUST immediately [=navigate=] to the [=deep link=] with
+            <var>historyHandling</var> set to "`replace`". Otherwise, when the
+            [=application context=] is created, the user agent MUST immediately
+            [=navigate=] to the [=start URL=] with <var>historyHandling</var>
+            set to "`replace`".
           </p>
           <aside class="note">
             <p>
@@ -2606,17 +2619,17 @@
         A user agent can provide a way for the end-user to <dfn class="export"
         data-lt="installed|installing|installation">install</dfn> a web
         application on the end-user's device, allowing the user to instantiate
-        a new [=top-level browsing context=] with the manifest's members
+        a new [=top-level traversable=] with the manifest's members
         [=applied=].
       </p>
       <p>
         Once a web application is [=installed=] it is known as a <dfn class=
         "export">installed web application</dfn>: That is, the manifest's
         members, or their defaults, are [=applied=] to the <a>top-level
-        browsing context</a> of the web application. This distinguishes an
-        installed web application from a traditional bookmark, as opening a web
-        page from a traditional bookmark will not have the manifest's
-        properties <a>applied</a> to it.
+        traversable</a> of the web application. This distinguishes an installed
+        web application from a traditional bookmark, as opening a web page from
+        a traditional bookmark will not have the manifest's properties
+        <a>applied</a> to it.
       </p>
       <p class="note">
         For example, on user agents that support installation, a web
@@ -2624,11 +2637,12 @@
         end-user, is indistinguishable from native applications: such as
         appearing as a labeled icon on the home screen, launcher, or start
         menu. When [=launching a web application=], the manifest is
-        <a>applied</a> by the user agent to the <a>top-level browsing
-        context</a> prior to the <a>start URL</a> being loaded. This gives the
-        user agent an opportunity to apply the relevant values of the manifest,
-        possibly changing the <a>display mode</a> and screen orientation of the
-        web application. Alternatively, and again as an example, the user agent
+        <a>applied</a> by the user agent to the <a>top-level
+        traversable</a> prior to the <a>start URL</a> being loaded. This gives
+        the user agent an opportunity to apply the relevant values of the
+        manifest, possibly changing the <a>display mode</a> and screen
+        orientation of the web application. Alternatively, and again as an
+        example, the user agent
         could <a>install</a> the web application into a list of bookmarks
         within the user agent itself.
       </p>
@@ -2725,12 +2739,9 @@
           a fresh top-level traversable=] with |target URL| and |POST
           resource|.
           </li>
-          <li>Let |browsing context| be the |traversable|'s <a data-cite=
-          "html#nav-bc">active browsing context</a>.
+          <li>[=Apply=] |manifest| to |traversable|.
           </li>
-          <li>[=Apply=] |manifest| to |browsing context|.
-          </li>
-          <li>Return |browsing context|.
+          <li>Return |traversable|.
           </li>
         </ol>
       </section>
@@ -2858,9 +2869,9 @@
         <p>
           Unlike previous versions of this specification, user agents are no
           longer required or allowed to block off-scope navigations, or open
-          them in a new <a>top-level browsing context</a>. This practice broke
-          some sites that navigate to an off-scope URL (e.g., to perform
-          third-party authentication). See <a href=
+          them in a new <a>top-level traversable</a>. This practice broke some
+          sites that navigate to an off-scope URL (e.g., to perform third-party
+          authentication). See <a href=
           "https://github.com/w3c/manifest/issues/646">Issue 646</a>.
         </p>
       </aside>
@@ -2986,13 +2997,13 @@
         returns `false`.
       </p>
       <p>
-        Once a manifest is [=applied=] to a <a>top-level browsing context</a>,
-        the [=display mode=] in effect is the <dfn>applied display mode</dfn>
-        for that <a>top-level browsing context</a>. The user agent MAY change
-        the [=applied display mode=] for security reasons (e.g., the
-        <a>top-level browsing context</a> is <a>navigated</a> out of scope)
-        and/or the user agent MAY provide the user with a means of switching to
-        another [=display mode=].
+        Once a manifest is [=applied=] to a <a>top-level traversable</a>, the
+        [=display mode=] in effect is the <dfn>applied display mode</dfn> for
+        that <a>top-level traversable</a>. The user agent MAY change the
+        [=applied display mode=] for security reasons (e.g., the <a>top-level
+        traversable</a> is <a>navigated</a> out of scope) and/or the user agent
+        MAY provide the user with a means of switching to another [=display
+        mode=].
       </p>
       <p>
         When the [=manifest/display=] member is missing, or if there is no
