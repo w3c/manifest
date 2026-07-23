@@ -170,7 +170,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="d923b1922fe0caedcf805f3b2f0b047471f59021">
+<meta name="revision" content="b74c08a94158a6fb0b01a60854fb05897b4be75c">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -329,7 +329,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "d923b1922fe0caedcf805f3b2f0b047471f59021",
+  "gitRevision": "b74c08a94158a6fb0b01a60854fb05897b4be75c",
   "publishISODate": "2026-07-23T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 23 July 2026"
 }</script>
@@ -604,7 +604,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Display modes
       </a></li><li class="tocline"><a class="tocxref" href="#priv-sec"><bdi class="secno">7. </bdi>
         Privacy and security considerations
-      </a></li><li class="tocline"><a class="tocxref" href="#iana-considerations"><bdi class="secno">A. </bdi>
+      </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#privacy-considerations"><bdi class="secno">7.1 </bdi>
+          Privacy considerations
+        </a></li><li class="tocline"><a class="tocxref" href="#security-considerations-0"><bdi class="secno">7.2 </bdi>
+          Security considerations
+        </a></li></ol></li><li class="tocline"><a class="tocxref" href="#iana-considerations"><bdi class="secno">A. </bdi>
         <abbr title="Internet Assigned Numbers Authority">IANA</abbr> considerations
       </a><ol class="toc"><li class="tocline"><a class="tocxref" href="#media-type-registration"><bdi class="secno">A.1 </bdi>
           Media type registration
@@ -3942,115 +3946,126 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         Privacy and security considerations
       </h2><a class="self-link" href="#priv-sec" aria-label="Permalink for Section 7."></a></div>
       
-      <p>
-        This specification does not directly deal with high-value data.
-        However, <a href="#dfn-installed-web-application" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-web-application-6">installed web applications</a> and their data could be seen
-        as "high value" (particularly from a privacy perspective).
-      </p>
-      <p>
-        As the manifest format is JSON and will be encoded using [<cite><a class="bibref" data-link-type="biblio" href="#bib-unicode" title="The Unicode Standard">UNICODE</a></cite>],
-        the security considerations described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-json" title="The JavaScript Object Notation (JSON) Data Interchange Format">JSON</a></cite>] and
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-unicode-security" title="Unicode Security Considerations">UNICODE-SECURITY</a></cite>] apply. In addition, because there is no way to
-        prevent developers from including custom/unrestrained data in a
-        <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-32">manifest</a>, implementors need to impose their own
-        implementation-specific limits on the values of otherwise unconstrained
-        member types, e.g. to prevent denial of service attacks, to guard
-        against running out of memory, or to work around platform-specific
-        limitations.
-      </p>
-      <p>
-        Web applications will generally contain ECMAScript, HTML, CSS files,
-        and other media, which are executed in a sand-boxed environment. As
-        such, implementors need to be aware of the security implications for
-        the types they support. Specifically, implementors need to consider the
-        security implications outlined in at least the following
-        specifications: [<cite><a class="bibref" data-link-type="biblio" href="#bib-css-mime" title="The text/css Media Type">CSS-MIME</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-ecmascript-mime" title="Scripting Media Types">ECMAScript-MIME</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>].
-      </p>
-      <p>
-        As web applications can contain content that is able to simultaneously
-        interact with the local device and a remote host, implementors need to
-        consider the privacy implications resulting from exposing private
-        information to a remote host. Mitigation and in-depth defensive
-        measures are an implementation responsibility and not prescribed by
-        this specification. However, in designing these measures, implementors
-        are advised to enable user awareness of information sharing, and to
-        provide easy access to interfaces that enable revocation of
-        permissions.
-      </p>
-      <p>
-        As this specification allows for the declaration of URLs within certain
-        members of a manifest, implementors need to consider the security
-        considerations discussed in the [<cite><a class="bibref" data-link-type="biblio" href="#bib-url" title="URL Standard">URL</a></cite>] specification. Implementations
-        intending to display <abbr title="Internationalized Resource Identifiers">IRIs</abbr> and <abbr title="Internationalized domain name">IDNA</abbr> addresses found in the
-        manifest are strongly encouraged to follow the security advice given in
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-unicode-security" title="Unicode Security Considerations">UNICODE-SECURITY</a></cite>].
-      </p>
-      <p>
-        Developers need to be aware of the security considerations discussed
-        throughout the [<cite><a class="bibref" data-link-type="biblio" href="#bib-csp3" title="Content Security Policy Level 3">CSP3</a></cite>] specification, particularly in relation to
-        making <code>data:</code> a valid source for the purpose of <q>inlining</q> a
-        manifest. Doing so can enable XSS attacks by allowing a manifest to be
-        included directly in the document itself; this is best avoided
-        completely.
-      </p>
-      <p>
-        It is <em class="rfc2119">RECOMMENDED</em> that UI that affords the end user the ability to
-        <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-8">install</a> a web application also allows inspecting the icon, name,
-        <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-10">start URL</a>, origin, etc. pertaining to a web application. This is
-        to give an end-user an opportunity to make a conscious decision to
-        approve, and possibly modify, the information pertaining to the web
-        application before installing it. This also gives the end-user an
-        opportunity to discern if the web application is spoofing another web
-        application, by, for example, using an unexpected icon or name.
-      </p>
-      <p>
-        It is <em class="rfc2119">RECOMMENDED</em> that user agents prevent other applications from
-        determining which applications are installed on the system (e.g., via a
-        timing attack on the user agent's cache). This could be done by, for
-        example, invalidating from the user agent's cache the resources linked
-        to from the manifest (for example, icons) after a web application is
-        <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-9">installed</a> - or by using an entirely different cache from that
-        used for regular web browsing.
-      </p>
-      <p>
-        It's conceivable that a shortcut <a data-link-type="dfn|abstract-op" href="#dfn-url" class="internalDFN" id="ref-for-dfn-url-2"><code>url</code></a> could be crafted
-        to indicate that the application was launched from outside the browser
-        (e.g., <code>"url": "/task/?from=homescreen"</code>). It is also conceivable that
-        developers could encode strings into the <a data-link-type="dfn|abstract-op" href="#dfn-url" class="internalDFN" id="ref-for-dfn-url-3"><code>url</code></a> that
-        uniquely identify the user (e.g., a server assigned <abbr>UUID</abbr>).
-        This is fingerprinting/privacy sensitive information that the user
-        might not be aware of, and, like an identifier encoded into the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-11">start URL</a>, it is not cleared when the user clears site data.
-      </p>
-      <p>
-        As with the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-12">start URL</a>, it is <em class="rfc2119">RECOMMENDED</em> that a user agent allows
-        the user to inspect and, if necessary, modify the <a data-link-type="dfn|abstract-op" href="#dfn-url" class="internalDFN" id="ref-for-dfn-url-4"><code>url</code></a>
-        of a shortcut, upon installation, or any time thereafter.
-      </p>
-      <p>
-        When the web application is running, it is <em class="rfc2119">RECOMMENDED</em> that the user
-        agent provides the end-user a means to access common information about
-        the web application, such as the origin, start and/or current URL,
-        granted permissions, and associated icon. How such information is
-        exposed to end-users is left up to implementers.
-      </p>
-      <p>
-        Additionally, when applying a manifest that sets the <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-17">display
-        mode</a> to anything except "<a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-10">browser</a>", it is
-        <em class="rfc2119">RECOMMENDED</em> that the user agent clearly indicate to the end-user that
-        they are leaving the normal browsing context of a web browser. Ideally,
-        launching or switching to a web application is performed in a manner
-        that is consistent with launching or switching to other applications in
-        the host platform. For example, a long and obvious animated transition,
-        or speaking the text "Launching application X".
-      </p>
-      <p>
-        The <code>display</code> member allows an origin some measure of control over a
-        user agent’s native UI. After taking over the full screen, it could
-        attempt to mimic the user interface of another application. This is
-        also facilitated by the <code>'display-mode'</code> media feature
-        [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5" title="Media Queries Level 5">MEDIAQUERIES-5</a></cite>], through which a script can know the display mode of
-        a web application.
-      </p>
+      <section id="privacy-considerations"><div class="header-wrapper"><h3 id="x7-1-privacy-considerations"><bdi class="secno">7.1 </bdi>
+          Privacy considerations
+        </h3><a class="self-link" href="#privacy-considerations" aria-label="Permalink for Section 7.1"></a></div>
+        
+        <p>
+          This specification does not directly deal with high-value data.
+          However, <a href="#dfn-installed-web-application" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-web-application-6">installed web applications</a> and their data could be
+          seen as "high value" (particularly from a privacy perspective).
+        </p>
+        <p>
+          As web applications can contain content that is able to
+          simultaneously interact with the local device and a remote host,
+          implementors need to consider the privacy implications resulting from
+          exposing private information to a remote host. Mitigation and
+          in-depth defensive measures are an implementation responsibility and
+          not prescribed by this specification. However, in designing these
+          measures, implementors are advised to enable user awareness of
+          information sharing, and to provide easy access to interfaces that
+          enable revocation of permissions.
+        </p>
+        <p>
+          It is <em class="rfc2119">RECOMMENDED</em> that user agents prevent other applications from
+          determining which applications are installed on the system (e.g., via
+          a timing attack on the user agent's cache). This could be done by,
+          for example, invalidating from the user agent's cache the resources
+          linked to from the manifest (for example, icons) after a web
+          application is <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-8">installed</a> - or by using an entirely different
+          cache from that used for regular web browsing.
+        </p>
+        <p>
+          It's conceivable that a shortcut <a data-link-type="dfn|abstract-op" href="#dfn-url" class="internalDFN" id="ref-for-dfn-url-2"><code>url</code></a> could be
+          crafted to indicate that the application was launched from outside
+          the browser (e.g., <code>"url": "/task/?from=homescreen"</code>). It is also
+          conceivable that developers could encode strings into the <a data-link-type="dfn|abstract-op" href="#dfn-url" class="internalDFN" id="ref-for-dfn-url-3"><code>url</code></a> that uniquely identify the user (e.g., a server assigned
+          <abbr>UUID</abbr>). This is fingerprinting/privacy sensitive
+          information that the user might not be aware of, and, like an
+          identifier encoded into the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-10">start URL</a>, it is not cleared when the
+          user clears site data.
+        </p>
+        <p>
+          As with the <a data-link-type="dfn|abstract-op" href="#dfn-start-url" class="internalDFN" id="ref-for-dfn-start-url-11">start URL</a>, it is <em class="rfc2119">RECOMMENDED</em> that a user agent allows
+          the user to inspect and, if necessary, modify the <a data-link-type="dfn|abstract-op" href="#dfn-url" class="internalDFN" id="ref-for-dfn-url-4"><code>url</code></a> of a shortcut, upon installation, or any time thereafter.
+        </p>
+      </section>
+      <section id="security-considerations-0"><div class="header-wrapper"><h3 id="x7-2-security-considerations"><bdi class="secno">7.2 </bdi>
+          Security considerations
+        </h3><a class="self-link" href="#security-considerations-0" aria-label="Permalink for Section 7.2"></a></div>
+        
+        <p>
+          As the manifest format is JSON and will be encoded using [<cite><a class="bibref" data-link-type="biblio" href="#bib-unicode" title="The Unicode Standard">UNICODE</a></cite>],
+          the security considerations described in [<cite><a class="bibref" data-link-type="biblio" href="#bib-json" title="The JavaScript Object Notation (JSON) Data Interchange Format">JSON</a></cite>] and
+          [<cite><a class="bibref" data-link-type="biblio" href="#bib-unicode-security" title="Unicode Security Considerations">UNICODE-SECURITY</a></cite>] apply. In addition, because there is no way to
+          prevent developers from including custom/unrestrained data in a
+          <a href="#dfn-manifest" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-manifest-32">manifest</a>, implementors need to impose their own
+          implementation-specific limits on the values of otherwise
+          unconstrained member types, e.g. to prevent denial of service
+          attacks, to guard against running out of memory, or to work around
+          platform-specific limitations.
+        </p>
+        <p>
+          Web applications will generally contain ECMAScript, HTML, CSS files,
+          and other media, which are executed in a sand-boxed environment. As
+          such, implementors need to be aware of the security implications for
+          the types they support. Specifically, implementors need to consider
+          the security implications outlined in at least the following
+          specifications: [<cite><a class="bibref" data-link-type="biblio" href="#bib-css-mime" title="The text/css Media Type">CSS-MIME</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-ecmascript-mime" title="Scripting Media Types">ECMAScript-MIME</a></cite>], [<cite><a class="bibref" data-link-type="biblio" href="#bib-html" title="HTML Standard">HTML</a></cite>].
+        </p>
+        <p>
+          As this specification allows for the declaration of URLs within
+          certain members of a manifest, implementors need to consider the
+          security considerations discussed in the [<cite><a class="bibref" data-link-type="biblio" href="#bib-url" title="URL Standard">URL</a></cite>] specification.
+          Implementations intending to display <abbr title="Internationalized Resource Identifiers">IRIs</abbr> and <abbr title="Internationalized domain name">IDNA</abbr> addresses found in the
+          manifest are strongly encouraged to follow the security advice given
+          in [<cite><a class="bibref" data-link-type="biblio" href="#bib-unicode-security" title="Unicode Security Considerations">UNICODE-SECURITY</a></cite>].
+        </p>
+        <p>
+          Developers need to be aware of the security considerations discussed
+          throughout the [<cite><a class="bibref" data-link-type="biblio" href="#bib-csp3" title="Content Security Policy Level 3">CSP3</a></cite>] specification, particularly in relation to
+          making <code>data:</code> a valid source for the purpose of <q>inlining</q> a
+          manifest. Doing so can enable XSS attacks by allowing a manifest to
+          be included directly in the document itself; this is best avoided
+          completely.
+        </p>
+        <p>
+          It is <em class="rfc2119">RECOMMENDED</em> that UI that affords the end user the ability to
+          <a href="#dfn-installed" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-installed-9">install</a> a web application also allows inspecting the icon,
+          name, <a href="#dfn-start-url" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-start-url-12">start URL</a>, origin, etc. pertaining to a web application.
+          This is to give an end-user an opportunity to make a conscious
+          decision to approve, and possibly modify, the information pertaining
+          to the web application before installing it. This also gives the
+          end-user an opportunity to discern if the web application is spoofing
+          another web application, by, for example, using an unexpected icon or
+          name.
+        </p>
+        <p>
+          When the web application is running, it is <em class="rfc2119">RECOMMENDED</em> that the user
+          agent provides the end-user a means to access common information
+          about the web application, such as the origin, start and/or current
+          URL, granted permissions, and associated icon. How such information
+          is exposed to end-users is left up to implementers.
+        </p>
+        <p>
+          Additionally, when applying a manifest that sets the <a href="#dfn-display-mode" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-display-mode-17">display
+          mode</a> to anything except "<a data-link-type="dfn|abstract-op" href="#dfn-browser" class="internalDFN" id="ref-for-dfn-browser-10">browser</a>", it is
+          <em class="rfc2119">RECOMMENDED</em> that the user agent clearly indicate to the end-user that
+          they are leaving the normal browsing context of a web browser.
+          Ideally, launching or switching to a web application is performed in
+          a manner that is consistent with launching or switching to other
+          applications in the host platform. For example, a long and obvious
+          animated transition, or speaking the text "Launching application X".
+        </p>
+        <p>
+          The <code>display</code> member allows an origin some measure of control over a
+          user agent’s native UI. After taking over the full screen, it could
+          attempt to mimic the user interface of another application. This is
+          also facilitated by the <code>'display-mode'</code> media feature
+          [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5" title="Media Queries Level 5">MEDIAQUERIES-5</a></cite>], through which a script can know the display mode
+          of a web application.
+        </p>
+      </section>
     </section>
     <section class="appendix" id="iana-considerations"><div class="header-wrapper"><h2 id="a-iana-considerations"><bdi class="secno">A. </bdi>
         <abbr title="Internet Assigned Numbers Authority">IANA</abbr> considerations
@@ -4558,7 +4573,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-manifest-31" title="§ 5. Navigation scope">§ 5. Navigation scope</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-32" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> 
+      <a href="#ref-for-dfn-manifest-32" title="§ 7.2 Security considerations">§ 7.2 Security considerations</a> 
     </li><li>
       <a href="#ref-for-dfn-manifest-33" title="§ A.2 Link relation type registration">§ A.2 Link relation type registration</a> 
     </li><li>
@@ -4946,7 +4961,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-start-url-9" title="§ 4.3 Privacy and security considerations">§ 4.3 Privacy and security considerations</a> 
     </li><li>
-      <a href="#ref-for-dfn-start-url-10" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> <a href="#ref-for-dfn-start-url-11" title="Reference 2">(2)</a> <a href="#ref-for-dfn-start-url-12" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-start-url-10" title="§ 7.1 Privacy considerations">§ 7.1 Privacy considerations</a> <a href="#ref-for-dfn-start-url-11" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-start-url-12" title="§ 7.2 Security considerations">§ 7.2 Security considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-the-start_url-member" aria-label="Links in this document to definition: process the start_url member">
@@ -5859,7 +5876,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <li>
       <a href="#ref-for-dfn-url-1" title="§ 3. Shortcut items">§ 3. Shortcut items</a> 
     </li><li>
-      <a href="#ref-for-dfn-url-2" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> <a href="#ref-for-dfn-url-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-url-4" title="Reference 3">(3)</a> 
+      <a href="#ref-for-dfn-url-2" title="§ 7.1 Privacy considerations">§ 7.1 Privacy considerations</a> <a href="#ref-for-dfn-url-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-url-4" title="Reference 3">(3)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-icons-0" aria-label="Links in this document to definition: icons">
@@ -5925,7 +5942,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-installed-7" title="§ 5.2 Deep links">§ 5.2 Deep links</a> 
     </li><li>
-      <a href="#ref-for-dfn-installed-8" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> <a href="#ref-for-dfn-installed-9" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-installed-8" title="§ 7.1 Privacy considerations">§ 7.1 Privacy considerations</a> 
+    </li><li>
+      <a href="#ref-for-dfn-installed-9" title="§ 7.2 Security considerations">§ 7.2 Security considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-installed-web-application" aria-label="Links in this document to definition: installed web application">
@@ -5944,7 +5963,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-installed-web-application-3" title="§ 5.2 Deep links">§ 5.2 Deep links</a> <a href="#ref-for-dfn-installed-web-application-4" title="Reference 2">(2)</a> <a href="#ref-for-dfn-installed-web-application-5" title="Reference 3">(3)</a> 
     </li><li>
-      <a href="#ref-for-dfn-installed-web-application-6" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> 
+      <a href="#ref-for-dfn-installed-web-application-6" title="§ 7.1 Privacy considerations">§ 7.1 Privacy considerations</a> 
     </li><li>
       <a href="#ref-for-dfn-installed-web-application-7" title="§ F. Internationalization">§ F. Internationalization</a> 
     </li>
@@ -6088,7 +6107,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-display-mode-5" title="§ 6. Display modes">§ 6. Display modes</a> <a href="#ref-for-dfn-display-mode-6" title="Reference 2">(2)</a> <a href="#ref-for-dfn-display-mode-7" title="Reference 3">(3)</a> <a href="#ref-for-dfn-display-mode-8" title="Reference 4">(4)</a> <a href="#ref-for-dfn-display-mode-9" title="Reference 5">(5)</a> <a href="#ref-for-dfn-display-mode-10" title="Reference 6">(6)</a> <a href="#ref-for-dfn-display-mode-11" title="Reference 7">(7)</a> <a href="#ref-for-dfn-display-mode-12" title="Reference 8">(8)</a> <a href="#ref-for-dfn-display-mode-13" title="Reference 9">(9)</a> <a href="#ref-for-dfn-display-mode-14" title="Reference 10">(10)</a> <a href="#ref-for-dfn-display-mode-15" title="Reference 11">(11)</a> <a href="#ref-for-dfn-display-mode-16" title="Reference 12">(12)</a> 
     </li><li>
-      <a href="#ref-for-dfn-display-mode-17" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> 
+      <a href="#ref-for-dfn-display-mode-17" title="§ 7.2 Security considerations">§ 7.2 Security considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-fullscreen" aria-label="Links in this document to definition: fullscreen">
@@ -6142,7 +6161,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <li>
       <a href="#ref-for-dfn-browser-1" title="§ 6. Display modes">§ 6. Display modes</a> <a href="#ref-for-dfn-browser-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-browser-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-browser-4" title="Reference 4">(4)</a> <a href="#ref-for-dfn-browser-5" title="Reference 5">(5)</a> <a href="#ref-for-dfn-browser-6" title="Reference 6">(6)</a> <a href="#ref-for-dfn-browser-7" title="Reference 7">(7)</a> <a href="#ref-for-dfn-browser-8" title="Reference 8">(8)</a> <a href="#ref-for-dfn-browser-9" title="Reference 9">(9)</a> 
     </li><li>
-      <a href="#ref-for-dfn-browser-10" title="§ 7. Privacy and security considerations">§ 7. Privacy and security considerations</a> 
+      <a href="#ref-for-dfn-browser-10" title="§ 7.2 Security considerations">§ 7.2 Security considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-applied-display-mode" aria-label="Links in this document to definition: applied display mode">
@@ -7561,7 +7580,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li>
   </ul>
     </div> <rs-changelog from="fef12b3e313bb61d9434da73dc565132d8f4c483" filter="removeCommits"><ul>
-      <li><a href="https://github.com/w3c/manifest/commit/63bb17c">Redefine application context on top-level traversable</a> (<a href="https://github.com/w3c/manifest/pull/1219">#1219</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5cd886a">Rename "default display mode" to "applied display mode"</a> (<a href="https://github.com/w3c/manifest/pull/1215">#1215</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c0d4307">Clarify how manifest image resources are fetched</a> (<a href="https://github.com/w3c/manifest/pull/1171">#1171</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c5b38d2">Clarify applying manifest to an existing browsing context</a> (<a href="https://github.com/w3c/manifest/pull/1202">#1202</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6731c8c">Add retiredDate for Diego González</a> (<a href="https://github.com/w3c/manifest/pull/1213">#1213</a>)</li><li><a href="https://github.com/w3c/manifest/commit/23f0aa1">Add `color_scheme_dark` member and themeable members (colors only) (#…</a></li><li><a href="https://github.com/w3c/manifest/commit/d79d9ca">Specify when an icon might be updated (editorial), and loosen sec-sen…</a></li><li><a href="https://github.com/w3c/manifest/commit/6d104be">Add retiredDate for Kenneth Rohde Christiansen</a> (<a href="https://github.com/w3c/manifest/pull/1192">#1192</a>)</li><li><a href="https://github.com/w3c/manifest/commit/ec8a23b">clarify the definition of "navigation scope", "applied", and off-scop…</a></li><li><a href="https://github.com/w3c/manifest/commit/40cf2c7">Make enums case-insensitive</a> (<a href="https://github.com/w3c/manifest/pull/1149">#1149</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1a06ac7">Move `prefer_related_applications` and `related_applications` to mani…</a></li><li><a href="https://github.com/w3c/manifest/commit/75ae2b4">Add members for localization</a> (<a href="https://github.com/w3c/manifest/pull/1101">#1101</a>)</li><li><a href="https://github.com/w3c/manifest/commit/3e1fd57">Trim `dir`, `lang`, `display`, `orientation`, text and color values (…</a></li><li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c472e76">Recommend user agents let users inspect and modify shortcut URLs</a> (<a href="https://github.com/w3c/manifest/pull/1221">#1221</a>)</li>
+      <li><a href="https://github.com/w3c/manifest/commit/63bb17c">Redefine application context on top-level traversable</a> (<a href="https://github.com/w3c/manifest/pull/1219">#1219</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5cd886a">Rename "default display mode" to "applied display mode"</a> (<a href="https://github.com/w3c/manifest/pull/1215">#1215</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c0d4307">Clarify how manifest image resources are fetched</a> (<a href="https://github.com/w3c/manifest/pull/1171">#1171</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c5b38d2">Clarify applying manifest to an existing browsing context</a> (<a href="https://github.com/w3c/manifest/pull/1202">#1202</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6731c8c">Add retiredDate for Diego González</a> (<a href="https://github.com/w3c/manifest/pull/1213">#1213</a>)</li><li><a href="https://github.com/w3c/manifest/commit/23f0aa1">Add `color_scheme_dark` member and themeable members (colors only) (#…</a></li><li><a href="https://github.com/w3c/manifest/commit/d79d9ca">Specify when an icon might be updated (editorial), and loosen sec-sen…</a></li><li><a href="https://github.com/w3c/manifest/commit/6d104be">Add retiredDate for Kenneth Rohde Christiansen</a> (<a href="https://github.com/w3c/manifest/pull/1192">#1192</a>)</li><li><a href="https://github.com/w3c/manifest/commit/ec8a23b">clarify the definition of "navigation scope", "applied", and off-scop…</a></li><li><a href="https://github.com/w3c/manifest/commit/40cf2c7">Make enums case-insensitive</a> (<a href="https://github.com/w3c/manifest/pull/1149">#1149</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1a06ac7">Move `prefer_related_applications` and `related_applications` to mani…</a></li><li><a href="https://github.com/w3c/manifest/commit/75ae2b4">Add members for localization</a> (<a href="https://github.com/w3c/manifest/pull/1101">#1101</a>)</li><li><a href="https://github.com/w3c/manifest/commit/3e1fd57">Trim `dir`, `lang`, `display`, `orientation`, text and color values (…</a></li><li><a href="https://github.com/w3c/manifest/commit/2f54efe">Remove problematic icon matching algorithm</a> (<a href="https://github.com/w3c/manifest/pull/1120">#1120</a>)</li><li><a href="https://github.com/w3c/manifest/commit/bceb2ee">Processing steps for id now removes the fragment</a> (<a href="https://github.com/w3c/manifest/pull/1122">#1122</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2a8fc0a">Rewrite privacy considerations on fingerprinting in start_url</a> (<a href="https://github.com/w3c/manifest/pull/1114">#1114</a>)</li><li><a href="https://github.com/w3c/manifest/commit/662cc34">Change "A" to "An"</a> (<a href="https://github.com/w3c/manifest/pull/1103">#1103</a>)</li><li><a href="https://github.com/w3c/manifest/commit/22a0b1e">Allow manifest processing to be invoked without going through an HTML…</a></li><li><a href="https://github.com/w3c/manifest/commit/7d41b99">Ran tidy.</a> (<a href="https://github.com/w3c/manifest/pull/1067">#1067</a>)</li><li><a href="https://github.com/w3c/manifest/commit/54acb9e">Describe manifest update behavior</a> (<a href="https://github.com/w3c/manifest/pull/1011">#1011</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8d0663e">Link to manifest-app-info in the README</a> (<a href="https://github.com/w3c/manifest/pull/1030">#1030</a>)</li><li><a href="https://github.com/w3c/manifest/commit/5d2ac4b">Address privacy issue with start_url</a> (<a href="https://github.com/w3c/manifest/pull/1029">#1029</a>)</li><li><a href="https://github.com/w3c/manifest/commit/874996c">Transfer display-mode to mediaqueries-5</a> (<a href="https://github.com/w3c/manifest/pull/1022">#1022</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8102fc5">Add id member to manifest</a> (<a href="https://github.com/w3c/manifest/pull/988">#988</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a8284f3">Use docURL as start_url</a> (<a href="https://github.com/w3c/manifest/pull/991">#991</a>)</li><li><a href="https://github.com/w3c/manifest/commit/100cd9a">Add missing shortcut icon</a> (<a href="https://github.com/w3c/manifest/pull/979">#979</a>)</li><li><a href="https://github.com/w3c/manifest/commit/04b2157">Remove query &amp; fragment from scope</a> (<a href="https://github.com/w3c/manifest/pull/961">#961</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32b497c">Remove WebIDL + rewrite all the things</a></li><li><a href="https://github.com/w3c/manifest/commit/10c255d">Revert "Editorial: Move some members to App Information Note</a> (<a href="https://github.com/w3c/manifest/pull/900">#900</a>)</li><li><a href="https://github.com/w3c/manifest/commit/72ba21c">Moving to data-cite for the accessible name</a> (<a href="https://github.com/w3c/manifest/pull/920">#920</a>)</li><li><a href="https://github.com/w3c/manifest/commit/4ab46a2">BREAKING CHANGE: remove `platform` from ManifestImageResource</a> (<a href="https://github.com/w3c/manifest/pull/913">#913</a>)</li><li><a href="https://github.com/w3c/manifest/commit/d1699ec">Adding in some accessibility-related language</a> (<a href="https://github.com/w3c/manifest/pull/898">#898</a>)</li><li><a href="https://github.com/w3c/manifest/commit/1860fe4">Add privacy section for shortcuts member</a> (<a href="https://github.com/w3c/manifest/pull/896">#896</a>)</li><li><a href="https://github.com/w3c/manifest/commit/2c55d86">BREAKING CHANGE: Replace "badge" with "monochrome"</a> (<a href="https://github.com/w3c/manifest/pull/833">#833</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f704809">Update links to the WG</a> (<a href="https://github.com/w3c/manifest/pull/871">#871</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8c7fd7b">Remove beforeinstallprompt and appinstalled events.</a> (<a href="https://github.com/w3c/manifest/pull/836">#836</a>)</li><li><a href="https://github.com/w3c/manifest/commit/9888403">Set the manifest request's . #829</a></li><li><a href="https://github.com/w3c/manifest/commit/83fd72b">Rewrite processing shortcuts algorithm to be more precise</a> (<a href="https://github.com/w3c/manifest/pull/832">#832</a>)</li><li><a href="https://github.com/w3c/manifest/commit/8923ba4">BREAKING CHANGE: remove serviceworker member</a> (<a href="https://github.com/w3c/manifest/pull/825">#825</a>)</li><li><a href="https://github.com/w3c/manifest/commit/6708bc8">Make Service Worker registration work properly (don't use outdated st…</a></li><li><a href="https://github.com/w3c/manifest/commit/4c24e73">Add shortcuts feature to the explainer and spec</a> (<a href="https://github.com/w3c/manifest/pull/768">#768</a>)</li><li><a href="https://github.com/w3c/manifest/commit/32ce484">Make BeforeInstallPrompt optional</a> (<a href="https://github.com/w3c/manifest/pull/797">#797</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c3e18c8">Various fixes to ImageResource processing algorithms:</a> (<a href="https://github.com/w3c/manifest/pull/811">#811</a>)</li><li><a href="https://github.com/w3c/manifest/commit/f8f227e">Rewrite installation process and install prompting logic</a> (<a href="https://github.com/w3c/manifest/pull/790">#790</a>)</li><li><a href="https://github.com/w3c/manifest/commit/c472e76">Recommend user agents let users inspect and modify shortcut URLs</a> (<a href="https://github.com/w3c/manifest/pull/1221">#1221</a>)</li><li><a href="https://github.com/w3c/manifest/commit/a080b99">Format U+002F character references using W3C I18N template</a> (<a href="https://github.com/w3c/manifest/pull/1235">#1235</a>)</li>
       </ul></rs-changelog>
     </section>
     <section class="appendix informative" id="acknowledgements"><div class="header-wrapper"><h2 id="j-acknowledgements"><bdi class="secno">J. </bdi>
