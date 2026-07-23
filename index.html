@@ -3220,16 +3220,15 @@
       "@media/application-context">none</a>, even if the user previously
       [=installed=] the application on the same device.
     </p>
-    <aside class="note" title="Not a new information exposure">
+    <aside class="note" title="Information exposure">
       <p>
-        This media feature does not expose information that authors could not
-        already infer. The <a data-xref-type="css-descriptor" data-xref-for=
-        "@media">`display-mode`</a> media feature already reveals the
-        application context most of the time, since the [=display
-        mode/standalone=] and [=display mode/minimal-ui=] display modes only
-        occur within an [=application context=]. This feature makes that signal
-        explicit and reliable, rather than something authors reconstruct
-        imperfectly from `display-mode`.
+        This media feature makes the application context directly observable in
+        cases where the <a data-xref-type="css-descriptor" data-xref-for=
+        "@media">`display-mode`</a> media feature does not distinguish it, such
+        as fullscreen. In other cases, the [=display mode/standalone=] and
+        [=display mode/minimal-ui=] display modes already reveal the application
+        context. This feature makes the signal explicit and reliable across
+        display modes.
       </p>
     </aside>
     <p>
