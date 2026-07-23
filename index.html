@@ -170,7 +170,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="b74c08a94158a6fb0b01a60854fb05897b4be75c">
+<meta name="revision" content="76294d8815ec1a797fad4f6b3cd785a5edb306d2">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -329,7 +329,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "b74c08a94158a6fb0b01a60854fb05897b4be75c",
+  "gitRevision": "76294d8815ec1a797fad4f6b3cd785a5edb306d2",
   "publishISODate": "2026-07-23T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 23 July 2026"
 }</script>
@@ -625,7 +625,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </a></li><li class="tocline"><a class="tocxref" href="#json-schema"><bdi class="secno">E. </bdi>
         JSON Schema
       </a></li><li class="tocline"><a class="tocxref" href="#internationalization"><bdi class="secno">F. </bdi>
-        Internationalization
+        Internationalization Considerations
       </a></li><li class="tocline"><a class="tocxref" href="#use-cases-and-requirements"><bdi class="secno">G. </bdi>
         Use Cases and Requirements
       </a></li><li class="tocline"><a class="tocxref" href="#issue-summary"><bdi class="secno">H. </bdi>Issue summary</a></li><li class="tocline"><a class="tocxref" href="#change-log"><bdi class="secno">I. </bdi>
@@ -4446,8 +4446,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         repository</a> on GitHub.
       </p>
     </section>
-    <section id="internationalization" class="appendix informative" data-cite="i18n-glossary"><div class="header-wrapper"><h2 id="f-internationalization"><bdi class="secno">F. </bdi>
-        Internationalization
+    <section id="internationalization" class="appendix informative" data-cite="i18n-glossary"><div class="header-wrapper"><h2 id="f-internationalization-considerations"><bdi class="secno">F. </bdi>
+        Internationalization Considerations
       </h2><a class="self-link" href="#internationalization" aria-label="Permalink for Appendix F."></a></div><p><em>This section is non-normative.</em></p>
       
       <p>
@@ -4459,10 +4459,44 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           Localized values in the manifest:
         </dt>
         <dd>
-          Authors can provide <a data-link-type="dfn|abstract-op" href="#dfn-localized-value" class="internalDFN" id="ref-for-dfn-localized-value-8">localized values</a> for the <a data-link-type="dfn|abstract-op" href="#dfn-localizable-member" class="internalDFN" id="ref-for-dfn-localizable-member-17">localizable members</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-35">manifest</a>. The user agent passes all localized
-          values to the host operating system. When the user changes the
-          <a data-link-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#dfn-locale" id="ref-for-index-term-locale-1">locale</a> at the <abbr title="Operating system">OS</abbr> level, the <abbr title="Operating system">OS</abbr> can present the updated localized
-          values of the <a data-link-type="dfn|abstract-op" href="#dfn-installed-web-application" class="internalDFN" id="ref-for-dfn-installed-web-application-7">installed web application</a>.
+          <p>
+            Authors can provide <a data-link-type="dfn|abstract-op" href="#dfn-localized-value" class="internalDFN" id="ref-for-dfn-localized-value-8">localized values</a> for the <a data-link-type="dfn|abstract-op" href="#dfn-localizable-member" class="internalDFN" id="ref-for-dfn-localizable-member-17">localizable members</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-35">manifest</a> using the corresponding <code>*_localized</code>
+            members (e.g., <code>name_localized</code>). Individual localized entries can
+            be a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#string" id="ref-for-index-term-string-43">string</a> or a <a data-link-type="dfn|abstract-op" href="#dfn-localized-text-object" class="internalDFN" id="ref-for-dfn-localized-text-object-8">localized text object</a>. A <a data-link-type="dfn|abstract-op" href="#dfn-localized-text-object" class="internalDFN" id="ref-for-dfn-localized-text-object-9">localized text object</a> can specify its own natural language and text-direction
+            metadata using its <a data-link-type="dfn|abstract-op" href="#dfn-lang-0" class="internalDFN" id="ref-for-dfn-lang-0-3"><code>lang</code></a> and
+            <a data-link-type="dfn|abstract-op" href="#dfn-dir-0" class="internalDFN" id="ref-for-dfn-dir-0-4"><code>dir</code></a> properties, overriding any defaults
+            provided by the manifest-wide <a data-link-type="dfn|abstract-op" href="#dfn-lang" class="internalDFN" id="ref-for-dfn-lang-2"><code>lang</code></a> and
+            <a data-link-type="dfn|abstract-op" href="#dfn-dir" class="internalDFN" id="ref-for-dfn-dir-5"><code>dir</code></a> members.
+          </p>
+          <p>
+            User agents <em class="rfc2119">MAY</em> handle localized values in one of the following
+            ways:
+          </p>
+          <dl>
+            <dt>
+              Pass-through localization:
+            </dt>
+            <dd>
+              The user agent passes all localized values (the entire language
+              map) to the host operating system during installation. When the
+              user changes their preferred language at the <abbr title="Operating system">OS</abbr> level, the host
+              <abbr title="Operating system">OS</abbr> can immediately present the updated localized values (e.g.,
+              the application name) without requiring the user agent to run.
+            </dd>
+            <dt>
+              On-demand/update evaluation:
+            </dt>
+            <dd>
+              The user agent evaluates the localized values at parse time based
+              on the user's current locale. When the user changes the system
+              language, the app properties do not update immediately. Instead,
+              they are updated when the user next visits the application or
+              during a background update check, allowing the user agent to
+              inspect and potentially request user acknowledgment for
+              security-sensitive changes (such as a name change) before
+              updating the host <abbr title="Operating system">OS</abbr>.
+            </dd>
+          </dl>
         </dd>
         <dt>
           Dynamically setting the language:
@@ -4474,13 +4508,17 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           preference (e.g., using a URL like "manifest.php?lang=fr").
         </dd>
         <dt>
-          Using content-negotiation, or geotargeting, etc. on the server:
+          Using server-side language negotiation or geotargeting:
         </dt>
         <dd>
           The server that hosts the web application could attempt to
           predetermine the end-user's language by using <a href="https://en.wikipedia.org/wiki/Geotargeting">geotargeting</a> or by
-          using content negotiation (e.g., using an HTTP "<code>Accept-Language</code>"
-          header [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9110" title="HTTP Semantics">RFC9110</a></cite>], or even a custom HTTP header).
+          performing <a data-link-type="dfn" href="https://www.w3.org/TR/i18n-glossary/#dfn-language-negotiation" id="ref-for-index-term-language-negotiation-1">language negotiation</a> (e.g., via the HTTP
+          "<code>Accept-Language</code>" header [<cite><a class="bibref" data-link-type="biblio" href="#bib-rfc9110" title="HTTP Semantics">RFC9110</a></cite>], or a custom HTTP header). For
+          more details and best practices, see the <abbr title="World Wide Web Consortium">W3C</abbr> Internationalization
+          articles <a href="https://www.w3.org/International/questions/qa-accept-lang-locales">Accept-Language
+          used for locale setting</a> and <a href="https://www.w3.org/International/questions/qa-http-and-lang">HTTP
+          headers, meta elements and language information</a>.
         </dd>
       </dl>
       <p>
@@ -4579,7 +4617,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-manifest-34" title="§ E. JSON Schema">§ E. JSON Schema</a> 
     </li><li>
-      <a href="#ref-for-dfn-manifest-35" title="§ F. Internationalization">§ F. Internationalization</a> 
+      <a href="#ref-for-dfn-manifest-35" title="§ F. Internationalization Considerations">§ F. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-manifest-url" aria-label="Links in this document to definition: manifest URL">
@@ -4608,6 +4646,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-dfn-dir-2" title="§ 1.2 dir member">§ 1.2 dir member</a> 
     </li><li>
       <a href="#ref-for-dfn-dir-3" title="§ 1.15.1 Localizing text values">§ 1.15.1 Localizing text values</a> <a href="#ref-for-dfn-dir-4" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-dir-5" title="§ F. Internationalization Considerations">§ F. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-default-direction" aria-label="Links in this document to definition: default direction">
@@ -4718,6 +4758,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <ul>
     <li>
       <a href="#ref-for-dfn-lang-1" title="§ 1. Web Application Manifest">§ 1. Web Application Manifest</a> 
+    </li><li>
+      <a href="#ref-for-dfn-lang-2" title="§ F. Internationalization Considerations">§ F. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-language-tag" aria-label="Links in this document to definition: language tag">
@@ -5142,7 +5184,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-localizable-member-16" title="§ 3.5 icons member">§ 3.5 icons member</a> 
     </li><li>
-      <a href="#ref-for-dfn-localizable-member-17" title="§ F. Internationalization">§ F. Internationalization</a> 
+      <a href="#ref-for-dfn-localizable-member-17" title="§ F. Internationalization Considerations">§ F. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-_localized" aria-label="Links in this document to definition: *_localized">
@@ -5199,7 +5241,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-localized-value-7" title="§ 1.15.2 Localizing image resources">§ 1.15.2 Localizing image resources</a> 
     </li><li>
-      <a href="#ref-for-dfn-localized-value-8" title="§ F. Internationalization">§ F. Internationalization</a> 
+      <a href="#ref-for-dfn-localized-value-8" title="§ F. Internationalization Considerations">§ F. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-default-representation" aria-label="Links in this document to definition: default representation">
@@ -5226,6 +5268,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <ul>
     <li>
       <a href="#ref-for-dfn-localized-text-object-1" title="§ 1.15.1 Localizing text values">§ 1.15.1 Localizing text values</a> <a href="#ref-for-dfn-localized-text-object-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-localized-text-object-3" title="Reference 3">(3)</a> <a href="#ref-for-dfn-localized-text-object-4" title="Reference 4">(4)</a> <a href="#ref-for-dfn-localized-text-object-5" title="Reference 5">(5)</a> <a href="#ref-for-dfn-localized-text-object-6" title="Reference 6">(6)</a> <a href="#ref-for-dfn-localized-text-object-7" title="Reference 7">(7)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-localized-text-object-8" title="§ F. Internationalization Considerations">§ F. Internationalization Considerations</a> <a href="#ref-for-dfn-localized-text-object-9" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-value" aria-label="Links in this document to definition: value">
@@ -5252,6 +5296,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <ul>
     <li>
       <a href="#ref-for-dfn-dir-0-1" title="§ 1.15.1 Localizing text values">§ 1.15.1 Localizing text values</a> <a href="#ref-for-dfn-dir-0-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-dir-0-3" title="Reference 3">(3)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-dir-0-4" title="§ F. Internationalization Considerations">§ F. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-lang-0" aria-label="Links in this document to definition: lang">
@@ -5265,6 +5311,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <ul>
     <li>
       <a href="#ref-for-dfn-lang-0-1" title="§ 1.15.1 Localizing text values">§ 1.15.1 Localizing text values</a> <a href="#ref-for-dfn-lang-0-2" title="Reference 2">(2)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-lang-0-3" title="§ F. Internationalization Considerations">§ F. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-a-_localized-text-member" aria-label="Links in this document to definition: process a *_localized text member">
@@ -5964,8 +6012,6 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-dfn-installed-web-application-3" title="§ 5.2 Deep links">§ 5.2 Deep links</a> <a href="#ref-for-dfn-installed-web-application-4" title="Reference 2">(2)</a> <a href="#ref-for-dfn-installed-web-application-5" title="Reference 3">(3)</a> 
     </li><li>
       <a href="#ref-for-dfn-installed-web-application-6" title="§ 7.1 Privacy considerations">§ 7.1 Privacy considerations</a> 
-    </li><li>
-      <a href="#ref-for-dfn-installed-web-application-7" title="§ F. Internationalization">§ F. Internationalization</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-application-s-name" aria-label="Links in this document to definition: application's name">
@@ -6788,17 +6834,17 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-index-term-unordered-set-of-unique-space-separated-tokens-1" title="§ 2.1 purpose member">§ 2.1 purpose member</a> 
     </li>
   </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-locale" aria-label="Links in this document to definition: locale">
+    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-language-negotiation" aria-label="Links in this document to definition: language negotiation">
       <span class="caret"></span>
       <div>
-        <a class="self-link" href="https://www.w3.org/TR/i18n-glossary/#dfn-locale" aria-label="Permalink for definition: locale. Activate to close this dialog.">Permalink</a>
+        <a class="self-link" href="https://www.w3.org/TR/i18n-glossary/#dfn-language-negotiation" aria-label="Permalink for definition: language negotiation. Activate to close this dialog.">Permalink</a>
          
         
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-locale-1" title="§ F. Internationalization">§ F. Internationalization</a> 
+      <a href="#ref-for-index-term-language-negotiation-1" title="§ F. Internationalization Considerations">§ F. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-fetching-an-image-resource" aria-label="Links in this document to definition: fetching an image resource">
@@ -7254,6 +7300,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-index-term-string-39" title="§ 3.3 description member">§ 3.3 description member</a> 
     </li><li>
       <a href="#ref-for-index-term-string-40" title="§ 3.7 Processing shortcut items">§ 3.7 Processing shortcut items</a> <a href="#ref-for-index-term-string-41" title="Reference 2">(2)</a> <a href="#ref-for-index-term-string-42" title="Reference 3">(3)</a> 
+    </li><li>
+      <a href="#ref-for-index-term-string-43" title="§ F. Internationalization Considerations">§ F. Internationalization Considerations</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-strip-leading-and-trailing-ascii-whitespace" aria-label="Links in this document to definition: Strip leading and trailing ASCII whitespace">
@@ -7972,7 +8020,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         [<cite><a class="bibref" data-link-type="biblio" href="#bib-i18n-glossary">I18N-GLOSSARY</a></cite>] defines the following:
         <ul>
           <li>
-    <span class="index-term" data-href="https://www.w3.org/TR/i18n-glossary/#dfn-locale" id="index-term-locale" tabindex="0" aria-haspopup="dialog">locale</span>
+    <span class="index-term" data-href="https://www.w3.org/TR/i18n-glossary/#dfn-language-negotiation" id="index-term-language-negotiation" tabindex="0" aria-haspopup="dialog">language negotiation</span>
   </li>
         </ul>
       </li><li>
