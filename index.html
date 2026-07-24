@@ -3147,21 +3147,19 @@
     <p>
       The value of <a data-link-for="@media">application-context</a> MUST be
       <a data-link-for="@media/application-context">none</a> in a [=document=]
-      whose [=Document/origin=] is not [=same origin=] with its [=node
-      navigable=]'s [=navigable/top-level traversable=]'s [=navigable/active
-      document=]'s [=Document/origin=].
-    </p>
-    <p>
-      In a [=child navigable=] whose [=navigable/active document=] is [=same
-      origin=] with its [=navigable/top-level traversable=]'s
-      [=navigable/active document=], the value of <a data-link-for=
-      "@media">application-context</a> MUST be the same as the value for the
-      [=navigable/top-level traversable=]'s [=navigable/active document=].
+      unless the [=document=] is [=same origin=] with the [=navigable/active
+      document=] of each of its [=Document/ancestor navigables=]. That is, a
+      [=document=] only observes the [=application context=] when it and every
+      one of its ancestors up to the [=top-level traversable=] are [=same
+      origin=].
     </p>
     <aside class="note" title="Same-origin access">
       <p>
-        This is consistent with same-origin script's existing access via
-        `window.top.matchMedia("(application-context: application)")`.
+        A [=document=] that observes the [=application context=] is [=same
+        origin=] with all of its ancestors, and so can already reach its
+        [=top-level traversable=]'s [=navigable/active document=] via
+        `window.top` (e.g., `window.top.matchMedia("(application-context:
+        application)")`).
       </p>
     </aside>
     <p data-cite="CSSOM-VIEW-1">
@@ -3226,9 +3224,9 @@
         cases where the <a data-xref-type="css-descriptor" data-xref-for=
         "@media">`display-mode`</a> media feature does not distinguish it, such
         as fullscreen. In other cases, the [=display mode/standalone=] and
-        [=display mode/minimal-ui=] display modes already reveal the application
-        context. This feature makes the signal explicit and reliable across
-        display modes.
+        [=display mode/minimal-ui=] display modes already reveal the
+        application context. This feature makes the signal explicit and
+        reliable across display modes.
       </p>
     </aside>
     <p>
@@ -3243,17 +3241,30 @@
       <li>Whether the page meets any user-agent-specific [=installation=]
       criteria.
       </li>
-      <li>The installation state of an embedding [=installed web application=]
-      to a cross-origin embedded context. The normative requirement above
-      ensures that any cross-origin nested [=document=] sees <a href=
-      "#mf-application-context-none">`none`</a> regardless of its embedder's
-      state.
+      <li>The application context to a [=document=] that is not [=same origin=]
+      with all of its ancestors up to the [=top-level traversable=]. Per the
+      normative requirement above, any such [=document=] evaluates to
+      <a data-link-for="@media/application-context">none</a>, so a cross-origin
+      embedded context, or any [=document=] nested within one, cannot observe
+      the [=application context=].
       </li>
     </ul>
+    <aside class="note" title="Evaluated across the full ancestor chain">
+      <p>
+        A [=document=] observes the [=application context=] only when it and
+        every one of its ancestors up to the [=top-level traversable=] are
+        [=same origin=]. A [=document=] nested inside a cross-origin ancestor
+        evaluates to <a data-link-for="@media/application-context">none</a>
+        even if it is itself [=same origin=] with the [=top-level
+        traversable=]'s [=navigable/active document=]. This is stricter than a
+        check against the top-level [=document=] alone, and prevents a
+        cross-origin embedder from observing the [=application context=]
+        through a same-origin descendant it hosts.
+      </p>
+    </aside>
     <p>
-      However, as with any CSS media feature, the value of <a href=
-      "#mf-application-context">`application-context`</a> can be inferred
-      through:
+      However, as with any CSS media feature, the value of <a data-link-for=
+      "@media">application-context</a> can be inferred through:
     </p>
     <ul>
       <li>Conditional `@import` rules or resource URLs within `@media
