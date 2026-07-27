@@ -655,12 +655,12 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">icons</dfn></code> member are images that serve as iconic
-          representations of the web application in various contexts. For
-          example, they can be used to represent the web application amongst a
-          list of other applications, or to integrate the web application with
-          an <abbr title="Operating system">OS</abbr>'s task switcher and/or
-          system preferences.
+          "manifest">icons</dfn></code> member specifies images that serve as
+          iconic representations of the web application in various contexts.
+          For example, they can be used to represent the web application
+          amongst a list of other applications, or to integrate the web
+          application with an <abbr title="Operating system">OS</abbr>'s task
+          switcher and/or system preferences.
         </p>
         <p>
           The [=manifest/icons=] member is a [=localizable member=].
@@ -690,7 +690,7 @@
           <li>Set |manifest|["display"] to "browser".
           </li>
           <li>If |json|["display"] doesn't [=map/exist=] or |json|["display"]
-          is not a a [=string=], return.
+          is not a [=string=], return.
           </li>
           <li>[=Strip leading and trailing ASCII whitespace=] from
           |json|["display"].
@@ -736,12 +736,11 @@
         </p>
         <p>
           Certain UI/UX concerns and/or platform conventions will mean that
-          some screen orientations and <dfn>cannot be used together</dfn>.
-          Which orientations and display modes cannot be used together is left
-          to the discretion of implementers. For example, for some user agents,
-          it might not make sense to change the <a>default screen
-          orientation</a> of an application while in `browser` <a>display
-          mode</a>.
+          some screen orientations cannot be used together. Which orientations
+          and display modes cannot be used together is left to the discretion
+          of implementers. For example, for some user agents, it might not make
+          sense to change the <a>default screen orientation</a> of an
+          application while in `browser` <a>display mode</a>.
         </p>
         <p class="note">
           Once the web application is running, other means can change the
@@ -1907,7 +1906,7 @@
             </p>
           </aside>
           <p>
-            For the purpose of updating, the following member are
+            For the purpose of updating, the following members are
             <dfn>security-sensitive members</dfn>, as they are presented during
             installation and on launch surfaces:
           </p>
@@ -1928,9 +1927,9 @@
             "">non-security-sensitive members</dfn>.
           </p>
           <p>
-            A <dfn>security-sensitive update</dfn> is a update to a
+            A <dfn>security-sensitive update</dfn> is an update to a
             [=security-sensitive member=]. Respectively, a
-            <dfn>non-security-sensitive update</dfn> is a update to a
+            <dfn>non-security-sensitive update</dfn> is an update to a
             [=non-security-sensitive member=].
           </p>
           <p>
@@ -2339,7 +2338,7 @@
           fill</dfn> such as a single color, where only the transparency of the
           icon can be declared in a [=manifest=]. As web applications need to
           work across multiple platforms, it is possible to indicate that an
-          icon can have an user-agent-specified color applied by adding the
+          icon can have a user-agent-specified color applied by adding the
           [=icon purpose/monochrome=] purpose. This allows the platform to
           ensure that the icon looks well integrated with the platform, and
           even apply different colors and padding in different places
@@ -2821,10 +2820,14 @@
         <li>If |target| and |scope| are not [=same origin=], return `false`.
         </li>
         <li>Let |scopePath:string| be the [=string/concatenation=] of
-        |scopes|'s [=URL/path=] using U+002F (/) as the separator.
+        |scopes|'s [=URL/path=] using <span class="codepoint" translate=
+        "no"><bdi lang="en">/</bdi><code class="uname">U+002F
+        SOLIDUS</code></span> as the separator.
         </li>
         <li>Let |targetPath:string| be the [=string/concatenation=] of
-        |target|'s [=URL/path=] using U+002F (/) as the separator.
+        |target|'s [=URL/path=] using <span class="codepoint" translate=
+        "no"><bdi lang="en">/</bdi><code class="uname">U+002F
+        SOLIDUS</code></span> as the separator.
         </li>
         <li>Return a [=boolean=] indicating whether |targetPath| starts with
         |scopePath:string|.
@@ -2922,8 +2925,8 @@
             in the user's preferred web browser.
           </p>
           <p>
-            Implementers are encouraged make such context switching obvious to
-            the user, for example, by adhering to the human interface
+            Implementers are encouraged to make such context switching obvious
+            to the user, for example, by adhering to the human interface
             guidelines of the underlying platform with respect to application
             switching.
           </p>
@@ -3060,7 +3063,7 @@
         <p>
           SuperSecure Browser (a fictitious browser) only supports the
           `minimal-ui` and `browser` display modes, but a developer declares
-          that they wants `fullscreen` in the manifest by using the
+          that they want `fullscreen` in the manifest by using the
           [=manifest/display=] property. In this case, the user agent will
           first check if it supports `fullscreen` (it doesn't), so it falls
           back to `standalone` (which it also doesn't support), and ultimately
@@ -3093,118 +3096,130 @@
       <h2>
         Privacy and security considerations
       </h2>
-      <p>
-        This specification does not directly deal with high-value data.
-        However, <a>installed web applications</a> and their data could be seen
-        as "high value" (particularly from a privacy perspective).
-      </p>
-      <p>
-        As the manifest format is JSON and will be encoded using [[UNICODE]],
-        the security considerations described in [[JSON]] and
-        [[UNICODE-SECURITY]] apply. In addition, because there is no way to
-        prevent developers from including custom/unrestrained data in a
-        <a>manifest</a>, implementors need to impose their own
-        implementation-specific limits on the values of otherwise unconstrained
-        member types, e.g. to prevent denial of service attacks, to guard
-        against running out of memory, or to work around platform-specific
-        limitations.
-      </p>
-      <p>
-        Web applications will generally contain ECMAScript, HTML, CSS files,
-        and other media, which are executed in a sand-boxed environment. As
-        such, implementors need to be aware of the security implications for
-        the types they support. Specifically, implementors need to consider the
-        security implications outlined in at least the following
-        specifications: [[CSS-MIME]], [[ECMAScript-MIME]], [[HTML]].
-      </p>
-      <p>
-        As web applications can contain content that is able to simultaneously
-        interact with the local device and a remote host, implementors need to
-        consider the privacy implications resulting from exposing private
-        information to a remote host. Mitigation and in-depth defensive
-        measures are an implementation responsibility and not prescribed by
-        this specification. However, in designing these measures, implementors
-        are advised to enable user awareness of information sharing, and to
-        provide easy access to interfaces that enable revocation of
-        permissions.
-      </p>
-      <p>
-        As this specification allows for the declaration of URLs within certain
-        members of a manifest, implementors need to consider the security
-        considerations discussed in the [[URL]] specification. Implementations
-        intending to display <abbr title=
-        "Internationalized Resource Identifiers">IRIs</abbr> and <abbr title=
-        "Internationalized domain name">IDNA</abbr> addresses found in the
-        manifest are strongly encouraged to follow the security advice given in
-        [[UNICODE-SECURITY]].
-      </p>
-      <p>
-        Developers need to be aware of the security considerations discussed
-        throughout the [[CSP3]] specification, particularly in relation to
-        making `data:` a valid source for the purpose of <q>inlining</q> a
-        manifest. Doing so can enable XSS attacks by allowing a manifest to be
-        included directly in the document itself; this is best avoided
-        completely.
-      </p>
-      <p>
-        It is RECOMMENDED that UI that affords the end user the ability to
-        <a>install</a> a web application also allows inspecting the icon, name,
-        <a>start URL</a>, origin, etc. pertaining to a web application. This is
-        to give an end-user an opportunity to make a conscious decision to
-        approve, and possibly modify, the information pertaining to the web
-        application before installing it. This also gives the end-user an
-        opportunity to discern if the web application is spoofing another web
-        application, by, for example, using an unexpected icon or name.
-      </p>
-      <p>
-        It is RECOMMENDED that user agents prevent other applications from
-        determining which applications are installed on the system (e.g., via a
-        timing attack on the user agent's cache). This could be done by, for
-        example, invalidating from the user agent's cache the resources linked
-        to from the manifest (for example, icons) after a web application is
-        <a>installed</a> - or by using an entirely different cache from that
-        used for regular web browsing.
-      </p>
-      <p>
-        It's conceivable that a shortcut [=shortcut item/url=] could be crafted
-        to indicate that the application was launched from outside the browser
-        (e.g., `"url": "/task/?from=homescreen"`). It is also conceivable that
-        developers could encode strings into the [=shortcut item/url=] that
-        uniquely identify the user (e.g., a server assigned <abbr>UUID</abbr>).
-        This is fingerprinting/privacy sensitive information that the user
-        might not be aware of, and, like an identifier encoded into the [=start
-        URL=], it is not cleared when the user clears site data.
-      </p>
-      <p>
-        As with the [=start URL=], it is RECOMMENDED that a user agent allows
-        the user to inspect and, if necessary, modify the [=shortcut item/url=]
-        of a shortcut, upon installation, or any time thereafter.
-      </p>
-      <p>
-        When the web application is running, it is RECOMMENDED that the user
-        agent provides the end-user a means to access common information about
-        the web application, such as the origin, start and/or current URL,
-        granted permissions, and associated icon. How such information is
-        exposed to end-users is left up to implementers.
-      </p>
-      <p>
-        Additionally, when applying a manifest that sets the <a>display
-        mode</a> to anything except "[=display mode/browser=]", it is
-        RECOMMENDED that the user agent clearly indicate to the end-user that
-        their are leaving the normal browsing context of a web browser.
-        Ideally, launching or switching to a web application is performed in a
-        manner that is consistent with launching or switching to other
-        applications in the host platform. For example, a long and obvious
-        animated transition, or speaking the text "Launching application X".
-      </p>
-      <p>
-        The `display` member allows an origin some measure of control over a
-        user agent’s native UI. After taking over the full screen, it could
-        attempt to mimic the user interface of another application. This is
-        also facilitated by the `'display-mode'` media feature
-        [[MEDIAQUERIES-5]], through which a script can know the display mode of
-        a web application.
-      </p>
+      <section>
+        <h3>
+          Privacy considerations
+        </h3>
+        <p>
+          This specification does not directly deal with high-value data.
+          However, <a>installed web applications</a> and their data could be
+          seen as "high value" (particularly from a privacy perspective).
+        </p>
+        <p>
+          As web applications can contain content that is able to
+          simultaneously interact with the local device and a remote host,
+          implementors need to consider the privacy implications resulting from
+          exposing private information to a remote host. Mitigation and
+          in-depth defensive measures are an implementation responsibility and
+          not prescribed by this specification. However, in designing these
+          measures, implementors are advised to enable user awareness of
+          information sharing, and to provide easy access to interfaces that
+          enable revocation of permissions.
+        </p>
+        <p>
+          It is RECOMMENDED that user agents prevent other applications from
+          determining which applications are installed on the system (e.g., via
+          a timing attack on the user agent's cache). This could be done by,
+          for example, invalidating from the user agent's cache the resources
+          linked to from the manifest (for example, icons) after a web
+          application is <a>installed</a> - or by using an entirely different
+          cache from that used for regular web browsing.
+        </p>
+        <p>
+          It's conceivable that a shortcut [=shortcut item/url=] could be
+          crafted to indicate that the application was launched from outside
+          the browser (e.g., `"url": "/task/?from=homescreen"`). It is also
+          conceivable that developers could encode strings into the [=shortcut
+          item/url=] that uniquely identify the user (e.g., a server assigned
+          <abbr>UUID</abbr>). This is fingerprinting/privacy sensitive
+          information that the user might not be aware of, and, like an
+          identifier encoded into the [=start URL=], it is not cleared when the
+          user clears site data.
+        </p>
+        <p>
+          As with the [=start URL=], it is RECOMMENDED that a user agent allows
+          the user to inspect and, if necessary, modify the [=shortcut
+          item/url=] of a shortcut, upon installation, or any time thereafter.
+        </p>
+      </section>
+      <section>
+        <h3>
+          Security considerations
+        </h3>
+        <p>
+          As the manifest format is JSON and will be encoded using [[UNICODE]],
+          the security considerations described in [[JSON]] and
+          [[UNICODE-SECURITY]] apply. In addition, because there is no way to
+          prevent developers from including custom/unrestrained data in a
+          <a>manifest</a>, implementors need to impose their own
+          implementation-specific limits on the values of otherwise
+          unconstrained member types, e.g. to prevent denial of service
+          attacks, to guard against running out of memory, or to work around
+          platform-specific limitations.
+        </p>
+        <p>
+          Web applications will generally contain ECMAScript, HTML, CSS files,
+          and other media, which are executed in a sand-boxed environment. As
+          such, implementors need to be aware of the security implications for
+          the types they support. Specifically, implementors need to consider
+          the security implications outlined in at least the following
+          specifications: [[CSS-MIME]], [[ECMAScript-MIME]], [[HTML]].
+        </p>
+        <p>
+          As this specification allows for the declaration of URLs within
+          certain members of a manifest, implementors need to consider the
+          security considerations discussed in the [[URL]] specification.
+          Implementations intending to display <abbr title=
+          "Internationalized Resource Identifiers">IRIs</abbr> and <abbr title=
+          "Internationalized domain name">IDNA</abbr> addresses found in the
+          manifest are strongly encouraged to follow the security advice given
+          in [[UNICODE-SECURITY]].
+        </p>
+        <p>
+          Developers need to be aware of the security considerations discussed
+          throughout the [[CSP3]] specification, particularly in relation to
+          making `data:` a valid source for the purpose of <q>inlining</q> a
+          manifest. Doing so can enable XSS attacks by allowing a manifest to
+          be included directly in the document itself; this is best avoided
+          completely.
+        </p>
+        <p>
+          It is RECOMMENDED that UI that affords the end user the ability to
+          <a>install</a> a web application also allows inspecting the icon,
+          name, <a>start URL</a>, origin, etc. pertaining to a web application.
+          This is to give an end-user an opportunity to make a conscious
+          decision to approve, and possibly modify, the information pertaining
+          to the web application before installing it. This also gives the
+          end-user an opportunity to discern if the web application is spoofing
+          another web application, by, for example, using an unexpected icon or
+          name.
+        </p>
+        <p>
+          When the web application is running, it is RECOMMENDED that the user
+          agent provides the end-user a means to access common information
+          about the web application, such as the origin, start and/or current
+          URL, granted permissions, and associated icon. How such information
+          is exposed to end-users is left up to implementers.
+        </p>
+        <p>
+          Additionally, when applying a manifest that sets the <a>display
+          mode</a> to anything except "[=display mode/browser=]", it is
+          RECOMMENDED that the user agent clearly indicate to the end-user that
+          they are leaving the normal browsing context of a web browser.
+          Ideally, launching or switching to a web application is performed in
+          a manner that is consistent with launching or switching to other
+          applications in the host platform. For example, a long and obvious
+          animated transition, or speaking the text "Launching application X".
+        </p>
+        <p>
+          The `display` member allows an origin some measure of control over a
+          user agent’s native UI. After taking over the full screen, it could
+          attempt to mimic the user interface of another application. This is
+          also facilitated by the `'display-mode'` media feature
+          [[MEDIAQUERIES-5]], through which a script can know the display mode
+          of a web application.
+        </p>
+      </section>
     </section>
     <section class="appendix">
       <h2>
@@ -3555,7 +3570,7 @@
       <p>
         In addition, standardizing the functionality currently provided by the
         various `meta` tag-based solutions within the manifest solves the
-        problem of having tproprietary and standard [[HTML]] tags that all
+        problem of having proprietary and standard [[HTML]] tags that all
         achieve the same thing. Of course, this hinges on the standard actually
         getting implemented by browsers and those browsers getting widely
         deployed to users: if this happens, the Web community might be able to
@@ -3595,7 +3610,7 @@
     <section id="internationalization" class="appendix informative" data-cite=
     "i18n-glossary">
       <h2>
-        Internationalization
+        Internationalization Considerations
       </h2>
       <p>
         It is expected that authors will localize the content of a manifest by
@@ -3606,11 +3621,46 @@
           Localized values in the manifest:
         </dt>
         <dd>
-          Authors can provide [=localized values=] for the [=localizable
-          members=] of the [=manifest=]. The user agent passes all localized
-          values to the host operating system. When the user changes the
-          [=locale=] at the OS level, the OS can present the updated localized
-          values of the [=installed web application=].
+          <p>
+            Authors can provide [=localized values=] for the [=localizable
+            members=] of the [=manifest=] using the corresponding `*_localized`
+            members (e.g., `name_localized`). Individual localized entries can
+            be a [=string=] or a [=localized text object=]. A [=localized text
+            object=] can specify its own natural language and text-direction
+            metadata using its [=manifest/*_localized/lang=] and
+            [=manifest/*_localized/dir=] properties, overriding any defaults
+            provided by the manifest-wide [=manifest/lang=] and
+            [=manifest/dir=] members.
+          </p>
+          <p>
+            User agents MAY handle localized values in one of the following
+            ways:
+          </p>
+          <dl>
+            <dt>
+              Pass-through localization:
+            </dt>
+            <dd>
+              The user agent passes all localized values (the entire language
+              map) to the host operating system during installation. When the
+              user changes their preferred language at the OS level, the host
+              OS can immediately present the updated localized values (e.g.,
+              the application name) without requiring the user agent to run.
+            </dd>
+            <dt>
+              On-demand/update evaluation:
+            </dt>
+            <dd>
+              The user agent evaluates the localized values at parse time based
+              on the user's current locale. When the user changes the system
+              language, the app properties do not update immediately. Instead,
+              they are updated when the user next visits the application or
+              during a background update check, allowing the user agent to
+              inspect and potentially request user acknowledgment for
+              security-sensitive changes (such as a name change) before
+              updating the host OS.
+            </dd>
+          </dl>
         </dd>
         <dt>
           Dynamically setting the language:
@@ -3622,14 +3672,20 @@
           preference (e.g., using a URL like "manifest.php?lang=fr").
         </dd>
         <dt>
-          Using content-negotiation, or geotargeting, etc. on the server:
+          Using server-side language negotiation or geotargeting:
         </dt>
         <dd>
           The server that hosts the web application could attempt to
           predetermine the end-user's language by using <a href=
           "https://en.wikipedia.org/wiki/Geotargeting">geotargeting</a> or by
-          using content negotiation (e.g., using an HTTP "`Accept-Language`"
-          header [[RFC9110]], or even a custom HTTP header).
+          performing [=language negotiation=] (e.g., via the HTTP
+          "`Accept-Language`" header [[RFC9110]], or a custom HTTP header). For
+          more details and best practices, see the W3C Internationalization
+          articles <a href=
+          "https://www.w3.org/International/questions/qa-accept-lang-locales">Accept-Language
+          used for locale setting</a> and <a href=
+          "https://www.w3.org/International/questions/qa-http-and-lang">HTTP
+          headers, meta elements and language information</a>.
         </dd>
       </dl>
       <p>
