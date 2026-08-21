@@ -116,7 +116,7 @@ There needs to be an icon associated with a web app, rather than the browser’s
     "sizes": "64x64"
   }, {
     "src": "icon/hd_hi",
-    "sizes": "128x128",
+    "sizes": "128x128"
   }]
 }
 ```
@@ -260,23 +260,9 @@ Numerous operating systems grant native applications the ability to add menu ite
 ]
 ```
 
-## How can I detect if the user "installed" my app?
-The spec provides a way for you to detect when the user installs your apps by registering for "appinstalled" events.
+## Can I detect whether the user installed my app?
 
-```JS
-function handleInstalled(ev) {
-  const date = new Date(ev.timeStamp / 1000);
-  console.log(`Yay! Our app got installed at ${date.toTimeString()}`);
-}
-
-// Using the event handler IDL attribute
-window.onappinstalled = handleInstalled;
-
-// Using .addEventListener()
-window.addEventListener("appinstalled", handleInstalled);
-```
-
-However, for privacy reasons, you can't directly detect if your application is installed - only if the manifest is being used with your web application.
+The Web App Manifest specification does not define an API for detecting whether an app is installed.
 
 ## What’s wrong with `<meta>` tags?
 During the specification discussions, it was hotly debated whether to use `<meta>` tags in HTML rather than make a new format. After all, the Chrome implementation of Add to Home screen uses `<meta>` tags, and this has been the natural home for proprietary flimflam since the web began.
@@ -302,9 +288,6 @@ A web app developer could also use the `X-Robots-Tag` HTTP header.
 
 ## Attribution
 The bulk of this explainer originally appeared in [HTML5 Doctor](http://html5doctor.com/) as "[The W3C App Manifest specification](http://html5doctor.com/web-manifest-specification/)", and was written by [Marcos Cáceres](https://github.com/marcoscaceres) and [Bruce Lawson](https://www.brucelawson.co.uk/). This derivative work is allowed by the [Creative Commons Attribution-Non-Commercial 2.0](https://creativecommons.org/licenses/by-nc/2.0/uk/) license of the original document. Thus, feel free to change, reuse, modify, and extend this explainer. Some authors will retain their copyright on certain articles.
-
-This repository is the home of the :star: **[Web App Manifest](https://www.w3.org/TR/appmanifest/)** :star: specification being worked on by
-the [Web Applications Working Group](https://www.w3.org/2019/webapps/).
 
 ## Useful links
 * [The Web App Manifest specification](https://www.w3.org/TR/appmanifest/)
