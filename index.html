@@ -3080,7 +3080,11 @@
       <p>
         A user agent MUST reflect the [=applied display mode=] of the web
         application in the <a data-xref-type="css-descriptor" data-xref-for=
-        "@media">`display-mode`</a> media feature [[MEDIAQUERIES-5]].
+        "@media">`display-mode`</a> media feature [[MEDIAQUERIES-5]]. The user
+        agent MUST also reflect whether the [=top-level traversable=] is an
+        [=application context=] through the `application` value of the
+        <a data-xref-type="css-descriptor" data-xref-for=
+        "@media">`display-mode`</a> media feature.
       </p>
       <p class="note">
         A user agent will expose the [=applied display mode=] — not necessarily
@@ -3093,47 +3097,6 @@
         CSS and scripts via the <a data-xref-type="css-descriptor"
         data-xref-for="@media">`display-mode`</a> media feature.
       </p>
-      <section id="display-mode-application">
-        <h3>
-          The `application` value of the `display-mode` media feature
-        </h3>
-        <p>
-          The <code><dfn id="mf-display-mode-application" class="export"
-          data-dfn-type="value" data-dfn-for=
-          "@media/display-mode">application</dfn></code> value of the
-          <a data-xref-type="css-descriptor" data-xref-for=
-          "@media">`display-mode`</a> media feature matches when the
-          [=document=]'s [=node navigable=]'s [=navigable/top-level
-          traversable=] is an [=application context=], regardless of the
-          [=applied display mode=]. Unlike the [=display modes=], it is not a
-          value of the [=manifest/display=] member.
-        </p>
-        <p>
-          The <a data-link-for="@media/display-mode">application</a> value MUST
-          NOT match in a [=document=] unless the [=document=]'s
-          [=Document/origin=] is [=same origin=] with the [=Document/origin=]
-          of the [=navigable/active document=] of each of its
-          [=Document/ancestor navigables=].
-        </p>
-        <p data-cite="CSSOM-VIEW-1">
-          When a [=top-level traversable=] becomes, or ceases to be, an
-          [=application context=], the user agent MUST run the steps to
-          [=evaluate media queries and report changes=] for each [=document=]
-          whose [=node navigable=]'s [=navigable/top-level traversable=] is
-          that [=top-level traversable=].
-        </p>
-        <aside class="example">
-          <p>
-            Hide an install prompt when the page is running in an application
-            context:
-          </p>
-          <pre class="css">
-            @media (display-mode: application) {
-              .install-banner { display: none; }
-            }
-          </pre>
-        </aside>
-      </section>
     </section>
     <section id="priv-sec">
       <h2>
