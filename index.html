@@ -1505,9 +1505,9 @@
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
           "manifest">color_scheme_dark</dfn></code> member is an [=ordered
-          map=] whose keys are [=manifest/themeable members=] and whose values
-          are the overriding color values for those members when the operating
-          system uses a dark color theme.
+          map=] whose keys are [=manifest/themeable members=], and
+          "`icons_localized`", and whose values override those members when the
+          operating system uses a dark color theme.
         </p>
         <p>
           A <dfn data-dfn-for="manifest">themeable member</dfn> is one of the
@@ -1518,23 +1518,45 @@
           </li>
           <li>[=manifest/background_color=]
           </li>
+          <li>[=manifest/icons=]
+          </li>
         </ul>
         <p>
           When [=applying=] a manifest and the operating system uses a dark
-          color theme, for each [=manifest/themeable member=] |member| that
-          [=map/exists=] in [=manifest/color_scheme_dark=], the user agent
-          SHOULD use the value of [=manifest/color_scheme_dark=][|member|] in
-          place of |member|'s value, unless the user's preferences, such as
-          accessibility settings, take precedence.
+          color theme, for each |member| of the [=manifest/themeable members=]
+          and "`icons_localized`" that [=map/exists=] in
+          [=manifest/color_scheme_dark=], the user agent SHOULD use the value
+          of [=manifest/color_scheme_dark=][|member|] in place of |member|'s
+          value, unless the user's preferences, such as accessibility settings,
+          take precedence.
         </p>
-        <aside class="example" title="Example manifest with a dark theme">
+        <aside class="example" title=
+        "Example manifest with a dark theme and localizations">
           <pre class="json">
             {
+              "lang": "en",
+              "name": "Cool App",
+              "name_localized": { "de": "Coole App" },
               "background_color": "#fff",
               "theme_color": "red",
+              "shortcuts": [{
+                "name": "Cool Shortcut",
+                "name_localized": { "de": "Cooler Shortcut" },
+                "url": "/",
+                "icons": [{ "src": "shortcut.png" }],
+                "icons_localized": { "de": [{ "src": "shortcut-de.png" }] },
+                "color_scheme_dark": {
+                  "icons": [{ "src": "shortcut-dark.png" }],
+                  "icons_localized": { "de": [{ "src": "shortcut-dark-de.png" }] }
+                }
+              }],
+              "icons": [{ "src": "icon.png" }],
+              "icons_localized": { "de": [{ "src": "icon-de.png" }] },
               "color_scheme_dark": {
                 "background_color": "#000",
-                "theme_color": "hotpink"
+                "theme_color": "hotpink",
+                "icons": [{ "src": "icon-dark.png" }],
+                "icons_localized": { "de": [{ "src": "icon-dark-de.png" }] }
               }
             }
         </pre>
@@ -1568,6 +1590,15 @@
                 |processedColorScheme|, |member|.
                 </li>
               </ol>
+            </li>
+            <li>If "icons" [=map/exists=] in |colorScheme| and
+            |colorScheme|["icons"] is a [=list=], then [=process image
+            resources=] passing |colorScheme|["icons"], |processedColorScheme|,
+            |manifest URL|, and "icons".
+            </li>
+            <li>[=Process a `*_localized` image resource member=] passing
+            |colorScheme|, |processedColorScheme|, "icons_localized", and
+            |manifest URL|.
             </li>
           </ol>
         </section>
@@ -2460,6 +2491,8 @@
         </li>
         <li>[=shortcut item/icons=]
         </li>
+        <li>[=shortcut item/color_scheme_dark=]
+        </li>
       </ul>
       <p>
         A user agent can use these members to assemble a context menu to be
@@ -2536,6 +2569,26 @@
       </section>
       <section>
         <h3>
+          `color_scheme_dark` member
+        </h3>
+        <p>
+          The [=shortcut item's=] <code><dfn data-dfn-for=
+          "shortcut item">color_scheme_dark</dfn></code> member is an [=ordered
+          map=] whose keys are "`icons`" and "`icons_localized`", and whose
+          values override the shortcut item's [=shortcut item/icons=] and its
+          localized icons when the operating system uses a dark color theme.
+        </p>
+        <p>
+          When the operating system uses a dark color theme, for each |member|
+          of « "icons", "icons_localized" » that [=map/exists=] in a [=shortcut
+          item=]'s [=shortcut item/color_scheme_dark=], the user agent SHOULD
+          use the value of [=shortcut item/color_scheme_dark=][|member|] in
+          place of |member|'s value, unless the user's preferences, such as
+          accessibility settings, take precedence.
+        </p>
+      </section>
+      <section>
+        <h3>
           <dfn>Launching a shortcut</dfn>
         </h3>
         <p>
@@ -2601,6 +2654,28 @@
           </li>
           <li>[=Process a `*_localized` image resource member=] passing |item|,
           |shortcut|, "icons_localized", and |manifest URL|.
+          </li>
+          <li>If "color_scheme_dark" [=map/exists=] in |item| and
+          |item|["color_scheme_dark"] is an [=ordered map=]:
+            <ol>
+              <li>Let |colorScheme| be |item|["color_scheme_dark"].
+              </li>
+              <li>Let |processedColorScheme:ordered map| be a new [=ordered
+              map=].
+              </li>
+              <li>[=Map/Set=] |shortcut|["color_scheme_dark"] to
+              |processedColorScheme|.
+              </li>
+              <li>If "icons" [=map/exists=] in |colorScheme| and
+              |colorScheme|["icons"] is a [=list=], then [=process image
+              resources=] passing |colorScheme|["icons"],
+              |processedColorScheme|, |manifest URL|, and "icons".
+              </li>
+              <li>[=Process a `*_localized` image resource member=] passing
+              |colorScheme|, |processedColorScheme|, "icons_localized", and
+              |manifest URL|.
+              </li>
+            </ol>
           </li>
           <li>Return |shortcut|.
           </li>
