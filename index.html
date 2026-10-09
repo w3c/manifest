@@ -2053,15 +2053,15 @@
           values are the <a>icon purposes</a>.
         </p>
         <p>
-          When a [=manifest image resource=] is used as an <dfn>icon</dfn>, a
-          developer can hint that the image is intended to serve some special
-          purpose in the context of the host OS (i.e., for better integration).
-          User agents SHOULD NOT use an icon other than for its stated <a>icon
+          When a [=manifest image resource=] is used as an icon, a developer
+          can hint that the image is intended to serve some special purpose in
+          the context of the host OS (i.e., for better integration). User
+          agents SHOULD NOT use an icon other than for its stated <a>icon
           purpose</a>.
         </p>
         <p class="note">
           For example, an icon with purpose "[=icon purpose/monochrome=]" could
-          be used as a badge or pinned icon with a solid fill, visually
+          be used as a badge or pinned icon with a [=solid fill=], visually
           distinct from an application's full color launch icon. The user agent
           uses the value of the [=manifest image resource/purpose=] member as a
           hint to determine where and how an [=manifest image
@@ -2077,11 +2077,10 @@
             <dfn data-dfn-for="icon purpose">monochrome</dfn>
           </dt>
           <dd>
-            A user agent can present this icon where a <a href=
-            "#monochrome-icons-and-solid-fills">monochrome icon with a solid
-            fill</a> is needed. The color information in the icon is discarded
-            and only the alpha data is used. The icon can then be used by the
-            user agent like a mask over any solid fill.
+            A user agent can present this icon where a monochrome icon with a
+            [=solid fill=] is needed. The color information in the icon is
+            discarded and only the alpha data is used. The icon can then be
+            used by the user agent like a mask over any [=solid fill=].
           </dd>
           <dt>
             <dfn data-dfn-for="icon purpose">maskable</dfn>
@@ -2153,8 +2152,9 @@
         </h3>
         <p>
           The security policy that governs whether a <a>user agent</a> can
-          fetch an icon image is governed by the `img-src` directive [[CSP3]]
-          associated with the manifest's owner {{Document}}.
+          fetch an icon image ([=fetch a manifest image resource=]) is governed
+          by the `img-src` directive [[CSP3]] associated with the manifest's
+          owner {{Document}}.
         </p>
         <aside class="example" title="Content security policy of icons">
           <p>
@@ -2247,7 +2247,7 @@
         </p>
         <p>
           If the icon contains transparent pixels, the user agent MUST
-          composite the icon onto a solid fill (e.g., white) of the user
+          composite the icon onto a [=solid fill=] (e.g., white) of the user
           agent's choice.
         </p>
         <p class="note">
@@ -3001,11 +3001,12 @@
       <p>
         Once a manifest is [=applied=] to a <a>top-level traversable</a>, the
         [=display mode=] in effect is the <dfn>applied display mode</dfn> for
-        that <a>top-level traversable</a>. The user agent MAY change the
-        [=applied display mode=] for security reasons (e.g., the <a>top-level
-        traversable</a> is <a>navigated</a> out of scope) and/or the user agent
-        MAY provide the user with a means of switching to another [=display
-        mode=].
+        that <a>top-level traversable</a>. Its initial value is the result of
+        running the [=steps for determining the web app's chosen display mode=]
+        given that manifest. The user agent MAY change the [=applied display
+        mode=] for security reasons (e.g., the <a>top-level traversable</a> is
+        <a>navigated</a> out of scope) and/or the user agent MAY provide the
+        user with a means of switching to another [=display mode=].
       </p>
       <p>
         When the [=manifest/display=] member is missing, or if there is no
