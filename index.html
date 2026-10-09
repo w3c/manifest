@@ -3080,7 +3080,11 @@
       <p>
         A user agent MUST reflect the [=applied display mode=] of the web
         application in the <a data-xref-type="css-descriptor" data-xref-for=
-        "@media">`display-mode`</a> media feature [[MEDIAQUERIES-5]].
+        "@media">`display-mode`</a> media feature [[MEDIAQUERIES-5]]. The user
+        agent MUST also reflect whether the [=top-level traversable=] is an
+        [=application context=] through the `application` value of the
+        <a data-xref-type="css-descriptor" data-xref-for=
+        "@media">`display-mode`</a> media feature.
       </p>
       <p class="note">
         A user agent will expose the [=applied display mode=] — not necessarily
