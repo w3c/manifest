@@ -1220,12 +1220,31 @@
           `*_localized` members
         </h3>
         <p>
-          A <dfn>localizable member</dfn> is a [=manifest=] member that can be
-          localized. Each [=localizable member=] of the [=manifest=] has a
-          corresponding <code><dfn data-export="" data-dfn-for=
-          "manifest">*_localized</dfn></code> member, where `*` represents the
-          member name.
+          A <dfn>localizable member</dfn> is a member of a [=manifest=] or of a
+          [=shortcut item=] that can be localized. Each [=localizable member=]
+          has a corresponding <code><dfn class="export" data-dfn-for=
+          "manifest, shortcut item">*_localized</dfn></code> member, where `*`
+          represents the member name.
         </p>
+        <p>
+          The [=localizable members=] are:
+        </p>
+        <ul>
+          <li>[=manifest/name=] (`name_localized`)
+          </li>
+          <li>[=manifest/short_name=] (`short_name_localized`)
+          </li>
+          <li>[=manifest/icons=] (`icons_localized`)
+          </li>
+          <li>[=shortcut item/name=] (`name_localized`)
+          </li>
+          <li>[=shortcut item/short_name=] (`short_name_localized`)
+          </li>
+          <li>[=shortcut item/description=] (`description_localized`)
+          </li>
+          <li>[=shortcut item/icons=] (`icons_localized`)
+          </li>
+        </ul>
         <aside class="example">
           <p>
             For example, the [=manifest/name=] member is a [=localizable
