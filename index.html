@@ -177,7 +177,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="5b7041c94e79261d92c83b63cff7583dceee97dd">
+<meta name="revision" content="10a718e37b83612e17a81cb48acbb406324f9bfc">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -336,9 +336,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "5b7041c94e79261d92c83b63cff7583dceee97dd",
-  "publishISODate": "2026-10-09T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 09 October 2026"
+  "gitRevision": "10a718e37b83612e17a81cb48acbb406324f9bfc",
+  "publishISODate": "2026-10-13T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 13 October 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED">
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/dark.css" disabled=""></head>
@@ -346,7 +346,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-10-09">09 October 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-10-13">13 October 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -2901,7 +2901,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         corners.
       </p>
       <p>
-        To <dfn id="dfn-fetch-a-manifest-image-resource" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;fetch a manifest image resource&quot;, but nothing links to it. This is usually a spec bug!">fetch a manifest image resource</dfn> given a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-6">manifest image resource</a> <var>image</var> and an <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-29">application manifest</a> <var>manifest</var>, return
+        To <dfn id="dfn-fetch-a-manifest-image-resource" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">fetch a manifest image resource</dfn> given a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-6">manifest image resource</a> <var>image</var> and an <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-29">application manifest</a> <var>manifest</var>, return
         either the result of <a data-link-type="dfn" href="https://www.w3.org/TR/image-resource/#dfn-fetching-an-image-resource" id="ref-for-index-term-fetching-an-image-resource-1">fetching an image resource</a> or null:
       </p>
       <ol class="algorithm">
@@ -2946,15 +2946,15 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           values are the <a href="#dfn-icon-purposes" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-icon-purposes-1">icon purposes</a>.
         </p>
         <p>
-          When a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-7">manifest image resource</a> is used as an <dfn id="dfn-icon" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;icon&quot;, but nothing links to it. This is usually a spec bug!">icon</dfn>, a
-          developer can hint that the image is intended to serve some special
-          purpose in the context of the host <abbr title="Operating system">OS</abbr> (i.e., for better integration).
-          User agents <em class="rfc2119">SHOULD NOT</em> use an icon other than for its stated <a href="#dfn-icon-purposes" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-icon-purposes-2">icon
+          When a <a data-link-type="dfn|abstract-op" href="#dfn-manifest-image-resource" class="internalDFN" id="ref-for-dfn-manifest-image-resource-7">manifest image resource</a> is used as an icon, a developer
+          can hint that the image is intended to serve some special purpose in
+          the context of the host <abbr title="Operating system">OS</abbr> (i.e., for better integration). User
+          agents <em class="rfc2119">SHOULD NOT</em> use an icon other than for its stated <a href="#dfn-icon-purposes" class="internalDFN" data-link-type="dfn" id="ref-for-dfn-icon-purposes-2">icon
           purpose</a>.
         </p>
         <div class="note" role="note" id="issue-container-generatedID-31"><div class="note-title marker" id="h-note-30"><span>Note</span></div><p class="">
           For example, an icon with purpose "<a data-link-type="dfn|abstract-op" href="#dfn-monochrome" class="internalDFN" id="ref-for-dfn-monochrome-1">monochrome</a>" could
-          be used as a badge or pinned icon with a solid fill, visually
+          be used as a badge or pinned icon with a <a data-link-type="dfn|abstract-op" href="#dfn-solid-fill" class="internalDFN" id="ref-for-dfn-solid-fill-1">solid fill</a>, visually
           distinct from an application's full color launch icon. The user agent
           uses the value of the <a data-link-type="dfn|abstract-op" href="#dfn-purpose" class="internalDFN" id="ref-for-dfn-purpose-2"><code>purpose</code></a> member as a
           hint to determine where and how an <a data-link-type="dfn|abstract-op" href="#dfn-purpose" class="internalDFN" id="ref-for-dfn-purpose-3"><code>purpose</code></a> is displayed. Unless declared otherwise by the
@@ -2968,10 +2968,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
             <dfn data-dfn-for="icon purpose" id="dfn-monochrome" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">monochrome</dfn>
           </dt>
           <dd>
-            A user agent can present this icon where a <a href="#monochrome-icons-and-solid-fills">monochrome icon with a solid
-            fill</a> is needed. The color information in the icon is discarded
-            and only the alpha data is used. The icon can then be used by the
-            user agent like a mask over any solid fill.
+            A user agent can present this icon where a monochrome icon with a
+            <a data-link-type="dfn|abstract-op" href="#dfn-solid-fill" class="internalDFN" id="ref-for-dfn-solid-fill-2">solid fill</a> is needed. The color information in the icon is
+            discarded and only the alpha data is used. The icon can then be
+            used by the user agent like a mask over any <a data-link-type="dfn|abstract-op" href="#dfn-solid-fill" class="internalDFN" id="ref-for-dfn-solid-fill-3">solid fill</a>.
           </dd>
           <dt>
             <dfn data-dfn-for="icon purpose" id="dfn-maskable" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">maskable</dfn>
@@ -3037,8 +3037,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         
         <p>
           The security policy that governs whether a <a data-link-type="dfn" href="https://infra.spec.whatwg.org/#user-agent" id="ref-for-index-term-user-agent-3">user agent</a> can
-          fetch an icon image is governed by the <code>img-src</code> directive [<cite><a class="bibref" data-link-type="biblio" href="#bib-csp3" title="Content Security Policy Level 3">CSP3</a></cite>]
-          associated with the manifest's owner <a data-link-type="interface" data-lt="Document" href="https://dom.spec.whatwg.org/#document" id="ref-for-index-term-document-interface-1"><code>Document</code></a>.
+          fetch an icon image (<a data-link-type="dfn|abstract-op" href="#dfn-fetch-a-manifest-image-resource" class="internalDFN" id="ref-for-dfn-fetch-a-manifest-image-resource-1">fetch a manifest image resource</a>) is governed
+          by the <code>img-src</code> directive [<cite><a class="bibref" data-link-type="biblio" href="#bib-csp3" title="Content Security Policy Level 3">CSP3</a></cite>] associated with the manifest's
+          owner <a data-link-type="interface" data-lt="Document" href="https://dom.spec.whatwg.org/#document" id="ref-for-index-term-document-interface-1"><code>Document</code></a>.
         </p>
         <aside class="example" id="example-content-security-policy-of-icons"><div class="marker">
     <a class="self-link" href="#example-content-security-policy-of-icons">Example<bdi> 12</bdi></a><span class="example-title">: Content security policy of icons</span>
@@ -3127,7 +3128,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </p>
         <p>
           If the icon contains transparent pixels, the user agent <em class="rfc2119">MUST</em>
-          composite the icon onto a solid fill (e.g., white) of the user
+          composite the icon onto a <a data-link-type="dfn|abstract-op" href="#dfn-solid-fill" class="internalDFN" id="ref-for-dfn-solid-fill-4">solid fill</a> (e.g., white) of the user
           agent's choice.
         </p>
         <div class="note" role="note" id="issue-container-generatedID-34"><div class="note-title marker" id="h-note-33"><span>Note</span></div><p class="">
@@ -3207,7 +3208,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </h3><a class="self-link" href="#monochrome-icons-and-solid-fills" aria-label="Permalink for Section 2.4"></a></div>
         
         <p>
-          Some platforms enforce that icons be displayed with a <dfn id="dfn-solid-fill" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;solid fill&quot;, but nothing links to it. This is usually a spec bug!">solid
+          Some platforms enforce that icons be displayed with a <dfn id="dfn-solid-fill" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">solid
           fill</dfn> such as a single color, where only the transparency of the
           icon can be declared in a <a data-link-type="dfn|abstract-op" href="#dfn-manifest" class="internalDFN" id="ref-for-dfn-manifest-30">manifest</a>. As web applications need to
           work across multiple platforms, it is possible to indicate that an
@@ -3864,10 +3865,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p>
         Once a manifest is <a data-link-type="dfn|abstract-op" href="#dfn-apply" class="internalDFN" id="ref-for-dfn-apply-18">applied</a> to a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-traversable" id="ref-for-index-term-top-level-traversable-22">top-level traversable</a>, the
         <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-9">display mode</a> in effect is the <dfn id="dfn-applied-display-mode" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">applied display mode</dfn> for
-        that <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-traversable" id="ref-for-index-term-top-level-traversable-23">top-level traversable</a>. The user agent <em class="rfc2119">MAY</em> change the
-        <a data-link-type="dfn|abstract-op" href="#dfn-applied-display-mode" class="internalDFN" id="ref-for-dfn-applied-display-mode-1">applied display mode</a> for security reasons (e.g., the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-traversable" id="ref-for-index-term-top-level-traversable-24">top-level
-        traversable</a> is <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-7">navigated</a> out of scope) and/or the user agent
-        <em class="rfc2119">MAY</em> provide the user with a means of switching to another <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-10">display mode</a>.
+        that <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-traversable" id="ref-for-index-term-top-level-traversable-23">top-level traversable</a>. Its initial value is the result of
+        running the <a data-link-type="dfn|abstract-op" href="#dfn-steps-for-determining-the-web-app-s-chosen-display-mode" class="internalDFN" id="ref-for-dfn-steps-for-determining-the-web-app-s-chosen-display-mode-1">steps for determining the web app's chosen display mode</a>
+        given that manifest. The user agent <em class="rfc2119">MAY</em> change the <a data-link-type="dfn|abstract-op" href="#dfn-applied-display-mode" class="internalDFN" id="ref-for-dfn-applied-display-mode-1">applied display mode</a> for security reasons (e.g., the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-traversable" id="ref-for-index-term-top-level-traversable-24">top-level traversable</a> is
+        <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsing-the-web.html#navigate" id="ref-for-index-term-navigated-7">navigated</a> out of scope) and/or the user agent <em class="rfc2119">MAY</em> provide the
+        user with a means of switching to another <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-10">display mode</a>.
       </p>
       <p>
         When the <a data-link-type="dfn|abstract-op" href="#dfn-display" class="internalDFN" id="ref-for-dfn-display-2"><code>display</code></a> member is missing, or if there is no
@@ -3892,7 +3894,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </li>
       </ol>
       <p>
-        The <dfn id="dfn-steps-for-determining-the-web-app-s-chosen-display-mode" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn" class="respec-offending-element" title="Found definition for &quot;steps for determining the web app's chosen display mode&quot;, but nothing links to it. This is usually a spec bug!">steps for determining the web app's chosen display mode</dfn>
+        The <dfn id="dfn-steps-for-determining-the-web-app-s-chosen-display-mode" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">steps for determining the web app's chosen display mode</dfn>
         is given by the following algorithm. The algorithm takes a
         <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-10">processed manifest</a> <var data-type="processed manifest">manifest</var> and
         returns a <a data-link-type="dfn|abstract-op" href="#dfn-display-mode" class="internalDFN" id="ref-for-dfn-display-mode-15">display mode</a>.
@@ -5695,8 +5697,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
+    <li>
+      <a href="#ref-for-dfn-fetch-a-manifest-image-resource-1" title="§ 2.2 Content security policy">§ 2.2 Content security policy</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-purpose" aria-label="Links in this document to definition: purpose">
       <span class="caret"></span>
       <div>
@@ -5712,17 +5716,6 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-dfn-purpose-2" title="§ 2.1 purpose member">§ 2.1 purpose member</a> <a href="#ref-for-dfn-purpose-3" title="Reference 2">(2)</a> <a href="#ref-for-dfn-purpose-4" title="Reference 3">(3)</a> 
     </li>
   </ul>
-    </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-icon" aria-label="Links in this document to definition: icon">
-      <span class="caret"></span>
-      <div>
-        <a class="self-link" href="#dfn-icon" aria-label="Permalink for definition: icon. Activate to close this dialog.">Permalink</a>
-         
-        
-      </div>
-      <p><b>Referenced in:</b></p>
-      <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-icon-purposes" aria-label="Links in this document to definition: icon purposes">
       <span class="caret"></span>
       <div>
@@ -5831,8 +5824,12 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
+    <li>
+      <a href="#ref-for-dfn-solid-fill-1" title="§ 2.1 purpose member">§ 2.1 purpose member</a> <a href="#ref-for-dfn-solid-fill-2" title="Reference 2">(2)</a> <a href="#ref-for-dfn-solid-fill-3" title="Reference 3">(3)</a> 
+    </li><li>
+      <a href="#ref-for-dfn-solid-fill-4" title="§ 2.3 Icon masks and safe zone">§ 2.3 Icon masks and safe zone</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-process-image-resources" aria-label="Links in this document to definition: process image resources">
       <span class="caret"></span>
       <div>
@@ -6255,8 +6252,10 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </div>
       <p><b>Referenced in:</b></p>
       <ul>
-      <li>Not referenced in this document.</li>
-    </ul>
+    <li>
+      <a href="#ref-for-dfn-steps-for-determining-the-web-app-s-chosen-display-mode-1" title="§ 6. Display modes">§ 6. Display modes</a> 
+    </li>
+  </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-display-modes-list" aria-label="Links in this document to definition: display modes list">
       <span class="caret"></span>
       <div>
@@ -7729,8 +7728,6 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <span class="print-only">§2.</span></li><li>
       <a class="index-term" href="#dfn-fullscreen">fullscreen</a> 
     <span class="print-only">§6.</span></li><li>
-      <a class="index-term" href="#dfn-icon">icon</a> 
-    <span class="print-only">§2.1</span></li><li>
       <a class="index-term" href="#dfn-icon-purposes">icon purposes</a> 
     <span class="print-only">§2.1</span></li><li>
       <a class="index-term" href="#dfn-icon-purposes-list">icon purposes list</a> 
@@ -8169,13 +8166,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 <section id="references" class="appendix"><div class="header-wrapper"><h2 id="l-references"><bdi class="secno">L. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix L."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="l-1-normative-references"><bdi class="secno">L.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix L.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-accname-1-2">[accname-1.2]</dt><dd>
-      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 2 October 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
+      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 12 October 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
     </dd><dt id="bib-bcp47">[BCP47]</dt><dd>
       <a href="https://www.rfc-editor.org/info/bcp47"><cite>Tags for Identifying Languages</cite></a>. Addison Phillips; Mark Davis.  IETF. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/bcp47">https://www.rfc-editor.org/info/bcp47</a>
     </dd><dt id="bib-csp3">[CSP3]</dt><dd>
       <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 16 September 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
     </dd><dt id="bib-css-color-4">[css-color-4]</dt><dd>
-      <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Tab Atkins Jr.; Chris Lilley; Lea Verou.  W3C. 8 October 2026. CRD. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
+      <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Tab Atkins Jr.; Chris Lilley; Lea Verou.  W3C. 9 October 2026. CRD. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
     </dd><dt id="bib-css-mime">[CSS-MIME]</dt><dd>
       <a href="https://www.rfc-editor.org/info/rfc2318/"><cite>The text/css Media Type</cite></a>. H. Lie; B. Bos; C. Lilley.  IETF. March 1998. Informational. URL: <a href="https://www.rfc-editor.org/info/rfc2318/">https://www.rfc-editor.org/info/rfc2318/</a>
     </dd><dt id="bib-css-syntax-3">[css-syntax-3]</dt><dd>
