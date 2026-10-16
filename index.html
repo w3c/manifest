@@ -1071,6 +1071,61 @@
                 "https://example.com/%F0%9F%98%80"
               </td>
             </tr>
+            <tr>
+              <td>
+                "/café"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/caf%C3%A9"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                "/caf%C3%A9"
+              </td>
+              <td>
+                "https://example.com/my-app/start"
+              </td>
+              <td>
+                "https://example.com/caf%C3%A9"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                "https://café.example.com/foo"
+              </td>
+              <td>
+                "https://xn--caf-dma.example.com/my-app/start"
+              </td>
+              <td>
+                "https://xn--caf-dma.example.com/foo"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                "/foo"
+              </td>
+              <td>
+                "https://xn--caf-dma.example.com/my-app/start"
+              </td>
+              <td>
+                "https://xn--caf-dma.example.com/foo"
+              </td>
+            </tr>
+            <tr>
+              <td>
+                "https://café.example.com/café"
+              </td>
+              <td>
+                "https://xn--caf-dma.example.com/my-app/start"
+              </td>
+              <td>
+                "https://xn--caf-dma.example.com/caf%C3%A9"
+              </td>
+            </tr>
           </table>
           <p>
             Since [=manifest/id=] is resolved against [=manifest/start_url=]'s
