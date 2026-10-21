@@ -1879,6 +1879,18 @@
           </aside>
         </section>
         <section>
+          <h3>
+            Processing a document without a manifest link
+          </h3>
+          <p>
+            A [=document=] can also have no manifest link. The user agent MAY
+            still [=processing a manifest|process a manifest=] for that
+            [=document=], passing its [=Document/URL=] as both |document
+            URL:URL| and |manifest URL:URL|, an empty [=byte sequence=] as
+            |bodyBytes|, and its [=relevant settings object=] as |client|.
+          </p>
+        </section>
+        <section>
           <h3 id="applying">
             Applying the manifest
           </h3>
