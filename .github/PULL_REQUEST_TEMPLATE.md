@@ -11,7 +11,7 @@ This change (choose at least one, delete ones that don't apply):
 Implementation commitment (delete if not making normative changes):
 
 * [ ] WebKit (https://bugs.webkit.org)
-* [ ] Chromium (https://bugs.chromium.org/)
+* [ ] Chromium (https://issues.chromium.org/issues)
 * [ ] Gecko (http://bugzilla.mozilla.org)
 
 If change is normative, and it adds or changes a member:
