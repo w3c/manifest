@@ -177,7 +177,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="004ad627062a1efb2ba228e0ac1a6379753699d8">
+<meta name="revision" content="d943bfe5e4be228e4e64fb483e31a53b91fcb1f1">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -336,9 +336,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "004ad627062a1efb2ba228e0ac1a6379753699d8",
-  "publishISODate": "2026-10-16T00:00:00.000Z",
-  "generatedSubtitle": "W3C Editor's Draft 16 October 2026"
+  "gitRevision": "d943bfe5e4be228e4e64fb483e31a53b91fcb1f1",
+  "publishISODate": "2026-10-26T00:00:00.000Z",
+  "generatedSubtitle": "W3C Editor's Draft 26 October 2026"
 }</script>
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED">
 <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2021/dark.css" disabled=""></head>
@@ -346,7 +346,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     <p class="logos"><a class="logo" href="https://www.w3.org/"><img crossorigin="" alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72">
   </a></p>
     <h1 id="title" class="title">Web Application Manifest</h1> 
-    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-10-16">16 October 2026</time></p>
+    <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">W3C Editor's Draft</a> <time class="dt-published" datetime="2026-10-26">26 October 2026</time></p>
     <details open="">
       <summary>More details about this document</summary>
       <dl>
@@ -4016,16 +4016,19 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </p>
       <p>
         A user agent <em class="rfc2119">MUST</em> reflect the <a data-link-type="dfn|abstract-op" href="#dfn-applied-display-mode" class="internalDFN" id="ref-for-dfn-applied-display-mode-3">applied display mode</a> of the web
-        application in the <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-1"><code>display-mode</code></a> media feature [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5" title="Media Queries Level 5">MEDIAQUERIES-5</a></cite>].
+        application in the <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-1"><code>display-mode</code></a> media feature [<cite><a class="bibref" data-link-type="biblio" href="#bib-mediaqueries-5" title="Media Queries Level 5">MEDIAQUERIES-5</a></cite>]. The user
+        agent <em class="rfc2119">MUST</em> also reflect whether the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#top-level-traversable" id="ref-for-index-term-top-level-traversable-25">top-level traversable</a> is an
+        <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-20">application context</a> through the <code>application</code> value of the
+        <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-2"><code>display-mode</code></a> media feature.
       </p>
       <div class="note" role="note" id="issue-container-generatedID-46"><div class="note-title marker" id="h-note-45"><span>Note</span></div><p class="">
         A user agent will expose the <a data-link-type="dfn|abstract-op" href="#dfn-applied-display-mode" class="internalDFN" id="ref-for-dfn-applied-display-mode-4">applied display mode</a> — not necessarily
-        the one declared in the manifest — via the <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-2"><code>display-mode</code></a> media
+        the one declared in the manifest — via the <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-3"><code>display-mode</code></a> media
         feature, accessible through CSS or JavaScript. Note that this media
         feature will also reflect other display modes for a web page when a
         manifest is not being applied. For example, if the end-user puts the
         page into fullscreen, then the user agent would reflect this change to
-        CSS and scripts via the <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-3"><code>display-mode</code></a> media feature.
+        CSS and scripts via the <a data-link-type="css-descriptor" href="https://www.w3.org/TR/mediaqueries-5/#descdef-media-display-mode" id="ref-for-index-term-display-mode-for-media-4"><code>display-mode</code></a> media feature.
       </p></div>
     </section>
     <section id="priv-sec"><div class="header-wrapper"><h2 id="x7-privacy-and-security-considerations"><bdi class="secno">7. </bdi>
@@ -5682,6 +5685,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <a href="#ref-for-dfn-application-context-18" title="§ 5.1 Security considerations">§ 5.1 Security considerations</a> 
     </li><li>
       <a href="#ref-for-dfn-application-context-19" title="§ 5.2 Deep links">§ 5.2 Deep links</a> 
+    </li><li>
+      <a href="#ref-for-dfn-application-context-20" title="§ 6. Display modes">§ 6. Display modes</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-unapply" aria-label="Links in this document to definition: unapplied">
@@ -6915,7 +6920,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-index-term-top-level-traversable-21" title="§ 5. Navigation scope">§ 5. Navigation scope</a> 
     </li><li>
-      <a href="#ref-for-index-term-top-level-traversable-22" title="§ 6. Display modes">§ 6. Display modes</a> <a href="#ref-for-index-term-top-level-traversable-23" title="Reference 2">(2)</a> <a href="#ref-for-index-term-top-level-traversable-24" title="Reference 3">(3)</a> 
+      <a href="#ref-for-index-term-top-level-traversable-22" title="§ 6. Display modes">§ 6. Display modes</a> <a href="#ref-for-index-term-top-level-traversable-23" title="Reference 2">(2)</a> <a href="#ref-for-index-term-top-level-traversable-24" title="Reference 3">(3)</a> <a href="#ref-for-index-term-top-level-traversable-25" title="Reference 4">(4)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-unordered-set-of-unique-space-separated-tokens" aria-label="Links in this document to definition: unordered set of unique space-separated tokens">
@@ -7466,7 +7471,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       <p><b>Referenced in:</b></p>
       <ul>
     <li>
-      <a href="#ref-for-index-term-display-mode-for-media-1" title="§ 6. Display modes">§ 6. Display modes</a> <a href="#ref-for-index-term-display-mode-for-media-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-display-mode-for-media-3" title="Reference 3">(3)</a> 
+      <a href="#ref-for-index-term-display-mode-for-media-1" title="§ 6. Display modes">§ 6. Display modes</a> <a href="#ref-for-index-term-display-mode-for-media-2" title="Reference 2">(2)</a> <a href="#ref-for-index-term-display-mode-for-media-3" title="Reference 3">(3)</a> <a href="#ref-for-index-term-display-mode-for-media-4" title="Reference 4">(4)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-index-term-prefers-color-scheme-for-media" aria-label="Links in this document to definition: prefers-color-scheme (for @media)">
@@ -8254,13 +8259,13 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
 <section id="references" class="appendix"><div class="header-wrapper"><h2 id="l-references"><bdi class="secno">L. </bdi>References</h2><a class="self-link" href="#references" aria-label="Permalink for Appendix L."></a></div><section id="normative-references"><div class="header-wrapper"><h3 id="l-1-normative-references"><bdi class="secno">L.1 </bdi>Normative references</h3><a class="self-link" href="#normative-references" aria-label="Permalink for Appendix L.1"></a></div>
     
     <dl class="bibliography"><dt id="bib-accname-1-2">[accname-1.2]</dt><dd>
-      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 12 October 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
+      <a href="https://www.w3.org/TR/accname-1.2/"><cite>Accessible Name and Description Computation 1.2</cite></a>. Bryan Garaventa; Melanie Sumner.  W3C. 21 October 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/accname-1.2/">https://www.w3.org/TR/accname-1.2/</a>
     </dd><dt id="bib-bcp47">[BCP47]</dt><dd>
       <a href="https://www.rfc-editor.org/info/bcp47"><cite>Tags for Identifying Languages</cite></a>. Addison Phillips; Mark Davis.  IETF. September 2009. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/bcp47">https://www.rfc-editor.org/info/bcp47</a>
     </dd><dt id="bib-csp3">[CSP3]</dt><dd>
       <a href="https://www.w3.org/TR/CSP3/"><cite>Content Security Policy Level 3</cite></a>. Mike West; Antonio Sartori.  W3C. 16 September 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/CSP3/">https://www.w3.org/TR/CSP3/</a>
     </dd><dt id="bib-css-color-4">[css-color-4]</dt><dd>
-      <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Tab Atkins Jr.; Chris Lilley; Lea Verou.  W3C. 9 October 2026. CRD. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
+      <a href="https://www.w3.org/TR/css-color-4/"><cite>CSS Color Module Level 4</cite></a>. Tab Atkins Jr.; Chris Lilley; Lea Verou.  W3C. 26 October 2026. CRD. URL: <a href="https://www.w3.org/TR/css-color-4/">https://www.w3.org/TR/css-color-4/</a>
     </dd><dt id="bib-css-mime">[CSS-MIME]</dt><dd>
       <a href="https://www.rfc-editor.org/info/rfc2318/"><cite>The text/css Media Type</cite></a>. H. Lie; B. Bos; C. Lilley.  IETF. March 1998. Informational. URL: <a href="https://www.rfc-editor.org/info/rfc2318/">https://www.rfc-editor.org/info/rfc2318/</a>
     </dd><dt id="bib-css-syntax-3">[css-syntax-3]</dt><dd>
@@ -8286,7 +8291,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </dd><dt id="bib-mime-types">[MIME-TYPES]</dt><dd>
       <a href="https://www.rfc-editor.org/info/rfc2046/"><cite>Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</cite></a>. N. Freed; N. Borenstein.  IETF. November 1996. Draft Standard. URL: <a href="https://www.rfc-editor.org/info/rfc2046/">https://www.rfc-editor.org/info/rfc2046/</a>
     </dd><dt id="bib-permissions">[permissions]</dt><dd>
-      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 6 October 2025. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+      <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. Marcos Caceres; Mike Taylor.  W3C. 26 October 2026. W3C Working Draft. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
     </dd><dt id="bib-rfc2119">[RFC2119]</dt><dd>
       <a href="https://www.rfc-editor.org/info/rfc2119/"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. S. Bradner.  IETF. March 1997. Best Current Practice. URL: <a href="https://www.rfc-editor.org/info/rfc2119/">https://www.rfc-editor.org/info/rfc2119/</a>
     </dd><dt id="bib-rfc7159">[RFC7159]</dt><dd>
