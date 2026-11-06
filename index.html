@@ -571,7 +571,7 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">name</dfn></code> member is a <a>string</a> that
+          "manifest">name</dfn></code> member is a [=scalar value string=] that
           represents the name of the web application as it is usually displayed
           to the user (e.g., amongst a list of other applications, or as a
           label for an icon).
@@ -595,10 +595,10 @@
         </h3>
         <p>
           The [=manifest's=] <code><dfn data-export="" data-dfn-for=
-          "manifest">short_name</dfn></code> member is a <a>string</a> that
-          represents a short version of the name of the web application. It is
-          intended to be used where there is insufficient space to display the
-          full name of the web application.
+          "manifest">short_name</dfn></code> member is a [=scalar value
+          string=] that represents a short version of the name of the web
+          application. It is intended to be used where there is insufficient
+          space to display the full name of the web application.
         </p>
         <p>
           The [=manifest/short_name=] member is a [=localizable member=].
@@ -1354,7 +1354,7 @@
               "manifest/*_localized">value</dfn></code>
             </dt>
             <dd>
-              The localized [=string=].
+              The localized [=scalar value string=].
             </dd>
             <dt>
               <code><dfn data-export="" data-dfn-for=
@@ -1453,17 +1453,21 @@
           <ol class="algorithm">
             <li>Let |normalizedValue:ordered map| be an [=ordered map=].
             </li>
-            <li>If |localizedValue| is a [=string=], [=strip leading and
-            trailing ASCII whitespace=] from |localizedValue:string| and
-            [=map/set=] |normalizedValue|["value"] to |localizedValue|.
+            <li>If |localizedValue| is a [=string=]:
+              <ol>
+                <li>Let |value:scalar value string| be the result of
+                [=string/convert|converting=] |localizedValue:string| into a
+                [=scalar value string=].
+                </li>
+                <li>[=Strip leading and trailing ASCII whitespace=] from
+                |value| and [=map/set=] |normalizedValue|["value"] to |value|.
+                </li>
+              </ol>
             </li>
             <li>If |localizedValue:ordered map| is an [=ordered map=]:
               <ol>
-                <li>If "value" [=map/exists=] in |localizedValue| and
-                |localizedValue|["value"] is a [=string=], [=strip leading and
-                trailing ASCII whitespace=] from |localizedValue|["value"] and
-                [=map/set=] |normalizedValue|["value"] to
-                |localizedValue|["value"].
+                <li>[=Process a text member=] passing |localizedValue|,
+                |normalizedValue|, and "value".
                 </li>
                 <li>If "lang" [=map/exists=] in |localizedValue| and
                 |localizedValue|["lang"] is a [=string=], [=strip leading and
@@ -1816,10 +1820,13 @@
             <li>If |json|[|member|] doesn't [=map/exists=] or |json|[|member|]
             is not a [=string=], return.
             </li>
-            <li>[=Strip leading and trailing ASCII whitespace=] from
-            |json|[|member|].
+            <li>Let |value:scalar value string| be the result of
+            [=string/convert|converting=] |json|[|member|] into a [=scalar
+            value string=].
             </li>
-            <li>Set |map|[member] to the value of |json|[|member|].
+            <li>[=Strip leading and trailing ASCII whitespace=] from |value|.
+            </li>
+            <li>Set |map|[member] to |value|.
             </li>
           </ol>
         </section>
@@ -2547,9 +2554,9 @@
         </h3>
         <p>
           The [=shortcut item's=] <code><dfn data-dfn-for=
-          "shortcut item">name</dfn></code> member is a <a>string</a> that
-          represents the name of the shortcut as it is usually displayed to the
-          user in a context menu.
+          "shortcut item">name</dfn></code> member is a [=scalar value string=]
+          that represents the name of the shortcut as it is usually displayed
+          to the user in a context menu.
         </p>
         <p>
           The [=shortcut item/name=] member is a [=localizable member=].
@@ -2561,10 +2568,10 @@
         </h3>
         <p>
           The [=shortcut item's=] <code><dfn data-dfn-for=
-          "shortcut item">short_name</dfn></code> member is a <a>string</a>
-          that represents a short version of the name of the shortcut. It is
-          intended to be used where there is insufficient space to display the
-          full name of the shortcut.
+          "shortcut item">short_name</dfn></code> member is a [=scalar value
+          string=] that represents a short version of the name of the shortcut.
+          It is intended to be used where there is insufficient space to
+          display the full name of the shortcut.
         </p>
         <p>
           The [=shortcut item/short_name=] member is a [=localizable member=].
@@ -2576,9 +2583,10 @@
         </h3>
         <p>
           The [=shortcut item's=] <code><dfn data-dfn-for=
-          "shortcut item">description</dfn></code> member is a <a>string</a>
-          that allows the developer to describe the purpose of the shortcut.
-          User agents MAY expose this information to assistive technology.
+          "shortcut item">description</dfn></code> member is a [=scalar value
+          string=] that allows the developer to describe the purpose of the
+          shortcut. User agents MAY expose this information to assistive
+          technology.
         </p>
         <p>
           The [=shortcut item/description=] member is a [=localizable member=].
@@ -2650,22 +2658,24 @@
           <li>If |url| is not [=manifest/within scope=] of |scope|, return
           failure.
           </li>
-          <li>Let |shortcut:ordered map| be |ordered map| «[ "url" → |url|,
-          "name" → |item|["name"] ]».
+          <li>Let |shortcut:ordered map| be |ordered map| «[ "url" → |url| ]».
+          </li>
+          <li>[=Process a text member=] passing |item|, |shortcut|, and "name".
+          </li>
+          <li>If |shortcut|["name"] doesn't [=map/exist=] or |shortcut|["name"]
+          is the empty string, return failure.
           </li>
           <li>[=Process a `*_localized` text member=] passing |item|,
           |shortcut|, "name_localized", and |defaultDirection|.
           </li>
-          <li>If "short_name" [=map/exists=] in |item|, and
-          |item|["short_name"] is a [=string=], [=map/set=]
-          |shortcut|["short_name"] to |item|["short_name"].
+          <li>[=Process a text member=] passing |item|, |shortcut|, and
+          "short_name".
           </li>
           <li>[=Process a `*_localized` text member=] passing |item|,
           |shortcut|, "short_name_localized", and |defaultDirection|.
           </li>
-          <li>If "description" [=map/exists=] in |item|, and
-          |item|["description"] is a [=string=], [=map/set=]
-          |shortcut|["description"] to |item|["description"].
+          <li>[=Process a text member=] passing |item|, |shortcut|, and
+          "description".
           </li>
           <li>[=Process a `*_localized` text member=] passing |item|,
           |shortcut|, "description_localized", and |defaultDirection|.
