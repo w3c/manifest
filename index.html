@@ -177,7 +177,7 @@ ul.index code{color:inherit}
 .mdn .samsunginternet_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/samsung-internet/samsung-internet.svg)}
 .mdn .webview_android::before{background-image:url(https://www.w3.org/assets/logos/browser-logos/android-webview/android-webview.png)}
 </style>
-<meta name="revision" content="d6835f69a972bf6525b26e9a3c56d1720136eb18">
+<meta name="revision" content="255fe34c53df19122d91e20eb60941cabc327ace">
 <meta name="description" content="This specification defines a JSON-based file format that provides
         developers with a centralized place to put metadata associated with a
         web application. This metadata includes, but is not limited to, the web
@@ -336,7 +336,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
   "github": "https://github.com/w3c/manifest/",
   "caniuse": "web-app-manifest",
   "xref": "web-platform",
-  "gitRevision": "d6835f69a972bf6525b26e9a3c56d1720136eb18",
+  "gitRevision": "255fe34c53df19122d91e20eb60941cabc327ace",
   "publishISODate": "2026-11-16T00:00:00.000Z",
   "generatedSubtitle": "W3C Editor's Draft 16 November 2026"
 }</script>
@@ -3522,7 +3522,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           </li>
           <li>If <var data-type="URL">url</var> is failure, return failure.
           </li>
-          <li>If <var data-type="URL">url</var> is not <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-6">within scope</a> of <var data-type="URL">scope</var>, return
+          <li>If <var data-type="URL">url</var> is not <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-8">within scope</a> of <var data-type="URL">scope</var>, return
           failure.
           </li>
           <li>Let <var data-type="ordered map">shortcut</var> be <var>ordered map</var> «[ "url" → <var data-type="URL">url</var> ]».
@@ -3657,7 +3657,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
           <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-11">application context</a>.
         </p>
         <p>
-          <var data-type="URL">target URL</var>, if given, <em class="rfc2119">MUST</em> be <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-7">within scope</a> of
+          <var data-type="URL">target URL</var>, if given, <em class="rfc2119">MUST</em> be <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-6">within scope</a> of
           <var data-type="processed manifest">manifest</var>.
         </p>
         <p>
@@ -3783,8 +3783,8 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </ol>
       <p>
         A <a data-link-type="dfn" href="https://url.spec.whatwg.org/#concept-url" id="ref-for-index-term-url-17">URL</a> <var data-type="URL">target</var> is <dfn data-dfn-for="manifest" data-lt="within scope" data-export="" id="dfn-within-scope-0" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">within scope</dfn> of a
-        <var data-type="processed manifest">manifest</var> if the <var data-type="URL">target</var> is <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-8">within scope</a>
-        of <var data-type="processed manifest">manifest</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-navigation-scope" class="internalDFN" id="ref-for-dfn-navigation-scope-4">navigation scope</a> (i.e., <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-9">within scope</a> of <var data-type="processed manifest">manifest</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-11"><code>scope</code></a> member).
+        <var data-type="processed manifest">manifest</var> if the <var data-type="URL">target</var> is <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-9">within scope</a>
+        of <var data-type="processed manifest">manifest</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-navigation-scope" class="internalDFN" id="ref-for-dfn-navigation-scope-4">navigation scope</a> (i.e., <a data-link-type="dfn|abstract-op" href="#dfn-within-scope" class="internalDFN" id="ref-for-dfn-within-scope-10">within scope</a> of <var data-type="processed manifest">manifest</var>'s <a data-link-type="dfn|abstract-op" href="#dfn-scope" class="internalDFN" id="ref-for-dfn-scope-11"><code>scope</code></a> member).
       </p>
       <div class="note" role="note" id="issue-container-generatedID-41"><div class="note-title marker" id="h-note-40"><span>Note</span><span class="issue-label">: Scope is a simple string match</span></div><aside class="">
         <p>
@@ -3799,11 +3799,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
       </aside></div>
       <p>
         If the <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-14">application context</a>'s <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/document-sequences.html#nav-document" id="ref-for-index-term-active-document-for-navigable-3">active document</a>'s
-        <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-7">URL</a> is not <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-8">within scope</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-15">application context</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-7">processed manifest</a>, the user agent <em class="rfc2119">SHOULD</em> show
+        <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-7">URL</a> is not <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-7">within scope</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-15">application context</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-7">processed manifest</a>, the user agent <em class="rfc2119">SHOULD</em> show
         a prominent UI element indicating the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-8">URL</a> or at least its
         <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/browsers.html#concept-origin" id="ref-for-index-term-origin-0-1">origin</a>, including whether it is served over a secure connection.
         This UI <em class="rfc2119">SHOULD</em> differ from any UI used when the <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-document-url" id="ref-for-index-term-url-for-document-9">URL</a> is
-        <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-9">within scope</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-16">application context</a>'s
+        <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-8">within scope</a> of the <a data-link-type="dfn|abstract-op" href="#dfn-application-context" class="internalDFN" id="ref-for-dfn-application-context-16">application context</a>'s
         <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-8">processed manifest</a>, in order to make it obvious that the
         user is navigating off scope.
       </p>
@@ -3848,7 +3848,7 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
         </h3><a class="self-link" href="#deep-links" aria-label="Permalink for Section 5.2"></a></div>
         
         <p>
-          A <dfn id="dfn-deep-link" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">deep link</dfn> is a URL that is <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-10">within scope</a> of
+          A <dfn id="dfn-deep-link" tabindex="0" aria-haspopup="dialog" data-dfn-type="dfn">deep link</dfn> is a URL that is <a data-link-type="dfn|abstract-op" href="#dfn-within-scope-0" class="internalDFN" id="ref-for-dfn-within-scope-0-9">within scope</a> of
           an <a data-link-type="dfn|abstract-op" href="#dfn-installed-web-application" class="internalDFN" id="ref-for-dfn-installed-web-application-3">installed web application</a>'s <a data-link-type="dfn|abstract-op" href="#dfn-processed-manifest" class="internalDFN" id="ref-for-dfn-processed-manifest-9">processed manifest</a>.
         </p>
         <p>
@@ -6200,7 +6200,9 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-within-scope-6" title="§ 1.12 theme_color member">§ 1.12 theme_color member</a> <a href="#ref-for-dfn-within-scope-7" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-within-scope-8" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-within-scope-9" title="Reference 2">(2)</a> 
+      <a href="#ref-for-dfn-within-scope-8" title="§ 3.7 Processing shortcut items">§ 3.7 Processing shortcut items</a> 
+    </li><li>
+      <a href="#ref-for-dfn-within-scope-9" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-within-scope-10" title="Reference 2">(2)</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-within-scope-0" aria-label="Links in this document to definition: within scope">
@@ -6219,13 +6221,11 @@ var[data-type]:hover::after,var[data-type]:hover::before{opacity:1}
     </li><li>
       <a href="#ref-for-dfn-within-scope-0-5" title="§ 3.4 url member">§ 3.4 url member</a> 
     </li><li>
-      <a href="#ref-for-dfn-within-scope-0-6" title="§ 3.7 Processing shortcut items">§ 3.7 Processing shortcut items</a> 
+      <a href="#ref-for-dfn-within-scope-0-6" title="§ 4.2 Launching a web application">§ 4.2 Launching a web application</a> 
     </li><li>
-      <a href="#ref-for-dfn-within-scope-0-7" title="§ 4.2 Launching a web application">§ 4.2 Launching a web application</a> 
+      <a href="#ref-for-dfn-within-scope-0-7" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-within-scope-0-8" title="Reference 2">(2)</a> 
     </li><li>
-      <a href="#ref-for-dfn-within-scope-0-8" title="§ 5. Navigation scope">§ 5. Navigation scope</a> <a href="#ref-for-dfn-within-scope-0-9" title="Reference 2">(2)</a> 
-    </li><li>
-      <a href="#ref-for-dfn-within-scope-0-10" title="§ 5.2 Deep links">§ 5.2 Deep links</a> 
+      <a href="#ref-for-dfn-within-scope-0-9" title="§ 5.2 Deep links">§ 5.2 Deep links</a> 
     </li>
   </ul>
     </div><div class="dfn-panel" hidden="" role="dialog" aria-modal="true" id="dfn-panel-for-dfn-deep-link" aria-label="Links in this document to definition: deep link">
